@@ -9,7 +9,7 @@ namespace PInvoke
         public static extern int SetWindowLong(IntPtr hWnd, WindowLongFlags nIndex, SetWindowLongFlags dwNewLong);
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        public static extern int GetWindowLong(IntPtr hWnd, WindowLongFlags nIndex);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy,
