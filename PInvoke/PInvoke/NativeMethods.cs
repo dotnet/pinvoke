@@ -18,6 +18,9 @@ namespace PInvoke
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
+
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject(IntPtr hObject);
@@ -39,7 +42,7 @@ namespace PInvoke
 
         [Flags]
         public enum SetWindowLongFlags : uint
-        { 
+        {
             WS_OVERLAPPED = 0,
             WS_POPUP = 0x80000000,
             WS_CHILD = 0x40000000,
@@ -86,13 +89,13 @@ namespace PInvoke
             WS_EX_OVERLAPPEDWINDOW = (WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE),
             WS_EX_PALETTEWINDOW = (WS_EX_WINDOWEDGE | WS_EX_TOOLWINDOW | WS_EX_TOPMOST),
             WS_EX_LAYERED = 0x00080000,
-            WS_EX_NOINHERITLAYOUT = 0x00100000, 
+            WS_EX_NOINHERITLAYOUT = 0x00100000,
             WS_EX_LAYOUTRTL = 0x00400000,
             WS_EX_COMPOSITED = 0x02000000,
             WS_EX_NOACTIVATE = 0x08000000,
-    }
+        }
 
-    [Flags]
+        [Flags]
         public enum SetWindowPosFlags : uint
         {
             // ReSharper disable InconsistentNaming
