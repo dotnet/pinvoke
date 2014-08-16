@@ -15,6 +15,9 @@ namespace PInvoke
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy,
             SetWindowPosFlags uFlags);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject(IntPtr hObject);
