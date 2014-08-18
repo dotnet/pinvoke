@@ -6,10 +6,10 @@ namespace PInvoke
     public static class NativeMethods
     {
         [DllImport("user32.dll")]
-        public static extern int SetWindowLong(IntPtr hWnd, WindowLongFlags nIndex, SetWindowLongFlags dwNewLong);
+        public static extern int SetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern int GetWindowLong(IntPtr hWnd, WindowLongFlags nIndex);
+        public static extern int GetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy,
@@ -19,14 +19,21 @@ namespace PInvoke
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
+        public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className,
+            string windowTitle);
 
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject(IntPtr hObject);
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetMessageExtraInfo();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
+
         [Flags]
-        public enum WindowLongFlags : int
+        public enum WindowLongIndexFlags : int
         {
             GWL_EXSTYLE = -20,
             GWLP_HINSTANCE = -6,
@@ -176,6 +183,98 @@ namespace PInvoke
             SWP_SHOWWINDOW = 0x0040,
 
             // ReSharper restore InconsistentNaming
+        }
+
+        [Flags]
+        public enum SendMessageInputFlags : int
+        {
+            INPUT_MOUSE = 0,
+            INPUT_KEYBOARD = 1,
+            INPUT_HARDWARE = 2
+        }
+
+        [Flags]
+        public enum MouseButtonFlags : uint
+        {
+            XBUTTON1 = 0x0001,
+            XBUTTON2 = 0x0002
+        }
+
+        [Flags]
+        public enum MouseEventFlags : uint
+        {
+            MOUSEEVENTF_MOVE = 0x0001,
+            MOUSEEVENTF_LEFTDOWN = 0x0002,
+            MOUSEEVENTF_LEFTUP = 0x0004,
+            MOUSEEVENTF_RIGHTDOWN = 0x0008,
+            MOUSEEVENTF_RIGHTUP = 0x0010,
+            MOUSEEVENTF_MIDDLEDOWN = 0x0020,
+            MOUSEEVENTF_MIDDLEUP = 0x0040,
+            MOUSEEVENTF_XDOWN = 0x0080,
+            MOUSEEVENTF_XUP = 0x0100,
+            MOUSEEVENTF_WHEEL = 0x0800,
+            MOUSEEVENTF_VIRTUALDESK = 0x4000,
+            MOUSEEVENTF_ABSOLUTE = 0x8000
+        }
+
+        [Flags]
+        public enum KeyboardEventFlags : uint
+        {
+            KEYEVENTF_EXTENDEDKEY = 0x0001,
+            KEYEVENTF_KEYUP = 0x0002,
+            KEYEVENTF_UNICODE = 0x0004,
+            KEYEVENTF_SCANCODE = 0x0008
+        }
+
+        public struct INPUT
+        {
+            public int type;
+            public InputUnion u;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MOUSEINPUT
+        {
+            public int dx;
+            public int dy;
+            public uint mouseData;
+            public uint dwFlags;
+            public uint time;
+            public IntPtr dwExtraInfo;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct KEYBDINPUT
+        {
+            /*Virtual Key code.  Must be from 1-254.  If the dwFlags member specifies KEYEVENTF_UNICODE, wVk must be 0.*/
+            public ushort wVk;
+            /*A hardware scan code for the key. If dwFlags specifies KEYEVENTF_UNICODE, wScan specifies a Unicode character which is to be sent to the foreground application.*/
+            public ushort wScan;
+            /*Specifies various aspects of a keystroke.  See the KEYEVENTF_ constants for more information.*/
+            public uint dwFlags;
+            /*The time stamp for the event, in milliseconds. If this parameter is zero, the system will provide its own time stamp.*/
+            public uint time;
+            /*An additional value associated with the keystroke. Use the GetMessageExtraInfo function to obtain this information.*/
+            public IntPtr dwExtraInfo;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct HARDWAREINPUT
+        {
+            public uint uMsg;
+            public ushort wParamL;
+            public ushort wParamH;
+        }
+
+        [StructLayout(LayoutKind.Explicit)]
+        public struct InputUnion
+        {
+            [FieldOffset(0)]
+            public MOUSEINPUT mi;
+            [FieldOffset(0)]
+            public KEYBDINPUT ki;
+            [FieldOffset(0)]
+            public HARDWAREINPUT hi;
         }
     }
 }
