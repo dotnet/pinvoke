@@ -1,7 +1,8 @@
 ﻿{
   "supports": {},
   "dependencies": {
-    "Nerdbank.GitVersioning": "1.1.52-rc"
+    "Nerdbank.GitVersioning": "1.1.52-rc",
+    "Nuproj": "0.10.4-beta-gf7fc34e7d8"
   },
   "frameworks": {
     ".NETPortable,Version=v4.5,Profile=Profile111": {}
