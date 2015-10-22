@@ -5,6 +5,13 @@
 *.suo
 *.user
 *.sln.docstates
+.vs/
+
+# NuGet
+/packages/
+project.lock.json
+*.nuget.targets
+*.nuget.props
 
 # Build results
 [Dd]ebug/
