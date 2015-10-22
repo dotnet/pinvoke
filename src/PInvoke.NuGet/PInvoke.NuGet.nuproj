@@ -14,7 +14,7 @@
     <ProjectGuid>62eea3cd-5671-4cfc-be51-c75befb3fc95</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
-    <NuProjPath>$(UserProfile)\.nuget\packages\NuProj\0.10.4-beta-gf7fc34e7d8\tools\</NuProjPath>
+    <NuProjPath>$(UserProfile)\.nuget\packages\NuProj\0.10.10-beta-g13363167e1\tools\</NuProjPath>
     <NerdbankGitVersioningPath>$(UserProfile)\.nuget\packages\Nerdbank.GitVersioning\1.1.52-rc\</NerdbankGitVersioningPath>
     <VersionDependsOn>$(VersionDependsOn);GetNuPkgVersion</VersionDependsOn>
   </PropertyGroup>
