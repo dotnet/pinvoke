@@ -1,9 +1,8 @@
 P/Invoke
 =======
 
-[![Join the chat at https://gitter.im/AArnott/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AArnott/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![Build status](https://ci.appveyor.com/api/projects/status/idu56hy4jwytxd3x?svg=true)](https://ci.appveyor.com/project/AArnott/pinvoke)
+[![Join the chat at https://gitter.im/AArnott/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AArnott/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A library intended to contain all P/Invoke method signatures for popular operating systems.
 Think of it as http://pinvoke.net, but proven to compile, work properly
