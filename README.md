@@ -6,6 +6,20 @@ P/Invoke
 A library intended to contain all P/Invoke method signatures for popular operating systems.
 Think of it as http://pinvoke.net, but proven to compile, work properly
 
+## Usage
+
+Install the NuGet package(s) for the DLLs you want to P/Invoke into.
+For example, if you want to P/Invoke into Win32's BCrypt.dll, install this package:
+
+    Install-Package PInvoke.BCrypt
+
+Then import the following namespaces, as demonstrated below (if using C# 6):
+
+    using PInvoke;
+    using static PInvoke.BCrypt; // Supported in C# 6 (VS2015) and later.
+
+This will allow you to conveniently call these methods either 
+
 ## Design goals
 
 Provide a slightly higher than lowest level API for P/Invoke signatures.
@@ -15,9 +29,6 @@ for easy reading with Intellisense, along with links to the describing pages on 
 or elsewhere as applicable.
 
 This is a portable library so you can use it anywhere.
-
-## Testing
-In as many cases as possible, these P/Invoke method signatures will be tested via unit testing in this project.
 
 ## Distribution
 This library should be available on NuGet for easy consumption by your projects.
