@@ -11,7 +11,6 @@
     <copyright></copyright>
     <tags></tags>
     <dependencies>
-      <group targetFramework="dotnet" />
     </dependencies>
   </metadata>
 </package>
