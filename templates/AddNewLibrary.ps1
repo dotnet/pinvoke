@@ -24,8 +24,8 @@ function Replace-Placeholders {
     )
 
     Get-ChildItem -Recurse $Path -File |% {
-        $guid1 = [Guid]::NewGuid()
-        $guid2 = [Guid]::NewGuid()
+        $guid1 = [Guid]::NewGuid().ToString('b').ToUpper()
+        $guid2 = [Guid]::NewGuid().ToString('b').ToUpper()
 
         $content = Get-Content -Path $_.FullName
         $content = $content -replace 'LIBNAME',$LibraryName

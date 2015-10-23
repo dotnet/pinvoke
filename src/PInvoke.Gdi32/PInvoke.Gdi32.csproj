@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>ba62c4bc-1fb8-40e0-ac77-84663c4ed11a</ProjectGuid>
+    <ProjectGuid>{BA62C4BC-1FB8-40E0-AC77-84663C4ED11A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PInvoke</RootNamespace>
