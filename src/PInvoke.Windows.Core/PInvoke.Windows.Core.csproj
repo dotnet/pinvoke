@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NTStatus.cs" />
+    <Compile Include="PInvokeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

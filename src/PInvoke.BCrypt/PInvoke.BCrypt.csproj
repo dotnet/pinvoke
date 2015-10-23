@@ -21,7 +21,13 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BCrypt+BCryptBuffer.cs" />
+    <Compile Include="BCrypt+BCryptBufferDesc.cs" />
+    <Compile Include="BCrypt+SafeAlgorithmHandle.cs" />
+    <Compile Include="BCrypt+SafeKeyHandle.cs" />
+    <Compile Include="BCrypt+SafeSecretHandle.cs" />
     <Compile Include="BCrypt.cs" />
+    <Compile Include="BCrypt.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

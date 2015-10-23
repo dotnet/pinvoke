@@ -1,0 +1,10 @@
+Contributing
+============
+
+There are many thousands of Win32 APIs and this library is not complete.
+Please send pull requests to add what you've come up with.
+
+## Guidelines
+
+ * Nested classes and structs go into their own files.
+ * P/Invoke methods go into the *binary*.cs file. While higher level helper methods go in *binary*.Helpers.cs.
