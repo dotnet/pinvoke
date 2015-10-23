@@ -23,3 +23,8 @@ Please send pull requests to add what you've come up with.
    This is for predictability across the entire family of libraries and so
    searches for method names as they are found in the native libraries' documentation
    will always turn up results if they are defined by these packages.
+
+### Method parameters
+
+ * Prefer `SafeHandle`-derived types to `IntPtr`.
+ * Prefer `enum` types over `int` or `uint` flags.
