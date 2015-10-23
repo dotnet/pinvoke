@@ -1,12 +1,19 @@
+<#
+    .SYNOPSIS
+    Adds the class library and NuGet projects necessary to support a new native library
+    to the solution.
+
+    .PARAMETER LibraryName
+    The name of the library you are introducing support for, without the .dll extension.
+
+    .EXAMPLE
+    AddNewLibrary -LibraryName BCrypt
+#>
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true,Position=0)]
     [string]$LibraryName
 )
-<#
-    .SYNOPSIS
-    #>
-
 function Replace-Placeholders {
     [CmdletBinding()]
     param(

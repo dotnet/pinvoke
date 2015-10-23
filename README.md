@@ -5,7 +5,7 @@ P/Invoke
 [![Join the chat at https://gitter.im/AArnott/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AArnott/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A library intended to contain all P/Invoke method signatures for popular operating systems.
-Think of it as http://pinvoke.net, but proven to compile, work properly
+Think of it as http://pinvoke.net, but proven to compile, work properly.
 
 ## Usage
 
@@ -32,8 +32,10 @@ or elsewhere as applicable.
 This is a portable library so you can use it anywhere.
 
 ## Distribution
+
 This library should be available on NuGet for easy consumption by your projects.
 You may also copy and paste the P/Invoke signatures you need directly into your projects if desired. 
 
 ## Contribution
+
 Please consider [contributing](CONTRIB.txt) more P/Invoke method signatures to this project.

@@ -21,6 +21,10 @@ Powershell cmdlet to create the projects necessary to support it and follow the 
 
 ### Naming
 
+ * Name the class with the P/Invokes after the DLL. The namespace should be `PInvoke`
+   and should not be appended with the DLL name.
+ * Types introduced to support the P/Invoke methods (e.g. enums, structs, etc.)
+   should be nested types within the class named after the DLL.
  * All method names should match exactly their names as found in the native DLL.
    Do not remove a common prefix even if it is redundant with the class name.
    This is for predictability across the entire family of libraries and so
