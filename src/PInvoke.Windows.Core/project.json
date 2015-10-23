@@ -1,5 +1,5 @@
 ﻿{
-  "supports": {},
+  "supports": { },
   "dependencies": {
     "Nerdbank.GitVersioning": "1.1.52-rc",
     "Nuproj": "0.10.10-beta-g13363167e1",
@@ -7,6 +7,6 @@
     "StyleCop.Analyzers": "1.0.0-beta014"
   },
   "frameworks": {
-    ".NETPortable,Version=v4.5,Profile=Profile111": {}
+    ".NETPortable,Version=v4.5,Profile=Profile111": { }
   }
 }
