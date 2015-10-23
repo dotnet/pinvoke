@@ -12,22 +12,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>62eea3cd-5671-4cfc-be51-c75befb3fc95</ProjectGuid>
+    <ProjectGuid>5d4a1df6-0e8a-4dd8-a989-c4ee72475337</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
-    <NuSpecTemplate>PInvoke.BCrypt.nuspec</NuSpecTemplate>
+    <NuSpecTemplate>PInvoke.Windows.Core.nuspec</NuSpecTemplate>
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
-    <Id>PInvoke.BCrypt</Id>
-    <Title>PInvoke.BCrypt</Title>
+    <Id>PInvoke.Windows.Core</Id>
+    <Title>PInvoke.Windows.Core</Title>
     <Authors>Andrew Arnott</Authors>
     <Owners>aarnott</Owners>
-    <Summary>P/Invoke methods for the Windows BCrypt.dll.</Summary>
-    <Description>P/Invoke methods for the Windows BCrypt.dll.</Description>
+    <Summary>P/Invoke types for common Windows APIs.</Summary>
+    <Description>P/Invoke types for common Windows APIs.</Description>
     <ReleaseNotes>
     </ReleaseNotes>
-    <ProjectUrl>https://github.com/AArnott/pinvoke</ProjectUrl>
+    <ProjectUrl>
+    </ProjectUrl>
     <LicenseUrl>
     </LicenseUrl>
     <Copyright>Copyright © Andrew Arnott</Copyright>
@@ -35,11 +36,10 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PInvoke.BCrypt\PInvoke.BCrypt.csproj" />
-    <ProjectReference Include="..\PInvoke.Windows.Core.NuGet\PInvoke.Windows.Core.NuGet.nuproj" />
+    <ProjectReference Include="..\PInvoke.Windows.Core\PInvoke.Windows.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PInvoke.BCrypt.nuspec" />
+    <None Include="PInvoke.Windows.Core.nuspec" />
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata>
-    <id>PInvoke.BCrypt</id>
+    <id>PInvoke.Windows.Core</id>
     <version>$version$</version>
     <authors>aarnott</authors>
     <owners></owners>
