@@ -27,10 +27,8 @@
     <Description>P/Invoke types for common Windows APIs.</Description>
     <ReleaseNotes>
     </ReleaseNotes>
-    <ProjectUrl>
-    </ProjectUrl>
-    <LicenseUrl>
-    </LicenseUrl>
+    <ProjectUrl>https://github.com/AArnott/pinvoke</ProjectUrl>
+    <LicenseUrl>https://github.com/AArnott/pinvoke/blob/master/LICENSE.txt</LicenseUrl>
     <Copyright>Copyright © Andrew Arnott</Copyright>
     <Tags>pinvoke .net pcl</Tags>
     <EmbedSourceFiles>true</EmbedSourceFiles>

@@ -28,8 +28,7 @@
     <ReleaseNotes>
     </ReleaseNotes>
     <ProjectUrl>https://github.com/AArnott/pinvoke</ProjectUrl>
-    <LicenseUrl>
-    </LicenseUrl>
+    <LicenseUrl>https://github.com/AArnott/pinvoke/blob/master/LICENSE.txt</LicenseUrl>
     <Copyright>Copyright © Andrew Arnott</Copyright>
     <Tags>pinvoke .net pcl</Tags>
     <EmbedSourceFiles>true</EmbedSourceFiles>
