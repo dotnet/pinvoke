@@ -1,3 +1,6 @@
+The following license applies to all files in this project unless specified otherwise
+within individual files.
+
 The MIT License (MIT)
 
 Copyright (c) Andrew Arnott
