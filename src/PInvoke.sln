@@ -3,16 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke", "PInvoke\PInvoke.csproj", "{9CE056E3-5D53-4092-97CC-78826A4D1C14}"
-EndProject
-Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.NuGet", "PInvoke.NuGet\PInvoke.NuGet.nuproj", "{62EEA3CD-5671-4CFC-BE51-C75BEFB3FC95}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CD09C869-A027-4F21-B78F-22CF072B9C7F}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		..\LICENSE.txt = ..\LICENSE.txt
 		..\nuget.config = ..\nuget.config
 		..\README.md = ..\README.md
 		..\version.json = ..\version.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.BCrypt", "PInvoke.BCrypt\PInvoke.BCrypt.csproj", "{9CE056E3-5D53-4092-97CC-78826A4D1C14}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.BCrypt.NuGet", "PInvoke.BCrypt.NuGet\PInvoke.BCrypt.NuGet.nuproj", "{62EEA3CD-5671-4CFC-BE51-C75BEFB3FC95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{F00A1FA3-A9AF-450E-A45C-AC59E108F45A}"
+	ProjectSection(SolutionItems) = preProject
+		EnlistmentInfo.props = EnlistmentInfo.props
+		EnlistmentInfo.targets = EnlistmentInfo.targets
+		NuProj.Extra.targets = NuProj.Extra.targets
 	EndProjectSection
 EndProject
 Global

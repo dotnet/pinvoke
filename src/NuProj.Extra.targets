@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VersionDependsOn>$(VersionDependsOn);GetNuPkgVersion</VersionDependsOn>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets'))" />
+  </Target>
+  <Import Project="$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets" Condition="Exists('$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets')" />
+  <Target Name="GetNuPkgVersion" DependsOnTargets="GetBuildVersion">
+    <PropertyGroup>
+      <Version>$(NuGetPackageVersion)</Version>
+    </PropertyGroup>
+  </Target>
+  <Target Name="CopyAssemblyToLibDotNetFolder" DependsOnTargets="ConvertItems" AfterTargets="ConvertItems">
+    <ItemGroup>
+      <File Include="@(File)"
+            Condition=" '%(File.TargetFrameworkMoniker)' == '.NETPortable,Version=v4.5,Profile=Profile111' ">
+        <TargetPath>lib\dotnet\%(FileName)%(Extension)</TargetPath>
+      </File>
+    </ItemGroup>
+  </Target>
+</Project>

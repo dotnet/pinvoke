@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata>
+    <id>PInvoke.BCrypt</id>
+    <version>$version$</version>
+    <authors>aarnott</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>to be overwritten by project file</description>
+    <releaseNotes></releaseNotes>
+    <copyright></copyright>
+    <tags></tags>
+    <dependencies>
+      <group targetFramework="dotnet">
+        <dependency id="System.Runtime" version="4.0.0" />
+      </group>
+      <!-- These empty groups all represent platforms that inherently support the
+           reference assemblies our projects compile against (whether mscorlib or contracts). -->
+      <group targetFramework="MonoAndroid" />
+      <group targetFramework="MonoTouch" />
+      <group targetFramework="XamarinIOS" />
+      <group targetFramework="win" />
+      <group targetFramework="net" />
+      <group targetFramework="wpa" />
+      <group />
+    </dependencies>
+  </metadata>
+</package>
