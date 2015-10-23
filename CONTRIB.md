@@ -16,7 +16,7 @@ Please send pull requests to add what you've come up with.
  * Nested classes and structs go into their own files.
  * P/Invoke methods go into the *binary*.cs file. While higher level helper methods go in *binary*.Helpers.cs.
 
- ### Naming
+### Naming
 
  * All method names should match exactly their names as found in the native DLL.
    Do not remove a common prefix even if it is redundant with the class name.
