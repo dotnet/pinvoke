@@ -8,9 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.gitignore = ..\.gitignore
 		..\templates\AddNewLibrary.ps1 = ..\templates\AddNewLibrary.ps1
 		..\CONTRIB.md = ..\CONTRIB.md
+		..\COPYRIGHT.md = ..\COPYRIGHT.md
 		..\LICENSE.txt = ..\LICENSE.txt
-		..\README.md = ..\README.md
 		nuget.config = nuget.config
+		..\README.md = ..\README.md
 		version.json = version.json
 	EndProjectSection
 EndProject
@@ -28,6 +29,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Windows.Core", "PInvoke.Windows.Core\PInvoke.Windows.Core.csproj", "{B08C3C79-4CDD-4D37-933C-07D3452FD5F1}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Windows.Core.NuGet", "PInvoke.Windows.Core.NuGet\PInvoke.Windows.Core.NuGet.nuproj", "{5D4A1DF6-0E8A-4DD8-A989-C4EE72475337}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.User32", "PInvoke.User32\PInvoke.User32.csproj", "{774A91D6-10C2-459C-A482-50D655BB4680}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.User32.NuGet", "PInvoke.User32.NuGet\PInvoke.User32.NuGet.nuproj", "{C103475C-0DE0-43AD-ABAE-F38C4EFCE55D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Gdi32", "PInvoke.Gdi32\PInvoke.Gdi32.csproj", "{BA62C4BC-1FB8-40E0-AC77-84663C4ED11A}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Gdi32.NuGet", "PInvoke.Gdi32.NuGet\PInvoke.Gdi32.NuGet.nuproj", "{E65FA256-899E-4815-A3A9-C9EC4AD59335}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +60,22 @@ Global
 		{5D4A1DF6-0E8A-4DD8-A989-C4EE72475337}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D4A1DF6-0E8A-4DD8-A989-C4EE72475337}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D4A1DF6-0E8A-4DD8-A989-C4EE72475337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774A91D6-10C2-459C-A482-50D655BB4680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774A91D6-10C2-459C-A482-50D655BB4680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774A91D6-10C2-459C-A482-50D655BB4680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774A91D6-10C2-459C-A482-50D655BB4680}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C103475C-0DE0-43AD-ABAE-F38C4EFCE55D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C103475C-0DE0-43AD-ABAE-F38C4EFCE55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C103475C-0DE0-43AD-ABAE-F38C4EFCE55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C103475C-0DE0-43AD-ABAE-F38C4EFCE55D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA62C4BC-1FB8-40E0-AC77-84663C4ED11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA62C4BC-1FB8-40E0-AC77-84663C4ED11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA62C4BC-1FB8-40E0-AC77-84663C4ED11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA62C4BC-1FB8-40E0-AC77-84663C4ED11A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E65FA256-899E-4815-A3A9-C9EC4AD59335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E65FA256-899E-4815-A3A9-C9EC4AD59335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E65FA256-899E-4815-A3A9-C9EC4AD59335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E65FA256-899E-4815-A3A9-C9EC4AD59335}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

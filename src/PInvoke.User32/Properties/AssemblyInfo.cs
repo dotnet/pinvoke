@@ -4,6 +4,6 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("PInvoke.Windows.Core")]
+[assembly: AssemblyTitle("PInvoke.User32")]
 [assembly: AssemblyProduct("PInvoke")]
 [assembly: AssemblyCopyright("Copyright © Andrew Arnott 2015")]
