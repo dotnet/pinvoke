@@ -11,6 +11,9 @@ Please send pull requests to add what you've come up with.
  * One class library and NuGet package per P/Invoke'd DLL.
  * Types and enums in common Windows header files should be defined in the PInvoke.Windows.Core project.
 
+When introducing support for a new native DLL to this project, use the templates\AddNewLibrary.ps1
+Powershell cmdlet to create the projects necessary to support it and follow the instructions from that script.
+
 ### File structure
 
  * Nested classes and structs go into their own files.

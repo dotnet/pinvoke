@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))\EnlistmentInfo.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))' != '' " />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>$guid2$</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuSpecTemplate>PInvoke.LIBNAME.nuspec</NuSpecTemplate>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
+  <PropertyGroup Label="Configuration">
+    <Id>PInvoke.LIBNAME</Id>
+    <Title>PInvoke.LIBNAME</Title>
+    <Authors>Andrew Arnott</Authors>
+    <Owners>aarnott</Owners>
+    <Summary>P/Invoke methods for the Windows LIBNAME.dll.</Summary>
+    <Description>P/Invoke methods for the Windows LIBNAME.dll.</Description>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <ProjectUrl>https://github.com/AArnott/pinvoke</ProjectUrl>
+    <LicenseUrl>https://github.com/AArnott/pinvoke/blob/master/LICENSE.txt</LicenseUrl>
+    <Copyright>Copyright © Andrew Arnott</Copyright>
+    <Tags>pinvoke .net pcl</Tags>
+    <EmbedSourceFiles>true</EmbedSourceFiles>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PInvoke.LIBNAME\PInvoke.LIBNAME.csproj" />
+    <ProjectReference Include="..\PInvoke.Windows.Core.NuGet\PInvoke.Windows.Core.NuGet.nuproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PInvoke.LIBNAME.nuspec" />
+  </ItemGroup>
+  <Import Project="$(NuProjPath)\NuProj.targets" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
+</Project>
