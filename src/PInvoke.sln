@@ -8,9 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.gitignore = ..\.gitignore
 		..\CONTRIB.txt = ..\CONTRIB.txt
 		..\LICENSE.txt = ..\LICENSE.txt
-		..\nuget.config = ..\nuget.config
 		..\README.md = ..\README.md
-		..\version.json = ..\version.json
+		nuget.config = nuget.config
+		version.json = version.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.BCrypt", "PInvoke.BCrypt\PInvoke.BCrypt.csproj", "{9CE056E3-5D53-4092-97CC-78826A4D1C14}"
