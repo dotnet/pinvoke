@@ -35,3 +35,32 @@ Powershell cmdlet to create the projects necessary to support it and follow the 
 
  * Prefer `SafeHandle`-derived types to `IntPtr`.
  * Prefer `enum` types over `int` or `uint` flags.
+
+## Self-service releases for contributors
+
+If you find the latest release on nuget.org is missing P/Invoke APIs you require,
+you may [contribute them](CONTRIB.md) to this library and send a pull request.
+As soon as you send a pull request, a build is executed and updated NuGet packages
+are published to this Package Feed:
+
+    https://ci.appveyor.com/nuget/pinvoke
+
+By adding this URL to your package sources you can immediately install your version
+of the NuGet packages to your project. This can be done by adding a nuget.config file
+with the following content to the root of your project's repo:
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <configuration>
+      <packageSources>
+        <add key="PInvoke CI" value="https://ci.appveyor.com/nuget/pinvoke" />
+      </packageSources>
+    </configuration>
+
+You can then install the package(s) while you have your new "PInvoke CI" package source selected:
+
+    Install-Package PInvoke.BCrypt -Pre -Version 0.1.41-beta-g02f355c05d
+
+Take care to set the package version such that it exactly matches the AppVeyor build
+for your pull request. You can get the version number by reviewing the result of the
+validation build for your pull request, clicking ARTIFACTS, and noting the version
+of the produced packages.

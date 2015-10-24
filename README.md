@@ -19,7 +19,10 @@ Then import the following namespaces, as demonstrated below (if using C# 6):
     using PInvoke;
     using static PInvoke.BCrypt; // Supported in C# 6 (VS2015) and later.
 
-This will allow you to conveniently call these methods either 
+This will allow you to conveniently call these methods directly by method name:
+
+    var error = BCryptOpenAlgorithm("SHA256"); // C# 6 syntax
+    var error = BCrypt.BCryptOpenAlgorithm("SHA256"); // C# 5 syntax
 
 ## Design goals
 
@@ -39,3 +42,5 @@ You may also copy and paste the P/Invoke signatures you need directly into your 
 ## Contribution
 
 Please consider [contributing](CONTRIB.txt) more P/Invoke method signatures to this project.
+Once you contribute, you can immediately consume your additions without waiting for another
+public release of the library.
