@@ -20,12 +20,12 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="SafeObjectHandle"/> class.
             /// </summary>
             public SafeObjectHandle()
-                : base(IntPtr.Zero, true)
+                : base(INVALID_HANDLE_VALUE, true)
             {
             }
 
             /// <inheritdoc />
-            public override bool IsInvalid => this.handle == IntPtr.Zero;
+            public override bool IsInvalid => this.handle == INVALID_HANDLE_VALUE;
 
             /// <inheritdoc />
             protected override bool ReleaseHandle() => CloseHandle(this.handle);

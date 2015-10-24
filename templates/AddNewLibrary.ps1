@@ -18,20 +18,16 @@ function Replace-Placeholders {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$true)]
+        [string]$Path,
+        [Parameter(Mandatory=$true)]
         [string]$LibraryName,
         [Parameter(Mandatory=$true)]
-        [string]$Path
+        $Replacements
     )
 
     Get-ChildItem -Recurse $Path -File |% {
-        $guid1 = [Guid]::NewGuid().ToString('b').ToUpper()
-        $guid2 = [Guid]::NewGuid().ToString('b').ToUpper()
-
         $content = Get-Content -Path $_.FullName
-        $content = $content -replace 'LIBNAME',$LibraryName
-        $content = $content -replace '\$guid1\$',$guid1
-        $content = $content -replace '\$guid2\$',$guid2
-
+        $Replacements.GetEnumerator() |% { $content = $content -replace $_.Key,$_.Value }
         Set-Content -Path $_.FullName -Value $content -Encoding UTF8
 
         if ($_.Name -match 'LIBNAME') {
@@ -55,11 +51,22 @@ function Replace-Placeholders {
 
 $Src = Resolve-Path "$PSScriptRoot\..\src"
 
-Copy-Item -Recurse -Path "$PSScriptRoot\PInvoke.LIBNAME","$PSScriptRoot\PInvoke.LIBNAME.NuGet" -Destination $Src
-Replace-Placeholders -LibraryName $LibraryName -Path $Src\PInvoke.LIBNAME
-Replace-Placeholders -LibraryName $LibraryName -Path $Src\PInvoke.LIBNAME.NuGet
+$Directories = 'PInvoke.LIBNAME','PInvoke.LIBNAME.Tests','PInvoke.LIBNAME.NuGet'
+$TemplateDirectories = $Directories |% { "$PSScriptRoot\$_" }
+$SrcDirectories = $Directories |% { "$Src\$_" }
+
+$Replacements = @{
+    '\$guid1\$' = [Guid]::NewGuid().ToString('b').ToUpper();
+    '\$guid2\$' = [Guid]::NewGuid().ToString('b').ToUpper();
+    '\$guid3\$' = [Guid]::NewGuid().ToString('b').ToUpper();
+    'LIBNAME' = $LibraryName;
+}
+
+Copy-Item -Recurse -Path $TemplateDirectories -Destination $Src
+$SrcDirectories |% { Replace-Placeholders -LibraryName $LibraryName -Replacements $Replacements -Path $_ }
 
 Write-Output "Great. Your two new projects have been created."
 Write-Output "Please add these new projects to your solution file:"
 Write-Output "    $Src\PInvoke.$LibraryName\PInvoke.$LibraryName.csproj"
+Write-Output "    $Src\PInvoke.$LibraryName.Tests\PInvoke.$LibraryName.Tests.csproj"
 Write-Output "    $Src\PInvoke.$LibraryName.NuGet\PInvoke.$LibraryName.NuGet.nuproj"

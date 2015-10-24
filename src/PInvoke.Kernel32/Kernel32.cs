@@ -13,6 +13,11 @@ namespace PInvoke
     public static partial class Kernel32
     {
         /// <summary>
+        /// Constant for invalid handle value
+        /// </summary>
+        public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
+
+        /// <summary>
         /// Closes an open object handle.
         /// </summary>
         /// <param name="hObject">A valid handle to an open object.</param>
