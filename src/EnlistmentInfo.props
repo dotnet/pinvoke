@@ -12,12 +12,13 @@
 
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <PlatformTarget>$(Platform)</PlatformTarget>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
 
     <BaseIntermediateOutputPath>$(ProjectRoot)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
-    <OutputPath>$(ProjectRoot)bin\$(Configuration)\</OutputPath>
-    <PlatformTarget>$(Platform)</PlatformTarget>
+    <OutputPath Condition=" '$(TargetFrameworkProfile)' == '' ">$(ProjectRoot)bin\$(Configuration)\Desktop\</OutputPath>
+    <OutputPath Condition=" '$(TargetFrameworkProfile)' != '' ">$(ProjectRoot)bin\$(Configuration)\$(TargetFrameworkProfile)\</OutputPath>
 
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -46,4 +47,6 @@
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+
+  <Import Project="NuProj.Extra.props" Condition=" '$(MSBuildProjectExtension)' == '.nuproj' "/>
 </Project>

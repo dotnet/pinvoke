@@ -45,7 +45,16 @@ Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Kernel32.NuGet", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Kernel32.Tests", "PInvoke.Kernel32.Tests\PInvoke.Kernel32.Tests.csproj", "{D7224F5B-1AEE-4624-A71F-F0BB10C63555}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PInvoke.Kernel32.Shared", "PInvoke.Kernel32.Shared\PInvoke.Kernel32.Shared.shproj", "{15A8DED1-0F36-4B35-9973-22851DA77544}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Kernel32.Desktop", "PInvoke.Kernel32.Desktop\PInvoke.Kernel32.Desktop.csproj", "{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		PInvoke.Kernel32.Shared\PInvoke.Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
+		PInvoke.Kernel32.Shared\PInvoke.Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
+		PInvoke.Kernel32.Shared\PInvoke.Kernel32.Shared.projitems*{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -95,6 +104,10 @@ Global
 		{D7224F5B-1AEE-4624-A71F-F0BB10C63555}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7224F5B-1AEE-4624-A71F-F0BB10C63555}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7224F5B-1AEE-4624-A71F-F0BB10C63555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

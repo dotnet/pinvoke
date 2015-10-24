@@ -34,6 +34,7 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PInvoke.Kernel32.Desktop\PInvoke.Kernel32.Desktop.csproj" />
     <ProjectReference Include="..\PInvoke.Kernel32\PInvoke.Kernel32.csproj" />
     <ProjectReference Include="..\PInvoke.Windows.Core.NuGet\PInvoke.Windows.Core.NuGet.nuproj" />
   </ItemGroup>
