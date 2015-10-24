@@ -51,7 +51,7 @@ function Replace-Placeholders {
 
 $Src = Resolve-Path "$PSScriptRoot\..\src"
 
-$Directories = 'PInvoke.LIBNAME','PInvoke.LIBNAME.Desktop','PInvoke.LIBNAME.Shared','PInvoke.LIBNAME.Tests','PInvoke.LIBNAME.NuGet'
+$Directories = 'LIBNAME','LIBNAME.Desktop','LIBNAME.Shared','LIBNAME.Tests','LIBNAME.NuGet'
 $TemplateDirectories = $Directories |% { "$PSScriptRoot\$_" }
 $SrcDirectories = $Directories |% { "$Src\$_" }
 
@@ -69,8 +69,8 @@ $SrcDirectories |% { Replace-Placeholders -LibraryName $LibraryName -Replacement
 
 Write-Output "Great. Your two new projects have been created."
 Write-Output "Please add these new projects to your solution file:"
-Write-Output "    $Src\PInvoke.$LibraryName\PInvoke.$LibraryName.csproj"
-Write-Output "    $Src\PInvoke.$LibraryName.Desktop\PInvoke.$LibraryName.Desktop.csproj"
-Write-Output "    $Src\PInvoke.$LibraryName.Shared\PInvoke.$LibraryName.Shared.shproj"
-Write-Output "    $Src\PInvoke.$LibraryName.Tests\PInvoke.$LibraryName.Tests.csproj"
-Write-Output "    $Src\PInvoke.$LibraryName.NuGet\PInvoke.$LibraryName.NuGet.nuproj"
+Write-Output "    $Src\$LibraryName\$LibraryName.csproj"
+Write-Output "    $Src\$LibraryName.Desktop\$LibraryName.Desktop.csproj"
+Write-Output "    $Src\$LibraryName.Shared\$LibraryName.Shared.shproj"
+Write-Output "    $Src\$LibraryName.Tests\$LibraryName.Tests.csproj"
+Write-Output "    $Src\$LibraryName.NuGet\$LibraryName.NuGet.nuproj"

@@ -16,9 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.BCrypt", "PInvoke.BCrypt\PInvoke.BCrypt.csproj", "{9CE056E3-5D53-4092-97CC-78826A4D1C14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCrypt", "BCrypt\BCrypt.csproj", "{9CE056E3-5D53-4092-97CC-78826A4D1C14}"
 EndProject
-Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.BCrypt.NuGet", "PInvoke.BCrypt.NuGet\PInvoke.BCrypt.NuGet.nuproj", "{62EEA3CD-5671-4CFC-BE51-C75BEFB3FC95}"
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "BCrypt.NuGet", "BCrypt.NuGet\BCrypt.NuGet.nuproj", "{62EEA3CD-5671-4CFC-BE51-C75BEFB3FC95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{F00A1FA3-A9AF-450E-A45C-AC59E108F45A}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,33 +27,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{F00A1FA3
 		NuProj.Extra.targets = NuProj.Extra.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Windows.Core", "PInvoke.Windows.Core\PInvoke.Windows.Core.csproj", "{B08C3C79-4CDD-4D37-933C-07D3452FD5F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Core", "Windows.Core\Windows.Core.csproj", "{B08C3C79-4CDD-4D37-933C-07D3452FD5F1}"
 EndProject
-Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Windows.Core.NuGet", "PInvoke.Windows.Core.NuGet\PInvoke.Windows.Core.NuGet.nuproj", "{5D4A1DF6-0E8A-4DD8-A989-C4EE72475337}"
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Windows.Core.NuGet", "Windows.Core.NuGet\Windows.Core.NuGet.nuproj", "{5D4A1DF6-0E8A-4DD8-A989-C4EE72475337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.User32", "PInvoke.User32\PInvoke.User32.csproj", "{774A91D6-10C2-459C-A482-50D655BB4680}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User32", "User32\User32.csproj", "{774A91D6-10C2-459C-A482-50D655BB4680}"
 EndProject
-Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.User32.NuGet", "PInvoke.User32.NuGet\PInvoke.User32.NuGet.nuproj", "{C103475C-0DE0-43AD-ABAE-F38C4EFCE55D}"
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "User32.NuGet", "User32.NuGet\User32.NuGet.nuproj", "{C103475C-0DE0-43AD-ABAE-F38C4EFCE55D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Gdi32", "PInvoke.Gdi32\PInvoke.Gdi32.csproj", "{BA62C4BC-1FB8-40E0-AC77-84663C4ED11A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gdi32", "Gdi32\Gdi32.csproj", "{BA62C4BC-1FB8-40E0-AC77-84663C4ED11A}"
 EndProject
-Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Gdi32.NuGet", "PInvoke.Gdi32.NuGet\PInvoke.Gdi32.NuGet.nuproj", "{E65FA256-899E-4815-A3A9-C9EC4AD59335}"
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Gdi32.NuGet", "Gdi32.NuGet\Gdi32.NuGet.nuproj", "{E65FA256-899E-4815-A3A9-C9EC4AD59335}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Kernel32", "PInvoke.Kernel32\PInvoke.Kernel32.csproj", "{1FDC092A-D3E8-4CC4-B896-17E0A213F723}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel32", "Kernel32\Kernel32.csproj", "{1FDC092A-D3E8-4CC4-B896-17E0A213F723}"
 EndProject
-Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Kernel32.NuGet", "PInvoke.Kernel32.NuGet\PInvoke.Kernel32.NuGet.nuproj", "{352825EE-11A1-4D7D-8792-4DBD2A2912E1}"
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Kernel32.NuGet", "Kernel32.NuGet\Kernel32.NuGet.nuproj", "{352825EE-11A1-4D7D-8792-4DBD2A2912E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Kernel32.Tests", "PInvoke.Kernel32.Tests\PInvoke.Kernel32.Tests.csproj", "{D7224F5B-1AEE-4624-A71F-F0BB10C63555}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel32.Tests", "Kernel32.Tests\Kernel32.Tests.csproj", "{D7224F5B-1AEE-4624-A71F-F0BB10C63555}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PInvoke.Kernel32.Shared", "PInvoke.Kernel32.Shared\PInvoke.Kernel32.Shared.shproj", "{15A8DED1-0F36-4B35-9973-22851DA77544}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Kernel32.Shared", "Kernel32.Shared\Kernel32.Shared.shproj", "{15A8DED1-0F36-4B35-9973-22851DA77544}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Kernel32.Desktop", "PInvoke.Kernel32.Desktop\PInvoke.Kernel32.Desktop.csproj", "{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel32.Desktop", "Kernel32.Desktop\Kernel32.Desktop.csproj", "{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		PInvoke.Kernel32.Shared\PInvoke.Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
-		PInvoke.Kernel32.Shared\PInvoke.Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
-		PInvoke.Kernel32.Shared\PInvoke.Kernel32.Shared.projitems*{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}*SharedItemsImports = 4
+		Kernel32.Shared\Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
+		Kernel32.Shared\Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
+		Kernel32.Shared\Kernel32.Shared.projitems*{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
