@@ -38,8 +38,6 @@ Powershell cmdlet to create the projects necessary to support it and follow the 
 
 ## Self-service releases for contributors
 
-If you find the latest release on nuget.org is missing P/Invoke APIs you require,
-you may [contribute them](CONTRIB.md) to this library and send a pull request.
 As soon as you send a pull request, a build is executed and updated NuGet packages
 are published to this Package Feed:
 
@@ -49,12 +47,14 @@ By adding this URL to your package sources you can immediately install your vers
 of the NuGet packages to your project. This can be done by adding a nuget.config file
 with the following content to the root of your project's repo:
 
-    <?xml version="1.0" encoding="utf-8"?>
-    <configuration>
-      <packageSources>
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <packageSources>
         <add key="PInvoke CI" value="https://ci.appveyor.com/nuget/pinvoke" />
-      </packageSources>
-    </configuration>
+    </packageSources>
+</configuration>
+```
 
 You can then install the package(s) while you have your new "PInvoke CI" package source selected:
 
