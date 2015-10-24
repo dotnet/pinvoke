@@ -34,7 +34,7 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gdi32\Gdi32.csproj" />
+    <ProjectReference Include="..\Gdi32.Desktop\Gdi32.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>
