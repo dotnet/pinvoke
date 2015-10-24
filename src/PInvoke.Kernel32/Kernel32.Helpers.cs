@@ -10,7 +10,7 @@ namespace PInvoke
     /// Methods and nested types that are not strictly P/Invokes but provide
     /// a slightly higher level of functionality to ease calling into native code.
     /// </content>
-    public static partial class LIBNAME
+    public static partial class Kernel32
     {
         // This is where you define methods that assist in calling P/Invoke methods.
         // For example, if a P/Invoke method requires allocating unmanaged memory

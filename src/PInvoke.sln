@@ -39,6 +39,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Gdi32", "PInvoke.Gd
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Gdi32.NuGet", "PInvoke.Gdi32.NuGet\PInvoke.Gdi32.NuGet.nuproj", "{E65FA256-899E-4815-A3A9-C9EC4AD59335}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.Kernel32", "PInvoke.Kernel32\PInvoke.Kernel32.csproj", "{1FDC092A-D3E8-4CC4-B896-17E0A213F723}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Kernel32.NuGet", "PInvoke.Kernel32.NuGet\PInvoke.Kernel32.NuGet.nuproj", "{352825EE-11A1-4D7D-8792-4DBD2A2912E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,14 @@ Global
 		{E65FA256-899E-4815-A3A9-C9EC4AD59335}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E65FA256-899E-4815-A3A9-C9EC4AD59335}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E65FA256-899E-4815-A3A9-C9EC4AD59335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FDC092A-D3E8-4CC4-B896-17E0A213F723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FDC092A-D3E8-4CC4-B896-17E0A213F723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FDC092A-D3E8-4CC4-B896-17E0A213F723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FDC092A-D3E8-4CC4-B896-17E0A213F723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352825EE-11A1-4D7D-8792-4DBD2A2912E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{352825EE-11A1-4D7D-8792-4DBD2A2912E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{352825EE-11A1-4D7D-8792-4DBD2A2912E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{352825EE-11A1-4D7D-8792-4DBD2A2912E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

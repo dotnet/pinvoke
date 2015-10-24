@@ -3,6 +3,6 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("PInvoke.LIBNAME")]
+[assembly: AssemblyTitle("PInvoke.Kernel32")]
 [assembly: AssemblyProduct("PInvoke")]
 [assembly: AssemblyCopyright("Copyright © Andrew Arnott 2015")]
