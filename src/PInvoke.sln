@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Core", "Windows.Cor
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Windows.Core.NuGet", "Windows.Core.NuGet\Windows.Core.NuGet.nuproj", "{5D4A1DF6-0E8A-4DD8-A989-C4EE72475337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User32", "User32\User32.csproj", "{774A91D6-10C2-459C-A482-50D655BB4680}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User32.Desktop", "User32.Desktop\User32.Desktop.csproj", "{774A91D6-10C2-459C-A482-50D655BB4680}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "User32.NuGet", "User32.NuGet\User32.NuGet.nuproj", "{C103475C-0DE0-43AD-ABAE-F38C4EFCE55D}"
 EndProject
