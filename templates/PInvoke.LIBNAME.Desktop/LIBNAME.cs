@@ -6,11 +6,11 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
 
-    /// <summary>
-    /// Exported functions from the LIBNAME.dll Windows library.
-    /// </summary>
+    /// <content>
+    /// Exported functions from the LIBNAME.dll Windows library
+    /// that are available to Desktop apps only.
+    /// </content>
     public static partial class LIBNAME
     {
-        // [DllImport] methods go here, along with any [Flags] enums
     }
 }

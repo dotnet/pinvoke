@@ -51,7 +51,7 @@ function Replace-Placeholders {
 
 $Src = Resolve-Path "$PSScriptRoot\..\src"
 
-$Directories = 'PInvoke.LIBNAME','PInvoke.LIBNAME.Tests','PInvoke.LIBNAME.NuGet'
+$Directories = 'PInvoke.LIBNAME','PInvoke.LIBNAME.Desktop','PInvoke.LIBNAME.Shared','PInvoke.LIBNAME.Tests','PInvoke.LIBNAME.NuGet'
 $TemplateDirectories = $Directories |% { "$PSScriptRoot\$_" }
 $SrcDirectories = $Directories |% { "$Src\$_" }
 
@@ -59,6 +59,8 @@ $Replacements = @{
     '\$guid1\$' = [Guid]::NewGuid().ToString('b').ToUpper();
     '\$guid2\$' = [Guid]::NewGuid().ToString('b').ToUpper();
     '\$guid3\$' = [Guid]::NewGuid().ToString('b').ToUpper();
+    '\$guid4\$' = [Guid]::NewGuid().ToString('b').ToUpper();
+    '\$guid5\$' = [Guid]::NewGuid().ToString('b').ToUpper();
     'LIBNAME' = $LibraryName;
 }
 
@@ -68,5 +70,7 @@ $SrcDirectories |% { Replace-Placeholders -LibraryName $LibraryName -Replacement
 Write-Output "Great. Your two new projects have been created."
 Write-Output "Please add these new projects to your solution file:"
 Write-Output "    $Src\PInvoke.$LibraryName\PInvoke.$LibraryName.csproj"
+Write-Output "    $Src\PInvoke.$LibraryName.Desktop\PInvoke.$LibraryName.Desktop.csproj"
+Write-Output "    $Src\PInvoke.$LibraryName.Shared\PInvoke.$LibraryName.Shared.shproj"
 Write-Output "    $Src\PInvoke.$LibraryName.Tests\PInvoke.$LibraryName.Tests.csproj"
 Write-Output "    $Src\PInvoke.$LibraryName.NuGet\PInvoke.$LibraryName.NuGet.nuproj"

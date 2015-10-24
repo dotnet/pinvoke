@@ -6,11 +6,10 @@
     <SharedGUID>15a8ded1-0f36-4b35-9973-22851da77544</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>PInvoke.Kernel32.Shared</Import_RootNamespace>
+    <Import_RootNamespace>PInvoke.LIBNAME.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeObjectHandle.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Kernel32.Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LIBNAME.Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LIBNAME.cs" />
   </ItemGroup>
 </Project>

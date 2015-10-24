@@ -4,7 +4,7 @@
 using System.Reflection;
 using System.Resources;
 
-[assembly: AssemblyTitle("PInvoke.Kernel32.Tests")]
-[assembly: AssemblyProduct("PInvoke.Kernel32.Tests")]
+[assembly: AssemblyTitle("PInvoke.LIBNAME.Tests")]
+[assembly: AssemblyProduct("PInvoke.LIBNAME.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: NeutralResourcesLanguage("en")]
