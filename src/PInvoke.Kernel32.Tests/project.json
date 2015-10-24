@@ -5,7 +5,7 @@
     "xunit.runner.visualstudio": "2.1.0"
   },
   "frameworks": {
-    ".NETPortable,Version=v4.5,Profile=Profile111": { }
+    ".NETPortable,Version=v4.6": { }
   },
   "runtimes": {
     "win-anycpu": { }
