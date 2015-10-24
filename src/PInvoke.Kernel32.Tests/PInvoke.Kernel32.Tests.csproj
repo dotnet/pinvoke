@@ -9,7 +9,8 @@
     <ProjectGuid>{D7224F5B-1AEE-4624-A71F-F0BB10C63555}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PInvoke.Kernel32.Tests</RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>PInvoke.Kernel32.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
