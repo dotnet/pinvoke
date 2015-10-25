@@ -237,13 +237,13 @@ namespace PInvoke
             // ReSharper restore InconsistentNaming
         }
 
-        [DllImport("user32.dll")]
+        [DllImport(nameof(User32))]
         public static extern int SetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         public static extern bool SetWindowPos(
             IntPtr hWnd,
             IntPtr hWndInsertAfter,
@@ -253,23 +253,23 @@ namespace PInvoke
             int cy,
             SetWindowPosFlags uFlags);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr FindWindowEx(
             IntPtr parentHandle,
             IntPtr childAfter,
             string className,
             string windowTitle);
 
-        [DllImport("user32.dll")]
+        [DllImport(nameof(User32))]
         public static extern bool ShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
 
-        [DllImport("user32.dll")]
+        [DllImport(nameof(User32))]
         public static extern IntPtr GetForegroundWindow();
 
-        [DllImport("user32.dll")]
+        [DllImport(nameof(User32))]
         public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
     }
 }

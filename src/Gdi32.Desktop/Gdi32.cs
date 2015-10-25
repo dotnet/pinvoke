@@ -11,7 +11,7 @@ namespace PInvoke
     /// </summary>
     public static partial class Gdi32
     {
-        [DllImport("gdi32.dll")]
+        [DllImport(nameof(Gdi32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject(IntPtr hObject);
     }

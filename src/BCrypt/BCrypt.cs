@@ -168,7 +168,7 @@ namespace PInvoke
         /// <returns>
         /// Returns a status code that indicates the success or failure of the function.
         /// </returns>
-        [DllImport("Bcrypt", SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true)]
+        [DllImport(nameof(BCrypt), SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true)]
         public static extern NTStatus BCryptOpenAlgorithmProvider(
             out SafeAlgorithmHandle phAlgorithm,
             string pszAlgId,
@@ -188,7 +188,7 @@ namespace PInvoke
         /// function to set its properties; however, the key cannot be used until the
         /// BCryptFinalizeKeyPair function is called.
         /// </remarks>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
         public static extern NTStatus BCryptGenerateKeyPair(
             SafeAlgorithmHandle hAlgorithm,
             out SafeKeyHandle phKey,
@@ -206,7 +206,7 @@ namespace PInvoke
         /// After this function has been called, the BCryptSetProperty function
         /// can no longer be used for this key.
         /// </remarks>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
         public static extern NTStatus BCryptFinalizeKeyPair(
             SafeKeyHandle hKey,
             BCryptFinalizeKeyPairFlags dwFlags = BCryptFinalizeKeyPairFlags.None);
@@ -216,7 +216,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hKey">The handle of the key to destroy.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
         public static extern NTStatus BCryptDestroyKey(
             IntPtr hKey);
 
@@ -225,7 +225,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hSecret">The handle of the secret to destroy.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
         public static extern NTStatus BCryptDestroySecret(
             IntPtr hSecret);
 
@@ -265,7 +265,7 @@ namespace PInvoke
         /// </param>
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern NTStatus BCryptImportKey(
             SafeAlgorithmHandle hAlgorithm,
             SafeKeyHandle hImportKey,
@@ -288,7 +288,7 @@ namespace PInvoke
         /// <param name="cbInput">The size, in bytes, of the <paramref name="pbInput"/> buffer.</param>
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern NTStatus BCryptImportKeyPair(
             SafeAlgorithmHandle hAlgorithm,
             SafeKeyHandle hImportKey,
@@ -325,7 +325,7 @@ namespace PInvoke
         /// </param>
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern NTStatus BCryptExportKey(
             SafeKeyHandle hKey,
             SafeKeyHandle hExportKey,
@@ -353,7 +353,7 @@ namespace PInvoke
         /// </param>
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
         public static extern NTStatus BCryptSecretAgreement(
             SafeKeyHandle privateKey,
             SafeKeyHandle publicKey,
@@ -395,7 +395,7 @@ namespace PInvoke
         /// <returns>
         /// Returns a status code that indicates the success or failure of the function.
         /// </returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern NTStatus BCryptDeriveKey(
             SafeSecretHandle sharedSecret,
             string keyDerivationFunction,
@@ -416,7 +416,7 @@ namespace PInvoke
         /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern NTStatus BCryptSetProperty(
             SafeHandle hObject,
             string property,
@@ -435,7 +435,7 @@ namespace PInvoke
         /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern NTStatus BCryptSetProperty(
             SafeHandle hObject,
             string property,
@@ -453,7 +453,7 @@ namespace PInvoke
         /// <param name="resultSize">A pointer to a ULONG variable that receives the number of bytes that were copied to the pbOutput buffer. If the <paramref name="output"/> parameter is NULL, this function will place the required size, in bytes, in the location pointed to by this parameter.</param>
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern NTStatus BCryptGetProperty(
             SafeHandle hObject,
             string property,
@@ -468,7 +468,7 @@ namespace PInvoke
         /// <param name="algorithmHandle">A handle that represents the algorithm provider to close. This handle is obtained by calling the BCryptOpenAlgorithmProvider function.</param>
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport("Bcrypt", SetLastError = true, ExactSpelling = true)]
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
         private static extern NTStatus BCryptCloseAlgorithmProvider(
             IntPtr algorithmHandle,
             BCryptCloseAlgorithmProviderFlags flags = BCryptCloseAlgorithmProviderFlags.None);
