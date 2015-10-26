@@ -7,7 +7,7 @@ namespace PInvoke
     using System.ComponentModel;
     using System.Runtime.InteropServices;
     using System.Text;
-    using Microsoft.Win32.SafeHandles;
+    using static PInvoke.Kernel32;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -22,23 +22,23 @@ namespace PInvoke
             return guid;
         }
 
-        public static HiddAttributes HidD_GetAttributes(SafeFileHandle hFile)
+        public static HiddAttributes HidD_GetAttributes(SafeObjectHandle hFile)
         {
             var result = HiddAttributes.Create();
             if (!HidD_GetAttributes(hFile, ref result))
             {
-                throw new Win32Exception();
+                Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
             }
 
             return result;
         }
 
-        public static SafePreparsedDataHandle HidD_GetPreparsedData(SafeFileHandle hDevice)
+        public static SafePreparsedDataHandle HidD_GetPreparsedData(SafeObjectHandle hDevice)
         {
             SafePreparsedDataHandle preparsedDataHandle;
             if (!HidD_GetPreparsedData(hDevice, out preparsedDataHandle))
             {
-                throw new Win32Exception();
+                Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
             }
 
             return preparsedDataHandle;
@@ -62,49 +62,49 @@ namespace PInvoke
             }
         }
 
-        public static bool HidD_GetManufacturerString(SafeFileHandle hidDeviceObject, out string result)
+        public static bool HidD_GetManufacturerString(SafeObjectHandle hidDeviceObject, out string result)
         {
             return GrowBuffer(sb => HidD_GetManufacturerString(hidDeviceObject, sb, sb.Capacity), out result);
         }
 
-        public static bool HidD_GetProductString(SafeFileHandle hidDeviceObject, out string result)
+        public static bool HidD_GetProductString(SafeObjectHandle hidDeviceObject, out string result)
         {
             return GrowBuffer(sb => HidD_GetProductString(hidDeviceObject, sb, sb.Capacity), out result);
         }
 
-        public static bool HidD_GetSerialNumberString(SafeFileHandle hidDeviceObject, out string result)
+        public static bool HidD_GetSerialNumberString(SafeObjectHandle hidDeviceObject, out string result)
         {
             return GrowBuffer(sb => HidD_GetSerialNumberString(hidDeviceObject, sb, sb.Capacity), out result);
         }
 
-        public static string HidD_GetManufacturerString(SafeFileHandle hidDeviceObject)
+        public static string HidD_GetManufacturerString(SafeObjectHandle hidDeviceObject)
         {
             string result;
             if (!HidD_GetManufacturerString(hidDeviceObject, out result))
             {
-                throw new Win32Exception();
+                Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
             }
 
             return result;
         }
 
-        public static string HidD_GetProductString(SafeFileHandle hidDeviceObject)
+        public static string HidD_GetProductString(SafeObjectHandle hidDeviceObject)
         {
             string result;
             if (!HidD_GetProductString(hidDeviceObject, out result))
             {
-                throw new Win32Exception();
+                Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
             }
 
             return result;
         }
 
-        public static string HidD_GetSerialNumberString(SafeFileHandle hidDeviceObject)
+        public static string HidD_GetSerialNumberString(SafeObjectHandle hidDeviceObject)
         {
             string result;
             if (!HidD_GetSerialNumberString(hidDeviceObject, out result))
             {
-                throw new Win32Exception();
+                Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
             }
 
             return result;

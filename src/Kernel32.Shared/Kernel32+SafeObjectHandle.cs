@@ -24,6 +24,18 @@ namespace PInvoke
             {
             }
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SafeObjectHandle"/> class.
+            /// </summary>
+            /// <param name="preexistingHandle">An object that represents the pre-existing handle to use.</param>
+            /// <param name="ownsHandle"><see langword="true"/> to reliably release the handle during the finalization
+            /// phase; <see langword="false"/> to prevent reliable release.</param>
+            public SafeObjectHandle(IntPtr preexistingHandle, bool ownsHandle)
+                : base(INVALID_HANDLE_VALUE, ownsHandle)
+            {
+                this.SetHandle(preexistingHandle);
+            }
+
             /// <inheritdoc />
             public override bool IsInvalid => this.handle == INVALID_HANDLE_VALUE;
 

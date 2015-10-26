@@ -3,10 +3,9 @@
 
 using System;
 using System.ComponentModel;
-using Microsoft.Win32.SafeHandles;
-using PInvoke;
 using Xunit;
 using static PInvoke.Hid;
+using static PInvoke.Kernel32;
 
 public class Hid
 {
@@ -28,34 +27,34 @@ public class Hid
     public void HidD_GetManufacturerString_ThrowForInvalidHandle()
     {
         Assert.Throws<Win32Exception>(() =>
-            HidD_GetManufacturerString(new SafeFileHandle(new IntPtr(0), false)));
+            HidD_GetManufacturerString(new SafeObjectHandle(new IntPtr(0), false)));
     }
 
     [Fact]
     public void HidD_GetProductString_ThrowForInvalidHandle()
     {
         Assert.Throws<Win32Exception>(() =>
-            HidD_GetProductString(new SafeFileHandle(new IntPtr(0), false)));
+            HidD_GetProductString(new SafeObjectHandle(new IntPtr(0), false)));
     }
 
     [Fact]
     public void HidD_GetSerialNumberString_ThrowForInvalidHandle()
     {
         Assert.Throws<Win32Exception>(() =>
-            HidD_GetSerialNumberString(new SafeFileHandle(new IntPtr(0), false)));
+            HidD_GetSerialNumberString(new SafeObjectHandle(new IntPtr(0), false)));
     }
 
     [Fact]
     public void HidD_GetAttributes_ThrowForInvalidHandle()
     {
         Assert.Throws<Win32Exception>(() =>
-            HidD_GetAttributes(new SafeFileHandle(new IntPtr(0), false)));
+            HidD_GetAttributes(new SafeObjectHandle(new IntPtr(0), false)));
     }
 
     [Fact]
     public void HidD_GetPreparsedData_ThrowForInvalidHandle()
     {
         Assert.Throws<Win32Exception>(() =>
-            HidD_GetPreparsedData(new SafeFileHandle(new IntPtr(0), false)));
+            HidD_GetPreparsedData(new SafeObjectHandle(new IntPtr(0), false)));
     }
 }

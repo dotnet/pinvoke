@@ -12,7 +12,8 @@
     <ProjectGuid>{6C21E31E-6E71-4CB8-8495-CC841B19947F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>PInvoke.Hid.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -37,6 +38,10 @@
     <ProjectReference Include="..\Hid.Desktop\Hid.Desktop.csproj">
       <Project>{26ABA748-B311-4094-9231-7490894E1157}</Project>
       <Name>Hid.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
+      <Project>{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}</Project>
+      <Name>Kernel32.Desktop</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

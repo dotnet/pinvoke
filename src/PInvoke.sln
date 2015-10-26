@@ -61,6 +61,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Hid.Shared", "Hid.Shared\Hi
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Hid.Shared\Hid.Shared.projitems*{66c709c8-3ace-4e27-aee0-ec22d9f029d8}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{41dd8edd-d861-41c0-a496-2eea17c49180}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{26aba748-b311-4094-9231-7490894e1157}*SharedItemsImports = 4

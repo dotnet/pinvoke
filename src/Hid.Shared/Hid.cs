@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-    using Microsoft.Win32.SafeHandles;
+    using static PInvoke.Kernel32;
 
     /// <summary>
     /// Exported functions from the Hid.dll Windows library
@@ -35,7 +35,7 @@ namespace PInvoke
         /// <returns>TRUE if succeeds; otherwise, it returns FALSE.</returns>
         [DllImport(nameof(Hid), SetLastError = true)]
         public static extern bool HidD_GetAttributes(
-            SafeFileHandle hidDeviceObject,
+            SafeObjectHandle hidDeviceObject,
             ref HiddAttributes attributes);
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace PInvoke
         /// The maximum possible number of characters in an embedded string is device specific. For USB devices, the
         /// maximum string length is 126 wide characters (not including the terminating NULL character).
         /// </remarks>
-        [DllImport(nameof(Hid), CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(nameof(Hid), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern bool HidD_GetManufacturerString(
-            SafeFileHandle hidDeviceObject,
+            SafeObjectHandle hidDeviceObject,
             StringBuilder buffer,
             int bufferLength);
 
@@ -83,7 +83,7 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(Hid), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern bool HidD_GetProductString(
-            SafeFileHandle hidDeviceObject,
+            SafeObjectHandle hidDeviceObject,
             StringBuilder buffer,
             int bufferLength);
 
@@ -112,7 +112,7 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(Hid), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern bool HidD_GetSerialNumberString(
-            SafeFileHandle hidDeviceObject,
+            SafeObjectHandle hidDeviceObject,
             StringBuilder buffer,
             int bufferLength);
 
@@ -128,7 +128,7 @@ namespace PInvoke
         /// <returns>TRUE if it succeeds; otherwise, it returns FALSE.</returns>
         [DllImport(nameof(Hid), SetLastError = true)]
         public static extern bool HidD_SetNumInputBuffers(
-            SafeFileHandle hidDeviceObject,
+            SafeObjectHandle hidDeviceObject,
             uint numberBuffers);
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace PInvoke
         /// <returns>TRUE if it succeeds; otherwise, it returns FALSE.</returns>
         [DllImport(nameof(Hid), SetLastError = true)]
         public static extern bool HidD_GetPreparsedData(
-            SafeFileHandle hidDeviceObject,
+            SafeObjectHandle hidDeviceObject,
             out SafePreparsedDataHandle preparsedDataHandle);
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="preparsedData">
         /// Pointer to the buffer, returned by
-        /// <see cref="HidD_GetPreparsedData(SafeFileHandle, out SafePreparsedDataHandle)" />, that is freed.
+        /// <see cref="HidD_GetPreparsedData(Kernel32.SafeObjectHandle, out SafePreparsedDataHandle)" />, that is freed.
         /// </param>
         /// <returns>TRUE if it succeeds. Otherwise, it returns FALSE if the buffer was not a preparsed data buffer.</returns>
         [DllImport(nameof(Hid), SetLastError = true)]
