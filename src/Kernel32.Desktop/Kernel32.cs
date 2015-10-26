@@ -419,16 +419,16 @@ namespace PInvoke
             public bool bInheritHandle;
         }
 
-        [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential)]
         public struct SECURITY_DESCRIPTOR
         {
             public byte Revision;
             public byte Sbz1;
             public ushort Control;
-            public System.IntPtr Owner;
-            public System.IntPtr Group;
-            public System.IntPtr Sacl;
-            public System.IntPtr Dacl;
+            public IntPtr Owner;
+            public IntPtr Group;
+            public IntPtr Sacl;
+            public IntPtr Dacl;
         }
 
         [StructLayout(LayoutKind.Sequential)]
