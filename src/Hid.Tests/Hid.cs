@@ -2,14 +2,60 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.ComponentModel;
+using Microsoft.Win32.SafeHandles;
 using PInvoke;
 using Xunit;
 using static PInvoke.Hid;
 
 public class Hid
 {
-    [Fact(Skip = "No tests yet")]
-    public void NoTests()
+    [Fact]
+    public void HidD_GetHidGuid_ReturnExpectedValue()
     {
+        // The GUID is a well know value
+        Assert.Equal(HidD_GetHidGuid(), Guid.Parse("4d1e55b2-f16f-11cf-88cb-001111000030"));
+    }
+
+    [Fact]
+    public void HidP_GetCaps_ThrowForInvalidHandle()
+    {
+        Assert.Throws<ArgumentException>(() =>
+            HidP_GetCaps(new SafePreparsedDataHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetManufacturerString_ThrowForInvalidHandle()
+    {
+        Assert.Throws<Win32Exception>(() =>
+            HidD_GetManufacturerString(new SafeFileHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetProductString_ThrowForInvalidHandle()
+    {
+        Assert.Throws<Win32Exception>(() =>
+            HidD_GetProductString(new SafeFileHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetSerialNumberString_ThrowForInvalidHandle()
+    {
+        Assert.Throws<Win32Exception>(() =>
+            HidD_GetSerialNumberString(new SafeFileHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetAttributes_ThrowForInvalidHandle()
+    {
+        Assert.Throws<Win32Exception>(() =>
+            HidD_GetAttributes(new SafeFileHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetPreparsedData_ThrowForInvalidHandle()
+    {
+        Assert.Throws<Win32Exception>(() =>
+            HidD_GetPreparsedData(new SafeFileHandle(new IntPtr(0), false)));
     }
 }
