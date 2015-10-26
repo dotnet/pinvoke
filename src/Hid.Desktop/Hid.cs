@@ -3,9 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
-    using System.Runtime.InteropServices;
-
     /// <content>
     /// Exported functions from the Hid.dll Windows library
     /// that are available to Desktop apps only.
