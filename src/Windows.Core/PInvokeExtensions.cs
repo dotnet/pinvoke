@@ -12,6 +12,16 @@ namespace PInvoke
     public static class PInvokeExtensions
     {
         /// <summary>
+        /// Converts an HRESULT to <see cref="NTStatus"/>
+        /// </summary>
+        /// <param name="hresult">The HRESULT.</param>
+        /// <returns>The <see cref="NTStatus"/>.</returns>
+        public static NTStatus ToNTStatus(int hresult)
+        {
+            return (NTStatus)((hresult & 0xC0007FFF) | ((int)NTStatus.FACILITY_FILTER_MANAGER << 16) | 0x40000000);
+        }
+
+        /// <summary>
         /// Throws an exception if a P/Invoke failed.
         /// </summary>
         /// <param name="status">The result of the P/Invoke call.</param>
