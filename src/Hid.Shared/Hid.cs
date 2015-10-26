@@ -34,7 +34,8 @@ namespace PInvoke
         /// </param>
         /// <returns>TRUE if succeeds; otherwise, it returns FALSE.</returns>
         [DllImport(nameof(Hid), SetLastError = true)]
-        public static extern bool HidD_GetAttributes(SafeFileHandle hidDeviceObject,
+        public static extern bool HidD_GetAttributes(
+            SafeFileHandle hidDeviceObject,
             ref HiddAttributes attributes);
 
         /// <summary>
@@ -56,8 +57,10 @@ namespace PInvoke
         /// maximum string length is 126 wide characters (not including the terminating NULL character).
         /// </remarks>
         [DllImport(nameof(Hid), CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool HidD_GetManufacturerString(SafeFileHandle hidDeviceObject,
-            StringBuilder buffer, int bufferLength);
+        public static extern bool HidD_GetManufacturerString(
+            SafeFileHandle hidDeviceObject,
+            StringBuilder buffer,
+            int bufferLength);
 
         /// <summary>
         /// Returns the embedded string of a top-level collection that identifies the manufacturer's product.
@@ -79,8 +82,10 @@ namespace PInvoke
         /// maximum string length is 126 wide characters (not including the terminating NULL character).
         /// </remarks>
         [DllImport(nameof(Hid), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern bool HidD_GetProductString(SafeFileHandle hidDeviceObject,
-            StringBuilder buffer, int bufferLength);
+        public static extern bool HidD_GetProductString(
+            SafeFileHandle hidDeviceObject,
+            StringBuilder buffer,
+            int bufferLength);
 
         /// <summary>
         /// Returns the embedded string of a top-level collection that identifies the serial number of the collection's physical
@@ -106,8 +111,10 @@ namespace PInvoke
         /// maximum string length is 126 wide characters (not including the terminating NULL character).
         /// </remarks>
         [DllImport(nameof(Hid), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern bool HidD_GetSerialNumberString(SafeFileHandle hidDeviceObject,
-            StringBuilder buffer, int bufferLength);
+        public static extern bool HidD_GetSerialNumberString(
+            SafeFileHandle hidDeviceObject,
+            StringBuilder buffer,
+            int bufferLength);
 
         /// <summary>
         /// Sets the maximum number of input reports that the HID class driver ring buffer can hold for a specified top-level
@@ -134,7 +141,8 @@ namespace PInvoke
         /// </param>
         /// <returns>TRUE if it succeeds; otherwise, it returns FALSE.</returns>
         [DllImport(nameof(Hid), SetLastError = true)]
-        public static extern bool HidD_GetPreparsedData(SafeFileHandle hidDeviceObject,
+        public static extern bool HidD_GetPreparsedData(
+            SafeFileHandle hidDeviceObject,
             out SafePreparsedDataHandle preparsedDataHandle);
 
         /// <summary>

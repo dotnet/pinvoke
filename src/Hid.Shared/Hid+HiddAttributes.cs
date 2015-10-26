@@ -5,6 +5,9 @@ namespace PInvoke
 {
     using System.Runtime.InteropServices;
 
+    /// <content>
+    /// Contains the <see cref="HiddAttributes"/> nested class.
+    /// </content>
     public static partial class Hid
     {
         /// <summary>
@@ -35,7 +38,7 @@ namespace PInvoke
 
             public static HiddAttributes Create()
             {
-                var result = new HiddAttributes();
+                var result = default(HiddAttributes);
                 result.Size = Marshal.SizeOf(result);
                 return result;
             }

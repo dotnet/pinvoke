@@ -5,6 +5,9 @@ namespace PInvoke
 {
     using System.Runtime.InteropServices;
 
+    /// <content>
+    /// Contains the <see cref="HidpCaps"/> nested class.
+    /// </content>
     public static partial class Hid
     {
         /// <summary>
@@ -44,7 +47,7 @@ namespace PInvoke
             /// <summary>
             /// Reserved for internal system use.
             /// </summary>
-            public fixed ushort Reserved [17];
+            public fixed ushort Reserved[17];
 
             /// <summary>
             /// Specifies the number of HIDP_LINK_COLLECTION_NODE structures that are returned for this top-level collection by

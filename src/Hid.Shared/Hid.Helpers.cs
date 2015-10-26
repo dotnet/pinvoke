@@ -4,8 +4,8 @@
 namespace PInvoke
 {
     using System;
-    using System.Runtime.InteropServices;
     using System.ComponentModel;
+    using System.Runtime.InteropServices;
     using System.Text;
     using Microsoft.Win32.SafeHandles;
 
@@ -15,11 +15,6 @@ namespace PInvoke
     /// </content>
     public static partial class Hid
     {
-        // This is where you define methods that assist in calling P/Invoke methods.
-        // For example, if a P/Invoke method requires allocating unmanaged memory
-        // and freeing it up after the call, a helper method in this file would
-        // make "P/Invoking" for most callers much easier and is a welcome addition.
-
         public static Guid HidD_GetHidGuid()
         {
             Guid guid;
@@ -34,6 +29,7 @@ namespace PInvoke
             {
                 throw new Win32Exception();
             }
+
             return result;
         }
 
@@ -58,7 +54,7 @@ namespace PInvoke
 
         public static HidpCaps HidP_GetCaps(SafePreparsedDataHandle preparsedData)
         {
-            var hidCaps = new HidpCaps();
+            var hidCaps = default(HidpCaps);
             var result = HidP_GetCaps(preparsedData, ref hidCaps);
             switch (result)
             {
@@ -70,30 +66,6 @@ namespace PInvoke
 
                 default:
                     throw new InvalidOperationException("Undocumented status returned by HidP_GetCaps: " + result);
-            }
-        }
-
-        static bool GrowBuffer(Func<StringBuilder, bool> nativeMethod, out string result)
-        {
-            // USB Hid maximum size is 126 wide chars + '\0' = 254 bytes, allocating 256 bytes we should never grow
-            // until another HID standard decide otherwise.
-            var stringBuilder = new StringBuilder(256);
-            while (true)
-            {
-                if (nativeMethod(stringBuilder))
-                {
-                    result = stringBuilder.ToString();
-                    return true;
-                }
-
-                var errorCode = (Win32ErrorCode)Marshal.GetLastWin32Error();
-                if (errorCode != Win32ErrorCode.InvalidUserBuffer)
-                {
-                    result = null;
-                    return false;
-                }
-
-                stringBuilder.Capacity = stringBuilder.Capacity * 2;
             }
         }
 
@@ -115,31 +87,58 @@ namespace PInvoke
         public static string HidD_GetManufacturerString(SafeFileHandle hidDeviceObject)
         {
             string result;
-            if (!(HidD_GetManufacturerString(hidDeviceObject, out result)))
+            if (!HidD_GetManufacturerString(hidDeviceObject, out result))
             {
                 throw new Win32Exception();
             }
+
             return result;
         }
 
         public static string HidD_GetProductString(SafeFileHandle hidDeviceObject)
         {
             string result;
-            if (!(HidD_GetProductString(hidDeviceObject, out result)))
+            if (!HidD_GetProductString(hidDeviceObject, out result))
             {
                 throw new Win32Exception();
             }
+
             return result;
         }
 
         public static string HidD_GetSerialNumberString(SafeFileHandle hidDeviceObject)
         {
             string result;
-            if (!(HidD_GetSerialNumberString(hidDeviceObject, out result)))
+            if (!HidD_GetSerialNumberString(hidDeviceObject, out result))
             {
                 throw new Win32Exception();
             }
+
             return result;
+        }
+
+        private static bool GrowBuffer(Func<StringBuilder, bool> nativeMethod, out string result)
+        {
+            // USB Hid maximum size is 126 wide chars + '\0' = 254 bytes, allocating 256 bytes we should never grow
+            // until another HID standard decide otherwise.
+            var stringBuilder = new StringBuilder(256);
+            while (true)
+            {
+                if (nativeMethod(stringBuilder))
+                {
+                    result = stringBuilder.ToString();
+                    return true;
+                }
+
+                var errorCode = (Win32ErrorCode)Marshal.GetLastWin32Error();
+                if (errorCode != Win32ErrorCode.InvalidUserBuffer)
+                {
+                    result = null;
+                    return false;
+                }
+
+                stringBuilder.Capacity = stringBuilder.Capacity * 2;
+            }
         }
     }
 }
