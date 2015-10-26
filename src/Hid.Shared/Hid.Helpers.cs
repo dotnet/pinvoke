@@ -57,7 +57,7 @@ namespace PInvoke
 
                 default:
                     result.ThrowOnError();
-                    return default(HidpCaps);
+                    throw new InvalidOperationException("HidP_GetCaps returned an unexpected success value");
             }
         }
 
