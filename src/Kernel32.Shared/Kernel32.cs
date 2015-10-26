@@ -13,6 +13,11 @@ namespace PInvoke
     public static partial class Kernel32
     {
         /// <summary>
+        /// The maximum length of file paths for most Win32 functions.
+        /// </summary>
+        public const int MAX_PATH = 260;
+
+        /// <summary>
         /// Constant for invalid handle value
         /// </summary>
         public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
@@ -50,7 +55,7 @@ namespace PInvoke
 
         /// <summary>
         /// Searches a directory for a file or subdirectory with a name and attributes that match those specified.
-        /// For the most basic version of this function, see <see cref="FindFirstFile"/>.
+        /// For the most basic version of this function, see FindFirstFile.
         /// To perform this operation as a transacted operation, use the FindFirstFileTransacted function.
         /// </summary>
         /// <param name="lpFileName">
@@ -60,11 +65,11 @@ namespace PInvoke
         /// In the ANSI version of this function, the name is limited to MAX_PATH characters. To extend this limit to approximately 32,000 wide characters, call the Unicode version of the function and prepend "\\?\" to the path. For more information, see Naming a File.
         /// </param>
         /// <param name="fInfoLevelId">
-        /// The information level of the returned data. 
+        /// The information level of the returned data.
         /// This parameter is one of the <see cref="FINDEX_INFO_LEVELS"/> enumeration values.
         /// </param>
         /// <param name="lpFindFileData">
-        /// A pointer to the buffer that receives the file data. 
+        /// A pointer to the buffer that receives the file data.
         /// The pointer type is determined by the level of information that is specified in the <paramref name="fInfoLevelId"/> parameter.
         /// </param>
         /// <param name="fSearchOp">

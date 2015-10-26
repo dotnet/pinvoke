@@ -10,6 +10,25 @@ using static PInvoke.Kernel32;
 public class Kernel32
 {
     [Fact]
+    public void CreateFile_DeleteOnClose()
+    {
+        string testPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+        using (var tempFileHandle = CreateFile(
+            testPath,
+            PInvoke.Kernel32.FileAccess.GenericWrite,
+            PInvoke.Kernel32.FileShare.Read,
+            IntPtr.Zero,
+            CreationDisposition.CreateAlways,
+            CreateFileFlags.DeleteOnCloseFlag,
+            new SafeObjectHandle()))
+        {
+            Assert.True(File.Exists(testPath));
+        }
+
+        Assert.False(File.Exists(testPath));
+    }
+
+    [Fact]
     public void FindFirstFile_NoMatches()
     {
         WIN32_FIND_DATA data;
