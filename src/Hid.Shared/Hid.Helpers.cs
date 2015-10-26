@@ -131,7 +131,7 @@ namespace PInvoke
                 }
 
                 var errorCode = (Win32ErrorCode)Marshal.GetLastWin32Error();
-                if (errorCode != Win32ErrorCode.InvalidUserBuffer)
+                if (errorCode != Win32ErrorCode.ERROR_INVALID_USER_BUFFER)
                 {
                     result = null;
                     return false;
