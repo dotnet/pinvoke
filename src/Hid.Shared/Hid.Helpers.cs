@@ -44,14 +44,6 @@ namespace PInvoke
             return preparsedDataHandle;
         }
 
-        public static void HidD_SetNumInputBuffersEx(SafeFileHandle hidDeviceObject, uint numberBuffers)
-        {
-            if (!HidD_SetNumInputBuffers(hidDeviceObject, numberBuffers))
-            {
-                throw new Win32Exception();
-            }
-        }
-
         public static HidpCaps HidP_GetCaps(SafePreparsedDataHandle preparsedData)
         {
             var hidCaps = default(HidpCaps);
