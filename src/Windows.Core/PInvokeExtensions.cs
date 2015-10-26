@@ -19,17 +19,17 @@ namespace PInvoke
         {
             switch (status)
             {
-                case NTStatus.Success:
+                case NTStatus.STATUS_SUCCESS:
                     break;
-                case NTStatus.InvalidHandle:
+                case NTStatus.STATUS_INVALID_HANDLE:
                     throw new ArgumentException("Invalid handle");
-                case NTStatus.InvalidParameter:
+                case NTStatus.STATUS_INVALID_PARAMETER:
                     throw new ArgumentException();
-                case NTStatus.NotFound:
+                case NTStatus.STATUS_NOT_FOUND:
                     throw new ArgumentException("Not found");
-                case NTStatus.NoMemory:
+                case NTStatus.STATUS_NO_MEMORY:
                     throw new OutOfMemoryException();
-                case NTStatus.NotSupported:
+                case NTStatus.STATUS_NOT_SUPPORTED:
                     throw new NotSupportedException();
                 default:
                     if ((int)status < 0)

@@ -47,6 +47,13 @@ Powershell cmdlet to create the projects necessary to support it and follow the 
  * Prefer `enum` types over `int` or `uint` flags. Generally, name flags enums as `METHODNAMEFlags`, for example
    `CreateFileFlags` for the flags that are passed to `CreateFile`.
 
+### Helper methods
+
+ * When a P/Invoke method signature is particularly
+ * Helper methods should *not* be created merely for purposes of translating an error code to an exception.
+   But if a helper method exists for other reasons, it *may* be appropriate to throw instead of return
+   an error code. 
+
 ## Self-service releases for contributors
 
 As soon as you send a pull request, a build is executed and updated NuGet packages
