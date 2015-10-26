@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the nested <see cref="FileAttributes"/> type.
+    /// Contains the nested <see cref="FileAttribute"/> type.
     /// </content>
     public static partial class Kernel32
     {
@@ -17,9 +17,11 @@ namespace PInvoke
         /// This is similar to the System.IO.FileAttributes enum, but that enum
         /// is not available in the portable profile, although it is allowed to call
         /// certain file methods via P/Invoke in Windows Store apps, per MSDN docs.
+        /// A value typed as this enum may be safely cast to the System.IO.FileAttributes
+        /// enum, as all the value names have equal ordinal values.
         /// </remarks>
         [Flags]
-        public enum FileAttributes
+        public enum FileAttribute
         {
             /// <summary>
             /// A file or directory that is an archive file or directory. Applications typically use this attribute to mark files for backup or removal.

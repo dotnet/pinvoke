@@ -9,6 +9,7 @@
     <Import_RootNamespace>PInvoke.Kernel32.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FileAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeFindFilesHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeObjectHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs" />

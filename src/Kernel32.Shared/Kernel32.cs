@@ -4,7 +4,6 @@
 namespace PInvoke
 {
     using System;
-    using System.IO;
     using System.Runtime.InteropServices;
     using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 
@@ -112,7 +111,12 @@ namespace PInvoke
             /// <summary>
             /// The file attributes of a file.
             /// </summary>
-            public FileAttributes dwFileAttributes;
+            /// <remarks>
+            /// Although the enum we bind to here exists in the .NET Framework
+            /// as System.IO.FileAttributes, it is not reliably present.
+            /// Portable profiles don't include it, for example. So we have to define our own.
+            /// </remarks>
+            public FileAttribute dwFileAttributes;
 
             /// <summary>
             /// A FILETIME structure that specifies when a file or directory was created.
