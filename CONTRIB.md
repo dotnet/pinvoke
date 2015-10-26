@@ -6,6 +6,15 @@ Please send pull requests to add what you've come up with.
 
 ## Guidelines
 
+### Learn how to write P/Invoke signatures
+
+The [sigimp tool][SigImp] will automatically generate P/Invoke signatures for most Win32 functions
+and interop types. Use it to save time and improve accuracy as we collect these signatures into these
+reusable libraries. But try to cut down the verbose output that may be produced by a tool.
+
+Remember whether you write the signatures yourself or use a tool, to follow the rest of the guidelines
+in this document.
+
 ### Project structure
 
  * One class library and NuGet package per P/Invoke'd DLL.
@@ -64,3 +73,5 @@ Take care to set the package version such that it exactly matches the AppVeyor b
 for your pull request. You can get the version number by reviewing the result of the
 validation build for your pull request, clicking ARTIFACTS, and noting the version
 of the produced packages.
+
+[SigImp]: http://blogs.msdn.com/b/vbteam/archive/2008/03/14/making-pinvoke-easy.aspx
