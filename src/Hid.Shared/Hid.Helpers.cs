@@ -57,7 +57,8 @@ namespace PInvoke
                     throw new ArgumentException("The specified preparsed data is invalid.", nameof(preparsedData));
 
                 default:
-                    throw new InvalidOperationException("Undocumented status returned by HidP_GetCaps: " + result);
+                    result.ThrowOnError();
+                    return default(HidpCaps);
             }
         }
 
