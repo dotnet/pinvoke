@@ -1,0 +1,61 @@
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using Xunit;
+using static PInvoke.Hid;
+using static PInvoke.Kernel32;
+
+public class Hid
+{
+    [Fact]
+    public void HidD_GetHidGuid_ReturnExpectedValue()
+    {
+        // The GUID is a well know value
+        Assert.Equal(HidD_GetHidGuid(), Guid.Parse("4d1e55b2-f16f-11cf-88cb-001111000030"));
+    }
+
+    [Fact]
+    public void HidP_GetCaps_ThrowForInvalidHandle()
+    {
+        Assert.Throws<ArgumentException>(() =>
+            HidP_GetCaps(new SafePreparsedDataHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetManufacturerString_ThrowForInvalidHandle()
+    {
+        Assert.Throws<COMException>(() =>
+            HidD_GetManufacturerString(new SafeObjectHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetProductString_ThrowForInvalidHandle()
+    {
+        Assert.Throws<COMException>(() =>
+            HidD_GetProductString(new SafeObjectHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetSerialNumberString_ThrowForInvalidHandle()
+    {
+        Assert.Throws<COMException>(() =>
+            HidD_GetSerialNumberString(new SafeObjectHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetAttributes_ThrowForInvalidHandle()
+    {
+        Assert.Throws<COMException>(() =>
+            HidD_GetAttributes(new SafeObjectHandle(new IntPtr(0), false)));
+    }
+
+    [Fact]
+    public void HidD_GetPreparsedData_ThrowForInvalidHandle()
+    {
+        Assert.Throws<COMException>(() =>
+            HidD_GetPreparsedData(new SafeObjectHandle(new IntPtr(0), false)));
+    }
+}

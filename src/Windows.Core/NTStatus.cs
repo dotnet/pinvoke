@@ -7427,5 +7427,25 @@ namespace PInvoke
 
         /// <summary>The requested operation cannot be performed on the virtual disk as it is currently used in shared mode.</summary>
         STATUS_VHD_SHARED = 0xC05CFF0A,
+
+        HIDP_STATUS_SUCCESS = NTStatusSeverity.Success | NTStatusFacilities.HidErrorCode | 0,
+        HIDP_STATUS_NULL = NTStatusSeverity.Warning | NTStatusFacilities.HidErrorCode | 1,
+        HIDP_STATUS_INVALID_PREPARSED_DATA = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 1,
+        HIDP_STATUS_INVALID_REPORT_TYPE = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 2,
+        HIDP_STATUS_INVALID_REPORT_LENGTH = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 3,
+        HIDP_STATUS_USAGE_NOT_FOUND = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 4,
+        HIDP_STATUS_VALUE_OUT_OF_RANGE = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 5,
+        HIDP_STATUS_BAD_LOG_PHY_VALUES = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 6,
+        HIDP_STATUS_BUFFER_TOO_SMALL = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 7,
+        HIDP_STATUS_INTERNAL_ERROR = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 8,
+        HIDP_STATUS_I8042_TRANS_UNKNOWN = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 9,
+        HIDP_STATUS_INCOMPATIBLE_REPORT_ID = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 0xA,
+        HIDP_STATUS_NOT_VALUE_ARRAY = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 0xB,
+        HIDP_STATUS_IS_VALUE_ARRAY = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 0xC,
+        HIDP_STATUS_DATA_INDEX_NOT_FOUND = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 0xD,
+        HIDP_STATUS_DATA_INDEX_OUT_OF_RANGE = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 0xE,
+        HIDP_STATUS_BUTTON_NOT_PRESSED = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 0xF,
+        HIDP_STATUS_REPORT_DOES_NOT_EXIST = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 0x10,
+        HIDP_STATUS_NOT_IMPLEMENTED = NTStatusSeverity.Error | NTStatusFacilities.HidErrorCode | 0x20,
     }
 }
