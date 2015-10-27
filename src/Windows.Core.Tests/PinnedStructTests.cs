@@ -32,4 +32,12 @@ public class PinnedStructTests
         Assert.Throws<ObjectDisposedException>(() => pinnedNumber.HasValue);
         Assert.Throws<ObjectDisposedException>(() => pinnedNumber.Value);
     }
+
+    [Fact]
+    public void DisposeTwice()
+    {
+        var pinnedValue = 5.Pin();
+        pinnedValue.Dispose();
+        pinnedValue.Dispose();
+    }
 }

@@ -27,6 +27,11 @@ namespace PInvoke
         /// <summary>
         /// The handle that is pinning <see cref="Value"/> in memory.
         /// </summary>
+        /// <devremarks>
+        /// Do NOT make this a readonly field. The <see cref="GCHandle.Free"/> method
+        /// mutates the struct's value and if the field is readonly it will mutate
+        /// a volatile copy instead of modifying this field in place.
+        /// </devremarks>
         private GCHandle? gcHandle;
 
         /// <summary>
