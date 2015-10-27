@@ -17,7 +17,7 @@ namespace PInvoke
         /// <summary>
         /// The fixed pointer to the struct, or <see cref="IntPtr.Zero"/> if no struct was provided.
         /// </summary>
-        private readonly IntPtr intPtr;
+        private readonly IntPtr valuePointer;
 
         /// <summary>
         /// A value indicating whether this instance has already been disposed.
@@ -39,7 +39,7 @@ namespace PInvoke
             {
                 object box = value.Value;
                 this.gcHandle = GCHandle.Alloc(box, GCHandleType.Pinned);
-                this.intPtr = this.gcHandle.Value.AddrOfPinnedObject();
+                this.valuePointer = this.gcHandle.Value.AddrOfPinnedObject();
             }
 
             this.disposed = false;
@@ -57,12 +57,12 @@ namespace PInvoke
         /// Gets a pointer to the value on the heap if this instance holds a value
         /// or <see cref="IntPtr.Zero" /> otherwise.
         /// </summary>
-        public IntPtr IntPtr
+        public IntPtr ValuePointer
         {
             get
             {
                 this.ThrowIfDisposed();
-                return this.intPtr;
+                return this.valuePointer;
             }
         }
 

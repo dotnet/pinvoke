@@ -37,7 +37,7 @@ namespace PInvoke
         {
             using (var pinnedClassGuid = classGuid.Pin())
             {
-                return SetupDiGetClassDevs(pinnedClassGuid.IntPtr, enumerator, hwndParent, flags);
+                return SetupDiGetClassDevs(pinnedClassGuid.ValuePointer, enumerator, hwndParent, flags);
             }
         }
 
@@ -55,7 +55,7 @@ namespace PInvoke
 
                     var result = SetupDiEnumDeviceInterfaces(
                         lpDeviceInfoSet,
-                        pinnedDeviceInfoData.IntPtr,
+                        pinnedDeviceInfoData.ValuePointer,
                         ref interfaceClassGuid,
                         index,
                         ref data);
@@ -90,7 +90,7 @@ namespace PInvoke
                     ref oInterfaceData,
                     IntPtr.Zero,
                     0,
-                    requiredSize.IntPtr,
+                    requiredSize.ValuePointer,
                     IntPtr.Zero);
 
                 var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();

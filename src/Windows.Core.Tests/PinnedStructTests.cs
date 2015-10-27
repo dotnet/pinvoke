@@ -14,7 +14,7 @@ public class PinnedStructTests
         var pinnedNumber = number.Pin();
         Assert.False(pinnedNumber.HasValue);
         Assert.Throws<InvalidOperationException>(() => pinnedNumber.Value);
-        Assert.Equal(IntPtr.Zero, pinnedNumber.IntPtr);
+        Assert.Equal(IntPtr.Zero, pinnedNumber.ValuePointer);
         pinnedNumber.Dispose();
         Assert.Throws<ObjectDisposedException>(() => pinnedNumber.HasValue);
         Assert.Throws<ObjectDisposedException>(() => pinnedNumber.Value);
@@ -27,7 +27,7 @@ public class PinnedStructTests
         var pinnedNumber = number.Pin();
         Assert.True(pinnedNumber.HasValue);
         Assert.Equal(5, pinnedNumber.Value);
-        Assert.NotEqual(IntPtr.Zero, pinnedNumber.IntPtr);
+        Assert.NotEqual(IntPtr.Zero, pinnedNumber.ValuePointer);
         pinnedNumber.Dispose();
         Assert.Throws<ObjectDisposedException>(() => pinnedNumber.HasValue);
         Assert.Throws<ObjectDisposedException>(() => pinnedNumber.Value);
