@@ -53,10 +53,10 @@ namespace PInvoke
         /// If the operation succeeds, SetupDiGetClassDevs returns a handle to a device information set that contains all
         /// installed devices that matched the supplied parameters. If the operation fails, the function returns an invalid handle.
         /// </returns>
-        [DllImport(nameof(SetupApi), SetLastError = true)]
+        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeDeviceInfoSetHandle SetupDiGetClassDevs(
             IntPtr classGuid,
-            [MarshalAs(UnmanagedType.LPStr)] string enumerator,
+            string enumerator,
             IntPtr hwndParent,
             GetClassDevsFlags flags);
 
@@ -146,7 +146,7 @@ namespace PInvoke
         /// error, <see langword="false" /> is returned and the error code for the failure can be retrieved by calling
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
-        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(SetupApi), SetLastError = true)]
         public static extern bool SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
             ref DeviceInterfaceData deviceInterfaceData,

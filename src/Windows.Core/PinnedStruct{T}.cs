@@ -7,7 +7,8 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Allocate a structure on the heap and pin it in place, allowing a controlled release (Via Dispose).
+    /// Allocate a structure on the heap and pin it in place, allowing a controlled release (Via
+    /// <see cref="PinnedStruct{T}.Dispose" />).
     /// </summary>
     /// <typeparam name="T">Type of the structure that will be pinned.</typeparam>
     public class PinnedStruct<T> : IDisposable
@@ -26,15 +27,18 @@ namespace PInvoke
                 this.gcHandle = GCHandle.Alloc(box, GCHandleType.Pinned);
                 this.intPtr = this.gcHandle.Value.AddrOfPinnedObject();
             }
-            else
-            {
-                this.gcHandle = null;
-                this.intPtr = IntPtr.Zero;
-            }
 
             this.disposed = false;
         }
 
+        ~PinnedStruct()
+        {
+            this.Free();
+        }
+
+        /// <summary>
+        /// Get a pointer to the value on the heap if this instance hold a value or <see cref="IntPtr.Zero" /> otherwise.
+        /// </summary>
         public IntPtr IntPtr
         {
             get
@@ -44,6 +48,9 @@ namespace PInvoke
             }
         }
 
+        /// <summary>
+        /// Get if this instance hold a value.
+        /// </summary>
         public bool HasValue
         {
             get
@@ -53,6 +60,13 @@ namespace PInvoke
             }
         }
 
+        /// <summary>
+        /// Get a copy of the value currently pinned by this instance if it exists.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// If this instance doesn't hold a value (<see cref="HasValue" /> =
+        /// <see langword="false" />)
+        /// </exception>
         public T Value
         {
             get
@@ -68,21 +82,30 @@ namespace PInvoke
             }
         }
 
+        /// <summary>
+        /// Un-pin the object held by this instance.
+        /// </summary>
         public void Dispose()
+        {
+            this.Free();
+
+            this.disposed = true;
+            GC.SuppressFinalize(this);
+        }
+
+        private void Free()
         {
             if (this.gcHandle.HasValue && !this.disposed)
             {
                 this.gcHandle.Value.Free();
             }
-
-            this.disposed = true;
         }
 
         private void ThrowIfDisposed()
         {
             if (this.disposed)
             {
-                throw new ObjectDisposedException("PinnedStruct");
+                throw new ObjectDisposedException(nameof(PinnedStruct<T>));
             }
         }
     }
