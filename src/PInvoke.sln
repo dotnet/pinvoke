@@ -65,6 +65,8 @@ Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "SetupApi.NuGet", "SetupApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupApi.Tests", "SetupApi.Tests\SetupApi.Tests.csproj", "{05468C6E-B6EB-45E9-9F3D-66207D9EFD41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Core.Tests", "Windows.Core.Tests\Windows.Core.Tests.csproj", "{A44BC3C8-52A5-4372-8365-0C22FCB9E568}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Hid.Shared\Hid.Shared.projitems*{66c709c8-3ace-4e27-aee0-ec22d9f029d8}*SharedItemsImports = 4
@@ -155,6 +157,10 @@ Global
 		{05468C6E-B6EB-45E9-9F3D-66207D9EFD41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05468C6E-B6EB-45E9-9F3D-66207D9EFD41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05468C6E-B6EB-45E9-9F3D-66207D9EFD41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
