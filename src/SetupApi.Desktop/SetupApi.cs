@@ -120,8 +120,8 @@ namespace PInvoke
         /// <param name="deviceInterfaceDetailData">
         /// A pointer to an SP_DEVICE_INTERFACE_DETAIL_DATA structure to receive
         /// information about the specified interface. This parameter is optional and can be <see langword="null" />. This
-        /// parameter must be <see langword="null" /> if DeviceInterfaceDetailSize is zero. If this parameter is specified, the
-        /// caller must set DeviceInterfaceDetailData.cbSize to sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA) before calling this
+        /// parameter must be <see langword="null" /> if <paramref name="deviceInterfaceDetailDataSize"/> is zero. If this parameter is specified, the
+        /// caller must set <paramref name="deviceInterfaceDetailData"/>.cbSize to sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA) before calling this
         /// function. The cbSize member always contains the size of the fixed part of the data structure, not a size reflecting the
         /// variable-length string at the end.
         /// </param>
@@ -165,7 +165,7 @@ namespace PInvoke
         /// </param>
         /// <param name="memberIndex">A zero-based index of the device information element to retrieve.</param>
         /// <param name="deviceInfoData">
-        /// A pointer to an SP_DEVINFO_DATA structure to receive information about an enumerated
+        /// A pointer to an <see cref="DeviceInfoData"/> structure to receive information about an enumerated
         /// device information element. The caller must set <see cref="DeviceInfoData.Size" /> before calling this function either
         /// manually or via <see cref="DeviceInfoData.Create" />.
         /// </param>
