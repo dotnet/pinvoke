@@ -3,11 +3,14 @@
 
 namespace PInvoke
 {
+    /// <summary>
+    /// Extension methods for working with the <see cref="PinnedStruct{T}"/> type.
+    /// </summary>
     public static class PinnedStructExtensions
     {
         /// <summary>
-        /// Allocate a copy of the structure on the heap and pin it in place, allowing a controlled release (Via
-        /// <see cref="PinnedStruct{T}.Dispose" />).
+        /// Allocate a copy of the structure on the heap and pin it in place, allowing a controlled release (via
+        /// <see cref="PinnedStruct{T}.Dispose()" />).
         /// </summary>
         /// <typeparam name="T">Type of the structure to Pin.</typeparam>
         /// <param name="value">The value that will be pinned.</param>
@@ -19,8 +22,8 @@ namespace PInvoke
         }
 
         /// <summary>
-        /// Allocate a copy of the structure on the heap if <paramref name="value" /> contain something and pin it in place,
-        /// allowing a controlled release (Via <see cref="PinnedStruct{T}.Dispose" />).
+        /// Allocate a copy of the structure on the heap if <paramref name="value" /> is non-null and pin it in place,
+        /// allowing a controlled release (Via <see cref="PinnedStruct{T}.Dispose()" />).
         /// If it doesn't contain anything the returned value will represent a <see langword="null" /> pointer.
         /// </summary>
         /// <typeparam name="T">Type of the structure to Pin.</typeparam>

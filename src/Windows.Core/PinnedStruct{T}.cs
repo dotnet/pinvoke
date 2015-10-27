@@ -8,17 +8,31 @@ namespace PInvoke
 
     /// <summary>
     /// Allocate a structure on the heap and pin it in place, allowing a controlled release (Via
-    /// <see cref="PinnedStruct{T}.Dispose" />).
+    /// <see cref="PinnedStruct{T}.Dispose()" />).
     /// </summary>
     /// <typeparam name="T">Type of the structure that will be pinned.</typeparam>
     public class PinnedStruct<T> : IDisposable
         where T : struct
     {
+        /// <summary>
+        /// The fixed pointer to the struct, or <see cref="IntPtr.Zero"/> if no struct was provided.
+        /// </summary>
         private readonly IntPtr intPtr;
 
+        /// <summary>
+        /// A value indicating whether this instance has already been disposed.
+        /// </summary>
         private bool disposed;
+
+        /// <summary>
+        /// The handle that is pinning <see cref="Value"/> in memory.
+        /// </summary>
         private GCHandle? gcHandle;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PinnedStruct{T}"/> class.
+        /// </summary>
+        /// <param name="value">The optional struct to pass to native code.</param>
         public PinnedStruct(T? value)
         {
             if (value.HasValue)
@@ -31,13 +45,17 @@ namespace PInvoke
             this.disposed = false;
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="PinnedStruct{T}"/> class.
+        /// </summary>
         ~PinnedStruct()
         {
-            this.Free();
+            this.Dispose(false);
         }
 
         /// <summary>
-        /// Get a pointer to the value on the heap if this instance hold a value or <see cref="IntPtr.Zero" /> otherwise.
+        /// Gets a pointer to the value on the heap if this instance holds a value
+        /// or <see cref="IntPtr.Zero" /> otherwise.
         /// </summary>
         public IntPtr IntPtr
         {
@@ -49,7 +67,7 @@ namespace PInvoke
         }
 
         /// <summary>
-        /// Get if this instance hold a value.
+        /// Get a value indicating whether this instance was initialized with a value.
         /// </summary>
         public bool HasValue
         {
@@ -87,20 +105,30 @@ namespace PInvoke
         /// </summary>
         public void Dispose()
         {
-            this.Free();
-
-            this.disposed = true;
-            GC.SuppressFinalize(this);
+            this.Dispose(true);
         }
 
-        private void Free()
+        /// <summary>
+        /// Disposes of managed and native resources owned by this instance.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> if this object is being disposed of; <c>false</c> if the object is being finalized.</param>
+        protected virtual void Dispose(bool disposing)
         {
             if (this.gcHandle.HasValue && !this.disposed)
             {
                 this.gcHandle.Value.Free();
             }
+
+            if (disposing)
+            {
+                this.disposed = true;
+                GC.SuppressFinalize(this);
+            }
         }
 
+        /// <summary>
+        /// Throws an <see cref="ObjectDisposedException"/> if this instance has already been disposed.
+        /// </summary>
         private void ThrowIfDisposed()
         {
             if (this.disposed)
