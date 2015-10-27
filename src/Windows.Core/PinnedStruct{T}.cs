@@ -33,7 +33,7 @@ namespace PInvoke
 
         ~PinnedStruct()
         {
-            this.Free();
+            this.Dispose(false);
         }
 
         /// <summary>
@@ -87,18 +87,20 @@ namespace PInvoke
         /// </summary>
         public void Dispose()
         {
-            this.Free();
-
-            this.disposed = true;
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        private void Free()
+        protected virtual void Dispose(bool disposing)
         {
-            if (this.gcHandle.HasValue && !this.disposed)
+            if (this.disposed)
             {
-                this.gcHandle.Value.Free();
+                return;
             }
+
+            this.gcHandle?.Free();
+
+            this.disposed = true;
         }
 
         private void ThrowIfDisposed()
