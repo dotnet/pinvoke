@@ -45,6 +45,7 @@
     <Compile Include="SetupApi+SafeDeviceInfoListHandle.cs" />
     <Compile Include="SetupApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetupApi.Helpers.cs" />
   </ItemGroup>
   <Import Project="..\SetupApi.Shared\SetupApi.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
