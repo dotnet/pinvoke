@@ -146,7 +146,7 @@ namespace PInvoke
         /// error, <see langword="false" /> is returned and the error code for the failure can be retrieved by calling
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
-        [DllImport(nameof(SetupApi), SetLastError = true)]
+        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
             ref DeviceInterfaceData deviceInterfaceData,
