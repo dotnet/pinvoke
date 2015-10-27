@@ -59,13 +59,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hid.Tests", "Hid.Tests\Hid.
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Hid.Shared", "Hid.Shared\Hid.Shared.shproj", "{41DD8EDD-D861-41C0-A496-2EEA17C49180}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupApi", "SetupApi\SetupApi.csproj", "{BEA4A926-7D34-4DBF-87D7-9BFFB17A001E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupApi.Desktop", "SetupApi.Desktop\SetupApi.Desktop.csproj", "{A530587B-C0CD-408C-9FE1-AA3D36B760A0}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "SetupApi.NuGet", "SetupApi.NuGet\SetupApi.NuGet.nuproj", "{86693529-7B31-4209-8638-136CA7B0C3A2}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SetupApi.Shared", "SetupApi.Shared\SetupApi.Shared.shproj", "{43CEEF74-255D-486B-B35B-8ED33669F0D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupApi.Tests", "SetupApi.Tests\SetupApi.Tests.csproj", "{05468C6E-B6EB-45E9-9F3D-66207D9EFD41}"
 EndProject
@@ -73,13 +69,10 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Hid.Shared\Hid.Shared.projitems*{66c709c8-3ace-4e27-aee0-ec22d9f029d8}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{41dd8edd-d861-41c0-a496-2eea17c49180}*SharedItemsImports = 13
-		SetupApi.Shared\SetupApi.Shared.projitems*{a530587b-c0cd-408c-9fe1-aa3d36b760a0}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{26aba748-b311-4094-9231-7490894e1157}*SharedItemsImports = 4
-		SetupApi.Shared\SetupApi.Shared.projitems*{43ceef74-255d-486b-b35b-8ed33669f0d8}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}*SharedItemsImports = 4
-		SetupApi.Shared\SetupApi.Shared.projitems*{bea4a926-7d34-4dbf-87d7-9bffb17a001e}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,10 +143,6 @@ Global
 		{6C21E31E-6E71-4CB8-8495-CC841B19947F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C21E31E-6E71-4CB8-8495-CC841B19947F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C21E31E-6E71-4CB8-8495-CC841B19947F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BEA4A926-7D34-4DBF-87D7-9BFFB17A001E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BEA4A926-7D34-4DBF-87D7-9BFFB17A001E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BEA4A926-7D34-4DBF-87D7-9BFFB17A001E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEA4A926-7D34-4DBF-87D7-9BFFB17A001E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A530587B-C0CD-408C-9FE1-AA3D36B760A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A530587B-C0CD-408C-9FE1-AA3D36B760A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A530587B-C0CD-408C-9FE1-AA3D36B760A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
