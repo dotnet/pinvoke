@@ -27,6 +27,8 @@
     <Compile Include="NTStatus.cs" />
     <Compile Include="NTStatusFacilities.cs" />
     <Compile Include="NTStatusSeverity.cs" />
+    <Compile Include="PinnedStructExtensions.cs" />
+    <Compile Include="PinnedStruct{T}.cs" />
     <Compile Include="PInvokeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Win32ErrorCode.cs" />
