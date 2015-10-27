@@ -65,7 +65,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="deviceInfoSet">
         /// A pointer to a device information set that contains the device interfaces for which to
-        /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs" />.
+        /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs(IntPtr,string,IntPtr,GetClassDevsFlags)" />.
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to an <see cref="DeviceInfoData" /> structure that specifies a device
@@ -110,12 +110,12 @@ namespace PInvoke
         /// </summary>
         /// <param name="deviceInfoSet">
         /// A pointer to a device information set that contains the device interfaces for which to
-        /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs" />.
+        /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs(IntPtr,string,IntPtr,GetClassDevsFlags)" />.
         /// </param>
         /// <param name="deviceInterfaceData">
         /// A pointer to an <see cref="DeviceInterfaceData" /> structure that specifies the
         /// interface in DeviceInfoSet for which to retrieve details. A pointer of this type is typically returned by
-        /// <see cref="SetupDiEnumDeviceInterfaces" />.
+        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,IntPtr,ref Guid,uint,ref DeviceInterfaceData)" />.
         /// </param>
         /// <param name="deviceInterfaceDetailData">
         /// A pointer to an SP_DEVICE_INTERFACE_DETAIL_DATA structure to receive

@@ -13,7 +13,7 @@ namespace PInvoke
     {
         /// <summary>
         /// Control options that filter the device information elements that are added to the device information set by
-        /// <see cref="SetupDiGetClassDevs" />
+        /// <see cref="SetupDiGetClassDevs(IntPtr,string,IntPtr,GetClassDevsFlags)" />
         /// </summary>
         [Flags]
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Original API names are used for consistency")]
