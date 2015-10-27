@@ -84,8 +84,14 @@ namespace PInvoke
         {
             using (var requiredSize = new PinnedStruct<uint>(0))
             {
-                SetupDiGetDeviceInterfaceDetail(lpDeviceInfoSet, ref oInterfaceData, IntPtr.Zero,
-                    0, requiredSize.IntPtr, IntPtr.Zero);
+                // First call to get the size to allocate
+                SetupDiGetDeviceInterfaceDetail(
+                    lpDeviceInfoSet,
+                    ref oInterfaceData,
+                    IntPtr.Zero,
+                    0,
+                    requiredSize.IntPtr,
+                    IntPtr.Zero);
 
                 var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
 
@@ -101,6 +107,7 @@ namespace PInvoke
                 {
                     Marshal.WriteInt32(buffer, DeviceInterfaceDetailDataSize.Value);
 
+                    // Second call to get the value
                     var success = SetupDiGetDeviceInterfaceDetail(
                         lpDeviceInfoSet,
                         ref oInterfaceData,
