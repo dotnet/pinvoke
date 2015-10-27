@@ -34,6 +34,7 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kernel32.NuGet\Kernel32.NuGet.nuproj" />
     <ProjectReference Include="..\SetupApi\SetupApi.csproj" />
     <ProjectReference Include="..\SetupApi.Desktop\SetupApi.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
