@@ -4,25 +4,24 @@
 namespace PInvoke
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="DeviceInfoData"/> nested struct.
+    /// Contains the <see cref="DeviceInfoData" /> nested struct.
     /// </content>
     public partial class SetupApi
     {
         /// <summary>
         /// Defines a device instance that is a member of a device information set.
         /// </summary>
+        [SuppressMessage(
+            "StyleCop.CSharp.MaintainabilityRules",
+            "SA1401:Fields must be private",
+            Justification = "Used in DllImport Marshaling.")]
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct DeviceInfoData
+        public class DeviceInfoData
         {
-            /// <summary>
-            /// The size, in bytes, of the <see cref="DeviceInfoData" /> structure. <see cref="Create" /> set this value automatically
-            /// to the correct value.
-            /// </summary>
-            public uint Size;
-
             /// <summary>
             /// The GUID of the device's setup class.
             /// </summary>
@@ -44,14 +43,18 @@ namespace PInvoke
             public IntPtr Reserved;
 
             /// <summary>
-            /// Create an instance with <see cref="Size" /> set to the correct value.
+            /// The size, in bytes, of the <see cref="DeviceInfoData" /> structure. The constructor set this value automatically
+            /// to the correct size.
             /// </summary>
-            /// <returns>An instance of <see cref="DeviceInfoData" /> with it's <see cref="Size" /> member set.</returns>
-            public static DeviceInfoData Create()
+            public uint Size;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="DeviceInfoData" /> class with <see cref="Size" /> set to the correct
+            /// value.
+            /// </summary>
+            public DeviceInfoData()
             {
-                var result = default(DeviceInfoData);
-                result.Size = (uint)Marshal.SizeOf(result);
-                return result;
+                this.Size = (uint)Marshal.SizeOf(this);
             }
         }
     }

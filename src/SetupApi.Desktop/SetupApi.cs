@@ -55,7 +55,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeDeviceInfoSetHandle SetupDiGetClassDevs(
-            IntPtr classGuid,
+            NullableGuid classGuid,
             string enumerator,
             IntPtr hwndParent,
             GetClassDevsFlags flags);
@@ -65,7 +65,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="deviceInfoSet">
         /// A pointer to a device information set that contains the device interfaces for which to
-        /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs(IntPtr,string,IntPtr,GetClassDevsFlags)" />.
+        /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs(NullableGuid,string,IntPtr,GetClassDevsFlags)" />.
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to an <see cref="DeviceInfoData" /> structure that specifies a device
@@ -100,7 +100,7 @@ namespace PInvoke
         [DllImport(nameof(SetupApi), SetLastError = true)]
         public static extern bool SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle deviceInfoSet,
-            IntPtr deviceInfoData,
+            DeviceInfoData deviceInfoData,
             ref Guid interfaceClassGuid,
             uint memberIndex,
             ref DeviceInterfaceData deviceInterfaceData);
@@ -110,12 +110,12 @@ namespace PInvoke
         /// </summary>
         /// <param name="deviceInfoSet">
         /// A pointer to a device information set that contains the device interfaces for which to
-        /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs(IntPtr,string,IntPtr,GetClassDevsFlags)" />.
+        /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs(NullableGuid,string,IntPtr,GetClassDevsFlags)" />.
         /// </param>
         /// <param name="deviceInterfaceData">
         /// A pointer to an <see cref="DeviceInterfaceData" /> structure that specifies the
         /// interface in DeviceInfoSet for which to retrieve details. A pointer of this type is typically returned by
-        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,IntPtr,ref Guid,uint,ref DeviceInterfaceData)" />.
+        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,DeviceInfoData,ref Guid,uint,ref DeviceInterfaceData)" />.
         /// </param>
         /// <param name="deviceInterfaceDetailData">
         /// A pointer to an SP_DEVICE_INTERFACE_DETAIL_DATA structure to receive
@@ -137,8 +137,7 @@ namespace PInvoke
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to a buffer that receives information about the device that supports the requested interface. The caller
-        /// must set <see cref="DeviceInfoData.Size" /> before calling this function either manually or via
-        /// <see cref="DeviceInfoData.Create" />.
+        /// must set <see cref="DeviceInfoData.Size" /> before calling this function.
         /// <para>This parameter is optional and can be <see langword="null" />.</para>
         /// </param>
         /// <returns>
@@ -152,8 +151,8 @@ namespace PInvoke
             ref DeviceInterfaceData deviceInterfaceData,
             IntPtr deviceInterfaceDetailData,
             uint deviceInterfaceDetailDataSize,
-            IntPtr requiredSize,
-            IntPtr deviceInfoData);
+            NullableUInt32 requiredSize,
+            DeviceInfoData deviceInfoData);
 
         /// <summary>
         /// Returns a <see cref="DeviceInfoData" /> structure that specifies a device information element in a device information
@@ -166,8 +165,7 @@ namespace PInvoke
         /// <param name="memberIndex">A zero-based index of the device information element to retrieve.</param>
         /// <param name="deviceInfoData">
         /// A pointer to an <see cref="DeviceInfoData"/> structure to receive information about an enumerated
-        /// device information element. The caller must set <see cref="DeviceInfoData.Size" /> before calling this function either
-        /// manually or via <see cref="DeviceInfoData.Create" />.
+        /// device information element. The caller must set <see cref="DeviceInfoData.Size" /> before calling this function.
         /// </param>
         /// <returns>
         /// Returns <see langword="true" /> if the function completed without error. If the function completed with an
@@ -178,7 +176,7 @@ namespace PInvoke
         public static extern bool SetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
             uint memberIndex,
-            out DeviceInfoData deviceInfoData);
+            DeviceInfoData deviceInfoData);
 
         /// <summary>
         /// Deletes a device information set and frees all associated memory.

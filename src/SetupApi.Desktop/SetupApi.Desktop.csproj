@@ -42,7 +42,7 @@
     <Compile Include="SetupApi+DeviceInterfaceData.cs" />
     <Compile Include="SetupApi+DeviceInterfaceDataFlags.cs" />
     <Compile Include="SetupApi+GetClassDevsFlags.cs" />
-    <Compile Include="SetupApi+SafeDeviceInfoListHandle.cs" />
+    <Compile Include="SetupApi+SafeDeviceInfoSetHandle.cs" />
     <Compile Include="SetupApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupApi.Helpers.cs" />
