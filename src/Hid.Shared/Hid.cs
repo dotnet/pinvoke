@@ -154,7 +154,7 @@ namespace PInvoke
         /// </param>
         /// <returns>TRUE if it succeeds. Otherwise, it returns FALSE if the buffer was not a preparsed data buffer.</returns>
         [DllImport(nameof(Hid), SetLastError = true)]
-        public static extern bool HidD_FreePreparsedData(SafePreparsedDataHandle preparsedData);
+        public static extern bool HidD_FreePreparsedData(IntPtr preparsedData);
 
         /// <summary>
         /// Returns a top-level collection's <see cref="HidpCaps" /> structure.

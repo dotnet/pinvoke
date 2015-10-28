@@ -41,7 +41,7 @@ namespace PInvoke
 
             public override bool IsInvalid => this.handle == INVALID_HANDLE_VALUE;
 
-            protected override bool ReleaseHandle() => HidD_FreePreparsedData(this);
+            protected override bool ReleaseHandle() => HidD_FreePreparsedData(this.handle);
         }
     }
 }

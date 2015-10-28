@@ -190,6 +190,6 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true)]
-        public static extern bool SetupDiDestroyDeviceInfoList(SafeDeviceInfoSetHandle deviceInfoSet);
+        public static extern bool SetupDiDestroyDeviceInfoList(IntPtr deviceInfoSet);
     }
 }
