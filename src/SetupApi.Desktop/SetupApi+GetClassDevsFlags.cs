@@ -39,7 +39,7 @@ namespace PInvoke
             /// <summary>
             /// Return only devices that are currently present in a system.
             /// </summary>
-            PreDIGCF_PRESENTsent = 0x00000002,
+            DIGCF_PRESENT = 0x00000002,
 
             /// <summary>
             /// Return only devices that are a part of the current hardware profile.
