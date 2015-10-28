@@ -35,45 +35,45 @@ namespace PInvoke
             IntPtr hwndParent,
             GetClassDevsFlags flags)
         {
-            using (var pinnedClassGuid = classGuid.Pin())
+            var result = SetupDiGetClassDevs((NullableGuid)classGuid, enumerator, hwndParent, flags);
+            if (result.IsInvalid)
             {
-                return SetupDiGetClassDevs(pinnedClassGuid.ValuePointer, enumerator, hwndParent, flags);
+                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
             }
+
+            return result;
         }
 
         public static IEnumerable<DeviceInterfaceData> SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle lpDeviceInfoSet,
-            DeviceInfoData? deviceInfoData,
+            DeviceInfoData deviceInfoData,
             Guid interfaceClassGuid)
         {
-            using (var pinnedDeviceInfoData = deviceInfoData.Pin())
+            uint index = 0;
+            while (true)
             {
-                uint index = 0;
-                while (true)
+                var data = DeviceInterfaceData.Create();
+
+                var result = SetupDiEnumDeviceInterfaces(
+                    lpDeviceInfoSet,
+                    deviceInfoData,
+                    ref interfaceClassGuid,
+                    index,
+                    ref data);
+
+                if (!result)
                 {
-                    var data = DeviceInterfaceData.Create();
-
-                    var result = SetupDiEnumDeviceInterfaces(
-                        lpDeviceInfoSet,
-                        pinnedDeviceInfoData.ValuePointer,
-                        ref interfaceClassGuid,
-                        index,
-                        ref data);
-
-                    if (!result)
+                    var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
+                    if (lastError != Win32ErrorCode.ERROR_NO_MORE_ITEMS)
                     {
-                        var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
-                        if (lastError != Win32ErrorCode.ERROR_NO_MORE_ITEMS)
-                        {
-                            Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
-                        }
-
-                        yield break;
+                        Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
                     }
 
-                    yield return data;
-                    index++;
+                    yield break;
                 }
+
+                yield return data;
+                index++;
             }
         }
 
@@ -82,53 +82,52 @@ namespace PInvoke
             DeviceInterfaceData oInterfaceData,
             IntPtr lpDeviceInfoData)
         {
-            using (var requiredSize = new PinnedStruct<uint>(0))
+            var requiredSize = new NullableUInt32();
+
+            // First call to get the size to allocate
+            SetupDiGetDeviceInterfaceDetail(
+                lpDeviceInfoSet,
+                ref oInterfaceData,
+                IntPtr.Zero,
+                0,
+                requiredSize,
+                null);
+
+            // As we passed an empty buffer we know that the function will fail, not need to check the result.
+            var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
+            if (lastError != Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
             {
-                // First call to get the size to allocate
-                SetupDiGetDeviceInterfaceDetail(
+                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                return null;
+            }
+
+            var buffer = Marshal.AllocHGlobal((int)requiredSize.Value);
+
+            try
+            {
+                Marshal.WriteInt32(buffer, DeviceInterfaceDetailDataSize.Value);
+
+                // Second call to get the value
+                var success = SetupDiGetDeviceInterfaceDetail(
                     lpDeviceInfoSet,
                     ref oInterfaceData,
-                    IntPtr.Zero,
-                    0,
-                    requiredSize.ValuePointer,
-                    IntPtr.Zero);
+                    buffer,
+                    (uint)requiredSize,
+                    null,
+                    null);
 
-                var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
-
-                if (lastError != Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
+                if (!success)
                 {
                     Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
                     return null;
                 }
 
-                var buffer = Marshal.AllocHGlobal((int)requiredSize.Value);
-
-                try
-                {
-                    Marshal.WriteInt32(buffer, DeviceInterfaceDetailDataSize.Value);
-
-                    // Second call to get the value
-                    var success = SetupDiGetDeviceInterfaceDetail(
-                        lpDeviceInfoSet,
-                        ref oInterfaceData,
-                        buffer,
-                        requiredSize.Value,
-                        IntPtr.Zero,
-                        IntPtr.Zero);
-
-                    if (!success)
-                    {
-                        Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
-                        return null;
-                    }
-
-                    var strPtr = new IntPtr(buffer.ToInt64() + 4);
-                    return Marshal.PtrToStringAuto(strPtr);
-                }
-                finally
-                {
-                    Marshal.FreeHGlobal(buffer);
-                }
+                var strPtr = new IntPtr(buffer.ToInt64() + 4);
+                return Marshal.PtrToStringAuto(strPtr);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
             }
         }
     }

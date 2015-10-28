@@ -28,7 +28,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NTStatusTests.cs" />
-    <Compile Include="PinnedStructTests.cs" />
+    <Compile Include="NullableGuidTests.cs" />
+    <Compile Include="NullableUInt32Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

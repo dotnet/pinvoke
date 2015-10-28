@@ -14,7 +14,7 @@ namespace PInvoke
     {
         /// <summary>
         /// Represents a preparsed data handle created by
-        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,IntPtr,ref Guid,uint,ref DeviceInterfaceData)"/>
+        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,DeviceInfoData,ref Guid,uint,ref DeviceInterfaceData)"/>
         /// that can be closed with <see cref="SetupDiDestroyDeviceInfoList"/>.
         /// </summary>
         public class SafeDeviceInfoSetHandle : SafeHandle
