@@ -8,7 +8,7 @@ namespace PInvoke
     /// </summary>
     internal static class NTStatusSeverity
     {
-        internal const uint Success = (uint)0xC << 28;
+        internal const uint Success = (uint)0x0 << 28;
         internal const uint Informational = (uint)0x4 << 28;
         internal const uint Warning = (uint)0x8 << 28;
         internal const uint Error = (uint)0xC << 28;
