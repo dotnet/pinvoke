@@ -213,6 +213,13 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool CloseHandle(IntPtr hObject);
 
+        /// <summary>
+        /// Retrieves the thread identifier of the calling thread.
+        /// </summary>
+        /// <returns>The thread identifier of the calling thread.</returns>
+        [DllImport(nameof(Kernel32))]
+        public static extern uint GetCurrentThreadId();
+
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct WIN32_FIND_DATA
         {

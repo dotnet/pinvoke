@@ -78,4 +78,15 @@ public partial class Kernel32
     {
         Assert.IsAssignableFrom<System.ComponentModel.Win32Exception>(new PInvoke.Win32Exception(1));
     }
+
+    [Fact]
+    public void GetCurrentThreadId_SameAsAppDomainOne()
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
+        var frameworkValue = AppDomain.GetCurrentThreadId();
+#pragma warning restore CS0618 // Type or member is obsolete
+        var pinvokeValue = GetCurrentThreadId();
+
+        Assert.Equal((uint)frameworkValue, pinvokeValue);
+    }
 }
