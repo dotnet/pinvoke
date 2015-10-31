@@ -14,5 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeObjectHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Win32Exception.cs" />
   </ItemGroup>
 </Project>
