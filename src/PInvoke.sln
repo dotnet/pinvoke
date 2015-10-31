@@ -67,17 +67,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupApi.Tests", "SetupApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Core.Tests", "Windows.Core.Tests\Windows.Core.Tests.csproj", "{A44BC3C8-52A5-4372-8365-0C22FCB9E568}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Kernel32.Tests.Shared", "Kernel32.Tests.Shared\Kernel32.Tests.Shared.shproj", "{F37B9B20-0D43-49DB-BF85-519A525C64D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel32.Tests.Portable", "Kernel32.Tests.Portable\Kernel32.Tests.Portable.csproj", "{3C02F98C-E145-4517-9CF0-D12C2C648E70}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvApi32.Desktop", "AdvApi32.Desktop\AdvApi32.Desktop.csproj", "{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "AdvApi32.NuGet", "AdvApi32.NuGet\AdvApi32.NuGet.nuproj", "{B9117C7D-FFBA-41FB-9A39-4CC2E4F37109}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{f37b9b20-0d43-49db-bf85-519a525c64d8}*SharedItemsImports = 13
 		Hid.Shared\Hid.Shared.projitems*{66c709c8-3ace-4e27-aee0-ec22d9f029d8}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{41dd8edd-d861-41c0-a496-2eea17c49180}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{26aba748-b311-4094-9231-7490894e1157}*SharedItemsImports = 4
+		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{3c02f98c-e145-4517-9cf0-d12c2c648e70}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
+		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{d7224f5b-1aee-4624-a71f-f0bb10c63555}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -165,6 +172,10 @@ Global
 		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C02F98C-E145-4517-9CF0-D12C2C648E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C02F98C-E145-4517-9CF0-D12C2C648E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C02F98C-E145-4517-9CF0-D12C2C648E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C02F98C-E145-4517-9CF0-D12C2C648E70}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Release|Any CPU.ActiveCfg = Release|Any CPU
