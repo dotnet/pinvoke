@@ -6,6 +6,7 @@
 
   <PropertyGroup>
     <DocumentationFile Condition=" !$(IsTestProject) ">$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+    <DefineConstants Condition=" '$(TargetFrameworkProfile)' == '' ">$(DefineConstants);DESKTOP</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

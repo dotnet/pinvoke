@@ -7,7 +7,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
 
-public class Kernel32
+public partial class Kernel32
 {
     [Fact]
     public void CreateFile_DeleteOnClose()
@@ -71,5 +71,11 @@ public class Kernel32
         {
             Directory.Delete(testPath, true);
         }
+    }
+
+    [Fact]
+    public void Win32Exception_DerivesFromBCLType()
+    {
+        Assert.IsAssignableFrom<System.ComponentModel.Win32Exception>(new PInvoke.Win32Exception(1));
     }
 }
