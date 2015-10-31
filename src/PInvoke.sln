@@ -67,6 +67,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupApi.Tests", "SetupApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Core.Tests", "Windows.Core.Tests\Windows.Core.Tests.csproj", "{A44BC3C8-52A5-4372-8365-0C22FCB9E568}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvApi32.Desktop", "AdvApi32.Desktop\AdvApi32.Desktop.csproj", "{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "AdvApi32.NuGet", "AdvApi32.NuGet\AdvApi32.NuGet.nuproj", "{B9117C7D-FFBA-41FB-9A39-4CC2E4F37109}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Hid.Shared\Hid.Shared.projitems*{66c709c8-3ace-4e27-aee0-ec22d9f029d8}*SharedItemsImports = 4
@@ -161,6 +165,14 @@ Global
 		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A44BC3C8-52A5-4372-8365-0C22FCB9E568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9117C7D-FFBA-41FB-9A39-4CC2E4F37109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9117C7D-FFBA-41FB-9A39-4CC2E4F37109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9117C7D-FFBA-41FB-9A39-4CC2E4F37109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9117C7D-FFBA-41FB-9A39-4CC2E4F37109}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
