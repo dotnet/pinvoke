@@ -6,6 +6,7 @@ namespace PInvoke
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
+    using System.Text;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -71,6 +72,31 @@ namespace PInvoke
                 yield return entry;
                 entry = Process32Next(hSnapshot);
             }
+        }
+
+        public static string QueryFullProcessImageName(
+            SafeObjectHandle hProcess,
+            QueryFullProcessImageNameFlags dwFlags = QueryFullProcessImageNameFlags.None)
+        {
+            // If we ever resize over this value something got really wrong
+            const int maximumRealisticSize = 1 * 1024 * 2014;
+
+            var buffer = new StringBuilder(255);
+            do
+            {
+                var size = (uint)buffer.Capacity;
+                var success = QueryFullProcessImageName(hProcess, dwFlags, buffer, ref size);
+                if (success)
+                {
+                    return buffer.ToString();
+                }
+
+                buffer.Capacity = buffer.Capacity * 2;
+            }
+            while (buffer.Capacity < maximumRealisticSize);
+
+            throw new InvalidOperationException(
+                $"QueryFullProcessImageName is expecting a buffer of more than {maximumRealisticSize} bytes");
         }
     }
 }

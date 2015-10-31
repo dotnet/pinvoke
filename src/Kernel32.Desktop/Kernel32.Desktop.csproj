@@ -29,7 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Kernel32+CreateToolhelp32SnapshotFlags.cs" />
+    <Compile Include="Kernel32+ProcessAccess.cs" />
     <Compile Include="Kernel32+PROCESSENTRY32.cs" />
+    <Compile Include="Kernel32+QueryFullProcessImageNameFlags.cs" />
     <Compile Include="Kernel32.cs" />
     <Compile Include="Kernel32.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

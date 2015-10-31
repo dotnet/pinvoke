@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
@@ -110,6 +111,42 @@ public partial class Kernel32
         {
             var processes = Process32Enumerate(snapshot).ToList();
             Assert.Contains(processes, p => p.th32ProcessID == currentProcess);
+        }
+    }
+
+    [Fact]
+    public void OpenProcess_CannotOpenSystem()
+    {
+        using (var system = OpenProcess(ProcessAccess.PROCESS_TERMINATE, false, 0x00000000))
+        {
+            var error = (Win32ErrorCode)Marshal.GetLastWin32Error();
+            Assert.Equal(true, system.IsInvalid);
+            Assert.Equal(Win32ErrorCode.ERROR_INVALID_PARAMETER, error);
+        }
+    }
+
+    [Fact]
+    public void OpenProcess_CanOpenSelf()
+    {
+        var currentProcessId = GetCurrentProcessId();
+        var currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
+        using (currentProcess)
+        {
+            Assert.Equal(false, currentProcess.IsInvalid);
+        }
+    }
+
+    [Fact]
+    public void QueryFullProcessImageName_CanGetForCurrentProcess()
+    {
+        var currentProcessId = GetCurrentProcessId();
+        var currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
+        using (currentProcess)
+        {
+            var actual = QueryFullProcessImageName(currentProcess);
+            var expected = Process.GetCurrentProcess().MainModule.FileName;
+
+            Assert.Equal(expected, actual);
         }
     }
 }

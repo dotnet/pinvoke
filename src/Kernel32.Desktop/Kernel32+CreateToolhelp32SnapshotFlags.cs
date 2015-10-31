@@ -23,13 +23,13 @@ namespace PInvoke
 
             /// <summary>
             /// Includes all heaps of the process specified in th32ProcessID in the snapshot.
-            /// To enumerate the heaps, see <see cref="Heap32ListFirst"/>.
+            /// To enumerate the heaps, see Heap32ListFirst.
             /// </summary>
             TH32CS_SNAPHEAPLIST = 0x00000001,
 
             /// <summary>
             /// Includes all modules of the process specified in th32ProcessID in the snapshot.
-            /// To enumerate the modules, see <see cref="Module32First"/>.
+            /// To enumerate the modules, see Module32First.
             /// If the function fails with <see cref="Win32ErrorCode.ERROR_BAD_LENGTH"/>, retry the function until
             /// it succeeds.
             /// <para>
@@ -52,16 +52,16 @@ namespace PInvoke
 
             /// <summary>
             /// Includes all processes in the system in the snapshot. To enumerate the processes, see
-            /// <see cref="Process32First"/>.
+            /// <see cref="Process32First(SafeObjectHandle,PROCESSENTRY32)"/>.
             /// </summary>
             TH32CS_SNAPPROCESS = 0x00000002,
 
             /// <summary>
             /// Includes all threads in the system in the snapshot. To enumerate the threads, see
-            /// <see cref="Thread32First"/>.
+            /// Thread32First.
             /// <para>
             /// To identify the threads that belong to a specific process, compare its process identifier to the
-            /// <see cref="THREADENTRY32.th32OwnerProcessID"/> member of the <see cref="THREADENTRY32"/> structure when
+            /// th32OwnerProcessID member of the THREADENTRY32 structure when
             /// enumerating the threads.
             /// </para>
             /// </summary>
