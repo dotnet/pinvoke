@@ -262,7 +262,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern IntPtr DeleteService(IntPtr hService);
+        public static extern bool DeleteService(IntPtr hService);
 
         /// <summary>
         /// Establishes a connection to the service control manager on the specified computer and opens the specified service control manager database.

@@ -90,7 +90,7 @@ namespace PInvoke
                 throw new Win32Exception(Marshal.GetHRForLastWin32Error());
             }
 
-            if (DeleteService(svcHandle) == IntPtr.Zero)
+            if (!DeleteService(svcHandle))
             {
                 throw new Win32Exception(Marshal.GetHRForLastWin32Error());
             }
