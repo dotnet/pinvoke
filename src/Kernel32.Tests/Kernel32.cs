@@ -2,7 +2,9 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
@@ -88,5 +90,26 @@ public partial class Kernel32
         var pinvokeValue = GetCurrentThreadId();
 
         Assert.Equal((uint)frameworkValue, pinvokeValue);
+    }
+
+    [Fact]
+    public void GetCurrentProcessId_SameAsProcessOne()
+    {
+        var frameworkValue = Process.GetCurrentProcess().Id;
+        var pinvokeValue = GetCurrentProcessId();
+
+        Assert.Equal((uint)frameworkValue, pinvokeValue);
+    }
+
+    [Fact]
+    public void CreateToolhelp32Snapshot_CanGetCurrentProcess()
+    {
+        var currentProcess = GetCurrentProcessId();
+        var snapshot = CreateToolhelp32Snapshot(CreateToolhelp32SnapshotFlags.TH32CS_SNAPPROCESS, 0);
+        using (snapshot)
+        {
+            var processes = Process32Enumerate(snapshot).ToList();
+            Assert.Contains(processes, p => p.th32ProcessID == currentProcess);
+        }
     }
 }

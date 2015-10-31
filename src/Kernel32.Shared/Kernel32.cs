@@ -208,7 +208,7 @@ namespace PInvoke
         /// <param name="hObject">A valid handle to an open object.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero.To get extended error information, call GetLastError.
+        /// <para>If the function fails, the return value is zero.To get extended error information, call GetLastError.</para>
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool CloseHandle(IntPtr hObject);
@@ -219,6 +219,12 @@ namespace PInvoke
         /// <returns>The thread identifier of the calling thread.</returns>
         [DllImport(nameof(Kernel32))]
         public static extern uint GetCurrentThreadId();
+
+        /// <summary>Retrieves the process identifier of the calling process.</summary>
+        /// <returns>The process identifier of the calling process.</returns>
+        /// <remarks>Until the process terminates, the process identifier uniquely identifies the process throughout the system.</remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern uint GetCurrentProcessId();
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct WIN32_FIND_DATA
