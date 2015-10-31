@@ -36,6 +36,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kernel32\Kernel32.csproj">
+      <Project>{1fdc092a-d3e8-4cc4-b896-17e0a213f723}</Project>
+      <Name>Kernel32</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>

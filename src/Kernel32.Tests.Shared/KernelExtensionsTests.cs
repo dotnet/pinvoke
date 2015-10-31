@@ -4,7 +4,7 @@
 using PInvoke;
 using Xunit;
 
-public class NTStatusTests
+public class KernelExtensionsTests
 {
     [Fact]
     public void ThrowOnError_DoesNotThrowOnSuccess()
