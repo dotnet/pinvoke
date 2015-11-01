@@ -103,6 +103,43 @@ namespace PInvoke
             return handle;
         }
 
+        /// <summary>
+        /// Create a hash or Message Authentication Code (MAC) object.
+        /// </summary>
+        /// <param name="algorithm">
+        /// The handle of an algorithm provider created by using the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm that was specified when the provider was created must support the hash interface.
+        /// </param>
+        /// <param name="hashObject">
+        /// A pointer to a buffer that receives the hash or MAC object. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.ObjectLength"/> property. This will provide the size of the hash or MAC object for the specified algorithm.
+        /// This memory can only be freed after the handle pointed to by the return value is destroyed.
+        /// If the value of this parameter is NULL, the memory for the hash object is allocated and freed by this function.
+        /// Windows 7:  This memory management functionality is available beginning with Windows 7.
+        /// </param>
+        /// <param name="secret">
+        /// A pointer to a buffer that contains the key to use for the hash or MAC. This key only applies to hash algorithms opened by the BCryptOpenAlgorithmProvider function by using the <see cref="BCryptOpenAlgorithmProviderFlags.AlgorithmHandleHmac"/> flag. Otherwise, set this parameter to NULL.
+        /// </param>
+        /// <param name="flags">Flags that modify the behavior of the function.</param>
+        /// <returns>
+        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <see cref="BCryptHashData"/> function. When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash"/> function.
+        /// </returns>
+        public static SafeHashHandle BCryptCreateHash(
+            SafeAlgorithmHandle algorithm,
+            byte[] hashObject = null,
+            byte[] secret = null,
+            BCryptCreateHashFlags flags = BCryptCreateHashFlags.None)
+        {
+            SafeHashHandle result;
+            BCryptCreateHash(
+                algorithm,
+                out result,
+                hashObject,
+                hashObject?.Length ?? 0,
+                secret,
+                secret?.Length ?? 0,
+                flags).ThrowOnError();
+            return result;
+        }
+
         public static byte[] BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
         {
             int lengthRequired;
@@ -386,7 +423,7 @@ namespace PInvoke
         /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/>.
         /// </summary>
         /// <param name="hHash">
-        /// The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <see cref="BCryptCreateHash"/> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <see cref="BCryptDestroyHash"/>.
+        /// The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <see cref="BCryptCreateHash(SafeAlgorithmHandle, byte[], byte[], BCryptCreateHashFlags)"/> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <see cref="BCryptDestroyHash"/>.
         /// </param>
         /// <param name="flags">A set of flags that modify the behavior of this function.</param>
         /// <returns>The hash or MAC value.</returns>

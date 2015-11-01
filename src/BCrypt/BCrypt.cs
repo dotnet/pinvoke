@@ -147,6 +147,8 @@ namespace PInvoke
         [Flags]
         public enum BCryptCreateHashFlags
         {
+            None = 0x0,
+
             /// <summary>
             /// Creates a reusable hashing object. The object can be used for a new hashing operation immediately after calling BCryptFinishHash. For more information, see Creating a Hash with CNG.
             /// Windows Server 2008 R2, Windows 7, Windows Server 2008, and Windows Vista:  This flag is not supported.
@@ -458,7 +460,7 @@ namespace PInvoke
         /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/>.
         /// </summary>
         /// <param name="hHash">
-        /// The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <see cref="BCryptCreateHash"/> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <see cref="BCryptDestroyHash"/>.
+        /// The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <see cref="BCryptCreateHash(SafeAlgorithmHandle, byte[], byte[], BCryptCreateHashFlags)"/> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <see cref="BCryptDestroyHash"/>.
         /// </param>
         /// <param name="pbOutput">
         /// A pointer to a buffer that receives the hash or MAC value. The <paramref name="cbOutput"/> parameter contains the size of this buffer.
