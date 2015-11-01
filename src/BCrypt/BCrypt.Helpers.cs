@@ -103,6 +103,43 @@ namespace PInvoke
             return handle;
         }
 
+        /// <summary>
+        /// Create a hash or Message Authentication Code (MAC) object.
+        /// </summary>
+        /// <param name="algorithm">
+        /// The handle of an algorithm provider created by using the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm that was specified when the provider was created must support the hash interface.
+        /// </param>
+        /// <param name="hashObject">
+        /// A pointer to a buffer that receives the hash or MAC object. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.ObjectLength"/> property. This will provide the size of the hash or MAC object for the specified algorithm.
+        /// This memory can only be freed after the handle pointed to by the return value is destroyed.
+        /// If the value of this parameter is NULL, the memory for the hash object is allocated and freed by this function.
+        /// Windows 7:  This memory management functionality is available beginning with Windows 7.
+        /// </param>
+        /// <param name="secret">
+        /// A pointer to a buffer that contains the key to use for the hash or MAC. This key only applies to hash algorithms opened by the BCryptOpenAlgorithmProvider function by using the <see cref="BCryptOpenAlgorithmProviderFlags.AlgorithmHandleHmac"/> flag. Otherwise, set this parameter to NULL.
+        /// </param>
+        /// <param name="flags">Flags that modify the behavior of the function.</param>
+        /// <returns>
+        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <see cref="BCryptHashData"/> function. When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash"/> function.
+        /// </returns>
+        public static SafeHashHandle BCryptCreateHash(
+            SafeAlgorithmHandle algorithm,
+            byte[] hashObject = null,
+            byte[] secret = null,
+            BCryptCreateHashFlags flags = BCryptCreateHashFlags.None)
+        {
+            SafeHashHandle result;
+            BCryptCreateHash(
+                algorithm,
+                out result,
+                hashObject,
+                hashObject?.Length ?? 0,
+                secret,
+                secret?.Length ?? 0,
+                flags).ThrowOnError();
+            return result;
+        }
+
         public static byte[] BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
         {
             int lengthRequired;
@@ -126,21 +163,6 @@ namespace PInvoke
                 0).ThrowOnError();
 
             return keyBuffer;
-        }
-
-        /// <summary>
-        /// Completes a public/private key pair.
-        /// </summary>
-        /// <param name="keyHandle">The handle of the key to complete. This handle is obtained by calling the BCryptGenerateKeyPair function.</param>
-        /// <remarks>
-        /// The key cannot be used until this function has been called.
-        /// After this function has been called, the BCryptSetProperty function
-        /// can no longer be used for this key.
-        /// </remarks>
-        public static void BCryptFinalizeKeyPair(SafeKeyHandle keyHandle)
-        {
-            var error = BCryptFinalizeKeyPair(keyHandle, 0);
-            error.ThrowOnError();
         }
 
         /// <summary>
@@ -219,6 +241,241 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Imports a symmetric key from a key BLOB. The BCryptImportKeyPair function is used to import a public/private key pair.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The handle of the algorithm provider to import the key. This handle is obtained by calling the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function.
+        /// </param>
+        /// <param name="pszBlobType">
+        /// An identifier that specifies the type of BLOB that is contained in the pbInput buffer.
+        /// This can be one of the values defined in <see cref="SymmetricKeyBlobTypes"/>.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the key BLOB to import.
+        /// The <paramref name="pszBlobType"/> parameter specifies the type of key BLOB this buffer contains.
+        /// </param>
+        /// <param name="hImportKey">
+        /// The handle of the key encryption key needed to unwrap the key BLOB in the pbInput parameter.
+        /// Note The handle must be supplied by the same provider that supplied the key that is being imported.
+        /// </param>
+        /// <param name="pbKeyObject">
+        /// A pointer to a buffer that receives the imported key object.
+        /// The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/>
+        /// function to get the BCRYPT_OBJECT_LENGTH property. This will provide the size of the
+        /// key object for the specified algorithm.
+        /// This memory can only be freed after the phKey key handle is destroyed.
+        /// </param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>The imported key.</returns>
+        /// <exception cref="Win32Exception">If an error occurs.</exception>
+        public static SafeKeyHandle BCryptImportKey(
+            SafeAlgorithmHandle hAlgorithm,
+            [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
+            byte[] pbInput,
+            SafeKeyHandle hImportKey = null,
+            byte[] pbKeyObject = null,
+            BCryptImportKeyFlags dwFlags = BCryptImportKeyFlags.None)
+        {
+            SafeKeyHandle importedKey;
+            BCryptImportKey(
+                hAlgorithm,
+                hImportKey ?? new SafeKeyHandle(),
+                pszBlobType,
+                out importedKey,
+                pbKeyObject,
+                pbKeyObject?.Length ?? 0,
+                pbInput,
+                pbInput.Length,
+                dwFlags).ThrowOnError();
+            return importedKey;
+        }
+
+        /// <summary>
+        /// Encrypts a block of data.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/>, <see cref="BCryptGenerateKeyPair(SafeAlgorithmHandle, int)"/>, or <see cref="BCryptImportKey(SafeAlgorithmHandle, string, byte[], SafeKeyHandle, byte[], BCryptImportKeyFlags)"/>.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the plaintext to be encrypted. The cbInput parameter contains the size of the plaintext to encrypt.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the dwFlags parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="pbIV">
+        /// The address of a buffer that contains the initialization vector (IV) to use during encryption. The cbIV parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+        /// This parameter is optional and can be NULL if no IV is used.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the BCRYPT_BLOCK_LENGTH property.This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// </param>
+        /// <returns>The encrypted ciphertext.</returns>
+        public static byte[] BCryptEncrypt(
+            SafeKeyHandle hKey,
+            byte[] pbInput,
+            IntPtr pPaddingInfo,
+            byte[] pbIV,
+            BCryptEncryptFlags dwFlags)
+        {
+            int cipherTextLength;
+            BCryptEncrypt(
+                hKey,
+                pbInput,
+                pbInput.Length,
+                pPaddingInfo,
+                pbIV,
+                pbIV?.Length ?? 0,
+                null,
+                0,
+                out cipherTextLength,
+                dwFlags).ThrowOnError();
+
+            byte[] cipherText = new byte[cipherTextLength];
+            BCryptEncrypt(
+                hKey,
+                pbInput,
+                pbInput.Length,
+                pPaddingInfo,
+                pbIV,
+                pbIV?.Length ?? 0,
+                cipherText,
+                cipherText.Length,
+                out cipherTextLength,
+                dwFlags).ThrowOnError();
+
+            return cipherText;
+        }
+
+        /// <summary>
+        /// Decrypts a block of data.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/>, <see cref="BCryptGenerateKeyPair(SafeAlgorithmHandle, int)"/>, or <see cref="BCryptImportKey(SafeAlgorithmHandle, string, byte[], SafeKeyHandle, byte[], BCryptImportKeyFlags)"/>.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the ciphertext to be decrypted. For more information, see Remarks.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <paramref name="dwFlags"/> parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="pbIV">
+        /// The address of a buffer that contains the initialization vector (IV) to use during decryption. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+        /// This parameter is optional and can be NULL if no IV is used.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BlockLength"/> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        public static byte[] BCryptDecrypt(
+            SafeKeyHandle hKey,
+            byte[] pbInput,
+            IntPtr pPaddingInfo,
+            byte[] pbIV,
+            BCryptEncryptFlags dwFlags)
+        {
+            int length;
+            BCryptDecrypt(
+                hKey,
+                pbInput,
+                pbInput.Length,
+                pPaddingInfo,
+                pbIV,
+                pbIV?.Length ?? 0,
+                null,
+                0,
+                out length,
+                dwFlags).ThrowOnError();
+
+            byte[] plainText = new byte[length];
+            BCryptDecrypt(
+                hKey,
+                pbInput,
+                pbInput.Length,
+                pPaddingInfo,
+                pbIV,
+                pbIV?.Length ?? 0,
+                plainText,
+                plainText.Length,
+                out length,
+                dwFlags).ThrowOnError();
+
+            return plainText;
+        }
+
+        /// <summary>
+        /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/>.
+        /// </summary>
+        /// <param name="hHash">
+        /// The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <see cref="BCryptCreateHash(SafeAlgorithmHandle, byte[], byte[], BCryptCreateHashFlags)"/> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <see cref="BCryptDestroyHash"/>.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>The hash or MAC value.</returns>
+        public static byte[] BCryptFinishHash(
+            SafeHashHandle hHash,
+            BCryptFinishHashFlags flags = BCryptFinishHashFlags.None)
+        {
+            int hashLength = BCryptGetProperty<int>(hHash, PropertyNames.HashLength);
+            byte[] result = new byte[hashLength];
+            BCryptFinishHash(hHash, result, result.Length, flags).ThrowOnError();
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a signature of a hash value.
+        /// </summary>
+        /// <param name="key">The handle of the key to use to sign the hash.</param>
+        /// <param name="hash">
+        /// A pointer to a buffer that contains the hash value to sign.
+        /// </param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="flags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="key"/> parameter.
+        /// </param>
+        /// <returns>
+        /// The signature produced by this function.
+        /// </returns>
+        /// <remarks>
+        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
+        /// </remarks>
+        public static byte[] BCryptSignHash(
+            SafeKeyHandle key,
+            byte[] hash,
+            IntPtr paddingInfo = default(IntPtr),
+            BCryptSignHashFlags flags = BCryptSignHashFlags.None)
+        {
+            int outputLength;
+            BCryptSignHash(
+                key,
+                paddingInfo,
+                hash,
+                hash.Length,
+                null,
+                0,
+                out outputLength,
+                flags).ThrowOnError();
+
+            byte[] pbOutput = new byte[outputLength];
+            BCryptSignHash(
+                key,
+                paddingInfo,
+                hash,
+                hash.Length,
+                pbOutput,
+                pbOutput.Length,
+                out outputLength,
+                flags).ThrowOnError();
+
+            // The size should be as expected, but just in case:
+            Array.Resize(ref pbOutput, outputLength);
+
+            return pbOutput;
+        }
+
+        /// <summary>
         /// Creates a secret agreement value from a private and a public key.
         /// </summary>
         /// <param name="privateKey">
@@ -291,27 +548,13 @@ namespace PInvoke
             where T : struct
         {
             byte[] value = BCryptGetProperty(hObject, propertyName, flags);
-            T result = default(T);
-
-            // Use a finally block so that we don't leak a GCHandle if
-            // our thread is interrupted after the alloc and before we assign the variable.
-            try
+            unsafe
             {
-            }
-            finally
-            {
-                GCHandle bufferHandle = GCHandle.Alloc(value, GCHandleType.Pinned);
-                try
+                fixed (byte* pValue = value)
                 {
-                    result = (T)Marshal.PtrToStructure(bufferHandle.AddrOfPinnedObject(), typeof(T));
-                }
-                finally
-                {
-                    bufferHandle.Free();
+                    return (T)Marshal.PtrToStructure(new IntPtr(pValue), typeof(T));
                 }
             }
-
-            return result;
         }
 
         [StructLayout(LayoutKind.Sequential)]
