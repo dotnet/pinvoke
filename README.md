@@ -5,7 +5,8 @@ P/Invoke
 [![Join the chat at https://gitter.im/AArnott/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AArnott/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A library intended to contain all P/Invoke method signatures for popular operating systems.
-Think of it as http://pinvoke.net, but proven to compile, work properly.
+Think of it as http://pinvoke.net, but proven to compile and work properly, and often
+with sample usage in the form of unit tests.
 
 ## Usage
 
@@ -21,8 +22,8 @@ Then import the following namespaces, as demonstrated below (if using C# 6):
 
 This will allow you to conveniently call these methods directly by method name:
 
-    var error = BCryptOpenAlgorithm("SHA256"); // C# 6 syntax
-    var error = BCrypt.BCryptOpenAlgorithm("SHA256"); // C# 5 syntax
+    var error = BCryptOpenAlgorithm(AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM); // C# 6 syntax
+    var error = BCrypt.BCryptOpenAlgorithm(BCrypt.AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM); // C# 5 syntax
 
 ## Design goals
 
