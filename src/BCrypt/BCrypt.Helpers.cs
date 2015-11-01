@@ -219,6 +219,56 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Imports a symmetric key from a key BLOB. The BCryptImportKeyPair function is used to import a public/private key pair.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The handle of the algorithm provider to import the key. This handle is obtained by calling the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function.
+        /// </param>
+        /// <param name="pszBlobType">
+        /// An identifier that specifies the type of BLOB that is contained in the pbInput buffer.
+        /// This can be one of the values defined in <see cref="SymmetricKeyBlobTypes"/>.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the key BLOB to import.
+        /// The <paramref name="pszBlobType"/> parameter specifies the type of key BLOB this buffer contains.
+        /// </param>
+        /// <param name="hImportKey">
+        /// The handle of the key encryption key needed to unwrap the key BLOB in the pbInput parameter.
+        /// Note The handle must be supplied by the same provider that supplied the key that is being imported.
+        /// </param>
+        /// <param name="pbKeyObject">
+        /// A pointer to a buffer that receives the imported key object.
+        /// The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/>
+        /// function to get the BCRYPT_OBJECT_LENGTH property. This will provide the size of the
+        /// key object for the specified algorithm.
+        /// This memory can only be freed after the phKey key handle is destroyed.
+        /// </param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>The imported key.</returns>
+        /// <exception cref="Win32Exception">If an error occurs.</exception>
+        public static SafeKeyHandle BCryptImportKey(
+            SafeAlgorithmHandle hAlgorithm,
+            [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
+            byte[] pbInput,
+            SafeKeyHandle hImportKey = null,
+            byte[] pbKeyObject = null,
+            BCryptImportKeyFlags dwFlags = BCryptImportKeyFlags.None)
+        {
+            SafeKeyHandle importedKey;
+            BCryptImportKey(
+                hAlgorithm,
+                hImportKey ?? new SafeKeyHandle(),
+                pszBlobType,
+                out importedKey,
+                pbKeyObject,
+                pbKeyObject?.Length ?? 0,
+                pbInput,
+                pbInput.Length,
+                dwFlags).ThrowOnError();
+            return importedKey;
+        }
+
+        /// <summary>
         /// Creates a secret agreement value from a private and a public key.
         /// </summary>
         /// <param name="privateKey">
