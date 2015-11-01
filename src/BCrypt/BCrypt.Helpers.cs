@@ -548,27 +548,13 @@ namespace PInvoke
             where T : struct
         {
             byte[] value = BCryptGetProperty(hObject, propertyName, flags);
-            T result = default(T);
-
-            // Use a finally block so that we don't leak a GCHandle if
-            // our thread is interrupted after the alloc and before we assign the variable.
-            try
+            unsafe
             {
-            }
-            finally
-            {
-                GCHandle bufferHandle = GCHandle.Alloc(value, GCHandleType.Pinned);
-                try
+                fixed (byte* pValue = value)
                 {
-                    result = (T)Marshal.PtrToStructure(bufferHandle.AddrOfPinnedObject(), typeof(T));
-                }
-                finally
-                {
-                    bufferHandle.Free();
+                    return (T)Marshal.PtrToStructure(new IntPtr(pValue), typeof(T));
                 }
             }
-
-            return result;
         }
 
         [StructLayout(LayoutKind.Sequential)]
