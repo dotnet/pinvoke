@@ -269,6 +269,120 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Encrypts a block of data.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/>, <see cref="BCryptGenerateKeyPair(SafeAlgorithmHandle, int)"/>, or <see cref="BCryptImportKey(SafeAlgorithmHandle, string, byte[], SafeKeyHandle, byte[], BCryptImportKeyFlags)"/>.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the plaintext to be encrypted. The cbInput parameter contains the size of the plaintext to encrypt.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the dwFlags parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="pbIV">
+        /// The address of a buffer that contains the initialization vector (IV) to use during encryption. The cbIV parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+        /// This parameter is optional and can be NULL if no IV is used.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the BCRYPT_BLOCK_LENGTH property.This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// </param>
+        /// <returns>The encrypted ciphertext.</returns>
+        public static byte[] BCryptEncrypt(
+            SafeKeyHandle hKey,
+            byte[] pbInput,
+            IntPtr pPaddingInfo,
+            byte[] pbIV,
+            BCryptEncryptFlags dwFlags)
+        {
+            int cipherTextLength;
+            BCryptEncrypt(
+                hKey,
+                pbInput,
+                pbInput.Length,
+                pPaddingInfo,
+                pbIV,
+                pbIV?.Length ?? 0,
+                null,
+                0,
+                out cipherTextLength,
+                dwFlags).ThrowOnError();
+
+            byte[] cipherText = new byte[cipherTextLength];
+            BCryptEncrypt(
+                hKey,
+                pbInput,
+                pbInput.Length,
+                pPaddingInfo,
+                pbIV,
+                pbIV?.Length ?? 0,
+                cipherText,
+                cipherText.Length,
+                out cipherTextLength,
+                dwFlags).ThrowOnError();
+
+            return cipherText;
+        }
+
+        /// <summary>
+        /// Decrypts a block of data.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/>, <see cref="BCryptGenerateKeyPair(SafeAlgorithmHandle, int)"/>, or <see cref="BCryptImportKey(SafeAlgorithmHandle, string, byte[], SafeKeyHandle, byte[], BCryptImportKeyFlags)"/>.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the ciphertext to be decrypted. For more information, see Remarks.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <paramref name="dwFlags"/> parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="pbIV">
+        /// The address of a buffer that contains the initialization vector (IV) to use during decryption. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+        /// This parameter is optional and can be NULL if no IV is used.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BlockLength"/> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        public static byte[] BCryptDecrypt(
+            SafeKeyHandle hKey,
+            byte[] pbInput,
+            IntPtr pPaddingInfo,
+            byte[] pbIV,
+            BCryptEncryptFlags dwFlags)
+        {
+            int length;
+            BCryptDecrypt(
+                hKey,
+                pbInput,
+                pbInput.Length,
+                pPaddingInfo,
+                pbIV,
+                pbIV?.Length ?? 0,
+                null,
+                0,
+                out length,
+                dwFlags).ThrowOnError();
+
+            byte[] plainText = new byte[length];
+            BCryptDecrypt(
+                hKey,
+                pbInput,
+                pbInput.Length,
+                pPaddingInfo,
+                pbIV,
+                pbIV?.Length ?? 0,
+                plainText,
+                plainText.Length,
+                out length,
+                dwFlags).ThrowOnError();
+
+            return plainText;
+        }
+
+        /// <summary>
         /// Creates a secret agreement value from a private and a public key.
         /// </summary>
         /// <param name="privateKey">
