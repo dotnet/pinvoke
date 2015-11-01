@@ -29,6 +29,37 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Possible values for the <see cref="PropertyNames.PaddingSchemes"/> property.
+        /// </summary>
+        public enum PaddingSchemes
+        {
+            /// <summary>
+            /// The provider supports padding added by the router.
+            /// </summary>
+            Router = 0x1,
+
+            /// <summary>
+            /// The provider supports the PKCS1 encryption padding scheme.
+            /// </summary>
+            Pkcs1Encryption = 0x2,
+
+            /// <summary>
+            /// The provider supports the PKCS1 signature padding scheme.
+            /// </summary>
+            Pkcs1Signature = 0x4,
+
+            /// <summary>
+            /// The provider supports the OAEP padding scheme.
+            /// </summary>
+            Oaep = 0x8,
+
+            /// <summary>
+            /// The provider supports the PSS padding scheme.
+            /// </summary>
+            Pss = 0x10,
+        }
+
+        /// <summary>
         /// Loads and initializes a CNG provider.
         /// </summary>
         /// <param name="pszAlgId">
@@ -315,35 +346,244 @@ namespace PInvoke
         {
             /// <summary>
             /// The triple data encryption standard symmetric encryption algorithm.
+            /// Standard: SP800-67, SP800-38A
             /// </summary>
             public const string BCRYPT_3DES_ALGORITHM = "3DES";
 
             /// <summary>
             /// The 112-bit triple data encryption standard symmetric encryption algorithm.
+            /// Standard: SP800-67, SP800-38A
             /// </summary>
             public const string BCRYPT_3DES_112_ALGORITHM = "3DES_112";
 
             /// <summary>
             /// The advanced encryption standard symmetric encryption algorithm.
+            /// Standard: FIPS 197
             /// </summary>
             public const string BCRYPT_AES_ALGORITHM = "AES";
 
             /// <summary>
+            /// The advanced encryption standard (AES) cipher based message authentication code (CMAC) symmetric encryption algorithm.
+            /// Standard: SP 800-38B
+            /// Windows 8:  Support for this algorithm begins.
+            /// </summary>
+            public const string BCRYPT_AES_CMAC_ALGORITHM = "AES-CMAC";
+
+            /// <summary>
+            /// The advanced encryption standard (AES) Galois message authentication code (GMAC) symmetric encryption algorithm.
+            /// Standard: SP800-38D
+            /// Windows Vista:  This algorithm is supported beginning with Windows Vista with SP1.
+            /// </summary>
+            public const string BCRYPT_AES_GMAC_ALGORITHM = "AES-GMAC";
+
+            /// <summary>
+            /// Crypto API (CAPI) key derivation function algorithm. Used by the BCryptKeyDerivation and NCryptKeyDerivation functions.
+            /// </summary>
+            public const string BCRYPT_CAPI_KDF_ALGORITHM = "CAPI_KDF";
+
+            /// <summary>
+            /// The data encryption standard symmetric encryption algorithm.
+            /// Standard: FIPS 46-3, FIPS 81
+            /// </summary>
+            public const string BCRYPT_DES_ALGORITHM = "DES";
+
+            /// <summary>
+            /// The extended data encryption standard symmetric encryption algorithm.
+            /// Standard: None
+            /// </summary>
+            public const string BCRYPT_DESX_ALGORITHM = "DESX";
+
+            /// <summary>
+            /// The Diffie-Hellman key exchange algorithm.
+            /// Standard: PKCS #3
+            /// </summary>
+            public const string BCRYPT_DH_ALGORITHM = "DH";
+
+            /// <summary>
+            /// The digital signature algorithm.
+            /// Standard: FIPS 186-2
+            /// Windows 8:  Beginning with Windows 8, this algorithm supports FIPS 186-3. Keys less than or equal to 1024 bits adhere to FIPS 186-2 and keys greater than 1024 to FIPS 186-3.
+            /// </summary>
+            public const string BCRYPT_DSA_ALGORITHM = "DSA";
+
+            /// <summary>
+            /// The 256-bit prime elliptic curve Diffie-Hellman key exchange algorithm.
+            /// Standard: SP800-56A
+            /// </summary>
+            public const string BCRYPT_ECDH_P256_ALGORITHM = "ECDH_P256";
+
+            /// <summary>
+            /// The 384-bit prime elliptic curve Diffie-Hellman key exchange algorithm.
+            /// Standard: SP800-56A
+            /// </summary>
+            public const string BCRYPT_ECDH_P384_ALGORITHM = "ECDH_P384";
+
+            /// <summary>
+            /// The 521-bit prime elliptic curve Diffie-Hellman key exchange algorithm.
+            /// Standard: SP800-56A
+            /// </summary>
+            public const string BCRYPT_ECDH_P521_ALGORITHM = "ECDH_P521";
+
+            /// <summary>
+            /// The 256-bit prime elliptic curve digital signature algorithm (FIPS 186-2).
+            /// Standard: FIPS 186-2, X9.62
+            /// </summary>
+            public const string BCRYPT_ECDSA_P256_ALGORITHM = "ECDSA_P256";
+
+            /// <summary>
+            /// The 384-bit prime elliptic curve digital signature algorithm (FIPS 186-2).
+            /// Standard: FIPS 186-2, X9.62
+            /// </summary>
+            public const string BCRYPT_ECDSA_P384_ALGORITHM = "ECDSA_P384";
+
+            /// <summary>
+            /// The 521-bit prime elliptic curve digital signature algorithm (FIPS 186-2).
+            /// Standard: FIPS 186-2, X9.62
+            /// </summary>
+            public const string BCRYPT_ECDSA_P521_ALGORITHM = "ECDSA_P521";
+
+            /// <summary>
+            /// The MD2 hash algorithm.
+            /// Standard: RFC 1319
+            /// </summary>
+            public const string BCRYPT_MD2_ALGORITHM = "MD2";
+
+            /// <summary>
+            /// The MD4 hash algorithm.
+            /// Standard: RFC 1320
+            /// </summary>
+            public const string BCRYPT_MD4_ALGORITHM = "MD4";
+
+            /// <summary>
+            /// The MD5 hash algorithm.
+            /// Standard: RFC 1321
+            /// </summary>
+            public const string BCRYPT_MD5_ALGORITHM = "MD5";
+
+            /// <summary>
+            /// The RC2 block symmetric encryption algorithm.
+            /// Standard: RFC 2268
+            /// </summary>
+            public const string BCRYPT_RC2_ALGORITHM = "RC2";
+
+            /// <summary>
+            /// The RC4 symmetric encryption algorithm.
+            /// Standard: Various
+            /// </summary>
+            public const string BCRYPT_RC4_ALGORITHM = "RC4";
+
+            /// <summary>
             /// The random-number generator algorithm.
+            /// Standard: FIPS 186-2, FIPS 140-2, NIST SP 800-90
+            /// Note  Beginning with Windows Vista with SP1 and Windows Server 2008, the random number generator is based on the AES counter mode specified in the NIST SP 800-90 standard.
+            /// Windows Vista:  The random number generator is based on the hash-based random number generator specified in the FIPS 186-2 standard.
+            /// Windows 8:  Beginning with Windows 8, the RNG algorithm supports FIPS 186-3. Keys less than or equal to 1024 bits adhere to FIPS 186-2 and keys greater than 1024 to FIPS 186-3.
             /// </summary>
             public const string BCRYPT_RNG_ALGORITHM = "RNG";
 
             /// <summary>
             /// The dual elliptic curve random-number generator algorithm.
+            /// Standard: SP800-90
+            /// Windows 8:  Beginning with Windows 8, the EC RNG algorithm supports FIPS 186-3. Keys less than or equal to 1024 bits adhere to FIPS 186-2 and keys greater than 1024 to FIPS 186-3.
+            /// Windows 10:  Beginning with Windows 10, the dual elliptic curve random number generator algorithm has been removed. Existing uses of this algorithm will continue to work; however, the random number generator is based on the AES counter mode specified in the NIST SP 800-90 standard. New code should use BCRYPT_RNG_ALGORITHM, and it is recommended that existing code be changed to use BCRYPT_RNG_ALGORITHM.
             /// </summary>
             public const string BCRYPT_RNG_DUAL_EC_ALGORITHM = "DUALECRNG";
 
             /// <summary>
             /// The random-number generator algorithm suitable for DSA (Digital Signature Algorithm).
+            /// Standard: FIPS 186-2
+            /// Windows 8:  Support for FIPS 186-3 begins.
             /// </summary>
             public const string BCRYPT_RNG_FIPS186_DSA_ALGORITHM = "FIPS186DSARNG";
 
-            // TODO: Define constants for the rest in https://msdn.microsoft.com/en-us/library/windows/desktop/aa375534(v=vs.85).aspx
+            /// <summary>
+            /// The RSA public key algorithm.
+            /// Standard: PKCS #1 v1.5 and v2.0.
+            /// </summary>
+            public const string BCRYPT_RSA_ALGORITHM = "RSA";
+
+            /// <summary>
+            /// The RSA signature algorithm. This algorithm is not currently supported. You can use the BCRYPT_RSA_ALGORITHM algorithm to perform RSA signing operations.
+            /// Standard: PKCS #1 v1.5 and v2.0.
+            /// </summary>
+            public const string BCRYPT_RSA_SIGN_ALGORITHM = "RSA_SIGN";
+
+            /// <summary>
+            /// The 160-bit secure hash algorithm.
+            /// Standard: FIPS 180-2, FIPS 198
+            /// </summary>
+            public const string BCRYPT_SHA1_ALGORITHM = "SHA1";
+
+            /// <summary>
+            /// The 256-bit secure hash algorithm.
+            /// Standard: FIPS 180-2, FIPS 198
+            /// </summary>
+            public const string BCRYPT_SHA256_ALGORITHM = "SHA256";
+
+            /// <summary>
+            /// The 384-bit secure hash algorithm.
+            /// Standard: FIPS 180-2, FIPS 198
+            /// </summary>
+            public const string BCRYPT_SHA384_ALGORITHM = "SHA384";
+
+            /// <summary>
+            /// The 512-bit secure hash algorithm.
+            /// Standard: FIPS 180-2, FIPS 198
+            /// </summary>
+            public const string BCRYPT_SHA512_ALGORITHM = "SHA512";
+
+            /// <summary>
+            /// Counter mode, hash-based message authentication code (HMAC) key derivation function algorithm. Used by the BCryptKeyDerivation and NCryptKeyDerivation functions.
+            /// </summary>
+            public const string BCRYPT_SP800108_CTR_HMAC_ALGORITHM = "SP800_108_CTR_HMAC";
+
+            /// <summary>
+            /// SP800-56A key derivation function algorithm. Used by the BCryptKeyDerivation and NCryptKeyDerivation functions.
+            /// </summary>
+            public const string BCRYPT_SP80056A_CONCAT_ALGORITHM = "SP800_56A_CONCAT";
+
+            /// <summary>
+            /// Password-based key derivation function 2 (PBKDF2) algorithm. Used by the BCryptKeyDerivation and NCryptKeyDerivation functions.
+            /// </summary>
+            public const string BCRYPT_PBKDF2_ALGORITHM = "PBKDF2";
+        }
+
+        /// <summary>
+        /// Possible values for the <see cref="PropertyNames.ChainingMode"/> property.
+        /// </summary>
+        public static class ChainingModes
+        {
+            /// <summary>
+            /// Sets the algorithm's chaining mode to cipher block chaining.
+            /// </summary>
+            public const string Cbc = "ChainingModeCBC";
+
+            /// <summary>
+            /// Sets the algorithm's chaining mode to counter with CBC-MAC mode (CCM).
+            /// Windows Vista:  This value is supported beginning with Windows Vista with SP1.
+            /// </summary>
+            public const string Ccm = "ChainingModeCCM";
+
+            /// <summary>
+            /// Sets the algorithm's chaining mode to cipher feedback.
+            /// </summary>
+            public const string Cfb = "ChainingModeCFB";
+
+            /// <summary>
+            /// Sets the algorithm's chaining mode to electronic codebook.
+            /// </summary>
+            public const string Ecb = "ChainingModeECB";
+
+            /// <summary>
+            /// Sets the algorithm's chaining mode to Galois/counter mode (GCM).
+            /// Windows Vista:  This value is supported beginning with Windows Vista with SP1.
+            /// </summary>
+            public const string Gcm = "ChainingModeGCM";
+
+            /// <summary>
+            /// The algorithm does not support chaining.
+            /// </summary>
+            public const string NotApplicable = "ChainingModeN/A";
         }
 
         /// <summary>
@@ -354,31 +594,128 @@ namespace PInvoke
         /// </devremarks>
         public static class PropertyNames
         {
+            /// <summary>
+            /// The size, in bytes, of the subobject of a provider. This data type is a DWORD. Currently, the hash and symmetric cipher algorithm providers use caller-allocated buffers to store their subobjects. For example, the hash provider requires you to allocate memory for the hash object obtained with the BCryptCreateHash function. This property provides the buffer size for a provider's object so you can allocate memory for the object created by the provider.
+            /// </summary>
             public const string ObjectLength = "ObjectLength";
+
+            /// <summary>
+            /// The name of the algorithm.
+            /// </summary>
             public const string AlgorithmName = "AlgorithmName";
+
+            /// <summary>
+            /// The handle of the CNG provider that created the object passed in the hObject parameter. This data type is a BCRYPT_ALG_HANDLE. This property can only be retrieved; it cannot be set.
+            /// </summary>
             public const string ProviderHandle = "ProviderHandle";
+
+            /// <summary>
+            /// Represents the chaining mode of the encryption algorithm. This property can be set on an algorithm handle or a key handle to one of the following values
+            /// specified in <see cref="ChainingModes"/>.
+            /// </summary>
             public const string ChainingMode = "ChainingMode";
 
             /// <summary>
             /// The size, in bytes, of a cipher block for the algorithm. This property only applies to block cipher algorithms. This data type is a DWORD.
             /// </summary>
             public const string BlockLength = "BlockLength";
+
+            /// <summary>
+            /// The size, in bits, of the key value of a symmetric key provider. This data type is a DWORD.
+            /// </summary>
             public const string KeyLength = "KeyLength";
+
+            /// <summary>
+            /// This property is not used. The BCRYPT_OBJECT_LENGTH property is used to obtain this information.
+            /// </summary>
             public const string KeyObjectLength = "KeyObjectLength";
+
+            /// <summary>
+            /// The number of bits in the key. This data type is a DWORD. This property only applies to keys.
+            /// </summary>
             public const string KeyStrength = "KeyStrength";
+
+            /// <summary>
+            /// The key lengths that are supported by the algorithm. This property is a BCRYPT_KEY_LENGTHS_STRUCT structure. This property only applies to algorithms.
+            /// </summary>
             public const string KeyLengths = "KeyLengths";
+
+            /// <summary>
+            /// A list of the block lengths supported by an encryption algorithm. This data type is an array of DWORDs. The number of elements in the array can be determined by dividing the number of bytes retrieved by the size of a single DWORD.
+            /// </summary>
             public const string BlockSizeList = "BlockSizeList";
+
+            /// <summary>
+            /// The size, in bits, of the effective length of an RC2 key. This data type is a DWORD.
+            /// </summary>
             public const string EffectiveKeyLength = "EffectiveKeyLength";
-            public const string HashDigestLength = "HashDigestLength";
+
+            /// <summary>
+            /// The size, in bytes, of the hash value of a hash provider. This data type is a DWORD.
+            /// </summary>
+            public const string HashLength = "HashDigestLength";
+
+            /// <summary>
+            /// The list of DER-encoded hashing object identifiers (OIDs). This property is a BCRYPT_OID_LIST structure. This property can only be read.
+            /// </summary>
             public const string HashOIDList = "HashOIDList";
+
+            /// <summary>
+            /// Represents the padding scheme of the RSA algorithm provider. This data type is a DWORD.
+            /// This can be one of the values specified in <see cref="BCrypt.PaddingSchemes"/>.
+            /// </summary>
             public const string PaddingSchemes = "PaddingSchemes";
+
+            /// <summary>
+            /// The size, in bytes, of the length of a signature for a key. This data type is a DWORD. This property only applies to keys. This property can only be retrieved; it cannot be set.
+            /// </summary>
             public const string SignatureLength = "SignatureLength";
+
+            /// <summary>
+            /// The size, in bytes, of the block for a hash. This property only applies to hash algorithms. This data type is a DWORD.
+            /// </summary>
             public const string HashBlockLength = "HashBlockLength";
+
+            /// <summary>
+            /// The authentication tag lengths that are supported by the algorithm. This property is a BCRYPT_AUTH_TAG_LENGTHS_STRUCT structure. This property only applies to algorithms.
+            /// </summary>
             public const string AuthTagLength = "AuthTagLength";
-            public const string PrimitiveType = "PrimitiveType";
-            public const string IsKeyedHash = "IsKeyedHash";
-            public const string IsReusableHash = "IsReusableHash";
+
+            /// <summary>
+            /// This can be set on any key handle that has the CFB chaining mode set. By default, this property is set to 1 for 8-bit CFB. Setting it to the block size in bytes causes full-block CFB to be used.
+            /// </summary>
             public const string MessageBlockLength = "MessageBlockLength";
+
+            /// <summary>
+            /// Specifies parameters to use with a Diffie-Hellman key. This data type is a pointer to a BCRYPT_DH_PARAMETER_HEADER structure. This property can only be set and must be set for the key before the key is completed.
+            /// </summary>
+            public const string DHParameters = "DHParameters";
+
+            /// <summary>
+            /// Specifies parameters to use with a DSA key. This property is a BCRYPT_DSA_PARAMETER_HEADER or a BCRYPT_DSA_PARAMETER_HEADER_V2 structure. This property can only be set and must be set for the key before the key is completed.
+            /// Windows 8:  Beginning with Windows 8, this property can be a BCRYPT_DSA_PARAMETER_HEADER_V2 structure.Use this structure if the key size exceeds 1024 bits and is less than or equal to 3072 bits.If the key size is greater than or equal to 512 but less than or equal to 1024 bits, use the BCRYPT_DSA_PARAMETER_HEADER structure.
+            /// </summary>
+            public const string DSAParameters = "DSAParameters";
+
+            /// <summary>
+            /// Contains the initialization vector (IV) for a key. This property only applies to keys.
+            /// </summary>
+            public const string InitializationVector = "IV";
+
+            /// <summary>
+            /// Undocumented.
+            /// </summary>
+            public const string PrimitiveType = "PrimitiveType";
+
+            /// <summary>
+            /// Undocumented.
+            /// </summary>
+            public const string IsKeyedHash = "IsKeyedHash";
+
+            /// <summary>
+            /// Undocumented.
+            /// </summary>
+            public const string IsReusableHash = "IsReusableHash";
         }
 
         public static class SymmetricKeyBlobTypes
