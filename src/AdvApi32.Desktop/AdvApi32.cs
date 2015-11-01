@@ -182,7 +182,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern bool CloseServiceHandle(IntPtr hSCObject);
+        private static extern bool CloseServiceHandle(IntPtr hSCObject);
 
         /// <summary>
         /// Creates a service object and adds it to the specified service control manager database.
