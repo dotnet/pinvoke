@@ -515,7 +515,7 @@ namespace PInvoke
             IntPtr pPaddingInfo,
             byte[] pbInput,
             int cbInput,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 8)] byte[] pbOutput,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] pbOutput,
             int cbOutput,
             out int pcbResult,
             BCryptSignHashFlags dwFlags);
@@ -558,7 +558,7 @@ namespace PInvoke
             int cbHash,
             byte[] pbSignature,
             int cbSignature,
-            BCryptSignHashFlags dwFlags);
+            BCryptSignHashFlags dwFlags = BCryptSignHashFlags.None);
 
         /// <summary>
         /// Creates an empty public/private key pair.

@@ -166,21 +166,6 @@ namespace PInvoke
         }
 
         /// <summary>
-        /// Completes a public/private key pair.
-        /// </summary>
-        /// <param name="keyHandle">The handle of the key to complete. This handle is obtained by calling the BCryptGenerateKeyPair function.</param>
-        /// <remarks>
-        /// The key cannot be used until this function has been called.
-        /// After this function has been called, the BCryptSetProperty function
-        /// can no longer be used for this key.
-        /// </remarks>
-        public static void BCryptFinalizeKeyPair(SafeKeyHandle keyHandle)
-        {
-            var error = BCryptFinalizeKeyPair(keyHandle, 0);
-            error.ThrowOnError();
-        }
-
-        /// <summary>
         /// Creates an empty public/private key pair.
         /// </summary>
         /// <param name="algorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/></param>

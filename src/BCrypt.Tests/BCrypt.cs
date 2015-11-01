@@ -149,6 +149,26 @@ public class BCrypt
         Assert.Equal(expectedHash, actualHash);
     }
 
+    [Fact]
+    public void SignHash()
+    {
+        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
+        {
+            int keySize = GetMinimumKeySize(algorithm);
+            using (var keyPair = BCryptGenerateKeyPair(algorithm, keySize))
+            {
+                BCryptFinalizeKeyPair(keyPair).ThrowOnError();
+                byte[] hashData = SHA1.Create().ComputeHash(new byte[] { 0x1 });
+                byte[] signature = BCryptSignHash(keyPair, hashData);
+                NTStatus status = BCryptVerifySignature(keyPair, IntPtr.Zero, hashData, hashData.Length, signature, signature.Length);
+                Assert.Equal(NTStatus.STATUS_SUCCESS, status);
+                signature[0] = unchecked((byte)(signature[0] + 1));
+                status = BCryptVerifySignature(keyPair, IntPtr.Zero, hashData, hashData.Length, signature, signature.Length);
+                Assert.Equal(NTStatus.STATUS_INVALID_SIGNATURE, status);
+            }
+        }
+    }
+
     private static int GetMinimumKeySize(SafeAlgorithmHandle algorithm)
     {
         var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(algorithm, PropertyNames.KeyLengths);
