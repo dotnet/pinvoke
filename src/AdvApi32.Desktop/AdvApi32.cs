@@ -110,11 +110,11 @@ namespace PInvoke
         /// </summary>
         public enum ServiceStartType : uint
         {
-            SERVICE_BOOT_START,
-            SERVICE_SYSTEM_START,
-            SERVICE_AUTO_START,
-            SERVICE_DEMAND_START,
-            SERVICE_DISABLED
+            SERVICE_BOOT_START = 0x00000000,
+            SERVICE_SYSTEM_START = 0x00000001,
+            SERVICE_AUTO_START = 0x00000002,
+            SERVICE_DEMAND_START = 0x00000003,
+            SERVICE_DISABLED = 0x00000004
         }
 
         /// <summary>
@@ -122,10 +122,10 @@ namespace PInvoke
         /// </summary>
         public enum ServiceErrorControl : uint
         {
-            SERVICE_ERROR_IGNORE,
-            SERVICE_ERROR_NORMAL,
-            SERVICE_ERROR_SEVERE,
-            SERVICE_ERROR_CRITICAL
+            SERVICE_ERROR_IGNORE = 0x00000000,
+            SERVICE_ERROR_NORMAL = 0x00000001,
+            SERVICE_ERROR_SEVERE = 0x00000002,
+            SERVICE_ERROR_CRITICAL = 0x00000003
         }
 
         /// <summary>
@@ -134,14 +134,14 @@ namespace PInvoke
         public enum ServiceInfoLevel
         {
             SERVICE_CONFIG_DESCRIPTION = 1,
-            SERVICE_CONFIG_FAILURE_ACTIONS,
-            SERVICE_CONFIG_DELAYED_AUTO_START_INFO,
-            SERVICE_CONFIG_FAILURE_ACTIONS_FLAG,
-            SERVICE_CONFIG_SERVICE_SID_INFO,
-            SERVICE_CONFIG_REQUIRED_PRIVILEGES_INFO,
-            SERVICE_CONFIG_PRESHUTDOWN_INFO,
-            SERVICE_CONFIG_TRIGGER_INFO,
-            SERVICE_CONFIG_PREFERRED_NODE,
+            SERVICE_CONFIG_FAILURE_ACTIONS = 2,
+            SERVICE_CONFIG_DELAYED_AUTO_START_INFO = 3,
+            SERVICE_CONFIG_FAILURE_ACTIONS_FLAG = 4,
+            SERVICE_CONFIG_SERVICE_SID_INFO = 5,
+            SERVICE_CONFIG_REQUIRED_PRIVILEGES_INFO = 6,
+            SERVICE_CONFIG_PRESHUTDOWN_INFO = 7,
+            SERVICE_CONFIG_TRIGGER_INFO = 8,
+            SERVICE_CONFIG_PREFERRED_NODE = 9,
             SERVICE_CONFIG_LAUNCH_PROTECTED = 12
         }
 
