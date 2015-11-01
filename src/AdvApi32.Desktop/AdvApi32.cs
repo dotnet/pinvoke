@@ -13,6 +13,12 @@ namespace PInvoke
     public static partial class AdvApi32
     {
         /// <summary>
+        /// Used to prefix group names so that they can be distinguished from a service name,
+        /// because services and service groups share the same name space.
+        /// </summary>
+        public const string SC_GROUP_IDENTIFIER = "+";
+
+        /// <summary>
         /// Describes service manager access flags.
         /// </summary>
         [Flags]
@@ -160,8 +166,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero
         /// </returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern bool ChangeServiceConfig2(IntPtr hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
+        [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool ChangeServiceConfig2(SafeServiceHandler hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.
@@ -176,7 +182,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern IntPtr CloseServiceHandle(IntPtr hSCObject);
+        public static extern bool CloseServiceHandle(IntPtr hSCObject);
 
         /// <summary>
         /// Creates a service object and adds it to the specified service control manager database.
@@ -229,7 +235,8 @@ namespace PInvoke
         /// Tags are only evaluated for driver services that have <see cref="ServiceStartType.SERVICE_BOOT_START"/> or <see cref="ServiceStartType.SERVICE_SYSTEM_START"/> start types.
         /// </param>
         /// <param name="lpDependencies">
-        /// A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service. Specify NULL or an empty string if the service has no dependencies. Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.
+        /// A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service. Specify NULL or an empty string if the service has no dependencies.
+        /// Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.
         /// You must prefix group names with SC_GROUP_IDENTIFIER so that they can be distinguished from a service name, because services and service groups share the same name space.
         /// </param>
         /// <param name="lpServiceStartName">
@@ -248,8 +255,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the service.
         /// If the function fails, the return value is NULL
         /// </returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern IntPtr CreateService(IntPtr hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
+        [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern SafeServiceHandler CreateService(SafeServiceHandler hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
 
         /// <summary>
         /// Marks the specified service for deletion from the service control manager database.
@@ -262,7 +269,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern bool DeleteService(IntPtr hService);
+        public static extern bool DeleteService(SafeServiceHandler hService);
 
         /// <summary>
         /// Establishes a connection to the service control manager on the specified computer and opens the specified service control manager database.
@@ -286,8 +293,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the specified service control manager database.
         /// If the function fails, the return value is NULL.To get extended error information, call GetLastError.
         /// </returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern IntPtr OpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
+        [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern SafeServiceHandler OpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
 
         /// <summary>
         /// Opens an existing service.
@@ -307,8 +314,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the service.
         /// If the function fails, the return value is NULL.
         /// </returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern IntPtr OpenService(IntPtr hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
+        [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern SafeServiceHandler OpenService(SafeServiceHandler hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
 
         /// <summary>
         /// Starts a service.
@@ -327,7 +334,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern IntPtr StartService(IntPtr hService, int dwNumServiceArgs, string lpServiceArgVectors);
+        [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool StartService(SafeServiceHandler hService, int dwNumServiceArgs, string lpServiceArgVectors);
     }
 }

@@ -15,89 +15,86 @@ namespace PInvoke
     {
         public static void InstallService(string servicePath, string serviceName, string serviceDisplayName, string serviceDescription, string userName, string password)
         {
-            IntPtr hSCManager = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE);
-
-            if (hSCManager == IntPtr.Zero)
+            using (SafeServiceHandler hSCManager = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
             {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
-            }
+                if (hSCManager.IsInvalid)
+                {
+                    throw new Win32Exception(Marshal.GetHRForLastWin32Error());
+                }
 
-            IntPtr svcHandle = CreateService(
-                hSCManager,
-                serviceName,
-                serviceDisplayName,
-                ServiceAccess.SERVICE_ALL_ACCESS,
-                ServiceType.SERVICE_WIN32_OWN_PROCESS,
-                ServiceStartType.SERVICE_DEMAND_START,
-                ServiceErrorControl.SERVICE_ERROR_NORMAL,
-                servicePath,
-                null,
-                0,
-                null,
-                userName,
-                password);
+                SafeServiceHandler svcHandle = CreateService(
+                    hSCManager,
+                    serviceName,
+                    serviceDisplayName,
+                    ServiceAccess.SERVICE_ALL_ACCESS,
+                    ServiceType.SERVICE_WIN32_OWN_PROCESS,
+                    ServiceStartType.SERVICE_DEMAND_START,
+                    ServiceErrorControl.SERVICE_ERROR_NORMAL,
+                    servicePath,
+                    null,
+                    0,
+                    null,
+                    userName,
+                    password);
 
-            if (svcHandle == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
-            }
+                using (svcHandle)
+                {
+                    if (svcHandle.IsInvalid)
+                    {
+                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                    }
 
-            ServiceDescription descriptionStruct = new ServiceDescription
-            {
-                lpDescription = serviceDescription
-            };
+                    ServiceDescription descriptionStruct = new ServiceDescription
+                    {
+                        lpDescription = serviceDescription
+                    };
 
-            IntPtr lpInfo = Marshal.AllocHGlobal(Marshal.SizeOf(descriptionStruct));
+                    IntPtr lpInfo = Marshal.AllocHGlobal(Marshal.SizeOf(descriptionStruct));
 
-            if (lpInfo == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
-            }
+                    if (lpInfo == IntPtr.Zero)
+                    {
+                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                    }
 
-            Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
+                    Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
 
-            if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
-            {
-                Marshal.FreeHGlobal(lpInfo);
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
-            }
+                    if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
+                    {
+                        Marshal.FreeHGlobal(lpInfo);
+                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                    }
 
-            Marshal.FreeHGlobal(lpInfo);
+                    Marshal.FreeHGlobal(lpInfo);
 
-            if (svcHandle == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
-            }
-
-            if (CloseServiceHandle(svcHandle) == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
+                    if (svcHandle.IsInvalid)
+                    {
+                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                    }
+                }
             }
         }
 
         public static void UninstallService(string serviceName)
         {
-            IntPtr scmHandle = OpenSCManager(null, null, ServiceManagerAccess.GenericWrite);
-
-            if (scmHandle == IntPtr.Zero)
+            using (SafeServiceHandler scmHandle = OpenSCManager(null, null, ServiceManagerAccess.GenericWrite))
             {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
-            }
+                if (scmHandle.IsInvalid)
+                {
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                }
 
-            IntPtr svcHandle = OpenService(scmHandle, serviceName, ServiceAccess.Delete);
-            if (svcHandle == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
-            }
+                using (SafeServiceHandler svcHandle = OpenService(scmHandle, serviceName, ServiceAccess.Delete))
+                {
+                    if (svcHandle.IsInvalid)
+                    {
+                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                    }
 
-            if (!DeleteService(svcHandle))
-            {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
-            }
-
-            if (CloseServiceHandle(scmHandle) == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetHRForLastWin32Error());
+                    if (!DeleteService(svcHandle))
+                    {
+                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                    }
+                }
             }
         }
     }

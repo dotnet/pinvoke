@@ -38,6 +38,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvApi32+SafeServiceHandle.cs" />
     <Compile Include="AdvApi32+ServiceDescription.cs" />
     <Compile Include="AdvApi32.cs" />
     <Compile Include="AdvApi32.Helpers.cs" />
