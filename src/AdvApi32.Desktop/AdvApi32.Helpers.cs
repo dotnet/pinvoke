@@ -19,7 +19,7 @@ namespace PInvoke
             {
                 if (hSCManager.IsInvalid)
                 {
-                    throw new Win32Exception(Marshal.GetHRForLastWin32Error());
+                    throw new Win32Exception();
                 }
 
                 SafeServiceHandler svcHandle = CreateService(
@@ -41,7 +41,7 @@ namespace PInvoke
                 {
                     if (svcHandle.IsInvalid)
                     {
-                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                        throw new Win32Exception();
                     }
 
                     ServiceDescription descriptionStruct = new ServiceDescription
@@ -53,7 +53,7 @@ namespace PInvoke
 
                     if (lpInfo == IntPtr.Zero)
                     {
-                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                        throw new Win32Exception();
                     }
 
                     Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
@@ -61,14 +61,14 @@ namespace PInvoke
                     if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
                     {
                         Marshal.FreeHGlobal(lpInfo);
-                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                        throw new Win32Exception();
                     }
 
                     Marshal.FreeHGlobal(lpInfo);
 
                     if (svcHandle.IsInvalid)
                     {
-                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                        throw new Win32Exception();
                     }
                 }
             }
@@ -80,19 +80,19 @@ namespace PInvoke
             {
                 if (scmHandle.IsInvalid)
                 {
-                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                    throw new Win32Exception();
                 }
 
                 using (SafeServiceHandler svcHandle = OpenService(scmHandle, serviceName, ServiceAccess.Delete))
                 {
                     if (svcHandle.IsInvalid)
                     {
-                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                        throw new Win32Exception();
                     }
 
                     if (!DeleteService(svcHandle))
                     {
-                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                        throw new Win32Exception();
                     }
                 }
             }
