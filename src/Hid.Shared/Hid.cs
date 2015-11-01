@@ -146,17 +146,6 @@ namespace PInvoke
             out SafePreparsedDataHandle preparsedDataHandle);
 
         /// <summary>
-        /// Releases the resources that the HID class driver allocated to hold a top-level collection's preparsed data.
-        /// </summary>
-        /// <param name="preparsedData">
-        /// Pointer to the buffer, returned by
-        /// <see cref="HidD_GetPreparsedData(Kernel32.SafeObjectHandle, out SafePreparsedDataHandle)" />, that is freed.
-        /// </param>
-        /// <returns>TRUE if it succeeds. Otherwise, it returns FALSE if the buffer was not a preparsed data buffer.</returns>
-        [DllImport(nameof(Hid), SetLastError = true)]
-        public static extern bool HidD_FreePreparsedData(IntPtr preparsedData);
-
-        /// <summary>
         /// Returns a top-level collection's <see cref="HidpCaps" /> structure.
         /// </summary>
         /// <param name="preparsedData">Pointer to a top-level collection's preparsed data.</param>
@@ -170,5 +159,16 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Hid), SetLastError = true)]
         public static extern NTStatus HidP_GetCaps(SafePreparsedDataHandle preparsedData, ref HidpCaps capabilities);
+
+        /// <summary>
+        /// Releases the resources that the HID class driver allocated to hold a top-level collection's preparsed data.
+        /// </summary>
+        /// <param name="preparsedData">
+        /// Pointer to the buffer, returned by
+        /// <see cref="HidD_GetPreparsedData(Kernel32.SafeObjectHandle, out SafePreparsedDataHandle)" />, that is freed.
+        /// </param>
+        /// <returns>TRUE if it succeeds. Otherwise, it returns FALSE if the buffer was not a preparsed data buffer.</returns>
+        [DllImport(nameof(Hid), SetLastError = true)]
+        private static extern bool HidD_FreePreparsedData(IntPtr preparsedData);
     }
 }
