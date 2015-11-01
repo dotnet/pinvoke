@@ -127,4 +127,10 @@ public class BCrypt
             }
         }
     }
+
+    private static int GetMinimumKeySize(SafeAlgorithmHandle algorithm)
+    {
+        var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(algorithm, PropertyNames.KeyLengths);
+        return keyLengths.MinLength;
+    }
 }

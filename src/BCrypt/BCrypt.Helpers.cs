@@ -383,6 +383,59 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Creates a signature of a hash value.
+        /// </summary>
+        /// <param name="key">The handle of the key to use to sign the hash.</param>
+        /// <param name="hash">
+        /// A pointer to a buffer that contains the hash value to sign.
+        /// </param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="flags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="key"/> parameter.
+        /// </param>
+        /// <returns>
+        /// The signature produced by this function.
+        /// </returns>
+        /// <remarks>
+        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
+        /// </remarks>
+        public static byte[] BCryptSignHash(
+            SafeKeyHandle key,
+            byte[] hash,
+            IntPtr paddingInfo = default(IntPtr),
+            BCryptSignHashFlags flags = BCryptSignHashFlags.None)
+        {
+            int outputLength;
+            BCryptSignHash(
+                key,
+                paddingInfo,
+                hash,
+                hash.Length,
+                null,
+                0,
+                out outputLength,
+                flags).ThrowOnError();
+
+            byte[] pbOutput = new byte[outputLength];
+            BCryptSignHash(
+                key,
+                paddingInfo,
+                hash,
+                hash.Length,
+                pbOutput,
+                pbOutput.Length,
+                out outputLength,
+                flags).ThrowOnError();
+
+            // The size should be as expected, but just in case:
+            Array.Resize(ref pbOutput, outputLength);
+
+            return pbOutput;
+        }
+
+        /// <summary>
         /// Creates a secret agreement value from a private and a public key.
         /// </summary>
         /// <param name="privateKey">

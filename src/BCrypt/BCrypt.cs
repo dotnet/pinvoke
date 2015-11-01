@@ -189,6 +189,28 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Flags that can be passed to <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/>.
+        /// </summary>
+        [Flags]
+        public enum BCryptSignHashFlags
+        {
+            /// <summary>
+            /// No flags.
+            /// </summary>
+            None = 0x0,
+
+            /// <summary>
+            /// Use the PKCS1 padding scheme. The pPaddingInfo parameter is a pointer to a BCRYPT_PKCS1_PADDING_INFO structure.
+            /// </summary>
+            BCRYPT_PAD_PKCS1 = 0x2,
+
+            /// <summary>
+            /// Use the Probabilistic Signature Scheme (PSS) padding scheme. The pPaddingInfo parameter is a pointer to a BCRYPT_PSS_PADDING_INFO structure.
+            /// </summary>
+            BCRYPT_PAD_PSS = 0x00000008,
+        }
+
+        /// <summary>
         /// Flags that may be passed to the <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/> method.
         /// </summary>
         [Flags]
@@ -339,6 +361,85 @@ namespace PInvoke
             int cbOutput,
             out int pcbResult,
             BCryptEncryptFlags dwFlags);
+
+        /// <summary>
+        /// Creates a signature of a hash value.
+        /// </summary>
+        /// <param name="hKey">The handle of the key to use to sign the hash.</param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="dwFlags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="pbInput">
+        /// A pointer to a buffer that contains the hash value to sign. The <paramref name="cbInput"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbInput">
+        /// The number of bytes in the <paramref name="pbInput"/> buffer to sign.
+        /// </param>
+        /// <param name="pbOutput">
+        /// The address of a buffer to receive the signature produced by this function. The <paramref name="cbOutput"/> parameter contains the size of this buffer.
+        /// If this parameter is NULL, this function will calculate the size required for the signature and return the size in the location pointed to by the <paramref name="pcbResult"/> parameter.
+        /// </param>
+        /// <param name="cbOutput">
+        /// The size, in bytes, of the <paramref name="pbOutput"/> buffer. This parameter is ignored if the <paramref name="pbOutput"/> parameter is NULL.
+        /// </param>
+        /// <param name="pcbResult">
+        /// A pointer to a ULONG variable that receives the number of bytes copied to the <paramref name="pbOutput"/> buffer.
+        /// If <paramref name="pbOutput"/> is NULL, this receives the size, in bytes, required for the signature.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
+        /// </remarks>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptSignHash(
+            SafeKeyHandle hKey,
+            IntPtr pPaddingInfo,
+            byte[] pbInput,
+            int cbInput,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 8)] byte[] pbOutput,
+            int cbOutput,
+            out int pcbResult,
+            BCryptSignHashFlags dwFlags);
+
+        /// <summary>
+        /// Verifies that the specified signature matches the specified hash.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="dwFlags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="pbHash">
+        /// The address of a buffer that contains the hash of the data. The <paramref name="cbHash"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbHash">
+        /// The size, in bytes, of the <paramref name="pbHash"/> buffer.
+        /// </param>
+        /// <param name="pbSignature">
+        /// The address of a buffer that contains the signed hash of the data. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function is used to create the signature. The <paramref name="cbSignature"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbSignature">
+        /// The size, in bytes, of the <paramref name="pbSignature"/> buffer. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function is used to create the signature.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// If the key is a symmetric key, this parameter is not used and should be zero.
+        /// If the key is an asymmetric key, this can be one of the following values.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptVerifySignature(
+            SafeKeyHandle hKey,
+            IntPtr pPaddingInfo,
+            byte[] pbHash,
+            int cbHash,
+            byte[] pbSignature,
+            int cbSignature,
+            BCryptSignHashFlags dwFlags);
 
         /// <summary>
         /// Creates an empty public/private key pair.
