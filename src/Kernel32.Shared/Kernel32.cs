@@ -192,26 +192,26 @@ namespace PInvoke
         public static extern int FormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
 
         /// <summary>
-        /// Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW, FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
-        /// </summary>
-        /// <param name="hFindFile">The file search handle.</param>
-        /// <returns>
-        /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
-        /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern bool FindClose(IntPtr hFindFile);
-
-        /// <summary>
         /// Closes an open object handle.
         /// </summary>
         /// <param name="hObject">A valid handle to an open object.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// <para>If the function fails, the return value is zero.To get extended error information, call GetLastError.</para>
+        /// If the function fails, the return value is zero.To get extended error information, call GetLastError.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern bool CloseHandle(IntPtr hObject);
+        private static extern bool CloseHandle(IntPtr hObject);
+
+        /// <summary>
+        /// Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW, FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
+        /// </summary>
+        /// <param name="hFindFile">The file search handle.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        private static extern bool FindClose(IntPtr hFindFile);
 
         /// <summary>
         /// Retrieves the thread identifier of the calling thread.

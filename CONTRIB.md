@@ -43,6 +43,8 @@ Powershell cmdlet to create the projects necessary to support it and follow the 
 ### Method parameters
 
  * Prefer `SafeHandle`-derived types to `IntPtr` when dealing with handles.
+   Mark P/Invoke methods that destroy handles private because they will necessarily take `IntPtr`
+   and the pattern for users should be to `Dispose` of your `SafeHandle`.
  * Prefer `IntPtr` over unsafe pointers. But be sure the xml doc comments for the parameter specify the expected type.
  * Prefer `enum` types over `int` or `uint` flags. Generally, name flags enums as `METHODNAMEFlags`, for example
    `CreateFileFlags` for the flags that are passed to `CreateFile`.
