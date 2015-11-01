@@ -4,6 +4,8 @@
 namespace PInvoke
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Runtime.InteropServices;
 
     /// <summary>
@@ -94,8 +96,27 @@ namespace PInvoke
             None = 0x0,
         }
 
+        [Flags]
+        public enum BCryptGenRandomFlags
+        {
+            None = 0x0,
+
+            /// <summary>
+            /// This function will use the number in the pbBuffer buffer as additional entropy for the random number. If this flag is not specified, this function will use a random number for the entropy.
+            /// Windows 8 and later:  This flag is ignored in Windows 8 and later.
+            /// </summary>
+            UseEntropyInBuffer = 0x1,
+
+            /// <summary>
+            /// Use the system-preferred random number generator algorithm. The hAlgorithm parameter must be NULL.
+            /// <see cref="UseSystemPreferredRNG"/> is only supported at PASSIVE_LEVEL IRQL. For more information, see Remarks.
+            /// Windows Vista:  This flag is not supported.
+            /// </summary>
+            UseSystemPreferredRNG = 0x2,
+        }
+
         /// <summary>
-        /// Flags that can be passed to <see cref="BCryptOpenAlgorithmProvider"/>
+        /// Flags that can be passed to <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/>
         /// </summary>
         [Flags]
         public enum BCryptOpenAlgorithmProviderFlags
@@ -137,6 +158,46 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Flags that can be passed to the <see cref="BCryptEncrypt"/> method.
+        /// </summary>
+        [Flags]
+        public enum BCryptEncryptFlags
+        {
+            None = 0x0,
+
+            /// <summary>
+            /// Symmetric algorithms: Allows the encryption algorithm to pad the data to the next block size. If this flag is not specified, the size of the plaintext specified in the cbInput parameter must be a multiple of the algorithm's block size.
+            /// The block size can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the BCRYPT_BLOCK_LENGTH property for the key. This will provide the size of a block for the algorithm.
+            /// This flag must not be used with the authenticated encryption modes (AES-CCM and AES-GCM).
+            /// </summary>
+            BCRYPT_BLOCK_PADDING = 1,
+
+            /// <summary>
+            /// Asymmetric algorithms: Do not use any padding. The pPaddingInfo parameter is not used. The size of the plaintext specified in the cbInput parameter must be a multiple of the algorithm's block size.
+            /// </summary>
+            BCRYPT_PAD_NONE = 0x1,
+
+            /// <summary>
+            /// Asymmetric algorithms: The data will be padded with a random number to round out the block size. The pPaddingInfo parameter is not used.
+            /// </summary>
+            BCRYPT_PAD_PKCS1 = 0x2,
+
+            /// <summary>
+            /// Asymmetric algorithms: Use the Optimal Asymmetric Encryption Padding (OAEP) scheme. The pPaddingInfo parameter is a pointer to a BCRYPT_OAEP_PADDING_INFO structure.
+            /// </summary>
+            BCRYPT_PAD_OAEP = 0x4,
+        }
+
+        /// <summary>
+        /// Flags that may be passed to the <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/> method.
+        /// </summary>
+        [Flags]
+        public enum BCryptGenerateSymmetricKeyFlags
+        {
+            None = 0x0,
+        }
+
+        /// <summary>
         /// Loads and initializes a CNG provider.
         /// </summary>
         /// <param name="phAlgorithm">
@@ -147,7 +208,8 @@ namespace PInvoke
         /// <param name="pszAlgId">
         /// A pointer to a null-terminated Unicode string that identifies the requested
         /// cryptographic algorithm. This can be one of the standard
-        /// CNG Algorithm Identifiers or the identifier for another registered algorithm.
+        /// CNG Algorithm Identifiers defined in <see cref="AlgorithmIdentifiers"/>
+        /// or the identifier for another registered algorithm.
         /// </param>
         /// <param name="pszImplementation">
         /// <para>
@@ -176,9 +238,112 @@ namespace PInvoke
             BCryptOpenAlgorithmProviderFlags dwFlags);
 
         /// <summary>
+        /// Encrypts a block of data.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/>, <see cref="BCryptGenerateKeyPair(SafeAlgorithmHandle, int)"/>, or <see cref="BCryptImportKey"/>.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the plaintext to be encrypted. The cbInput parameter contains the size of the plaintext to encrypt.
+        /// </param>
+        /// <param name="cbInput">
+        /// The number of bytes in the pbInput buffer to encrypt.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the dwFlags parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="pbIV">
+        /// The address of a buffer that contains the initialization vector (IV) to use during encryption. The cbIV parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+        /// This parameter is optional and can be NULL if no IV is used.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the BCRYPT_BLOCK_LENGTH property.This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// </param>
+        /// <param name="cbIV">The size, in bytes, of the pbIV buffer.</param>
+        /// <param name="pbOutput">
+        /// The address of the buffer that receives the ciphertext produced by this function. The <paramref name="cbOutput"/> parameter contains the size of this buffer. For more information, see Remarks.
+        /// If this parameter is NULL, the <see cref="BCryptEncrypt"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
+        /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="pPaddingInfo"/> parameter.
+        /// </param>
+        /// <param name="cbOutput">
+        /// The size, in bytes, of the <paramref name="pbOutput"/> buffer. This parameter is ignored if the <paramref name="pbOutput"/> parameter is NULL.
+        /// </param>
+        /// <param name="pcbResult">
+        /// A pointer to a ULONG variable that receives the number of bytes copied to the <paramref name="pbOutput"/> buffer. If <paramref name="pbOutput"/> is NULL, this receives the size, in bytes, required for the ciphertext.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// The <paramref name="pbInput"/> and <paramref name="pbOutput"/> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
+        /// </remarks>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptEncrypt(
+            SafeKeyHandle hKey,
+            byte[] pbInput,
+            int cbInput,
+            IntPtr pPaddingInfo,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pbIV,
+            int cbIV,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 8)] byte[] pbOutput,
+            int cbOutput,
+            out int pcbResult,
+            BCryptEncryptFlags dwFlags);
+
+        /// <summary>
+        /// Decrypts a block of data.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/>, <see cref="BCryptGenerateKeyPair(SafeAlgorithmHandle, int)"/>, or <see cref="BCryptImportKey"/>.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the ciphertext to be decrypted. The <paramref name="cbInput"/> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
+        /// </param>
+        /// <param name="cbInput">
+        /// The number of bytes in the <paramref name="pbInput"/> buffer to decrypt.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <paramref name="dwFlags"/> parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="pbIV">
+        /// The address of a buffer that contains the initialization vector (IV) to use during decryption. The <paramref name="cbIV"/> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+        /// This parameter is optional and can be NULL if no IV is used.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BlockLength"/> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// </param>
+        /// <param name="cbIV">
+        /// The size, in bytes, of the <paramref name="pbIV"/> buffer.
+        /// </param>
+        /// <param name="pbOutput">
+        /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
+        /// If this parameter is NULL, the <see cref="BCryptDecrypt"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.
+        /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="pPaddingInfo"/> parameter, is verified.
+        /// </param>
+        /// <param name="cbOutput">
+        /// The size, in bytes, of the <paramref name="pbOutput"/> buffer. This parameter is ignored if the <paramref name="pbOutput"/> parameter is NULL.
+        /// </param>
+        /// <param name="pcbResult">
+        /// A pointer to a ULONG variable to receive the number of bytes copied to the <paramref name="pbOutput"/> buffer. If <paramref name="pbOutput"/> is NULL, this receives the size, in bytes, required for the plaintext.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptDecrypt(
+            SafeKeyHandle hKey,
+            byte[] pbInput,
+            int cbInput,
+            IntPtr pPaddingInfo,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pbIV,
+            int cbIV,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 8)] byte[] pbOutput,
+            int cbOutput,
+            out int pcbResult,
+            BCryptEncryptFlags dwFlags);
+
+        /// <summary>
         /// Creates an empty public/private key pair.
         /// </summary>
-        /// <param name="hAlgorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider"/></param>
+        /// <param name="hAlgorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/></param>
         /// <param name="phKey">Receives a handle to the generated key pair.</param>
         /// <param name="dwLength">The length of the key, in bits.</param>
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
@@ -194,6 +359,43 @@ namespace PInvoke
             out SafeKeyHandle phKey,
             int dwLength,
             BCryptGenerateKeyPairFlags dwFlags = BCryptGenerateKeyPairFlags.None);
+
+        /// <summary>
+        /// Creates a key object for use with a symmetrical key encryption algorithm from a supplied key.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The handle of an algorithm provider created with the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm specified when the provider was created must support symmetric key encryption.
+        /// </param>
+        /// <param name="phKey">
+        /// Receives the <see cref="SafeKeyHandle"/> of the generated key.
+        /// </param>
+        /// <param name="pbKeyObject">
+        /// A pointer to a buffer that receives the key object. The <paramref name="cbKeyObject"/> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the BCRYPT_OBJECT_LENGTH property. This will provide the size of the key object for the specified algorithm.
+        /// This memory can only be freed after the <paramref name="phKey"/> key handle is destroyed.
+        /// If the value of this parameter is NULL and the value of the <paramref name="cbKeyObject"/> parameter is zero, the memory for the key object is allocated and freed by this function.
+        /// </param>
+        /// <param name="cbKeyObject">
+        /// The size, in bytes, of the <paramref name="pbKeyObject"/> buffer.
+        /// If the value of this parameter is zero and the value of the <paramref name="pbKeyObject"/> parameter is NULL, the memory for the key object is allocated and freed by this function.
+        /// </param>
+        /// <param name="pbSecret">
+        /// Pointer to a buffer that contains the key from which to create the key object. The <paramref name="cbSecret"/> parameter contains the size of this buffer. This is normally a hash of a password or some other reproducible data. If the data passed in exceeds the target key size, the data will be truncated and the excess will be ignored.
+        /// Note: We strongly recommended that applications pass in the exact number of bytes required by the target key.
+        /// </param>
+        /// <param name="cbSecret">
+        /// The size, in bytes, of the <paramref name="pbSecret"/> buffer.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptGenerateSymmetricKey(
+            SafeAlgorithmHandle hAlgorithm,
+            out SafeKeyHandle phKey,
+            byte[] pbKeyObject,
+            int cbKeyObject,
+            byte[] pbSecret,
+            int cbSecret,
+            BCryptGenerateSymmetricKeyFlags flags = BCryptGenerateSymmetricKeyFlags.None);
 
         /// <summary>
         /// Completes a public/private key pair.
@@ -233,7 +435,7 @@ namespace PInvoke
         /// Imports a symmetric key from a key BLOB. The BCryptImportKeyPair function is used to import a public/private key pair.
         /// </summary>
         /// <param name="hAlgorithm">
-        /// The handle of the algorithm provider to import the key. This handle is obtained by calling the <see cref="BCryptOpenAlgorithmProvider"/> function.
+        /// The handle of the algorithm provider to import the key. This handle is obtained by calling the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function.
         /// </param>
         /// <param name="hImportKey">
         /// The handle of the key encryption key needed to unwrap the key BLOB in the pbInput parameter.
@@ -249,7 +451,7 @@ namespace PInvoke
         /// <param name="pbKeyObject">
         /// A pointer to a buffer that receives the imported key object.
         /// The <paramref name="cbKeyObject"/> parameter contains the size of this buffer.
-        /// The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty"/>
+        /// The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/>
         /// function to get the BCRYPT_OBJECT_LENGTH property. This will provide the size of the
         /// key object for the specified algorithm.
         /// This memory can only be freed after the phKey key handle is destroyed.
@@ -410,7 +612,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
         /// <param name="property">
-        /// A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined Cryptography Primitive Property Identifiers or a custom property identifier.
+        /// A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
         /// </param>
         /// <param name="input">The address of a buffer that contains the new property value. The <paramref name="inputSize"/> parameter contains the size of this buffer.</param>
         /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
@@ -429,7 +631,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
         /// <param name="property">
-        /// The name of the property to set. This can be one of the predefined Cryptography Primitive Property Identifiers or a custom property identifier.
+        /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
         /// </param>
         /// <param name="input">The new property value. The <paramref name="inputSize"/> parameter contains the size of this buffer.</param>
         /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
@@ -447,7 +649,7 @@ namespace PInvoke
         /// Retrieves the value of a named property for a CNG object.
         /// </summary>
         /// <param name="hObject">A handle that represents the CNG object to obtain the property value for.</param>
-        /// <param name="property">A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined Cryptography Primitive Property Identifiers or a custom property identifier.</param>
+        /// <param name="property">A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.</param>
         /// <param name="output">The address of a buffer that receives the property value. The <paramref name="outputSize"/> parameter contains the size of this buffer.</param>
         /// <param name="outputSize">The size, in bytes, of the <paramref name="output"/> buffer.</param>
         /// <param name="resultSize">A pointer to a ULONG variable that receives the number of bytes that were copied to the pbOutput buffer. If the <paramref name="output"/> parameter is NULL, this function will place the required size, in bytes, in the location pointed to by this parameter.</param>
@@ -463,6 +665,27 @@ namespace PInvoke
             BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None);
 
         /// <summary>
+        /// Generates a random number.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The handle of an algorithm provider created by using the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm that was specified when the provider was created must support the random number generator interface.
+        /// </param>
+        /// <param name="pbBuffer">
+        /// The address of a buffer that receives the random number. The size of this buffer is specified by the <paramref name="cbBuffer"/> parameter.
+        /// </param>
+        /// <param name="cbBuffer">
+        /// The size, in bytes, of the <paramref name="pbBuffer" /> buffer.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptGenRandom(
+            SafeAlgorithmHandle hAlgorithm,
+            byte[] pbBuffer,
+            int cbBuffer,
+            BCryptGenRandomFlags flags = BCryptGenRandomFlags.None);
+
+        /// <summary>
         /// Closes an algorithm provider.
         /// </summary>
         /// <param name="algorithmHandle">A handle that represents the algorithm provider to close. This handle is obtained by calling the BCryptOpenAlgorithmProvider function.</param>
@@ -472,5 +695,42 @@ namespace PInvoke
         private static extern NTStatus BCryptCloseAlgorithmProvider(
             IntPtr algorithmHandle,
             BCryptCloseAlgorithmProviderFlags flags = BCryptCloseAlgorithmProviderFlags.None);
+
+        /// <summary>
+        /// Defines the range of key sizes that are supported by the provider.
+        /// This structure is used with the <see cref="PropertyNames.KeyLengths"/> property.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct BCRYPT_KEY_LENGTHS_STRUCT
+        {
+            /// <summary>
+            /// The minimum length, in bits, of a key.
+            /// </summary>
+            public int MinLength;
+
+            /// <summary>
+            /// The maximum length, in bits, of a key.
+            /// </summary>
+            public int MaxLength;
+
+            /// <summary>
+            /// The number of bits that the key size can be incremented between dwMinLength and dwMaxLength.
+            /// </summary>
+            public int Increment;
+
+            /// <summary>
+            /// Gets a sequence of allowed key sizes, from smallest to largest.
+            /// </summary>
+            public IEnumerable<int> KeySizes
+            {
+                get
+                {
+                    for (int keyLength = this.MinLength; keyLength <= this.MaxLength; keyLength += this.Increment)
+                    {
+                        yield return keyLength;
+                    }
+                }
+            }
+        }
     }
 }

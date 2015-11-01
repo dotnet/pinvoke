@@ -28,6 +28,50 @@ namespace PInvoke
             BCRYPT_ECDSA_PRIVATE_P521_MAGIC = 0x36534345,  // ECS6
         }
 
+        /// <summary>
+        /// Loads and initializes a CNG provider.
+        /// </summary>
+        /// <param name="pszAlgId">
+        /// A pointer to a null-terminated Unicode string that identifies the requested
+        /// cryptographic algorithm. This can be one of the standard
+        /// CNG Algorithm Identifiers defined in <see cref="AlgorithmIdentifiers"/>
+        /// or the identifier for another registered algorithm.
+        /// </param>
+        /// <param name="pszImplementation">
+        /// <para>
+        /// A pointer to a null-terminated Unicode string that identifies the specific provider
+        /// to load. This is the registered alias of the cryptographic primitive provider.
+        /// This parameter is optional and can be NULL if it is not needed. If this parameter
+        /// is NULL, the default provider for the specified algorithm will be loaded.
+        /// </para>
+        /// <para>
+        /// Note If the <paramref name="pszImplementation"/> parameter value is NULL, CNG attempts to open each
+        /// registered provider, in order of priority, for the algorithm specified by the
+        /// <paramref name="pszAlgId"/> parameter and returns the handle of the first provider that is successfully
+        /// opened.For the lifetime of the handle, any BCrypt*** cryptographic APIs will use the
+        /// provider that was successfully opened.
+        /// </para>
+        /// </param>
+        /// <param name="dwFlags">Options for the function.</param>
+        /// <returns>
+        /// A pointer to a BCRYPT_ALG_HANDLE variable that receives the CNG provider handle.
+        /// When you have finished using this handle, release it by passing it to the
+        /// BCryptCloseAlgorithmProvider function.
+        /// </returns>
+        public static SafeAlgorithmHandle BCryptOpenAlgorithmProvider(
+            string pszAlgId,
+            string pszImplementation = null,
+            BCryptOpenAlgorithmProviderFlags dwFlags = BCryptOpenAlgorithmProviderFlags.None)
+        {
+            SafeAlgorithmHandle handle;
+            BCryptOpenAlgorithmProvider(
+                out handle,
+                pszAlgId,
+                pszImplementation,
+                dwFlags).ThrowOnError();
+            return handle;
+        }
+
         public static byte[] BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
         {
             int lengthRequired;
@@ -71,7 +115,7 @@ namespace PInvoke
         /// <summary>
         /// Creates an empty public/private key pair.
         /// </summary>
-        /// <param name="algorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider"/></param>
+        /// <param name="algorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/></param>
         /// <param name="keyLength">The length of the key, in bits.</param>
         /// <returns>A handle to the generated key pair.</returns>
         /// <remarks>
@@ -87,6 +131,41 @@ namespace PInvoke
             var error = BCryptGenerateKeyPair(algorithm, out result, keyLength, 0);
             error.ThrowOnError();
             return result;
+        }
+
+        /// <summary>
+        /// Creates a key object for use with a symmetrical key encryption algorithm from a supplied key.
+        /// </summary>
+        /// <param name="algorithm">
+        /// The handle of an algorithm provider created with the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm specified when the provider was created must support symmetric key encryption.
+        /// </param>
+        /// <param name="secret">
+        /// A buffer that contains the key from which to create the key object. This is normally a hash of a password or some other reproducible data. If the data passed in exceeds the target key size, the data will be truncated and the excess will be ignored.
+        /// Note: We strongly recommended that applications pass in the exact number of bytes required by the target key.
+        /// </param>
+        /// <param name="keyObject">
+        /// A pointer to a buffer that receives the key object. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the BCRYPT_OBJECT_LENGTH property. This will provide the size of the key object for the specified algorithm.
+        /// This memory can only be freed after the returned key handle is destroyed.
+        /// If the value of this parameter is NULL, the memory for the key object is allocated and freed by this function.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
+        /// <returns>A handle to the generated key.</returns>
+        public static SafeKeyHandle BCryptGenerateSymmetricKey(
+            SafeAlgorithmHandle algorithm,
+            byte[] secret,
+            byte[] keyObject = null,
+            BCryptGenerateSymmetricKeyFlags flags = BCryptGenerateSymmetricKeyFlags.None)
+        {
+            SafeKeyHandle hKey;
+            BCryptGenerateSymmetricKey(
+                algorithm,
+                out hKey,
+                keyObject,
+                keyObject?.Length ?? 0,
+                secret,
+                secret.Length,
+                flags).ThrowOnError();
+            return hKey;
         }
 
         public static SafeKeyHandle BCryptImportKeyPair(
@@ -139,7 +218,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
         /// <param name="propertyName">
-        /// The name of the property to set. This can be one of the predefined Cryptography Primitive Property Identifiers or a custom property identifier.
+        /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
         /// </param>
         /// <param name="propertyValue">The new property value.</param>
         public static void BCryptSetProperty(SafeHandle hObject, string propertyName, string propertyValue)
@@ -151,6 +230,57 @@ namespace PInvoke
                 propertyValue != null ? (propertyValue.Length + 1) * sizeof(char) : 0,
                 0);
             error.ThrowOnError();
+        }
+
+        /// <summary>
+        /// Retrieves the value of a named property for a CNG object.
+        /// </summary>
+        /// <param name="hObject">A handle that represents the CNG object to obtain the property value for.</param>
+        /// <param name="propertyName">A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.</param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <returns>The property value.</returns>
+        public static byte[] BCryptGetProperty(SafeHandle hObject, string propertyName, BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None)
+        {
+            int requiredSize;
+            BCryptGetProperty(hObject, propertyName, null, 0, out requiredSize, flags).ThrowOnError();
+            byte[] result = new byte[requiredSize];
+            BCryptGetProperty(hObject, propertyName, result, result.Length, out requiredSize, flags).ThrowOnError();
+            return result;
+        }
+
+        /// <summary>
+        /// Retrieves the value of a named property for a CNG object.
+        /// </summary>
+        /// <typeparam name="T">The type of struct to return the property value as.</typeparam>
+        /// <param name="hObject">A handle that represents the CNG object to obtain the property value for.</param>
+        /// <param name="propertyName">A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.</param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <returns>The property value.</returns>
+        public static T BCryptGetProperty<T>(SafeHandle hObject, string propertyName, BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None)
+            where T : struct
+        {
+            byte[] value = BCryptGetProperty(hObject, propertyName, flags);
+            T result = default(T);
+
+            // Use a finally block so that we don't leak a GCHandle if
+            // our thread is interrupted after the alloc and before we assign the variable.
+            try
+            {
+            }
+            finally
+            {
+                GCHandle bufferHandle = GCHandle.Alloc(value, GCHandleType.Pinned);
+                try
+                {
+                    result = (T)Marshal.PtrToStructure(bufferHandle.AddrOfPinnedObject(), typeof(T));
+                }
+                finally
+                {
+                    bufferHandle.Free();
+                }
+            }
+
+            return result;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -176,6 +306,79 @@ namespace PInvoke
                 this.Magic = (EccKeyBlobMagicNumbers)BitConverter.ToUInt32(keyBlob, 0);
                 this.KeyLength = BitConverter.ToUInt32(keyBlob, 4);
             }
+        }
+
+        /// <summary>
+        /// The identifiers for the algorithms defined within BCrypt itself.
+        /// </summary>
+        public static class AlgorithmIdentifiers
+        {
+            /// <summary>
+            /// The triple data encryption standard symmetric encryption algorithm.
+            /// </summary>
+            public const string BCRYPT_3DES_ALGORITHM = "3DES";
+
+            /// <summary>
+            /// The 112-bit triple data encryption standard symmetric encryption algorithm.
+            /// </summary>
+            public const string BCRYPT_3DES_112_ALGORITHM = "3DES_112";
+
+            /// <summary>
+            /// The advanced encryption standard symmetric encryption algorithm.
+            /// </summary>
+            public const string BCRYPT_AES_ALGORITHM = "AES";
+
+            /// <summary>
+            /// The random-number generator algorithm.
+            /// </summary>
+            public const string BCRYPT_RNG_ALGORITHM = "RNG";
+
+            /// <summary>
+            /// The dual elliptic curve random-number generator algorithm.
+            /// </summary>
+            public const string BCRYPT_RNG_DUAL_EC_ALGORITHM = "DUALECRNG";
+
+            /// <summary>
+            /// The random-number generator algorithm suitable for DSA (Digital Signature Algorithm).
+            /// </summary>
+            public const string BCRYPT_RNG_FIPS186_DSA_ALGORITHM = "FIPS186DSARNG";
+
+            // TODO: Define constants for the rest in https://msdn.microsoft.com/en-us/library/windows/desktop/aa375534(v=vs.85).aspx
+        }
+
+        /// <summary>
+        /// Common property names to supply to <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/>.
+        /// </summary>
+        /// <devremarks>
+        /// Fill in summaries for each property as defined here: https://msdn.microsoft.com/en-us/library/windows/desktop/aa376211(v=vs.85).aspx
+        /// </devremarks>
+        public static class PropertyNames
+        {
+            public const string ObjectLength = "ObjectLength";
+            public const string AlgorithmName = "AlgorithmName";
+            public const string ProviderHandle = "ProviderHandle";
+            public const string ChainingMode = "ChainingMode";
+
+            /// <summary>
+            /// The size, in bytes, of a cipher block for the algorithm. This property only applies to block cipher algorithms. This data type is a DWORD.
+            /// </summary>
+            public const string BlockLength = "BlockLength";
+            public const string KeyLength = "KeyLength";
+            public const string KeyObjectLength = "KeyObjectLength";
+            public const string KeyStrength = "KeyStrength";
+            public const string KeyLengths = "KeyLengths";
+            public const string BlockSizeList = "BlockSizeList";
+            public const string EffectiveKeyLength = "EffectiveKeyLength";
+            public const string HashDigestLength = "HashDigestLength";
+            public const string HashOIDList = "HashOIDList";
+            public const string PaddingSchemes = "PaddingSchemes";
+            public const string SignatureLength = "SignatureLength";
+            public const string HashBlockLength = "HashBlockLength";
+            public const string AuthTagLength = "AuthTagLength";
+            public const string PrimitiveType = "PrimitiveType";
+            public const string IsKeyedHash = "IsKeyedHash";
+            public const string IsReusableHash = "IsReusableHash";
+            public const string MessageBlockLength = "MessageBlockLength";
         }
 
         public static class SymmetricKeyBlobTypes
