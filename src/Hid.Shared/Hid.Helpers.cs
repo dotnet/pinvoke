@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     using System;
-    using System.Runtime.InteropServices;
+    using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using static PInvoke.Kernel32;
 
@@ -12,6 +12,7 @@ namespace PInvoke
     /// Methods and nested types that are not strictly P/Invokes but provide
     /// a slightly higher level of functionality to ease calling into native code.
     /// </content>
+    [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Functions are named like their native counterparts")]
     public static partial class Hid
     {
         public static Guid HidD_GetHidGuid()
@@ -26,7 +27,7 @@ namespace PInvoke
             var result = HiddAttributes.Create();
             if (!HidD_GetAttributes(hFile, ref result))
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                throw new Win32Exception();
             }
 
             return result;
@@ -37,7 +38,7 @@ namespace PInvoke
             SafePreparsedDataHandle preparsedDataHandle;
             if (!HidD_GetPreparsedData(hDevice, out preparsedDataHandle))
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                throw new Win32Exception();
             }
 
             return preparsedDataHandle;
@@ -81,7 +82,7 @@ namespace PInvoke
             string result;
             if (!HidD_GetManufacturerString(hidDeviceObject, out result))
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                throw new Win32Exception();
             }
 
             return result;
@@ -92,7 +93,7 @@ namespace PInvoke
             string result;
             if (!HidD_GetProductString(hidDeviceObject, out result))
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                throw new Win32Exception();
             }
 
             return result;
@@ -103,7 +104,7 @@ namespace PInvoke
             string result;
             if (!HidD_GetSerialNumberString(hidDeviceObject, out result))
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                throw new Win32Exception();
             }
 
             return result;
@@ -126,8 +127,7 @@ namespace PInvoke
                     return true;
                 }
 
-                var errorCode = (Win32ErrorCode)Marshal.GetHRForLastWin32Error();
-                if (errorCode != Win32ErrorCode.ERROR_INVALID_USER_BUFFER)
+                if (GetLastError() != Win32ErrorCode.ERROR_INVALID_USER_BUFFER)
                 {
                     result = null;
                     return false;

@@ -151,7 +151,7 @@ namespace PInvoke
 
                 errorMsg = sb.ToString(0, i);
             }
-            else if (Marshal.GetLastWin32Error() == (int)Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
+            else if (GetLastError() == Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
             {
                 return false;
             }

@@ -6,6 +6,7 @@ namespace PInvoke
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
+    using static Kernel32;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -38,7 +39,7 @@ namespace PInvoke
             var result = SetupDiGetClassDevs((NullableGuid)classGuid, enumerator, hwndParent, flags);
             if (result.IsInvalid)
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                throw new Win32Exception();
             }
 
             return result;
@@ -63,10 +64,10 @@ namespace PInvoke
 
                 if (!result)
                 {
-                    var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
+                    var lastError = GetLastError();
                     if (lastError != Win32ErrorCode.ERROR_NO_MORE_ITEMS)
                     {
-                        Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                        throw new Win32Exception(lastError);
                     }
 
                     yield break;
@@ -94,11 +95,10 @@ namespace PInvoke
                 null);
 
             // As we passed an empty buffer we know that the function will fail, not need to check the result.
-            var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
+            var lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
-                return null;
+                throw new Win32Exception(lastError);
             }
 
             var buffer = Marshal.AllocHGlobal((int)requiredSize.Value);
