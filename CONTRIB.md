@@ -49,10 +49,20 @@ Powershell cmdlet to create the projects necessary to support it and follow the 
 
 ### Helper methods
 
- * When a P/Invoke method signature is particularly
- * Helper methods should *not* be created merely for purposes of translating an error code to an exception.
-   But if a helper method exists for other reasons, it *may* be appropriate to throw instead of return
-   an error code. 
+Helper methods should be kept at a minimum. The scope of this P/Invoke library is primarily
+to make native methods accessible from managed code -- not to create a high-level API that
+uses the native binary as an implementation detail.
+
+Helper methods are an excellent addition when one or more of these conditions are true
+of the P/Invoke method they wrap:
+
+1. The method requires special memory allocations and deallocations of the caller.
+1. The method has a single out parameter that in a naturally managed API would typically
+   serve as the return value, and the P/Invoke method's return value is void or an error code.
+
+Helper methods should *not* be created merely for purposes of translating an error code to an exception.
+But if a helper method exists for other reasons, it is appropriate to throw instead of return
+an error code when the helper method uses its return value for something else.
 
 ## Self-service releases for contributors
 
