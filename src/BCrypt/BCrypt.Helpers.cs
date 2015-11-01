@@ -383,6 +383,24 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/>.
+        /// </summary>
+        /// <param name="hHash">
+        /// The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <see cref="BCryptCreateHash"/> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <see cref="BCryptDestroyHash"/>.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>The hash or MAC value.</returns>
+        public static byte[] BCryptFinishHash(
+            SafeHashHandle hHash,
+            BCryptFinishHashFlags flags = BCryptFinishHashFlags.None)
+        {
+            int hashLength = BCryptGetProperty<int>(hHash, PropertyNames.HashLength);
+            byte[] result = new byte[hashLength];
+            BCryptFinishHash(hHash, result, result.Length, flags).ThrowOnError();
+            return result;
+        }
+
+        /// <summary>
         /// Creates a signature of a hash value.
         /// </summary>
         /// <param name="key">The handle of the key to use to sign the hash.</param>

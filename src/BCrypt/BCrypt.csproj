@@ -26,6 +26,7 @@
     <Compile Include="BCrypt+BCryptBuffer.cs" />
     <Compile Include="BCrypt+BCryptBufferDesc.cs" />
     <Compile Include="BCrypt+SafeAlgorithmHandle.cs" />
+    <Compile Include="BCrypt+SafeHashHandle.cs" />
     <Compile Include="BCrypt+SafeKeyHandle.cs" />
     <Compile Include="BCrypt+SafeSecretHandle.cs" />
     <Compile Include="BCrypt.cs" />

@@ -141,6 +141,19 @@ namespace PInvoke
             HashReusable,
         }
 
+        /// <summary>
+        /// Flags that can be passed to the <see cref="BCryptCreateHash(SafeAlgorithmHandle, out SafeHashHandle, byte[], int, byte[], int, BCryptCreateHashFlags)"/> method.
+        /// </summary>
+        [Flags]
+        public enum BCryptCreateHashFlags
+        {
+            /// <summary>
+            /// Creates a reusable hashing object. The object can be used for a new hashing operation immediately after calling BCryptFinishHash. For more information, see Creating a Hash with CNG.
+            /// Windows Server 2008 R2, Windows 7, Windows Server 2008, and Windows Vista:  This flag is not supported.
+            /// </summary>
+            BCRYPT_HASH_REUSABLE_FLAG = 0x00000020,
+        }
+
         [Flags]
         public enum BCryptDeriveKeyFlags
         {
@@ -186,6 +199,24 @@ namespace PInvoke
             /// Asymmetric algorithms: Use the Optimal Asymmetric Encryption Padding (OAEP) scheme. The pPaddingInfo parameter is a pointer to a BCRYPT_OAEP_PADDING_INFO structure.
             /// </summary>
             BCRYPT_PAD_OAEP = 0x4,
+        }
+
+        /// <summary>
+        /// Flags that can be passed to the <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/> method.
+        /// </summary>
+        [Flags]
+        public enum BCryptHashDataFlags
+        {
+            None = 0x0,
+        }
+
+        /// <summary>
+        /// Flags that can be passed to the <see cref="BCryptFinishHash(SafeHashHandle, byte[], int, BCryptFinishHashFlags)"/> method.
+        /// </summary>
+        [Flags]
+        public enum BCryptFinishHashFlags
+        {
+            None = 0x0,
         }
 
         /// <summary>
@@ -258,6 +289,44 @@ namespace PInvoke
             string pszAlgId,
             string pszImplementation,
             BCryptOpenAlgorithmProviderFlags dwFlags);
+
+        /// <summary>
+        /// Create a hash or Message Authentication Code (MAC) object.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The handle of an algorithm provider created by using the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm that was specified when the provider was created must support the hash interface.
+        /// </param>
+        /// <param name="phHash">
+        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <see cref="BCryptHashData"/> function. When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash"/> function.
+        /// </param>
+        /// <param name="pbHashObject">
+        /// A pointer to a buffer that receives the hash or MAC object. The <paramref name="cbHashObject"/> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.ObjectLength"/> property. This will provide the size of the hash or MAC object for the specified algorithm.
+        /// This memory can only be freed after the handle pointed to by the <paramref name="phHash"/> parameter is destroyed.
+        /// If the value of this parameter is NULL and the value of the <paramref name="cbHashObject"/> parameter is zero, the memory for the hash object is allocated and freed by this function.
+        /// Windows 7:  This memory management functionality is available beginning with Windows 7.
+        /// </param>
+        /// <param name="cbHashObject">
+        /// The size, in bytes, of the <paramref name="pbHashObject"/> buffer.
+        /// If the value of this parameter is zero and the value of the <paramref name="pbHashObject"/> parameter is NULL, the memory for the key object is allocated and freed by this function.
+        /// Windows 7:  This memory management functionality is available beginning with Windows 7.
+        /// </param>
+        /// <param name="pbSecret">
+        /// A pointer to a buffer that contains the key to use for the hash or MAC. The <paramref name="cbSecret"/> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the BCryptOpenAlgorithmProvider function by using the <see cref="BCryptOpenAlgorithmProviderFlags.AlgorithmHandleHmac"/> flag. Otherwise, set this parameter to NULL.
+        /// </param>
+        /// <param name="cbSecret">
+        /// The size, in bytes, of the <paramref name="pbSecret"/> buffer. If no key is used, set this parameter to zero.
+        /// </param>
+        /// <param name="dwFlags">Flags that modify the behavior of the function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptCreateHash(
+            SafeAlgorithmHandle hAlgorithm,
+            out SafeHashHandle phHash,
+            byte[] pbHashObject,
+            int cbHashObject,
+            byte[] pbSecret,
+            int cbSecret,
+            BCryptCreateHashFlags dwFlags);
 
         /// <summary>
         /// Encrypts a block of data.
@@ -363,6 +432,51 @@ namespace PInvoke
             BCryptEncryptFlags dwFlags);
 
         /// <summary>
+        /// Performs a one way hash or Message Authentication Code (MAC) on a data buffer.
+        /// </summary>
+        /// <param name="hHash">
+        /// The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <see cref="BCryptCreateHash(SafeAlgorithmHandle, out SafeHashHandle, byte[], int, byte[], int, BCryptCreateHashFlags)"/> function.
+        /// </param>
+        /// <param name="pbInput">
+        /// A pointer to a buffer that contains the data to process. The <paramref name="cbInput"/> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
+        /// </param>
+        /// <param name="cbInput">The number of bytes in the <paramref name="pbInput"/> buffer.</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// To combine more than one buffer into the hash or MAC, you can call this function multiple times, passing a different buffer each time. To obtain the hash or MAC value, call the <see cref="BCryptFinishHash(SafeHashHandle, byte[], int, BCryptFinishHashFlags)"/> function.
+        /// After the <see cref="BCryptFinishHash(SafeHashHandle, byte[], int, BCryptFinishHashFlags)"/> function has been called for a specified handle, that handle cannot be reused.
+        /// </remarks>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptHashData(
+            SafeHashHandle hHash,
+            byte[] pbInput,
+            int cbInput,
+            BCryptHashDataFlags dwFlags = BCryptHashDataFlags.None);
+
+        /// <summary>
+        /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/>.
+        /// </summary>
+        /// <param name="hHash">
+        /// The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <see cref="BCryptCreateHash"/> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <see cref="BCryptDestroyHash"/>.
+        /// </param>
+        /// <param name="pbOutput">
+        /// A pointer to a buffer that receives the hash or MAC value. The <paramref name="cbOutput"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbOutput">
+        /// The size, in bytes, of the <paramref name="pbOutput"/> buffer. This size must exactly match the size of the hash or MAC value.
+        /// The size can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.HashLength"/> property. This will provide the size of the hash or MAC value for the specified algorithm.
+        /// </param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTStatus BCryptFinishHash(
+            SafeHashHandle hHash,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbOutput,
+            int cbOutput,
+            BCryptFinishHashFlags dwFlags = BCryptFinishHashFlags.None);
+
+        /// <summary>
         /// Creates a signature of a hash value.
         /// </summary>
         /// <param name="hKey">The handle of the key to use to sign the hash.</param>
@@ -430,7 +544,10 @@ namespace PInvoke
         /// If the key is a symmetric key, this parameter is not used and should be zero.
         /// If the key is an asymmetric key, this can be one of the following values.
         /// </param>
-        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <returns>
+        /// Returns a status code that indicates the success or failure of the function.
+        /// In particular, an invalid signature will produce a <see cref="NTStatus.STATUS_INVALID_SIGNATURE"/> result.
+        /// </returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
         public static extern NTStatus BCryptVerifySignature(
             SafeKeyHandle hKey,
@@ -796,6 +913,14 @@ namespace PInvoke
         private static extern NTStatus BCryptCloseAlgorithmProvider(
             IntPtr algorithmHandle,
             BCryptCloseAlgorithmProviderFlags flags = BCryptCloseAlgorithmProviderFlags.None);
+
+        /// <summary>
+        /// Destroys a hash or Message Authentication Code (MAC) object.
+        /// </summary>
+        /// <param name="hHash">The handle of the hash or MAC object to destroy. This handle is obtained by using the <see cref="BCryptCreateHash(SafeAlgorithmHandle, out SafeHashHandle, byte[], int, byte[], int, BCryptCreateHashFlags)"/> function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        private static extern NTStatus BCryptDestroyHash(IntPtr hHash);
 
         /// <summary>
         /// Defines the range of key sizes that are supported by the provider.
