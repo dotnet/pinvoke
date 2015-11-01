@@ -71,6 +71,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Kernel32.Tests.Shared", "Ke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel32.Tests.Portable", "Kernel32.Tests.Portable\Kernel32.Tests.Portable.csproj", "{3C02F98C-E145-4517-9CF0-D12C2C648E70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCrypt.Tests", "BCrypt.Tests\BCrypt.Tests.csproj", "{5CDEA9DD-5A77-4B64-8F55-DC12EEFB3D3B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvApi32.Desktop", "AdvApi32.Desktop\AdvApi32.Desktop.csproj", "{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "AdvApi32.NuGet", "AdvApi32.NuGet\AdvApi32.NuGet.nuproj", "{B9117C7D-FFBA-41FB-9A39-4CC2E4F37109}"
@@ -176,6 +178,10 @@ Global
 		{3C02F98C-E145-4517-9CF0-D12C2C648E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C02F98C-E145-4517-9CF0-D12C2C648E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C02F98C-E145-4517-9CF0-D12C2C648E70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CDEA9DD-5A77-4B64-8F55-DC12EEFB3D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CDEA9DD-5A77-4B64-8F55-DC12EEFB3D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CDEA9DD-5A77-4B64-8F55-DC12EEFB3D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CDEA9DD-5A77-4B64-8F55-DC12EEFB3D3B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FCBF2E0-1330-454C-8A17-AF14EBA6B244}.Release|Any CPU.ActiveCfg = Release|Any CPU
