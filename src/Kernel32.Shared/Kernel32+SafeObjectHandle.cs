@@ -37,7 +37,7 @@ namespace PInvoke
             }
 
             /// <inheritdoc />
-            public override bool IsInvalid => this.handle == INVALID_HANDLE_VALUE;
+            public override bool IsInvalid => this.handle == INVALID_HANDLE_VALUE || this.handle == IntPtr.Zero;
 
             /// <inheritdoc />
             protected override bool ReleaseHandle() => CloseHandle(this.handle);

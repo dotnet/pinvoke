@@ -2,7 +2,10 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
@@ -77,5 +80,73 @@ public partial class Kernel32
     public void Win32Exception_DerivesFromBCLType()
     {
         Assert.IsAssignableFrom<System.ComponentModel.Win32Exception>(new PInvoke.Win32Exception(1));
+    }
+
+    [Fact]
+    public void GetCurrentThreadId_SameAsAppDomainOne()
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
+        var frameworkValue = AppDomain.GetCurrentThreadId();
+#pragma warning restore CS0618 // Type or member is obsolete
+        var pinvokeValue = GetCurrentThreadId();
+
+        Assert.Equal((uint)frameworkValue, pinvokeValue);
+    }
+
+    [Fact]
+    public void GetCurrentProcessId_SameAsProcessOne()
+    {
+        var frameworkValue = Process.GetCurrentProcess().Id;
+        var pinvokeValue = GetCurrentProcessId();
+
+        Assert.Equal((uint)frameworkValue, pinvokeValue);
+    }
+
+    [Fact]
+    public void CreateToolhelp32Snapshot_CanGetCurrentProcess()
+    {
+        var currentProcess = GetCurrentProcessId();
+        var snapshot = CreateToolhelp32Snapshot(CreateToolhelp32SnapshotFlags.TH32CS_SNAPPROCESS, 0);
+        using (snapshot)
+        {
+            var processes = Process32Enumerate(snapshot).ToList();
+            Assert.Contains(processes, p => p.th32ProcessID == currentProcess);
+        }
+    }
+
+    [Fact]
+    public void OpenProcess_CannotOpenSystem()
+    {
+        using (var system = OpenProcess(ProcessAccess.PROCESS_TERMINATE, false, 0x00000000))
+        {
+            var error = (Win32ErrorCode)Marshal.GetLastWin32Error();
+            Assert.Equal(true, system.IsInvalid);
+            Assert.Equal(Win32ErrorCode.ERROR_INVALID_PARAMETER, error);
+        }
+    }
+
+    [Fact]
+    public void OpenProcess_CanOpenSelf()
+    {
+        var currentProcessId = GetCurrentProcessId();
+        var currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
+        using (currentProcess)
+        {
+            Assert.Equal(false, currentProcess.IsInvalid);
+        }
+    }
+
+    [Fact]
+    public void QueryFullProcessImageName_CanGetForCurrentProcess()
+    {
+        var currentProcessId = GetCurrentProcessId();
+        var currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
+        using (currentProcess)
+        {
+            var actual = QueryFullProcessImageName(currentProcess);
+            var expected = Process.GetCurrentProcess().MainModule.FileName;
+
+            Assert.Equal(expected, actual);
+        }
     }
 }

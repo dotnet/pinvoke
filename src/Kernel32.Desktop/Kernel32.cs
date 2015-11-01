@@ -4,9 +4,8 @@
 namespace PInvoke
 {
     using System;
-    using System.IO;
     using System.Runtime.InteropServices;
-    using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
+    using System.Text;
 
     /// <summary>
     /// Exported functions from the Kernel32.dll Windows library.
@@ -409,6 +408,172 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool FindNextFile(SafeFindFilesHandle hFindFile, out WIN32_FIND_DATA lpFindFileData);
+
+        /// <summary>
+        /// Takes a snapshot of the specified processes, as well as the heaps, modules, and threads used by these
+        /// processes.
+        /// </summary>
+        /// <param name="dwFlags">The portions of the system to be included in the snapshot.</param>
+        /// <param name="th32ProcessID">
+        /// The process identifier of the process to be included in the snapshot. This parameter can be zero to indicate the
+        /// current process. This parameter is used when the <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPHEAPLIST" />,
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE" />,
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE32" />, or
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPALL" /> value is specified. Otherwise, it is ignored and all
+        /// processes are included in the snapshot.
+        /// <para>
+        /// If the specified process is the Idle process or one of the CSRSS processes, this function fails and the last
+        /// error code is <see cref="Win32ErrorCode.ERROR_ACCESS_DENIED" /> because their access restrictions prevent user-level
+        /// code from opening them.
+        /// </para>
+        /// <para>
+        /// If the specified process is a 64-bit process and the caller is a 32-bit process, this function fails and the last
+        /// error code is <see cref="Win32ErrorCode.ERROR_PARTIAL_COPY" />.
+        /// </para>
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, it returns an open handle to the specified snapshot.
+        /// <para>
+        /// If the function fails, it returns <see cref="INVALID_HANDLE_VALUE" />. To get extended error information, call
+        /// <see cref="Marshal.GetLastWin32Error" />. Possible error codes include
+        /// <see cref="Win32ErrorCode.ERROR_BAD_LENGTH" />.
+        /// </para>
+        /// </returns>
+        /// <remarks>
+        /// The snapshot taken by this function is examined by the other tool help functions to provide their results.Access to the
+        /// snapshot is read only.The snapshot handle acts as an object handle and is subject to the same rules regarding which
+        /// processes and threads it is valid in.
+        /// <para>
+        /// To enumerate the heap or module states for all processes, specify
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPALL" /> and set <paramref name="th32ProcessID" /> to zero.Then, for
+        /// each additional process in the snapshot, call CreateToolhelp32Snapshot again, specifying its process identifier and the
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPHEAPLIST" /> or
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE" /> value.
+        /// </para>
+        /// <para>
+        /// When taking snapshots that include heaps and modules for a process other than the current process, the
+        /// CreateToolhelp32Snapshot function can fail or return incorrect information for a variety of reasons. For example, if
+        /// the loader data table in the target process is corrupted or not initialized, or if the module list changes during the
+        /// function call as a result of DLLs being loaded or unloaded, the function might fail with
+        /// <see cref="Win32ErrorCode.ERROR_BAD_LENGTH" /> or other error code. Ensure that the target process was not started in a
+        /// suspended state, and try calling the function again. If the function fails with
+        /// <see cref="Win32ErrorCode.ERROR_BAD_LENGTH" /> when called with
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE" /> or
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE32" />, call the function again until it succeeds.
+        /// </para>
+        /// <para>
+        /// The <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE" /> and
+        /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE32" /> flags do not retrieve handles for modules that were
+        /// loaded with the LOAD_LIBRARY_AS_DATAFILE or similar flags. For more information, see LoadLibraryEx.
+        /// </para>
+        /// <para>To destroy the snapshot, call <see cref="SafeHandle.Close" /> on the returned handle.</para>
+        /// <para>
+        /// Note that you can use the
+        /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref uint)" />
+        /// function to retrieve the full name of an executable image for both 32- and 64-bit processes from a 32-bit process.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern SafeObjectHandle CreateToolhelp32Snapshot(
+            CreateToolhelp32SnapshotFlags dwFlags,
+            uint th32ProcessID);
+
+        /// <summary>Retrieves information about the first process encountered in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        /// A handle to the snapshot returned from a previous call to the
+        /// <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <param name="lppe">
+        /// Contains process information such as the name of the executable file, the process identifier, and
+        /// the process identifier of the parent process.
+        /// </param>
+        /// <returns>
+        /// Returns <see langword="true" /> if the first entry of the process list has been copied to the buffer or
+        /// <see langword="false" /> otherwise. The <see cref="Win32ErrorCode.ERROR_NO_MORE_FILES" /> error value is returned by
+        /// the <see cref="Marshal.GetLastWin32Error" /> function if no processes exist or the snapshot does not contain process
+        /// information.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool Process32First(SafeObjectHandle hSnapshot, [In, Out] PROCESSENTRY32 lppe);
+
+        /// <summary>Retrieves information about the next process recorded in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        /// A handle to the snapshot returned from a previous call to the
+        /// <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <param name="lppe">A <see cref="PROCESSENTRY32" /> structure.</param>
+        /// <returns>
+        /// Returns <see langword="true" /> if the next entry of the process list has been copied to the buffer or
+        /// <see langword="false" /> otherwise. The <see cref="Win32ErrorCode.ERROR_NO_MORE_FILES" /> error value is returned by
+        /// the <see cref="Marshal.GetLastWin32Error" /> function if no processes exist or the snapshot does not contain process
+        /// information.
+        /// </returns>
+        /// <remarks>
+        /// To retrieve information about the first process recorded in a snapshot, use the
+        /// <see cref="Process32First(SafeObjectHandle,PROCESSENTRY32)" />
+        /// function.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool Process32Next(
+            SafeObjectHandle hSnapshot,
+            [In, Out] PROCESSENTRY32 lppe);
+
+        /// <summary>Retrieves the full name of the executable image for the specified process.</summary>
+        /// <param name="hProcess">
+        /// A handle to the process. This handle must be created with the
+        /// <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION" /> or
+        /// <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION" /> access right.
+        /// </param>
+        /// <param name="dwFlags">One of the <see cref="QueryFullProcessImageNameFlags" /> values.</param>
+        /// <param name="lpExeName">The path to the executable image. If the function succeeds, this string is null-terminated.</param>
+        /// <param name="lpdwSize">
+        /// On input, specifies the size of the lpExeName buffer, in characters. On success, receives the
+        /// number of characters written to the buffer, not including the null-terminating character.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// <para>If the function fails, the return value is zero.To get extended error information, call GetLastError.</para>
+        /// </returns>
+        /// <remarks>Minimum OS: Windows Vista / Windows Server 2008.</remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool QueryFullProcessImageName(
+            SafeObjectHandle hProcess,
+            QueryFullProcessImageNameFlags dwFlags,
+            StringBuilder lpExeName,
+            ref uint lpdwSize);
+
+        /// <summary>Opens an existing local process object.</summary>
+        /// <param name="dwDesiredAccess">
+        /// The access to the process object. This access right is checked against the security descriptor for the process. This
+        /// parameter can be one or more of the <see cref="ProcessAccess" /> values.
+        /// <para>
+        /// If the caller has enabled the SeDebugPrivilege privilege, the requested access is granted regardless of the
+        /// contents of the security descriptor.
+        /// </para>
+        /// </param>
+        /// <param name="bInheritHandle">
+        /// If this value is <see langword="true" />, processes created by this process will inherit
+        /// the handle. Otherwise, the processes do not inherit this handle.
+        /// </param>
+        /// <param name="dwProcessId">
+        /// The identifier of the local process to be opened.
+        /// <para>
+        /// If the specified process is the System Process(0x00000000), the function fails and the last error code is
+        /// <see cref="Win32ErrorCode.ERROR_INVALID_PARAMETER" />.If the specified process is the Idle process or one of the CSRSS
+        /// processes, this function fails and the last error code is <see cref="Win32ErrorCode.ERROR_ACCESS_DENIED" /> because
+        /// their access restrictions prevent user-level code from opening them.
+        /// </para>
+        /// <para>
+        /// If you are using <see cref="GetCurrentProcessId" /> as an argument to this function, consider using
+        /// GetCurrentProcess instead of OpenProcess, for improved performance.
+        /// </para>
+        /// </param>
+        /// <returns>If the function succeeds, the return value is an open handle to the specified process.</returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern SafeObjectHandle OpenProcess(
+            ProcessAccess dwDesiredAccess,
+            bool bInheritHandle,
+            uint dwProcessId);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct SECURITY_ATTRIBUTES
