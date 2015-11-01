@@ -56,9 +56,13 @@ uses the native binary as an implementation detail.
 Helper methods are an excellent addition when one or more of these conditions are true
 of the P/Invoke method they wrap:
 
-1. The method requires special memory allocations and deallocations of the caller.
+1. The method requires special memory allocations and deallocations of the caller,
+   or requires multiple calls to determine the size of the buffer then fill it.
 1. The method has a single out parameter that in a naturally managed API would typically
    serve as the return value, and the P/Invoke method's return value is void or an error code.
+1. A set of methods for enumeration can be wrapped with a helper that exposes an IEnumerable.
+
+
 
 Helper methods should *not* be created merely for purposes of translating an error code to an exception.
 But if a helper method exists for other reasons, it is appropriate to throw instead of return
