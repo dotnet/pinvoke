@@ -12,9 +12,17 @@ namespace PInvoke
     /// </content>
     public static partial class NCrypt
     {
-        // This is where you define methods that assist in calling P/Invoke methods.
-        // For example, if a P/Invoke method requires allocating unmanaged memory
-        // and freeing it up after the call, a helper method in this file would
-        // make "P/Invoking" for most callers much easier and is a welcome addition.
+        public static class KeyStorageProviders
+        {
+            /// <summary>
+            /// Identifies the software key storage provider that is provided by Microsoft.
+            /// </summary>
+            public const string MS_KEY_STORAGE_PROVIDER = "Microsoft Software Key Storage Provider";
+
+            /// <summary>
+            /// Identifies the smart card key storage provider that is provided by Microsoft.
+            /// </summary>
+            public const string MS_SMART_CARD_KEY_STORAGE_PROVIDER = "Microsoft Smart Card Key Storage Provider";
+        }
     }
 }
