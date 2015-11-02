@@ -146,7 +146,7 @@ public partial class Kernel32
             var actual = QueryFullProcessImageName(currentProcess);
             var expected = Process.GetCurrentProcess().MainModule.FileName;
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected, actual, ignoreCase: true);
         }
     }
 }
