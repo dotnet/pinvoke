@@ -44,14 +44,14 @@ Packages:
 
 Library      | Package name     | NuGet       | Description
 -------------|------------------|-------------|-------------
-advapi32.dll |`PInvoke.AdvApi32`| [![NuGet](https://img.shields.io/nuget/v/PInvoke.AdvApi32.svg)](https://www.nuget.org/packages/PInvoke.AdvApi32)|Windows Advanced Services
-bcrypt.dll   |`PInvoke.BCrypt`  | [![NuGet](https://img.shields.io/nuget/v/PInvoke.BCrypt.svg)](https://www.nuget.org/packages/PInvoke.BCrypt)|[Windows Cryptography API: Next Generation][CNG]
-gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://img.shields.io/nuget/v/PInvoke.Gdi32.svg)](https://www.nuget.org/packages/PInvoke.Gdi32)|[Windows Graphics Device Interface][Gdi]
-hid.dll      |`PInvoke.Hid`     | [![NuGet](https://img.shields.io/nuget/v/PInvoke.Hid.svg)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
-kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://img.shields.io/nuget/v/PInvoke.Kernel32.svg)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
-ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://img.shields.io/nuget/v/PInvoke.NCrypt.svg)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
-setupapi.dll |`PInvoke.SetupApi`| [![NuGet](https://img.shields.io/nuget/v/PInvoke.SetupApi.svg)](https://www.nuget.org/packages/PInvoke.SetupApi)|[Windows application programming interface][SetupApi]
-user32.dll   |`PInvoke.User32`  | [![NuGet](https://img.shields.io/nuget/v/PInvoke.User32.svg)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
+advapi32.dll |`PInvoke.AdvApi32`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.AdvApi32.svg)](https://www.nuget.org/packages/PInvoke.AdvApi32)|Windows Advanced Services
+bcrypt.dll   |`PInvoke.BCrypt`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.BCrypt.svg)](https://www.nuget.org/packages/PInvoke.BCrypt)|[Windows Cryptography API: Next Generation][CNG]
+gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Gdi32.svg)](https://www.nuget.org/packages/PInvoke.Gdi32)|[Windows Graphics Device Interface][Gdi]
+hid.dll      |`PInvoke.Hid`     | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Hid.svg)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
+kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Kernel32.svg)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
+ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.NCrypt.svg)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
+setupapi.dll |`PInvoke.SetupApi`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.SetupApi.svg)](https://www.nuget.org/packages/PInvoke.SetupApi)|[Windows setup API][SetupApi]
+user32.dll   |`PInvoke.User32`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.User32.svg)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
 
 ## Contribution
 
