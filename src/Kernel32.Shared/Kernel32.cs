@@ -62,10 +62,10 @@ namespace PInvoke
         {
             /// <summary>
             /// The function allocates a buffer large enough to hold the formatted message, and places a pointer to the allocated buffer at the address specified by lpBuffer. The nSize parameter specifies the minimum number of TCHARs to allocate for an output message buffer. The caller should use the LocalFree function to free the buffer when it is no longer needed.
-            /// If the length of the formatted message exceeds 128K bytes, then FormatMessage will fail and a subsequent call to GetLastError will return ERROR_MORE_DATA.
+            /// If the length of the formatted message exceeds 128K bytes, then FormatMessage will fail and a subsequent call to <see cref="GetLastError"/> will return <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>.
             /// In previous versions of Windows, this value was not available for use when compiling Windows Store apps. As of Windows 10 this value can be used.
             /// Windows Server 2003 and Windows XP:
-            /// If the length of the formatted message exceeds 128K bytes, then FormatMessage will not automatically fail with an error of ERROR_MORE_DATA.
+            /// If the length of the formatted message exceeds 128K bytes, then FormatMessage will not automatically fail with an error of <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>.
             /// Windows 10:
             /// LocalFree is not in the modern SDK, so it cannot be used to free the result buffer. Instead, use HeapFree (GetProcessHeap(), allocatedMessage). In this case, this is the same as calling LocalFree on memory.
             /// Important: LocalAlloc() has different options: LMEM_FIXED, and LMEM_MOVABLE. FormatMessage() uses LMEM_FIXED, so HeapFree can be used. If LMEM_MOVABLE is used, HeapFree cannot be used.
@@ -80,7 +80,7 @@ namespace PInvoke
 
             /// <summary>
             /// The lpSource parameter is a module handle containing the message-table resource(s) to search. If this lpSource handle is NULL, the current process's application image file will be searched. This flag cannot be used with <see cref="FromString"/>.
-            /// If the module has no message table resource, the function fails with ERROR_RESOURCE_TYPE_NOT_FOUND.
+            /// If the module has no message table resource, the function fails with <see cref="Win32ErrorCode.ERROR_RESOURCE_TYPE_NOT_FOUND"/>.
             /// </summary>
             FromHModule = 0x800,
 
@@ -91,7 +91,7 @@ namespace PInvoke
 
             /// <summary>
             /// The function should search the system message-table resource(s) for the requested message. If this flag is specified with <see cref="FromHModule"/>, the function searches the system message table if the message is not found in the module specified by lpSource. This flag cannot be used with <see cref="FromString"/>.
-            /// If this flag is specified, an application can pass the result of the GetLastError function to retrieve the message text for a system-defined error.
+            /// If this flag is specified, an application can pass the result of the <see cref="GetLastError"/> function to retrieve the message text for a system-defined error.
             /// </summary>
             FromSystem = 0x1000,
 
@@ -139,7 +139,7 @@ namespace PInvoke
         /// <param name="dwAdditionalFlags">Specifies additional flags that control the search.</param>
         /// <returns>
         /// If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.
-        /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the GetLastError function.
+        /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// </returns>
         [DllImport(nameof(Kernel32))]
         public static extern SafeFindFilesHandle FindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, IntPtr lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags);
@@ -186,7 +186,7 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is the number of TCHARs stored in the output buffer, excluding the terminating null character.
-        /// If the function fails, the return value is zero.To get extended error information, call GetLastError.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int FormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
@@ -210,7 +210,7 @@ namespace PInvoke
         /// <param name="hFindFile">The file search handle.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         private static extern bool FindClose(IntPtr hFindFile);
@@ -221,7 +221,7 @@ namespace PInvoke
         /// <param name="hObject">A valid handle to an open object.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero.To get extended error information, call GetLastError.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         private static extern bool CloseHandle(IntPtr hObject);

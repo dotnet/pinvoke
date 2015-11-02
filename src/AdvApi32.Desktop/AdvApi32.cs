@@ -276,7 +276,7 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the specified service control manager database.
-        /// If the function fails, the return value is NULL.To get extended error information, call GetLastError.
+        /// If the function fails, the return value is NULL.To get extended error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeServiceHandler OpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
