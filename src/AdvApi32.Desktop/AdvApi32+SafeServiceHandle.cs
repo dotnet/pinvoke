@@ -13,7 +13,7 @@ namespace PInvoke
     {
         /// <summary>
         /// Represents a preparsed data handle created by
-        /// <see cref="OpenSCManager(string lpMachineName,string lpDatabaseName,ServiceManagerAccess dwDesiredAccess)"/> or <see cref="OpenService(IntPtr hSCManager,string lpServiceName,ServiceAccess dwDesiredAccess)"/>
+        /// <see cref="OpenSCManager(string,string,ServiceManagerAccess)"/> or <see cref="OpenService(SafeServiceHandler,string,ServiceAccess)"/>
         /// that can be closed with <see cref="CloseServiceHandle"/>.
         /// </summary>
         public class SafeServiceHandler : SafeHandle

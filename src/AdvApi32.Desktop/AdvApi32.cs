@@ -158,8 +158,8 @@ namespace PInvoke
         /// This parameter can be one value from <see cref="ServiceStartType"/>.
         /// </param>
         /// <param name="lpInfo">
-        /// A pointer to the new value to be set for the configuration information. 
-        /// The format of this data depends on the value of the dwInfoLevel parameter. 
+        /// A pointer to the new value to be set for the configuration information.
+        /// The format of this data depends on the value of the dwInfoLevel parameter.
         /// If this value is NULL, the information remains unchanged.
         /// </param>
         /// <returns>
@@ -170,25 +170,10 @@ namespace PInvoke
         public static extern bool ChangeServiceConfig2(SafeServiceHandler hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
 
         /// <summary>
-        /// Closes a handle to a service control manager or service object.
-        /// </summary>
-        /// <param name="hSCObject">
-        /// A handle to the service control manager object or the service object to close.
-        /// Handles to service control manager objects are returned by the <see cref="OpenSCManager"/> function,
-        /// and handles to service objects are returned by either the <see cref="OpenService"/> or <see cref="CreateService"/> function.
-        /// </param>
-        /// <returns>
-        /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero.
-        /// </returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        private static extern bool CloseServiceHandle(IntPtr hSCObject);
-
-        /// <summary>
         /// Creates a service object and adds it to the specified service control manager database.
         /// </summary>
         /// <param name="hSCManager">
-        /// A handle to the service control manager database. 
+        /// A handle to the service control manager database.
         /// This handle is returned by the OpenSCManager function and must have the <see cref="ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE"/> access right.
         /// </param>
         /// <param name="lpServiceName">
@@ -280,7 +265,7 @@ namespace PInvoke
         /// the function connects to the service control manager on the local computer.
         /// </param>
         /// <param name="lpDatabaseName">
-        /// The name of the service control manager database. 
+        /// The name of the service control manager database.
         /// This parameter should be set to SERVICES_ACTIVE_DATABASE.
         /// If it is NULL, the SERVICES_ACTIVE_DATABASE database is opened by default.
         /// </param>
@@ -336,5 +321,20 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool StartService(SafeServiceHandler hService, int dwNumServiceArgs, string lpServiceArgVectors);
+
+        /// <summary>
+        /// Closes a handle to a service control manager or service object.
+        /// </summary>
+        /// <param name="hSCObject">
+        /// A handle to the service control manager object or the service object to close.
+        /// Handles to service control manager objects are returned by the <see cref="OpenSCManager"/> function,
+        /// and handles to service objects are returned by either the <see cref="OpenService"/> or <see cref="CreateService"/> function.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        private static extern bool CloseServiceHandle(IntPtr hSCObject);
     }
 }
