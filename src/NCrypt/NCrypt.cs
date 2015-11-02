@@ -121,10 +121,13 @@ namespace PInvoke
             /// <summary>Base error occurred.</summary>
             NTE_SYS_ERR = 0x80090021,
 
-            /// <summary>Undocumented.</summary>
+            /// <summary>The buffer supplied to a function was too small.</summary>
             NTE_BUFFER_TOO_SMALL = 0x80090028,
 
-            /// <summary>Undocumented.</summary>
+            /// <summary>The requested operation is not supported.</summary>
+            NTE_NOT_SUPPORTED = 0x80090029,
+
+            /// <summary>No more data is available.</summary>
             NTE_NO_MORE_ITEMS = 0x8009002a,
         }
 
@@ -184,6 +187,33 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Flags that may be passed to the <see cref="NCryptFinalizeKey"/> function.
+        /// </summary>
+        [Flags]
+        public enum NCryptFinalizeKeyFlags
+        {
+            /// <summary>
+            /// No flags.
+            /// </summary>
+            None = 0x0,
+
+            /// <summary>
+            /// Do not validate the public portion of the key pair. This flag only applies to public/private key pairs.
+            /// </summary>
+            NCRYPT_NO_KEY_VALIDATION = 0x00000008,
+
+            /// <summary>
+            /// Also save the key in legacy storage. This allows the key to be used with CryptoAPI. This flag only applies to RSA keys.
+            /// </summary>
+            NCRYPT_WRITE_KEY_TO_LEGACY_STORE_FLAG = 0x00000200,
+
+            /// <summary>
+            /// Requests that the key service provider (KSP) not display any user interface. If the provider must display the UI to operate, the call fails and the KSP should set the NTE_SILENT_CONTEXT error code as the last error.
+            /// </summary>
+            NCRYPT_SILENT_FLAG = 0x00000040,
+        }
+
+        /// <summary>
         /// Loads and initializes a CNG key storage provider.
         /// </summary>
         /// <param name="phProvider">
@@ -225,9 +255,24 @@ namespace PInvoke
             SafeProviderHandle hProvider,
             out SafeKeyHandle phKey,
             string pszAlgId,
-            string pszKeyName,
-            LegacyKeySpec dwLegacyKeySpec,
-            NCryptCreatePersistedKeyFlags dwFlags);
+            string pszKeyName = null,
+            LegacyKeySpec dwLegacyKeySpec = LegacyKeySpec.None,
+            NCryptCreatePersistedKeyFlags dwFlags = NCryptCreatePersistedKeyFlags.None);
+
+        /// <summary>
+        /// Completes a CNG key storage key. The key cannot be used until this function has been called.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to complete. This handle is obtained by calling the <see cref="NCryptCreatePersistedKey(SafeProviderHandle, string, string, LegacyKeySpec, NCryptCreatePersistedKeyFlags)"/> function.
+        /// </param>
+        /// <param name="dwFlags">
+        /// Flags that modify function behavior.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(NCrypt))]
+        public static extern SECURITY_STATUS NCryptFinalizeKey(
+            SafeKeyHandle hKey,
+            NCryptFinalizeKeyFlags dwFlags = NCryptFinalizeKeyFlags.None);
 
         /// <summary>
         /// Frees a CNG key storage object.

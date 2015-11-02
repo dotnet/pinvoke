@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.Globalization;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -53,8 +54,8 @@ namespace PInvoke
         public static SafeKeyHandle NCryptCreatePersistedKey(
             SafeProviderHandle provider,
             string algorithmId,
-            string keyName,
-            LegacyKeySpec legacyKeySpec,
+            string keyName = null,
+            LegacyKeySpec legacyKeySpec = LegacyKeySpec.None,
             NCryptCreatePersistedKeyFlags flags = NCryptCreatePersistedKeyFlags.None)
         {
             SafeKeyHandle result;
@@ -79,7 +80,7 @@ namespace PInvoke
                 case SECURITY_STATUS.ERROR_SUCCESS:
                     return;
                 default:
-                    throw new Exception($"SECURITY_STATUS: {status}");
+                    throw new Exception($"SECURITY_STATUS: {status} (0x{(int)status:x8})");
             }
         }
 
