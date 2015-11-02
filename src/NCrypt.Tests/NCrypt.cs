@@ -8,8 +8,11 @@ using static PInvoke.NCrypt;
 
 public class NCrypt
 {
-    [Fact(Skip = "No tests yet")]
-    public void NoTests()
+    [Fact]
+    public void OpenStorageProvider()
     {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+        }
     }
 }
