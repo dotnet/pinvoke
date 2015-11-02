@@ -332,7 +332,7 @@ namespace PInvoke
         /// <param name="share">
         /// The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or none (refer to the following table). Access requests to attributes or extended attributes are not affected by this flag.
         /// If this parameter is zero and <see cref="CreateFile"/> succeeds, the file or device cannot be shared and cannot be opened again until the handle to the file or device is closed. For more information, see the Remarks section.
-        /// You cannot request a sharing mode that conflicts with the access mode that is specified in an existing request that has an open handle. <see cref="CreateFile"/> would fail and the GetLastError function would return ERROR_SHARING_VIOLATION.
+        /// You cannot request a sharing mode that conflicts with the access mode that is specified in an existing request that has an open handle. <see cref="CreateFile"/> would fail and the <see cref="GetLastError"/> function would return ERROR_SHARING_VIOLATION.
         /// To enable a process to share a file or device while another process has the file or device open, use a compatible combination of one or more of the following values. For more information about valid combinations of this parameter with the dwDesiredAccess parameter, see Creating and Opening Files.
         /// </param>
         /// <param name="securityAttributes">
@@ -364,7 +364,7 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
-        /// If the function fails, the return value is INVALID_HANDLE_VALUE.To get extended error information, call GetLastError.
+        /// If the function fails, the return value is INVALID_HANDLE_VALUE.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), CharSet = CharSet.Auto, SetLastError = true)]
         public static extern SafeObjectHandle CreateFile(
@@ -390,8 +390,8 @@ namespace PInvoke
         /// <param name="lpFindFileData">A pointer to the WIN32_FIND_DATA structure that receives information about a found file or directory.</param>
         /// <returns>
         /// If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.
-        /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the GetLastError function.
-        /// If the function fails because no matching files can be found, the GetLastError function returns ERROR_FILE_NOT_FOUND.
+        /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
+        /// If the function fails because no matching files can be found, the <see cref="GetLastError"/> function returns ERROR_FILE_NOT_FOUND.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeFindFilesHandle FindFirstFile(string lpFileName, out WIN32_FIND_DATA lpFindFileData);
@@ -403,8 +403,8 @@ namespace PInvoke
         /// <param name="lpFindFileData">A pointer to the WIN32_FIND_DATA structure that receives information about the found file or subdirectory.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero and the lpFindFileData parameter contains information about the next file or directory found.
-        /// If the function fails, the return value is zero and the contents of lpFindFileData are indeterminate. To get extended error information, call the GetLastError function.
-        /// If the function fails because no more matching files can be found, the GetLastError function returns ERROR_NO_MORE_FILES.
+        /// If the function fails, the return value is zero and the contents of lpFindFileData are indeterminate. To get extended error information, call the <see cref="GetLastError"/> function.
+        /// If the function fails because no more matching files can be found, the <see cref="GetLastError"/> function returns ERROR_NO_MORE_FILES.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool FindNextFile(SafeFindFilesHandle hFindFile, out WIN32_FIND_DATA lpFindFileData);
@@ -532,7 +532,7 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// <para>If the function fails, the return value is zero.To get extended error information, call GetLastError.</para>
+        /// <para>If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.</para>
         /// </returns>
         /// <remarks>Minimum OS: Windows Vista / Windows Server 2008.</remarks>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]

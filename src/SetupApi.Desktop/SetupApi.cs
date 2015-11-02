@@ -82,7 +82,7 @@ namespace PInvoke
         /// <param name="memberIndex">
         /// A zero-based index into the list of interfaces in the device information set. The caller
         /// should call this function first with MemberIndex set to zero to obtain the first interface. Then, repeatedly increment
-        /// MemberIndex and retrieve an interface until this function fails and GetLastError returns
+        /// MemberIndex and retrieve an interface until this function fails and <see cref="Kernel32.GetLastError"/> returns
         /// <see cref="Win32ErrorCode.ERROR_NO_MORE_ITEMS" />.
         /// </param>
         /// <param name="deviceInterfaceData">

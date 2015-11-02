@@ -5,7 +5,6 @@ namespace PInvoke
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.InteropServices;
     using System.Text;
 
     /// <content>
@@ -27,10 +26,10 @@ namespace PInvoke
                 return entry;
             }
 
-            var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
+            var lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                throw new Win32Exception(lastError);
             }
 
             return null;
@@ -49,10 +48,10 @@ namespace PInvoke
                 return entry;
             }
 
-            var lastError = (Win32ErrorCode)Marshal.GetLastWin32Error();
+            var lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
             {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+                throw new Win32Exception(lastError);
             }
 
             return null;
