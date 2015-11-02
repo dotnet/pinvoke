@@ -226,46 +226,6 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         private static extern bool CloseHandle(IntPtr hObject);
 
-        /// <summary>
-        /// Retrieves the calling thread's last-error code value. The last-error code is maintained on a per-thread basis.
-        /// Multiple threads do not overwrite each other's last-error code.
-        /// </summary>
-        /// <returns>
-        /// The return value is the calling thread's last-error code.
-        /// <para>
-        /// The Return Value section of the documentation for each function that sets the last-error code notes the
-        /// conditions under which the function sets the last-error code. Most functions that set the thread's last-error code set
-        /// it when they fail. However, some functions also set the last-error code when they succeed. If the function is not
-        /// documented to set the last-error code, the value returned by this function is simply the most recent last-error code to
-        /// have been set; some functions set the last-error code to 0 on success and others do not.
-        /// </para>
-        /// </returns>
-        /// <remarks>
-        /// Functions executed by the calling thread set this value by calling the <see cref="SetLastError" /> function.
-        /// You should call the GetLastError function immediately when a function's return value indicates that such a call will
-        /// return useful data. That is because some functions call <see cref="SetLastError" /> with a zero when they succeed,
-        /// wiping out the error code set by the most recently failed function.
-        /// <para>To obtain an error string for system error codes, use the FormatMessage function.</para>
-        /// </remarks>
-        [DllImport(nameof(Kernel32))]
-        public static extern Win32ErrorCode GetLastError();
-
-        /// <summary>Sets the last-error code for the calling thread.</summary>
-        /// <param name="dwErrCode">The last-error code for the thread.</param>
-        /// <remarks>
-        /// The last-error code is kept in thread local storage so that multiple threads do not overwrite each other's values.
-        /// <para>
-        /// Most functions call SetLastError only when they fail. However, some system functions call SetLastError under
-        /// conditions of success; those cases are noted in each function's documentation.
-        /// </para>
-        /// <para>
-        /// Applications can optionally retrieve the value set by this function by using the GetLastError function
-        /// immediately after a function fails.
-        /// </para>
-        /// </remarks>
-        [DllImport(nameof(Kernel32))]
-        public static extern void SetLastError(Win32ErrorCode dwErrCode);
-
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct WIN32_FIND_DATA
         {
