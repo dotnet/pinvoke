@@ -129,6 +129,27 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// A legacy identifier that specifies the type of key.
+        /// </summary>
+        public enum LegacyKeySpec
+        {
+            /// <summary>
+            /// None of the other types.
+            /// </summary>
+            None = 0x0,
+
+            /// <summary>
+            /// The key is a key exchange key.
+            /// </summary>
+            AT_KEYEXCHANGE,
+
+            /// <summary>
+            /// The key is a signature key.
+            /// </summary>
+            AT_SIGNATURE,
+        }
+
+        /// <summary>
         /// Flags that may be passed to the <see cref="NCryptOpenStorageProvider(out SafeProviderHandle, string, NCryptOpenStorageProviderFlags)"/> function.
         /// </summary>
         [Flags]
@@ -138,6 +159,28 @@ namespace PInvoke
             /// No flags.
             /// </summary>
             None = 0x0,
+        }
+
+        /// <summary>
+        /// Flags that may be passed to the <see cref="NCryptCreatePersistedKey(SafeProviderHandle, out SafeKeyHandle, string, string, LegacyKeySpec, NCryptCreatePersistedKeyFlags)"/> method.
+        /// </summary>
+        [Flags]
+        public enum NCryptCreatePersistedKeyFlags
+        {
+            /// <summary>
+            /// No flags.
+            /// </summary>
+            None = 0x0,
+
+            /// <summary>
+            /// The key applies to the local computer. If this flag is not present, the key applies to the current user.
+            /// </summary>
+            NCRYPT_MACHINE_KEY_FLAG,
+
+            /// <summary>
+            /// If a key already exists in the container with the specified name, the existing key will be overwritten. If this flag is not specified and a key with the specified name already exists, this function will return <see cref="SECURITY_STATUS.NTE_EXISTS"/>.
+            /// </summary>
+            NCRYPT_OVERWRITE_KEY_FLAG,
         }
 
         /// <summary>
@@ -156,6 +199,35 @@ namespace PInvoke
             out SafeProviderHandle phProvider,
             string pszProviderName,
             NCryptOpenStorageProviderFlags dwFlags = NCryptOpenStorageProviderFlags.None);
+
+        /// <summary>
+        /// Creates a new key and stores it in the specified key storage provider. After you create a key by using this function, you can use the NCryptSetProperty function to set its properties; however, the key cannot be used until the NCryptFinalizeKey function is called.
+        /// </summary>
+        /// <param name="hProvider">
+        /// The handle of the key storage provider to create the key in. This handle is obtained by using the <see cref="NCryptOpenStorageProvider(string, NCryptOpenStorageProviderFlags)"/> function.
+        /// </param>
+        /// <param name="phKey">
+        /// The address of an <see cref="SafeKeyHandle"/> variable that receives the handle of the key. When you have finished using this handle, release it by disposing it.
+        /// </param>
+        /// <param name="pszAlgId">
+        /// A null-terminated Unicode string that contains the identifier of the cryptographic algorithm to create the key. This can be one of the standard CNG Algorithm Identifiers defined in <see cref="BCrypt.AlgorithmIdentifiers"/> or the identifier for another registered algorithm.
+        /// </param>
+        /// <param name="pszKeyName">
+        /// A pointer to a null-terminated Unicode string that contains the name of the key. If this parameter is NULL, this function will create an ephemeral key that is not persisted.
+        /// </param>
+        /// <param name="dwLegacyKeySpec">
+        /// A legacy identifier that specifies the type of key.
+        /// </param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(NCrypt))]
+        public static extern SECURITY_STATUS NCryptCreatePersistedKey(
+            SafeProviderHandle hProvider,
+            out SafeKeyHandle phKey,
+            string pszAlgId,
+            string pszKeyName,
+            LegacyKeySpec dwLegacyKeySpec,
+            NCryptCreatePersistedKeyFlags dwFlags);
 
         /// <summary>
         /// Frees a CNG key storage object.

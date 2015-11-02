@@ -32,6 +32,43 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Creates a new key and stores it in the specified key storage provider. After you create a key by using this function, you can use the NCryptSetProperty function to set its properties; however, the key cannot be used until the NCryptFinalizeKey function is called.
+        /// </summary>
+        /// <param name="provider">
+        /// The handle of the key storage provider to create the key in. This handle is obtained by using the <see cref="NCryptOpenStorageProvider(string, NCryptOpenStorageProviderFlags)"/> function.
+        /// </param>
+        /// <param name="algorithmId">
+        /// A null-terminated Unicode string that contains the identifier of the cryptographic algorithm to create the key. This can be one of the standard CNG Algorithm Identifiers defined in <see cref="BCrypt.AlgorithmIdentifiers"/> or the identifier for another registered algorithm.
+        /// </param>
+        /// <param name="keyName">
+        /// A pointer to a null-terminated Unicode string that contains the name of the key. If this parameter is NULL, this function will create an ephemeral key that is not persisted.
+        /// </param>
+        /// <param name="legacyKeySpec">
+        /// A legacy identifier that specifies the type of key.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>
+        /// The address of an <see cref="SafeKeyHandle"/> variable that receives the handle of the key. When you have finished using this handle, release it by disposing it.
+        /// </returns>
+        public static SafeKeyHandle NCryptCreatePersistedKey(
+            SafeProviderHandle provider,
+            string algorithmId,
+            string keyName,
+            LegacyKeySpec legacyKeySpec,
+            NCryptCreatePersistedKeyFlags flags = NCryptCreatePersistedKeyFlags.None)
+        {
+            SafeKeyHandle result;
+            NCryptCreatePersistedKey(
+                provider,
+                out result,
+                algorithmId,
+                keyName,
+                legacyKeySpec,
+                flags).ThrowOnError();
+            return result;
+        }
+
+        /// <summary>
         /// Throws an exception if an NCrypt function returned a failure error code.
         /// </summary>
         /// <param name="status">The result from an NCrypt function.</param>
