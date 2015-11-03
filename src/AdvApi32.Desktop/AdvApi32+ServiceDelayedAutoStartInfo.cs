@@ -6,23 +6,22 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="ServiceDescription"/> nested struct.
+    /// Contains the <see cref="ServiceDelayedAutoStartInfo"/> nested struct.
     /// </content>
     public static partial class AdvApi32
     {
         /// <summary>
-        /// Contains a service description.
+        /// Contains the delayed auto-start setting of an auto-start service.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct ServiceDescription
+        public struct ServiceDelayedAutoStartInfo
         {
             /// <summary>
-            /// The description of the service. If this member is NULL, the description remains unchanged.
-            /// If this value is an empty string (""), the current description is deleted.
-            /// The service description must not exceed the size of a registry value of type REG_SZ.
+            /// If this member is TRUE, the service is started after other auto-start services are started plus a short delay.
+            /// Otherwise, the service is started during system boot.
+            /// This setting is ignored unless the service is an auto-start service.
             /// </summary>
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpDescription;
+            public bool fDelayedAutostart;
         }
     }
 }

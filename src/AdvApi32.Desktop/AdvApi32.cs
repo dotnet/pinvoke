@@ -17,6 +17,7 @@ namespace PInvoke
         /// because services and service groups share the same name space.
         /// </summary>
         public const string SC_GROUP_IDENTIFIER = "+";
+        public const uint INFINITE = 0xFFFFFFFF;
 
         /// <summary>
         /// Describes service manager access flags.
@@ -126,23 +127,6 @@ namespace PInvoke
             SERVICE_ERROR_NORMAL = 0x00000001,
             SERVICE_ERROR_SEVERE = 0x00000002,
             SERVICE_ERROR_CRITICAL = 0x00000003
-        }
-
-        /// <summary>
-        /// Describes the configuration information to be changed.
-        /// </summary>
-        public enum ServiceInfoLevel
-        {
-            SERVICE_CONFIG_DESCRIPTION = 1,
-            SERVICE_CONFIG_FAILURE_ACTIONS = 2,
-            SERVICE_CONFIG_DELAYED_AUTO_START_INFO = 3,
-            SERVICE_CONFIG_FAILURE_ACTIONS_FLAG = 4,
-            SERVICE_CONFIG_SERVICE_SID_INFO = 5,
-            SERVICE_CONFIG_REQUIRED_PRIVILEGES_INFO = 6,
-            SERVICE_CONFIG_PRESHUTDOWN_INFO = 7,
-            SERVICE_CONFIG_TRIGGER_INFO = 8,
-            SERVICE_CONFIG_PREFERRED_NODE = 9,
-            SERVICE_CONFIG_LAUNCH_PROTECTED = 12
         }
 
         /// <summary>

@@ -6,23 +6,20 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="ServiceDescription"/> nested struct.
+    /// Contains the <see cref="ServiceLaunchProtectedInfo"/> nested struct.
     /// </content>
     public static partial class AdvApi32
     {
         /// <summary>
-        /// Contains a service description.
+        /// Indicates a service protection type.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct ServiceDescription
+        public struct ServiceLaunchProtectedInfo
         {
             /// <summary>
-            /// The description of the service. If this member is NULL, the description remains unchanged.
-            /// If this value is an empty string (""), the current description is deleted.
-            /// The service description must not exceed the size of a registry value of type REG_SZ.
+            /// The protection type of the service.
             /// </summary>
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpDescription;
+            public ServiceLaunchProtected dwPreshutdownTimeout;
         }
     }
 }
