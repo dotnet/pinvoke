@@ -2,8 +2,7 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
+using PInvoke;
 using Xunit;
 using static PInvoke.Hid;
 using static PInvoke.Kernel32;
@@ -27,35 +26,35 @@ public class Hid
     [Fact]
     public void HidD_GetManufacturerString_ThrowForInvalidHandle()
     {
-        Assert.Throws<COMException>(() =>
+        Assert.Throws<Win32Exception>(() =>
             HidD_GetManufacturerString(new SafeObjectHandle(new IntPtr(0), false)));
     }
 
     [Fact]
     public void HidD_GetProductString_ThrowForInvalidHandle()
     {
-        Assert.Throws<COMException>(() =>
+        Assert.Throws<Win32Exception>(() =>
             HidD_GetProductString(new SafeObjectHandle(new IntPtr(0), false)));
     }
 
     [Fact]
     public void HidD_GetSerialNumberString_ThrowForInvalidHandle()
     {
-        Assert.Throws<COMException>(() =>
+        Assert.Throws<Win32Exception>(() =>
             HidD_GetSerialNumberString(new SafeObjectHandle(new IntPtr(0), false)));
     }
 
     [Fact]
     public void HidD_GetAttributes_ThrowForInvalidHandle()
     {
-        Assert.Throws<COMException>(() =>
+        Assert.Throws<Win32Exception>(() =>
             HidD_GetAttributes(new SafeObjectHandle(new IntPtr(0), false)));
     }
 
     [Fact]
     public void HidD_GetPreparsedData_ThrowForInvalidHandle()
     {
-        Assert.Throws<COMException>(() =>
+        Assert.Throws<Win32Exception>(() =>
             HidD_GetPreparsedData(new SafeObjectHandle(new IntPtr(0), false)));
     }
 }

@@ -7,37 +7,37 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SafeServiceHandler"/> nested class.
+    /// Contains the <see cref="SafeServiceHandle"/> nested class.
     /// </content>
-    public static partial class AdvApi32
+    public partial class AdvApi32
     {
         /// <summary>
         /// Represents a preparsed data handle created by
-        /// <see cref="OpenSCManager(string,string,ServiceManagerAccess)"/> or <see cref="OpenService(SafeServiceHandler,string,ServiceAccess)"/>
+        /// <see cref="OpenSCManager(string,string,ServiceManagerAccess)"/> or <see cref="OpenService(SafeServiceHandle,string,ServiceAccess)"/>
         /// that can be closed with <see cref="CloseServiceHandle"/>.
         /// </summary>
-        public class SafeServiceHandler : SafeHandle
+        public class SafeServiceHandle : SafeHandle
         {
             /// <summary>
             /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
             /// </summary>
-            internal static readonly SafeServiceHandler NullHandle = new SafeServiceHandler();
+            internal static readonly SafeServiceHandle NullHandle = new SafeServiceHandle();
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SafeServiceHandler"/> class.
+            /// Initializes a new instance of the <see cref="SafeServiceHandle"/> class.
             /// </summary>
-            public SafeServiceHandler()
+            public SafeServiceHandle()
                 : base(IntPtr.Zero, true)
             {
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SafeServiceHandler"/> class.
+            /// Initializes a new instance of the <see cref="SafeServiceHandle"/> class.
             /// </summary>
             /// <param name="preexistingHandle">An object that represents the pre-existing handle to use.</param>
             /// <param name="ownsHandle"><see langword="true"/> to reliably release the handle during the finalization
             /// phase; <see langword="false"/> to prevent reliable release.</param>
-            public SafeServiceHandler(IntPtr preexistingHandle, bool ownsHandle)
+            public SafeServiceHandle(IntPtr preexistingHandle, bool ownsHandle)
                 : base(IntPtr.Zero, ownsHandle)
             {
                 this.SetHandle(preexistingHandle);

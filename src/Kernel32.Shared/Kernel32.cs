@@ -23,92 +23,6 @@ namespace PInvoke
         /// </summary>
         public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
 
-        public enum FINDEX_INFO_LEVELS
-        {
-            FindExInfoStandard,
-            FindExInfoMaxInfoLevel,
-        }
-
-        public enum FINDEX_SEARCH_OPS
-        {
-            FindExSearchNameMatch,
-            FindExSearchLimitToDirectories,
-            FindExSearchLimitToDevices,
-            FindExSearchMaxSearchOp,
-        }
-
-        /// <summary>
-        /// Optional flags to pass to the <see cref="FindFirstFileEx"/> method.
-        /// </summary>
-        [Flags]
-        public enum FindFirstFileExFlags
-        {
-            /// <summary>
-            /// Searches are case-sensitive.
-            /// </summary>
-            CaseSensitive,
-
-            /// <summary>
-            /// Uses a larger buffer for directory queries, which can increase performance of the find operation.
-            /// </summary>
-            LargeFetch,
-        }
-
-        /// <summary>
-        /// Flags passed to the <see cref="FormatMessage"/> method.
-        /// </summary>
-        [Flags]
-        public enum FormatMessageFlags
-        {
-            /// <summary>
-            /// The function allocates a buffer large enough to hold the formatted message, and places a pointer to the allocated buffer at the address specified by lpBuffer. The nSize parameter specifies the minimum number of TCHARs to allocate for an output message buffer. The caller should use the LocalFree function to free the buffer when it is no longer needed.
-            /// If the length of the formatted message exceeds 128K bytes, then FormatMessage will fail and a subsequent call to GetLastError will return ERROR_MORE_DATA.
-            /// In previous versions of Windows, this value was not available for use when compiling Windows Store apps. As of Windows 10 this value can be used.
-            /// Windows Server 2003 and Windows XP:
-            /// If the length of the formatted message exceeds 128K bytes, then FormatMessage will not automatically fail with an error of ERROR_MORE_DATA.
-            /// Windows 10:
-            /// LocalFree is not in the modern SDK, so it cannot be used to free the result buffer. Instead, use HeapFree (GetProcessHeap(), allocatedMessage). In this case, this is the same as calling LocalFree on memory.
-            /// Important: LocalAlloc() has different options: LMEM_FIXED, and LMEM_MOVABLE. FormatMessage() uses LMEM_FIXED, so HeapFree can be used. If LMEM_MOVABLE is used, HeapFree cannot be used.
-            /// </summary>
-            AllocateBuffer = 0x100,
-
-            /// <summary>
-            /// The Arguments parameter is not a va_list structure, but is a pointer to an array of values that represent the arguments.
-            /// This flag cannot be used with 64-bit integer values. If you are using a 64-bit integer, you must use the va_list structure.
-            /// </summary>
-            ArgumentArray = 0x2000,
-
-            /// <summary>
-            /// The lpSource parameter is a module handle containing the message-table resource(s) to search. If this lpSource handle is NULL, the current process's application image file will be searched. This flag cannot be used with <see cref="FromString"/>.
-            /// If the module has no message table resource, the function fails with ERROR_RESOURCE_TYPE_NOT_FOUND.
-            /// </summary>
-            FromHModule = 0x800,
-
-            /// <summary>
-            /// The lpSource parameter is a pointer to a null-terminated string that contains a message definition. The message definition may contain insert sequences, just as the message text in a message table resource may. This flag cannot be used with <see cref="FromHModule"/> or <see cref="FromSystem"/>.
-            /// </summary>
-            FromString = 0x400,
-
-            /// <summary>
-            /// The function should search the system message-table resource(s) for the requested message. If this flag is specified with <see cref="FromHModule"/>, the function searches the system message table if the message is not found in the module specified by lpSource. This flag cannot be used with <see cref="FromString"/>.
-            /// If this flag is specified, an application can pass the result of the GetLastError function to retrieve the message text for a system-defined error.
-            /// </summary>
-            FromSystem = 0x1000,
-
-            /// <summary>
-            /// Insert sequences in the message definition are to be ignored and passed through to the output buffer unchanged. This flag is useful for fetching a message for later formatting. If this flag is set, the Arguments parameter is ignored.
-            /// </summary>
-            IgnoreInserts = 0x200,
-
-            /// <summary>
-            /// The function ignores regular line breaks in the message definition text. The function stores hard-coded line breaks in the message definition text into the output buffer. The function generates no new line breaks.
-            /// Without this flag set:
-            /// There are no output line width restrictions. The function stores line breaks that are in the message definition text into the output buffer.
-            /// It specifies the maximum number of characters in an output line. The function ignores regular line breaks in the message definition text. The function never splits a string delimited by white space across a line break. The function stores hard-coded line breaks in the message definition text into the output buffer. Hard-coded line breaks are coded with the %n escape sequence.
-            /// </summary>
-            MaxWidthMask = 0xff,
-        }
-
         /// <summary>
         /// Searches a directory for a file or subdirectory with a name and attributes that match those specified.
         /// For the most basic version of this function, see FindFirstFile.
@@ -139,7 +53,7 @@ namespace PInvoke
         /// <param name="dwAdditionalFlags">Specifies additional flags that control the search.</param>
         /// <returns>
         /// If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.
-        /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the GetLastError function.
+        /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// </returns>
         [DllImport(nameof(Kernel32))]
         public static extern SafeFindFilesHandle FindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, IntPtr lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags);
@@ -186,7 +100,7 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is the number of TCHARs stored in the output buffer, excluding the terminating null character.
-        /// If the function fails, the return value is zero.To get extended error information, call GetLastError.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int FormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
@@ -210,7 +124,7 @@ namespace PInvoke
         /// <param name="hFindFile">The file search handle.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         private static extern bool FindClose(IntPtr hFindFile);
@@ -221,81 +135,9 @@ namespace PInvoke
         /// <param name="hObject">A valid handle to an open object.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero.To get extended error information, call GetLastError.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         private static extern bool CloseHandle(IntPtr hObject);
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public struct WIN32_FIND_DATA
-        {
-            /// <summary>
-            /// The file attributes of a file.
-            /// </summary>
-            /// <remarks>
-            /// Although the enum we bind to here exists in the .NET Framework
-            /// as System.IO.FileAttributes, it is not reliably present.
-            /// Portable profiles don't include it, for example. So we have to define our own.
-            /// </remarks>
-            public FileAttribute dwFileAttributes;
-
-            /// <summary>
-            /// A FILETIME structure that specifies when a file or directory was created.
-            /// If the underlying file system does not support creation time, this member is zero.
-            /// </summary>
-            public FILETIME ftCreationTime;
-
-            /// <summary>
-            /// A FILETIME structure.
-            /// For a file, the structure specifies when the file was last read from, written to, or for executable files, run.
-            /// For a directory, the structure specifies when the directory is created.If the underlying file system does not support last access time, this member is zero.
-            /// On the FAT file system, the specified date for both files and directories is correct, but the time of day is always set to midnight.
-            /// </summary>
-            public FILETIME ftLastAccessTime;
-
-            /// <summary>
-            /// A FILETIME structure.
-            /// For a file, the structure specifies when the file was last written to, truncated, or overwritten, for example, when WriteFile or SetEndOfFile are used.The date and time are not updated when file attributes or security descriptors are changed.
-            /// For a directory, the structure specifies when the directory is created.If the underlying file system does not support last write time, this member is zero.
-            /// </summary>
-            public FILETIME ftLastWriteTime;
-
-            /// <summary>
-            /// The high-order DWORD value of the file size, in bytes.
-            /// This value is zero unless the file size is greater than MAXDWORD.
-            /// The size of the file is equal to(nFileSizeHigh* (MAXDWORD+1)) + nFileSizeLow.
-            /// </summary>
-            public uint nFileSizeHigh;
-
-            /// <summary>
-            /// The low-order DWORD value of the file size, in bytes.
-            /// </summary>
-            public uint nFileSizeLow;
-
-            /// <summary>
-            /// If the dwFileAttributes member includes the FILE_ATTRIBUTE_REPARSE_POINT attribute, this member specifies the reparse point tag.
-            /// Otherwise, this value is undefined and should not be used.
-            /// For more information see Reparse Point Tags.
-            /// </summary>
-            public uint dwReserved0;
-
-            /// <summary>
-            /// Reserved for future use.
-            /// </summary>
-            public uint dwReserved1;
-
-            /// <summary>
-            /// The name of the file.
-            /// </summary>
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-            public string cFileName;
-
-            /// <summary>
-            /// An alternative name for the file.
-            /// This name is in the classic 8.3 file name format.
-            /// </summary>
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 14)]
-            public string cAlternateFileName;
-        }
     }
 }

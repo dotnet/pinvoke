@@ -22,6 +22,7 @@ in this document.
 
 When introducing support for a new native DLL to this project, use the templates\AddNewLibrary.ps1
 Powershell cmdlet to create the projects necessary to support it and follow the instructions from that script.
+The library should also be added to the list on the [readme](README.md).
 
 ### File structure
 
