@@ -19,12 +19,12 @@ namespace PInvoke
             /// <summary>
             /// Searches are case-sensitive.
             /// </summary>
-            CaseSensitive,
+            CaseSensitive = 1,
 
             /// <summary>
             /// Uses a larger buffer for directory queries, which can increase performance of the find operation.
             /// </summary>
-            LargeFetch,
+            LargeFetch = 2,
         }
     }
 }

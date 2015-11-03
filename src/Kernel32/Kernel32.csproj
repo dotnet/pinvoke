@@ -25,7 +25,6 @@
   <ItemGroup>
     <Compile Include="Kernel32+FINDEX_INFO_LEVELS.cs" />
     <Compile Include="Kernel32+FINDEX_SEARCH_OPS.cs" />
-    <Compile Include="Kernel32+FindFirstFileExFlags.cs" />
     <Compile Include="Kernel32+FormatMessageFlags.cs" />
     <Compile Include="Kernel32+WIN32_FIND_DATA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
