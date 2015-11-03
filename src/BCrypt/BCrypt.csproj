@@ -25,12 +25,41 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BCrypt+AlgorithmIdentifiers.cs" />
+    <Compile Include="BCrypt+AsymmetricKeyBlobTypes.cs" />
     <Compile Include="BCrypt+BCryptBuffer.cs" />
     <Compile Include="BCrypt+BCryptBufferDesc.cs" />
+    <Compile Include="BCrypt+BCryptCloseAlgorithmProviderFlags.cs" />
+    <Compile Include="BCrypt+BCryptCreateHashFlags.cs" />
+    <Compile Include="BCrypt+BCryptDeriveKeyFlags.cs" />
+    <Compile Include="BCrypt+BCryptEncryptFlags.cs" />
+    <Compile Include="BCrypt+BCryptExportKeyFlags.cs" />
+    <Compile Include="BCrypt+BCryptFinalizeKeyPairFlags.cs" />
+    <Compile Include="BCrypt+BCryptFinishHashFlags.cs" />
+    <Compile Include="BCrypt+BCryptGenerateKeyPairFlags.cs" />
+    <Compile Include="BCrypt+BCryptGenerateSymmetricKeyFlags.cs" />
+    <Compile Include="BCrypt+BCryptGenRandomFlags.cs" />
+    <Compile Include="BCrypt+BCryptGetPropertyFlags.cs" />
+    <Compile Include="BCrypt+BCryptHashDataFlags.cs" />
+    <Compile Include="BCrypt+BCryptImportKeyFlags.cs" />
+    <Compile Include="BCrypt+BCryptImportKeyPairFlags.cs" />
+    <Compile Include="BCrypt+BCryptOpenAlgorithmProviderFlags.cs" />
+    <Compile Include="BCrypt+BCryptSecretAgreementFlags.cs" />
+    <Compile Include="BCrypt+BCryptSetPropertyFlags.cs" />
+    <Compile Include="BCrypt+BCryptSignHashFlags.cs" />
+    <Compile Include="BCrypt+BCRYPT_KEY_LENGTHS_STRUCT.cs" />
+    <Compile Include="BCrypt+BufferType.cs" />
+    <Compile Include="BCrypt+ChainingModes.cs" />
+    <Compile Include="BCrypt+EccKeyBlob.cs" />
+    <Compile Include="BCrypt+EccKeyBlobMagicNumbers.cs" />
+    <Compile Include="BCrypt+KeyDerivationFunctions.cs" />
+    <Compile Include="BCrypt+PaddingSchemes.cs" />
+    <Compile Include="BCrypt+PropertyNames.cs" />
     <Compile Include="BCrypt+SafeAlgorithmHandle.cs" />
     <Compile Include="BCrypt+SafeHashHandle.cs" />
     <Compile Include="BCrypt+SafeKeyHandle.cs" />
     <Compile Include="BCrypt+SafeSecretHandle.cs" />
+    <Compile Include="BCrypt+SymmetricKeyBlobTypes.cs" />
     <Compile Include="BCrypt.cs" />
     <Compile Include="BCrypt.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

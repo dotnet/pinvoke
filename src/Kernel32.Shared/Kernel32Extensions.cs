@@ -3,11 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.InteropServices;
-    using System.Text;
-
     public static class Kernel32Extensions
     {
         /// <summary>

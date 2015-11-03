@@ -3,7 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
     using System.Runtime.InteropServices;
 
     /// <content>

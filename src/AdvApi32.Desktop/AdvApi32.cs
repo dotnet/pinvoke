@@ -19,133 +19,6 @@ namespace PInvoke
         public const string SC_GROUP_IDENTIFIER = "+";
 
         /// <summary>
-        /// Describes service manager access flags.
-        /// </summary>
-        [Flags]
-        public enum ServiceManagerAccess : uint
-        {
-            GenericRead = 0x80000000,
-            GenericWrite = 0x40000000,
-            GenericExecute = 0x20000000,
-
-            AccessSystemSecurity = 0x1000000,
-            Delete = 0x10000,
-            ReadControl = 0x20000,
-            WriteDAC = 0x40000,
-            WriteOwner = 0x80000,
-
-            STANDARD_RIGHTS_REQUIRED = 0xF0000,
-
-            SC_MANAGER_CONNECT = 0x0001,
-            SC_MANAGER_CREATE_SERVICE = 0x0002,
-            SC_MANAGER_ENUMERATE_SERVICE = 0x0004,
-            SC_MANAGER_LOCK = 0x0008,
-            SC_MANAGER_QUERY_LOCK_STATUS = 0x0010,
-            SC_MANAGER_MODIFY_BOOT_CONFIG = 0x0020,
-            SC_MANAGER_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED |
-                                        SC_MANAGER_CONNECT |
-                                        SC_MANAGER_CREATE_SERVICE |
-                                        SC_MANAGER_ENUMERATE_SERVICE |
-                                        SC_MANAGER_LOCK |
-                                        SC_MANAGER_QUERY_LOCK_STATUS |
-                                        SC_MANAGER_MODIFY_BOOT_CONFIG
-        }
-
-        /// <summary>
-        /// Describes service access flags.
-        /// </summary>
-        [Flags]
-        public enum ServiceAccess : uint
-        {
-            GenericRead = 0x80000000,
-            GenericWrite = 0x40000000,
-            GenericExecute = 0x20000000,
-
-            AccessSystemSecurity = 0x1000000,
-            Delete = 0x10000,
-            ReadControl = 0x20000,
-            WriteDAC = 0x40000,
-            WriteOwner = 0x80000,
-
-            STANDARD_RIGHTS_REQUIRED = 0xF0000,
-
-            SERVICE_QUERY_CONFIG = 0x0001,
-            SERVICE_CHANGE_CONFIG = 0x0002,
-            SERVICE_QUERY_STATUS = 0x0004,
-            SERVICE_ENUMERATE_DEPENDENTS = 0x0008,
-            SERVICE_START = 0x0010,
-            SERVICE_STOP = 0x0020,
-            SERVICE_PAUSE_CONTINUE = 0x0040,
-            SERVICE_INTERROGATE = 0x0080,
-            SERVICE_USER_DEFINED_CONTROL = 0x0100,
-            SERVICE_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED |
-                                        SERVICE_QUERY_CONFIG |
-                                        SERVICE_CHANGE_CONFIG |
-                                        SERVICE_QUERY_STATUS |
-                                        SERVICE_ENUMERATE_DEPENDENTS |
-                                        SERVICE_START |
-                                        SERVICE_STOP |
-                                        SERVICE_PAUSE_CONTINUE |
-                                        SERVICE_INTERROGATE |
-                                        SERVICE_USER_DEFINED_CONTROL
-        }
-
-        /// <summary>
-        /// Describes service type flags.
-        /// </summary>
-        [Flags]
-        public enum ServiceType : uint
-        {
-            SERVICE_KERNEL_DRIVER = 0x00000001,
-            SERVICE_FILE_SYSTEM_DRIVER = 0x00000002,
-            SERVICE_ADAPTER = 0x00000004,
-            SERVICE_RECOGNIZER_DRIVER = 0x00000008,
-            SERVICE_WIN32_OWN_PROCESS = 0x00000010,
-            SERVICE_WIN32_SHARE_PROCESS = 0x00000020,
-            SERVICE_INTERACTIVE_PROCESS = 0x00000100
-        }
-
-        /// <summary>
-        /// Describes service start type.
-        /// </summary>
-        public enum ServiceStartType : uint
-        {
-            SERVICE_BOOT_START = 0x00000000,
-            SERVICE_SYSTEM_START = 0x00000001,
-            SERVICE_AUTO_START = 0x00000002,
-            SERVICE_DEMAND_START = 0x00000003,
-            SERVICE_DISABLED = 0x00000004
-        }
-
-        /// <summary>
-        /// Describes the severity of the error, and action taken, if this service fails to start.
-        /// </summary>
-        public enum ServiceErrorControl : uint
-        {
-            SERVICE_ERROR_IGNORE = 0x00000000,
-            SERVICE_ERROR_NORMAL = 0x00000001,
-            SERVICE_ERROR_SEVERE = 0x00000002,
-            SERVICE_ERROR_CRITICAL = 0x00000003
-        }
-
-        /// <summary>
-        /// Describes the configuration information to be changed.
-        /// </summary>
-        public enum ServiceInfoLevel
-        {
-            SERVICE_CONFIG_DESCRIPTION = 1,
-            SERVICE_CONFIG_FAILURE_ACTIONS = 2,
-            SERVICE_CONFIG_DELAYED_AUTO_START_INFO = 3,
-            SERVICE_CONFIG_FAILURE_ACTIONS_FLAG = 4,
-            SERVICE_CONFIG_SERVICE_SID_INFO = 5,
-            SERVICE_CONFIG_REQUIRED_PRIVILEGES_INFO = 6,
-            SERVICE_CONFIG_PRESHUTDOWN_INFO = 7,
-            SERVICE_CONFIG_TRIGGER_INFO = 8,
-            SERVICE_CONFIG_PREFERRED_NODE = 9,
-            SERVICE_CONFIG_LAUNCH_PROTECTED = 12
-        }
-
-        /// <summary>
         /// Changes the optional configuration parameters of a service.
         /// </summary>
         /// <param name="hService">
@@ -167,7 +40,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ChangeServiceConfig2(SafeServiceHandler hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
+        public static extern bool ChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
 
         /// <summary>
         /// Creates a service object and adds it to the specified service control manager database.
@@ -241,7 +114,7 @@ namespace PInvoke
         /// If the function fails, the return value is NULL
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandler CreateService(SafeServiceHandler hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
+        public static extern SafeServiceHandle CreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
 
         /// <summary>
         /// Marks the specified service for deletion from the service control manager database.
@@ -254,7 +127,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern bool DeleteService(SafeServiceHandler hService);
+        public static extern bool DeleteService(SafeServiceHandle hService);
 
         /// <summary>
         /// Establishes a connection to the service control manager on the specified computer and opens the specified service control manager database.
@@ -279,7 +152,7 @@ namespace PInvoke
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandler OpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
+        public static extern SafeServiceHandle OpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
 
         /// <summary>
         /// Opens an existing service.
@@ -300,7 +173,7 @@ namespace PInvoke
         /// If the function fails, the return value is NULL.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandler OpenService(SafeServiceHandler hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
+        public static extern SafeServiceHandle OpenService(SafeServiceHandle hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
 
         /// <summary>
         /// Starts a service.
@@ -320,7 +193,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool StartService(SafeServiceHandler hService, int dwNumServiceArgs, string lpServiceArgVectors);
+        public static extern bool StartService(SafeServiceHandle hService, int dwNumServiceArgs, string lpServiceArgVectors);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.

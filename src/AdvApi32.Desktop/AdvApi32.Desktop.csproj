@@ -39,7 +39,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvApi32+SafeServiceHandle.cs" />
+    <Compile Include="AdvApi32+ServiceAccess.cs" />
     <Compile Include="AdvApi32+ServiceDescription.cs" />
+    <Compile Include="AdvApi32+ServiceErrorControl.cs" />
+    <Compile Include="AdvApi32+ServiceInfoLevel.cs" />
+    <Compile Include="AdvApi32+ServiceManagerAccess.cs" />
+    <Compile Include="AdvApi32+ServiceStartType.cs" />
+    <Compile Include="AdvApi32+ServiceType.cs" />
     <Compile Include="AdvApi32.cs" />
     <Compile Include="AdvApi32.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
