@@ -3,16 +3,9 @@
 
 namespace PInvoke
 {
-/* Unmerged change from project 'Kernel32.Desktop'
-Removed:
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.InteropServices;
-    using System.Text;
-    using static Kernel32;
-*/
-    using System;
     using System.Runtime.InteropServices;
     using System.Text;
     using static Kernel32;
