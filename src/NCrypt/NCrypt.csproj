@@ -29,6 +29,7 @@
       <Link>BCrypt+AlgorithmIdentifiers.cs</Link>
     </Compile>
     <Compile Include="NCrypt+KeyStorageImplementationType.cs" />
+    <Compile Include="NCrypt+NCryptSetPropertyFlags.cs" />
     <Compile Include="NCrypt+NCryptGetPropertyFlags.cs" />
     <Compile Include="NCrypt+KeyStoragePropertyIdentifiers.cs" />
     <Compile Include="NCrypt+SafeKeyHandle.cs" />

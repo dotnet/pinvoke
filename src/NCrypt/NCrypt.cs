@@ -306,6 +306,29 @@ namespace PInvoke
             NCryptGetPropertyFlags dwFlags);
 
         /// <summary>
+        /// Sets the value for a named property for a CNG key storage object.
+        /// </summary>
+        /// <param name="hObject">The handle of the key storage object to set the property for.</param>
+        /// <param name="pszProperty">
+        /// A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <see cref="KeyStoragePropertyIdentifiers"/> or a custom property identifier.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the new property value. The <paramref name="cbInput"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbInput">
+        /// The size, in bytes, of the <paramref name="pbInput"/> buffer.
+        /// </param>
+        /// <param name="dwFlags">Flags that modify function behavior.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(NCrypt), CharSet = CharSet.Unicode)]
+        public static extern SECURITY_STATUS NCryptSetProperty(
+            SafeHandle hObject,
+            string pszProperty,
+            byte[] pbInput,
+            int cbInput,
+            NCryptSetPropertyFlags dwFlags);
+
+        /// <summary>
         /// Frees a CNG key storage object.
         /// </summary>
         /// <param name="hObject">
