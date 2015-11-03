@@ -70,6 +70,51 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Retrieves the value of a named property for a key storage object.
+        /// </summary>
+        /// <param name="hObject">
+        /// The handle of the object to get the property for. This can be a provider handle (<see cref="SafeProviderHandle"/>) or a key handle (<see cref="SafeKeyHandle"/>).
+        /// </param>
+        /// <param name="propertyName">
+        /// A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <see cref="KeyStoragePropertyIdentifiers"/> or a custom property identifier.
+        /// </param>
+        /// <param name="flags">Flags that modify function behavior.</param>
+        /// <returns>The property value.</returns>
+        public static byte[] NCryptGetProperty(SafeHandle hObject, string propertyName, NCryptGetPropertyFlags flags = NCryptGetPropertyFlags.None)
+        {
+            int requiredSize;
+            NCryptGetProperty(hObject, propertyName, null, 0, out requiredSize, flags).ThrowOnError();
+            byte[] result = new byte[requiredSize];
+            NCryptGetProperty(hObject, propertyName, result, result.Length, out requiredSize, flags).ThrowOnError();
+            return result;
+        }
+
+        /// <summary>
+        /// Retrieves the value of a named property for a key storage object.
+        /// </summary>
+        /// <typeparam name="T">The type of struct to return the property value as.</typeparam>
+        /// <param name="hObject">
+        /// The handle of the object to get the property for. This can be a provider handle (<see cref="SafeProviderHandle"/>) or a key handle (<see cref="SafeKeyHandle"/>).
+        /// </param>
+        /// <param name="propertyName">
+        /// A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <see cref="KeyStoragePropertyIdentifiers"/> or a custom property identifier.
+        /// </param>
+        /// <param name="flags">Flags that modify function behavior.</param>
+        /// <returns>The property value.</returns>
+        public static T NCryptGetProperty<T>(SafeHandle hObject, string propertyName, NCryptGetPropertyFlags flags = NCryptGetPropertyFlags.None)
+            where T : struct
+        {
+            byte[] value = NCryptGetProperty(hObject, propertyName, flags);
+            unsafe
+            {
+                fixed (byte* pValue = value)
+                {
+                    return (T)Marshal.PtrToStructure(new IntPtr(pValue), typeof(T));
+                }
+            }
+        }
+
+        /// <summary>
         /// Throws an exception if an NCrypt function returned a failure error code.
         /// </summary>
         /// <param name="status">The result from an NCrypt function.</param>

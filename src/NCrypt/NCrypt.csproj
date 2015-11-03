@@ -19,13 +19,18 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\BCrypt\BCrypt+AlgorithmIdentifiers.cs">
       <Link>BCrypt+AlgorithmIdentifiers.cs</Link>
     </Compile>
+    <Compile Include="NCrypt+KeyStorageImplementationType.cs" />
+    <Compile Include="NCrypt+NCryptGetPropertyFlags.cs" />
+    <Compile Include="NCrypt+KeyStoragePropertyIdentifiers.cs" />
     <Compile Include="NCrypt+SafeKeyHandle.cs" />
     <Compile Include="NCrypt+SafeProviderHandle.cs" />
     <Compile Include="NCrypt.cs" />
