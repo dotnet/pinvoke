@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
-    using static PInvoke.Kernel32;
+    using static Kernel32;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide

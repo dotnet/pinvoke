@@ -5,7 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
-    using static PInvoke.Kernel32;
+    using static Kernel32;
 
     /// <content>
     /// Contains the <see cref="SafeObjectHandle"/> nested class.

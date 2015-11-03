@@ -3,9 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
-    using System.Runtime.InteropServices;
-
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
     /// a slightly higher level of functionality to ease calling into native code.

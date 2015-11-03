@@ -23,8 +23,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="NCrypt+KeyStorageProviders.cs" />
+    <Compile Include="NCrypt+NCryptOpenStorageProviderFlags.cs" />
     <Compile Include="NCrypt+SafeKeyHandle.cs" />
     <Compile Include="NCrypt+SafeProviderHandle.cs" />
+    <Compile Include="NCrypt+SECURITY_STATUS.cs" />
     <Compile Include="NCrypt.cs" />
     <Compile Include="NCrypt.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

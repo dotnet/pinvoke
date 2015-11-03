@@ -40,7 +40,7 @@ namespace PInvoke
             return value.HasValue ? new NullableUInt32(value.Value) : null;
         }
 
-        public static explicit operator uint(NullableUInt32 value)
+        public static explicit operator uint (NullableUInt32 value)
         {
             if (value == null)
             {
@@ -50,7 +50,7 @@ namespace PInvoke
             return value.Value;
         }
 
-        public static explicit operator uint?(NullableUInt32 value)
+        public static explicit operator uint? (NullableUInt32 value)
         {
             return value?.Value;
         }

@@ -50,7 +50,7 @@ namespace PInvoke
             return value.Value;
         }
 
-        public static explicit operator Guid?(NullableGuid value)
+        public static explicit operator Guid? (NullableGuid value)
         {
             return value?.Value;
         }
