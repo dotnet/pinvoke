@@ -17,6 +17,7 @@ namespace PInvoke
         /// because services and service groups share the same name space.
         /// </summary>
         public const string SC_GROUP_IDENTIFIER = "+";
+        public const uint INFINITE = 0xFFFFFFFF;
 
         /// <summary>
         /// Changes the optional configuration parameters of a service.

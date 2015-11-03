@@ -6,23 +6,20 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="ServiceDescription"/> nested struct.
+    /// Contains the <see cref="ServiceSidInfo"/> nested struct.
     /// </content>
     public static partial class AdvApi32
     {
         /// <summary>
-        /// Contains a service description.
+        /// Represents a service security identifier (SID).
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct ServiceDescription
+        public struct ServiceSidInfo
         {
             /// <summary>
-            /// The description of the service. If this member is NULL, the description remains unchanged.
-            /// If this value is an empty string (""), the current description is deleted.
-            /// The service description must not exceed the size of a registry value of type REG_SZ.
+            /// The service SID type.
             /// </summary>
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpDescription;
+            public ServiceSidType dwServiceSidType;
         }
     }
 }
