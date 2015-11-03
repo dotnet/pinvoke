@@ -40,7 +40,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool ChangeServiceConfig2(SafeServiceHandler hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
+        public static extern bool ChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
 
         /// <summary>
         /// Creates a service object and adds it to the specified service control manager database.
@@ -114,7 +114,7 @@ namespace PInvoke
         /// If the function fails, the return value is NULL
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandler CreateService(SafeServiceHandler hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
+        public static extern SafeServiceHandle CreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
 
         /// <summary>
         /// Marks the specified service for deletion from the service control manager database.
@@ -127,7 +127,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern bool DeleteService(SafeServiceHandler hService);
+        public static extern bool DeleteService(SafeServiceHandle hService);
 
         /// <summary>
         /// Establishes a connection to the service control manager on the specified computer and opens the specified service control manager database.
@@ -152,7 +152,7 @@ namespace PInvoke
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandler OpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
+        public static extern SafeServiceHandle OpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
 
         /// <summary>
         /// Opens an existing service.
@@ -173,7 +173,7 @@ namespace PInvoke
         /// If the function fails, the return value is NULL.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandler OpenService(SafeServiceHandler hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
+        public static extern SafeServiceHandle OpenService(SafeServiceHandle hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
 
         /// <summary>
         /// Starts a service.
@@ -193,7 +193,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool StartService(SafeServiceHandler hService, int dwNumServiceArgs, string lpServiceArgVectors);
+        public static extern bool StartService(SafeServiceHandle hService, int dwNumServiceArgs, string lpServiceArgVectors);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.

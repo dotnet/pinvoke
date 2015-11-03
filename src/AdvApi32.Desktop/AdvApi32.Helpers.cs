@@ -14,14 +14,14 @@ namespace PInvoke
     {
         public static void InstallService(string servicePath, string serviceName, string serviceDisplayName, string serviceDescription, string userName, string password)
         {
-            using (SafeServiceHandler hSCManager = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
+            using (SafeServiceHandle hSCManager = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
             {
                 if (hSCManager.IsInvalid)
                 {
                     throw new Win32Exception();
                 }
 
-                SafeServiceHandler svcHandle = CreateService(
+                SafeServiceHandle svcHandle = CreateService(
                     hSCManager,
                     serviceName,
                     serviceDisplayName,
@@ -75,14 +75,14 @@ namespace PInvoke
 
         public static void UninstallService(string serviceName)
         {
-            using (SafeServiceHandler scmHandle = OpenSCManager(null, null, ServiceManagerAccess.GenericWrite))
+            using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.GenericWrite))
             {
                 if (scmHandle.IsInvalid)
                 {
                     throw new Win32Exception();
                 }
 
-                using (SafeServiceHandler svcHandle = OpenService(scmHandle, serviceName, ServiceAccess.Delete))
+                using (SafeServiceHandle svcHandle = OpenService(scmHandle, serviceName, ServiceAccess.Delete))
                 {
                     if (svcHandle.IsInvalid)
                     {
