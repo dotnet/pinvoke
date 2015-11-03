@@ -38,10 +38,6 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BCrypt\BCrypt.csproj">
-      <Project>{9ce056e3-5d53-4092-97cc-78826a4d1c14}</Project>
-      <Name>BCrypt</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NCrypt\NCrypt.csproj">
       <Project>{6aaa088f-2adc-4ffd-8d11-d8b67d5ec88c}</Project>
       <Name>NCrypt</Name>

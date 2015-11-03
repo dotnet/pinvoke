@@ -23,6 +23,9 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\BCrypt\BCrypt+AlgorithmIdentifiers.cs">
+      <Link>BCrypt+AlgorithmIdentifiers.cs</Link>
+    </Compile>
     <Compile Include="NCrypt+SafeKeyHandle.cs" />
     <Compile Include="NCrypt+SafeProviderHandle.cs" />
     <Compile Include="NCrypt.cs" />
@@ -33,10 +36,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BCrypt\BCrypt.csproj">
-      <Project>{9ce056e3-5d53-4092-97cc-78826a4d1c14}</Project>
-      <Name>BCrypt</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>
