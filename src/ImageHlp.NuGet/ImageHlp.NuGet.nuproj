@@ -34,6 +34,7 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DbgHelp.NuGet\DbgHelp.NuGet.nuproj" />
     <ProjectReference Include="..\ImageHlp\ImageHlp.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>

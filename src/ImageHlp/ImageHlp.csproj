@@ -25,6 +25,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DbgHelp\DbgHelp.csproj">
+      <Project>{26a6f480-5ed3-48b8-9bba-243115672098}</Project>
+      <Name>DbgHelp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>

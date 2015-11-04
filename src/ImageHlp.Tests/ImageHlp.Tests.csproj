@@ -35,6 +35,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DbgHelp\DbgHelp.csproj">
+      <Project>{26a6f480-5ed3-48b8-9bba-243115672098}</Project>
+      <Name>DbgHelp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageHlp\ImageHlp.csproj">
       <Project>{784B754D-20F0-464B-AEDC-DD7A3108FE25}</Project>
       <Name>ImageHlp</Name>
