@@ -12,6 +12,28 @@ namespace PInvoke
     /// </content>
     public partial class Kernel32
     {
+        /// <summary>Contains information used in asynchronous (or overlapped) input and output (I/O).</summary>
+        /// <remarks>
+        /// Any unused members of this structure should always be initialized to zero before the structure is used in a function
+        /// call. Otherwise, the function may fail and return <see cref="Win32ErrorCode.ERROR_INVALID_PARAMETER"/>.
+        /// <para>
+        /// The Offset and OffsetHigh members together represent a 64-bit file position.It is a byte offset from the start of
+        /// the file or file-like device, and it is specified by the user; the system will not modify these values.The calling
+        /// process must set this member before passing the OVERLAPPED structure to functions that use an offset, such as the
+        /// ReadFile or WriteFile (and related) functions.
+        /// </para>
+        /// <para>
+        /// You can use the HasOverlappedIoCompleted macro to check whether an asynchronous I/O operation has completed if
+        /// GetOverlappedResult is too cumbersome for your application.
+        /// </para>
+        /// <para>You can use the CancelIo function to cancel an asynchronous I/O operation.</para>
+        /// <para>
+        /// A common mistake is to reuse an OVERLAPPED structure before the previous asynchronous operation has been
+        /// completed. You should use a separate structure for each request. You should also create an event object for each thread
+        /// that processes data. If you store the event handles in an array, you could easily wait for all events to be signaled
+        /// using the WaitForMultipleObjects function.
+        /// </para>
+        /// </remarks>
         [SuppressMessage(
             "StyleCop.CSharp.MaintainabilityRules",
             "SA1401:Fields must be private",
