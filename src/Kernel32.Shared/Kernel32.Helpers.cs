@@ -3,6 +3,7 @@
 
 namespace PInvoke
 {
+    using System;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -46,6 +47,61 @@ namespace PInvoke
         public static Win32ErrorCode GetLastError()
         {
             return (Win32ErrorCode)Marshal.GetLastWin32Error();
+        }
+
+        public static unsafe uint WriteFile(SafeObjectHandle hFile, void* lpBuffer, uint nNumberOfBytesToWrite)
+        {
+            var bytesWritten = (NullableUInt32)0;
+            if (!WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, bytesWritten, null))
+            {
+                throw new Win32Exception();
+            }
+
+            return (uint)bytesWritten;
+        }
+
+        public static uint WriteFile(SafeObjectHandle hFile, ArraySegment<byte> lpBuffer)
+        {
+            unsafe
+            {
+                fixed (byte* pBuffer = lpBuffer.Array)
+                {
+                    var pStart = pBuffer + lpBuffer.Offset;
+                    return WriteFile(hFile, pStart, (uint)lpBuffer.Count);
+                }
+            }
+        }
+
+        public static unsafe uint ReadFile(SafeObjectHandle hFile, void* lpBuffer, uint nNumberOfBytesToRead)
+        {
+            var bytesRead = (NullableUInt32)0;
+            if (!ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, bytesRead, null))
+            {
+                throw new Win32Exception();
+            }
+
+            return (uint)bytesRead;
+        }
+
+        public static uint ReadFile(SafeObjectHandle hFile, ArraySegment<byte> lpBuffer)
+        {
+            unsafe
+            {
+                fixed (byte* pBuffer = lpBuffer.Array)
+                {
+                    var pStart = pBuffer + lpBuffer.Offset;
+                    return ReadFile(hFile, pStart, (uint)lpBuffer.Count);
+                }
+            }
+        }
+
+        public static ArraySegment<byte> ReadFile(SafeObjectHandle hFile, uint nNumberOfBytesToRead)
+        {
+            var buffer = new byte[nNumberOfBytesToRead];
+            var segment = new ArraySegment<byte>(buffer);
+
+            var bytesRead = ReadFile(hFile, segment);
+            return new ArraySegment<byte>(buffer, 0, (int)bytesRead);
         }
     }
 }

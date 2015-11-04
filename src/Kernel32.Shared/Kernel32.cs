@@ -215,7 +215,7 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe bool ReadFile(
             SafeObjectHandle hFile,
-            IntPtr lpBuffer,
+            void* lpBuffer,
             uint nNumberOfBytesToRead,
             NullableUInt32 lpNumberOfBytesRead,
             OVERLAPPED* lpOverlapped);
@@ -288,8 +288,8 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe bool WriteFile(
             SafeObjectHandle hFile,
-            IntPtr lpBuffer,
-            int nNumberOfBytesToWrite,
+            void* lpBuffer,
+            uint nNumberOfBytesToWrite,
             NullableUInt32 lpNumberOfBytesWritten,
             OVERLAPPED* lpOverlapped);
 
