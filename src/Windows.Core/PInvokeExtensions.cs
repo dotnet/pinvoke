@@ -4,7 +4,6 @@
 namespace PInvoke
 {
     using System;
-    using System.Runtime.InteropServices;
 
     /// <summary>
     /// Extension methods for commonly defined types.

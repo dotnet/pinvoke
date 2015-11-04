@@ -128,18 +128,5 @@ namespace PInvoke
                     throw new Exception($"SECURITY_STATUS: {status} (0x{(int)status:x8})");
             }
         }
-
-        public static class KeyStorageProviders
-        {
-            /// <summary>
-            /// Identifies the software key storage provider that is provided by Microsoft.
-            /// </summary>
-            public const string MS_KEY_STORAGE_PROVIDER = "Microsoft Software Key Storage Provider";
-
-            /// <summary>
-            /// Identifies the smart card key storage provider that is provided by Microsoft.
-            /// </summary>
-            public const string MS_SMART_CARD_KEY_STORAGE_PROVIDER = "Microsoft Smart Card Key Storage Provider";
-        }
     }
 }

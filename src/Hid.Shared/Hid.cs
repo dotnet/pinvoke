@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-    using static PInvoke.Kernel32;
+    using static Kernel32;
 
     /// <summary>
     /// Exported functions from the Hid.dll Windows library

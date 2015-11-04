@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="ServiceDescription"/> nested class.
+    /// Contains the <see cref="ServiceDescription"/> nested struct.
     /// </content>
     public static partial class AdvApi32
     {

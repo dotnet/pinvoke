@@ -10,8 +10,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FileAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FINDEX_INFO_LEVELS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FINDEX_SEARCH_OPS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FindFirstFileExFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FormatMessageFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeFindFilesHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeObjectHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+WIN32_FIND_DATA.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32Extensions.cs" />

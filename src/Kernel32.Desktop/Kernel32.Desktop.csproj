@@ -28,10 +28,18 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kernel32+ACL.cs" />
+    <Compile Include="Kernel32+CreateFileFlags.cs" />
     <Compile Include="Kernel32+CreateToolhelp32SnapshotFlags.cs" />
+    <Compile Include="Kernel32+CreationDisposition.cs" />
+    <Compile Include="Kernel32+FileAccess.cs" />
+    <Compile Include="Kernel32+FileShare.cs" />
     <Compile Include="Kernel32+ProcessAccess.cs" />
     <Compile Include="Kernel32+PROCESSENTRY32.cs" />
     <Compile Include="Kernel32+QueryFullProcessImageNameFlags.cs" />
+    <Compile Include="Kernel32+SecurityImpersonationLevel.cs" />
+    <Compile Include="Kernel32+SECURITY_ATTRIBUTES.cs" />
+    <Compile Include="Kernel32+SECURITY_DESCRIPTOR.cs" />
     <Compile Include="Kernel32.cs" />
     <Compile Include="Kernel32.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
