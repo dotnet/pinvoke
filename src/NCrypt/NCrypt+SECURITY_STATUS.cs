@@ -117,10 +117,13 @@ namespace PInvoke
             /// <summary>Base error occurred.</summary>
             NTE_SYS_ERR = 0x80090021,
 
-            /// <summary>Undocumented.</summary>
+            /// <summary>The buffer supplied to a function was too small.</summary>
             NTE_BUFFER_TOO_SMALL = 0x80090028,
 
-            /// <summary>Undocumented.</summary>
+            /// <summary>The requested operation is not supported.</summary>
+            NTE_NOT_SUPPORTED = 0x80090029,
+
+            /// <summary>No more data is available.</summary>
             NTE_NO_MORE_ITEMS = 0x8009002a,
         }
     }

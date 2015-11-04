@@ -6,7 +6,11 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="AlgorithmIdentifiers"/> nested class.
     /// </content>
-    public partial class BCrypt
+#if BCrypt
+    public static partial class BCrypt
+#else
+    public static partial class NCrypt
+#endif
     {
         /// <summary>
         /// The identifiers for the algorithms defined within BCrypt itself.
