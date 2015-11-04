@@ -20,7 +20,7 @@ namespace PInvoke
             public const string NCRYPT_ALGORITHM_GROUP_PROPERTY = "Algorithm Group";
 
             /// <summary>
-            /// A null-terminated Unicode string that contains the name of the object's algorithm. This can be one of the predefined CNG <see cref="AlgorithmIdentifiers"/> or another registered algorithm identifier. This property only applies to keys.
+            /// A null-terminated Unicode string that contains the name of the object's algorithm. This can be one of the predefined CNG <see cref="BCrypt.AlgorithmIdentifiers"/> or another registered algorithm identifier. This property only applies to keys.
             /// </summary>
             public const string NCRYPT_ALGORITHM_PROPERTY = "Algorithm Name";
 

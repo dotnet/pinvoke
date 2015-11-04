@@ -21,7 +21,7 @@ public class NCrypt
     {
         using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            using (var key = NCryptCreatePersistedKey(provider, AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
+            using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
             {
                 NCryptFinalizeKey(key).ThrowOnError();
             }

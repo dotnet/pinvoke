@@ -19,6 +19,7 @@
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
     <OutputPath Condition=" '$(TargetFrameworkProfile)' == '' ">$(ProjectRoot)bin\$(Configuration)\Desktop\</OutputPath>
     <OutputPath Condition=" '$(TargetFrameworkProfile)' != '' ">$(ProjectRoot)bin\$(Configuration)\$(TargetFrameworkProfile)\</OutputPath>
+    <OutputPath Condition=" '$(IsTestProject)' == 'true' ">$(ProjectRoot)bin\$(Configuration)\Tests\$(MSBuildProjectName)\</OutputPath>
 
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
