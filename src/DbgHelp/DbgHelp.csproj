@@ -23,6 +23,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DbgHelp+Characteristics.cs" />
+    <Compile Include="DbgHelp+LOADED_IMAGE.cs" />
     <Compile Include="DbgHelp.cs" />
     <Compile Include="DbgHelp.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

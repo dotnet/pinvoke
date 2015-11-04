@@ -4,12 +4,24 @@
 using System;
 using PInvoke;
 using Xunit;
+using static PInvoke.DbgHelp;
 using static PInvoke.ImageHlp;
 
 public class ImageHlp
 {
-    [Fact(Skip = "No tests yet")]
-    public void NoTests()
+    [Fact]
+    public void MapAndLoadTest()
     {
+        LOADED_IMAGE imageData;
+        Assert.True(MapAndLoad("kernel32.dll", null, out imageData, true, true));
+        try
+        {
+            Assert.True(imageData.fReadOnly);
+            Assert.Contains("kernel32", imageData.ModuleName, StringComparison.OrdinalIgnoreCase);
+        }
+        finally
+        {
+            Assert.True(UnMapAndLoad(ref imageData));
+        }
     }
 }
