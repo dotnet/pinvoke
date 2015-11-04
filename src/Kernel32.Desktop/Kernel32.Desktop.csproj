@@ -42,6 +42,7 @@
     <Compile Include="Kernel32+SECURITY_DESCRIPTOR.cs" />
     <Compile Include="Kernel32.cs" />
     <Compile Include="Kernel32.Helpers.cs" />
+    <Compile Include="Kernel32+OVERLAPPED.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
