@@ -328,9 +328,9 @@ namespace PInvoke
         /// </para>
         /// </remarks>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern bool GetOverlappedResult(
+        public static extern unsafe bool GetOverlappedResult(
             SafeObjectHandle hFile,
-            OVERLAPPED lpOverlapped,
+            OVERLAPPED* lpOverlapped,
             out int lpNumberOfBytesTransferred,
             bool bWait);
 
