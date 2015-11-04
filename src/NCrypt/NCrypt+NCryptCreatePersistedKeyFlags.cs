@@ -24,12 +24,12 @@ namespace PInvoke
             /// <summary>
             /// The key applies to the local computer. If this flag is not present, the key applies to the current user.
             /// </summary>
-            NCRYPT_MACHINE_KEY_FLAG,
+            NCRYPT_MACHINE_KEY_FLAG = 0x20,
 
             /// <summary>
             /// If a key already exists in the container with the specified name, the existing key will be overwritten. If this flag is not specified and a key with the specified name already exists, this function will return <see cref="SECURITY_STATUS.NTE_EXISTS"/>.
             /// </summary>
-            NCRYPT_OVERWRITE_KEY_FLAG,
+            NCRYPT_OVERWRITE_KEY_FLAG = 0x80,
         }
     }
 }
