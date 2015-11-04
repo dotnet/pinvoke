@@ -97,5 +97,16 @@ namespace PInvoke
             throw new InvalidOperationException(
                 $"QueryFullProcessImageName is expecting a buffer of more than {maximumRealisticSize} bytes");
         }
+
+        public static bool IsWow64Process(SafeObjectHandle hProcess)
+        {
+            bool result;
+            if (!IsWow64Process(hProcess, out result))
+            {
+                throw new Win32Exception();
+            }
+
+            return result;
+        }
     }
 }

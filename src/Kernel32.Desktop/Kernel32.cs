@@ -265,7 +265,7 @@ namespace PInvoke
         /// </para>
         /// <para>
         /// If you are using <see cref="GetCurrentProcessId" /> as an argument to this function, consider using
-        /// GetCurrentProcess instead of OpenProcess, for improved performance.
+        /// <see cref="GetCurrentProcess"/> instead of OpenProcess, for improved performance.
         /// </para>
         /// </param>
         /// <returns>If the function succeeds, the return value is an open handle to the specified process.</returns>
@@ -274,5 +274,32 @@ namespace PInvoke
             ProcessAccess dwDesiredAccess,
             bool bInheritHandle,
             uint dwProcessId);
+
+        /// <summary>
+        /// Determines whether the specified process is running under WOW64 (x86 emulator that allows 32-bit Windows-based
+        /// applications to run seamlessly on 64-bit Windows)
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process. The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION" /> or
+        /// <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION" /> access right.
+        /// <para>
+        /// Windows Server 2003 and Windows XP:  The handle must have the
+        /// <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION" /> access right.
+        /// </para>
+        /// </param>
+        /// <param name="Wow64Process">
+        /// A pointer to a value that is set to <see langword="true" /> if the process is running under
+        /// WOW64. If the process is running under 32-bit Windows, the value is set to <see langword="false" />. If the process is
+        /// a 64-bit application running under 64-bit Windows, the value is also set to <see langword="false" />.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a nonzero value.
+        /// <para>
+        /// If the function fails, the return value is zero. To get extended error information, call
+        /// <see cref="GetLastError" />.
+        /// </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool IsWow64Process(SafeObjectHandle hProcess, out bool Wow64Process);
     }
 }
