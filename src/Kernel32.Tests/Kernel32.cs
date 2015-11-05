@@ -12,6 +12,8 @@ using static PInvoke.Kernel32;
 
 public partial class Kernel32
 {
+    private Random random = new Random();
+
     [Fact]
     public void CreateFile_DeleteOnClose()
     {
@@ -147,6 +149,71 @@ public partial class Kernel32
             var expected = Process.GetCurrentProcess().MainModule.FileName;
 
             Assert.Equal(expected, actual, ignoreCase: true);
+        }
+    }
+
+    [Fact]
+    public void ReadFile_CanReadSynchronously()
+    {
+        var testPath = Path.GetTempFileName();
+        try
+        {
+            const int testDataSize = 256;
+            var expected = new byte[testDataSize];
+            this.random.NextBytes(expected);
+
+            File.WriteAllBytes(testPath, expected);
+
+            using (var file = CreateFile(
+                testPath,
+                PInvoke.Kernel32.FileAccess.GenericRead,
+                PInvoke.Kernel32.FileShare.None,
+                IntPtr.Zero,
+                CreationDisposition.OpenExisting,
+                CreateFileFlags.NormalAttribute,
+                new SafeObjectHandle()))
+            {
+                var actual = ReadFile(file, testDataSize);
+                var actualData = actual.Skip(actual.Offset).Take(actual.Count);
+                Assert.Equal(expected, actualData);
+            }
+        }
+        finally
+        {
+            File.Delete(testPath);
+        }
+    }
+
+    [Fact]
+    public void WriteFile_CanWriteSynchronously()
+    {
+        var testPath = Path.GetTempFileName();
+        try
+        {
+            const int testDataSize = 256;
+            var expected = new byte[testDataSize];
+            this.random.NextBytes(expected);
+
+            using (var file = CreateFile(
+                testPath,
+                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileShare.None,
+                IntPtr.Zero,
+                CreationDisposition.OpenExisting,
+                CreateFileFlags.NormalAttribute,
+                new SafeObjectHandle()))
+            {
+                var bytesWritten = WriteFile(file, new ArraySegment<byte>(expected));
+                Assert.Equal((uint)testDataSize, bytesWritten);
+            }
+
+            var actual = File.ReadAllBytes(testPath);
+
+            Assert.Equal(expected, actual);
+        }
+        finally
+        {
+            File.Delete(testPath);
         }
     }
 }
