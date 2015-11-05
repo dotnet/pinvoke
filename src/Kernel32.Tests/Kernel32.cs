@@ -211,8 +211,13 @@ public partial class Kernel32
                 fixed (byte* pActual = actual)
                 {
                     var result = ReadFile(file, pActual, testDataSize, null, &overlapped);
+                    if (result)
+                    {
+                        // We can't really test anything not covered by another test here :(
+                        return;
+                    }
+
                     var lastError = GetLastError();
-                    Assert.False(result);
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     uint bytesTransfered;
                     var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
@@ -257,8 +262,13 @@ public partial class Kernel32
                 fixed (byte* pActual = actual)
                 {
                     var result = ReadFile(file, pActual, testDataSize, null, &overlapped);
+                    if (result)
+                    {
+                        // We can't really test anything not covered by another test here :(
+                        return;
+                    }
+
                     var lastError = GetLastError();
-                    Assert.False(result);
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     Assert.True(evt.WaitOne(TimeSpan.FromSeconds(30)));
                     uint bytesTransfered;
@@ -332,8 +342,13 @@ public partial class Kernel32
                 fixed (byte* pExpected = expected)
                 {
                     var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    if (result)
+                    {
+                        // We can't really test anything not covered by another test here :(
+                        return;
+                    }
+
                     var lastError = GetLastError();
-                    Assert.False(result);
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     uint bytesTransfered;
                     var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
@@ -377,8 +392,13 @@ public partial class Kernel32
                 fixed (byte* pExpected = expected)
                 {
                     var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    if (result)
+                    {
+                        // We can't really test anything not covered by another test here :(
+                        return;
+                    }
+
                     var lastError = GetLastError();
-                    Assert.False(result);
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     Assert.True(evt.WaitOne(TimeSpan.FromSeconds(30)));
                     uint bytesTransfered;
@@ -420,8 +440,13 @@ public partial class Kernel32
                 fixed (byte* pExpected = buffer)
                 {
                     var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    if (result)
+                    {
+                        // We can't really test anything not covered by another test here :(
+                        return;
+                    }
+
                     var lastError = GetLastError();
-                    Assert.False(result);
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     try
                     {
@@ -463,8 +488,13 @@ public partial class Kernel32
                 fixed (byte* pExpected = buffer)
                 {
                     var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    if (result)
+                    {
+                        // We can't really test anything not covered by another test here :(
+                        return;
+                    }
+
                     var lastError = GetLastError();
-                    Assert.False(result);
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     try
                     {
@@ -512,8 +542,13 @@ public partial class Kernel32
                 fixed (byte* pExpected = buffer)
                 {
                     var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    if (result)
+                    {
+                        // We can't really test anything not covered by another test here :(
+                        return;
+                    }
+
                     var lastError = GetLastError();
-                    Assert.False(result);
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     try
                     {
