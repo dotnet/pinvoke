@@ -8,10 +8,11 @@
     <DocumentationFile Condition=" !$(IsTestProject) ">$(OutputPath)$(AssemblyName).xml</DocumentationFile>
     <DefineConstants Condition=" '$(TargetFrameworkProfile)' == '' ">$(DefineConstants);DESKTOP</DefineConstants>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
   </ItemGroup>
 
   <Import Project="NuProj.Extra.targets" Condition=" '$(MSBuildProjectExtension)' == '.nuproj' "/>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), ExportMethods.targets))\ExportMethods.targets" Condition=" $(MSBuildProjectName.Contains('Desktop')) OR $(MSBuildProjectName) == 'BCrypt' "/>
 </Project>
