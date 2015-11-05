@@ -331,7 +331,7 @@ namespace PInvoke
         public static extern unsafe bool GetOverlappedResult(
             SafeObjectHandle hFile,
             OVERLAPPED* lpOverlapped,
-            out int lpNumberOfBytesTransferred,
+            out uint lpNumberOfBytesTransferred,
             bool bWait);
 
         /// <summary>

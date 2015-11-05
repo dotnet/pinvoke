@@ -185,6 +185,50 @@ public partial class Kernel32
     }
 
     [Fact]
+    public unsafe void ReadFile_CanReadSynchronouslyOverlapped()
+    {
+        var testPath = Path.GetTempFileName();
+        try
+        {
+            const int testDataSize = 256;
+            var expected = new byte[testDataSize];
+            this.random.NextBytes(expected);
+
+            File.WriteAllBytes(testPath, expected);
+
+            using (var file = CreateFile(
+                testPath,
+                PInvoke.Kernel32.FileAccess.GenericRead,
+                PInvoke.Kernel32.FileShare.None,
+                IntPtr.Zero,
+                CreationDisposition.OpenExisting,
+                CreateFileFlags.OverlappedFlag,
+                new SafeObjectHandle()))
+            {
+                var overlapped = default(OVERLAPPED);
+                var actual = new byte[testDataSize];
+                fixed (byte* pActual = actual)
+                {
+                    var result = ReadFile(file, pActual, testDataSize, null, &overlapped);
+                    var lastError = GetLastError();
+                    Assert.Equal(false, result);
+                    Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
+                    uint bytesTransfered;
+                    var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
+                    Assert.Equal((uint)testDataSize, bytesTransfered);
+                    Assert.Equal(true, overlappedResult);
+                }
+
+                Assert.Equal(expected, actual);
+            }
+        }
+        finally
+        {
+            File.Delete(testPath);
+        }
+    }
+
+    [Fact]
     public void WriteFile_CanWriteSynchronously()
     {
         var testPath = Path.GetTempFileName();
@@ -205,6 +249,49 @@ public partial class Kernel32
             {
                 var bytesWritten = WriteFile(file, new ArraySegment<byte>(expected));
                 Assert.Equal((uint)testDataSize, bytesWritten);
+            }
+
+            var actual = File.ReadAllBytes(testPath);
+
+            Assert.Equal(expected, actual);
+        }
+        finally
+        {
+            File.Delete(testPath);
+        }
+    }
+
+    [Fact]
+    public unsafe void WriteFile_CanWriteSynchronouslyOverlapped()
+    {
+        var testPath = Path.GetTempFileName();
+        try
+        {
+            const int testDataSize = 256;
+            var expected = new byte[testDataSize];
+            this.random.NextBytes(expected);
+
+            using (var file = CreateFile(
+                testPath,
+                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileShare.None,
+                IntPtr.Zero,
+                CreationDisposition.OpenExisting,
+                CreateFileFlags.OverlappedFlag,
+                new SafeObjectHandle()))
+            {
+                var overlapped = default(OVERLAPPED);
+                fixed (byte* pExpected = expected)
+                {
+                    var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    var lastError = GetLastError();
+                    Assert.Equal(false, result);
+                    Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
+                    uint bytesTransfered;
+                    var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
+                    Assert.Equal((uint)testDataSize, bytesTransfered);
+                    Assert.Equal(true, overlappedResult);
+                }
             }
 
             var actual = File.ReadAllBytes(testPath);
