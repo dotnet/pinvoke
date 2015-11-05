@@ -121,25 +121,25 @@ namespace PInvoke
         /// <summary>Retrieves a pseudo handle for the current process.</summary>
         /// <returns>The return value is a pseudo handle to the current process.</returns>
         /// <remarks>
-        /// A pseudo handle is a special constant, currently (HANDLE)-1, that is interpreted as the current process handle. For
-        /// compatibility with future operating systems, it is best to call GetCurrentProcess instead of hard-coding this constant
-        /// value. The calling process can use a pseudo handle to specify its own process whenever a process handle is required.
-        /// Pseudo handles are not inherited by child processes.
-        /// <para>This handle has the PROCESS_ALL_ACCESS access right to the process object.</para>
-        /// <para>
-        /// Windows Server 2003 and Windows XP:  This handle has the maximum access allowed by the security descriptor of the
-        /// process to the primary token of the process.
-        /// </para>
-        /// <para>
-        /// A process can create a "real" handle to itself that is valid in the context of other processes, or that can be
-        /// inherited by other processes, by specifying the pseudo handle as the source handle in a call to the DuplicateHandle
-        /// function. A process can also use the OpenProcess function to open a real handle to itself.
-        /// </para>
-        /// <para>
-        /// The pseudo handle need not be closed when it is no longer needed.Calling the <see cref="CloseHandle" /> function
-        /// with a pseudo handle has no effect.If the pseudo handle is duplicated by DuplicateHandle, the duplicate handle must be
-        /// closed.
-        /// </para>
+        ///     A pseudo handle is a special constant, currently (HANDLE)-1, that is interpreted as the current process handle. For
+        ///     compatibility with future operating systems, it is best to call GetCurrentProcess instead of hard-coding this
+        ///     constant value. The calling process can use a pseudo handle to specify its own process whenever a process handle is
+        ///     required. Pseudo handles are not inherited by child processes.
+        ///     <para>This handle has the PROCESS_ALL_ACCESS access right to the process object.</para>
+        ///     <para>
+        ///         Windows Server 2003 and Windows XP:  This handle has the maximum access allowed by the security descriptor of
+        ///         the process to the primary token of the process.
+        ///     </para>
+        ///     <para>
+        ///         A process can create a "real" handle to itself that is valid in the context of other processes, or that can
+        ///         be inherited by other processes, by specifying the pseudo handle as the source handle in a call to the
+        ///         DuplicateHandle function. A process can also use the OpenProcess function to open a real handle to itself.
+        ///     </para>
+        ///     <para>
+        ///         The pseudo handle need not be closed when it is no longer needed. Calling the <see cref="CloseHandle" />
+        ///         function with a pseudo handle has no effect.If the pseudo handle is duplicated by DuplicateHandle, the
+        ///         duplicate handle must be closed.
+        ///     </para>
         /// </remarks>
         [DllImport(nameof(Kernel32))]
         public static extern SafeObjectHandle GetCurrentProcess();
