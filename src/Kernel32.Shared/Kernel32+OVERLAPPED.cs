@@ -4,11 +4,10 @@
 namespace PInvoke
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="OVERLAPPED"/> nested class.
+    /// Contains the <see cref="OVERLAPPED"/> nested type.
     /// </content>
     public partial class Kernel32
     {
