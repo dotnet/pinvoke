@@ -13,6 +13,17 @@ namespace PInvoke
     /// </content>
     public static partial class Kernel32
     {
+        /// <summary>Retrieves information about the first process encountered in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        ///     A handle to the snapshot returned from a previous call to the
+        ///     <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <returns>
+        ///     The first <see cref="PROCESSENTRY32" /> if there was any or <see langword="null" /> otherwise (No values in
+        ///     the snapshot).
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
         public static PROCESSENTRY32 Process32First(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)
@@ -35,6 +46,17 @@ namespace PInvoke
             return null;
         }
 
+        /// <summary>Retrieves information about the next process encountered in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        ///     A handle to the snapshot returned from a previous call to the
+        ///     <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <returns>
+        ///     The next <see cref="PROCESSENTRY32" /> if there was any or <see langword="null" /> otherwise (No more values
+        ///     in the snapshot).
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
         public static PROCESSENTRY32 Process32Next(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)
@@ -57,6 +79,16 @@ namespace PInvoke
             return null;
         }
 
+        /// <summary>Retrieves information about next process encountered in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        ///     A handle to the snapshot returned from a previous call to the
+        ///     <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <returns>
+        ///     An enumeration of all the <see cref="PROCESSENTRY32" /> present in the snapshot.
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
         public static IEnumerable<PROCESSENTRY32> Process32Enumerate(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)

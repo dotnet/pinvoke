@@ -276,6 +276,102 @@ namespace PInvoke
             uint dwProcessId);
 
         /// <summary>
+        /// Retrieves the results of an overlapped operation on the specified file, named pipe, or communications device.
+        /// To specify a timeout interval or wait on an alertable thread, use GetOverlappedResultEx.
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file, named pipe, or communications device. This is the same handle that was
+        /// specified when the overlapped operation was started by a call to the ReadFile, WriteFile, ConnectNamedPipe,
+        /// TransactNamedPipe, DeviceIoControl, or WaitCommEvent function.
+        /// </param>
+        /// <param name="lpOverlapped">
+        /// A pointer to an <see cref="OVERLAPPED" /> structure that was specified when the overlapped
+        /// operation was started.
+        /// </param>
+        /// <param name="lpNumberOfBytesTransferred">
+        /// A pointer to a variable that receives the number of bytes that were actually
+        /// transferred by a read or write operation. For a TransactNamedPipe operation, this is the number of bytes that were read
+        /// from the pipe. For a DeviceIoControl operation, this is the number of bytes of output data returned by the device
+        /// driver. For a ConnectNamedPipe or WaitCommEvent operation, this value is undefined.
+        /// </param>
+        /// <param name="bWait">
+        /// If this parameter is TRUE, and the Internal member of the lpOverlapped structure is STATUS_PENDING,
+        /// the function does not return until the operation has been completed. If this parameter is FALSE and the operation is
+        /// still pending, the function returns FALSE and the <see cref="GetLastError" /> function returns
+        /// <see cref="Win32ErrorCode.ERROR_IO_INCOMPLETE" />.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// <para>
+        /// If the function fails, the return value is zero.To get extended error information, call
+        /// <see cref="GetLastError" />.
+        /// </para>
+        /// </returns>
+        /// <remarks>
+        /// The results reported by the GetOverlappedResult function are those of the specified handle's last overlapped operation
+        /// to which the specified <see cref="OVERLAPPED" /> structure was provided, and for which the operation's results were
+        /// pending. A pending operation is indicated when the function that started the operation returns FALSE, and the
+        /// GetLastError function returns <see cref="Win32ErrorCode.ERROR_IO_PENDING" />. When an I/O operation is pending, the
+        /// function that started the operation resets the hEvent member of the <see cref="OVERLAPPED" /> structure to the
+        /// nonsignaled state. Then when the pending operation has been completed, the system sets the event object to the signaled
+        /// state.
+        /// <para>
+        /// If the bWait parameter is TRUE, GetOverlappedResult determines whether the pending operation has been completed
+        /// by waiting for the event object to be in the signaled state.
+        /// </para>
+        /// <para>
+        /// If the hEvent member of the <see cref="OVERLAPPED" /> structure is NULL, the system uses the state of the hFile
+        /// handle to signal when the operation has been completed. Use of file, named pipe, or communications-device handles for
+        /// this purpose is discouraged. It is safer to use an event object because of the confusion that can occur when multiple
+        /// simultaneous overlapped operations are performed on the same file, named pipe, or communications device. In this
+        /// situation, there is no way to know which operation caused the object's state to be signaled.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe bool GetOverlappedResult(
+            SafeObjectHandle hFile,
+            OVERLAPPED* lpOverlapped,
+            out uint lpNumberOfBytesTransferred,
+            bool bWait);
+
+        /// <summary>
+        /// Cancels all pending input and output (I/O) operations that are issued by the calling thread for the specified file. The
+        /// function does not cancel I/O operations that other threads issue for a file handle.
+        /// <para>To cancel I/O operations from another thread, use the CancelIoEx function.</para>
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file.
+        /// <para>The function cancels all pending I/O operations for this file handle.</para>
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero. The cancel operation for all pending I/O operations issued by
+        /// the calling thread for the specified file handle was successfully requested. The thread can use the
+        /// <see cref="GetOverlappedResult" /> function to determine when the I/O operations themselves have been completed.
+        /// <para>
+        /// If the function fails, the return value is zero (0). To get extended error information, call the
+        /// <see cref="GetLastError" /> function.
+        /// </para>
+        /// </returns>
+        /// <remarks>
+        /// If there are any pending I/O operations in progress for the specified file handle, and they are issued by the calling
+        /// thread, the CancelIo function cancels them. CancelIo cancels only outstanding I/O on the handle, it does not change the
+        /// state of the handle; this means that you cannot rely on the state of the handle because you cannot know whether the
+        /// operation was completed successfully or canceled.
+        /// <para>
+        /// The I/O operations must be issued as overlapped I/O. If they are not, the I/O operations do not return to allow
+        /// the thread to call the CancelIo function. Calling the CancelIo function with a file handle that is not opened with
+        /// FILE_FLAG_OVERLAPPED does nothing.
+        /// </para>
+        /// <para>
+        /// All I/O operations that are canceled complete with the error
+        /// <see cref="Win32ErrorCode.ERROR_OPERATION_ABORTED" />, and all completion notifications for the I/O operations occur
+        /// normally.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool CancelIo(SafeObjectHandle hFile);
+
+        /// <summary>
         /// Determines whether the specified process is running under WOW64 (x86 emulator that allows 32-bit Windows-based
         /// applications to run seamlessly on 64-bit Windows)
         /// </summary>

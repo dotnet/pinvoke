@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FINDEX_SEARCH_OPS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FindFirstFileExFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FormatMessageFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+OVERLAPPED.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeFindFilesHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeObjectHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+WIN32_FIND_DATA.cs" />
