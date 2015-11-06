@@ -12,23 +12,23 @@ public class NullableGuidTests
     [Fact]
     public void ConstructorSetValue()
     {
-        Assert.Equal(new NullableGuid(this.testGuid).Value, (Guid)this.testGuid);
+        Assert.Equal(new NullableGuid(this.testGuid).Value, this.testGuid);
         Assert.Equal(new NullableGuid().Value, default(Guid));
     }
 
     [Fact]
     public void CanCastToNullableGuid()
     {
-        Assert.Equal(((NullableGuid)this.testGuid).Value, (Guid)this.testGuid);
+        Assert.Equal(((NullableGuid)this.testGuid).Value, this.testGuid);
         Assert.Equal((NullableGuid)((Guid?)null), null);
-        Assert.Equal(((NullableGuid)((Guid?)this.testGuid)).Value, (Guid)this.testGuid);
+        Assert.Equal(((NullableGuid)((Guid?)this.testGuid)).Value, this.testGuid);
     }
 
     [Fact]
     public void CanCastFromNullableGuid()
     {
-        Assert.Equal((Guid)((NullableGuid)this.testGuid), (Guid)this.testGuid);
-        Assert.Equal((Guid?)((NullableGuid)this.testGuid), (Guid?)this.testGuid);
+        Assert.Equal((Guid)((NullableGuid)this.testGuid), this.testGuid);
+        Assert.Equal((Guid?)((NullableGuid)this.testGuid), this.testGuid);
         Assert.Equal((Guid?)((NullableGuid)null), null);
     }
 
