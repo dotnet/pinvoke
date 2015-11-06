@@ -180,19 +180,21 @@ namespace PInvoke
         /// </param>
         /// <param name="nNumberOfBytesToRead">The maximum number of bytes to be read.</param>
         /// <param name="lpNumberOfBytesRead">
-        ///     A pointer to the variable that receives the number of bytes read when using a
-        ///     synchronous hFile parameter. ReadFile sets this value to zero before doing any work or error checking. Use NULL for
-        ///     this parameter if this is an asynchronous operation to avoid potentially erroneous results.
-        ///     <para>This parameter can be NULL only when the <paramref name="lpOverlapped" /> parameter is not NULL.</para>
+        ///     A pointer to the variable that receives the number of bytes read when using a synchronous hFile parameter. ReadFile
+        ///     sets this value to zero before doing any work or error checking. Use <see langword="null" /> for this parameter if
+        ///     this is an asynchronous operation to avoid potentially erroneous results.
+        ///     <para>
+        ///         This parameter can be <see langword="null" /> only when the <paramref name="lpOverlapped" /> parameter is not
+        ///         <see langword="null" />.
+        ///     </para>
         /// </param>
         /// <param name="lpOverlapped">
         ///     A pointer to an <see cref="OVERLAPPED" /> structure is required if the hFile parameter was opened with
-        ///     FILE_FLAG_OVERLAPPED, otherwise it can be NULL.
+        ///     FILE_FLAG_OVERLAPPED, otherwise it can be <see langword="null" />.
         ///     <para>
         ///         If hFile is opened with FILE_FLAG_OVERLAPPED, the <paramref name="lpOverlapped" /> parameter must point to a
-        ///         valid and unique
-        ///         <see cref="OVERLAPPED" /> structure, otherwise the function can incorrectly report that the read operation is
-        ///         complete.
+        ///         valid and unique <see cref="OVERLAPPED" /> structure, otherwise the function can incorrectly report that the
+        ///         read operation is complete.
         ///     </para>
         ///     <para>
         ///         For an hFile that supports byte offsets, if you use this parameter you must specify a byte offset at which to
@@ -202,10 +204,10 @@ namespace PInvoke
         ///     </para>
         /// </param>
         /// <returns>
-        ///     If the function succeeds, the return value is nonzero (TRUE).
+        ///     If the function succeeds, the return value is <see langword="true" />.
         ///     <para>
-        ///         If the function fails, or is completing asynchronously, the return value is zero(FALSE). To get extended
-        ///         error information, call the GetLastError function.
+        ///         If the function fails, or is completing asynchronously, the return value is <see langword="false" />. To get
+        ///         extended error information, call the GetLastError function.
         ///     </para>
         ///     <para>
         ///         Note: The <see cref="GetLastError" /> code <see cref="Win32ErrorCode.ERROR_IO_PENDING" /> is not a failure;
@@ -254,14 +256,17 @@ namespace PInvoke
         ///     </para>
         /// </param>
         /// <param name="lpNumberOfBytesWritten">
-        ///     A pointer to the variable that receives the number of bytes written when using a
-        ///     synchronous hFile parameter. WriteFile sets this value to zero before doing any work or error checking. Use NULL
+        ///     A pointer to the variable that receives the number of bytes written when using a synchronous hFile parameter.
+        ///     WriteFile sets this value to zero before doing any work or error checking. Use <see langword="null" />
         ///     for this parameter if this is an asynchronous operation to avoid potentially erroneous results.
-        ///     <para>This parameter can be NULL only when the <paramref name="lpOverlapped" /> parameter is not NULL.</para>
+        ///     <para>
+        ///         This parameter can be NULL only when the <paramref name="lpOverlapped" /> parameter is not
+        ///         <see langword="null" />.
+        ///     </para>
         /// </param>
         /// <param name="lpOverlapped">
-        ///     A pointer to an OVERLAPPED structure is required if the hFile parameter was opened with FILE_FLAG_OVERLAPPED,
-        ///     otherwise this parameter can be NULL.
+        ///     A pointer to an <see cref="OVERLAPPED" /> structure is required if the hFile parameter was opened with
+        ///     FILE_FLAG_OVERLAPPED, otherwise this parameter can be NULL.
         ///     <para>
         ///         For an hFile that supports byte offsets, if you use this parameter you must specify a byte offset at which to
         ///         start writing to the file or device. This offset is specified by setting the Offset and OffsetHigh members of
@@ -275,10 +280,10 @@ namespace PInvoke
         ///     </para>
         /// </param>
         /// <returns>
-        ///     If the function succeeds, the return value is nonzero (TRUE).
+        ///     If the function succeeds, the return value is <see langword="true" />.
         ///     <para>
-        ///         If the function fails, or is completing asynchronously, the return value is zero(FALSE). To get extended
-        ///         error information, call the GetLastError function.
+        ///         If the function fails, or is completing asynchronously, the return value is <see langword="false" />. To get
+        ///         extended error information, call the GetLastError function.
         ///     </para>
         ///     <para>
         ///         Note: The <see cref="GetLastError" /> code <see cref="Win32ErrorCode.ERROR_IO_PENDING" /> is not a failure;
