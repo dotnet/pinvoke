@@ -49,8 +49,33 @@ namespace PInvoke
             return (Win32ErrorCode)Marshal.GetLastWin32Error();
         }
 
+        /// <summary>Writes data synchronously to the specified file or input/output (I/O) device.</summary>
+        /// <param name="hFile">
+        ///     A handle to the file or I/O device (for example, a file, file stream, physical disk, volume, console buffer, tape
+        ///     drive, socket, communications resource, mailslot, or pipe).
+        ///     <para>
+        ///         The hFile parameter must have been created with the write access. For more information, see Generic Access
+        ///         Rights and File Security and Access Rights.
+        ///     </para>
+        /// </param>
+        /// <param name="lpBuffer">A pointer to the buffer containing the data to be written to the file or device.</param>
+        /// <param name="nNumberOfBytesToWrite">
+        ///     The number of bytes to be written to the file or device.
+        ///     <para>
+        ///         A value of zero specifies a null write operation. The behavior of a null write operation depends on the
+        ///         underlying file system or communications technology.
+        ///     </para>
+        /// </param>
+        /// <returns>The number of bytes written.</returns>
+        /// <exception cref="Win32Exception">Thrown if the native method return false (Write failed).</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
         public static unsafe uint WriteFile(SafeObjectHandle hFile, void* lpBuffer, uint nNumberOfBytesToWrite)
         {
+            if (hFile == null)
+            {
+                throw new ArgumentNullException(nameof(hFile));
+            }
+
             var bytesWritten = (NullableUInt32)0;
             if (!WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, bytesWritten, null))
             {
@@ -60,8 +85,26 @@ namespace PInvoke
             return (uint)bytesWritten;
         }
 
+        /// <summary>Writes data synchronously to the specified file or input/output (I/O) device.</summary>
+        /// <param name="hFile">
+        ///     A handle to the file or I/O device (for example, a file, file stream, physical disk, volume, console buffer, tape
+        ///     drive, socket, communications resource, mailslot, or pipe).
+        ///     <para>
+        ///         The hFile parameter must have been created with the write access. For more information, see Generic Access
+        ///         Rights and File Security and Access Rights.
+        ///     </para>
+        /// </param>
+        /// <param name="lpBuffer">The buffer containing the data to be written to the file or device.</param>
+        /// <returns>The number of bytes written.</returns>
+        /// <exception cref="Win32Exception">Thrown if the native method return false (Write failed).</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
         public static uint WriteFile(SafeObjectHandle hFile, ArraySegment<byte> lpBuffer)
         {
+            if (hFile == null)
+            {
+                throw new ArgumentNullException(nameof(hFile));
+            }
+
             unsafe
             {
                 fixed (byte* pBuffer = lpBuffer.Array)
@@ -72,8 +115,24 @@ namespace PInvoke
             }
         }
 
+        /// <summary>Reads data synchronously from the specified file or input/output (I/O) device.</summary>
+        /// <param name="hFile">
+        ///     A handle to the device (for example, a file, file stream, physical disk, volume, console buffer,
+        ///     tape drive, socket, communications resource, mailslot, or pipe).
+        ///     <para>The hFile parameter must have been created with read access.</para>
+        /// </param>
+        /// <param name="lpBuffer">A pointer to the buffer that receives the data read from a file or device.</param>
+        /// <param name="nNumberOfBytesToRead">The maximum number of bytes to be read.</param>
+        /// <returns>The number of bytes read.</returns>
+        /// <exception cref="Win32Exception">Thrown if the native method return false (Read failed).</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
         public static unsafe uint ReadFile(SafeObjectHandle hFile, void* lpBuffer, uint nNumberOfBytesToRead)
         {
+            if (hFile == null)
+            {
+                throw new ArgumentNullException(nameof(hFile));
+            }
+
             var bytesRead = (NullableUInt32)0;
             if (!ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, bytesRead, null))
             {
@@ -83,6 +142,16 @@ namespace PInvoke
             return (uint)bytesRead;
         }
 
+        /// <summary>Reads data synchronously from the specified file or input/output (I/O) device.</summary>
+        /// <param name="hFile">
+        ///     A handle to the device (for example, a file, file stream, physical disk, volume, console buffer,
+        ///     tape drive, socket, communications resource, mailslot, or pipe).
+        ///     <para>The hFile parameter must have been created with read access.</para>
+        /// </param>
+        /// <param name="lpBuffer">A buffer that receives the data read from a file or device.</param>
+        /// <returns>The number of bytes read.</returns>
+        /// <exception cref="Win32Exception">Thrown if the native method return false (Read failed).</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
         public static uint ReadFile(SafeObjectHandle hFile, ArraySegment<byte> lpBuffer)
         {
             unsafe
@@ -95,6 +164,19 @@ namespace PInvoke
             }
         }
 
+        /// <summary>Reads data synchronously from the specified file or input/output (I/O) device.</summary>
+        /// <param name="hFile">
+        ///     A handle to the device (for example, a file, file stream, physical disk, volume, console buffer,
+        ///     tape drive, socket, communications resource, mailslot, or pipe).
+        ///     <para>The hFile parameter must have been created with read access.</para>
+        /// </param>
+        /// <param name="nNumberOfBytesToRead">The maximum number of bytes to be read.</param>
+        /// <returns>
+        ///     The data that has been read. The segment returned might have a size smaller than
+        ///     <paramref name="nNumberOfBytesToRead" /> if less bytes than requested have been read.
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown if the native method return false (Read failed).</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
         public static ArraySegment<byte> ReadFile(SafeObjectHandle hFile, uint nNumberOfBytesToRead)
         {
             var buffer = new byte[nNumberOfBytesToRead];
