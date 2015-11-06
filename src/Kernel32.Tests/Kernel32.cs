@@ -572,5 +572,14 @@ public partial class Kernel32
         {
             File.Delete(testPath);
         }
+
+    }
+
+    [Fact]
+    public void IsWow64Process_ReturnExpectedValue()
+    {
+        var expected = Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess;
+        var actual = IsWow64Process(GetCurrentProcess());
+        Assert.Equal(expected, actual);
     }
 }
