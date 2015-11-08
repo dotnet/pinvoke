@@ -14,18 +14,18 @@ Param(
 $sb = New-Object -TypeName "System.Text.StringBuilder"
 
 if (Test-Path $AssemblyPath){
-   $assembly = [Reflection.Assembly]::LoadFile("$AssemblyPath")
-
-   $assembly.GetTypes() | ForEach-Object {
-        $_.GetMethods([Reflection.BindingFlags]::NonPublic -bor [Reflection.BindingFlags]::Public -bor [Reflection.BindingFlags]::Static) | Sort-Object -property Name | ForEach-Object {
-			$attibute = $_.GetCustomAttributes([System.Runtime.InteropServices.DllImportAttribute], $FALSE) | Select -First 1
-            if ($attibute){
-                if(!$attibute.EntryPoint) {
-                    [void]$sb.AppendLine($_.Name)
-                } else { 
-                    [void]$sb.AppendLine($attibute.EntryPoint) 
-                }
-            }
+	Write-Host "Exporting P/Invoke methods from -> $AssemblyPath"
+	$assembly = [Reflection.Assembly]::LoadFrom($AssemblyPath)
+	$assembly.GetTypes() | Where-Object { $assembly.FullName.StartsWith($_.FullName) } | ForEach-Object {
+        $_.GetMethods([Reflection.BindingFlags]::NonPublic -bor [Reflection.BindingFlags]::Public -bor [Reflection.BindingFlags]::Static) | Where-Object {!$_.GetMethodBody()} | Sort-Object -property Name | ForEach-Object {
+			$attibute = $_.GetCustomAttributes([System.Runtime.InteropServices.DllImportAttribute], $false) | Select -First 1
+			if ($attibute){
+				if(!$attibute.EntryPoint) {
+					[void]$sb.AppendLine($_.Name)
+				} else { 
+					[void]$sb.AppendLine($attibute.EntryPoint) 
+				}
+			}
        }
    }
 }
