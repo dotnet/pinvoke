@@ -21,9 +21,9 @@ if (Test-Path $AssemblyPath){
 			$attibute = $_.GetCustomAttributes([System.Runtime.InteropServices.DllImportAttribute], $FALSE) | Select -First 1
             if ($attibute){
                 if(!$attibute.EntryPoint) {
-                    $sb.AppendLine($_.Name)
+                    [void]$sb.AppendLine($_.Name)
                 } else { 
-                    $sb.AppendLine($attibute.EntryPoint) 
+                    [void]$sb.AppendLine($attibute.EntryPoint) 
                 }
             }
        }
