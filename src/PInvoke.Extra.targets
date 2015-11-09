@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      CleanPInvokesTxtFiles
+    </CleanDependsOn>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      CreatePInvokesTxtFiles
+    </BuildDependsOn>
+  </PropertyGroup>
+  <Target Name="CleanPInvokesTxtFiles">
+    <ItemGroup>
+      <PInvokesTxtFilesToDelete Include="$(TargetPath.Replace('.dll', '.pinvokes.txt'))" />
+    </ItemGroup>
+    <Delete Files="@(PInvokesTxtFilesToDelete)" />
+  </Target>
+  <Target Name="CreatePInvokesTxtFiles">
+    <PropertyGroup>
+      <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">$(windir)\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
+    </PropertyGroup>
+    <Exec Command='$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp; &apos;$(SolutionDir)CreatePInvokeTxtFiles.ps1&apos; &apos;$(TargetPath)&apos; } &quot;' />
+  </Target>
+</Project>
