@@ -1,9 +1,8 @@
 The following license applies to all files in this project unless specified otherwise
 within individual files.
+See also the COPYRIGHT.md file.
 
 The MIT License (MIT)
-
-Copyright (c) Andrew Arnott
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
