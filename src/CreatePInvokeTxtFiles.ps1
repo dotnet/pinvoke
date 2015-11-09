@@ -11,28 +11,28 @@ Param(
     [Parameter(Mandatory=$true)]
     [string]$AssemblyPath
 )
-$sb = New-Object -TypeName "System.Text.StringBuilder"
+$exportedMethods = New-Object 'System.Collections.Generic.List[string]'
 
-if (Test-Path $AssemblyPath){
+if (Test-Path $AssemblyPath) {
 	Write-Host "Exporting P/Invoke methods from -> $AssemblyPath"
 	$assembly = [Reflection.Assembly]::LoadFrom($AssemblyPath)
 	$assembly.GetTypes() | Where-Object { $assembly.FullName.StartsWith($_.FullName) } | ForEach-Object {
-        $_.GetMethods([Reflection.BindingFlags]::NonPublic -bor [Reflection.BindingFlags]::Public -bor [Reflection.BindingFlags]::Static) | Where-Object {!$_.GetMethodBody()} | Sort-Object -property Name | ForEach-Object {
-			$attibute = $_.GetCustomAttributes([System.Runtime.InteropServices.DllImportAttribute], $false) | Select -First 1
-			if ($attibute){
-				if(!$attibute.EntryPoint) {
-					[void]$sb.AppendLine($_.Name)
+		$_.GetMethods([Reflection.BindingFlags]::NonPublic -bor [Reflection.BindingFlags]::Public -bor [Reflection.BindingFlags]::Static) | Where-Object {!$_.GetMethodBody()} | ForEach-Object {
+			$attribute = $_.GetCustomAttributes([System.Runtime.InteropServices.DllImportAttribute], $false) | Select -First 1
+			if ($attribute){
+				if(!$attribute.EntryPoint) {
+					$exportedMethods.Add($_.Name)
 				} else { 
-					[void]$sb.AppendLine($attibute.EntryPoint) 
+					$exportedMethods.Add($attribute.EntryPoint) 
 				}
 			}
-       }
-   }
+		}
+	}
 }
-else{
+else {
     Write-Error "Unable to find file $AssemblyPath."
 }
-if ($sb.Length -gt 0) {
-    $fileName = $AssemblyPath.Replace(".dll", ".pinvokes.txt");
-    [System.IO.File]::WriteAllText($fileName, $sb.ToString());
+if ($exportedMethods.Count -gt 0) {
+	$fileName = $AssemblyPath.Replace(".dll", ".pinvokes.txt");
+    Add-Content $fileName ($exportedMethods | Sort-Object)
 }
