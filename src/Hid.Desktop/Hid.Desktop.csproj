@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Hid.exports.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="..\Hid.Shared\Hid.Shared.projitems" Label="Shared" />
