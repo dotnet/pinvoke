@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\templates\AddNewLibrary.ps1 = ..\templates\AddNewLibrary.ps1
 		..\CONTRIB.md = ..\CONTRIB.md
 		..\COPYRIGHT.md = ..\COPYRIGHT.md
+		..\templates\CreateExportsTxtFile.ps1 = ..\templates\CreateExportsTxtFile.ps1
 		..\LICENSE.txt = ..\LICENSE.txt
 		nuget.config = nuget.config
 		..\README.md = ..\README.md

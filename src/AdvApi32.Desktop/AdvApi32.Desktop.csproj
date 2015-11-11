@@ -65,6 +65,11 @@
     <Compile Include="AdvApi32+ServiceControlAction.cs" />
     <Compile Include="AdvApi32+ServiceFailureActions.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdvApi32.exports.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
 </Project>

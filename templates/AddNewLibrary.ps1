@@ -67,7 +67,9 @@ $Replacements = @{
 Copy-Item -Recurse -Path $TemplateDirectories -Destination $Src
 $SrcDirectories |% { Replace-Placeholders -LibraryName $LibraryName -Replacements $Replacements -Path $_ }
 
-Write-Output "Great. Your two new projects have been created."
+& "$PSScriptRoot\CreateExportsTxtFile.ps1" -AssemblyPath "$env:windir\System32\$LibraryName.dll" -OutputDir "$Src\$LibraryName.Desktop\"
+
+Write-Output "Great. Your new projects have been created."
 Write-Output "Please add these new projects to your solution file:"
 Write-Output "    $Src\$LibraryName\$LibraryName.csproj"
 Write-Output "    $Src\$LibraryName.Desktop\$LibraryName.Desktop.csproj"
