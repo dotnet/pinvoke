@@ -33,6 +33,7 @@ else {
     Write-Error "Unable to find file $AssemblyPath."
 }
 if ($exportedMethods.Count -gt 0) {
-	$fileName = $AssemblyPath.Replace(".dll", ".pinvokes.txt");
-    Add-Content $fileName ($exportedMethods | Sort-Object)
+	$fileName = [System.IO.Path]::GetFileNameWithoutExtension($AssemblyPath).Replace("PInvoke.", "")
+	$filePath = [System.IO.Path]::Combine([System.IO.Path]::GetDirectoryName($AssemblyPath), "$fileName.pinvokes.txt");
+    Add-Content $filePath ($exportedMethods | Sort-Object)
 }
