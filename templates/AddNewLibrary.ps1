@@ -67,8 +67,13 @@ $Replacements = @{
 Copy-Item -Recurse -Path $TemplateDirectories -Destination $Src
 $SrcDirectories |% { Replace-Placeholders -LibraryName $LibraryName -Replacements $Replacements -Path $_ }
 
-Write-Output "Great. Your two new projects have been created."
-Write-Output "Please add these new projects to your solution file:"
+Write-Output "Great. Your new projects have been created."
+Write-Output "Now you need to create the $LibraryName.exports.txt file."
+Write-Output "Please use the `"templates\CreateNativeTxtFiles.ps1`" Powershell cmdlet to generate the mentioned file."
+Write-Output "    templates\CreateNativeTxtFiles.ps1 `"`$env:windir\System32\$LibraryName.dll`""
+Write-Output "Add the generated $LibraryName.exports.txt to either the $LibraryName.Desktop or $LibraryName project as appropriate."
+Write-Output "Make sure $LibraryName.exports.txt gets copied as a build output."
+Write-Output "Once your are done, please add these new projects to your solution file:"
 Write-Output "    $Src\$LibraryName\$LibraryName.csproj"
 Write-Output "    $Src\$LibraryName.Desktop\$LibraryName.Desktop.csproj"
 Write-Output "    $Src\$LibraryName.Shared\$LibraryName.Shared.shproj"
