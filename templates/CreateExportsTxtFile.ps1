@@ -6,14 +6,20 @@ The path, including the file name, of the Win32 dll from which the "export funct
 .PARAMETER OutputDir
 The path to the directory where the result file (LIBNAME.exports.txt) will be created.
 #>
+[CmdletBinding()]
 Param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory=$true,Position=0)]
     [string]$AssemblyPath,
     [Parameter()]
     [string]$OutputDir='.'
 )
 
-if (Test-Path $AssemblyPath) {
+function Get-ExportFunctions {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$AssemblyPath
+    )
 
     $exportedMethods = New-Object 'System.Collections.Generic.Dictionary[string,string]'
 
@@ -38,19 +44,18 @@ if (Test-Path $AssemblyPath) {
         else{
             $exportedMethods[$methodname] = ""
         }        
-    }
+    }        
+    return $exportedMethods.GetEnumerator() | % { $_.Key+$_.Value }
+}
 
-    if ($exportedMethods.Count -gt 0) {
-        $OutputDir = Resolve-Path $OutputDir
-        $LibraryName = [System.IO.Path]::GetFileNameWithoutExtension($AssemblyPath);
-        $filePath = [System.IO.Path]::Combine($OutputDir, $LibraryName + '.exports.txt')
+if(!(Test-Path $AssemblyPath)){
+    Write-Warning "Cannot find assembly file: $AssemblyPath"
+    return
+}
+
+$OutputDir = Resolve-Path $OutputDir
+$LibraryName = [System.IO.Path]::GetFileNameWithoutExtension($AssemblyPath);
+$filePath = [System.IO.Path]::Combine($OutputDir, "$LibraryName.exports.txt")
         
-        Set-Content $filePath ($exportedMethods.GetEnumerator() | % { $_.Key+$_.Value } | Sort-Object)
-        Write-Output "Method names exported to $filePath"
-        Write-Output "Please add the $LibraryName.exports.txt to either the $LibraryName.Desktop or $LibraryName project as appropriate."
-        Write-Output "Make be sure this file gets copied as a build output."
-    }
-}
-else{
-    Write-Error "Cannot find assembly file: $AssemblyPath"
-}
+Set-Content $filePath (Get-ExportFunctions -AssemblyPath $AssemblyPath | Sort-Object) -Encoding Unicode
+Write-Output "Method names exported to $filePath"
