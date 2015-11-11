@@ -9,11 +9,88 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using PInvoke;
 using Xunit;
+using static PInvoke.Constants;
 using static PInvoke.Kernel32;
 
 public partial class Kernel32
 {
     private Random random = new Random();
+
+    [Fact]
+    public void CreateProcess_CmdListDirectories()
+    {
+        STARTUPINFO startupInfo = STARTUPINFO.Create();
+        PROCESS_INFORMATION processInformation;
+        bool result = CreateProcess(
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "cmd.exe"),
+            "/c dir",
+            null,
+            null,
+            false,
+            CreateProcessFlags.CREATE_NO_WINDOW,
+            IntPtr.Zero,
+            null,
+            ref startupInfo,
+            out processInformation);
+        if (!result)
+        {
+            throw new Win32Exception();
+        }
+
+        CloseHandle(processInformation.hProcess);
+        CloseHandle(processInformation.hThread);
+    }
+
+    [Fact]
+    public unsafe void CreateProcess_SetUnicodeEnvironment()
+    {
+        string commandOutputFileName = Path.GetTempFileName();
+        try
+        {
+            string environment = "abc=123\0def=456\0\0";
+            fixed (void* environmentBlock = environment)
+            {
+                STARTUPINFO startupInfo = STARTUPINFO.Create();
+                PROCESS_INFORMATION processInformation;
+                bool result = CreateProcess(
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "cmd.exe"),
+                    $"/c set > \"{commandOutputFileName}\"",
+                    null,
+                    null,
+                    false,
+                    CreateProcessFlags.CREATE_NO_WINDOW | CreateProcessFlags.CREATE_UNICODE_ENVIRONMENT,
+                    new IntPtr(environmentBlock),
+                    null,
+                    ref startupInfo,
+                    out processInformation);
+                if (!result)
+                {
+                    throw new Win32Exception();
+                }
+
+                try
+                {
+                    // Wait for the process to exit.
+                    Assert.Equal(
+                        WaitForSingleObjectResult.WAIT_OBJECT_0,
+                        WaitForSingleObject(new SafeObjectHandle(processInformation.hProcess, false), 5000));
+                }
+                finally
+                {
+                    CloseHandle(processInformation.hProcess);
+                    CloseHandle(processInformation.hThread);
+                }
+            }
+
+            string[] envVars = File.ReadAllLines(commandOutputFileName);
+            Assert.Contains("abc=123", envVars);
+            Assert.Contains("def=456", envVars);
+        }
+        finally
+        {
+            File.Delete(commandOutputFileName);
+        }
+    }
 
     [Fact]
     public void CreateFile_DeleteOnClose()
@@ -23,7 +100,7 @@ public partial class Kernel32
             testPath,
             PInvoke.Kernel32.FileAccess.GenericWrite,
             PInvoke.Kernel32.FileShare.Read,
-            IntPtr.Zero,
+            null,
             CreationDisposition.CreateAlways,
             CreateFileFlags.DeleteOnCloseFlag,
             new SafeObjectHandle()))
@@ -169,7 +246,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericRead,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.NormalAttribute,
                 new SafeObjectHandle()))
@@ -201,7 +278,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericRead,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
@@ -250,7 +327,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericRead,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
@@ -300,7 +377,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.NormalAttribute,
                 new SafeObjectHandle()))
@@ -333,7 +410,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
@@ -381,7 +458,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
@@ -431,7 +508,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
@@ -479,7 +556,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
@@ -533,7 +610,7 @@ public partial class Kernel32
                 testPath,
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
-                IntPtr.Zero,
+                null,
                 CreationDisposition.OpenExisting,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
@@ -572,7 +649,6 @@ public partial class Kernel32
         {
             File.Delete(testPath);
         }
-
     }
 
     [Fact]

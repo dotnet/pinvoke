@@ -16,6 +16,8 @@ namespace PInvoke
         /// </summary>
         public class SafeObjectHandle : SafeHandle
         {
+            public static readonly SafeObjectHandle Null = new SafeObjectHandle();
+
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeObjectHandle"/> class.
             /// </summary>
