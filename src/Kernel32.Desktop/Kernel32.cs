@@ -83,7 +83,7 @@ namespace PInvoke
             [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             CreateProcessFlags dwCreationFlags,
             IntPtr lpEnvironment, // IntPtr because it may point to unicode or ANSI characters, based on a flag.
-            [MarshalAs(UnmanagedType.LPWStr)] string lpCurrentDirectory,
+            string lpCurrentDirectory,
             ref STARTUPINFO lpStartupInfo,
             out PROCESS_INFORMATION lpProcessInformation);
 
@@ -165,7 +165,7 @@ namespace PInvoke
             [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             CreateProcessFlags dwCreationFlags,
             IntPtr lpEnvironment, // IntPtr because it may point to unicode or ANSI characters, based on a flag.
-            [MarshalAs(UnmanagedType.LPWStr)] string lpCurrentDirectory,
+            string lpCurrentDirectory,
             ref STARTUPINFO lpStartupInfo,
             out PROCESS_INFORMATION lpProcessInformation);
 
