@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+OVERLAPPED.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeFindFilesHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeObjectHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+WaitForSingleObjectResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+WIN32_FIND_DATA.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.Helpers.cs" />

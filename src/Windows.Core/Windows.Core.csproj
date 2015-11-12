@@ -26,6 +26,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="LIST_ENTRY.cs" />
     <Compile Include="NullableUInt32.cs" />
     <Compile Include="NullableGuid.cs" />

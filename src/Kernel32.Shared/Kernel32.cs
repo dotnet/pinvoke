@@ -325,15 +325,66 @@ namespace PInvoke
             OVERLAPPED* lpOverlapped);
 
         /// <summary>
-        /// Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW, FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
+        /// Suspends the specified thread.
+        /// A 64-bit application can suspend a WOW64 thread using the <see cref="Wow64SuspendThread"/> function.
         /// </summary>
-        /// <param name="hFindFile">The file search handle.</param>
+        /// <param name="hThread">
+        /// A handle to the thread that is to be suspended.
+        /// The handle must have the THREAD_SUSPEND_RESUME access right. For more information, see Thread Security and Access Rights.
+        /// </param>
         /// <returns>
-        /// If the function succeeds, the return value is nonzero.
-        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        private static extern bool FindClose(IntPtr hFindFile);
+        public static extern int SuspendThread(SafeObjectHandle hThread);
+
+        /// <summary>
+        /// Suspends the specified WOW64 thread.
+        /// </summary>
+        /// <param name="hThread">
+        /// A handle to the thread that is to be suspended.
+        /// The handle must have the THREAD_SUSPEND_RESUME access right. For more information, see Thread Security and Access Rights.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern int Wow64SuspendThread(SafeObjectHandle hThread);
+
+        /// <summary>
+        /// Decrements a thread's suspend count. When the suspend count is decremented to zero, the execution of the thread is resumed.
+        /// </summary>
+        /// <param name="hThread">
+        /// A handle to the thread to be restarted.
+        /// This handle must have the THREAD_SUSPEND_RESUME access right. For more information, see Thread Security and Access Rights.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the thread's previous suspend count.
+        /// If the function fails, the return value is (DWORD) -1. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern int ResumeThread(SafeObjectHandle hThread);
+
+        /// <summary>
+        /// Waits until the specified object is in the signaled state or the time-out interval elapses.
+        /// To enter an alertable wait state, use the WaitForSingleObjectEx function. To wait for multiple objects, use WaitForMultipleObjects.
+        /// </summary>
+        /// <param name="hHandle">
+        /// A handle to the object. For a list of the object types whose handles can be specified, see the following Remarks section.
+        /// If this handle is closed while the wait is still pending, the function's behavior is undefined.
+        /// The handle must have the SYNCHRONIZE access right. For more information, see Standard Access Rights.
+        /// </param>
+        /// <param name="dwMilliseconds">
+        /// The time-out interval, in milliseconds. If a nonzero value is specified, the function waits until the object is signaled or the interval elapses. If dwMilliseconds is zero, the function does not enter a wait state if the object is not signaled; it always returns immediately. If dwMilliseconds is INFINITE, the function will return only when the object is signaled.
+        /// See MSDN docs for more information.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern WaitForSingleObjectResult WaitForSingleObject(
+            SafeHandle hHandle,
+            uint dwMilliseconds);
 
         /// <summary>
         /// Closes an open object handle.
@@ -344,6 +395,17 @@ namespace PInvoke
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        private static extern bool CloseHandle(IntPtr hObject);
+        public static extern bool CloseHandle(IntPtr hObject);
+
+        /// <summary>
+        /// Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW, FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
+        /// </summary>
+        /// <param name="hFindFile">The file search handle.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        private static extern bool FindClose(IntPtr hFindFile);
     }
 }
