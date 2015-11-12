@@ -14,7 +14,6 @@ Param(
 $exportedMethods = New-Object 'System.Collections.Generic.List[string]'
 
 if (Test-Path $AssemblyPath) {
-	Write-Host "Exporting P/Invoke methods from -> $AssemblyPath"
 	$assembly = [Reflection.Assembly]::LoadFrom($AssemblyPath)
 	$assembly.GetTypes() | Where-Object { $assembly.FullName.StartsWith($_.FullName) } | ForEach-Object {
 		$_.GetMethods([Reflection.BindingFlags]::NonPublic -bor [Reflection.BindingFlags]::Public -bor [Reflection.BindingFlags]::Static) | Where-Object {!$_.GetMethodBody()} | ForEach-Object {
@@ -36,4 +35,7 @@ if ($exportedMethods.Count -gt 0) {
 	$fileName = [System.IO.Path]::GetFileNameWithoutExtension($AssemblyPath).Replace("PInvoke.", "")
 	$filePath = [System.IO.Path]::Combine([System.IO.Path]::GetDirectoryName($AssemblyPath), "$fileName.pinvokes.txt");
     Add-Content $filePath ($exportedMethods | Sort-Object)
+	Write-Verbose "P/Invoke method names written to $filePath"
+} else {
+	Write-Verbose "No P/Invoke methods found for $AssemblyPath."
 }
