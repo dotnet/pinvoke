@@ -23,7 +23,7 @@ Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "BCrypt.NuGet", "BCrypt.NuGe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{F00A1FA3-A9AF-450E-A45C-AC59E108F45A}"
 	ProjectSection(SolutionItems) = preProject
-		CreatePInvokeTxtFiles.ps1 = CreatePInvokeTxtFiles.ps1
+		Create-PInvokeTxtFile.ps1 = ..\tools\Create-PInvokeTxtFile.ps1
 		EnlistmentInfo.props = EnlistmentInfo.props
 		EnlistmentInfo.targets = EnlistmentInfo.targets
 		NuProj.Extra.targets = NuProj.Extra.targets
