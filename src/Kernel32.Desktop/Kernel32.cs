@@ -685,32 +685,426 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool IsWow64Process(SafeObjectHandle hProcess, out bool Wow64Process);
 
-        /// <summary>
-        /// Creates an anonymous pipe, and returns handles to the read and write ends of the pipe.
-        /// </summary>
-        /// <param name="hReadPipe">
-        /// A pointer to a variable that receives the read handle for the pipe.
-        /// </param>
-        /// <param name="hWritePipe">
-        /// A pointer to a variable that receives the write handle for the pipe.
-        /// </param>
+        /// <summary>Creates an anonymous pipe, and returns handles to the read and write ends of the pipe.</summary>
+        /// <param name="hReadPipe">A pointer to a variable that receives the read handle for the pipe.</param>
+        /// <param name="hWritePipe">A pointer to a variable that receives the write handle for the pipe.</param>
         /// <param name="lpPipeAttributes">
-        /// A pointer to a SECURITY_ATTRIBUTES structure that determines whether the returned handle can be inherited by child processes. If <paramref name="lpPipeAttributes"/> is NULL, the handle cannot be inherited.
-        /// The <see cref="SECURITY_ATTRIBUTES.lpSecurityDescriptor"/> member of the structure specifies a security descriptor for the new pipe. If <paramref name="lpPipeAttributes"/> is NULL, the pipe gets a default security descriptor. The ACLs in the default security descriptor for a pipe come from the primary or impersonation token of the creator.
+        ///     A pointer to a <see cref="SECURITY_ATTRIBUTES" /> structure that determines whether the returned handle can be
+        ///     inherited by child processes. If <paramref name="lpPipeAttributes"/>  is NULL, the handle cannot be inherited.
+        ///     <para>
+        ///         The <see cref="SECURITY_ATTRIBUTES.lpSecurityDescriptor" /> member of the structure specifies a security
+        ///         descriptor for the new pipe. If <paramref name="lpPipeAttributes"/>  is NULL, the pipe gets a default security descriptor. The ACLs
+        ///         in the default security descriptor for a pipe come from the primary or impersonation token of the creator.
+        ///     </para>
         /// </param>
         /// <param name="nSize">
-        /// The size of the buffer for the pipe, in bytes. The size is only a suggestion; the system uses the value to calculate an appropriate buffering mechanism. If this parameter is zero, the system uses the default buffer size.
+        ///     The size of the buffer for the pipe, in bytes. The size is only a suggestion; the system uses the
+        ///     value to calculate an appropriate buffering mechanism. If this parameter is zero, the system uses the default
+        ///     buffer size.
         /// </param>
         /// <returns>
-        /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32))]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool CreatePipe(
             out SafeObjectHandle hReadPipe,
             out SafeObjectHandle hWritePipe,
             SECURITY_ATTRIBUTES lpPipeAttributes,
             uint nSize);
+
+        /// <summary>
+        ///     Used to specify to <see cref="CreateNamedPipe" /> that the number of pipe instances that can be created is
+        ///     limited only by the availability of system resources.
+        /// </summary>
+        public const uint PIPE_UNLIMITED_INSTANCES = 255;
+
+        /// <summary>
+        ///     Creates an instance of a named pipe and returns a handle for subsequent pipe operations. A named pipe server
+        ///     process uses this function either to create the first instance of a specific named pipe and establish its basic
+        ///     attributes or to create a new instance of an existing named pipe.
+        /// </summary>
+        /// <param name="lpName">
+        ///     The unique pipe name. This string must have the following form:
+        ///     <para>
+        ///         <code>\\.\pipe\pipename</code>
+        ///     </para>
+        ///     <para>
+        ///         The pipename part of the name can include any character other than a backslash, including numbers and special
+        ///         characters. The entire pipe name string can be up to 256 characters long. Pipe names are not case sensitive.
+        ///     </para>
+        /// </param>
+        /// <param name="dwOpenMode">
+        ///     The open mode. The function fails if dwOpenMode specifies anything other than 0 or the flags
+        ///     from <see cref="PipeAccessMode" />.
+        ///     <para>The same mode must be specified for each instance of the pipe.</para>
+        /// </param>
+        /// <param name="dwPipeMode">
+        ///     The pipe mode. The function fails if dwPipeMode specifies anything other than 0 or the flags from
+        ///     <see cref="PipeMode" />.
+        ///     <para>
+        ///         One of the following type modes can be specified. The same type mode must be specified for each instance of
+        ///         the pipe.
+        ///     </para>
+        /// </param>
+        /// <param name="nMaxInstances">
+        ///     The maximum number of instances that can be created for this pipe. The first instance of
+        ///     the pipe can specify this value; the same number must be specified for other instances of the pipe. Acceptable
+        ///     values are in the range 1 through <see cref="PIPE_UNLIMITED_INSTANCES" /> (255). If this parameter is
+        ///     <see cref="PIPE_UNLIMITED_INSTANCES" />, the number of pipe instances that can be created is limited only by the
+        ///     availability of system resources. If nMaxInstances is greater than <see cref="PIPE_UNLIMITED_INSTANCES" />, the
+        ///     return value is an invalid handle and <see cref="GetLastError" /> returns
+        ///     <see cref="Win32ErrorCode.ERROR_INVALID_PARAMETER" />.
+        /// </param>
+        /// <param name="nOutBufferSize">The number of bytes to reserve for the output buffer.</param>
+        /// <param name="nInBufferSize">The number of bytes to reserve for the input buffer.</param>
+        /// <param name="nDefaultTimeOut">
+        ///     The default time-out value, in milliseconds, if the <see cref="WaitNamedPipe"/> function specifies
+        ///     NMPWAIT_USE_DEFAULT_WAIT. Each instance of a named pipe must specify the same value.
+        /// </param>
+        /// <param name="lpSecurityAttributes">
+        ///     A pointer to a <see cref="SECURITY_ATTRIBUTES" /> structure that specifies a
+        ///     security descriptor for the new named pipe and determines whether child processes can inherit the returned handle.
+        ///     If lpSecurityAttributes is NULL, the named pipe gets a default security descriptor and the handle cannot be
+        ///     inherited. The ACLs in the default security descriptor for a named pipe grant full control to the LocalSystem
+        ///     account, administrators, and the creator owner. They also grant read access to members of the Everyone group and
+        ///     the anonymous account.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a handle to the server end of a named pipe instance. If the
+        ///     function fails, the return value is an invalid handle. To get extended error information, call
+        ///     <see cref="GetLastError" />.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern SafeObjectHandle CreateNamedPipe(
+            string lpName,
+            PipeAccessMode dwOpenMode,
+            PipeMode dwPipeMode,
+            uint nMaxInstances,
+            uint nOutBufferSize,
+            uint nInBufferSize,
+            uint nDefaultTimeOut,
+            SECURITY_ATTRIBUTES lpSecurityAttributes);
+
+        /// <summary>The time-out interval is the default value specified by the server process in the
+        ///     <see cref="CreateNamedPipe" /> function.
+        ///     <para>This constant is a special value for named pipes timeouts.</para>
+        /// </summary>
+        public const uint NMPWAIT_USE_DEFAULT_WAIT = 0x00000000;
+
+        /// <summary>The function does not return until an instance of the named pipe is available.
+        ///     <para>This constant is a special value for named pipes timeouts.</para>
+        /// </summary>
+        public const uint NMPWAIT_WAIT_FOREVER = 0xffffffff;
+
+        /// <summary>Does not wait for the named pipe. If the named pipe is not available, the function returns an error.
+        ///     <para>This constant is a special value for named pipes timeouts.</para>
+        /// </summary>
+        public const uint NMPWAIT_NOWAIT = 0x00000001;
+
+        /// <summary>
+        ///     Waits until either a time-out interval elapses or an instance of the specified named pipe is available for
+        ///     connection (that is, the pipe's server process has a pending <see cref="ConnectNamedPipe" /> operation on the
+        ///     pipe).
+        /// </summary>
+        /// <param name="lpNamedPipeName">
+        ///     The name of the named pipe. The string must include the name of the computer on which the server process is
+        ///     executing. A period may be used for the servername if the pipe is local. The following pipe name format is used:
+        ///     <para>
+        ///         <code>\\servername\pipe\pipename</code>
+        ///     </para>
+        /// </param>
+        /// <param name="nTimeOut">
+        ///     The number of milliseconds that the function will wait for an instance of the named pipe to be
+        ///     available. You can also use either <see cref="NMPWAIT_USE_DEFAULT_WAIT" /> or <see cref="NMPWAIT_WAIT_FOREVER" />
+        ///     instead of specifying a number of milliseconds.
+        /// </param>
+        /// <returns>
+        ///     If an instance of the pipe is available before the time-out interval elapses, the return value is nonzero.
+        ///     <para>
+        ///         If an instance of the pipe is not available before the time-out interval elapses, the return value is zero.
+        ///         To get extended error information, call <see cref="GetLastError" />.
+        ///     </para>
+        ///     <para>
+        ///         If no instances of the specified named pipe exist, the WaitNamedPipe function returns immediately, regardless
+        ///         of the time-out value.
+        ///     </para>
+        ///     <para>
+        ///         If the time-out interval expires, the WaitNamedPipe function will fail with the error
+        ///         <see cref="Win32ErrorCode.ERROR_SEM_TIMEOUT" />.
+        ///     </para>
+        ///     <para>
+        ///         If the function succeeds, the process should use the <see cref="CreateFile" /> function to open a handle to
+        ///         the named pipe. A return value of TRUE indicates that there is at least one instance of the pipe available. A
+        ///         subsequent <see cref="CreateFile" /> call to the pipe can fail, because the instance was closed by the server
+        ///         or opened by another client.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool WaitNamedPipe(
+            string lpNamedPipeName,
+            uint nTimeOut);
+
+        /// <summary>
+        ///     Enables a named pipe server process to wait for a client process to connect to an instance of a named pipe. A
+        ///     client process connects by calling either the CreateFile or CallNamedPipe function.
+        /// </summary>
+        /// <param name="hNamedPipe">
+        ///     A handle to the server end of a named pipe instance. This handle is returned by the
+        ///     CreateNamedPipe function.
+        /// </param>
+        /// <param name="lpOverlapped">
+        ///     A pointer to an OVERLAPPED structure.
+        ///     <para>
+        ///         If hNamedPipe was opened with FILE_FLAG_OVERLAPPED, the lpOverlapped parameter must not be NULL. It must
+        ///         point to a valid OVERLAPPED structure. If hNamedPipe was opened with FILE_FLAG_OVERLAPPED and lpOverlapped is
+        ///         NULL, the function can incorrectly report that the connect operation is complete.
+        ///     </para>
+        ///     <para>
+        ///         If hNamedPipe was created with FILE_FLAG_OVERLAPPED and lpOverlapped is not NULL, the OVERLAPPED structure
+        ///         should contain a handle to a manual-reset event object (which the server can create by using the CreateEvent
+        ///         function).
+        ///     </para>
+        ///     <para>
+        ///         If hNamedPipe was not opened with FILE_FLAG_OVERLAPPED, the function does not return until a client is
+        ///         connected or an error occurs. Successful synchronous operations result in the function returning a nonzero
+        ///         value if a client connects after the function is called.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the operation is synchronous, ConnectNamedPipe does not return until the operation has completed. If the
+        ///     function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended
+        ///     error information, call GetLastError.
+        ///     <para>
+        ///         If the operation is asynchronous, ConnectNamedPipe returns immediately. If the operation is still pending,
+        ///         the return value is zero and GetLastError returns ERROR_IO_PENDING. (You can use the HasOverlappedIoCompleted
+        ///         macro to determine when the operation has finished.) If the function fails, the return value is zero and
+        ///         GetLastError returns a value other than ERROR_IO_PENDING or ERROR_PIPE_CONNECTED.
+        ///     </para>
+        ///     <para>
+        ///         If a client connects before the function is called, the function returns zero and GetLastError returns
+        ///         ERROR_PIPE_CONNECTED. This can happen if a client connects in the interval between the call to CreateNamedPipe
+        ///         and the call to ConnectNamedPipe. In this situation, there is a good connection between client and server, even
+        ///         though the function returns zero.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe bool ConnectNamedPipe(
+            SafeObjectHandle hNamedPipe,
+            OVERLAPPED* lpOverlapped);
+
+        /// <summary>
+        ///     Connects to a message-type pipe (and waits if an instance of the pipe is not available), writes to and reads
+        ///     from the pipe, and then closes the pipe.
+        /// </summary>
+        /// <param name="lpNamedPipeName">The pipe name.</param>
+        /// <param name="lpInBuffer">The data to be written to the pipe.</param>
+        /// <param name="nInBufferSize">The size of the write buffer, in bytes.</param>
+        /// <param name="lpOutBuffer">A pointer to the buffer that receives the data read from the pipe.</param>
+        /// <param name="nOutBufferSize">The size of the read buffer, in bytes.</param>
+        /// <param name="lpBytesRead">A pointer to a variable that receives the number of bytes read from the pipe.</param>
+        /// <param name="nTimeOut">
+        ///     The number of milliseconds to wait for the named pipe to be available. In addition to numeric
+        ///     values, <see cref="NMPWAIT_NOWAIT" />, <see cref="NMPWAIT_WAIT_FOREVER" /> and
+        ///     <see cref="NMPWAIT_USE_DEFAULT_WAIT" /> can be specified.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        ///     <para>
+        ///         If the message written to the pipe by the server process is longer than nOutBufferSize, CallNamedPipe returns
+        ///         FALSE, and GetLastError returns ERROR_MORE_DATA. The remainder of the message is discarded, because
+        ///         CallNamedPipe closes the handle to the pipe before returning.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe bool CallNamedPipe(
+            string lpNamedPipeName,
+            void* lpInBuffer,
+            uint nInBufferSize,
+            void* lpOutBuffer,
+            uint nOutBufferSize,
+            out uint lpBytesRead,
+            uint nTimeOut);
+
+        /// <summary>Disconnects the server end of a named pipe instance from a client process.</summary>
+        /// <param name="hNamedPipe">
+        ///     A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe
+        ///     function.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool DisconnectNamedPipe(
+            SafeObjectHandle hNamedPipe);
+
+        /// <summary>Retrieves the client computer name for the specified named pipe.</summary>
+        /// <param name="Pipe">
+        ///     A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe
+        ///     function.
+        /// </param>
+        /// <param name="ClientComputerName">The computer name.</param>
+        /// <param name="ClientComputerNameLength">The size of the ClientComputerName buffer, in bytes.</param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool GetNamedPipeClientComputerName(
+            SafeObjectHandle Pipe,
+            StringBuilder ClientComputerName,
+            uint ClientComputerNameLength);
+
+        /// <summary>Retrieves the client process identifier for the specified named pipe.</summary>
+        /// <param name="Pipe">
+        ///     A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe
+        ///     function.
+        /// </param>
+        /// <param name="ClientProcessId">The process identifier.</param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool GetNamedPipeClientProcessId(
+            SafeObjectHandle Pipe,
+            out uint ClientProcessId);
+
+        /// <summary>
+        /// Retrieves the client session identifier for the specified named pipe.
+        /// </summary>
+        /// <param name="Pipe">
+        ///     A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe
+        ///     function.
+        /// </param>
+        /// <param name="ClientSessionId">The session identifier.</param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool GetNamedPipeClientSessionId(
+            SafeObjectHandle Pipe,
+            out uint ClientSessionId);
+
+        /// <summary>
+        ///     Retrieves information about a specified named pipe. The information returned can vary during the lifetime of
+        ///     an instance of the named pipe.
+        /// </summary>
+        /// <param name="hNamedPipe">
+        ///     A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ
+        ///     access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a
+        ///     write-only pipe.
+        ///     <para>This parameter can also be a handle to an anonymous pipe, as returned by the CreatePipe function.</para>
+        /// </param>
+        /// <param name="lpState">
+        ///     A pointer to a variable that indicates the current state of the handle. Either or both of
+        ///     <see cref="PipeMode.PIPE_NOWAIT" /> and <see cref="PipeMode.PIPE_READMODE_MESSAGE" /> can be specified.
+        /// </param>
+        /// <param name="lpCurInstances">
+        ///     A pointer to a variable that receives the number of current pipe instances. This parameter
+        ///     can be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpMaxCollectionCount">
+        ///     A pointer to a variable that receives the maximum number of bytes to be collected on
+        ///     the client's computer before transmission to the server. This parameter must be NULL if the specified pipe handle
+        ///     is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can
+        ///     be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpCollectDataTimeout">
+        ///     A pointer to a variable that receives the maximum time, in milliseconds, that can
+        ///     pass before a remote named pipe transfers information over the network. This parameter must be NULL if the
+        ///     specified pipe handle is to the server end of a named pipe or if client and server processes are on the same
+        ///     computer. This parameter can be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpUserName">
+        ///     A pointer to a buffer that receives the user name string associated with the client application. The server can
+        ///     only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access.
+        ///     <para>
+        ///         This parameter must be NULL if the specified pipe handle is to the client end of a named pipe. This parameter
+        ///         can be NULL if this information is not required.
+        ///     </para>
+        /// </param>
+        /// <param name="nMaxUserNameSize">
+        ///     The size of the buffer specified by the lpUserName parameter, in chars. This parameter
+        ///     is ignored if lpUserName is NULL.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool GetNamedPipeHandleState(
+            SafeObjectHandle hNamedPipe,
+            out PipeMode lpState,
+            [In, Out] NullableUInt32 lpCurInstances,
+            [In, Out] NullableUInt32 lpMaxCollectionCount,
+            [In, Out] NullableUInt32 lpCollectDataTimeout,
+            StringBuilder lpUserName,
+            uint nMaxUserNameSize);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool GetNamedPipeInfo(
+            SafeObjectHandle hNamedPipe,
+            out NamedPipeInfoFlags lpFlags,
+            out uint lpOutBufferSize,
+            out uint lpInBufferSize,
+            out uint lpMaxInstances);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool GetNamedPipeServerProcessId(
+            SafeObjectHandle Pipe,
+            out uint ServerProcessId);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool GetNamedPipeServerSessionId(
+            SafeObjectHandle Pipe,
+            out uint ServerSessionId);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe bool PeekNamedPipe(
+            SafeObjectHandle hNamedPipe,
+            void* lpBuffer,
+            uint nBufferSize,
+            out uint lpBytesRead,
+            out uint lpTotalBytesAvail,
+            out uint lpBytesLeftThisMessage);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool SetNamedPipeHandleState(
+            SafeObjectHandle hNamedPipe,
+            NullablePipeMode lpMode,
+            NullableUInt32 lpMaxCollectionCount,
+            NullableUInt32 lpCollectDataTimeout);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe bool TransactNamedPipe(
+            SafeObjectHandle hNamedPipe,
+            void* lpInBuffer,
+            uint nInBufferSize,
+            void* lpOutBuffer,
+            uint nOutBufferSize,
+            out uint lpBytesRead,
+            OVERLAPPED* lpOverlapped);
     }
 }
