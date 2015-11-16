@@ -659,6 +659,7 @@ public partial class Kernel32
         Assert.Equal(expected, actual);
     }
 
+
     [Fact]
     public void CreatePipe_ReadWrite()
     {
@@ -670,6 +671,15 @@ public partial class Kernel32
             var data = new byte[] { 1, 2, 3 };
             Assert.Equal((uint)data.Length, WriteFile(writePipe, new ArraySegment<byte>(data)));
             Assert.Equal(data, ReadFile(readPipe, (uint)data.Length));
+        }
+    }
+
+    [IgnoreOnOsVersionUnderFact("6.1")]
+    public void K32EmptyWorkingSet_Run()
+    {
+        using (var pid = GetCurrentProcess())
+        {
+            Assert.True(K32EmptyWorkingSet(pid));
         }
     }
 }
