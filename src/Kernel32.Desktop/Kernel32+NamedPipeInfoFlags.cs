@@ -5,7 +5,10 @@ namespace PInvoke
 {
     using System;
 
-    partial class Kernel32
+    /// <content>
+    /// Contains the <see cref="NamedPipeInfoFlags"/> nested type.
+    /// </content>
+    public partial class Kernel32
     {
         /// <summary>Flags returned by <see cref="GetNamedPipeInfo" />.</summary>
         [Flags]

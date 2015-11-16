@@ -5,7 +5,10 @@ namespace PInvoke
 {
     using System;
 
-    partial class Kernel32
+    /// <content>
+    /// Contains the <see cref="PipeMode"/> nested type.
+    /// </content>
+    public partial class Kernel32
     {
         /// <summary>A named pipe usage mode, used in <see cref="CreateNamedPipe" />.</summary>
         [Flags]

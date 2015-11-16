@@ -7,7 +7,10 @@ namespace PInvoke
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
 
-    partial class Kernel32
+    /// <content>
+    /// Contains the <see cref="NullablePipeMode"/> nested type.
+    /// </content>
+    public partial class Kernel32
     {
         /// <summary>
         /// Nullable wrapper for a <see cref="PipeMode" /> that can be used in <see cref="DllImportAttribute"/>.

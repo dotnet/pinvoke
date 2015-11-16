@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="PipeAccessMode"/> nested type.
     /// </content>
-    partial class Kernel32
+    public partial class Kernel32
     {
         /// <summary>
         /// Pipe access mode used when creating a pipe using <see cref="CreateNamedPipe"/>.
