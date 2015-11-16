@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="ServiceDescription"/> nested type.
+    /// Contains the <see cref="TokenAccessRights"/> nested type.
     /// </content>
     public partial class AdvApi32
     {
