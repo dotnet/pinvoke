@@ -397,13 +397,46 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool CloseHandle(IntPtr hObject);
 
+        /// <summary>Flushes the buffers of a specified file and causes all buffered data to be written to a file.</summary>
+        /// <param name="hFile">
+        ///     A handle to the open file.
+        ///     <para>
+        ///         The file handle must have the GENERIC_WRITE access right. For more information, see File Security and Access
+        ///         Rights.
+        ///     </para>
+        ///     <para>If hFile is a handle to a communications device, the function only flushes the transmit buffer.</para>
+        ///     <para>
+        ///         If hFile is a handle to the server end of a named pipe, the function does not return until the client has
+        ///         read all buffered data from the pipe.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        ///     <para>
+        ///         The function fails if hFile is a handle to the console output. That is because the console output is not
+        ///         buffered. The function returns FALSE, and <see cref="GetLastError" /> returns
+        ///         <see cref="Win32ErrorCode.ERROR_INVALID_HANDLE" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool FlushFileBuffers(SafeObjectHandle hFile);
+
         /// <summary>
-        /// Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW, FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
+        ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
+        ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>
         /// <param name="hFindFile">The file search handle.</param>
         /// <returns>
-        /// If the function succeeds, the return value is nonzero.
-        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         private static extern bool FindClose(IntPtr hFindFile);
