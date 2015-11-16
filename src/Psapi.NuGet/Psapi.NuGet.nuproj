@@ -35,7 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Psapi\Psapi.csproj" />
-    <ProjectReference Include="..\Psapi.Desktop\Psapi.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>

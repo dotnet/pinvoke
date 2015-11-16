@@ -3,6 +3,10 @@
   "dependencies": {
   },
   "frameworks": {
-    ".NETPortable,Version=v4.0,Profile=Profile92": { }
+    ".NETFramework,Version=v4.0": { }
+  },
+  "runtimes": {
+    "win-anycpu": { },
+    "win": { }
   }
 }
