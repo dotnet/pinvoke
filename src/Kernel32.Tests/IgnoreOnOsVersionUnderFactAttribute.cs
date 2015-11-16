@@ -5,8 +5,8 @@ using System;
 using Xunit;
 
 /// <summary>
-///     A variant of XUnit <see cref="FactAttribute" /> that is automatically skiped when the OS version is under a
-///     specific treshold.
+///     A variant of XUnit <see cref="FactAttribute" /> that is automatically skipped when the OS version is under a
+///     specific threshold.
 /// </summary>
 internal class IgnoreOnOsVersionUnderFactAttribute : FactAttribute
 {
