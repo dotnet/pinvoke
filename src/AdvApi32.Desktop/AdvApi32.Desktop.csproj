@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvApi32+SafeServiceHandle.cs" />
+    <Compile Include="AdvApi32+SECURITY_INFORMATION.cs" />
     <Compile Include="AdvApi32+ServiceAccess.cs" />
     <Compile Include="AdvApi32+ServicePreferredNodeInfo.cs" />
     <Compile Include="AdvApi32+ServiceLaunchProtectedInfo.cs" />
@@ -57,6 +58,9 @@
     <Compile Include="AdvApi32+ServiceManagerAccess.cs" />
     <Compile Include="AdvApi32+ServiceStartType.cs" />
     <Compile Include="AdvApi32+ServiceType.cs" />
+    <Compile Include="AdvApi32+TokenAccessRights.cs" />
+    <Compile Include="AdvApi32+TOKEN_ELEVATION_TYPE.cs" />
+    <Compile Include="AdvApi32+TOKEN_INFORMATION_CLASS.cs" />
     <Compile Include="AdvApi32.cs" />
     <Compile Include="AdvApi32.Helpers.cs" />
     <Compile Include="AdvApi32+ServiceDelayedAutoStartInfo.cs" />
