@@ -11,6 +11,8 @@ Please send pull requests to add what you've come up with.
 The [sigimp tool][SigImp] will automatically generate P/Invoke signatures for most Win32 functions
 and interop types. Use it to save time and improve accuracy as we collect these signatures into these
 reusable libraries. But try to cut down the verbose output that may be produced by a tool.
+And always double-check the generated code because these tools are known to sometimes misinterpret
+parameter types.
 
 Remember whether you write the signatures yourself or use a tool, to follow the rest of the guidelines
 in this document.
@@ -18,7 +20,8 @@ in this document.
 ### Project structure
 
  * One class library and NuGet package per P/Invoke'd DLL.
- * Types and enums in common Windows header files should be defined in the PInvoke.Windows.Core project.
+ * Types, enums, and constants defined in common Windows header files should be defined
+   in the PInvoke.Windows.Core project.
 
 When introducing support for a new native DLL to this project, use the templates\AddNewLibrary.ps1
 Powershell cmdlet to create the projects necessary to support it and follow the instructions from that script.
@@ -40,8 +43,30 @@ The library should also be added to the list on the [readme](README.md).
    This is for predictability across the entire family of libraries and so
    searches for method names as they are found in the native libraries' documentation
    will always turn up results if they are defined by these packages.
+ * Preserve the original parameter names.
 
-### Method parameters
+There is a tension between keeping names consistent between native and managed code,
+and conforming to common .NET naming patterns such as camelCase and PascalCase.
+For this project, we preserve names of methods, parameter values, constants, and
+anything else found in native header files for these reasons:
+
+1. A predictable API tends to be more useful and appreciated by its users. While we
+   can make some names look more .NET-like, we cannot do it for all of them. This
+   leads to inconsistencies and thus unpredictability for our users.
+1. Keeping the names the same empowers users to share code more freely between native
+   and managed code. They can more confidently share code snippets on forums
+   where those more familiar with the native library will recognize the names used.
+1. Discoverability of APIs by consistency with documentation. When someone is searching
+   for the definition of a method, an enum value or struct in this project based on
+   the name from native code or documentation, they'll find it if it's there.
+1. Documentation of methods and parameter usage will match with the P/Invoke methods'
+   signatures, leading to quicker understanding of how to use these APIs properly.
+1. Changing names from their native definitions requires some judgment calls be made,
+   which can lead to potentially long discussions during pull requests while folks
+   debate the merits of various options. We prefer to spend time adding more APIs
+   over ever-repeating discussions on code reviews.
+
+### Method parameter types
 
  * Prefer `SafeHandle`-derived types to `IntPtr` when dealing with handles.
    Mark P/Invoke methods that destroy handles private because they will necessarily take `IntPtr`
@@ -64,8 +89,6 @@ of the P/Invoke method they wrap:
 1. The method has a single out parameter that in a naturally managed API would typically
    serve as the return value, and the P/Invoke method's return value is void or an error code.
 1. A set of methods for enumeration can be wrapped with a helper that exposes an IEnumerable.
-
-
 
 Helper methods should *not* be created merely for purposes of translating an error code to an exception.
 But if a helper method exists for other reasons, it is appropriate to throw instead of return
