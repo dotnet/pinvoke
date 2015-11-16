@@ -13,17 +13,23 @@ with sample usage in the form of unit tests.
 Install the NuGet package(s) for the DLLs you want to P/Invoke into.
 For example, if you want to P/Invoke into Win32's BCrypt.dll, install this package:
 
+```powershell
     Install-Package PInvoke.BCrypt
+```
 
 Then import the following namespaces, as demonstrated below (if using C# 6):
 
+```csharp
     using PInvoke;
     using static PInvoke.BCrypt; // Supported in C# 6 (VS2015) and later.
+```
 
 This will allow you to conveniently call these methods directly by method name:
 
+```csharp
     var error = BCryptOpenAlgorithm(AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM); // C# 6 syntax
     var error = BCrypt.BCryptOpenAlgorithm(BCrypt.AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM); // C# 5 syntax
+```
 
 ## Design goals
 
