@@ -658,4 +658,18 @@ public partial class Kernel32
         var actual = IsWow64Process(GetCurrentProcess());
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void CreatePipe_ReadWrite()
+    {
+        SafeObjectHandle readPipe, writePipe;
+        Assert.True(CreatePipe(out readPipe, out writePipe, null, 0));
+        using (readPipe)
+        using (writePipe)
+        {
+            var data = new byte[] { 1, 2, 3 };
+            Assert.Equal((uint)data.Length, WriteFile(writePipe, new ArraySegment<byte>(data)));
+            Assert.Equal(data, ReadFile(readPipe, (uint)data.Length));
+        }
+    }
 }
