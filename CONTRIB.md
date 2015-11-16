@@ -179,7 +179,9 @@ with the following content to the root of your project's repo:
 
 You can then install the package(s) while you have your new "PInvoke CI" package source selected:
 
-    Install-Package PInvoke.BCrypt -Pre -Version 0.1.41-beta-g02f355c05d
+```powershell
+Install-Package PInvoke.BCrypt -Pre -Version 0.1.41-beta-g02f355c05d
+```
 
 Take care to set the package version such that it exactly matches the AppVeyor build
 for your pull request. You can get the version number by reviewing the result of the
