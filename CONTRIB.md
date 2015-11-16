@@ -11,6 +11,8 @@ Please send pull requests to add what you've come up with.
 The [sigimp tool][SigImp] will automatically generate P/Invoke signatures for most Win32 functions
 and interop types. Use it to save time and improve accuracy as we collect these signatures into these
 reusable libraries. But try to cut down the verbose output that may be produced by a tool.
+And always double-check the generated code because these tools are known to sometimes misinterpret
+parameter types.
 
 Remember whether you write the signatures yourself or use a tool, to follow the rest of the guidelines
 in this document.
@@ -18,7 +20,8 @@ in this document.
 ### Project structure
 
  * One class library and NuGet package per P/Invoke'd DLL.
- * Types and enums in common Windows header files should be defined in the PInvoke.Windows.Core project.
+ * Types, enums, and constants defined in common Windows header files should be defined
+   in the PInvoke.Windows.Core project.
 
 When introducing support for a new native DLL to this project, use the templates\AddNewLibrary.ps1
 Powershell cmdlet to create the projects necessary to support it and follow the instructions from that script.
@@ -40,8 +43,30 @@ The library should also be added to the list on the [readme](README.md).
    This is for predictability across the entire family of libraries and so
    searches for method names as they are found in the native libraries' documentation
    will always turn up results if they are defined by these packages.
+ * Preserve the original parameter names.
 
-### Method parameters
+There is a tension between keeping names consistent between native and managed code,
+and conforming to common .NET naming patterns such as camelCase and PascalCase.
+For this project, we preserve names of methods, parameter values, constants, and
+anything else found in native header files for these reasons:
+
+1. A predictable API tends to be more useful and appreciated by its users. While we
+   can make some names look more .NET-like, we cannot do it for all of them. This
+   leads to inconsistencies and thus unpredictability for our users.
+1. Keeping the names the same empowers users to share code more freely between native
+   and managed code. They can more confidently share code snippets on forums
+   where those more familiar with the native library will recognize the names used.
+1. Discoverability of APIs by consistency with documentation. When someone is searching
+   for the definition of a method, an enum value or struct in this project based on
+   the name from native code or documentation, they'll find it if it's there.
+1. Documentation of methods and parameter usage will match with the P/Invoke methods'
+   signatures, leading to quicker understanding of how to use these APIs properly.
+1. Changing names from their native definitions requires some judgment calls be made,
+   which can lead to potentially long discussions during pull requests while folks
+   debate the merits of various options. We prefer to spend time adding more APIs
+   over ever-repeating discussions on code reviews.
+
+### Method parameter types
 
  * Prefer `SafeHandle`-derived types to `IntPtr` when dealing with handles.
    Mark P/Invoke methods that destroy handles private because they will necessarily take `IntPtr`
@@ -65,11 +90,72 @@ of the P/Invoke method they wrap:
    serve as the return value, and the P/Invoke method's return value is void or an error code.
 1. A set of methods for enumeration can be wrapped with a helper that exposes an IEnumerable.
 
-
-
 Helper methods should *not* be created merely for purposes of translating an error code to an exception.
 But if a helper method exists for other reasons, it is appropriate to throw instead of return
 an error code when the helper method uses its return value for something else.
+
+### Xml documentation
+
+We do not require it, but we encourage xml doc comments for all P/Invoke and helper methods
+because it shows up in Intellisense and can aid users in coding against these APIs.
+This documentation may be copied (where licensing allows) from the native library's own
+documentation. We consider MSDN an allowable source of documentation.
+
+Consider touching up the docs you copy or author by adding `<see cref="..." />` around
+references to other methods and `<paramref name="..." />` for references to parameters.
+
+#### Practical advice for copying documentation
+
+When copying and pasting multiple paragraphs of documentation into an
+xml doc comment you might start with this:
+
+```csharp
+    /// <summary>
+    /// [PASTEHERE]
+    /// </summary>
+```
+
+The C# language service will often paste something like this:
+
+```csharp
+    /// <summary>
+    /// First line of documentation
+    Second line of documentation.With missing space after sentences.
+    Third line.With more missing spaces
+    /// </summary>
+```
+
+Notice not only the missing `///` but that sentences are missing a space between each other
+on subsequent lines. The easiest way to fix this is to get in the habit of pasting by:
+Ctrl+V, Ctrl+Z. The Undo command will not revert the paste, but it will revert the formatting
+that the language service applied. Which turns the above paste to this:
+ 
+```csharp
+    /// <summary>
+    /// First line of documentation
+Second line of documentation. With missing space after sentences.
+Third line. With more missing spaces
+    /// </summary>
+```
+
+Which you can then use block selection (alt+shift) followed by `///` to add the missing
+slashes to every line at once, saving time. Once the commenting slashes are in place,
+press Ctrl+K, Ctrl+D to execute the Format Document command to fix up the indentation
+and anything else that can be automatically fixed.
+
+### StyleCop
+
+We have StyleCop.Analyzers installed to all our projects with the set of rules that we
+generally want to follow. They appear as build warnings, so please check for those
+before submitting pull requests and clear up any warnings you've introduced.
+
+In some cases, such as when we use a class instead of a struct,
+we will have public fields for interop marshaling reasons. The StyleCop rule that dislikes
+this can be suppressed by adding this near the top of your file:
+
+```csharp
+#pragma warning disable SA1401 // Fields must be private
+```
 
 ## Self-service releases for contributors
 
@@ -93,7 +179,9 @@ with the following content to the root of your project's repo:
 
 You can then install the package(s) while you have your new "PInvoke CI" package source selected:
 
-    Install-Package PInvoke.BCrypt -Pre -Version 0.1.41-beta-g02f355c05d
+```powershell
+Install-Package PInvoke.BCrypt -Pre -Version 0.1.41-beta-g02f355c05d
+```
 
 Take care to set the package version such that it exactly matches the AppVeyor build
 for your pull request. You can get the version number by reviewing the result of the
