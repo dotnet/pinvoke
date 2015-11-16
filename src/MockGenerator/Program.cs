@@ -51,7 +51,7 @@ namespace MockGenerator
                     var staticKeyword = modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
                     if (staticKeyword != default(SyntaxToken))
                     {
-                        modifiers.Remove(staticKeyword);
+                        modifiers = modifiers.Remove(staticKeyword);
                     }
 
                     var interfaceIdentifier = SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
@@ -66,7 +66,8 @@ namespace MockGenerator
                     var newClassDeclaration = SyntaxFactory.ClassDeclaration(
                         classDeclaration.AttributeLists,
                         modifiers,
-                        classDeclaration.Identifier,
+                        classDeclaration.Identifier
+                            .WithLeadingTrivia(WhitespaceCharacter),
                         classDeclaration.TypeParameterList,
                         baseList,
                         classDeclaration.ConstraintClauses,
