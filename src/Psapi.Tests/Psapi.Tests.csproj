@@ -38,6 +38,10 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
+      <Project>{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}</Project>
+      <Name>Kernel32.Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Psapi\Psapi.csproj">
       <Project>{6ab26806-6a22-456d-ad87-cd8b3fafa216}</Project>
       <Name>Psapi</Name>

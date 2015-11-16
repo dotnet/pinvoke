@@ -658,4 +658,13 @@ public partial class Kernel32
         var actual = IsWow64Process(GetCurrentProcess());
         Assert.Equal(expected, actual);
     }
+
+    [IgnoreOnOsVersionUnderFact("6.1")]
+    public void K32EmptyWorkingSet_Run()
+    {
+        using (var pid = GetCurrentProcess())
+        {
+            Assert.True(K32EmptyWorkingSet(pid));
+        }
+    }
 }

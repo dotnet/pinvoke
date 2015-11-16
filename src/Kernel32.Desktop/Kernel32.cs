@@ -684,5 +684,25 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool IsWow64Process(SafeObjectHandle hProcess, out bool Wow64Process);
+
+        /// <summary>Removes as many pages as possible from the working set of the specified process.</summary>
+        /// <param name="hProcess">
+        ///     A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or
+        ///     PROCESS_QUERY_LIMITED_INFORMATION access right and the PROCESS_SET_QUOTA access right.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        /// <remarks>
+        ///     This function is exported by kernel32.dll only since Windows 7, on previous version of windows it's
+        ///     exported by Psapi.dll as "EmptyWorkingSet".
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool K32EmptyWorkingSet(SafeObjectHandle hProcess);
     }
 }
