@@ -684,5 +684,67 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool IsWow64Process(SafeObjectHandle hProcess, out bool Wow64Process);
+
+        /// <summary>Retrieves the window handle used by the console associated with the calling process.</summary>
+        /// <returns>
+        ///     The return value is a handle to the window used by the console associated with the calling process or
+        ///     <see cref="IntPtr.Zero" /> if there is no such associated console.
+        /// </returns>
+        [DllImport(nameof(Kernel32))]
+        public static extern IntPtr GetConsoleWindow();
+
+        /// <summary>
+        ///     Loads the specified module into the address space of the calling process. The specified module may cause other
+        ///     modules to be loaded.
+        ///     <para>For additional load options, use the LoadLibraryEx function.</para>
+        /// </summary>
+        /// <param name="lpFileName">
+        ///     The name of the module. This can be either a library module (a .dll file) or an executable module (an .exe file).
+        ///     The name specified is the file name of the module and is not related to the name stored in the library module
+        ///     itself, as specified by the LIBRARY keyword in the module-definition (.def) file.
+        ///     <para>If the string specifies a full path, the function searches only that path for the module.</para>
+        ///     <para>
+        ///         If the string specifies a relative path or a module name without a path, the function uses a standard search
+        ///         strategy to find the module.
+        ///     </para>
+        ///     <para>
+        ///         If the function cannot find the module, the function fails. When specifying a path, be sure to use
+        ///         backslashes (\), not forward slashes (/).
+        ///     </para>
+        ///     <para>
+        ///         If the string specifies a module name without a path and the file name extension is omitted, the function
+        ///         appends the default library extension .dll to the module name. To prevent the function from appending .dll to
+        ///         the module name, include a trailing point character (.) in the module name string.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern SafeLibraryHandle LoadLibrary(string lpFileName);
+
+        /// <summary>
+        ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the
+        ///     reference count reaches zero, the module is unloaded from the address space of the calling process and the handle
+        ///     is no longer valid.
+        /// </summary>
+        /// <param name="hModule">
+        ///     A handle to the loaded library module. The LoadLibrary, LoadLibraryEx, GetModuleHandle, or
+        ///     GetModuleHandleEx function returns this handle.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool FreeLibrary(IntPtr hModule);
     }
 }
