@@ -146,9 +146,16 @@ and anything else that can be automatically fixed.
 ### StyleCop
 
 We have StyleCop.Analyzers installed to all our projects with the set of rules that we
-generally want to follow. In some cases, such as when we use a class instead of a struct,
+generally want to follow. They appear as build warnings, so please check for those
+before submitting pull requests and clear up any warnings you've introduced.
+
+In some cases, such as when we use a class instead of a struct,
 we will have public fields for interop marshaling reasons. The StyleCop rule that dislikes
-this can be suppressed.  
+this can be suppressed by adding this near the top of your file:
+
+```csharp
+#pragma warning disable SA1401 // Fields must be private
+```
 
 ## Self-service releases for contributors
 
