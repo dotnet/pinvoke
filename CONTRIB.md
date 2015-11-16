@@ -94,6 +94,62 @@ Helper methods should *not* be created merely for purposes of translating an err
 But if a helper method exists for other reasons, it is appropriate to throw instead of return
 an error code when the helper method uses its return value for something else.
 
+### Xml documentation
+
+We do not require it, but we encourage xml doc comments for all P/Invoke and helper methods
+because it shows up in Intellisense and can aid users in coding against these APIs.
+This documentation may be copied (where licensing allows) from the native library's own
+documentation. We consider MSDN an allowable source of documentation.
+
+Consider touching up the docs you copy or author by adding `<see cref="..." />` around
+references to other methods and `<paramref name="..." />` for references to parameters.
+
+#### Practical advice for copying documentation
+
+When copying and pasting multiple paragraphs of documentation into an
+xml doc comment you might start with this:
+
+```csharp
+    /// <summary>
+    /// [PASTEHERE]
+    /// </summary>
+```
+
+The C# language service will often paste something like this:
+
+```csharp
+    /// <summary>
+    /// First line of documentation
+    Second line of documentation.With missing space after sentences.
+    Third line.With more missing spaces
+    /// </summary>
+```
+
+Notice not only the missing `///` but that sentences are missing a space between each other
+on subsequent lines. The easiest way to fix this is to get in the habit of pasting by:
+Ctrl+V, Ctrl+Z. The Undo command will not revert the paste, but it will revert the formatting
+that the language service applied. Which turns the above paste to this:
+ 
+```csharp
+    /// <summary>
+    /// First line of documentation
+Second line of documentation. With missing space after sentences.
+Third line. With more missing spaces
+    /// </summary>
+```
+
+Which you can then use block selection (alt+shift) followed by `///` to add the missing
+slashes to every line at once, saving time. Once the commenting slashes are in place,
+press Ctrl+K, Ctrl+D to execute the Format Document command to fix up the indentation
+and anything else that can be automatically fixed.
+
+### StyleCop
+
+We have StyleCop.Analyzers installed to all our projects with the set of rules that we
+generally want to follow. In some cases, such as when we use a class instead of a struct,
+we will have public fields for interop marshaling reasons. The StyleCop rule that dislikes
+this can be suppressed.  
+
 ## Self-service releases for contributors
 
 As soon as you send a pull request, a build is executed and updated NuGet packages
