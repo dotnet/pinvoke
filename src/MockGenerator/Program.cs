@@ -36,11 +36,11 @@ namespace MockGenerator
             if (compilationUnit == null || compilationUnit.Members.Count == 0) return;
 
             var namespaceDeclarations = compilationUnit.Members.OfType<NamespaceDeclarationSyntax>();
-            foreach (var namespaceDeclaration in namespaceDeclarations)
+            foreach (var classNamespaceDeclaration in namespaceDeclarations)
             {
-                if (namespaceDeclaration == null || namespaceDeclaration.Name.ToString() != "PInvoke") return;
+                if (classNamespaceDeclaration == null || classNamespaceDeclaration.Name.ToString() != "PInvoke") return;
 
-                var classDeclarations = namespaceDeclaration.Members
+                var classDeclarations = classNamespaceDeclaration.Members
                     .OfType<ClassDeclarationSyntax>()
                     .ToArray();
                 for (var index = 0; index < classDeclarations.Length; index++)
@@ -74,6 +74,16 @@ namespace MockGenerator
                         classDeclaration.Members);
                     compilationUnit = compilationUnit.ReplaceNode(classDeclaration, newClassDeclaration);
                     classDeclaration = newClassDeclaration;
+                    
+                    var interfaceNamespaceDeclaration = SyntaxFactory.NamespaceDeclaration(
+                        classNamespaceDeclaration.NamespaceKeyword,
+                        classNamespaceDeclaration.Name,
+                        classNamespaceDeclaration.OpenBraceToken,
+                        classNamespaceDeclaration.Externs,
+                        classNamespaceDeclaration.Usings,
+                        SyntaxFactory.List<MemberDeclarationSyntax>(),
+                        classNamespaceDeclaration.CloseBraceToken,
+                        classNamespaceDeclaration.SemicolonToken);
 
                     var interfaceDeclaration = SyntaxFactory.InterfaceDeclaration(
                         SyntaxFactory.List<AttributeListSyntax>(),
@@ -96,6 +106,7 @@ namespace MockGenerator
                     for (int i = 0; i < methodDeclarations.Length; i++)
                     {
                         var methodDeclaration = methodDeclarations[i];
+
                         var externMethodKeyword = methodDeclaration.Modifiers
                             .SingleOrDefault(x => x.IsKind(SyntaxKind.ExternKeyword));
                         var staticMethodKeyword = methodDeclaration.Modifiers
@@ -108,26 +119,33 @@ namespace MockGenerator
                         var invokeMethodIdentifier =
                             SyntaxFactory.IdentifierName($"Invoke{methodDeclaration.Identifier.Text}");
 
-                        classDeclaration = DecorateClassWithWrapperFunction(methodDeclaration, invokeMethodIdentifier, classDeclaration);
+                        classDeclaration = DecorateClassWithWrapperFunction(
+                            methodDeclaration, 
+                            invokeMethodIdentifier, 
+                            classDeclaration);
 
-                        interfaceDeclaration = DecorateInterfaceWithWrapperFunction(methodDeclaration, invokeMethodIdentifier, interfaceDeclaration);
+                        interfaceNamespaceDeclaration.Members.Add(
+                            DecorateInterfaceWithWrapperFunction(
+                                methodDeclaration, 
+                                invokeMethodIdentifier, 
+                                interfaceDeclaration));
                     }
 
                     if (interfaceDeclaration.Members.Count > 0)
                     {
-                        WriteInterfaceToFile(file, interfaceDeclaration);
+                        WriteInterfaceToFile(file, interfaceNamespaceDeclaration);
                     }
                     if (classDeclaration.Members.Count > 0)
                     {
                         File.WriteAllText(
                             file,
-                            classDeclaration.ToFullString());
+                            compilationUnit.ToFullString());
                     }
                 }
             }
         }
 
-        private static void WriteInterfaceToFile(string file, InterfaceDeclarationSyntax interfaceDeclaration)
+        private static void WriteInterfaceToFile(string file, NamespaceDeclarationSyntax interfaceNamespaceDeclaration)
         {
             var baseFileName = Path.GetFileNameWithoutExtension(file);
 
@@ -138,7 +156,7 @@ namespace MockGenerator
                 Path.Combine(
                     fileDirectory,
                     $"I{baseFileName}Mockable.cs"),
-                interfaceDeclaration.ToFullString());
+                interfaceNamespaceDeclaration.ToFullString());
         }
 
         private static InterfaceDeclarationSyntax DecorateInterfaceWithWrapperFunction(
