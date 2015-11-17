@@ -34,6 +34,10 @@ namespace PInvoke
             /// </summary>
             public int dwTimeout;
 
+            /// <summary>
+            /// Create a new instance of <see cref="FLASHWINFO"/> with <see cref="cbSize"/> set to the correct value.
+            /// </summary>
+            /// <returns>A new instance of <see cref="FLASHWINFO"/> with <see cref="cbSize"/> set to the correct value.</returns>
             public static FLASHWINFO Create()
             {
                 return new FLASHWINFO

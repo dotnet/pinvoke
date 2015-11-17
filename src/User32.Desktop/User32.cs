@@ -11,6 +11,42 @@ namespace PInvoke
     /// </summary>
     public static partial class User32
     {
+        /// <summary>
+        ///     A bitmap that is drawn by the window that owns the menu. The application must process the WM_MEASUREITEM and
+        ///     WM_DRAWITEM messages.
+        /// </summary>
+        public static readonly IntPtr HBMMENU_CALLBACK = new IntPtr(-1);
+
+        /// <summary>Close button for the menu bar.</summary>
+        public static readonly IntPtr HBMMENU_MBAR_CLOSE = new IntPtr(5);
+
+        /// <summary>Disabled close button for the menu bar.</summary>
+        public static readonly IntPtr HBMMENU_MBAR_CLOSE_D = new IntPtr(6);
+
+        /// <summary>Minimize button for the menu bar.</summary>
+        public static readonly IntPtr HBMMENU_MBAR_MINIMIZE = new IntPtr(3);
+
+        /// <summary>Disabled minimize button for the menu bar.</summary>
+        public static readonly IntPtr HBMMENU_MBAR_MINIMIZE_D = new IntPtr(7);
+
+        /// <summary>Restore button for the menu bar.</summary>
+        public static readonly IntPtr HBMMENU_MBAR_RESTORE = new IntPtr(2);
+
+        /// <summary>Close button for the submenu.</summary>
+        public static readonly IntPtr HBMMENU_POPUP_CLOSE = new IntPtr(8);
+
+        /// <summary>Maximize button for the submenu.</summary>
+        public static readonly IntPtr HBMMENU_POPUP_MAXIMIZE = new IntPtr(10);
+
+        /// <summary>Minimize button for the submenu.</summary>
+        public static readonly IntPtr HBMMENU_POPUP_MINIMIZE = new IntPtr(11);
+
+        /// <summary>Restore button for the submenu.</summary>
+        public static readonly IntPtr HBMMENU_POPUP_RESTORE = new IntPtr(9);
+
+        /// <summary>Windows icon or the icon of the window specified in <see cref="MENUITEMINFO.dwItemData" />.</summary>
+        public static readonly IntPtr HBMMENU_SYSTEM = new IntPtr(1);
+
         public delegate int WindowsHookDelegate(int code, IntPtr wParam, IntPtr lParam);
 
         [DllImport(nameof(User32))]
@@ -213,6 +249,108 @@ namespace PInvoke
         public static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
 
         /// <summary>
+        ///     Enables the application to access the window menu (also known as the system menu or the control menu) for
+        ///     copying and modifying.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window that will own a copy of the window menu.</param>
+        /// <param name="bRevert">
+        ///     The action to be taken. If this parameter is FALSE, GetSystemMenu returns a handle to the copy of
+        ///     the window menu currently in use. The copy is initially identical to the window menu, but it can be modified. If
+        ///     this parameter is TRUE, GetSystemMenu resets the window menu back to the default state. The previous window menu,
+        ///     if any, is destroyed.
+        /// </param>
+        /// <returns>
+        ///     If the bRevert parameter is FALSE, the return value is a handle to a copy of the window menu. If the bRevert
+        ///     parameter is TRUE, the return value is NULL.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        /// <summary>
+        ///     Appends a new item to the end of the specified menu bar, drop-down menu, submenu, or shortcut menu. You can
+        ///     use this function to specify the content, appearance, and behavior of the menu item.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.</param>
+        /// <param name="uFlags">Controls the appearance and behavior of the new menu item</param>
+        /// <param name="uIdNewItem">
+        ///     The identifier of the new menu item or, if the uFlags parameter is set to
+        ///     <see cref="MenuItemFlags.MF_POPUP" />, a handle to the drop-down menu or submenu.
+        /// </param>
+        /// <param name="lpNewItem">
+        ///     The content of the new menu item. The interpretation of lpNewItem depends on whether the uFlags parameter includes
+        ///     the following values.
+        ///     <para><see cref="MenuItemFlags.MF_BITMAP" />: Contains a bitmap handle.</para>
+        ///     <para>
+        ///         <see cref="MenuItemFlags.MF_OWNERDRAW" />: Contains an application-supplied value that can be used to
+        ///         maintain additional data related to the menu item. The value is in the itemData member of the structure pointed
+        ///         to by the lParam parameter of the WM_MEASUREITEM or WM_DRAWITEM message sent when the menu is created or its
+        ///         appearance is updated.
+        ///     </para>
+        ///     <para><see cref="MenuItemFlags.MF_STRING" />: Contains a pointer to a null-terminated string.</para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is true.
+        ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool AppendMenu(
+            IntPtr hMenu,
+            MenuItemFlags uFlags,
+            IntPtr uIdNewItem,
+            string lpNewItem);
+
+        /// <summary>Changes information about a menu item.</summary>
+        /// <param name="hMenu">A handle to the menu that contains the menu item.</param>
+        /// <param name="uItem">
+        ///     The identifier or position of the menu item to change. The meaning of this parameter depends on the
+        ///     value of <paramref name="fByPosition" />.
+        /// </param>
+        /// <param name="fByPosition">
+        ///     The meaning of uItem. If this parameter is FALSE, uItem is a menu item identifier. Otherwise,
+        ///     it is a menu item position.
+        /// </param>
+        /// <param name="lpmii">
+        ///     A <see cref="MENUITEMINFO" /> structure that contains information about the menu item and specifies
+        ///     which menu item attributes to change.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is true.
+        ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool SetMenuItemInfo(
+            IntPtr hMenu,
+            uint uItem,
+            bool fByPosition,
+            [In] ref MENUITEMINFO lpmii);
+
+        /// <summary>Retrieves information about a menu item.</summary>
+        /// <param name="hMenu">A handle to the menu that contains the menu item.</param>
+        /// <param name="uItem">
+        ///     The identifier or position of the menu item to get information about. The meaning of this parameter
+        ///     depends on the value of <paramref name="fByPosition" />.
+        /// </param>
+        /// <param name="fByPosition">
+        ///     The meaning of <paramref name="uItem" />. If this parameter is FALSE,
+        ///     <paramref name="uItem" /> is a menu item identifier. Otherwise, it is a menu item position.
+        /// </param>
+        /// <param name="lpmii">
+        ///     A <see cref="MENUITEMINFO" /> structure that specifies the information to retrieve and receives
+        ///     information about the menu item. Note that you must set the cbSize member to <code>sizeof(MENUITEMINFO)</code>
+        ///     before calling this function (Either manually or by using <see cref="MENUITEMINFO.Create" />).
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is true.
+        ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool GetMenuItemInfo(
+            IntPtr hMenu,
+            uint uItem,
+            bool fByPosition,
+            ref MENUITEMINFO lpmii);
+
+        /// <summary>
         ///     Removes a hook procedure installed in a hook chain by the
         ///     <see cref="SetWindowsHookEx(WindowsHookType,IntPtr,IntPtr,int)" /> function.
         /// </summary>
@@ -221,8 +359,8 @@ namespace PInvoke
         ///     <see cref="SetWindowsHookEx(WindowsHookType,IntPtr,IntPtr,int)" />.
         /// </param>
         /// <returns>
-        ///     If the function succeeds, the return value is a nonzero value.
-        ///     <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        ///     If the function succeeds, the return value is true.
+        ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         private static extern bool UnhookWindowsHookEx(IntPtr hhk);
