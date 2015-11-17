@@ -62,18 +62,6 @@ namespace MockGenerator
                             interfaceIdentifier
                                 .WithLeadingTrivia(WhitespaceCharacter)
                                 .WithTrailingTrivia(WhitespaceCharacter)));
-
-                    var newClassDeclaration = SyntaxFactory.ClassDeclaration(
-                        classDeclaration.AttributeLists,
-                        modifiers,
-                        classDeclaration.Identifier
-                            .WithLeadingTrivia(WhitespaceCharacter),
-                        classDeclaration.TypeParameterList,
-                        baseList,
-                        classDeclaration.ConstraintClauses,
-                        classDeclaration.Members);
-                    compilationUnit = compilationUnit.ReplaceNode(classDeclaration, newClassDeclaration);
-                    classDeclaration = newClassDeclaration;
                     
                     var interfaceNamespaceDeclaration = SyntaxFactory.NamespaceDeclaration(
                         classNamespaceDeclaration.NamespaceKeyword,
@@ -130,6 +118,18 @@ namespace MockGenerator
                             interfaceDeclaration);
                         interfaceNamespaceDeclaration.Members.Add(interfaceDeclaration);
                     }
+                    
+                    var newClassDeclaration = SyntaxFactory.ClassDeclaration(
+                        classDeclaration.AttributeLists,
+                        modifiers,
+                        classDeclaration.Identifier
+                            .WithLeadingTrivia(WhitespaceCharacter),
+                        classDeclaration.TypeParameterList,
+                        baseList,
+                        classDeclaration.ConstraintClauses,
+                        classDeclaration.Members);
+                    compilationUnit = compilationUnit.ReplaceNode(classDeclaration, newClassDeclaration);
+                    classDeclaration = newClassDeclaration;
 
                     if (interfaceDeclaration.Members.Count > 0)
                     {
