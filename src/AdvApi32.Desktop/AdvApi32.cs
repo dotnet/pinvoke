@@ -5,6 +5,8 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Security.AccessControl;
+    using static Kernel32;
 
     /// <content>
     /// Exported functions from the AdvApi32.dll Windows library
@@ -195,6 +197,160 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool StartService(SafeServiceHandle hService, int dwNumServiceArgs, string lpServiceArgVectors);
+
+        /// <summary>Opens the access token associated with a process.</summary>
+        /// <param name="processHandle">
+        ///     A handle to the process whose access token is opened. The process must have the
+        ///     PROCESS_QUERY_INFORMATION access permission.
+        /// </param>
+        /// <param name="desiredAccess">
+        ///     Specifies an access mask that specifies the requested types of access to the access token.
+        ///     These requested access types are compared with the discretionary access control list (DACL) of the token to
+        ///     determine which accesses are granted or denied.
+        /// </param>
+        /// <param name="tokenHandle">A handle that identifies the newly opened access token when the function returns.</param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool OpenProcessToken(
+            IntPtr processHandle,
+            TokenAccessRights desiredAccess,
+            out SafeObjectHandle tokenHandle);
+
+        /// <summary>
+        ///     The GetTokenInformation function retrieves a specified type of information about an access token. The calling
+        ///     process must have appropriate access rights to obtain the information.
+        ///     <para>
+        ///         To determine if a user is a member of a specific group, use the CheckTokenMembership function. To determine
+        ///         group membership for app container tokens, use the CheckTokenMembershipEx function.
+        ///     </para>
+        /// </summary>
+        /// <param name="TokenHandle">
+        ///     A handle to an access token from which information is retrieved. If TokenInformationClass
+        ///     specifies TokenSource, the handle must have TOKEN_QUERY_SOURCE access. For all other TokenInformationClass values,
+        ///     the handle must have TOKEN_QUERY access.
+        /// </param>
+        /// <param name="TokenInformationClass">
+        ///     Specifies a value from the TOKEN_INFORMATION_CLASS enumerated type to identify the
+        ///     type of information the function retrieves. Any callers who check the TokenIsAppContainer and have it return 0
+        ///     should also verify that the caller token is not an identify level impersonation token. If the current token is not
+        ///     an app container but is an identity level token, you should return AccessDenied.
+        /// </param>
+        /// <param name="TokenInformation">
+        ///     A pointer to a buffer the function fills with the requested information. The structure
+        ///     put into this buffer depends upon the type of information specified by the
+        ///     <paramref name="TokenInformationClass" /> parameter.
+        /// </param>
+        /// <param name="TokenInformationLength">
+        ///     Specifies the size, in bytes, of the buffer pointed to by the TokenInformation
+        ///     parameter. If <paramref name="TokenInformation" /> is NULL, this parameter must be zero.
+        /// </param>
+        /// <param name="ReturnLength">
+        ///     A pointer to a variable that receives the number of bytes needed for the buffer pointed to by the TokenInformation
+        ///     parameter. If this value is larger than the value specified in the TokenInformationLength parameter, the function
+        ///     fails and stores no data in the buffer.
+        ///     <para>
+        ///         If the value of the <paramref name="TokenInformationClass" /> parameter is
+        ///         <see cref="TOKEN_INFORMATION_CLASS.TokenDefaultDacl" /> and the token has no default DACL, the function sets
+        ///         the variable pointed to by ReturnLength to sizeof(TOKEN_DEFAULT_DACL) and sets the DefaultDacl member of the
+        ///         TOKEN_DEFAULT_DACL structure to NULL.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetTokenInformation(
+            SafeObjectHandle TokenHandle,
+            TOKEN_INFORMATION_CLASS TokenInformationClass,
+            void* TokenInformation,
+            uint TokenInformationLength,
+            out uint ReturnLength);
+
+        /// <summary>
+        ///     The QueryServiceObjectSecurity function retrieves a copy of the security descriptor associated with a service
+        ///     object. You can also use the GetNamedSecurityInfo function to retrieve a security descriptor.
+        /// </summary>
+        /// <param name="hService">
+        ///     A handle to the service control manager or the service. Handles to the service control manager
+        ///     are returned by the <see cref="OpenSCManager" /> function, and handles to a service are returned by either the
+        ///     <see cref="OpenService" /> or <see cref="CreateService" /> function. The handle must have the READ_CONTROL access
+        ///     right.
+        /// </param>
+        /// <param name="dwSecurityInformation">
+        ///     A set of bit flags that indicate the type of security information to retrieve. This
+        ///     parameter can be a combination of the <see cref="SECURITY_INFORMATION" /> flags, with the exception that this
+        ///     function does not support the <see cref="SECURITY_INFORMATION.LABEL_SECURITY_INFORMATION" /> value.
+        /// </param>
+        /// <param name="lpSecurityDescriptor">
+        ///     A pointer to a buffer that receives a copy of the security descriptor of the
+        ///     specified service object. The calling process must have the appropriate access to view the specified aspects of the
+        ///     security descriptor of the object. The SECURITY_DESCRIPTOR structure is returned in self-relative format.
+        /// </param>
+        /// <param name="cbBufSize">
+        ///     The size of the buffer pointed to by the <paramref name="lpSecurityDescriptor" /> parameter, in
+        ///     bytes. The largest size allowed is 8 kilobytes.
+        /// </param>
+        /// <param name="pcbBytesNeeded">
+        ///     A pointer to a variable that receives the number of bytes needed to return the requested
+        ///     security descriptor information, if the function fails.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        public static extern bool QueryServiceObjectSecurity(
+            SafeServiceHandle hService,
+            SECURITY_INFORMATION dwSecurityInformation,
+            byte[] lpSecurityDescriptor,
+            uint cbBufSize,
+            out uint pcbBytesNeeded);
+
+        /// <summary>The SetServiceObjectSecurity function sets the security descriptor of a service object.</summary>
+        /// <param name="hService">
+        ///     A handle to the service. This handle is returned by the <see cref="OpenService" /> or
+        ///     <see cref="CreateService" /> function. The access required for this handle depends on the security information
+        ///     specified in the <paramref name="dwSecurityInformation" /> parameter.
+        /// </param>
+        /// <param name="dwSecurityInformation">
+        ///     Specifies the components of the security descriptor to set. This parameter can be a
+        ///     combination of the following values : <see cref="SECURITY_INFORMATION.DACL_SECURITY_INFORMATION" />,
+        ///     <see cref="SECURITY_INFORMATION.GROUP_SECURITY_INFORMATION" />,
+        ///     <see cref="SECURITY_INFORMATION.OWNER_SECURITY_INFORMATION" />,
+        ///     <see cref="SECURITY_INFORMATION.SACL_SECURITY_INFORMATION" />. Note that flags not handled by
+        ///     SetServiceObjectSecurity will be silently ignored.
+        /// </param>
+        /// <param name="lpSecurityDescriptor">
+        ///     A pointer to a SECURITY_DESCRIPTOR structure that contains the new security
+        ///     information.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        public static extern bool SetServiceObjectSecurity(
+            SafeServiceHandle hService,
+            SECURITY_INFORMATION dwSecurityInformation,
+            byte[] lpSecurityDescriptor);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.

@@ -659,7 +659,6 @@ public partial class Kernel32
         Assert.Equal(expected, actual);
     }
 
-
     [Fact]
     public void CreatePipe_ReadWrite()
     {
@@ -681,5 +680,21 @@ public partial class Kernel32
         {
             Assert.True(K32EmptyWorkingSet(pid));
         }
+    }
+
+    [Fact]
+    public void LoadLibrary_And_FreeLibrary()
+    {
+        using (var library = LoadLibrary("kernel32.dll"))
+        {
+            Assert.False(library.IsInvalid);
+        }
+    }
+
+    [Fact]
+    public void GetConsoleWindow_DoesNotThrow()
+    {
+        // No assert possible as the answer depends on the test runner, we only want to know that the method can be called successfully.
+        GetConsoleWindow();
     }
 }

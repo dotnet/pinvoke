@@ -39,6 +39,7 @@
     <Compile Include="Kernel32+PROCESSENTRY32.cs" />
     <Compile Include="Kernel32+PROCESS_INFORMATION.cs" />
     <Compile Include="Kernel32+QueryFullProcessImageNameFlags.cs" />
+    <Compile Include="Kernel32+SafeLibraryHandle.cs" />
     <Compile Include="Kernel32+SecurityImpersonationLevel.cs" />
     <Compile Include="Kernel32+SECURITY_ATTRIBUTES.cs" />
     <Compile Include="Kernel32+SECURITY_DESCRIPTOR.cs" />
