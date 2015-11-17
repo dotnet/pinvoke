@@ -671,7 +671,7 @@ public partial class Kernel32
     [Fact]
     public void GetConsoleWindow_DoesNotThrow()
     {
-        // No assert possible as the answer depends on the text runner, we only want to know that the method can be called successfully.
+        // No assert possible as the answer depends on the test runner, we only want to know that the method can be called successfully.
         GetConsoleWindow();
     }
 }
