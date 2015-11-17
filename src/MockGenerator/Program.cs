@@ -37,52 +37,61 @@ namespace MockGenerator
             if (compilationUnit == null || compilationUnit.Members.Count == 0) return;
 
             var namespaceDeclarations = compilationUnit.Members.OfType<NamespaceDeclarationSyntax>();
-            foreach (var classNamespaceDeclaration in namespaceDeclarations)
+            foreach (var namespaceDeclaration in namespaceDeclarations)
             {
-                if (classNamespaceDeclaration == null || classNamespaceDeclaration.Name.ToString() != "PInvoke") return;
+                if (namespaceDeclaration == null || namespaceDeclaration.Name.ToString() != "PInvoke") return;
 
-                var classDeclarations = classNamespaceDeclaration.Members
+                var classDeclarations = namespaceDeclaration.Members
                     .OfType<ClassDeclarationSyntax>()
                     .ToArray();
                 for (var index = 0; index < classDeclarations.Length; index++)
                 {
                     var classDeclaration = classDeclarations[index];
-                    var newClassDeclaration = classDeclaration;
-                    var previousClassMemberCount = newClassDeclaration.Members.Count;
 
-                    var modifiers = newClassDeclaration.Modifiers;
-                    var staticKeyword = modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
-                    if (staticKeyword != default(SyntaxToken))
-                    {
-                        modifiers = modifiers.Remove(staticKeyword);
-                    }
+                    var newInterfaceModifier = SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
+                    var newClassModifier = SyntaxFactory.IdentifierName($"{classDeclaration.Identifier.Text}Mockable");
 
-                    var interfaceIdentifier = SyntaxFactory.IdentifierName($"I{newClassDeclaration.Identifier.Text}Mockable");
-
-                    var baseList = newClassDeclaration.BaseList ?? SyntaxFactory.BaseList();
+                    var baseList = classDeclaration.BaseList ?? SyntaxFactory.BaseList();
                     baseList = baseList.AddTypes(
                         SyntaxFactory.SimpleBaseType(
-                            interfaceIdentifier
+                            newInterfaceModifier
                                 .WithLeadingTrivia(WhitespaceCharacter)
                                 .WithTrailingTrivia(WhitespaceCharacter)));
                     
-                    var interfaceNamespaceDeclaration = SyntaxFactory.NamespaceDeclaration(
-                        classNamespaceDeclaration.NamespaceKeyword,
-                        classNamespaceDeclaration.Name,
-                        classNamespaceDeclaration.OpenBraceToken,
-                        classNamespaceDeclaration.Externs,
-                        classNamespaceDeclaration.Usings,
+                    var newNamespaceDeclaration = SyntaxFactory.NamespaceDeclaration(
+                        namespaceDeclaration.NamespaceKeyword,
+                        namespaceDeclaration.Name,
+                        namespaceDeclaration.OpenBraceToken,
+                        namespaceDeclaration.Externs,
+                        namespaceDeclaration.Usings,
                         SyntaxFactory.List<MemberDeclarationSyntax>(),
-                        classNamespaceDeclaration.CloseBraceToken,
-                        classNamespaceDeclaration.SemicolonToken);
+                        namespaceDeclaration.CloseBraceToken,
+                        namespaceDeclaration.SemicolonToken);
 
-                    var interfaceDeclaration = SyntaxFactory.InterfaceDeclaration(
+                    var newClassNamespaceDeclaration = newNamespaceDeclaration;
+                    var newInterfaceNamespaceDeclaration = newNamespaceDeclaration;
+
+                    var newClassDeclaration = SyntaxFactory.ClassDeclaration(
                         SyntaxFactory.List<AttributeListSyntax>(),
                         SyntaxFactory.TokenList(
                             SyntaxFactory
                                 .Token(SyntaxKind.PublicKeyword)
                                 .WithTrailingTrivia(WhitespaceCharacter)),
-                        interfaceIdentifier
+                        newClassModifier
+                            .Identifier
+                            .WithTrailingTrivia(WhitespaceCharacter)
+                            .WithLeadingTrivia(WhitespaceCharacter),
+                        null,
+                        null,
+                        SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
+                        SyntaxFactory.List<MemberDeclarationSyntax>());
+                    var newInterfaceDeclaration = SyntaxFactory.InterfaceDeclaration(
+                        SyntaxFactory.List<AttributeListSyntax>(),
+                        SyntaxFactory.TokenList(
+                            SyntaxFactory
+                                .Token(SyntaxKind.PublicKeyword)
+                                .WithTrailingTrivia(WhitespaceCharacter)),
+                        newInterfaceModifier
                             .Identifier
                             .WithTrailingTrivia(WhitespaceCharacter)
                             .WithLeadingTrivia(WhitespaceCharacter),
@@ -91,7 +100,7 @@ namespace MockGenerator
                         SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
                         SyntaxFactory.List<MemberDeclarationSyntax>());
 
-                    var methodDeclarations = newClassDeclaration.Members
+                    var methodDeclarations = classDeclaration.Members
                         .OfType<MethodDeclarationSyntax>()
                         .ToArray();
                     for (int i = 0; i < methodDeclarations.Length; i++)
@@ -108,36 +117,24 @@ namespace MockGenerator
 
                         newClassDeclaration = DecorateClassWithWrapperFunction(
                             methodDeclaration, 
-                            invokeMethodIdentifier, 
+                            invokeMethodIdentifier,
                             newClassDeclaration);
+                        newClassNamespaceDeclaration.Members.Add(classDeclaration);
 
-                        interfaceDeclaration = DecorateInterfaceWithWrapperFunction(
+                        newInterfaceDeclaration = DecorateInterfaceWithWrapperFunction(
                             methodDeclaration,
                             invokeMethodIdentifier,
-                            interfaceDeclaration);
-                        interfaceNamespaceDeclaration.Members.Add(interfaceDeclaration);
+                            newInterfaceDeclaration);
+                        newInterfaceNamespaceDeclaration.Members.Add(newInterfaceDeclaration);
                     }
-                    
-                    newClassDeclaration = SyntaxFactory.ClassDeclaration(
-                        newClassDeclaration.AttributeLists,
-                        modifiers,
-                        newClassDeclaration.Identifier
-                            .WithLeadingTrivia(WhitespaceCharacter),
-                        newClassDeclaration.TypeParameterList,
-                        baseList,
-                        newClassDeclaration.ConstraintClauses,
-                        newClassDeclaration.Members);
-                    compilationUnit = compilationUnit.ReplaceNode(classDeclaration, newClassDeclaration);
 
-                    if (interfaceDeclaration.Members.Count > 0)
+                    if (newInterfaceDeclaration.Members.Count > 0)
                     {
-                        WriteInterfaceToFile(file, interfaceNamespaceDeclaration);
+                        WriteInterfaceToFile(file, newInterfaceNamespaceDeclaration);
                     }
-                    if (newClassDeclaration.Members.Count > previousClassMemberCount)
+                    if (classDeclaration.Members.Count > 0)
                     {
-                        File.WriteAllText(
-                            file,
-                            compilationUnit.ToFullString());
+                        WriteClassToFile(file, newClassNamespaceDeclaration);
                     }
                 }
             }
@@ -156,16 +153,35 @@ namespace MockGenerator
 
         private static void WriteInterfaceToFile(string file, NamespaceDeclarationSyntax interfaceNamespaceDeclaration)
         {
-            var baseFileName = Path.GetFileNameWithoutExtension(file);
-
-            var fileDirectory = Path.GetDirectoryName(file);
-            Debug.Assert(fileDirectory != null, "fileDirectory != null");
+            string fileDirectory;
+            var baseFileName = GetBaseFileName(file, out fileDirectory);
 
             File.WriteAllText(
                 Path.Combine(
                     fileDirectory,
                     $"I{baseFileName}Mockable.cs"),
                 interfaceNamespaceDeclaration.ToFullString());
+        }
+
+        private static void WriteClassToFile(string file, NamespaceDeclarationSyntax classNamespaceDeclaration)
+        {
+            string fileDirectory;
+            var baseFileName = GetBaseFileName(file, out fileDirectory);
+
+            File.WriteAllText(
+                Path.Combine(
+                    fileDirectory,
+                    $"{baseFileName}Mockable.cs"),
+                classNamespaceDeclaration.ToFullString());
+        }
+
+        private static string GetBaseFileName(string file, out string fileDirectory)
+        {
+            var baseFileName = Path.GetFileNameWithoutExtension(file);
+
+            fileDirectory = Path.GetDirectoryName(file);
+            Debug.Assert(fileDirectory != null, "fileDirectory != null");
+            return baseFileName;
         }
 
         private static InterfaceDeclarationSyntax DecorateInterfaceWithWrapperFunction(
