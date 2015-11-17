@@ -373,6 +373,14 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int MapVirtualKey(int uCode, MapVirtualKeyTranslation uMapType);
 
+        /// <summary>Retrieves the window handle to the active window attached to the calling thread's message queue.</summary>
+        /// <returns>
+        ///     The return value is the handle to the active window attached to the calling thread's message queue. Otherwise,
+        ///     the return value is <see cref="IntPtr.Zero" />.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetActiveWindow();
+
         /// <summary>
         ///     Removes a hook procedure installed in a hook chain by the
         ///     <see cref="SetWindowsHookEx(WindowsHookType,IntPtr,IntPtr,int)" /> function.
