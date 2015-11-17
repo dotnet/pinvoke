@@ -351,6 +351,29 @@ namespace PInvoke
             ref MENUITEMINFO lpmii);
 
         /// <summary>
+        ///     Translates (maps) a virtual-key code into a scan code or character value, or translates a scan code into a
+        ///     virtual-key code.
+        ///     <para>
+        ///         To specify a handle to the keyboard layout to use for translating the specified code, use the MapVirtualKeyEx
+        ///         function.
+        ///     </para>
+        /// </summary>
+        /// <param name="uCode">
+        ///     The virtual key code or scan code for a key. How this value is interpreted depends on the value of
+        ///     the uMapType parameter.
+        /// </param>
+        /// <param name="uMapType">
+        ///     The translation to be performed. The value of this parameter depends on the value of the uCode
+        ///     parameter.
+        /// </param>
+        /// <returns>
+        ///     The return value is either a scan code, a virtual-key code, or a character value, depending on the value of
+        ///     <paramref name="uCode" /> and <paramref name="uMapType" />. If there is no translation, the return value is zero.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern int MapVirtualKey(int uCode, MapVirtualKeyTranslation uMapType);
+
+        /// <summary>
         ///     Removes a hook procedure installed in a hook chain by the
         ///     <see cref="SetWindowsHookEx(WindowsHookType,IntPtr,IntPtr,int)" /> function.
         /// </summary>

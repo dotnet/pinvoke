@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="User32+FlashWindowFlags.cs" />
     <Compile Include="User32+FLASHWINFO.cs" />
+    <Compile Include="User32+MapVirtualKeyTranslation.cs" />
     <Compile Include="User32+MenuItemFlags.cs" />
     <Compile Include="User32+MENUITEMINFO.cs" />
     <Compile Include="User32+MenuItemState.cs" />
