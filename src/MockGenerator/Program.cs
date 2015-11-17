@@ -204,7 +204,7 @@ namespace MockGenerator
 
             var arrowBody = SyntaxFactory.ArrowExpressionClause(
                 SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken)
-                    .WithTrailingTrivia(NewLineCharacter, TabCharacter),
+                    .WithLeadingTrivia(NewLineCharacter, TabCharacter),
                 SyntaxFactory.InvocationExpression(
                     SyntaxFactory.IdentifierName(methodDeclaration.Identifier),
                     SyntaxFactory.ArgumentList(
