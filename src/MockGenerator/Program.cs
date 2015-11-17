@@ -46,18 +46,19 @@ namespace MockGenerator
                 for (var index = 0; index < classDeclarations.Length; index++)
                 {
                     var classDeclaration = classDeclarations[index];
-                    var previousClassMemberCount = classDeclaration.Members.Count;
+                    var newClassDeclaration = classDeclaration;
+                    var previousClassMemberCount = newClassDeclaration.Members.Count;
 
-                    var modifiers = classDeclaration.Modifiers;
+                    var modifiers = newClassDeclaration.Modifiers;
                     var staticKeyword = modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
                     if (staticKeyword != default(SyntaxToken))
                     {
                         modifiers = modifiers.Remove(staticKeyword);
                     }
 
-                    var interfaceIdentifier = SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
+                    var interfaceIdentifier = SyntaxFactory.IdentifierName($"I{newClassDeclaration.Identifier.Text}Mockable");
 
-                    var baseList = classDeclaration.BaseList ?? SyntaxFactory.BaseList();
+                    var baseList = newClassDeclaration.BaseList ?? SyntaxFactory.BaseList();
                     baseList = baseList.AddTypes(
                         SyntaxFactory.SimpleBaseType(
                             interfaceIdentifier
@@ -89,7 +90,7 @@ namespace MockGenerator
                         SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
                         SyntaxFactory.List<MemberDeclarationSyntax>());
 
-                    var methodDeclarations = classDeclaration.Members
+                    var methodDeclarations = newClassDeclaration.Members
                         .OfType<MethodDeclarationSyntax>()
                         .ToArray();
                     for (int i = 0; i < methodDeclarations.Length; i++)
@@ -108,10 +109,10 @@ namespace MockGenerator
                         var invokeMethodIdentifier =
                             SyntaxFactory.IdentifierName($"Invoke{methodDeclaration.Identifier.Text}");
 
-                        classDeclaration = DecorateClassWithWrapperFunction(
+                        newClassDeclaration = DecorateClassWithWrapperFunction(
                             methodDeclaration, 
                             invokeMethodIdentifier, 
-                            classDeclaration);
+                            newClassDeclaration);
 
                         interfaceDeclaration = DecorateInterfaceWithWrapperFunction(
                             methodDeclaration,
@@ -120,23 +121,22 @@ namespace MockGenerator
                         interfaceNamespaceDeclaration.Members.Add(interfaceDeclaration);
                     }
                     
-                    var newClassDeclaration = SyntaxFactory.ClassDeclaration(
-                        classDeclaration.AttributeLists,
+                    newClassDeclaration = SyntaxFactory.ClassDeclaration(
+                        newClassDeclaration.AttributeLists,
                         modifiers,
-                        classDeclaration.Identifier
+                        newClassDeclaration.Identifier
                             .WithLeadingTrivia(WhitespaceCharacter),
-                        classDeclaration.TypeParameterList,
+                        newClassDeclaration.TypeParameterList,
                         baseList,
-                        classDeclaration.ConstraintClauses,
-                        classDeclaration.Members);
+                        newClassDeclaration.ConstraintClauses,
+                        newClassDeclaration.Members);
                     compilationUnit = compilationUnit.ReplaceNode(classDeclaration, newClassDeclaration);
-                    classDeclaration = newClassDeclaration;
 
                     if (interfaceDeclaration.Members.Count > 0)
                     {
                         WriteInterfaceToFile(file, interfaceNamespaceDeclaration);
                     }
-                    if (classDeclaration.Members.Count > previousClassMemberCount)
+                    if (newClassDeclaration.Members.Count > previousClassMemberCount)
                     {
                         File.WriteAllText(
                             file,
