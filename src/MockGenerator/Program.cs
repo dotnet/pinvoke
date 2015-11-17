@@ -46,6 +46,7 @@ namespace MockGenerator
                 for (var index = 0; index < classDeclarations.Length; index++)
                 {
                     var classDeclaration = classDeclarations[index];
+                    var previousClassMemberCount = classDeclaration.Members.Count;
 
                     var modifiers = classDeclaration.Modifiers;
                     var staticKeyword = modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
@@ -135,7 +136,7 @@ namespace MockGenerator
                     {
                         WriteInterfaceToFile(file, interfaceNamespaceDeclaration);
                     }
-                    if (classDeclaration.Members.Count > 0)
+                    if (classDeclaration.Members.Count > previousClassMemberCount)
                     {
                         File.WriteAllText(
                             file,
