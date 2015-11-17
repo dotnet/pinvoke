@@ -57,5 +57,5 @@ $OutputDir = Resolve-Path $OutputDir
 $LibraryName = [System.IO.Path]::GetFileNameWithoutExtension($AssemblyPath);
 $filePath = [System.IO.Path]::Combine($OutputDir, "$LibraryName.exports.txt")
         
-Set-Content $filePath (Get-ExportFunctions -AssemblyPath $AssemblyPath | Sort-Object) -Encoding Unicode
+Set-Content $filePath (Get-ExportFunctions -AssemblyPath $AssemblyPath | Sort-Object)
 Write-Output "Method names exported to $filePath"

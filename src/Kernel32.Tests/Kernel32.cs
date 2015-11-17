@@ -673,6 +673,31 @@ public partial class Kernel32
         }
     }
 
+    [IgnoreOnOsVersionUnderFact("6.1")]
+    public void K32EmptyWorkingSet_Run()
+    {
+        using (var pid = GetCurrentProcess())
+        {
+            Assert.True(K32EmptyWorkingSet(pid));
+        }
+    }
+
+    [Fact]
+    public void LoadLibrary_And_FreeLibrary()
+    {
+        using (var library = LoadLibrary("kernel32.dll"))
+        {
+            Assert.False(library.IsInvalid);
+        }
+    }
+
+    [Fact]
+    public void GetConsoleWindow_DoesNotThrow()
+    {
+        // No assert possible as the answer depends on the test runner, we only want to know that the method can be called successfully.
+        GetConsoleWindow();
+    }
+
     [Fact]
     public unsafe void CreateNamedPipe_ReadWrite()
     {
