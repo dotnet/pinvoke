@@ -14,7 +14,7 @@ using static PInvoke.Kernel32;
 
 public partial class Kernel32
 {
-    private Random random = new Random();
+    private readonly Random random = new Random();
 
     [Fact]
     public void CreateProcess_CmdListDirectories()
@@ -696,5 +696,70 @@ public partial class Kernel32
     {
         // No assert possible as the answer depends on the test runner, we only want to know that the method can be called successfully.
         GetConsoleWindow();
+    }
+
+    [Fact]
+    public unsafe void CreateNamedPipe_ReadWrite()
+    {
+        var pipeName = @"\\.\pipe\pinvoke_tests_" + Guid.NewGuid();
+
+        var server = CreateNamedPipe(
+            pipeName,
+            PipeAccessMode.PIPE_ACCESS_DUPLEX | PipeAccessMode.FILE_FLAG_FIRST_PIPE_INSTANCE | PipeAccessMode.FILE_FLAG_OVERLAPPED,
+            PipeMode.PIPE_TYPE_MESSAGE | PipeMode.PIPE_READMODE_MESSAGE | PipeMode.PIPE_REJECT_REMOTE_CLIENTS,
+            PIPE_UNLIMITED_INSTANCES,
+            255,
+            255,
+            0,
+            null);
+
+        Assert.False(server.IsInvalid);
+        using (server)
+        {
+            var connectEvent = new ManualResetEvent(false);
+            var connectOverlapped = default(OVERLAPPED);
+            connectOverlapped.hEvent = connectEvent.SafeWaitHandle.DangerousGetHandle();
+
+            Assert.False(ConnectNamedPipe(server, &connectOverlapped));
+            Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, GetLastError());
+            try
+            {
+                Assert.True(WaitNamedPipe(pipeName, NMPWAIT_NOWAIT));
+
+                var client = CreateFile(
+                    pipeName,
+                    PInvoke.Kernel32.FileAccess.GenericRead | PInvoke.Kernel32.FileAccess.FILE_GENERIC_WRITE,
+                    PInvoke.Kernel32.FileShare.None,
+                    null,
+                    CreationDisposition.OpenExisting,
+                    0,
+                    SafeObjectHandle.Null);
+
+                Assert.False(client.IsInvalid);
+                using (client)
+                {
+                    Assert.True(connectEvent.WaitOne(TimeSpan.FromMilliseconds(100)));
+                    Assert.True(SetNamedPipeHandleState(client, PipeMode.PIPE_READMODE_MESSAGE, null, null));
+
+                    var writeBuffer = this.GetRandomSegment(42);
+                    WriteFile(client, writeBuffer);
+                    Assert.Equal(writeBuffer, ReadFile(server, (uint)writeBuffer.Count));
+
+                    Assert.True(FlushFileBuffers(client));
+                    Assert.True(FlushFileBuffers(server));
+                }
+            }
+            finally
+            {
+                Assert.True(DisconnectNamedPipe(server));
+            }
+        }
+    }
+
+    private ArraySegment<byte> GetRandomSegment(int size)
+    {
+        var result = new ArraySegment<byte>(new byte[size]);
+        this.random.NextBytes(result.Array);
+        return result;
     }
 }
