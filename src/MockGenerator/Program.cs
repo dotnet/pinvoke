@@ -124,11 +124,11 @@ namespace MockGenerator
                             invokeMethodIdentifier, 
                             classDeclaration);
 
-                        interfaceNamespaceDeclaration.Members.Add(
-                            DecorateInterfaceWithWrapperFunction(
-                                methodDeclaration, 
-                                invokeMethodIdentifier, 
-                                interfaceDeclaration));
+                        interfaceDeclaration = DecorateInterfaceWithWrapperFunction(
+                            methodDeclaration,
+                            invokeMethodIdentifier,
+                            interfaceDeclaration);
+                        interfaceNamespaceDeclaration.Members.Add(interfaceDeclaration);
                     }
 
                     if (interfaceDeclaration.Members.Count > 0)
