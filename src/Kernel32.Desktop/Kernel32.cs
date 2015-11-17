@@ -685,6 +685,54 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool IsWow64Process(SafeObjectHandle hProcess, out bool Wow64Process);
 
+        /// <summary>
+        /// Creates an anonymous pipe, and returns handles to the read and write ends of the pipe.
+        /// </summary>
+        /// <param name="hReadPipe">
+        /// A pointer to a variable that receives the read handle for the pipe.
+        /// </param>
+        /// <param name="hWritePipe">
+        /// A pointer to a variable that receives the write handle for the pipe.
+        /// </param>
+        /// <param name="lpPipeAttributes">
+        /// A pointer to a SECURITY_ATTRIBUTES structure that determines whether the returned handle can be inherited by child processes. If <paramref name="lpPipeAttributes"/> is NULL, the handle cannot be inherited.
+        /// The <see cref="SECURITY_ATTRIBUTES.lpSecurityDescriptor"/> member of the structure specifies a security descriptor for the new pipe. If <paramref name="lpPipeAttributes"/> is NULL, the pipe gets a default security descriptor. The ACLs in the default security descriptor for a pipe come from the primary or impersonation token of the creator.
+        /// </param>
+        /// <param name="nSize">
+        /// The size of the buffer for the pipe, in bytes. The size is only a suggestion; the system uses the value to calculate an appropriate buffering mechanism. If this parameter is zero, the system uses the default buffer size.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CreatePipe(
+            out SafeObjectHandle hReadPipe,
+            out SafeObjectHandle hWritePipe,
+            SECURITY_ATTRIBUTES lpPipeAttributes,
+            uint nSize);
+
+        /// <summary>Removes as many pages as possible from the working set of the specified process.</summary>
+        /// <param name="hProcess">
+        ///     A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or
+        ///     PROCESS_QUERY_LIMITED_INFORMATION access right and the PROCESS_SET_QUOTA access right.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        /// <remarks>
+        ///     This function is exported by kernel32.dll only since Windows 7, on previous version of windows it's
+        ///     exported by Psapi.dll as "EmptyWorkingSet".
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool K32EmptyWorkingSet(SafeObjectHandle hProcess);
+
         /// <summary>Retrieves the window handle used by the console associated with the calling process.</summary>
         /// <returns>
         ///     The return value is a handle to the window used by the console associated with the calling process or

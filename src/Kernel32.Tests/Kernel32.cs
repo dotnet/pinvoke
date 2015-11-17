@@ -660,6 +660,29 @@ public partial class Kernel32
     }
 
     [Fact]
+    public void CreatePipe_ReadWrite()
+    {
+        SafeObjectHandle readPipe, writePipe;
+        Assert.True(CreatePipe(out readPipe, out writePipe, null, 0));
+        using (readPipe)
+        using (writePipe)
+        {
+            var data = new byte[] { 1, 2, 3 };
+            Assert.Equal((uint)data.Length, WriteFile(writePipe, new ArraySegment<byte>(data)));
+            Assert.Equal(data, ReadFile(readPipe, (uint)data.Length));
+        }
+    }
+
+    [IgnoreOnOsVersionUnderFact("6.1")]
+    public void K32EmptyWorkingSet_Run()
+    {
+        using (var pid = GetCurrentProcess())
+        {
+            Assert.True(K32EmptyWorkingSet(pid));
+        }
+    }
+
+    [Fact]
     public void LoadLibrary_And_FreeLibrary()
     {
         using (var library = LoadLibrary("kernel32.dll"))
