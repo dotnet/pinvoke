@@ -204,7 +204,8 @@ namespace MockGenerator
 
             var arrowBody = SyntaxFactory.ArrowExpressionClause(
                 SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken)
-                    .WithLeadingTrivia(NewLineCharacter, TabCharacter),
+                    .WithLeadingTrivia(NewLineCharacter, TabCharacter)
+                    .WithTrailingTrivia(WhitespaceCharacter),
                 SyntaxFactory.InvocationExpression(
                     SyntaxFactory.IdentifierName(methodDeclaration.Identifier),
                     SyntaxFactory.ArgumentList(
@@ -222,7 +223,8 @@ namespace MockGenerator
                 methodDeclaration.ParameterList,
                 methodDeclaration.ConstraintClauses,
                 default(BlockSyntax),
-                arrowBody);
+                arrowBody,
+                SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
             classDeclaration = classDeclaration
                 .AddMembers(
