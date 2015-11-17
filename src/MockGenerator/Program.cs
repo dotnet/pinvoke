@@ -15,6 +15,7 @@ namespace MockGenerator
     class Program
     {
         static readonly SyntaxTrivia WhitespaceCharacter = SyntaxFactory.Whitespace(" ");
+        static readonly SyntaxTrivia TabCharacter = SyntaxFactory.Whitespace("\t");
         static readonly SyntaxTrivia NewLineCharacter = SyntaxFactory.Whitespace("\n");
 
         static void Main(string[] args)
@@ -97,11 +98,7 @@ namespace MockGenerator
                     {
                         var methodDeclaration = methodDeclarations[i];
 
-                        var externMethodKeyword = methodDeclaration.Modifiers
-                            .SingleOrDefault(x => x.IsKind(SyntaxKind.ExternKeyword));
-                        var staticMethodKeyword = methodDeclaration.Modifiers
-                            .SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
-                        if (externMethodKeyword == default(SyntaxToken) || staticMethodKeyword == default(SyntaxToken))
+                        if (IsPublicStaticExternMethod(methodDeclaration))
                         {
                             continue;
                         }
@@ -144,6 +141,17 @@ namespace MockGenerator
                     }
                 }
             }
+        }
+
+        private static bool IsPublicStaticExternMethod(MethodDeclarationSyntax methodDeclaration)
+        {
+            var externMethodKeyword = methodDeclaration.Modifiers
+                .SingleOrDefault(x => x.IsKind(SyntaxKind.ExternKeyword));
+            var staticMethodKeyword = methodDeclaration.Modifiers
+                .SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
+            var publicMethodKeyword = methodDeclaration.Modifiers
+                .SingleOrDefault(x => x.IsKind(SyntaxKind.PublicKeyword));
+            return externMethodKeyword == default(SyntaxToken) || staticMethodKeyword == default(SyntaxToken) || publicMethodKeyword == default(SyntaxToken);
         }
 
         private static void WriteInterfaceToFile(string file, NamespaceDeclarationSyntax interfaceNamespaceDeclaration)
@@ -195,7 +203,8 @@ namespace MockGenerator
                     SyntaxFactory.IdentifierName(x.Identifier)));
 
             var arrowBody = SyntaxFactory.ArrowExpressionClause(
-                SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken),
+                SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken)
+                    .WithTrailingTrivia(NewLineCharacter, TabCharacter),
                 SyntaxFactory.InvocationExpression(
                     SyntaxFactory.IdentifierName(methodDeclaration.Identifier),
                     SyntaxFactory.ArgumentList(
@@ -203,7 +212,9 @@ namespace MockGenerator
 
             var wrapperMethodDeclaration = SyntaxFactory.MethodDeclaration(
                 SyntaxFactory.List<AttributeListSyntax>(),
-                SyntaxFactory.TokenList(),
+                SyntaxFactory.TokenList(
+                    SyntaxFactory.Token(SyntaxKind.PublicKeyword)
+                        .WithTrailingTrivia(WhitespaceCharacter)),
                 methodDeclaration.ReturnType,
                 default(ExplicitInterfaceSpecifierSyntax),
                 invokeMethodIdentifier.Identifier,
