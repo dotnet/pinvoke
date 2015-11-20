@@ -438,7 +438,7 @@ namespace PInvoke
         /// A pointer to a buffer that receives the imported key object.
         /// The <paramref name="cbKeyObject"/> parameter contains the size of this buffer.
         /// The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/>
-        /// function to get the BCRYPT_OBJECT_LENGTH property. This will provide the size of the
+        /// function to get the <see cref="PropertyNames.ObjectLength"/> property. This will provide the size of the
         /// key object for the specified algorithm.
         /// This memory can only be freed after the phKey key handle is destroyed.
         /// </param>

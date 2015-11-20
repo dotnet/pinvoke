@@ -169,6 +169,26 @@ public class BCrypt
         }
     }
 
+    [Fact]
+    public void ImportKey()
+    {
+        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        {
+            byte[] keyMaterial = new byte[GetMinimumKeySize(algorithm) / 8];
+            var keyWithHeader = BCRYPT_KEY_DATA_BLOB_HEADER.InsertBeforeKey(keyMaterial);
+            using (SafeKeyHandle key = BCryptImportKey(algorithm, SymmetricKeyBlobTypes.BCRYPT_KEY_DATA_BLOB, keyWithHeader))
+            {
+                Assert.NotNull(key);
+                Assert.False(key.IsInvalid);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the minimum length of a key (in bits).
+    /// </summary>
+    /// <param name="algorithm">The algorithm.</param>
+    /// <returns>The length of the smallest key, in bits.</returns>
     private static int GetMinimumKeySize(SafeAlgorithmHandle algorithm)
     {
         var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(algorithm, PropertyNames.KeyLengths);

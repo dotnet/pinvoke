@@ -3,6 +3,9 @@
 
 namespace PInvoke
 {
+    using System;
+    using System.Runtime.InteropServices;
+
     /// <content>
     /// Contains the <see cref="BCRYPT_KEY_DATA_BLOB_HEADER"/> nested type.
     /// </content>
@@ -11,6 +14,7 @@ namespace PInvoke
         /// <summary>
         /// Used to contain information about a key data BLOB. The key data BLOB must immediately follow this structure in memory.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_KEY_DATA_BLOB_HEADER
         {
             /// <summary>
@@ -43,6 +47,33 @@ namespace PInvoke
                     dwVersion = BCRYPT_KEY_DATA_BLOB_VERSION1,
                     cbKeyData = cbKeyData,
                 };
+            }
+
+            /// <summary>
+            /// Initializes a key header and returns a buffer with that and the specified key material.
+            /// </summary>
+            /// <param name="keyMaterial">The symmetric secret.</param>
+            /// <returns>A buffer with the symmetric secret, and a header.</returns>
+            public static byte[] InsertBeforeKey(byte[] keyMaterial)
+            {
+                if (keyMaterial == null)
+                {
+                    throw new ArgumentNullException(nameof(keyMaterial));
+                }
+
+                var header = Create(keyMaterial.Length);
+                return header.AddHeaderToKey(keyMaterial);
+            }
+
+            private byte[] AddHeaderToKey(byte[] keyMaterial)
+            {
+                int headerLength = Marshal.SizeOf(typeof(BCRYPT_KEY_DATA_BLOB_HEADER));
+                byte[] keyWithHeader = new byte[headerLength + keyMaterial.Length];
+                Array.Copy(BitConverter.GetBytes(this.dwMagic), keyWithHeader, sizeof(uint));
+                Array.Copy(BitConverter.GetBytes(this.dwVersion), 0, keyWithHeader, sizeof(uint), sizeof(uint));
+                Array.Copy(BitConverter.GetBytes(this.cbKeyData), 0, keyWithHeader, sizeof(uint) * 2, sizeof(int));
+                Array.Copy(keyMaterial, 0, keyWithHeader, headerLength, keyMaterial.Length);
+                return keyWithHeader;
             }
         }
     }

@@ -16,7 +16,7 @@ namespace PInvoke
             public const string BCRYPT_AES_WRAP_KEY_BLOB = "Rfc3565KeyWrapBlob";
 
             /// <summary>
-            /// Import a symmetric key from a data BLOB. The pbInput parameter is a pointer to a BCRYPT_KEY_DATA_BLOB_HEADER structure immediately followed by the key BLOB.
+            /// Import a symmetric key from a data BLOB. The pbInput parameter is a pointer to a <see cref="BCRYPT_KEY_DATA_BLOB_HEADER"/> structure immediately followed by the key BLOB.
             /// </summary>
             public const string BCRYPT_KEY_DATA_BLOB = "KeyDataBlob";
 
