@@ -93,6 +93,21 @@ namespace PInvoke
             return result;
         }
 
+        /// <summary>
+        /// Exports a key to a memory BLOB that can be persisted for later use.
+        /// </summary>
+        /// <param name="key">The handle of the key to export.</param>
+        /// <param name="exportKey">
+        /// The handle of the key with which to wrap the exported key. Use this parameter when exporting BLOBs of type BCRYPT_AES_WRAP_KEY_BLOB; otherwise, set it to NULL.
+        /// Note: The <paramref name="exportKey"/> handle must be supplied by the same provider that supplied the hKey handle, and hExportKey must be a handle to a symmetric key that can be used in the Advanced Encryption Standard(AES) key wrap algorithm.When the hKey handle is from the Microsoft provider, hExportKey must be an AES key handle.
+        /// </param>
+        /// <param name="blobType">
+        /// An identifier that specifies the type of BLOB to export. This can be one of the values
+        /// defined in the <see cref="AsymmetricKeyBlobTypes"/> or <see cref="SymmetricKeyBlobTypes"/> classes.
+        /// </param>
+        /// <returns>
+        /// A buffer with the key BLOB.
+        /// </returns>
         public static byte[] BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
         {
             int lengthRequired;

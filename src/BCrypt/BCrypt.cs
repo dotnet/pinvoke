@@ -14,6 +14,11 @@ namespace PInvoke
     public static partial class BCrypt
     {
         /// <summary>
+        /// Version 1.
+        /// </summary>
+        public const uint BCRYPT_KEY_DATA_BLOB_VERSION1 = 1;
+
+        /// <summary>
         /// Loads and initializes a CNG provider.
         /// </summary>
         /// <param name="phAlgorithm">
