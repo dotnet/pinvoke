@@ -108,7 +108,7 @@ namespace PInvoke
         /// <returns>
         /// A buffer with the key BLOB.
         /// </returns>
-        public static byte[] BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
+        public static ArraySegment<byte> BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
         {
             int length;
             exportKey = exportKey ?? SafeKeyHandle.NullHandle;
@@ -130,9 +130,7 @@ namespace PInvoke
                 out length,
                 0).ThrowOnError();
 
-            Array.Resize(ref keyBuffer, length);
-
-            return keyBuffer;
+            return new ArraySegment<byte>(keyBuffer, 0, length);
         }
 
         /// <summary>
@@ -281,14 +279,14 @@ namespace PInvoke
         /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
         /// </param>
         /// <returns>The encrypted ciphertext.</returns>
-        public static byte[] BCryptEncrypt(
+        public static ArraySegment<byte> BCryptEncrypt(
             SafeKeyHandle hKey,
             byte[] pbInput,
             IntPtr pPaddingInfo,
             byte[] pbIV,
             BCryptEncryptFlags dwFlags)
         {
-            int cipherTextLength;
+            int length;
             BCryptEncrypt(
                 hKey,
                 pbInput,
@@ -298,10 +296,10 @@ namespace PInvoke
                 pbIV?.Length ?? 0,
                 null,
                 0,
-                out cipherTextLength,
+                out length,
                 dwFlags).ThrowOnError();
 
-            byte[] cipherText = new byte[cipherTextLength];
+            byte[] cipherText = new byte[length];
             BCryptEncrypt(
                 hKey,
                 pbInput,
@@ -311,12 +309,10 @@ namespace PInvoke
                 pbIV?.Length ?? 0,
                 cipherText,
                 cipherText.Length,
-                out cipherTextLength,
+                out length,
                 dwFlags).ThrowOnError();
 
-            Array.Resize(ref cipherText, cipherTextLength);
-
-            return cipherText;
+            return new ArraySegment<byte>(cipherText, 0, length);
         }
 
         /// <summary>
@@ -340,7 +336,7 @@ namespace PInvoke
         /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        public static byte[] BCryptDecrypt(
+        public static ArraySegment<byte> BCryptDecrypt(
             SafeKeyHandle hKey,
             byte[] pbInput,
             IntPtr pPaddingInfo,
@@ -374,9 +370,7 @@ namespace PInvoke
                 dwFlags).ThrowOnError();
 
             // Padding may result in a shorter output than previously estimated.
-            Array.Resize(ref plainText, length);
-
-            return plainText;
+            return new ArraySegment<byte>(plainText, 0, length);
         }
 
         /// <summary>
@@ -416,7 +410,7 @@ namespace PInvoke
         /// <remarks>
         /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
         /// </remarks>
-        public static byte[] BCryptSignHash(
+        public static ArraySegment<byte> BCryptSignHash(
             SafeKeyHandle key,
             byte[] hash,
             IntPtr paddingInfo = default(IntPtr),
@@ -445,9 +439,7 @@ namespace PInvoke
                 flags).ThrowOnError();
 
             // Ensure the output is sized per actual result.
-            Array.Resize(ref pbOutput, outputLength);
-
-            return pbOutput;
+            return new ArraySegment<byte>(pbOutput, 0, outputLength);
         }
 
         /// <summary>
@@ -502,14 +494,13 @@ namespace PInvoke
         /// <param name="propertyName">A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.</param>
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>The property value.</returns>
-        public static byte[] BCryptGetProperty(SafeHandle hObject, string propertyName, BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None)
+        public static ArraySegment<byte> BCryptGetProperty(SafeHandle hObject, string propertyName, BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None)
         {
-            int requiredSize;
-            BCryptGetProperty(hObject, propertyName, null, 0, out requiredSize, flags).ThrowOnError();
-            byte[] result = new byte[requiredSize];
-            BCryptGetProperty(hObject, propertyName, result, result.Length, out requiredSize, flags).ThrowOnError();
-            Array.Resize(ref result, requiredSize);
-            return result;
+            int length;
+            BCryptGetProperty(hObject, propertyName, null, 0, out length, flags).ThrowOnError();
+            byte[] result = new byte[length];
+            BCryptGetProperty(hObject, propertyName, result, result.Length, out length, flags).ThrowOnError();
+            return new ArraySegment<byte>(result, 0, length);
         }
 
         /// <summary>
@@ -523,12 +514,13 @@ namespace PInvoke
         public static T BCryptGetProperty<T>(SafeHandle hObject, string propertyName, BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None)
             where T : struct
         {
-            byte[] value = BCryptGetProperty(hObject, propertyName, flags);
+            ArraySegment<byte> value = BCryptGetProperty(hObject, propertyName, flags);
             unsafe
             {
-                fixed (byte* pValue = value)
+                fixed (byte* pValue = value.Array)
                 {
-                    return (T)Marshal.PtrToStructure(new IntPtr(pValue), typeof(T));
+                    IntPtr pValuePtr = new IntPtr(pValue + value.Offset);
+                    return (T)Marshal.PtrToStructure(pValuePtr, typeof(T));
                 }
             }
         }

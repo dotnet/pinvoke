@@ -71,13 +71,13 @@ public class BCrypt
 
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                cipherText = BCryptEncrypt(key, plainText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING);
+                cipherText = BCryptEncrypt(key, plainText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
                 Assert.NotEqual<byte>(plainText, cipherText);
             }
 
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                byte[] decryptedText = BCryptDecrypt(key, cipherText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING);
+                byte[] decryptedText = BCryptDecrypt(key, cipherText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
                 Assert.Equal<byte>(plainText, decryptedText);
             }
         }
@@ -153,7 +153,7 @@ public class BCrypt
             {
                 BCryptFinalizeKeyPair(keyPair).ThrowOnError();
                 byte[] hashData = SHA1.Create().ComputeHash(new byte[] { 0x1 });
-                byte[] signature = BCryptSignHash(keyPair, hashData);
+                byte[] signature = BCryptSignHash(keyPair, hashData).ToArray();
                 NTStatus status = BCryptVerifySignature(keyPair, IntPtr.Zero, hashData, hashData.Length, signature, signature.Length);
                 Assert.Equal(NTStatus.STATUS_SUCCESS, status);
                 signature[0] = unchecked((byte)(signature[0] + 1));
