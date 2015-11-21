@@ -18,6 +18,15 @@ namespace MockGenerator
         static readonly SyntaxTrivia TabCharacter = SyntaxFactory.Whitespace("\t");
         static readonly SyntaxTrivia NewLineCharacter = SyntaxFactory.Whitespace("\n");
 
+        private static readonly IDictionary<string, ClassDeclarationSyntax> ClassCache;
+        private static readonly IDictionary<string, InterfaceDeclarationSyntax> InterfaceCache;
+
+        static Program()
+        {
+            ClassCache = new Dictionary<string, ClassDeclarationSyntax>();
+            InterfaceCache = new Dictionary<string, InterfaceDeclarationSyntax>();
+        }
+
         static void Main(string[] args)
         {
             var currentDirectory = Environment.CurrentDirectory;
@@ -44,69 +53,69 @@ namespace MockGenerator
                 var classDeclarations = namespaceDeclaration.Members
                     .OfType<ClassDeclarationSyntax>()
                     .ToArray();
-                for (var index = 0; index < classDeclarations.Length; index++)
+                foreach (var classDeclaration in classDeclarations)
                 {
-                    var classDeclaration = classDeclarations[index];
+                    if (classDeclaration.Identifier.Text.EndsWith("Mockable")) continue;
 
                     var newInterfaceModifier = SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
-                    var newClassModifier = SyntaxFactory.IdentifierName($"{classDeclaration.Identifier.Text}Mockable");
+                    var newClassModifier = SyntaxFactory.IdentifierName($"{classDeclaration.Identifier.Text}");
 
-                    var baseList = classDeclaration.BaseList ?? SyntaxFactory.BaseList();
-                    baseList = baseList.AddTypes(
-                        SyntaxFactory.SimpleBaseType(
-                            newInterfaceModifier
-                                .WithLeadingTrivia(WhitespaceCharacter)
-                                .WithTrailingTrivia(WhitespaceCharacter)));
-                    
-                    var newNamespaceDeclaration = SyntaxFactory.NamespaceDeclaration(
-                        namespaceDeclaration.NamespaceKeyword,
-                        namespaceDeclaration.Name,
-                        namespaceDeclaration.OpenBraceToken,
-                        namespaceDeclaration.Externs,
-                        namespaceDeclaration.Usings,
-                        SyntaxFactory.List<MemberDeclarationSyntax>(),
-                        namespaceDeclaration.CloseBraceToken,
-                        namespaceDeclaration.SemicolonToken);
+                    if (!ClassCache.ContainsKey(newClassModifier.Identifier.Text))
+                    {
+                        var baseList = classDeclaration.BaseList ?? SyntaxFactory.BaseList();
+                        ClassCache.Add(newClassModifier.Identifier.Text, 
+                            SyntaxFactory.ClassDeclaration(
+                                SyntaxFactory.List<AttributeListSyntax>(),
+                                SyntaxFactory.TokenList(
+                                    SyntaxFactory
+                                        .Token(SyntaxKind.PublicKeyword)
+                                        .WithTrailingTrivia(WhitespaceCharacter),
+                                    SyntaxFactory
+                                        .Token(SyntaxKind.PartialKeyword)
+                                        .WithTrailingTrivia(WhitespaceCharacter)),
+                                newClassModifier.Identifier
+                                    .WithTrailingTrivia(WhitespaceCharacter)
+                                    .WithLeadingTrivia(WhitespaceCharacter),
+                                null,
+                                baseList.AddTypes(
+                                    SyntaxFactory.SimpleBaseType(
+                                        newInterfaceModifier
+                                            .WithLeadingTrivia(WhitespaceCharacter)
+                                            .WithTrailingTrivia(WhitespaceCharacter))),
+                                SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
+                                SyntaxFactory.List<MemberDeclarationSyntax>())
+                                .WithLeadingTrivia(TabCharacter)
+                                .WithTrailingTrivia(NewLineCharacter));
+                    }
+                    if (!InterfaceCache.ContainsKey(newInterfaceModifier.Identifier.Text))
+                    {
+                        InterfaceCache.Add(newInterfaceModifier.Identifier.Text, 
+                            SyntaxFactory.InterfaceDeclaration(
+                                SyntaxFactory.List<AttributeListSyntax>(),
+                                SyntaxFactory.TokenList(
+                                    SyntaxFactory
+                                        .Token(SyntaxKind.PublicKeyword)
+                                        .WithTrailingTrivia(WhitespaceCharacter)),
+                                newInterfaceModifier
+                                    .Identifier
+                                    .WithTrailingTrivia(WhitespaceCharacter)
+                                    .WithLeadingTrivia(WhitespaceCharacter),
+                                null,
+                                null,
+                                SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
+                                SyntaxFactory.List<MemberDeclarationSyntax>())
+                                .WithLeadingTrivia(TabCharacter)
+                                .WithTrailingTrivia(NewLineCharacter));
+                    }
 
-                    var newClassNamespaceDeclaration = newNamespaceDeclaration;
-                    var newInterfaceNamespaceDeclaration = newNamespaceDeclaration;
-
-                    var newClassDeclaration = SyntaxFactory.ClassDeclaration(
-                        SyntaxFactory.List<AttributeListSyntax>(),
-                        SyntaxFactory.TokenList(
-                            SyntaxFactory
-                                .Token(SyntaxKind.PublicKeyword)
-                                .WithTrailingTrivia(WhitespaceCharacter)),
-                        newClassModifier
-                            .Identifier
-                            .WithTrailingTrivia(WhitespaceCharacter)
-                            .WithLeadingTrivia(WhitespaceCharacter),
-                        null,
-                        null,
-                        SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
-                        SyntaxFactory.List<MemberDeclarationSyntax>());
-                    var newInterfaceDeclaration = SyntaxFactory.InterfaceDeclaration(
-                        SyntaxFactory.List<AttributeListSyntax>(),
-                        SyntaxFactory.TokenList(
-                            SyntaxFactory
-                                .Token(SyntaxKind.PublicKeyword)
-                                .WithTrailingTrivia(WhitespaceCharacter)),
-                        newInterfaceModifier
-                            .Identifier
-                            .WithTrailingTrivia(WhitespaceCharacter)
-                            .WithLeadingTrivia(WhitespaceCharacter),
-                        null,
-                        null,
-                        SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
-                        SyntaxFactory.List<MemberDeclarationSyntax>());
+                    var newClassDeclaration = ClassCache[newClassModifier.Identifier.Text];
+                    var newInterfaceDeclaration = InterfaceCache[newInterfaceModifier.Identifier.Text];
 
                     var methodDeclarations = classDeclaration.Members
                         .OfType<MethodDeclarationSyntax>()
                         .ToArray();
-                    for (int i = 0; i < methodDeclarations.Length; i++)
+                    foreach (var methodDeclaration in methodDeclarations)
                     {
-                        var methodDeclaration = methodDeclarations[i];
-
                         if (IsPublicStaticExternMethod(methodDeclaration))
                         {
                             continue;
@@ -116,28 +125,53 @@ namespace MockGenerator
                             SyntaxFactory.IdentifierName($"Invoke{methodDeclaration.Identifier.Text}");
 
                         newClassDeclaration = DecorateClassWithWrapperFunction(
-                            methodDeclaration, 
+                            methodDeclaration,
                             invokeMethodIdentifier,
                             newClassDeclaration);
-                        newClassNamespaceDeclaration.Members.Add(classDeclaration);
+                        ClassCache[newClassModifier.Identifier.Text] = newClassDeclaration;
 
                         newInterfaceDeclaration = DecorateInterfaceWithWrapperFunction(
                             methodDeclaration,
                             invokeMethodIdentifier,
                             newInterfaceDeclaration);
-                        newInterfaceNamespaceDeclaration.Members.Add(newInterfaceDeclaration);
-                    }
+                        InterfaceCache[newInterfaceModifier.Identifier.Text] = newInterfaceDeclaration;
 
-                    if (newInterfaceDeclaration.Members.Count > 0)
-                    {
-                        WriteInterfaceToFile(file, newInterfaceNamespaceDeclaration);
-                    }
-                    if (classDeclaration.Members.Count > 0)
-                    {
-                        WriteClassToFile(file, newClassNamespaceDeclaration);
+                        string fileDirectory;
+                        var baseFileName = GetBaseFileName(file, out fileDirectory);
+
+                        File.WriteAllText(
+                            Path.Combine(
+                                fileDirectory,
+                                $"I{baseFileName}Mockable.cs"),
+                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
+                                .AddMembers(newInterfaceDeclaration)
+                                .ToFullString());
+
+                        File.WriteAllText(
+                            Path.Combine(
+                                fileDirectory,
+                                $"{baseFileName}Mockable.cs"),
+                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
+                                .AddMembers(newClassDeclaration)
+                                .ToFullString());
                     }
                 }
             }
+        }
+
+        private static NamespaceDeclarationSyntax CreateNewEmptyNamespaceDeclaration(
+            NamespaceDeclarationSyntax namespaceDeclaration)
+        {
+            var newNamespaceDeclaration = SyntaxFactory.NamespaceDeclaration(
+                namespaceDeclaration.NamespaceKeyword,
+                namespaceDeclaration.Name,
+                namespaceDeclaration.OpenBraceToken,
+                namespaceDeclaration.Externs,
+                namespaceDeclaration.Usings,
+                SyntaxFactory.List<MemberDeclarationSyntax>(),
+                namespaceDeclaration.CloseBraceToken,
+                namespaceDeclaration.SemicolonToken);
+            return newNamespaceDeclaration;
         }
 
         private static bool IsPublicStaticExternMethod(MethodDeclarationSyntax methodDeclaration)
@@ -149,30 +183,6 @@ namespace MockGenerator
             var publicMethodKeyword = methodDeclaration.Modifiers
                 .SingleOrDefault(x => x.IsKind(SyntaxKind.PublicKeyword));
             return externMethodKeyword == default(SyntaxToken) || staticMethodKeyword == default(SyntaxToken) || publicMethodKeyword == default(SyntaxToken);
-        }
-
-        private static void WriteInterfaceToFile(string file, NamespaceDeclarationSyntax interfaceNamespaceDeclaration)
-        {
-            string fileDirectory;
-            var baseFileName = GetBaseFileName(file, out fileDirectory);
-
-            File.WriteAllText(
-                Path.Combine(
-                    fileDirectory,
-                    $"I{baseFileName}Mockable.cs"),
-                interfaceNamespaceDeclaration.ToFullString());
-        }
-
-        private static void WriteClassToFile(string file, NamespaceDeclarationSyntax classNamespaceDeclaration)
-        {
-            string fileDirectory;
-            var baseFileName = GetBaseFileName(file, out fileDirectory);
-
-            File.WriteAllText(
-                Path.Combine(
-                    fileDirectory,
-                    $"{baseFileName}Mockable.cs"),
-                classNamespaceDeclaration.ToFullString());
         }
 
         private static string GetBaseFileName(string file, out string fileDirectory)
@@ -189,6 +199,8 @@ namespace MockGenerator
             IdentifierNameSyntax invokeMethodIdentifier,
             InterfaceDeclarationSyntax interfaceDeclaration)
         {
+            var dllImport = methodDeclaration.AttributeLists
+                .First(x => x.OpenBracketToken.HasLeadingTrivia);
             var interfaceMethodDeclaration = SyntaxFactory.MethodDeclaration(
                 SyntaxFactory.List<AttributeListSyntax>(),
                 SyntaxFactory.TokenList(),
@@ -204,8 +216,10 @@ namespace MockGenerator
             interfaceDeclaration = interfaceDeclaration
                 .AddMembers(
                     interfaceMethodDeclaration
-                        .WithTrailingTrivia(NewLineCharacter)
-                        .WithLeadingTrivia(NewLineCharacter));
+                        .WithTrailingTrivia(
+                            NewLineCharacter,
+                            TabCharacter)
+                        .WithLeadingTrivia(dllImport.OpenBracketToken.LeadingTrivia));
             return interfaceDeclaration;
         }
 
@@ -213,14 +227,29 @@ namespace MockGenerator
             IdentifierNameSyntax invokeMethodIdentifier,
             ClassDeclarationSyntax classDeclaration)
         {
+            var dllImport = methodDeclaration.AttributeLists
+                .First(x => x.OpenBracketToken.HasLeadingTrivia);
             var arguments = methodDeclaration.ParameterList
                 .Parameters
-                .Select(x => SyntaxFactory.Argument(
-                    SyntaxFactory.IdentifierName(x.Identifier)));
+                .Select((x, i) =>
+                {
+                    var identifierName = SyntaxFactory.Argument(
+                        SyntaxFactory.IdentifierName(x.Identifier));
+                    if (i > 0)
+                    {
+                        identifierName = identifierName.WithLeadingTrivia(WhitespaceCharacter);
+                    }
+
+                    return identifierName;
+                });
 
             var arrowBody = SyntaxFactory.ArrowExpressionClause(
                 SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken)
-                    .WithLeadingTrivia(NewLineCharacter, TabCharacter)
+                    .WithLeadingTrivia(
+                        NewLineCharacter, 
+                        TabCharacter, 
+                        TabCharacter, 
+                        TabCharacter)
                     .WithTrailingTrivia(WhitespaceCharacter),
                 SyntaxFactory.InvocationExpression(
                     SyntaxFactory.IdentifierName(methodDeclaration.Identifier),
@@ -245,8 +274,10 @@ namespace MockGenerator
             classDeclaration = classDeclaration
                 .AddMembers(
                     wrapperMethodDeclaration
-                        .WithTrailingTrivia(NewLineCharacter)
-                        .WithLeadingTrivia(NewLineCharacter));
+                        .WithTrailingTrivia(
+                            NewLineCharacter, 
+                            TabCharacter)
+                        .WithLeadingTrivia(dllImport.OpenBracketToken.LeadingTrivia));
             return classDeclaration;
         }
     }
