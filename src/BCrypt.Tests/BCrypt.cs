@@ -68,22 +68,16 @@ public class BCrypt
             byte[] plainText = new byte[] { 0x3, 0x5, 0x8 };
             byte[] keyMaterial = new byte[128 / 8];
             byte[] cipherText;
-            int cipherTextLength;
 
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ThrowOnError();
-                cipherText = new byte[cipherTextLength];
-                BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ThrowOnError();
+                cipherText = BCryptEncrypt(key, plainText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING);
                 Assert.NotEqual<byte>(plainText, cipherText);
             }
 
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                byte[] decryptedText = new byte[plainText.Length];
-                int cbDecrypted;
-                BCryptDecrypt(key, cipherText, cipherTextLength, IntPtr.Zero, null, 0, decryptedText, decryptedText.Length, out cbDecrypted, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ThrowOnError();
-
+                byte[] decryptedText = BCryptDecrypt(key, cipherText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING);
                 Assert.Equal<byte>(plainText, decryptedText);
             }
         }

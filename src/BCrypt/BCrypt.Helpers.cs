@@ -110,7 +110,7 @@ namespace PInvoke
         /// </returns>
         public static byte[] BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
         {
-            int lengthRequired;
+            int length;
             exportKey = exportKey ?? SafeKeyHandle.NullHandle;
             BCryptExportKey(
                 key,
@@ -118,17 +118,19 @@ namespace PInvoke
                 blobType,
                 null,
                 0,
-                out lengthRequired,
+                out length,
                 0).ThrowOnError();
-            byte[] keyBuffer = new byte[lengthRequired];
+            byte[] keyBuffer = new byte[length];
             BCryptExportKey(
                 key,
                 exportKey,
                 AsymmetricKeyBlobTypes.EccPublic,
                 keyBuffer,
                 keyBuffer.Length,
-                out lengthRequired,
+                out length,
                 0).ThrowOnError();
+
+            Array.Resize(ref keyBuffer, length);
 
             return keyBuffer;
         }
@@ -312,6 +314,8 @@ namespace PInvoke
                 out cipherTextLength,
                 dwFlags).ThrowOnError();
 
+            Array.Resize(ref cipherText, cipherTextLength);
+
             return cipherText;
         }
 
@@ -368,6 +372,9 @@ namespace PInvoke
                 plainText.Length,
                 out length,
                 dwFlags).ThrowOnError();
+
+            // Padding may result in a shorter output than previously estimated.
+            Array.Resize(ref plainText, length);
 
             return plainText;
         }
@@ -437,7 +444,7 @@ namespace PInvoke
                 out outputLength,
                 flags).ThrowOnError();
 
-            // The size should be as expected, but just in case:
+            // Ensure the output is sized per actual result.
             Array.Resize(ref pbOutput, outputLength);
 
             return pbOutput;
@@ -501,6 +508,7 @@ namespace PInvoke
             BCryptGetProperty(hObject, propertyName, null, 0, out requiredSize, flags).ThrowOnError();
             byte[] result = new byte[requiredSize];
             BCryptGetProperty(hObject, propertyName, result, result.Length, out requiredSize, flags).ThrowOnError();
+            Array.Resize(ref result, requiredSize);
             return result;
         }
 
