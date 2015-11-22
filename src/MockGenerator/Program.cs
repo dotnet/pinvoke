@@ -115,7 +115,9 @@ namespace MockGenerator
 
                     var methodDeclarations = classDeclaration.Members
                         .OfType<MethodDeclarationSyntax>()
-                        .Where(a => a.AttributeLists.Any(b => b.Attributes.Any(c => c.Name.ToString() == "DllImport")))
+                        .Where(a => a.AttributeLists.Any(
+                                b => b.Attributes.Any(
+                                    c => c.Name.ToString() == "DllImport")))
                         .ToArray();
                     if (methodDeclarations.Length <= 0)
                     {
@@ -166,7 +168,11 @@ namespace MockGenerator
                                     SyntaxFactory.List(new []
                                     {
                                         SyntaxFactory.UsingDirective(
-                                            SyntaxFactory.IdentifierName(classDeclaration.Identifier))
+                                            SyntaxFactory.IdentifierName(classDeclaration.Identifier
+                                                .WithLeadingTrivia()
+                                                .WithTrailingTrivia())
+                                                .WithLeadingTrivia(WhitespaceCharacter))
+                                            .WithLeadingTrivia(TabCharacter)
                                     }))
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
