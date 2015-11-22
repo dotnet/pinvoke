@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-	public partial class Kernel32 : IKernel32Mockable {
+	public partial class Kernel32 : IKernel32Mockable , IKernel32Mockable {
         /// <summary>
         /// Searches a directory for a file or subdirectory with a name and attributes that match those specified.
         /// For the most basic version of this function, see FindFirstFile.

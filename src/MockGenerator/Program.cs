@@ -52,14 +52,12 @@ namespace MockGenerator
                     .Where(x => x.EndsWith(".cs")))
                 {
                     Console.WriteLine($"\tProcessing {Path.GetFileName(file)}");
-                    ProcessSourceCodes(ref solution, ref project, file);
+                    ProcessSourceCodes(workspace, ref solution, ref project, file);
                 }
-
-                workspace.TryApplyChanges(solution);
             }
         }
 
-        private static void ProcessSourceCodes(ref Solution solution, ref Project project, string file)
+        private static void ProcessSourceCodes(Workspace workspace, ref Solution solution, ref Project project, string file)
         {
             var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(file));
 
@@ -138,17 +136,11 @@ namespace MockGenerator
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
 
-                        if (!DoesProjectContainFile(project, mockableClassPath))
-                        {
-                            AddPathToProject(ref project, mockableClassPath);
-                        }
-
-                        if (!DoesProjectContainFile(project, mockableInterfacePath))
-                        {
-                            AddPathToProject(ref project, mockableInterfacePath);
-                        }
+                        AddPathToProject(ref project, mockableClassPath);
+                        AddPathToProject(ref project, mockableInterfacePath);
 
                         solution = project.Solution;
+                        workspace.TryApplyChanges(solution);
                     }
 
                     if (methodDeclarations.Length <= 0)
@@ -178,11 +170,14 @@ namespace MockGenerator
 
         private static void AddPathToProject(ref Project project, string mockableClassPath)
         {
-            project =
-                project.AddDocument(Path.GetFileName(mockableClassPath),
-                    File.ReadAllText(mockableClassPath),
-                    null,
-                    mockableClassPath).Project;
+            if (!DoesProjectContainFile(project, mockableClassPath))
+            {
+                project =
+                    project.AddDocument(Path.GetFileName(mockableClassPath),
+                        File.ReadAllText(mockableClassPath),
+                        null,
+                        mockableClassPath).Project;
+            }
         }
 
         private static void PrepareInterfaceCacheEntry(IdentifierNameSyntax newInterfaceModifier)
@@ -329,9 +324,9 @@ namespace MockGenerator
             var arrowBody = SyntaxFactory.ArrowExpressionClause(
                 SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken)
                     .WithLeadingTrivia(
-                        NewLineCharacter, 
-                        TabCharacter, 
-                        TabCharacter, 
+                        NewLineCharacter,
+                        TabCharacter,
+                        TabCharacter,
                         TabCharacter)
                     .WithTrailingTrivia(WhitespaceCharacter),
                 SyntaxFactory.InvocationExpression(
@@ -358,7 +353,7 @@ namespace MockGenerator
                 .AddMembers(
                     wrapperMethodDeclaration
                         .WithTrailingTrivia(
-                            NewLineCharacter, 
+                            NewLineCharacter,
                             TabCharacter)
                         .WithLeadingTrivia(dllImport.OpenBracketToken.LeadingTrivia));
             return classDeclaration;
