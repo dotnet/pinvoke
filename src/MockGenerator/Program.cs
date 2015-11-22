@@ -131,7 +131,7 @@ namespace MockGenerator
                     foreach (var methodDeclaration in methodDeclarations)
                     {
                         var invokeMethodIdentifier =
-                            SyntaxFactory.IdentifierName($"Invoke{methodDeclaration.Identifier.Text}");
+                            SyntaxFactory.IdentifierName($"{methodDeclaration.Identifier.Text}");
 
                         newClassDeclaration = DecorateClassWithWrapperFunction(
                             methodDeclaration,
