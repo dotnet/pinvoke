@@ -6,6 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
 	using static AdvApi32;
+	[System.Runtime.CompilerServices.CompilerGenerated]
 	public class AdvApi32Mockable : IAdvApi32Mockable {
         /// <summary>
         /// Changes the optional configuration parameters of a service.
@@ -28,7 +29,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero
         /// </returns>
-        public bool InvokeChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo)
 			=> ChangeServiceConfig2(hService, dwInfoLevel, lpInfo);
 	
         /// <summary>
@@ -102,7 +104,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the service.
         /// If the function fails, the return value is NULL
         /// </returns>
-        public SafeServiceHandle InvokeCreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeServiceHandle InvokeCreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword)
 			=> CreateService(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword);
 	
         /// <summary>
@@ -115,7 +118,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero
         /// </returns>
-        public bool InvokeDeleteService(SafeServiceHandle hService)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeDeleteService(SafeServiceHandle hService)
 			=> DeleteService(hService);
 	
         /// <summary>
@@ -140,7 +144,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the specified service control manager database.
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
-        public SafeServiceHandle InvokeOpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeServiceHandle InvokeOpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess)
 			=> OpenSCManager(lpMachineName, lpDatabaseName, dwDesiredAccess);
 	
         /// <summary>
@@ -161,7 +166,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the service.
         /// If the function fails, the return value is NULL.
         /// </returns>
-        public SafeServiceHandle InvokeOpenService(SafeServiceHandle hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeServiceHandle InvokeOpenService(SafeServiceHandle hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess)
 			=> OpenService(hSCManager, lpServiceName, dwDesiredAccess);
 	
         /// <summary>
@@ -181,7 +187,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
-        public bool InvokeStartService(SafeServiceHandle hService, int dwNumServiceArgs, string lpServiceArgVectors)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeStartService(SafeServiceHandle hService, int dwNumServiceArgs, string lpServiceArgVectors)
 			=> StartService(hService, dwNumServiceArgs, lpServiceArgVectors);
 	}
 }

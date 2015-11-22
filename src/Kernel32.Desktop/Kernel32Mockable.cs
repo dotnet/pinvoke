@@ -8,6 +8,7 @@ namespace PInvoke
     using System.Text;
     using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 	using static Kernel32;
+	[System.Runtime.CompilerServices.CompilerGenerated]
 	public class Kernel32Mockable : IKernel32Mockable {
         /// <summary>
         /// Searches a directory for a file or subdirectory with a name and attributes that match those specified.
@@ -41,7 +42,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.
         /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// </returns>
-        public SafeFindFilesHandle InvokeFindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, IntPtr lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeFindFilesHandle InvokeFindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, IntPtr lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags)
 			=> FindFirstFileEx(lpFileName, fInfoLevelId, out lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags);
 	
         /// <summary>
@@ -88,20 +90,23 @@ namespace PInvoke
         /// If the function succeeds, the return value is the number of TCHARs stored in the output buffer, excluding the terminating null character.
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public int InvokeFormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public int InvokeFormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments)
 			=> FormatMessage(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments);
 	
         /// <summary>
         /// Retrieves the thread identifier of the calling thread.
         /// </summary>
         /// <returns>The thread identifier of the calling thread.</returns>
-        public uint InvokeGetCurrentThreadId()
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public uint InvokeGetCurrentThreadId()
 			=> GetCurrentThreadId();
 	
         /// <summary>Retrieves the process identifier of the calling process.</summary>
         /// <returns>The process identifier of the calling process.</returns>
         /// <remarks>Until the process terminates, the process identifier uniquely identifies the process throughout the system.</remarks>
-        public uint InvokeGetCurrentProcessId()
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public uint InvokeGetCurrentProcessId()
 			=> GetCurrentProcessId();
 	
         /// <summary>Retrieves a pseudo handle for the current process.</summary>
@@ -127,7 +132,8 @@ namespace PInvoke
         ///         duplicate handle must be closed.
         ///     </para>
         /// </remarks>
-        public SafeObjectHandle InvokeGetCurrentProcess()
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeObjectHandle InvokeGetCurrentProcess()
 			=> GetCurrentProcess();
 	
         /// <summary>
@@ -161,7 +167,8 @@ namespace PInvoke
         ///         returns <see cref="Win32ErrorCode.ERROR_NOT_FOUND" />.
         ///     </para>
         /// </returns>
-        unsafe public bool InvokeCancelIoEx(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		unsafe public bool InvokeCancelIoEx(
             SafeObjectHandle hFile,
             OVERLAPPED* lpOverlapped)
 			=> CancelIoEx(hFile, lpOverlapped);
@@ -226,7 +233,8 @@ namespace PInvoke
         ///         it designates the read operation is pending completion asynchronously.
         ///     </para>
         /// </returns>
-        unsafe public bool InvokeReadFile(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		unsafe public bool InvokeReadFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
             uint nNumberOfBytesToRead,
@@ -302,7 +310,8 @@ namespace PInvoke
         ///         it designates the write operation is pending completion asynchronously.
         ///     </para>
         /// </returns>
-        unsafe public bool InvokeWriteFile(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		unsafe public bool InvokeWriteFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
             uint nNumberOfBytesToWrite,
@@ -321,7 +330,8 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
         /// </returns>
-        public int InvokeSuspendThread(SafeObjectHandle hThread)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public int InvokeSuspendThread(SafeObjectHandle hThread)
 			=> SuspendThread(hThread);
 	
         /// <summary>
@@ -334,7 +344,8 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
         /// </returns>
-        public int InvokeWow64SuspendThread(SafeObjectHandle hThread)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public int InvokeWow64SuspendThread(SafeObjectHandle hThread)
 			=> Wow64SuspendThread(hThread);
 	
         /// <summary>
@@ -348,7 +359,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is the thread's previous suspend count.
         /// If the function fails, the return value is (DWORD) -1. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public int InvokeResumeThread(SafeObjectHandle hThread)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public int InvokeResumeThread(SafeObjectHandle hThread)
 			=> ResumeThread(hThread);
 	
         /// <summary>
@@ -367,7 +379,8 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
         /// </returns>
-        public WaitForSingleObjectResult InvokeWaitForSingleObject(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public WaitForSingleObjectResult InvokeWaitForSingleObject(
             SafeHandle hHandle,
             uint dwMilliseconds)
 			=> WaitForSingleObject(hHandle, dwMilliseconds);
@@ -380,7 +393,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public bool InvokeCloseHandle(IntPtr hObject)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeCloseHandle(IntPtr hObject)
 			=> CloseHandle(hObject);
 	        /// <summary>
         /// Creates a new process and its primary thread. The new process runs in the security context of the calling process.
@@ -443,7 +457,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public bool InvokeCreateProcess(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeCreateProcess(
             string lpApplicationName,
             string lpCommandLine,
             SECURITY_ATTRIBUTES lpProcessAttributes,
@@ -523,7 +538,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public bool InvokeCreateProcessAsUser(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeCreateProcessAsUser(
             IntPtr hToken,
             string lpApplicationName,
             string lpCommandLine,
@@ -546,7 +562,8 @@ namespace PInvoke
         /// <remarks>
         /// This function does not return a value, and does not fail.
         /// </remarks>
-        public void InvokeGetStartupInfo(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public void InvokeGetStartupInfo(
             out STARTUPINFO lpStartupInfo)
 			=> GetStartupInfo(out lpStartupInfo);
 	
@@ -574,7 +591,8 @@ namespace PInvoke
         /// To add attributes to the list, call the <see cref="UpdateProcThreadAttribute"/> function. To specify these attributes when creating a process, specify <see cref="CreateProcessFlags.EXTENDED_STARTUPINFO_PRESENT"/> in the dwCreationFlag parameter and a <see cref="STARTUPINFOEX"/> structure in the lpStartupInfo parameter. Note that you can specify the same <see cref="STARTUPINFOEX"/> structure to multiple child processes.
         /// When you have finished using the list, call the <see cref="DeleteProcThreadAttributeList"/> function.
         /// </remarks>
-        public bool InvokeInitializeProcThreadAttributeList(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeInitializeProcThreadAttributeList(
             IntPtr lpAttributeList,
             uint dwAttributeCount,
             uint dwFlags,
@@ -607,7 +625,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public bool InvokeUpdateProcThreadAttribute(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeUpdateProcThreadAttribute(
             IntPtr lpAttributeList,
             uint dwFlags,
             ref uint Attribute,
@@ -623,7 +642,8 @@ namespace PInvoke
         /// <param name="lpAttributeList">
         /// The attribute list. This list is created by the <see cref="InitializeProcThreadAttributeList"/> function.
         /// </param>
-        public void InvokeDeleteProcThreadAttributeList(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public void InvokeDeleteProcThreadAttributeList(
             IntPtr lpAttributeList)
 			=> DeleteProcThreadAttributeList(lpAttributeList);
 	
@@ -634,7 +654,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public bool InvokeAllocConsole()
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeAllocConsole()
 			=> AllocConsole();
 	
         /// <summary>
@@ -644,7 +665,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public bool InvokeFreeConsole()
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeFreeConsole()
 			=> FreeConsole();
 	
         /// <summary>
@@ -659,7 +681,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public bool InvokeAttachConsole(uint dwProcessId)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeAttachConsole(uint dwProcessId)
 			=> AttachConsole(dwProcessId);
 	
         /// <summary>
@@ -716,7 +739,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
         /// If the function fails, the return value is INVALID_HANDLE_VALUE.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public SafeObjectHandle InvokeCreateFile(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeObjectHandle InvokeCreateFile(
             string filename,
             FileAccess access,
             FileShare share,
@@ -743,7 +767,8 @@ namespace PInvoke
         /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// If the function fails because no matching files can be found, the <see cref="GetLastError"/> function returns ERROR_FILE_NOT_FOUND.
         /// </returns>
-        public SafeFindFilesHandle InvokeFindFirstFile(string lpFileName, out WIN32_FIND_DATA lpFindFileData)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeFindFilesHandle InvokeFindFirstFile(string lpFileName, out WIN32_FIND_DATA lpFindFileData)
 			=> FindFirstFile(lpFileName, out lpFindFileData);
 	
         /// <summary>
@@ -756,7 +781,8 @@ namespace PInvoke
         /// If the function fails, the return value is zero and the contents of lpFindFileData are indeterminate. To get extended error information, call the <see cref="GetLastError"/> function.
         /// If the function fails because no more matching files can be found, the <see cref="GetLastError"/> function returns ERROR_NO_MORE_FILES.
         /// </returns>
-        public bool InvokeFindNextFile(SafeFindFilesHandle hFindFile, out WIN32_FIND_DATA lpFindFileData)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeFindNextFile(SafeFindFilesHandle hFindFile, out WIN32_FIND_DATA lpFindFileData)
 			=> FindNextFile(hFindFile, out lpFindFileData);
 	
         /// <summary>
@@ -823,7 +849,8 @@ namespace PInvoke
         /// function to retrieve the full name of an executable image for both 32- and 64-bit processes from a 32-bit process.
         /// </para>
         /// </remarks>
-        public SafeObjectHandle InvokeCreateToolhelp32Snapshot(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeObjectHandle InvokeCreateToolhelp32Snapshot(
             CreateToolhelp32SnapshotFlags dwFlags,
             uint th32ProcessID)
 			=> CreateToolhelp32Snapshot(dwFlags, th32ProcessID);
@@ -843,7 +870,8 @@ namespace PInvoke
         /// the <see cref="Marshal.GetLastWin32Error" /> function if no processes exist or the snapshot does not contain process
         /// information.
         /// </returns>
-        public bool InvokeProcess32First(SafeObjectHandle hSnapshot, [In, Out] PROCESSENTRY32 lppe)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeProcess32First(SafeObjectHandle hSnapshot, [In, Out] PROCESSENTRY32 lppe)
 			=> Process32First(hSnapshot, lppe);
 	
         /// <summary>Retrieves information about the next process recorded in a system snapshot.</summary>
@@ -863,7 +891,8 @@ namespace PInvoke
         /// <see cref="Process32First(SafeObjectHandle,PROCESSENTRY32)" />
         /// function.
         /// </remarks>
-        public bool InvokeProcess32Next(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeProcess32Next(
             SafeObjectHandle hSnapshot,
             [In, Out] PROCESSENTRY32 lppe)
 			=> Process32Next(hSnapshot, lppe);
@@ -885,7 +914,8 @@ namespace PInvoke
         /// <para>If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.</para>
         /// </returns>
         /// <remarks>Minimum OS: Windows Vista / Windows Server 2008.</remarks>
-        public bool InvokeQueryFullProcessImageName(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeQueryFullProcessImageName(
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags,
             StringBuilder lpExeName,
@@ -919,7 +949,8 @@ namespace PInvoke
         /// </para>
         /// </param>
         /// <returns>If the function succeeds, the return value is an open handle to the specified process.</returns>
-        public SafeObjectHandle InvokeOpenProcess(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public SafeObjectHandle InvokeOpenProcess(
             ProcessAccess dwDesiredAccess,
             bool bInheritHandle,
             uint dwProcessId)
@@ -977,7 +1008,8 @@ namespace PInvoke
         /// situation, there is no way to know which operation caused the object's state to be signaled.
         /// </para>
         /// </remarks>
-        unsafe public bool InvokeGetOverlappedResult(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		unsafe public bool InvokeGetOverlappedResult(
             SafeObjectHandle hFile,
             OVERLAPPED* lpOverlapped,
             out uint lpNumberOfBytesTransferred,
@@ -1018,7 +1050,8 @@ namespace PInvoke
         /// normally.
         /// </para>
         /// </remarks>
-        public bool InvokeCancelIo(SafeObjectHandle hFile)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeCancelIo(SafeObjectHandle hFile)
 			=> CancelIo(hFile);
 	
         /// <summary>
@@ -1045,7 +1078,8 @@ namespace PInvoke
         /// <see cref="GetLastError" />.
         /// </para>
         /// </returns>
-        public bool InvokeIsWow64Process(SafeObjectHandle hProcess, out bool Wow64Process)
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeIsWow64Process(SafeObjectHandle hProcess, out bool Wow64Process)
 			=> IsWow64Process(hProcess, out Wow64Process);
 	
         /// <summary>
@@ -1068,7 +1102,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        public bool InvokeCreatePipe(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+		public bool InvokeCreatePipe(
             out SafeObjectHandle hReadPipe,
             out SafeObjectHandle hWritePipe,
             SECURITY_ATTRIBUTES lpPipeAttributes,

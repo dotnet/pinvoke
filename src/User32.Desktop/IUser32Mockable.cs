@@ -6,11 +6,15 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
 	using static User32;
-	public interface IUser32Mockable {        int InvokeSetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
+	[System.Runtime.CompilerServices.CompilerGenerated]
+		public interface IUser32Mockable {        [System.Runtime.CompilerServices.CompilerGenerated]
+	int InvokeSetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
 	
-        int InvokeGetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	int InvokeGetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
 	
-        bool InvokeSetWindowPos(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	bool InvokeSetWindowPos(
             IntPtr hWnd,
             IntPtr hWndInsertAfter,
             int X,
@@ -19,18 +23,23 @@ namespace PInvoke
             int cy,
             SetWindowPosFlags uFlags);
 	
-        IntPtr InvokeSetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	IntPtr InvokeSetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 	
-        IntPtr InvokeFindWindowEx(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	IntPtr InvokeFindWindowEx(
             IntPtr parentHandle,
             IntPtr childAfter,
             string className,
             string windowTitle);
 	
-        bool InvokeShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	bool InvokeShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
 	
-        IntPtr InvokeGetForegroundWindow();
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	IntPtr InvokeGetForegroundWindow();
 	
-        int InvokeSendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	int InvokeSendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 	}
 }

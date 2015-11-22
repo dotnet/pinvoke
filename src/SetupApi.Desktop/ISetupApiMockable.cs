@@ -6,7 +6,8 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
 	using static SetupApi;
-	public interface ISetupApiMockable {        /// <summary>
+	[System.Runtime.CompilerServices.CompilerGenerated]
+		public interface ISetupApiMockable {        /// <summary>
         /// The SetupDiGetClassDevs function returns a <see cref="SafeDeviceInfoSetHandle" /> handle to a device information set
         /// that contains requested device information elements for a local computer.
         /// </summary>
@@ -47,7 +48,8 @@ namespace PInvoke
         /// If the operation succeeds, SetupDiGetClassDevs returns a handle to a device information set that contains all
         /// installed devices that matched the supplied parameters. If the operation fails, the function returns an invalid handle.
         /// </returns>
-        SafeDeviceInfoSetHandle InvokeSetupDiGetClassDevs(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	SafeDeviceInfoSetHandle InvokeSetupDiGetClassDevs(
             NullableGuid classGuid,
             string enumerator,
             IntPtr hwndParent,
@@ -90,7 +92,8 @@ namespace PInvoke
         /// error, <see langword="false" /> is returned and the error code for the failure can be retrieved by calling
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
-        bool InvokeSetupDiEnumDeviceInterfaces(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	bool InvokeSetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle deviceInfoSet,
             DeviceInfoData deviceInfoData,
             ref Guid interfaceClassGuid,
@@ -137,7 +140,8 @@ namespace PInvoke
         /// error, <see langword="false" /> is returned and the error code for the failure can be retrieved by calling
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
-        bool InvokeSetupDiGetDeviceInterfaceDetail(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	bool InvokeSetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
             ref DeviceInterfaceData deviceInterfaceData,
             IntPtr deviceInterfaceDetailData,
@@ -163,7 +167,8 @@ namespace PInvoke
         /// error, <see langword="false" /> is returned and the error code for the failure can be retrieved by calling
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
-        bool InvokeSetupDiEnumDeviceInfo(
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	bool InvokeSetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
             uint memberIndex,
             DeviceInfoData deviceInfoData);

@@ -6,7 +6,8 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
 	using static AdvApi32;
-	public interface IAdvApi32Mockable {
+	[System.Runtime.CompilerServices.CompilerGenerated]
+		public interface IAdvApi32Mockable {
         /// <summary>
         /// Changes the optional configuration parameters of a service.
         /// </summary>
@@ -28,7 +29,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero
         /// </returns>
-        bool InvokeChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	bool InvokeChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
 	
         /// <summary>
         /// Creates a service object and adds it to the specified service control manager database.
@@ -101,7 +103,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the service.
         /// If the function fails, the return value is NULL
         /// </returns>
-        SafeServiceHandle InvokeCreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	SafeServiceHandle InvokeCreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
 	
         /// <summary>
         /// Marks the specified service for deletion from the service control manager database.
@@ -113,7 +116,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero
         /// </returns>
-        bool InvokeDeleteService(SafeServiceHandle hService);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	bool InvokeDeleteService(SafeServiceHandle hService);
 	
         /// <summary>
         /// Establishes a connection to the service control manager on the specified computer and opens the specified service control manager database.
@@ -137,7 +141,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the specified service control manager database.
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
-        SafeServiceHandle InvokeOpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	SafeServiceHandle InvokeOpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
 	
         /// <summary>
         /// Opens an existing service.
@@ -157,7 +162,8 @@ namespace PInvoke
         /// If the function succeeds, the return value is a handle to the service.
         /// If the function fails, the return value is NULL.
         /// </returns>
-        SafeServiceHandle InvokeOpenService(SafeServiceHandle hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	SafeServiceHandle InvokeOpenService(SafeServiceHandle hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
 	
         /// <summary>
         /// Starts a service.
@@ -176,6 +182,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
-        bool InvokeStartService(SafeServiceHandle hService, int dwNumServiceArgs, string lpServiceArgVectors);
+        [System.Runtime.CompilerServices.CompilerGenerated]
+	bool InvokeStartService(SafeServiceHandle hService, int dwNumServiceArgs, string lpServiceArgVectors);
 	}
 }

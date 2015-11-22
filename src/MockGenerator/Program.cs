@@ -204,7 +204,13 @@ namespace MockGenerator
             {
                 InterfaceCache.Add(newInterfaceModifier.Identifier.Text,
                     SyntaxFactory.InterfaceDeclaration(
-                        SyntaxFactory.List<AttributeListSyntax>(),
+                        SyntaxFactory.List(new[] {
+                            GetCompilerGeneratedAttribute()
+                                .WithTrailingTrivia(
+                                    NewLineCharacter,
+                                    TabCharacter,
+                                    TabCharacter)
+                        }),
                         SyntaxFactory.TokenList(
                             SyntaxFactory
                                 .Token(SyntaxKind.PublicKeyword)
@@ -231,7 +237,12 @@ namespace MockGenerator
                 var baseList = classDeclaration.BaseList ?? SyntaxFactory.BaseList();
                 ClassCache.Add(newClassModifier.Identifier.Text,
                     SyntaxFactory.ClassDeclaration(
-                        SyntaxFactory.List<AttributeListSyntax>(),
+                        SyntaxFactory.List(new[] {
+                            GetCompilerGeneratedAttribute()
+                                .WithTrailingTrivia(
+                                    NewLineCharacter,
+                                    TabCharacter)
+                        }),
                         SyntaxFactory.TokenList(
                             SyntaxFactory
                                 .Token(SyntaxKind.PublicKeyword)
@@ -309,7 +320,12 @@ namespace MockGenerator
             var dllImport = methodDeclaration.AttributeLists
                 .First(x => x.OpenBracketToken.HasLeadingTrivia);
             var interfaceMethodDeclaration = SyntaxFactory.MethodDeclaration(
-                SyntaxFactory.List<AttributeListSyntax>(),
+                SyntaxFactory.List(new[] {
+                    GetCompilerGeneratedAttribute()
+                        .WithTrailingTrivia(
+                            NewLineCharacter,
+                            TabCharacter)
+                }),
                 GetModifiersForWrapperFunction(methodDeclaration),
                 methodDeclaration.ReturnType,
                 default(ExplicitInterfaceSpecifierSyntax),
@@ -387,7 +403,13 @@ namespace MockGenerator
                         SyntaxFactory.SeparatedList(arguments))));
 
             var wrapperMethodDeclaration = SyntaxFactory.MethodDeclaration(
-                SyntaxFactory.List<AttributeListSyntax>(),
+                SyntaxFactory.List(new[] {
+                    GetCompilerGeneratedAttribute()
+                        .WithTrailingTrivia(
+                            NewLineCharacter,
+                            TabCharacter,
+                            TabCharacter)
+                }),
                 GetModifiersForWrapperFunction(methodDeclaration)
                     .Add(SyntaxFactory.Token(SyntaxKind.PublicKeyword)
                         .WithTrailingTrivia(WhitespaceCharacter)),
@@ -409,6 +431,14 @@ namespace MockGenerator
                             TabCharacter)
                         .WithLeadingTrivia(dllImport.OpenBracketToken.LeadingTrivia));
             return classDeclaration;
+        }
+
+        private static AttributeListSyntax GetCompilerGeneratedAttribute()
+        {
+            return SyntaxFactory.AttributeList(
+                    SyntaxFactory.SeparatedList(new[] {
+                        SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("System.Runtime.CompilerServices.CompilerGenerated"))
+                    }));
         }
     }
 }
