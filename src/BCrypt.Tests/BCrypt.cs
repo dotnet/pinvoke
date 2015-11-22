@@ -68,22 +68,16 @@ public class BCrypt
             byte[] plainText = new byte[] { 0x3, 0x5, 0x8 };
             byte[] keyMaterial = new byte[128 / 8];
             byte[] cipherText;
-            int cipherTextLength;
 
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ThrowOnError();
-                cipherText = new byte[cipherTextLength];
-                BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ThrowOnError();
+                cipherText = BCryptEncrypt(key, plainText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
                 Assert.NotEqual<byte>(plainText, cipherText);
             }
 
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                byte[] decryptedText = new byte[plainText.Length];
-                int cbDecrypted;
-                BCryptDecrypt(key, cipherText, cipherTextLength, IntPtr.Zero, null, 0, decryptedText, decryptedText.Length, out cbDecrypted, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ThrowOnError();
-
+                byte[] decryptedText = BCryptDecrypt(key, cipherText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
                 Assert.Equal<byte>(plainText, decryptedText);
             }
         }
@@ -159,7 +153,7 @@ public class BCrypt
             {
                 BCryptFinalizeKeyPair(keyPair).ThrowOnError();
                 byte[] hashData = SHA1.Create().ComputeHash(new byte[] { 0x1 });
-                byte[] signature = BCryptSignHash(keyPair, hashData);
+                byte[] signature = BCryptSignHash(keyPair, hashData).ToArray();
                 NTStatus status = BCryptVerifySignature(keyPair, IntPtr.Zero, hashData, hashData.Length, signature, signature.Length);
                 Assert.Equal(NTStatus.STATUS_SUCCESS, status);
                 signature[0] = unchecked((byte)(signature[0] + 1));
@@ -169,6 +163,26 @@ public class BCrypt
         }
     }
 
+    [Fact]
+    public void ImportKey()
+    {
+        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        {
+            byte[] keyMaterial = new byte[GetMinimumKeySize(algorithm) / 8];
+            var keyWithHeader = BCRYPT_KEY_DATA_BLOB_HEADER.InsertBeforeKey(keyMaterial);
+            using (SafeKeyHandle key = BCryptImportKey(algorithm, SymmetricKeyBlobTypes.BCRYPT_KEY_DATA_BLOB, keyWithHeader))
+            {
+                Assert.NotNull(key);
+                Assert.False(key.IsInvalid);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the minimum length of a key (in bits).
+    /// </summary>
+    /// <param name="algorithm">The algorithm.</param>
+    /// <returns>The length of the smallest key, in bits.</returns>
     private static int GetMinimumKeySize(SafeAlgorithmHandle algorithm)
     {
         var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(algorithm, PropertyNames.KeyLengths);

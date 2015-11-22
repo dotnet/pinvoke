@@ -45,6 +45,7 @@
     <Compile Include="BCrypt+BCryptSecretAgreementFlags.cs" />
     <Compile Include="BCrypt+BCryptSetPropertyFlags.cs" />
     <Compile Include="BCrypt+BCryptSignHashFlags.cs" />
+    <Compile Include="BCrypt+BCRYPT_KEY_DATA_BLOB_HEADER.cs" />
     <Compile Include="BCrypt+BCRYPT_KEY_LENGTHS_STRUCT.cs" />
     <Compile Include="BCrypt+BufferType.cs" />
     <Compile Include="BCrypt+ChainingModes.cs" />
