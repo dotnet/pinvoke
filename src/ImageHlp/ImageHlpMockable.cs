@@ -6,7 +6,8 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using static DbgHelp;
-	public partial class ImageHlp : IImageHlpMockable {        /// <summary>
+	using static ImageHlp;
+	public class ImageHlpMockable : IImageHlpMockable {        /// <summary>
         /// Maps an image and preloads data from the mapped file.
         /// </summary>
         /// <param name="ImageName">The file name of the image (executable file or DLL) that is loaded.</param>
@@ -24,6 +25,20 @@ namespace PInvoke
             out LOADED_IMAGE LoadedImage,
             bool DotDll,
             bool ReadOnly)
-			=> MapAndLoad(ImageName, DllPath, LoadedImage, DotDll, ReadOnly);
+			=> MapAndLoad(ImageName, DllPath, out LoadedImage, DotDll, ReadOnly);
+	
+        /// <summary>
+        /// Deallocate all resources that are allocated by a previous call to the <see cref="MapAndLoad"/> function.
+        /// </summary>
+        /// <param name="LoadedImage">
+        /// A pointer to a <see cref="LOADED_IMAGE"/> structure. This structure is obtained through a call to the <see cref="MapAndLoad"/> function.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is TRUE.
+        /// If the function fails, the return value is FALSE. To retrieve extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        public bool InvokeUnMapAndLoad(
+            ref LOADED_IMAGE LoadedImage)
+			=> UnMapAndLoad(ref LoadedImage);
 	}
 }

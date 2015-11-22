@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -7,6 +7,7 @@ namespace PInvoke
     using System.Collections;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
+	using static BCrypt;
 	public interface IBCryptMockable {        /// <summary>
         /// Loads and initializes a CNG provider.
         /// </summary>
@@ -226,5 +227,416 @@ namespace PInvoke
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbOutput,
             int cbOutput,
             BCryptFinishHashFlags dwFlags = BCryptFinishHashFlags.None);
+	
+        /// <summary>
+        /// Creates a signature of a hash value.
+        /// </summary>
+        /// <param name="hKey">The handle of the key to use to sign the hash.</param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="dwFlags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="pbInput">
+        /// A pointer to a buffer that contains the hash value to sign. The <paramref name="cbInput"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbInput">
+        /// The number of bytes in the <paramref name="pbInput"/> buffer to sign.
+        /// </param>
+        /// <param name="pbOutput">
+        /// The address of a buffer to receive the signature produced by this function. The <paramref name="cbOutput"/> parameter contains the size of this buffer.
+        /// If this parameter is NULL, this function will calculate the size required for the signature and return the size in the location pointed to by the <paramref name="pcbResult"/> parameter.
+        /// </param>
+        /// <param name="cbOutput">
+        /// The size, in bytes, of the <paramref name="pbOutput"/> buffer. This parameter is ignored if the <paramref name="pbOutput"/> parameter is NULL.
+        /// </param>
+        /// <param name="pcbResult">
+        /// A pointer to a ULONG variable that receives the number of bytes copied to the <paramref name="pbOutput"/> buffer.
+        /// If <paramref name="pbOutput"/> is NULL, this receives the size, in bytes, required for the signature.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
+        /// </remarks>
+        NTStatus InvokeBCryptSignHash(
+            SafeKeyHandle hKey,
+            IntPtr pPaddingInfo,
+            byte[] pbInput,
+            int cbInput,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] pbOutput,
+            int cbOutput,
+            out int pcbResult,
+            BCryptSignHashFlags dwFlags);
+	
+        /// <summary>
+        /// Verifies that the specified signature matches the specified hash.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="dwFlags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="pbHash">
+        /// The address of a buffer that contains the hash of the data. The <paramref name="cbHash"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbHash">
+        /// The size, in bytes, of the <paramref name="pbHash"/> buffer.
+        /// </param>
+        /// <param name="pbSignature">
+        /// The address of a buffer that contains the signed hash of the data. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function is used to create the signature. The <paramref name="cbSignature"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbSignature">
+        /// The size, in bytes, of the <paramref name="pbSignature"/> buffer. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function is used to create the signature.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// If the key is a symmetric key, this parameter is not used and should be zero.
+        /// If the key is an asymmetric key, this can be one of the following values.
+        /// </param>
+        /// <returns>
+        /// Returns a status code that indicates the success or failure of the function.
+        /// In particular, an invalid signature will produce a <see cref="NTStatus.STATUS_INVALID_SIGNATURE"/> result.
+        /// </returns>
+        NTStatus InvokeBCryptVerifySignature(
+            SafeKeyHandle hKey,
+            IntPtr pPaddingInfo,
+            byte[] pbHash,
+            int cbHash,
+            byte[] pbSignature,
+            int cbSignature,
+            BCryptSignHashFlags dwFlags = BCryptSignHashFlags.None);
+	
+        /// <summary>
+        /// Creates an empty public/private key pair.
+        /// </summary>
+        /// <param name="hAlgorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/></param>
+        /// <param name="phKey">Receives a handle to the generated key pair.</param>
+        /// <param name="dwLength">The length of the key, in bits.</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// After you create a key by using this function, you can use the BCryptSetProperty
+        /// function to set its properties; however, the key cannot be used until the
+        /// BCryptFinalizeKeyPair function is called.
+        /// </remarks>
+        NTStatus InvokeBCryptGenerateKeyPair(
+            SafeAlgorithmHandle hAlgorithm,
+            out SafeKeyHandle phKey,
+            int dwLength,
+            BCryptGenerateKeyPairFlags dwFlags = BCryptGenerateKeyPairFlags.None);
+	
+        /// <summary>
+        /// Creates a key object for use with a symmetrical key encryption algorithm from a supplied key.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The handle of an algorithm provider created with the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm specified when the provider was created must support symmetric key encryption.
+        /// </param>
+        /// <param name="phKey">
+        /// Receives the <see cref="SafeKeyHandle"/> of the generated key.
+        /// </param>
+        /// <param name="pbKeyObject">
+        /// A pointer to a buffer that receives the key object. The <paramref name="cbKeyObject"/> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the BCRYPT_OBJECT_LENGTH property. This will provide the size of the key object for the specified algorithm.
+        /// This memory can only be freed after the <paramref name="phKey"/> key handle is destroyed.
+        /// If the value of this parameter is NULL and the value of the <paramref name="cbKeyObject"/> parameter is zero, the memory for the key object is allocated and freed by this function.
+        /// </param>
+        /// <param name="cbKeyObject">
+        /// The size, in bytes, of the <paramref name="pbKeyObject"/> buffer.
+        /// If the value of this parameter is zero and the value of the <paramref name="pbKeyObject"/> parameter is NULL, the memory for the key object is allocated and freed by this function.
+        /// </param>
+        /// <param name="pbSecret">
+        /// Pointer to a buffer that contains the key from which to create the key object. The <paramref name="cbSecret"/> parameter contains the size of this buffer. This is normally a hash of a password or some other reproducible data. If the data passed in exceeds the target key size, the data will be truncated and the excess will be ignored.
+        /// Note: We strongly recommended that applications pass in the exact number of bytes required by the target key.
+        /// </param>
+        /// <param name="cbSecret">
+        /// The size, in bytes, of the <paramref name="pbSecret"/> buffer.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptGenerateSymmetricKey(
+            SafeAlgorithmHandle hAlgorithm,
+            out SafeKeyHandle phKey,
+            byte[] pbKeyObject,
+            int cbKeyObject,
+            byte[] pbSecret,
+            int cbSecret,
+            BCryptGenerateSymmetricKeyFlags flags = BCryptGenerateSymmetricKeyFlags.None);
+	
+        /// <summary>
+        /// Completes a public/private key pair.
+        /// </summary>
+        /// <param name="hKey">The handle of the key to complete. This handle is obtained by calling the BCryptGenerateKeyPair function.</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// The key cannot be used until this function has been called.
+        /// After this function has been called, the BCryptSetProperty function
+        /// can no longer be used for this key.
+        /// </remarks>
+        NTStatus InvokeBCryptFinalizeKeyPair(
+            SafeKeyHandle hKey,
+            BCryptFinalizeKeyPairFlags dwFlags = BCryptFinalizeKeyPairFlags.None);
+	
+        /// <summary>
+        /// Destroys a key.
+        /// </summary>
+        /// <param name="hKey">The handle of the key to destroy.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptDestroyKey(
+            IntPtr hKey);
+	
+        /// <summary>
+        /// Destroys a secret agreement handle that was created by using the BCryptSecretAgreement function.
+        /// </summary>
+        /// <param name="hSecret">The handle of the secret to destroy.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptDestroySecret(
+            IntPtr hSecret);
+	
+        /// <summary>
+        /// Imports a symmetric key from a key BLOB. The BCryptImportKeyPair function is used to import a public/private key pair.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The handle of the algorithm provider to import the key. This handle is obtained by calling the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function.
+        /// </param>
+        /// <param name="hImportKey">
+        /// The handle of the key encryption key needed to unwrap the key BLOB in the pbInput parameter.
+        /// Note The handle must be supplied by the same provider that supplied the key that is being imported.
+        /// </param>
+        /// <param name="pszBlobType">
+        /// An identifier that specifies the type of BLOB that is contained in the pbInput buffer.
+        /// This can be one of the values defined in <see cref="SymmetricKeyBlobTypes"/>.
+        /// </param>
+        /// <param name="phKey">
+        /// A pointer to a BCRYPT_KEY_HANDLE that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as BCryptEncrypt. This handle must be released when it is no longer needed by passing it to the <see cref="BCryptDestroyKey"/> function.
+        /// </param>
+        /// <param name="pbKeyObject">
+        /// A pointer to a buffer that receives the imported key object.
+        /// The <paramref name="cbKeyObject"/> parameter contains the size of this buffer.
+        /// The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/>
+        /// function to get the BCRYPT_OBJECT_LENGTH property. This will provide the size of the
+        /// key object for the specified algorithm.
+        /// This memory can only be freed after the phKey key handle is destroyed.
+        /// </param>
+        /// <param name="cbKeyObject">The size, in bytes, of the <paramref name="pbKeyObject"/> buffer.</param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the key BLOB to import.
+        /// The <paramref name="cbInput"/> parameter contains the size of this buffer.
+        /// The <paramref name="pszBlobType"/> parameter specifies the type of key BLOB this buffer contains.
+        /// </param>
+        /// <param name="cbInput">
+        /// The size, in bytes, of the <paramref name="pbInput" /> buffer.
+        /// </param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptImportKey(
+            SafeAlgorithmHandle hAlgorithm,
+            SafeKeyHandle hImportKey,
+            [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
+            out SafeKeyHandle phKey,
+            byte[] pbKeyObject,
+            int cbKeyObject,
+            byte[] pbInput,
+            int cbInput,
+            BCryptImportKeyFlags dwFlags = BCryptImportKeyFlags.None);
+	
+        /// <summary>
+        /// Imports a public/private key pair from a key BLOB.
+        /// </summary>
+        /// <param name="hAlgorithm">The handle of the algorithm provider to import the key. This handle is obtained by calling the BCryptOpenAlgorithmProvider function.</param>
+        /// <param name="hImportKey">This parameter is not currently used and should be NULL.</param>
+        /// <param name="pszBlobType">an identifier that specifies the type of BLOB that is contained in the <paramref name="pbInput"/> buffer.</param>
+        /// <param name="phKey">A pointer to a BCRYPT_KEY_HANDLE that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as BCryptSignHash. This handle must be released when it is no longer needed by passing it to the <see cref="BCryptDestroyKey"/> function.</param>
+        /// <param name="pbInput">The address of a buffer that contains the key BLOB to import. The cbInput parameter contains the size of this buffer. The <paramref name="pszBlobType"/> parameter specifies the type of key BLOB this buffer contains.</param>
+        /// <param name="cbInput">The size, in bytes, of the <paramref name="pbInput"/> buffer.</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptImportKeyPair(
+            SafeAlgorithmHandle hAlgorithm,
+            SafeKeyHandle hImportKey,
+            [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
+            out SafeKeyHandle phKey,
+            byte[] pbInput,
+            int cbInput,
+            BCryptImportKeyPairFlags dwFlags);
+	
+        /// <summary>
+        /// Exports a key to a memory BLOB that can be persisted for later use.
+        /// </summary>
+        /// <param name="hKey">The handle of the key to export.</param>
+        /// <param name="hExportKey">
+        /// The handle of the key with which to wrap the exported key. Use this parameter when exporting BLOBs of type BCRYPT_AES_WRAP_KEY_BLOB; otherwise, set it to NULL.
+        /// Note: The <paramref name="hExportKey"/> handle must be supplied by the same provider that supplied the hKey handle, and hExportKey must be a handle to a symmetric key that can be used in the Advanced Encryption Standard(AES) key wrap algorithm.When the hKey handle is from the Microsoft provider, hExportKey must be an AES key handle.
+        /// </param>
+        /// <param name="pszBlobType">
+        /// An identifier that specifies the type of BLOB to export. This can be one of the values
+        /// defined in the <see cref="AsymmetricKeyBlobTypes"/> or <see cref="SymmetricKeyBlobTypes"/> classes.
+        /// </param>
+        /// <param name="pbOutput">
+        /// The address of a buffer that receives the key BLOB.
+        /// The <paramref name="cbOutput"/> parameter contains the size of this buffer.
+        /// If this parameter is NULL, this function will place the required size, in bytes, in the ULONG pointed to by the <paramref name="pcbResult"/> parameter.
+        /// </param>
+        /// <param name="cbOutput">
+        /// Contains the size, in bytes, of the <paramref name="pbOutput"/> buffer.
+        /// </param>
+        /// <param name="pcbResult">
+        /// A pointer to a ULONG that receives the number of bytes that were copied to the <paramref name="pbOutput"/> buffer.
+        /// If the pbOutput parameter is NULL, this function will place the required size, in bytes,
+        /// in the ULONG pointed to by this parameter.
+        /// </param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptExportKey(
+            SafeKeyHandle hKey,
+            SafeKeyHandle hExportKey,
+            [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pbOutput,
+            int cbOutput,
+            out int pcbResult,
+            BCryptExportKeyFlags dwFlags = BCryptExportKeyFlags.None);
+	
+        /// <summary>
+        /// Creates a secret agreement value from a private and a public key.
+        /// </summary>
+        /// <param name="privateKey">
+        /// The handle of the private key to use to create the secret agreement value.
+        /// This key and the hPubKey key must come from the same CNG cryptographic algorithm provider.
+        /// </param>
+        /// <param name="publicKey">
+        /// The handle of the public key to use to create the secret agreement value.
+        /// This key and the hPrivKey key must come from the same CNG cryptographic algorithm provider.
+        /// </param>
+        /// <param name="secret">
+        /// A pointer to a BCRYPT_SECRET_HANDLE that receives a handle that represents the
+        /// secret agreement value. This handle must be released by passing it to the
+        /// BCryptDestroySecret function when it is no longer needed.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptSecretAgreement(
+            SafeKeyHandle privateKey,
+            SafeKeyHandle publicKey,
+            out SafeSecretHandle secret,
+            BCryptSecretAgreementFlags flags = BCryptSecretAgreementFlags.None);
+	
+        /// <summary>
+        /// Derives a key from a secret agreement value.
+        /// </summary>
+        /// <param name="sharedSecret">
+        /// The secret agreement handle to create the key from.
+        /// This handle is obtained from the BCryptSecretAgreement function.
+        /// </param>
+        /// <param name="keyDerivationFunction">
+        /// The key derivation function.
+        /// May come from the constants defined on the <see cref="KeyDerivationFunctions"/> class.
+        /// </param>
+        /// <param name="kdfParameters">
+        /// The address of a BCryptBufferDesc structure that contains the KDF parameters.
+        /// This parameter is optional and can be NULL if it is not needed.
+        /// </param>
+        /// <param name="derivedKey">
+        /// The address of a buffer that receives the key. The cbDerivedKey parameter contains
+        /// the size of this buffer. If this parameter is NULL, this function will place the
+        /// required size, in bytes, in the ULONG pointed to by the pcbResult parameter.
+        /// </param>
+        /// <param name="derivedKeySize">
+        /// The size, in bytes, of the pbDerivedKey buffer.
+        /// </param>
+        /// <param name="resultSize">
+        /// A pointer to a ULONG that receives the number of bytes that were copied to the
+        /// pbDerivedKey buffer. If the pbDerivedKey parameter is NULL, this function will
+        /// place the required size, in bytes, in the ULONG pointed to by this parameter.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function.
+        /// This can be zero or the following value.
+        /// </param>
+        /// <returns>
+        /// Returns a status code that indicates the success or failure of the function.
+        /// </returns>
+        NTStatus InvokeBCryptDeriveKey(
+            SafeSecretHandle sharedSecret,
+            string keyDerivationFunction,
+            [In] ref BCryptBufferDesc kdfParameters,
+            [Out, MarshalAs(UnmanagedType.LPArray)] byte[] derivedKey,
+            int derivedKeySize,
+            [Out] out int resultSize,
+            BCryptDeriveKeyFlags flags);
+	
+        /// <summary>
+        /// Sets the value of a named property for a CNG object.
+        /// </summary>
+        /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
+        /// <param name="property">
+        /// A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
+        /// </param>
+        /// <param name="input">The address of a buffer that contains the new property value. The <paramref name="inputSize"/> parameter contains the size of this buffer.</param>
+        /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptSetProperty(
+            SafeHandle hObject,
+            string property,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] input,
+            int inputSize,
+            BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None);
+	
+        /// <summary>
+        /// Sets the value of a named property for a CNG object.
+        /// </summary>
+        /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
+        /// <param name="property">
+        /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
+        /// </param>
+        /// <param name="input">The new property value. The <paramref name="inputSize"/> parameter contains the size of this buffer.</param>
+        /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptSetProperty(
+            SafeHandle hObject,
+            string property,
+            string input,
+            int inputSize,
+            BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None);
+	
+        /// <summary>
+        /// Retrieves the value of a named property for a CNG object.
+        /// </summary>
+        /// <param name="hObject">A handle that represents the CNG object to obtain the property value for.</param>
+        /// <param name="property">A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.</param>
+        /// <param name="output">The address of a buffer that receives the property value. The <paramref name="outputSize"/> parameter contains the size of this buffer.</param>
+        /// <param name="outputSize">The size, in bytes, of the <paramref name="output"/> buffer.</param>
+        /// <param name="resultSize">A pointer to a ULONG variable that receives the number of bytes that were copied to the pbOutput buffer. If the <paramref name="output"/> parameter is NULL, this function will place the required size, in bytes, in the location pointed to by this parameter.</param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptGetProperty(
+            SafeHandle hObject,
+            string property,
+            [Out, MarshalAs(UnmanagedType.LPArray)] byte[] output,
+            int outputSize,
+            out int resultSize,
+            BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None);
+	
+        /// <summary>
+        /// Generates a random number.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The handle of an algorithm provider created by using the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm that was specified when the provider was created must support the random number generator interface.
+        /// </param>
+        /// <param name="pbBuffer">
+        /// The address of a buffer that receives the random number. The size of this buffer is specified by the <paramref name="cbBuffer"/> parameter.
+        /// </param>
+        /// <param name="cbBuffer">
+        /// The size, in bytes, of the <paramref name="pbBuffer" /> buffer.
+        /// </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        NTStatus InvokeBCryptGenRandom(
+            SafeAlgorithmHandle hAlgorithm,
+            byte[] pbBuffer,
+            int cbBuffer,
+            BCryptGenRandomFlags flags = BCryptGenRandomFlags.None);
 	}
 }

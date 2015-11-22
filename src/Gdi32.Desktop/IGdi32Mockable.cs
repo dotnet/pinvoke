@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+	using static Gdi32;
 	public interface IGdi32Mockable {        bool InvokeDeleteObject(IntPtr hObject);
 	}
 }

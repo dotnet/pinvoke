@@ -5,6 +5,32 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+	using static User32;
 	public interface IUser32Mockable {        int InvokeSetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
+	
+        int InvokeGetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
+	
+        bool InvokeSetWindowPos(
+            IntPtr hWnd,
+            IntPtr hWndInsertAfter,
+            int X,
+            int Y,
+            int cx,
+            int cy,
+            SetWindowPosFlags uFlags);
+	
+        IntPtr InvokeSetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+	
+        IntPtr InvokeFindWindowEx(
+            IntPtr parentHandle,
+            IntPtr childAfter,
+            string className,
+            string windowTitle);
+	
+        bool InvokeShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
+	
+        IntPtr InvokeGetForegroundWindow();
+	
+        int InvokeSendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 	}
 }

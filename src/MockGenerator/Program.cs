@@ -50,12 +50,15 @@ namespace MockGenerator
                 var project = projects[i];
                 Console.WriteLine($"Processing project {project.Name}");
 
-                foreach (var file in project.Documents
-                    .Select(x => x.FilePath)
-                    .Where(x => x.EndsWith(".cs")))
+                var documents = project.Documents
+                    .Where(x => x.FilePath.EndsWith(".cs"))
+                    .ToArray();
+                for (int index = 0; index < documents.Length; index++)
                 {
-                    Console.WriteLine($"\tProcessing {Path.GetFileName(file)}");
-                    ProcessSourceCodes(workspace, ref solution, ref project, file);
+                    var document = documents[index];
+
+                    Console.WriteLine($"\tProcessing {Path.GetFileName(document.FilePath)}");
+                    ProcessSourceCodes(ref solution, ref project, ref document);
                 }
 
                 projects = GetProjectsFromSolution(solution);
@@ -80,11 +83,9 @@ namespace MockGenerator
                 .ToArray();
         }
 
-        private static void ProcessSourceCodes(Workspace workspace, ref Solution solution, ref Project project, string file)
+        private static void ProcessSourceCodes(ref Solution solution, ref Project project, ref Document document)
         {
-            var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(file));
-
-            var compilationUnit = syntaxTree.GetRoot() as CompilationUnitSyntax;
+            var compilationUnit = document.GetSyntaxRootAsync().Result as CompilationUnitSyntax;
             if (compilationUnit == null || compilationUnit.Members.Count == 0) return;
 
             var namespaceDeclarations = compilationUnit.Members.OfType<NamespaceDeclarationSyntax>();
@@ -161,11 +162,11 @@ namespace MockGenerator
                                     .WithTrailingTrivia(NewLineCharacter)
                             };
 
-                        AddPathToProject(workspace, ref solution, ref project, $"{baseFileName}Mockable.cs",
+                        AddPathToProject(ref solution, ref project, $"{baseFileName}Mockable.cs",
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration, usings)
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
-                        AddPathToProject(workspace, ref solution, ref project, $"I{baseFileName}Mockable.cs",
+                        AddPathToProject(ref solution, ref project, $"I{baseFileName}Mockable.cs",
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration, usings)
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
@@ -179,7 +180,7 @@ namespace MockGenerator
             return project.Documents.FirstOrDefault(x => x.Name == Path.GetFileName(path));
         }
 
-        private static void AddPathToProject(Workspace workspace, ref Solution solution, ref Project project, string fileName, string contents)
+        private static void AddPathToProject(ref Solution solution, ref Project project, string fileName, string contents)
         {
             var document = GetExistingDocument(project, fileName);
             if (document != null)

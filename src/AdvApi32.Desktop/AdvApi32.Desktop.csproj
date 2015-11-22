@@ -61,6 +61,8 @@
     <Compile Include="AdvApi32.Helpers.cs" />
     <Compile Include="AdvApi32+ServiceDelayedAutoStartInfo.cs" />
     <Compile Include="AdvApi32+ServiceControlActionType.cs" />
+    <Compile Include="AdvApi32Mockable.cs" />
+    <Compile Include="IAdvApi32Mockable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdvApi32+ServiceControlAction.cs" />
     <Compile Include="AdvApi32+ServiceFailureActions.cs" />
