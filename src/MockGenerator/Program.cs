@@ -57,6 +57,9 @@ namespace MockGenerator
 
                 projects = GetProjectsFromSolution(solution);
             }
+
+            Console.WriteLine("Done!");
+            Console.ReadLine();
         }
 
         private static Project[] GetProjectsFromSolution(Solution solution)
@@ -165,15 +168,17 @@ namespace MockGenerator
         private static void AddPathToProject(Workspace workspace, ref Solution solution, ref Project project, string fileName, string contents)
         {
             var document = GetExistingDocument(project, fileName);
-            if (document != null)
+            if (document == null)
             {
-                project = project.RemoveDocument(document.Id);
+                Console.WriteLine($"\t - Adding {fileName} to project");
+                document = project.AddDocument(fileName,
+                    contents,
+                    null,
+                    Path.Combine(Path.GetDirectoryName(project.FilePath), fileName));
+                project = document.Project;
+                solution = project.Solution;
+                workspace.TryApplyChanges(solution);
             }
-
-            document = project.AddDocument(fileName, contents);
-            project = document.Project;
-            solution = project.Solution;
-            workspace.TryApplyChanges(solution);
         }
 
         private static void PrepareInterfaceCacheEntry(IdentifierNameSyntax newInterfaceModifier)
