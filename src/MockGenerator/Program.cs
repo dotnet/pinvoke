@@ -36,6 +36,8 @@ namespace MockGenerator
 
         private static void Run()
         {
+            Console.WriteLine("Loading solution");
+
             var currentDirectory = Environment.CurrentDirectory;
 
             var workspace = MSBuildWorkspace.Create();
@@ -147,6 +149,7 @@ namespace MockGenerator
                         ClassCache[newClassModifier.Identifier.Text] = newClassDeclaration;
 
                         newInterfaceDeclaration = DecorateInterfaceWithWrapperFunction(
+                            classDeclaration.Identifier,
                             methodDeclaration,
                             invokeMethodIdentifier,
                             newInterfaceDeclaration);
@@ -281,12 +284,14 @@ namespace MockGenerator
         }
 
         private static InterfaceDeclarationSyntax DecorateInterfaceWithWrapperFunction(
+            SyntaxToken classIdentifier,
             MethodDeclarationSyntax methodDeclaration,
             IdentifierNameSyntax invokeMethodIdentifier,
             InterfaceDeclarationSyntax interfaceDeclaration)
         {
             var dllImport = methodDeclaration.AttributeLists
                 .First(x => x.OpenBracketToken.HasLeadingTrivia);
+            var parameterList = methodDeclaration.ParameterList;
             var interfaceMethodDeclaration = SyntaxFactory.MethodDeclaration(
                 SyntaxFactory.List<AttributeListSyntax>(),
                 SyntaxFactory.TokenList(),
@@ -294,7 +299,17 @@ namespace MockGenerator
                 default(ExplicitInterfaceSpecifierSyntax),
                 invokeMethodIdentifier.Identifier,
                 methodDeclaration.TypeParameterList,
-                methodDeclaration.ParameterList,
+                parameterList
+                    .Update(
+                        parameterList.OpenParenToken,
+                        SyntaxFactory.SeparatedList(parameterList.Parameters
+                            .Select(x => SyntaxFactory.Parameter(
+                                x.AttributeLists,
+                                x.Modifiers,
+                                SyntaxFactory.IdentifierName($"{classIdentifier.Text}.{x.Type.ToString()} "),
+                                x.Identifier,
+                                x.Default))),
+                        parameterList.CloseParenToken),
                 methodDeclaration.ConstraintClauses,
                 default(BlockSyntax),
                 SyntaxFactory.Token(SyntaxKind.SemicolonToken));
