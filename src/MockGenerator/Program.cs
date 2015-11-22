@@ -11,6 +11,7 @@ namespace MockGenerator
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.MSBuild;
 
     class Program
     {
@@ -27,18 +28,35 @@ namespace MockGenerator
             InterfaceCache = new Dictionary<string, InterfaceDeclarationSyntax>();
         }
 
-        static void Main(string[] args)
+        private static void Main()
+        {
+            Run();
+        }
+
+        private static void Run()
         {
             var currentDirectory = Environment.CurrentDirectory;
 
-            var solutionRoot = Path.Combine(currentDirectory, "..", "..", "..");
-            foreach (var file in Directory.GetFiles(solutionRoot, "*.cs", SearchOption.AllDirectories))
+            var workspace = MSBuildWorkspace.Create();
+
+            var solutionRoot = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(currentDirectory))), "src");
+            var solution = workspace.OpenSolutionAsync(Path.Combine(solutionRoot, "PInvoke.sln")).Result;
+            var projects = solution.Projects.ToArray();
+            for (var i = 0; i < projects.Length; i++)
             {
-                ProcessSourceCodes(file);
+                var project = projects[i];
+                foreach (var file in project.Documents
+                    .Select(x => x.FilePath)
+                    .Where(x => x.EndsWith(".cs")))
+                {
+                    ProcessSourceCodes(ref solution, ref project, file);
+                }
             }
+
+            workspace.TryApplyChanges(solution);
         }
 
-        private static void ProcessSourceCodes(string file)
+        private static void ProcessSourceCodes(ref Solution solution, ref Project project, string file)
         {
             var syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(file));
 
@@ -99,21 +117,27 @@ namespace MockGenerator
                         string fileDirectory;
                         var baseFileName = GetBaseFileName(file, out fileDirectory);
 
-                        File.WriteAllText(
-                            Path.Combine(
+                        var mockableInterfacePath = Path.Combine(
                                 fileDirectory,
-                                $"I{baseFileName}Mockable.cs"),
+                                $"I{baseFileName}Mockable.cs");
+                        File.WriteAllText(
+                            mockableInterfacePath,
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
 
-                        File.WriteAllText(
-                            Path.Combine(
+                        var mockableClassPath = Path.Combine(
                                 fileDirectory,
-                                $"{baseFileName}Mockable.cs"),
+                                $"{baseFileName}Mockable.cs");
+                        File.WriteAllText(
+                            mockableClassPath,
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
+
+                        project = project.AddDocument(Path.GetFileName(mockableClassPath), File.ReadAllText(mockableClassPath)).Project;
+                        project = project.AddDocument(Path.GetFileName(mockableInterfacePath), File.ReadAllText(mockableInterfacePath)).Project;
+                        solution = project.Solution;
                     }
 
                     if (methodDeclarations.Length <= 0)
@@ -134,6 +158,25 @@ namespace MockGenerator
                     File.WriteAllText(file, compilationUnit.ToFullString());
                 }
             }
+        }
+
+        private static string GetProjectFile(string file)
+        {
+            var folder = Path.GetDirectoryName(file);
+            var projectFile = (string)null;
+            while (folder != null)
+            {
+                var projectFiles = Directory.GetFiles(folder, "*.csproj");
+                if (projectFiles.Any())
+                {
+                    projectFile = projectFiles.Single();
+                    break;
+                }
+
+                folder = Path.GetDirectoryName(folder);
+            }
+
+            return projectFile;
         }
 
         private static void PrepareInterfaceCacheEntry(IdentifierNameSyntax newInterfaceModifier)
