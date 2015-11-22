@@ -118,29 +118,14 @@ namespace MockGenerator
                         string fileDirectory;
                         var baseFileName = GetBaseFileName(file, out fileDirectory);
 
-                        var mockableInterfacePath = Path.Combine(
-                                fileDirectory,
-                                $"I{baseFileName}Mockable.cs");
-                        File.WriteAllText(
-                            mockableInterfacePath,
-                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
-                                .AddMembers(newInterfaceDeclaration)
-                                .ToFullString());
-
-                        var mockableClassPath = Path.Combine(
-                                fileDirectory,
-                                $"{baseFileName}Mockable.cs");
-                        File.WriteAllText(
-                            mockableClassPath,
+                        AddPathToProject(workspace, ref solution, ref project, $"{baseFileName}Mockable.cs",
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
-
-                        AddPathToProject(ref project, mockableClassPath);
-                        AddPathToProject(ref project, mockableInterfacePath);
-
-                        solution = project.Solution;
-                        workspace.TryApplyChanges(solution);
+                        AddPathToProject(workspace, ref solution, ref project, $"I{baseFileName}Mockable.cs", 
+                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
+                                .AddMembers(newInterfaceDeclaration)
+                                .ToFullString());
                     }
 
                     if (methodDeclarations.Length <= 0)
@@ -163,21 +148,23 @@ namespace MockGenerator
             }
         }
 
-        private static bool DoesProjectContainFile(Project project, string path)
+        private static Document GetExistingDocument(Project project, string path)
         {
-            return project.Documents.Any(x => x.Name == Path.GetFileName(path));
+            return project.Documents.FirstOrDefault(x => x.Name == Path.GetFileName(path));
         }
 
-        private static void AddPathToProject(ref Project project, string mockableClassPath)
+        private static void AddPathToProject(Workspace workspace, ref Solution solution, ref Project project, string fileName, string contents)
         {
-            if (!DoesProjectContainFile(project, mockableClassPath))
+            var document = GetExistingDocument(project, fileName);
+            if (document != null)
             {
-                project =
-                    project.AddDocument(Path.GetFileName(mockableClassPath),
-                        File.ReadAllText(mockableClassPath),
-                        null,
-                        mockableClassPath).Project;
+                project = project.RemoveDocument(document.Id);
             }
+
+            document = project.AddDocument(fileName, contents);
+            project = document.Project;
+            solution = project.Solution;
+            workspace.TryApplyChanges(solution);
         }
 
         private static void PrepareInterfaceCacheEntry(IdentifierNameSyntax newInterfaceModifier)
