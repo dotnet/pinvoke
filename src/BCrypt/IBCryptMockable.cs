@@ -584,24 +584,6 @@ namespace PInvoke
             BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None);
 	
         /// <summary>
-        /// Sets the value of a named property for a CNG object.
-        /// </summary>
-        /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
-        /// <param name="property">
-        /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
-        /// </param>
-        /// <param name="input">The new property value. The <paramref name="inputSize"/> parameter contains the size of this buffer.</param>
-        /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
-        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
-        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        NTStatus InvokeBCryptSetProperty(
-            SafeHandle hObject,
-            string property,
-            string input,
-            int inputSize,
-            BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None);
-	
-        /// <summary>
         /// Retrieves the value of a named property for a CNG object.
         /// </summary>
         /// <param name="hObject">A handle that represents the CNG object to obtain the property value for.</param>

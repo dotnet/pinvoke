@@ -146,7 +146,7 @@ namespace MockGenerator
                         InterfaceCache[newInterfaceModifier.Identifier.Text] = newInterfaceDeclaration;
 
                         string fileDirectory;
-                        var baseFileName = GetBaseFileName(file, out fileDirectory);
+                        var baseFileName = GetBaseFileName(document.FilePath, out fileDirectory);
 
                         var usings = new[]
                             {
@@ -299,6 +299,13 @@ namespace MockGenerator
             IdentifierNameSyntax invokeMethodIdentifier,
             InterfaceDeclarationSyntax interfaceDeclaration)
         {
+            if (interfaceDeclaration.Members
+                .OfType<MethodDeclarationSyntax>()
+                .Any(x => x.Identifier.Text == invokeMethodIdentifier.Identifier.Text))
+            {
+                return interfaceDeclaration;
+            }
+
             var dllImport = methodDeclaration.AttributeLists
                 .First(x => x.OpenBracketToken.HasLeadingTrivia);
             var interfaceMethodDeclaration = SyntaxFactory.MethodDeclaration(
@@ -339,6 +346,13 @@ namespace MockGenerator
             IdentifierNameSyntax invokeMethodIdentifier,
             ClassDeclarationSyntax classDeclaration)
         {
+            if (classDeclaration.Members
+                .OfType<MethodDeclarationSyntax>()
+                .Any(x => x.Identifier.Text == invokeMethodIdentifier.Identifier.Text))
+            {
+                return classDeclaration;
+            }
+
             var dllImport = methodDeclaration.AttributeLists
                 .First(x => x.OpenBracketToken.HasLeadingTrivia);
             var arguments = methodDeclaration.ParameterList
