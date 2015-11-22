@@ -9,7 +9,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 	using static BCrypt;
 	[System.Runtime.CompilerServices.CompilerGenerated]
-		public interface IBCryptMockable {        /// <summary>
+	public interface IBCrypt {        /// <summary>
         /// Loads and initializes a CNG provider.
         /// </summary>
         /// <param name="phAlgorithm">
@@ -43,7 +43,7 @@ namespace PInvoke
         /// Returns a status code that indicates the success or failure of the function.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptOpenAlgorithmProvider(
+	NTStatus BCryptOpenAlgorithmProvider(
             out SafeAlgorithmHandle phAlgorithm,
             string pszAlgId,
             string pszImplementation,
@@ -78,7 +78,7 @@ namespace PInvoke
         /// <param name="dwFlags">Flags that modify the behavior of the function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptCreateHash(
+	NTStatus BCryptCreateHash(
             SafeAlgorithmHandle hAlgorithm,
             out SafeHashHandle phHash,
             byte[] pbHashObject,
@@ -127,7 +127,7 @@ namespace PInvoke
         /// The <paramref name="pbInput"/> and <paramref name="pbOutput"/> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptEncrypt(
+	NTStatus BCryptEncrypt(
             SafeKeyHandle hKey,
             byte[] pbInput,
             int cbInput,
@@ -178,7 +178,7 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptDecrypt(
+	NTStatus BCryptDecrypt(
             SafeKeyHandle hKey,
             byte[] pbInput,
             int cbInput,
@@ -207,7 +207,7 @@ namespace PInvoke
         /// After the <see cref="BCryptFinishHash(SafeHashHandle, byte[], int, BCryptFinishHashFlags)"/> function has been called for a specified handle, that handle cannot be reused.
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptHashData(
+	NTStatus BCryptHashData(
             SafeHashHandle hHash,
             byte[] pbInput,
             int cbInput,
@@ -229,7 +229,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptFinishHash(
+	NTStatus BCryptFinishHash(
             SafeHashHandle hHash,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbOutput,
             int cbOutput,
@@ -267,7 +267,7 @@ namespace PInvoke
         /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptSignHash(
+	NTStatus BCryptSignHash(
             SafeKeyHandle hKey,
             IntPtr pPaddingInfo,
             byte[] pbInput,
@@ -308,7 +308,7 @@ namespace PInvoke
         /// In particular, an invalid signature will produce a <see cref="NTStatus.STATUS_INVALID_SIGNATURE"/> result.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptVerifySignature(
+	NTStatus BCryptVerifySignature(
             SafeKeyHandle hKey,
             IntPtr pPaddingInfo,
             byte[] pbHash,
@@ -331,7 +331,7 @@ namespace PInvoke
         /// BCryptFinalizeKeyPair function is called.
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptGenerateKeyPair(
+	NTStatus BCryptGenerateKeyPair(
             SafeAlgorithmHandle hAlgorithm,
             out SafeKeyHandle phKey,
             int dwLength,
@@ -365,7 +365,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptGenerateSymmetricKey(
+	NTStatus BCryptGenerateSymmetricKey(
             SafeAlgorithmHandle hAlgorithm,
             out SafeKeyHandle phKey,
             byte[] pbKeyObject,
@@ -386,7 +386,7 @@ namespace PInvoke
         /// can no longer be used for this key.
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptFinalizeKeyPair(
+	NTStatus BCryptFinalizeKeyPair(
             SafeKeyHandle hKey,
             BCryptFinalizeKeyPairFlags dwFlags = BCryptFinalizeKeyPairFlags.None);
 	
@@ -396,7 +396,7 @@ namespace PInvoke
         /// <param name="hKey">The handle of the key to destroy.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptDestroyKey(
+	NTStatus BCryptDestroyKey(
             IntPtr hKey);
 	
         /// <summary>
@@ -405,7 +405,7 @@ namespace PInvoke
         /// <param name="hSecret">The handle of the secret to destroy.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptDestroySecret(
+	NTStatus BCryptDestroySecret(
             IntPtr hSecret);
 	
         /// <summary>
@@ -445,7 +445,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptImportKey(
+	NTStatus BCryptImportKey(
             SafeAlgorithmHandle hAlgorithm,
             SafeKeyHandle hImportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
@@ -468,7 +468,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptImportKeyPair(
+	NTStatus BCryptImportKeyPair(
             SafeAlgorithmHandle hAlgorithm,
             SafeKeyHandle hImportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
@@ -505,7 +505,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptExportKey(
+	NTStatus BCryptExportKey(
             SafeKeyHandle hKey,
             SafeKeyHandle hExportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
@@ -533,7 +533,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptSecretAgreement(
+	NTStatus BCryptSecretAgreement(
             SafeKeyHandle privateKey,
             SafeKeyHandle publicKey,
             out SafeSecretHandle secret,
@@ -575,7 +575,7 @@ namespace PInvoke
         /// Returns a status code that indicates the success or failure of the function.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptDeriveKey(
+	NTStatus BCryptDeriveKey(
             SafeSecretHandle sharedSecret,
             string keyDerivationFunction,
             [In] ref BCryptBufferDesc kdfParameters,
@@ -596,7 +596,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptSetProperty(
+	NTStatus BCryptSetProperty(
             SafeHandle hObject,
             string property,
             [In, MarshalAs(UnmanagedType.LPArray)] byte[] input,
@@ -614,7 +614,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptGetProperty(
+	NTStatus BCryptGetProperty(
             SafeHandle hObject,
             string property,
             [Out, MarshalAs(UnmanagedType.LPArray)] byte[] output,
@@ -637,7 +637,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	NTStatus InvokeBCryptGenRandom(
+	NTStatus BCryptGenRandom(
             SafeAlgorithmHandle hAlgorithm,
             byte[] pbBuffer,
             int cbBuffer,

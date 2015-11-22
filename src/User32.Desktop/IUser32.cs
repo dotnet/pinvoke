@@ -7,14 +7,14 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 	using static User32;
 	[System.Runtime.CompilerServices.CompilerGenerated]
-		public interface IUser32Mockable {        [System.Runtime.CompilerServices.CompilerGenerated]
-	int InvokeSetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
+	public interface IUser32 {        [System.Runtime.CompilerServices.CompilerGenerated]
+	int SetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
 	
         [System.Runtime.CompilerServices.CompilerGenerated]
-	int InvokeGetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
+	int GetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
 	
         [System.Runtime.CompilerServices.CompilerGenerated]
-	bool InvokeSetWindowPos(
+	bool SetWindowPos(
             IntPtr hWnd,
             IntPtr hWndInsertAfter,
             int X,
@@ -24,22 +24,22 @@ namespace PInvoke
             SetWindowPosFlags uFlags);
 	
         [System.Runtime.CompilerServices.CompilerGenerated]
-	IntPtr InvokeSetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+	IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 	
         [System.Runtime.CompilerServices.CompilerGenerated]
-	IntPtr InvokeFindWindowEx(
+	IntPtr FindWindowEx(
             IntPtr parentHandle,
             IntPtr childAfter,
             string className,
             string windowTitle);
 	
         [System.Runtime.CompilerServices.CompilerGenerated]
-	bool InvokeShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
+	bool ShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
 	
         [System.Runtime.CompilerServices.CompilerGenerated]
-	IntPtr InvokeGetForegroundWindow();
+	IntPtr GetForegroundWindow();
 	
         [System.Runtime.CompilerServices.CompilerGenerated]
-	int InvokeSendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+	int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 	}
 }

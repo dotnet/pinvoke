@@ -61,7 +61,7 @@
     <Compile Include="BCrypt.cs" />
     <Compile Include="BCrypt.Helpers.cs" />
     <Compile Include="BCryptMockable.cs" />
-    <Compile Include="IBCryptMockable.cs" />
+    <Compile Include="IBCrypt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 	using static SetupApi;
 	[System.Runtime.CompilerServices.CompilerGenerated]
-	public class SetupApiMockable : ISetupApiMockable {        /// <summary>
+	class SetupApiMockable : ISetupApi {        /// <summary>
         /// The SetupDiGetClassDevs function returns a <see cref="SafeDeviceInfoSetHandle" /> handle to a device information set
         /// that contains requested device information elements for a local computer.
         /// </summary>
@@ -49,7 +49,7 @@ namespace PInvoke
         /// installed devices that matched the supplied parameters. If the operation fails, the function returns an invalid handle.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public SafeDeviceInfoSetHandle InvokeSetupDiGetClassDevs(
+		public SafeDeviceInfoSetHandle SetupDiGetClassDevs(
             NullableGuid classGuid,
             string enumerator,
             IntPtr hwndParent,
@@ -94,7 +94,7 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeSetupDiEnumDeviceInterfaces(
+		public bool SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle deviceInfoSet,
             DeviceInfoData deviceInfoData,
             ref Guid interfaceClassGuid,
@@ -143,7 +143,7 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeSetupDiGetDeviceInterfaceDetail(
+		public bool SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
             ref DeviceInterfaceData deviceInterfaceData,
             IntPtr deviceInterfaceDetailData,
@@ -171,7 +171,7 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeSetupDiEnumDeviceInfo(
+		public bool SetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
             uint memberIndex,
             DeviceInfoData deviceInfoData)

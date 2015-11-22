@@ -24,7 +24,7 @@
     <Compile Include="Gdi32.cs" />
     <Compile Include="Gdi32.Helpers.cs" />
     <Compile Include="Gdi32Mockable.cs" />
-    <Compile Include="IGdi32Mockable.cs" />
+    <Compile Include="IGdi32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

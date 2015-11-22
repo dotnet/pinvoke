@@ -9,7 +9,7 @@ namespace PInvoke
     using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 	using static Kernel32;
 	[System.Runtime.CompilerServices.CompilerGenerated]
-		public interface IKernel32Mockable {
+	public interface IKernel32 {
         /// <summary>
         /// Searches a directory for a file or subdirectory with a name and attributes that match those specified.
         /// For the most basic version of this function, see FindFirstFile.
@@ -43,7 +43,7 @@ namespace PInvoke
         /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	SafeFindFilesHandle InvokeFindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, IntPtr lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags);
+	SafeFindFilesHandle FindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, IntPtr lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags);
 	
         /// <summary>
         /// Formats a message string. The function requires a message definition as input. The message definition can come from a buffer passed into the function. It can come from a message table resource in an already-loaded module. Or the caller can ask the function to search the system's message table resource(s) for the message definition. The function finds the message definition in a message table resource based on a message identifier and a language identifier. The function copies the formatted message text to an output buffer, processing any embedded insert sequences if requested.
@@ -90,20 +90,20 @@ namespace PInvoke
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	int InvokeFormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
+	int FormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
 	
         /// <summary>
         /// Retrieves the thread identifier of the calling thread.
         /// </summary>
         /// <returns>The thread identifier of the calling thread.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	uint InvokeGetCurrentThreadId();
+	uint GetCurrentThreadId();
 	
         /// <summary>Retrieves the process identifier of the calling process.</summary>
         /// <returns>The process identifier of the calling process.</returns>
         /// <remarks>Until the process terminates, the process identifier uniquely identifies the process throughout the system.</remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	uint InvokeGetCurrentProcessId();
+	uint GetCurrentProcessId();
 	
         /// <summary>Retrieves a pseudo handle for the current process.</summary>
         /// <returns>The return value is a pseudo handle to the current process.</returns>
@@ -129,7 +129,7 @@ namespace PInvoke
         ///     </para>
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	SafeObjectHandle InvokeGetCurrentProcess();
+	SafeObjectHandle GetCurrentProcess();
 	
         /// <summary>
         ///     Marks any outstanding I/O operations for the specified file handle. The function only cancels I/O operations
@@ -163,7 +163,7 @@ namespace PInvoke
         ///     </para>
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	unsafe bool InvokeCancelIoEx(
+	unsafe bool CancelIoEx(
             SafeObjectHandle hFile,
             OVERLAPPED* lpOverlapped);
 	
@@ -228,7 +228,7 @@ namespace PInvoke
         ///     </para>
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	unsafe bool InvokeReadFile(
+	unsafe bool ReadFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
             uint nNumberOfBytesToRead,
@@ -304,7 +304,7 @@ namespace PInvoke
         ///     </para>
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	unsafe bool InvokeWriteFile(
+	unsafe bool WriteFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
             uint nNumberOfBytesToWrite,
@@ -323,7 +323,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	int InvokeSuspendThread(SafeObjectHandle hThread);
+	int SuspendThread(SafeObjectHandle hThread);
 	
         /// <summary>
         /// Suspends the specified WOW64 thread.
@@ -336,7 +336,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	int InvokeWow64SuspendThread(SafeObjectHandle hThread);
+	int Wow64SuspendThread(SafeObjectHandle hThread);
 	
         /// <summary>
         /// Decrements a thread's suspend count. When the suspend count is decremented to zero, the execution of the thread is resumed.
@@ -350,7 +350,7 @@ namespace PInvoke
         /// If the function fails, the return value is (DWORD) -1. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	int InvokeResumeThread(SafeObjectHandle hThread);
+	int ResumeThread(SafeObjectHandle hThread);
 	
         /// <summary>
         /// Waits until the specified object is in the signaled state or the time-out interval elapses.
@@ -369,7 +369,7 @@ namespace PInvoke
         /// If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	WaitForSingleObjectResult InvokeWaitForSingleObject(
+	WaitForSingleObjectResult WaitForSingleObject(
             SafeHandle hHandle,
             uint dwMilliseconds);
 	
@@ -382,6 +382,6 @@ namespace PInvoke
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	bool InvokeCloseHandle(IntPtr hObject);
+	bool CloseHandle(IntPtr hObject);
 	}
 }

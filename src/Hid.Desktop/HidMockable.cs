@@ -9,7 +9,7 @@ namespace PInvoke
     using static Kernel32;
 	using static Hid;
 	[System.Runtime.CompilerServices.CompilerGenerated]
-	public class HidMockable : IHidMockable {        /// <summary>
+	class HidMockable : IHid {        /// <summary>
         /// The HidD_GetHidGuid routine returns the device interfaceGUID for HIDClass devices.
         /// </summary>
         /// <param name="hidGuid">
@@ -17,7 +17,7 @@ namespace PInvoke
         /// for HIDClass devices.
         /// </param>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public void InvokeHidD_GetHidGuid(out Guid hidGuid)
+		public void HidD_GetHidGuid(out Guid hidGuid)
 			=> HidD_GetHidGuid(out hidGuid);
 	
         /// <summary>
@@ -30,7 +30,7 @@ namespace PInvoke
         /// </param>
         /// <returns>TRUE if succeeds; otherwise, it returns FALSE.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeHidD_GetAttributes(
+		public bool HidD_GetAttributes(
             SafeObjectHandle hidDeviceObject,
             ref HiddAttributes attributes)
 			=> HidD_GetAttributes(hidDeviceObject, ref attributes);
@@ -54,7 +54,7 @@ namespace PInvoke
         /// maximum string length is 126 wide characters (not including the terminating NULL character).
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeHidD_GetManufacturerString(
+		public bool HidD_GetManufacturerString(
             SafeObjectHandle hidDeviceObject,
             StringBuilder buffer,
             int bufferLength)
@@ -80,7 +80,7 @@ namespace PInvoke
         /// maximum string length is 126 wide characters (not including the terminating NULL character).
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeHidD_GetProductString(
+		public bool HidD_GetProductString(
             SafeObjectHandle hidDeviceObject,
             StringBuilder buffer,
             int bufferLength)
@@ -110,7 +110,7 @@ namespace PInvoke
         /// maximum string length is 126 wide characters (not including the terminating NULL character).
         /// </remarks>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeHidD_GetSerialNumberString(
+		public bool HidD_GetSerialNumberString(
             SafeObjectHandle hidDeviceObject,
             StringBuilder buffer,
             int bufferLength)
@@ -127,7 +127,7 @@ namespace PInvoke
         /// </param>
         /// <returns>TRUE if it succeeds; otherwise, it returns FALSE.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeHidD_SetNumInputBuffers(
+		public bool HidD_SetNumInputBuffers(
             SafeObjectHandle hidDeviceObject,
             uint numberBuffers)
 			=> HidD_SetNumInputBuffers(hidDeviceObject, numberBuffers);
@@ -142,7 +142,7 @@ namespace PInvoke
         /// </param>
         /// <returns>TRUE if it succeeds; otherwise, it returns FALSE.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public bool InvokeHidD_GetPreparsedData(
+		public bool HidD_GetPreparsedData(
             SafeObjectHandle hidDeviceObject,
             out SafePreparsedDataHandle preparsedDataHandle)
 			=> HidD_GetPreparsedData(hidDeviceObject, out preparsedDataHandle);
@@ -160,7 +160,7 @@ namespace PInvoke
         /// specified preparsed data is invalid.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public NTStatus InvokeHidP_GetCaps(SafePreparsedDataHandle preparsedData, ref HidpCaps capabilities)
+		public NTStatus HidP_GetCaps(SafePreparsedDataHandle preparsedData, ref HidpCaps capabilities)
 			=> HidP_GetCaps(preparsedData, ref capabilities);
 	}
 }

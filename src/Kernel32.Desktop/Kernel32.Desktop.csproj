@@ -28,7 +28,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IKernel32Mockable.cs" />
+    <Compile Include="IKernel32.cs" />
     <Compile Include="Kernel32+ACL.cs" />
     <Compile Include="Kernel32+CreateFileFlags.cs" />
     <Compile Include="Kernel32+CreateProcessFlags.cs" />

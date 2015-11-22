@@ -38,7 +38,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IImageHlpMockable.cs" />
+    <Compile Include="IImageHlp.cs" />
     <Compile Include="ImageHlp.cs" />
     <Compile Include="ImageHlp.Helpers.cs" />
     <Compile Include="ImageHlpMockable.cs" />

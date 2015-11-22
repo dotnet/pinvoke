@@ -8,7 +8,7 @@ namespace PInvoke
     using static DbgHelp;
 	using static ImageHlp;
 	[System.Runtime.CompilerServices.CompilerGenerated]
-		public interface IImageHlpMockable {        /// <summary>
+	public interface IImageHlp {        /// <summary>
         /// Maps an image and preloads data from the mapped file.
         /// </summary>
         /// <param name="ImageName">The file name of the image (executable file or DLL) that is loaded.</param>
@@ -21,7 +21,7 @@ namespace PInvoke
         /// If the function fails, the return value is FALSE. To retrieve extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	bool InvokeMapAndLoad(
+	bool MapAndLoad(
             string ImageName,
             string DllPath,
             out LOADED_IMAGE LoadedImage,
@@ -39,7 +39,7 @@ namespace PInvoke
         /// If the function fails, the return value is FALSE. To retrieve extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-	bool InvokeUnMapAndLoad(
+	bool UnMapAndLoad(
             ref LOADED_IMAGE LoadedImage);
 	}
 }

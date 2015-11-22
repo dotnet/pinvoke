@@ -119,7 +119,7 @@ namespace MockGenerator
                     }
 
                     var newInterfaceModifier =
-                        SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
+                        SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}");
                     var newClassModifier = SyntaxFactory.IdentifierName($"{classDeclaration.Identifier.Text}Mockable");
 
                     PrepareClassCacheEntry(newClassModifier, classDeclaration, newInterfaceModifier);
@@ -166,7 +166,7 @@ namespace MockGenerator
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration, usings)
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
-                        AddPathToProject(ref solution, ref project, $"I{baseFileName}Mockable.cs",
+                        AddPathToProject(ref solution, ref project, $"I{baseFileName}.cs",
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration, usings)
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
@@ -208,7 +208,6 @@ namespace MockGenerator
                             GetCompilerGeneratedAttribute()
                                 .WithTrailingTrivia(
                                     NewLineCharacter,
-                                    TabCharacter,
                                     TabCharacter)
                         }),
                         SyntaxFactory.TokenList(
@@ -243,10 +242,7 @@ namespace MockGenerator
                                     NewLineCharacter,
                                     TabCharacter)
                         }),
-                        SyntaxFactory.TokenList(
-                            SyntaxFactory
-                                .Token(SyntaxKind.PublicKeyword)
-                                .WithTrailingTrivia(WhitespaceCharacter)),
+                        SyntaxFactory.TokenList(),
                         newClassModifier.Identifier
                             .WithTrailingTrivia(WhitespaceCharacter)
                             .WithLeadingTrivia(WhitespaceCharacter),

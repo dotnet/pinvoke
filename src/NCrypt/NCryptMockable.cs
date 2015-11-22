@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 	using static NCrypt;
 	[System.Runtime.CompilerServices.CompilerGenerated]
-	public class NCryptMockable : INCryptMockable {        /// <summary>
+	class NCryptMockable : INCrypt {        /// <summary>
         /// Loads and initializes a CNG key storage provider.
         /// </summary>
         /// <param name="phProvider">
@@ -19,7 +19,7 @@ namespace PInvoke
         /// <param name="dwFlags">Flags that modify the behavior of the function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public SECURITY_STATUS InvokeNCryptOpenStorageProvider(
+		public SECURITY_STATUS NCryptOpenStorageProvider(
             out SafeProviderHandle phProvider,
             string pszProviderName,
             NCryptOpenStorageProviderFlags dwFlags = NCryptOpenStorageProviderFlags.None)
@@ -46,7 +46,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public SECURITY_STATUS InvokeNCryptCreatePersistedKey(
+		public SECURITY_STATUS NCryptCreatePersistedKey(
             SafeProviderHandle hProvider,
             out SafeKeyHandle phKey,
             string pszAlgId,
@@ -66,7 +66,7 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public SECURITY_STATUS InvokeNCryptFinalizeKey(
+		public SECURITY_STATUS NCryptFinalizeKey(
             SafeKeyHandle hKey,
             NCryptFinalizeKeyFlags dwFlags = NCryptFinalizeKeyFlags.None)
 			=> NCryptFinalizeKey(hKey, dwFlags );
@@ -94,7 +94,7 @@ namespace PInvoke
         /// <param name="dwFlags">Flags that modify function behavior.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public SECURITY_STATUS InvokeNCryptGetProperty(
+		public SECURITY_STATUS NCryptGetProperty(
             SafeHandle hObject,
             string pszProperty,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbOutput,
@@ -119,7 +119,7 @@ namespace PInvoke
         /// <param name="dwFlags">Flags that modify function behavior.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [System.Runtime.CompilerServices.CompilerGenerated]
-		public SECURITY_STATUS InvokeNCryptSetProperty(
+		public SECURITY_STATUS NCryptSetProperty(
             SafeHandle hObject,
             string pszProperty,
             byte[] pbInput,
