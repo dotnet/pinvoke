@@ -45,15 +45,18 @@ namespace MockGenerator
             for (var i = 0; i < projects.Length; i++)
             {
                 var project = projects[i];
+                Console.WriteLine($"Processing project {project.Name}");
+
                 foreach (var file in project.Documents
                     .Select(x => x.FilePath)
                     .Where(x => x.EndsWith(".cs")))
                 {
+                    Console.WriteLine($"\tProcessing {Path.GetFileName(file)}");
                     ProcessSourceCodes(ref solution, ref project, file);
                 }
-            }
 
-            workspace.TryApplyChanges(solution);
+                workspace.TryApplyChanges(solution);
+            }
         }
 
         private static void ProcessSourceCodes(ref Solution solution, ref Project project, string file)
@@ -135,8 +138,16 @@ namespace MockGenerator
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
 
-                        project = project.AddDocument(Path.GetFileName(mockableClassPath), File.ReadAllText(mockableClassPath)).Project;
-                        project = project.AddDocument(Path.GetFileName(mockableInterfacePath), File.ReadAllText(mockableInterfacePath)).Project;
+                        if (!DoesProjectContainFile(project, mockableClassPath))
+                        {
+                            AddPathToProject(ref project, mockableClassPath);
+                        }
+
+                        if (!DoesProjectContainFile(project, mockableInterfacePath))
+                        {
+                            AddPathToProject(ref project, mockableInterfacePath);
+                        }
+
                         solution = project.Solution;
                     }
 
@@ -160,23 +171,18 @@ namespace MockGenerator
             }
         }
 
-        private static string GetProjectFile(string file)
+        private static bool DoesProjectContainFile(Project project, string path)
         {
-            var folder = Path.GetDirectoryName(file);
-            var projectFile = (string)null;
-            while (folder != null)
-            {
-                var projectFiles = Directory.GetFiles(folder, "*.csproj");
-                if (projectFiles.Any())
-                {
-                    projectFile = projectFiles.Single();
-                    break;
-                }
+            return project.Documents.Any(x => x.Name == Path.GetFileName(path));
+        }
 
-                folder = Path.GetDirectoryName(folder);
-            }
-
-            return projectFile;
+        private static void AddPathToProject(ref Project project, string mockableClassPath)
+        {
+            project =
+                project.AddDocument(Path.GetFileName(mockableClassPath),
+                    File.ReadAllText(mockableClassPath),
+                    null,
+                    mockableClassPath).Project;
         }
 
         private static void PrepareInterfaceCacheEntry(IdentifierNameSyntax newInterfaceModifier)
