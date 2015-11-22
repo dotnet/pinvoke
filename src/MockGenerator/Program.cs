@@ -100,6 +100,7 @@ namespace MockGenerator
                     var className = classDeclaration.Identifier.Text;
                     if (className.EndsWith("Mockable") || className.EndsWith("Extensions"))
                     {
+                        Console.WriteLine($"\tSkipping class {className} because it is a mockable or an extension method.");
                         continue;
                     }
 
@@ -117,10 +118,12 @@ namespace MockGenerator
                         .OfType<MethodDeclarationSyntax>()
                         .Where(a => a.AttributeLists.Any(
                                 b => b.Attributes.Any(
-                                    c => c.Name.ToString() == "DllImport")))
+                                    c => c.Name.ToString() == "DllImport"))
+                                    && IsNotPublicStaticExternMethod(a))
                         .ToArray();
                     if (methodDeclarations.Length <= 0)
                     {
+                        Console.WriteLine($"\tSkipping class {className} because it has no public static extern methods with DllImport attributes.");
                         continue;
                     }
 
@@ -136,11 +139,6 @@ namespace MockGenerator
 
                     foreach (var methodDeclaration in methodDeclarations)
                     {
-                        if (IsPublicStaticExternMethod(methodDeclaration))
-                        {
-                            continue;
-                        }
-
                         var invokeMethodIdentifier =
                             SyntaxFactory.IdentifierName($"Invoke{methodDeclaration.Identifier.Text}");
 
@@ -164,8 +162,8 @@ namespace MockGenerator
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
                         AddPathToProject(workspace, ref solution, ref project, $"I{baseFileName}Mockable.cs",
-                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration, 
-                                    SyntaxFactory.List(new []
+                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration,
+                                    SyntaxFactory.List(new[]
                                     {
                                         SyntaxFactory.UsingDirective(
                                             SyntaxFactory.IdentifierName(classDeclaration.Identifier
@@ -173,6 +171,7 @@ namespace MockGenerator
                                                 .WithTrailingTrivia())
                                                 .WithLeadingTrivia(WhitespaceCharacter))
                                             .WithLeadingTrivia(TabCharacter)
+                                            .WithTrailingTrivia(NewLineCharacter)
                                     }))
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
@@ -280,7 +279,7 @@ namespace MockGenerator
             return newNamespaceDeclaration;
         }
 
-        private static bool IsPublicStaticExternMethod(MethodDeclarationSyntax methodDeclaration)
+        private static bool IsNotPublicStaticExternMethod(MethodDeclarationSyntax methodDeclaration)
         {
             var externMethodKeyword = methodDeclaration.Modifiers
                 .SingleOrDefault(x => x.IsKind(SyntaxKind.ExternKeyword));
