@@ -111,7 +111,7 @@ namespace PInvoke
         public static ArraySegment<byte> BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
         {
             int length;
-            exportKey = exportKey ?? SafeKeyHandle.NullHandle;
+            exportKey = exportKey ?? SafeKeyHandle.Null;
             BCryptExportKey(
                 key,
                 exportKey,
@@ -198,7 +198,7 @@ namespace PInvoke
             SafeKeyHandle result;
             var error = BCryptImportKeyPair(
                 algorithm,
-                SafeKeyHandle.NullHandle,
+                SafeKeyHandle.Null,
                 blobType,
                 out result,
                 input,

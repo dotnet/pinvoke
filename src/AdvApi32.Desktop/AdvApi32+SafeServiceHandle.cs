@@ -21,7 +21,7 @@ namespace PInvoke
             /// <summary>
             /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
             /// </summary>
-            internal static readonly SafeServiceHandle NullHandle = new SafeServiceHandle();
+            public static readonly SafeServiceHandle Null = new SafeServiceHandle();
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeServiceHandle"/> class.

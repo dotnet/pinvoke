@@ -19,7 +19,7 @@ namespace PInvoke
             /// <summary>
             /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
             /// </summary>
-            internal static readonly SafeSecretHandle NullHandle = new SafeSecretHandle();
+            public static readonly SafeSecretHandle Null = new SafeSecretHandle();
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeSecretHandle"/> class.
