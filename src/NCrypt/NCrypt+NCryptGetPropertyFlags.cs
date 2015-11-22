@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -6,7 +6,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="NCryptGetPropertyFlags"/> nested type.
     /// </content>
-    public static partial class NCrypt
+    public partial class NCrypt
     {
         /// <summary>
         /// Flags that may be supplied to the <see cref="NCryptGetProperty(System.Runtime.InteropServices.SafeHandle, string, byte[], int, out int, NCryptGetPropertyFlags)"/> function.

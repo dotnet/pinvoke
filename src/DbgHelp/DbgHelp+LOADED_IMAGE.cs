@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -9,7 +9,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="LOADED_IMAGE"/> nested type.
     /// </content>
-    public static partial class DbgHelp
+    public partial class DbgHelp
     {
         /// <summary>
         /// Contains information about the loaded image.

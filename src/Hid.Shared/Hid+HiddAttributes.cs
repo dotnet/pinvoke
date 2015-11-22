@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="HiddAttributes"/> nested class.
     /// </content>
-    public static partial class Hid
+    public partial class Hid
     {
         /// <summary>
         /// The HIDD_ATTRIBUTES structure contains vendor information about a HIDClass device.

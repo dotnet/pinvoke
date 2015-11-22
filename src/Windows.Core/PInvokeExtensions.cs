@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -8,7 +8,7 @@ namespace PInvoke
     /// <summary>
     /// Extension methods for commonly defined types.
     /// </summary>
-    public static class PInvokeExtensions
+    public class PInvokeExtensions
     {
         /// <summary>
         /// Converts an HRESULT to <see cref="NTStatus"/>

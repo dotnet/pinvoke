@@ -100,6 +100,16 @@ namespace MockGenerator
                         continue;
                     }
 
+                    var staticModifier = classDeclaration.Modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
+                    if (staticModifier != default(SyntaxToken))
+                    {
+                        compilationUnit = compilationUnit.ReplaceNode(
+                            classDeclaration,
+                            classDeclaration.WithModifiers(
+                                classDeclaration.Modifiers.Remove(staticModifier)));
+                        File.WriteAllText(file, compilationUnit.ToFullString());
+                    }
+
                     var methodDeclarations = classDeclaration.Members
                         .OfType<MethodDeclarationSyntax>()
                         .Where(a => a.AttributeLists.Any(b => b.Attributes.Any(c => c.Name.ToString() == "DllImport")))
@@ -153,18 +163,6 @@ namespace MockGenerator
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
                     }
-
-                    var staticModifier = classDeclaration.Modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
-                    if (staticModifier == default(SyntaxToken))
-                    {
-                        continue;
-                    }
-
-                    compilationUnit = compilationUnit.ReplaceNode(
-                        classDeclaration,
-                        classDeclaration.WithModifiers(
-                            classDeclaration.Modifiers.Remove(staticModifier)));
-                    File.WriteAllText(file, compilationUnit.ToFullString());
                 }
             }
         }

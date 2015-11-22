@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -9,7 +9,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="SafeObjectHandle"/> nested class.
     /// </content>
-    public static partial class Kernel32
+    public partial class Kernel32
     {
         /// <summary>
         /// Represents a Win32 handle that can be closed with <see cref="CloseHandle"/>.

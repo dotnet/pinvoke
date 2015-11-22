@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -13,7 +13,7 @@ namespace PInvoke
     /// a slightly higher level of functionality to ease calling into native code.
     /// </content>
     [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Functions are named like their native counterparts")]
-    public static partial class Hid
+    public partial class Hid
     {
         public static Guid HidD_GetHidGuid()
         {

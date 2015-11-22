@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the nested <see cref="FileAttribute"/> type.
     /// </content>
-    public static partial class Kernel32
+    public partial class Kernel32
     {
         /// <summary>
         /// Defines the Win32 FileAttributes enum.

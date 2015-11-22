@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -6,7 +6,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="WaitForSingleObjectResult"/> nested type.
     /// </content>
-    public static partial class Kernel32
+    public partial class Kernel32
     {
         /// <summary>
         /// Values that may be returned from the <see cref="WaitForSingleObject(System.Runtime.InteropServices.SafeHandle, uint)"/> function.

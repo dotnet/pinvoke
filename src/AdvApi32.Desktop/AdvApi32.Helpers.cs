@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -10,7 +10,7 @@ namespace PInvoke
     /// Methods and nested types that are not strictly P/Invokes but provide
     /// a slightly higher level of functionality to ease calling into native code.
     /// </content>
-    public static partial class AdvApi32
+    public partial class AdvApi32
     {
         public static void InstallService(string servicePath, string serviceName, string serviceDisplayName, string serviceDescription, string userName, string password)
         {
