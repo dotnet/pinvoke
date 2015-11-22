@@ -8,6 +8,7 @@ namespace MockGenerator
 {
     using System.Diagnostics;
     using System.IO;
+    using System.Threading;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -58,7 +59,15 @@ namespace MockGenerator
                 projects = GetProjectsFromSolution(solution);
             }
 
-            Console.WriteLine("Done!");
+            if (!workspace.TryApplyChanges(solution))
+            {
+                Console.Error.WriteLine("Solution save failed.");
+            }
+            else
+            {
+                Console.WriteLine("Solution save succeeded!");
+            }
+            
             Console.ReadLine();
         }
 
@@ -177,7 +186,6 @@ namespace MockGenerator
                     Path.Combine(Path.GetDirectoryName(project.FilePath), fileName));
                 project = document.Project;
                 solution = project.Solution;
-                workspace.TryApplyChanges(solution);
             }
         }
 

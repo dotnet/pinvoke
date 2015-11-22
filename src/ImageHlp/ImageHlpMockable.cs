@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -25,19 +25,5 @@ namespace PInvoke
             bool DotDll,
             bool ReadOnly)
 			=> MapAndLoad(ImageName, DllPath, LoadedImage, DotDll, ReadOnly);
-	
-        /// <summary>
-        /// Deallocate all resources that are allocated by a previous call to the <see cref="MapAndLoad"/> function.
-        /// </summary>
-        /// <param name="LoadedImage">
-        /// A pointer to a <see cref="LOADED_IMAGE"/> structure. This structure is obtained through a call to the <see cref="MapAndLoad"/> function.
-        /// </param>
-        /// <returns>
-        /// If the function succeeds, the return value is TRUE.
-        /// If the function fails, the return value is FALSE. To retrieve extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
-        /// </returns>
-        public bool InvokeUnMapAndLoad(
-            ref LOADED_IMAGE LoadedImage)
-			=> UnMapAndLoad(LoadedImage);
 	}
 }

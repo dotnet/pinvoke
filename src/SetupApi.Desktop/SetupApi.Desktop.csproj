@@ -38,6 +38,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISetupApiMockable.cs" />
     <Compile Include="SetupApi+DeviceInfoData.cs" />
     <Compile Include="SetupApi+DeviceInterfaceData.cs" />
     <Compile Include="SetupApi+DeviceInterfaceDataFlags.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="SetupApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupApi.Helpers.cs" />
+    <Compile Include="SetupApiMockable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SetupApi.exports.txt">
