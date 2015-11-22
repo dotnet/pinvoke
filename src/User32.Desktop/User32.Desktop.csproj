@@ -21,9 +21,20 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="User32+FlashWindowFlags.cs" />
+    <Compile Include="User32+FLASHWINFO.cs" />
+    <Compile Include="User32+MapVirtualKeyTranslation.cs" />
+    <Compile Include="User32+MenuItemFlags.cs" />
+    <Compile Include="User32+MENUITEMINFO.cs" />
+    <Compile Include="User32+MenuItemState.cs" />
+    <Compile Include="User32+MenuItemType.cs" />
+    <Compile Include="User32+MenuMembersMask.cs" />
+    <Compile Include="User32+SafeHookHandle.cs" />
+    <Compile Include="User32+GetAncestorFlags.cs" />
     <Compile Include="User32+SetWindowLongFlags.cs" />
     <Compile Include="User32+SetWindowPosFlags.cs" />
     <Compile Include="User32+WindowLongIndexFlags.cs" />
+    <Compile Include="User32+WindowsHookType.cs" />
     <Compile Include="User32+WindowShowStyle.cs" />
     <Compile Include="User32.cs" />
     <Compile Include="User32.Helpers.cs" />
@@ -42,6 +53,9 @@
     <Content Include="User32.exports.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
