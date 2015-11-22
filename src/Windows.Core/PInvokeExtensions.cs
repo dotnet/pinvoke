@@ -8,7 +8,7 @@ namespace PInvoke
     /// <summary>
     /// Extension methods for commonly defined types.
     /// </summary>
-    public class PInvokeExtensions
+    public static class PInvokeExtensions
     {
         /// <summary>
         /// Converts an HRESULT to <see cref="NTStatus"/>

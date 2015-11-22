@@ -95,7 +95,8 @@ namespace MockGenerator
                     .ToArray();
                 foreach (var classDeclaration in classDeclarations)
                 {
-                    if (classDeclaration.Identifier.Text.EndsWith("Mockable"))
+                    var className = classDeclaration.Identifier.Text;
+                    if (className.EndsWith("Mockable") || className.EndsWith("Extensions"))
                     {
                         continue;
                     }
@@ -319,6 +320,8 @@ namespace MockGenerator
                 .Select((x, i) =>
                 {
                     var identifierName = SyntaxFactory.Argument(
+                        null,
+                        x.Modifiers.FirstOrDefault(z => z.IsKind(SyntaxKind.RefKeyword) || z.IsKind(SyntaxKind.OutKeyword)),
                         SyntaxFactory.IdentifierName(x.Identifier));
                     if (i > 0)
                     {
