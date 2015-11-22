@@ -41,7 +41,7 @@ namespace MockGenerator
 
             var solutionRoot = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(currentDirectory))), "src");
             var solution = workspace.OpenSolutionAsync(Path.Combine(solutionRoot, "PInvoke.sln")).Result;
-            var projects = solution.Projects.ToArray();
+            var projects = GetProjectsFromSolution(solution);
             for (var i = 0; i < projects.Length; i++)
             {
                 var project = projects[i];
@@ -54,7 +54,16 @@ namespace MockGenerator
                     Console.WriteLine($"\tProcessing {Path.GetFileName(file)}");
                     ProcessSourceCodes(workspace, ref solution, ref project, file);
                 }
+
+                projects = GetProjectsFromSolution(solution);
             }
+        }
+
+        private static Project[] GetProjectsFromSolution(Solution solution)
+        {
+            return solution.Projects
+                .OrderBy(x => x.Name)
+                .ToArray();
         }
 
         private static void ProcessSourceCodes(Workspace workspace, ref Solution solution, ref Project project, string file)
