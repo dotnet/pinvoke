@@ -150,7 +150,8 @@ namespace MockGenerator
                         var usings = new[]
                             {
                                 SyntaxFactory.UsingDirective(
-                                    SyntaxFactory.Token(SyntaxKind.StaticKeyword),
+                                    SyntaxFactory.Token(SyntaxKind.StaticKeyword)
+                                        .WithLeadingTrivia(WhitespaceCharacter),
                                     null,
                                     SyntaxFactory.IdentifierName(classDeclaration.Identifier
                                         .WithLeadingTrivia()
