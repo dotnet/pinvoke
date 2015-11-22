@@ -182,16 +182,19 @@ namespace MockGenerator
         private static void AddPathToProject(Workspace workspace, ref Solution solution, ref Project project, string fileName, string contents)
         {
             var document = GetExistingDocument(project, fileName);
-            if (document == null)
+            if (document != null)
             {
-                Console.WriteLine($"\t - Adding {fileName} to project");
-                document = project.AddDocument(fileName,
-                    contents,
-                    null,
-                    Path.Combine(Path.GetDirectoryName(project.FilePath), fileName));
-                project = document.Project;
+                project = project.RemoveDocument(document.Id);
                 solution = project.Solution;
             }
+
+            Console.WriteLine($"\t - Adding {fileName} to project");
+            document = project.AddDocument(fileName,
+                contents,
+                null,
+                Path.Combine(Path.GetDirectoryName(project.FilePath), fileName));
+            project = document.Project;
+            solution = project.Solution;
         }
 
         private static void PrepareInterfaceCacheEntry(IdentifierNameSyntax newInterfaceModifier)
@@ -345,8 +348,7 @@ namespace MockGenerator
                         null,
                         x.Modifiers
                             .FirstOrDefault(z => z.IsKind(SyntaxKind.RefKeyword) || z.IsKind(SyntaxKind.OutKeyword))
-                            .WithLeadingTrivia()
-                            .WithTrailingTrivia(),
+                            .WithLeadingTrivia(),
                         SyntaxFactory.IdentifierName(x.Identifier));
                     if (i > 0)
                     {
