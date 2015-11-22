@@ -100,6 +100,15 @@ namespace MockGenerator
                         continue;
                     }
 
+                    var methodDeclarations = classDeclaration.Members
+                        .OfType<MethodDeclarationSyntax>()
+                        .Where(a => a.AttributeLists.Any(b => b.Attributes.Any(c => c.Name.ToString() == "DllImport")))
+                        .ToArray();
+                    if (methodDeclarations.Length <= 0)
+                    {
+                        continue;
+                    }
+
                     var newInterfaceModifier =
                         SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
                     var newClassModifier = SyntaxFactory.IdentifierName($"{classDeclaration.Identifier.Text}");
@@ -109,15 +118,6 @@ namespace MockGenerator
 
                     var newClassDeclaration = ClassCache[newClassModifier.Identifier.Text];
                     var newInterfaceDeclaration = InterfaceCache[newInterfaceModifier.Identifier.Text];
-
-                    var methodDeclarations = classDeclaration.Members
-                        .OfType<MethodDeclarationSyntax>()
-                        .Where(a => a.AttributeLists.Any(b => b.Attributes.Any(c => c.Name.ToString() == "DllImport")))
-                        .ToArray();
-                    if (methodDeclarations.Length <= 0)
-                    {
-                        continue;
-                    }
 
                     foreach (var methodDeclaration in methodDeclarations)
                     {
