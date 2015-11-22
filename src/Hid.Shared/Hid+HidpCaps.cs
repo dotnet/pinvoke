@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="HidpCaps"/> nested class.
     /// </content>
-    public partial class Hid
+    public static partial class Hid
     {
         /// <summary>
         /// The HIDP_CAPS structure contains information about a top-level collection's capability.

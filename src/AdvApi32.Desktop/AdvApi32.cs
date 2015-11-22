@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -10,7 +10,7 @@ namespace PInvoke
     /// Exported functions from the AdvApi32.dll Windows library
     /// that are available to Desktop apps only.
     /// </content>
-    public partial class AdvApi32
+    public static partial class AdvApi32 : IFoobar
     {
         /// <summary>
         /// Used to prefix group names so that they can be distinguished from a service name,

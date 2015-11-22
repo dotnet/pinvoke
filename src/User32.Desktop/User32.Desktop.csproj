@@ -21,7 +21,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IUser32Mockable.cs" />
     <Compile Include="User32+SetWindowLongFlags.cs" />
     <Compile Include="User32+SetWindowPosFlags.cs" />
     <Compile Include="User32+WindowLongIndexFlags.cs" />
@@ -29,7 +28,6 @@
     <Compile Include="User32.cs" />
     <Compile Include="User32.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User32Mockable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

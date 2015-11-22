@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -9,7 +9,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="SafeKeyHandle"/> nested class.
     /// </content>
-    public partial class NCrypt
+    public static partial class NCrypt
     {
         /// <summary>
         /// An NCrypt key handle.

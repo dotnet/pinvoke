@@ -38,10 +38,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IImageHlpMockable.cs" />
     <Compile Include="ImageHlp.cs" />
     <Compile Include="ImageHlp.Helpers.cs" />
-    <Compile Include="ImageHlpMockable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

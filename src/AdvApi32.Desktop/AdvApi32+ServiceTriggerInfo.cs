@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -9,7 +9,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="ServiceTriggerInfo"/> nested struct.
     /// </content>
-    public partial class AdvApi32
+    public static partial class AdvApi32
     {
         /// <summary>
         /// Contains trigger event information for a service. This structure is used by the <see cref="ChangeServiceConfig2"/> and QueryServiceConfig2 functions.

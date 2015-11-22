@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="KeyStorageImplementationType"/> nested type.
     /// </content>
-    public partial class NCrypt
+    public static partial class NCrypt
     {
         /// <summary>
         /// Describes the key storage implementation types that may be returned by the

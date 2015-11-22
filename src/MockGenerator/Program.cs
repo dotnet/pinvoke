@@ -67,7 +67,7 @@ namespace MockGenerator
             {
                 Console.WriteLine("Solution save succeeded!");
             }
-            
+
             Console.ReadLine();
         }
 
@@ -159,7 +159,7 @@ namespace MockGenerator
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
-                        AddPathToProject(workspace, ref solution, ref project, $"I{baseFileName}Mockable.cs", 
+                        AddPathToProject(workspace, ref solution, ref project, $"I{baseFileName}Mockable.cs",
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());

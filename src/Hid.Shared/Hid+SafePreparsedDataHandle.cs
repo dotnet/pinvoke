@@ -10,7 +10,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="SafeObjectHandle"/> nested class.
     /// </content>
-    public partial class Hid
+    public static partial class Hid
     {
         /// <summary>
         /// Represents a preparsed data handle created by

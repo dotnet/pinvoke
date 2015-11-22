@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -12,7 +12,7 @@ namespace PInvoke
     /// Methods and nested types that are not strictly P/Invokes but provide
     /// a slightly higher level of functionality to ease calling into native code.
     /// </content>
-    public partial class SetupApi
+    public static partial class SetupApi
     {
         private static readonly Lazy<int> DeviceInterfaceDetailDataSize = new Lazy<int>(() =>
         {
