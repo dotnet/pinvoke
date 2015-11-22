@@ -114,6 +114,11 @@ namespace MockGenerator
                         .OfType<MethodDeclarationSyntax>()
                         .Where(a => a.AttributeLists.Any(b => b.Attributes.Any(c => c.Name.ToString() == "DllImport")))
                         .ToArray();
+                    if (methodDeclarations.Length <= 0)
+                    {
+                        continue;
+                    }
+
                     foreach (var methodDeclaration in methodDeclarations)
                     {
                         if (IsPublicStaticExternMethod(methodDeclaration))
@@ -147,11 +152,6 @@ namespace MockGenerator
                             CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
-                    }
-
-                    if (methodDeclarations.Length <= 0)
-                    {
-                        continue;
                     }
 
                     var staticModifier = classDeclaration.Modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
