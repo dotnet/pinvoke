@@ -104,16 +104,6 @@ namespace MockGenerator
                         continue;
                     }
 
-                    var staticModifier = classDeclaration.Modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
-                    if (staticModifier != default(SyntaxToken))
-                    {
-                        compilationUnit = compilationUnit.ReplaceNode(
-                            classDeclaration,
-                            classDeclaration.WithModifiers(
-                                classDeclaration.Modifiers.Remove(staticModifier)));
-                        File.WriteAllText(file, compilationUnit.ToFullString());
-                    }
-
                     var methodDeclarations = classDeclaration.Members
                         .OfType<MethodDeclarationSyntax>()
                         .Where(a => a.AttributeLists.Any(
@@ -129,7 +119,7 @@ namespace MockGenerator
 
                     var newInterfaceModifier =
                         SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
-                    var newClassModifier = SyntaxFactory.IdentifierName($"{classDeclaration.Identifier.Text}");
+                    var newClassModifier = SyntaxFactory.IdentifierName($"{classDeclaration.Identifier.Text}Mockable");
 
                     PrepareClassCacheEntry(newClassModifier, classDeclaration, newInterfaceModifier);
                     PrepareInterfaceCacheEntry(newInterfaceModifier);
@@ -157,22 +147,25 @@ namespace MockGenerator
                         string fileDirectory;
                         var baseFileName = GetBaseFileName(file, out fileDirectory);
 
+                        var usings = new[]
+                            {
+                                SyntaxFactory.UsingDirective(
+                                    SyntaxFactory.Token(SyntaxKind.StaticKeyword),
+                                    null,
+                                    SyntaxFactory.IdentifierName(classDeclaration.Identifier
+                                        .WithLeadingTrivia()
+                                        .WithTrailingTrivia())
+                                        .WithLeadingTrivia(WhitespaceCharacter))
+                                    .WithLeadingTrivia(TabCharacter)
+                                    .WithTrailingTrivia(NewLineCharacter)
+                            };
+
                         AddPathToProject(workspace, ref solution, ref project, $"{baseFileName}Mockable.cs",
-                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
+                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration, usings)
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
                         AddPathToProject(workspace, ref solution, ref project, $"I{baseFileName}Mockable.cs",
-                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration,
-                                    SyntaxFactory.List(new[]
-                                    {
-                                        SyntaxFactory.UsingDirective(
-                                            SyntaxFactory.IdentifierName(classDeclaration.Identifier
-                                                .WithLeadingTrivia()
-                                                .WithTrailingTrivia())
-                                                .WithLeadingTrivia(WhitespaceCharacter))
-                                            .WithLeadingTrivia(TabCharacter)
-                                            .WithTrailingTrivia(NewLineCharacter)
-                                    }))
+                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration, usings)
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
                     }
