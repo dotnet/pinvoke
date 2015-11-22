@@ -53,9 +53,8 @@ namespace MockGenerator
                 var classDeclarations = namespaceDeclaration.Members
                     .OfType<ClassDeclarationSyntax>()
                     .ToArray();
-                for (int index = 0; index < classDeclarations.Length; index++)
+                foreach (var classDeclaration in classDeclarations)
                 {
-                    var classDeclaration = classDeclarations[index];
                     if (classDeclaration.Identifier.Text.EndsWith("Mockable"))
                     {
                         continue;
@@ -117,15 +116,22 @@ namespace MockGenerator
                                 .ToFullString());
                     }
 
-                    if (methodDeclarations.Length > 0)
+                    if (methodDeclarations.Length <= 0)
                     {
-                        var staticModifier = classDeclaration.Modifiers.Single(x => x.IsKind(SyntaxKind.StaticKeyword));
-                        compilationUnit = compilationUnit.ReplaceNode(
-                            classDeclaration,
-                            classDeclaration.WithModifiers(
-                                classDeclaration.Modifiers.Remove(staticModifier)));
-                        File.WriteAllText(file, compilationUnit.ToFullString());
+                        continue;
                     }
+
+                    var staticModifier = classDeclaration.Modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
+                    if (staticModifier == default(SyntaxToken))
+                    {
+                        continue;
+                    }
+
+                    compilationUnit = compilationUnit.ReplaceNode(
+                        classDeclaration,
+                        classDeclaration.WithModifiers(
+                            classDeclaration.Modifiers.Remove(staticModifier)));
+                    File.WriteAllText(file, compilationUnit.ToFullString());
                 }
             }
         }
