@@ -10,7 +10,7 @@ namespace PInvoke
     /// Exported functions from the AdvApi32.dll Windows library
     /// that are available to Desktop apps only.
     /// </content>
-    public static partial class AdvApi32 : IFoobar
+    public static partial class AdvApi32
     {
         /// <summary>
         /// Used to prefix group names so that they can be distinguished from a service name,
