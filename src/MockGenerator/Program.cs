@@ -109,7 +109,7 @@ namespace MockGenerator
                         .Where(a => a.AttributeLists.Any(
                                 b => b.Attributes.Any(
                                     c => c.Name.ToString() == "DllImport"))
-                                    && IsNotPublicStaticExternMethod(a))
+                                    && IsPublicStaticExternMethod(a))
                         .ToArray();
                     if (methodDeclarations.Length <= 0)
                     {
@@ -231,9 +231,6 @@ namespace MockGenerator
                         SyntaxFactory.TokenList(
                             SyntaxFactory
                                 .Token(SyntaxKind.PublicKeyword)
-                                .WithTrailingTrivia(WhitespaceCharacter),
-                            SyntaxFactory
-                                .Token(SyntaxKind.PartialKeyword)
                                 .WithTrailingTrivia(WhitespaceCharacter)),
                         newClassModifier.Identifier
                             .WithTrailingTrivia(WhitespaceCharacter)
@@ -273,7 +270,7 @@ namespace MockGenerator
             return newNamespaceDeclaration;
         }
 
-        private static bool IsNotPublicStaticExternMethod(MethodDeclarationSyntax methodDeclaration)
+        private static bool IsPublicStaticExternMethod(MethodDeclarationSyntax methodDeclaration)
         {
             var externMethodKeyword = methodDeclaration.Modifiers
                 .SingleOrDefault(x => x.IsKind(SyntaxKind.ExternKeyword));
@@ -281,7 +278,7 @@ namespace MockGenerator
                 .SingleOrDefault(x => x.IsKind(SyntaxKind.StaticKeyword));
             var publicMethodKeyword = methodDeclaration.Modifiers
                 .SingleOrDefault(x => x.IsKind(SyntaxKind.PublicKeyword));
-            return externMethodKeyword == default(SyntaxToken) || staticMethodKeyword == default(SyntaxToken) || publicMethodKeyword == default(SyntaxToken);
+            return externMethodKeyword != default(SyntaxToken) && staticMethodKeyword != default(SyntaxToken) && publicMethodKeyword != default(SyntaxToken);
         }
 
         private static string GetBaseFileName(string file, out string fileDirectory)
@@ -302,7 +299,7 @@ namespace MockGenerator
                 .First(x => x.OpenBracketToken.HasLeadingTrivia);
             var interfaceMethodDeclaration = SyntaxFactory.MethodDeclaration(
                 SyntaxFactory.List<AttributeListSyntax>(),
-                SyntaxFactory.TokenList(),
+                GetModifiersForWrapperFunction(methodDeclaration),
                 methodDeclaration.ReturnType,
                 default(ExplicitInterfaceSpecifierSyntax),
                 invokeMethodIdentifier.Identifier,
@@ -322,6 +319,18 @@ namespace MockGenerator
             return interfaceDeclaration;
         }
 
+        private static SyntaxTokenList GetModifiersForWrapperFunction(MethodDeclarationSyntax methodDeclaration)
+        {
+            var unsafeModifier = methodDeclaration.Modifiers.SingleOrDefault(x => x.IsKind(SyntaxKind.UnsafeKeyword));
+
+            var modifiers = SyntaxFactory.TokenList();
+            if (unsafeModifier != default(SyntaxToken))
+            {
+                modifiers = modifiers.Add(unsafeModifier);
+            }
+            return modifiers;
+        }
+
         private static ClassDeclarationSyntax DecorateClassWithWrapperFunction(MethodDeclarationSyntax methodDeclaration,
             IdentifierNameSyntax invokeMethodIdentifier,
             ClassDeclarationSyntax classDeclaration)
@@ -334,7 +343,10 @@ namespace MockGenerator
                 {
                     var identifierName = SyntaxFactory.Argument(
                         null,
-                        x.Modifiers.FirstOrDefault(z => z.IsKind(SyntaxKind.RefKeyword) || z.IsKind(SyntaxKind.OutKeyword)),
+                        x.Modifiers
+                            .FirstOrDefault(z => z.IsKind(SyntaxKind.RefKeyword) || z.IsKind(SyntaxKind.OutKeyword))
+                            .WithLeadingTrivia()
+                            .WithTrailingTrivia(),
                         SyntaxFactory.IdentifierName(x.Identifier));
                     if (i > 0)
                     {
@@ -359,8 +371,8 @@ namespace MockGenerator
 
             var wrapperMethodDeclaration = SyntaxFactory.MethodDeclaration(
                 SyntaxFactory.List<AttributeListSyntax>(),
-                SyntaxFactory.TokenList(
-                    SyntaxFactory.Token(SyntaxKind.PublicKeyword)
+                GetModifiersForWrapperFunction(methodDeclaration)
+                    .Add(SyntaxFactory.Token(SyntaxKind.PublicKeyword)
                         .WithTrailingTrivia(WhitespaceCharacter)),
                 methodDeclaration.ReturnType,
                 default(ExplicitInterfaceSpecifierSyntax),
