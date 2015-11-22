@@ -1,4 +1,4 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 namespace PInvoke
@@ -11,7 +11,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the BCrypt.dll Windows library.
     /// </summary>
-    public static partial class BCrypt
+    public partial class BCrypt
     {
         /// <summary>
         /// Loads and initializes a CNG provider.

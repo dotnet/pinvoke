@@ -53,66 +53,27 @@ namespace MockGenerator
                 var classDeclarations = namespaceDeclaration.Members
                     .OfType<ClassDeclarationSyntax>()
                     .ToArray();
-                foreach (var classDeclaration in classDeclarations)
+                for (int index = 0; index < classDeclarations.Length; index++)
                 {
-                    if (classDeclaration.Identifier.Text.EndsWith("Mockable")) continue;
+                    var classDeclaration = classDeclarations[index];
+                    if (classDeclaration.Identifier.Text.EndsWith("Mockable"))
+                    {
+                        continue;
+                    }
 
-                    var newInterfaceModifier = SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
+                    var newInterfaceModifier =
+                        SyntaxFactory.IdentifierName($"I{classDeclaration.Identifier.Text}Mockable");
                     var newClassModifier = SyntaxFactory.IdentifierName($"{classDeclaration.Identifier.Text}");
 
-                    if (!ClassCache.ContainsKey(newClassModifier.Identifier.Text))
-                    {
-                        var baseList = classDeclaration.BaseList ?? SyntaxFactory.BaseList();
-                        ClassCache.Add(newClassModifier.Identifier.Text, 
-                            SyntaxFactory.ClassDeclaration(
-                                SyntaxFactory.List<AttributeListSyntax>(),
-                                SyntaxFactory.TokenList(
-                                    SyntaxFactory
-                                        .Token(SyntaxKind.PublicKeyword)
-                                        .WithTrailingTrivia(WhitespaceCharacter),
-                                    SyntaxFactory
-                                        .Token(SyntaxKind.PartialKeyword)
-                                        .WithTrailingTrivia(WhitespaceCharacter)),
-                                newClassModifier.Identifier
-                                    .WithTrailingTrivia(WhitespaceCharacter)
-                                    .WithLeadingTrivia(WhitespaceCharacter),
-                                null,
-                                baseList.AddTypes(
-                                    SyntaxFactory.SimpleBaseType(
-                                        newInterfaceModifier
-                                            .WithLeadingTrivia(WhitespaceCharacter)
-                                            .WithTrailingTrivia(WhitespaceCharacter))),
-                                SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
-                                SyntaxFactory.List<MemberDeclarationSyntax>())
-                                .WithLeadingTrivia(TabCharacter)
-                                .WithTrailingTrivia(NewLineCharacter));
-                    }
-                    if (!InterfaceCache.ContainsKey(newInterfaceModifier.Identifier.Text))
-                    {
-                        InterfaceCache.Add(newInterfaceModifier.Identifier.Text, 
-                            SyntaxFactory.InterfaceDeclaration(
-                                SyntaxFactory.List<AttributeListSyntax>(),
-                                SyntaxFactory.TokenList(
-                                    SyntaxFactory
-                                        .Token(SyntaxKind.PublicKeyword)
-                                        .WithTrailingTrivia(WhitespaceCharacter)),
-                                newInterfaceModifier
-                                    .Identifier
-                                    .WithTrailingTrivia(WhitespaceCharacter)
-                                    .WithLeadingTrivia(WhitespaceCharacter),
-                                null,
-                                null,
-                                SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
-                                SyntaxFactory.List<MemberDeclarationSyntax>())
-                                .WithLeadingTrivia(TabCharacter)
-                                .WithTrailingTrivia(NewLineCharacter));
-                    }
+                    PrepareClassCacheEntry(newClassModifier, classDeclaration, newInterfaceModifier);
+                    PrepareInterfaceCacheEntry(newInterfaceModifier);
 
                     var newClassDeclaration = ClassCache[newClassModifier.Identifier.Text];
                     var newInterfaceDeclaration = InterfaceCache[newInterfaceModifier.Identifier.Text];
 
                     var methodDeclarations = classDeclaration.Members
                         .OfType<MethodDeclarationSyntax>()
+                        .Where(a => a.AttributeLists.Any(b => b.Attributes.Any(c => c.Name.ToString() == "DllImport")))
                         .ToArray();
                     foreach (var methodDeclaration in methodDeclarations)
                     {
@@ -155,7 +116,74 @@ namespace MockGenerator
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
                     }
+
+                    if (methodDeclarations.Length > 0)
+                    {
+                        var staticModifier = classDeclaration.Modifiers.Single(x => x.IsKind(SyntaxKind.StaticKeyword));
+                        compilationUnit = compilationUnit.ReplaceNode(
+                            classDeclaration,
+                            classDeclaration.WithModifiers(
+                                classDeclaration.Modifiers.Remove(staticModifier)));
+                        File.WriteAllText(file, compilationUnit.ToFullString());
+                    }
                 }
+            }
+        }
+
+        private static void PrepareInterfaceCacheEntry(IdentifierNameSyntax newInterfaceModifier)
+        {
+            if (!InterfaceCache.ContainsKey(newInterfaceModifier.Identifier.Text))
+            {
+                InterfaceCache.Add(newInterfaceModifier.Identifier.Text,
+                    SyntaxFactory.InterfaceDeclaration(
+                        SyntaxFactory.List<AttributeListSyntax>(),
+                        SyntaxFactory.TokenList(
+                            SyntaxFactory
+                                .Token(SyntaxKind.PublicKeyword)
+                                .WithTrailingTrivia(WhitespaceCharacter)),
+                        newInterfaceModifier
+                            .Identifier
+                            .WithTrailingTrivia(WhitespaceCharacter)
+                            .WithLeadingTrivia(WhitespaceCharacter),
+                        null,
+                        null,
+                        SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
+                        SyntaxFactory.List<MemberDeclarationSyntax>())
+                        .WithLeadingTrivia(TabCharacter)
+                        .WithTrailingTrivia(NewLineCharacter));
+            }
+        }
+
+        private static void PrepareClassCacheEntry(IdentifierNameSyntax newClassModifier,
+            ClassDeclarationSyntax classDeclaration,
+            IdentifierNameSyntax newInterfaceModifier)
+        {
+            if (!ClassCache.ContainsKey(newClassModifier.Identifier.Text))
+            {
+                var baseList = classDeclaration.BaseList ?? SyntaxFactory.BaseList();
+                ClassCache.Add(newClassModifier.Identifier.Text,
+                    SyntaxFactory.ClassDeclaration(
+                        SyntaxFactory.List<AttributeListSyntax>(),
+                        SyntaxFactory.TokenList(
+                            SyntaxFactory
+                                .Token(SyntaxKind.PublicKeyword)
+                                .WithTrailingTrivia(WhitespaceCharacter),
+                            SyntaxFactory
+                                .Token(SyntaxKind.PartialKeyword)
+                                .WithTrailingTrivia(WhitespaceCharacter)),
+                        newClassModifier.Identifier
+                            .WithTrailingTrivia(WhitespaceCharacter)
+                            .WithLeadingTrivia(WhitespaceCharacter),
+                        null,
+                        baseList.AddTypes(
+                            SyntaxFactory.SimpleBaseType(
+                                newInterfaceModifier
+                                    .WithLeadingTrivia(WhitespaceCharacter)
+                                    .WithTrailingTrivia(WhitespaceCharacter))),
+                        SyntaxFactory.List<TypeParameterConstraintClauseSyntax>(),
+                        SyntaxFactory.List<MemberDeclarationSyntax>())
+                        .WithLeadingTrivia(TabCharacter)
+                        .WithTrailingTrivia(NewLineCharacter));
             }
         }
 
