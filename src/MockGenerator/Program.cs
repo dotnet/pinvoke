@@ -149,7 +149,6 @@ namespace MockGenerator
                         ClassCache[newClassModifier.Identifier.Text] = newClassDeclaration;
 
                         newInterfaceDeclaration = DecorateInterfaceWithWrapperFunction(
-                            classDeclaration.Identifier,
                             methodDeclaration,
                             invokeMethodIdentifier,
                             newInterfaceDeclaration);
@@ -163,7 +162,12 @@ namespace MockGenerator
                                 .AddMembers(newClassDeclaration)
                                 .ToFullString());
                         AddPathToProject(workspace, ref solution, ref project, $"I{baseFileName}Mockable.cs",
-                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration)
+                            CreateNewEmptyNamespaceDeclaration(namespaceDeclaration, 
+                                    SyntaxFactory.List(new []
+                                    {
+                                        SyntaxFactory.UsingDirective(
+                                            SyntaxFactory.IdentifierName(classDeclaration.Identifier))
+                                    }))
                                 .AddMembers(newInterfaceDeclaration)
                                 .ToFullString());
                     }
@@ -249,14 +253,21 @@ namespace MockGenerator
         }
 
         private static NamespaceDeclarationSyntax CreateNewEmptyNamespaceDeclaration(
-            NamespaceDeclarationSyntax namespaceDeclaration)
+            NamespaceDeclarationSyntax namespaceDeclaration,
+            IEnumerable<UsingDirectiveSyntax> usings = null)
         {
+            var namespaceUsings = namespaceDeclaration.Usings;
+            if (usings != null)
+            {
+                namespaceUsings = namespaceUsings.AddRange(usings);
+            }
+
             var newNamespaceDeclaration = SyntaxFactory.NamespaceDeclaration(
                 namespaceDeclaration.NamespaceKeyword,
                 namespaceDeclaration.Name,
                 namespaceDeclaration.OpenBraceToken,
                 namespaceDeclaration.Externs,
-                namespaceDeclaration.Usings,
+                namespaceUsings,
                 SyntaxFactory.List<MemberDeclarationSyntax>(),
                 namespaceDeclaration.CloseBraceToken,
                 namespaceDeclaration.SemicolonToken);
@@ -284,14 +295,12 @@ namespace MockGenerator
         }
 
         private static InterfaceDeclarationSyntax DecorateInterfaceWithWrapperFunction(
-            SyntaxToken classIdentifier,
             MethodDeclarationSyntax methodDeclaration,
             IdentifierNameSyntax invokeMethodIdentifier,
             InterfaceDeclarationSyntax interfaceDeclaration)
         {
             var dllImport = methodDeclaration.AttributeLists
                 .First(x => x.OpenBracketToken.HasLeadingTrivia);
-            var parameterList = methodDeclaration.ParameterList;
             var interfaceMethodDeclaration = SyntaxFactory.MethodDeclaration(
                 SyntaxFactory.List<AttributeListSyntax>(),
                 SyntaxFactory.TokenList(),
@@ -299,17 +308,7 @@ namespace MockGenerator
                 default(ExplicitInterfaceSpecifierSyntax),
                 invokeMethodIdentifier.Identifier,
                 methodDeclaration.TypeParameterList,
-                parameterList
-                    .Update(
-                        parameterList.OpenParenToken,
-                        SyntaxFactory.SeparatedList(parameterList.Parameters
-                            .Select(x => SyntaxFactory.Parameter(
-                                x.AttributeLists,
-                                x.Modifiers,
-                                SyntaxFactory.IdentifierName($"{classIdentifier.Text}.{x.Type.ToString()} "),
-                                x.Identifier,
-                                x.Default))),
-                        parameterList.CloseParenToken),
+                methodDeclaration.ParameterList,
                 methodDeclaration.ConstraintClauses,
                 default(BlockSyntax),
                 SyntaxFactory.Token(SyntaxKind.SemicolonToken));
