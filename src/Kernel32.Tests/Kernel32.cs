@@ -141,11 +141,11 @@ public partial class Kernel32
             {
                 Assert.False(handle.IsInvalid);
                 Assert.Equal("a.txt", data.cFileName);
-                Assert.Equal(FileAttribute.Archive, data.dwFileAttributes);
+                Assert.Equal(FileAttribute.FILE_ATTRIBUTE_ARCHIVE, data.dwFileAttributes);
 
                 Assert.True(FindNextFile(handle, out data));
                 Assert.Equal("b.txt", data.cFileName);
-                Assert.Equal(FileAttribute.Normal, data.dwFileAttributes);
+                Assert.Equal(FileAttribute.FILE_ATTRIBUTE_NORMAL, data.dwFileAttributes);
 
                 Assert.False(FindNextFile(handle, out data));
             }
