@@ -24,12 +24,12 @@ namespace PInvoke
             /// <summary>
             /// Searches are case-sensitive.
             /// </summary>
-            CaseSensitive = 0x1,
+            FIND_FIRST_EX_CASE_SENSITIVE = 0x1,
 
             /// <summary>
             /// Uses a larger buffer for directory queries, which can increase performance of the find operation.
             /// </summary>
-            LargeFetch = 0x2,
+            FIND_FIRST_EX_LARGE_FETCH = 0x2,
         }
     }
 }

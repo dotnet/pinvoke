@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class BCrypt
     {
         /// <summary>
-        /// Possible values for the <see cref="PropertyNames.ChainingMode"/> property.
+        /// Possible values for the <see cref="PropertyNames.BCRYPT_CHAINING_MODE"/> property.
         /// </summary>
         public static class ChainingModes
         {

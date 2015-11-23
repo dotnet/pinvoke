@@ -63,7 +63,7 @@ namespace PInvoke
         /// The handle of an algorithm provider created by using the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm that was specified when the provider was created must support the hash interface.
         /// </param>
         /// <param name="hashObject">
-        /// A pointer to a buffer that receives the hash or MAC object. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.ObjectLength"/> property. This will provide the size of the hash or MAC object for the specified algorithm.
+        /// A pointer to a buffer that receives the hash or MAC object. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BCRYPT_OBJECT_LENGTH"/> property. This will provide the size of the hash or MAC object for the specified algorithm.
         /// This memory can only be freed after the handle pointed to by the return value is destroyed.
         /// If the value of this parameter is NULL, the memory for the hash object is allocated and freed by this function.
         /// Windows 7:  This memory management functionality is available beginning with Windows 7.
@@ -330,7 +330,7 @@ namespace PInvoke
         /// <param name="pbIV">
         /// The address of a buffer that contains the initialization vector (IV) to use during decryption. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
         /// This parameter is optional and can be NULL if no IV is used.
-        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BlockLength"/> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BCRYPT_BLOCK_LENGTH"/> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
         /// </param>
         /// <param name="dwFlags">
         /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
@@ -385,7 +385,7 @@ namespace PInvoke
             SafeHashHandle hHash,
             BCryptFinishHashFlags flags = BCryptFinishHashFlags.None)
         {
-            int hashLength = BCryptGetProperty<int>(hHash, PropertyNames.HashLength);
+            int hashLength = BCryptGetProperty<int>(hHash, PropertyNames.BCRYPT_HASH_LENGTH);
             byte[] result = new byte[hashLength];
             BCryptFinishHash(hHash, result, result.Length, flags).ThrowOnError();
             return result;

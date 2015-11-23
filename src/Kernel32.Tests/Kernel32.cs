@@ -98,11 +98,11 @@ public partial class Kernel32
         string testPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         using (var tempFileHandle = CreateFile(
             testPath,
-            PInvoke.Kernel32.FileAccess.GenericWrite,
-            PInvoke.Kernel32.FileShare.Read,
+            PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
+            PInvoke.Kernel32.FileShare.FILE_SHARE_READ,
             null,
-            CreationDisposition.CreateAlways,
-            CreateFileFlags.DeleteOnCloseFlag,
+            CreationDisposition.CREATE_ALWAYS,
+            CreateFileFlags.FILE_FLAG_DELETE_ON_CLOSE,
             new SafeObjectHandle()))
         {
             Assert.True(File.Exists(testPath));
@@ -141,11 +141,11 @@ public partial class Kernel32
             {
                 Assert.False(handle.IsInvalid);
                 Assert.Equal("a.txt", data.cFileName);
-                Assert.Equal(FileAttribute.Archive, data.dwFileAttributes);
+                Assert.Equal(FileAttribute.FILE_ATTRIBUTE_ARCHIVE, data.dwFileAttributes);
 
                 Assert.True(FindNextFile(handle, out data));
                 Assert.Equal("b.txt", data.cFileName);
-                Assert.Equal(FileAttribute.Normal, data.dwFileAttributes);
+                Assert.Equal(FileAttribute.FILE_ATTRIBUTE_NORMAL, data.dwFileAttributes);
 
                 Assert.False(FindNextFile(handle, out data));
             }
@@ -244,11 +244,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericRead,
+                PInvoke.Kernel32.FileAccess.GENERIC_READ,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.NormalAttribute,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_ATTRIBUTE_NORMAL,
                 new SafeObjectHandle()))
             {
                 var actual = ReadFile(file, testDataSize);
@@ -276,11 +276,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericRead,
+                PInvoke.Kernel32.FileAccess.GENERIC_READ,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.OverlappedFlag,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
@@ -325,11 +325,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericRead,
+                PInvoke.Kernel32.FileAccess.GENERIC_READ,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.OverlappedFlag,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
@@ -375,11 +375,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.NormalAttribute,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_ATTRIBUTE_NORMAL,
                 new SafeObjectHandle()))
             {
                 var bytesWritten = WriteFile(file, new ArraySegment<byte>(expected));
@@ -408,11 +408,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.OverlappedFlag,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
@@ -456,11 +456,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.OverlappedFlag,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
@@ -506,11 +506,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.OverlappedFlag,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
@@ -554,11 +554,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.OverlappedFlag,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
@@ -608,11 +608,11 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
-                CreateFileFlags.OverlappedFlag,
+                CreationDisposition.OPEN_EXISTING,
+                CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
@@ -728,10 +728,10 @@ public partial class Kernel32
 
                 var client = CreateFile(
                     pipeName,
-                    PInvoke.Kernel32.FileAccess.GenericRead | PInvoke.Kernel32.FileAccess.FILE_GENERIC_WRITE,
+                    PInvoke.Kernel32.FileAccess.GENERIC_READ | PInvoke.Kernel32.FileAccess.FILE_GENERIC_WRITE,
                     PInvoke.Kernel32.FileShare.None,
                     null,
-                    CreationDisposition.OpenExisting,
+                    CreationDisposition.OPEN_EXISTING,
                     0,
                     SafeObjectHandle.Null);
 

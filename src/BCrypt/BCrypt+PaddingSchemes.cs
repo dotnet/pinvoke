@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class BCrypt
     {
         /// <summary>
-        /// Possible values for the <see cref="PropertyNames.PaddingSchemes"/> property.
+        /// Possible values for the <see cref="PropertyNames.BCRYPT_PADDING_SCHEMES"/> property.
         /// </summary>
         public enum PaddingSchemes
         {

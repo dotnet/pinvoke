@@ -16,7 +16,7 @@ public class BCrypt
     {
         using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
-            var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(provider, PropertyNames.KeyLengths);
+            var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(provider, PropertyNames.BCRYPT_KEY_LENGTHS);
             Assert.Equal(128, keyLengths.MinLength);
             Assert.Equal(256, keyLengths.MaxLength);
             Assert.Equal(64, keyLengths.Increment);
@@ -101,7 +101,7 @@ public class BCrypt
                 Assert.Equal(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
 
                 // Now do our own padding (zeros).
-                blockSize = BCryptGetProperty<int>(provider, PropertyNames.BlockLength);
+                blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
                 plainTextPadded = new byte[blockSize];
                 Array.Copy(plainText, plainTextPadded, plainText.Length);
                 BCryptEncrypt(key, plainTextPadded, plainTextPadded.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
@@ -185,7 +185,7 @@ public class BCrypt
     /// <returns>The length of the smallest key, in bits.</returns>
     private static int GetMinimumKeySize(SafeAlgorithmHandle algorithm)
     {
-        var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(algorithm, PropertyNames.KeyLengths);
+        var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(algorithm, PropertyNames.BCRYPT_KEY_LENGTHS);
         return keyLengths.MinLength;
     }
 }
