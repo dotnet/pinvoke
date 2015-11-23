@@ -94,9 +94,7 @@ of the P/Invoke method they wrap:
 1. The method has a single out parameter that in a naturally managed API would typically
    serve as the return value, and the P/Invoke method's return value is void or an error code.
 1. A set of methods for enumeration can be wrapped with a helper that exposes an IEnumerable.
-   This is the one known case where the name of the helper method may not coincide with the
-   name of an existing native method and thus the name should be chosen with care and consideration
-   of the method naming patterns of the native library to meet your users' expectations.
+1. Exposing asynchrony as a .NET Task via an async method.
 
 Helper methods should *not*:
 
@@ -105,6 +103,10 @@ Helper methods should *not*:
    an error code when the helper method uses its return value for something else.
 1. Cater to specific use cases. This purpose should be reserved for an external project that focuses
    on raising the abstraction layer for the native library.
+
+When a helper method does not exactly match the name of a P/Invoke method (e.g. enumerator
+or async helpers) the name should blend the method naming patterns of the native library
+with .NET conventions. For example, `EnumerateFiles` or `CreateFileAsync`.
 
 ### Xml documentation
 
