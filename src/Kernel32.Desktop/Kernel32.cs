@@ -357,8 +357,8 @@ namespace PInvoke
         /// For devices other than files, this parameter is usually set to <see cref="CreationDisposition.OPEN_EXISTING"/>.
         /// </param>
         /// <param name="flagsAndAttributes">
-        /// The file or device attributes and flags, <see cref="CreateFileFlags.NormalAttribute"/> being the most common default value for files.
-        /// This parameter can include any combination of the available file attributes (CreateFileFlags.*Attribute). All other file attributes override <see cref="CreateFileFlags.NormalAttribute"/>.
+        /// The file or device attributes and flags, <see cref="CreateFileFlags.FILE_ATTRIBUTE_NORMAL"/> being the most common default value for files.
+        /// This parameter can include any combination of the available file attributes (CreateFileFlags.*Attribute). All other file attributes override <see cref="CreateFileFlags.FILE_ATTRIBUTE_NORMAL"/>.
         /// This parameter can also contain combinations of flags (CreateFileFlags.*Flag) for control of file or device caching behavior, access modes, and other special-purpose flags. These combine with any CreateFileFlags.*Attribute values.
         /// This parameter can also contain Security Quality of Service (SQOS) information by specifying the SECURITY_SQOS_PRESENT flag. Additional SQOS-related flags information is presented in the table following the attributes and flags tables.
         /// Note When CreateFile opens an existing file, it generally combines the file flags with the file attributes of the existing file, and ignores any file attributes supplied as part of dwFlagsAndAttributes. Special cases are detailed in Creating and Opening Files.
