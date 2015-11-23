@@ -4305,7 +4305,6 @@ namespace PInvoke
         /// <summary>
         /// The event log file is full.
         /// </summary>
-
         ERROR_LOG_FILE_FULL = 0x000005DE,
 
         /// <summary>
