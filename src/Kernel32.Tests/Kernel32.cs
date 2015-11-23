@@ -98,7 +98,7 @@ public partial class Kernel32
         string testPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         using (var tempFileHandle = CreateFile(
             testPath,
-            PInvoke.Kernel32.FileAccess.GenericWrite,
+            PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
             PInvoke.Kernel32.FileShare.FILE_SHARE_READ,
             null,
             CreationDisposition.CREATE_ALWAYS,
@@ -244,7 +244,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericRead,
+                PInvoke.Kernel32.FileAccess.GENERIC_READ,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -276,7 +276,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericRead,
+                PInvoke.Kernel32.FileAccess.GENERIC_READ,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -325,7 +325,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericRead,
+                PInvoke.Kernel32.FileAccess.GENERIC_READ,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -375,7 +375,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -408,7 +408,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -456,7 +456,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -506,7 +506,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -554,7 +554,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -608,7 +608,7 @@ public partial class Kernel32
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GenericWrite,
+                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
                 PInvoke.Kernel32.FileShare.None,
                 null,
                 CreationDisposition.OPEN_EXISTING,
@@ -728,7 +728,7 @@ public partial class Kernel32
 
                 var client = CreateFile(
                     pipeName,
-                    PInvoke.Kernel32.FileAccess.GenericRead | PInvoke.Kernel32.FileAccess.FILE_GENERIC_WRITE,
+                    PInvoke.Kernel32.FileAccess.GENERIC_READ | PInvoke.Kernel32.FileAccess.FILE_GENERIC_WRITE,
                     PInvoke.Kernel32.FileShare.None,
                     null,
                     CreationDisposition.OPEN_EXISTING,

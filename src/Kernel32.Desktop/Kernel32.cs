@@ -333,8 +333,8 @@ namespace PInvoke
         /// </param>
         /// <param name="access">
         /// The requested access to the file or device, which can be summarized as read, write, both or neither zero).
-        /// The most commonly used values are <see cref="FileAccess.GenericRead"/>, <see cref="FileAccess.GenericWrite"/>, or both(<see cref="FileAccess.GenericRead"/> | <see cref="FileAccess.GenericWrite"/>). For more information, see Generic Access Rights, File Security and Access Rights, File Access Rights Constants, and ACCESS_MASK.
-        /// If this parameter is zero, the application can query certain metadata such as file, directory, or device attributes without accessing that file or device, even if <see cref="FileAccess.GenericRead"/> access would have been denied.
+        /// The most commonly used values are <see cref="FileAccess.GENERIC_READ"/>, <see cref="FileAccess.GENERIC_WRITE"/>, or both(<see cref="FileAccess.GENERIC_READ"/> | <see cref="FileAccess.GENERIC_WRITE"/>). For more information, see Generic Access Rights, File Security and Access Rights, File Access Rights Constants, and ACCESS_MASK.
+        /// If this parameter is zero, the application can query certain metadata such as file, directory, or device attributes without accessing that file or device, even if <see cref="FileAccess.GENERIC_READ"/> access would have been denied.
         /// You cannot request an access mode that conflicts with the sharing mode that is specified by the dwShareMode parameter in an open request that already has an open handle.
         /// For more information, see the Remarks section of this topic and Creating and Opening Files.
         /// </param>
@@ -366,7 +366,7 @@ namespace PInvoke
         /// For more advanced access to file attributes, see SetFileAttributes. For a complete list of all file attributes with their values and descriptions, see File Attribute Constants.
         /// </param>
         /// <param name="templateFile">
-        /// A valid handle to a template file with the <see cref="FileAccess.GenericRead"/> access right. The template file supplies file attributes and extended attributes for the file that is being created.
+        /// A valid handle to a template file with the <see cref="FileAccess.GENERIC_READ"/> access right. The template file supplies file attributes and extended attributes for the file that is being created.
         /// This parameter can be NULL.
         /// When opening an existing file, CreateFile ignores this parameter.
         /// When opening a new encrypted file, the file inherits the discretionary access control list from its parent directory.For additional information, see File Encryption.
