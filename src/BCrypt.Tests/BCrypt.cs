@@ -123,6 +123,84 @@ public class BCrypt
         }
     }
 
+    /// <summary>
+    /// Demonstrates use of an authenticated block chaining mode
+    /// that requires use of several more struct types than
+    /// the default CBC mode for AES.
+    /// </summary>
+    [Fact]
+    public unsafe void EncryptDecrypt_AesCcm()
+    {
+        var random = new Random();
+
+        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        {
+            BCryptSetProperty(provider, PropertyNames.ChainingMode, ChainingModes.Ccm);
+
+            byte[] plainText;
+            byte[] cipherText;
+
+            var nonceBuffer = new byte[12];
+            random.NextBytes(nonceBuffer);
+
+            var tagLengths = BCryptGetProperty<BCRYPT_AUTH_TAG_LENGTHS_STRUCT>(provider, PropertyNames.AuthTagLength);
+            var tagBuffer = new byte[tagLengths.MaxLength];
+
+            int blockSize = BCryptGetProperty<int>(provider, PropertyNames.BlockLength);
+            plainText = new byte[blockSize];
+            random.NextBytes(plainText);
+
+            byte[] keyMaterial = new byte[blockSize];
+            RandomNumberGenerator.Create().GetBytes(keyMaterial);
+
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                var authInfo = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.Create();
+                fixed (byte* pTagBuffer = &tagBuffer[0])
+                fixed (byte* pNonce = &nonceBuffer[0])
+                {
+                    authInfo.pbNonce = new IntPtr(pNonce);
+                    authInfo.cbNonce = nonceBuffer.Length;
+                    authInfo.pbTag = new IntPtr(pTagBuffer);
+                    authInfo.cbTag = tagBuffer.Length;
+
+                    var pAuthInfo = new IntPtr(&authInfo);
+                    int cipherTextLength;
+                    BCryptEncrypt(key, plainText, plainText.Length, pAuthInfo, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    cipherText = new byte[cipherTextLength];
+                    BCryptEncrypt(key, plainText, plainText.Length, pAuthInfo, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                }
+
+                Assert.NotEqual<byte>(plainText, cipherText);
+            }
+
+            // Renew the key to prove we can decrypt it with a fresh key.
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                byte[] decryptedText;
+
+                var authInfo = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.Create();
+                fixed (byte* pTagBuffer = &tagBuffer[0])
+                fixed (byte* pNonce = &nonceBuffer[0])
+                {
+                    authInfo.pbNonce = new IntPtr(pNonce);
+                    authInfo.cbNonce = nonceBuffer.Length;
+                    authInfo.pbTag = new IntPtr(pTagBuffer);
+                    authInfo.cbTag = tagBuffer.Length;
+
+                    var pAuthInfo = new IntPtr(&authInfo);
+                    int plainTextLength;
+                    BCryptDecrypt(key, cipherText, cipherText.Length, pAuthInfo, null, 0, null, 0, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    decryptedText = new byte[plainTextLength];
+                    BCryptEncrypt(key, cipherText, cipherText.Length, pAuthInfo, null, 0, decryptedText, decryptedText.Length, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    Array.Resize(ref decryptedText, plainTextLength);
+                }
+
+                Assert.Equal<byte>(plainText, decryptedText);
+            }
+        }
+    }
+
     [Fact]
     public void Hash()
     {

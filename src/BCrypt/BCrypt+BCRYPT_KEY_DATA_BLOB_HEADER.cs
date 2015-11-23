@@ -18,6 +18,11 @@ namespace PInvoke
         public struct BCRYPT_KEY_DATA_BLOB_HEADER
         {
             /// <summary>
+            /// The version of the <see cref="BCRYPT_KEY_DATA_BLOB_HEADER"/> struct.
+            /// </summary>
+            public const uint BCRYPT_KEY_DATA_BLOB_VERSION1 = 1;
+
+            /// <summary>
             /// The magic value for the key.
             /// This member must be the following value.
             /// BCRYPT_KEY_DATA_BLOB_MAGIC (0x4d42444b)
