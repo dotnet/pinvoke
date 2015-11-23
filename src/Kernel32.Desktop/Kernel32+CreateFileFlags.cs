@@ -64,8 +64,8 @@ namespace PInvoke
 
             /// <summary>
             /// The file is to be deleted immediately after all of its handles are closed, which includes the specified handle and any other open or duplicated handles.
-            /// If there are existing open handles to a file, the call fails unless they were all opened with the <see cref="FileShare.Delete"/> share mode.
-            /// Subsequent open requests for the file fail, unless the <see cref="FileShare.Delete"/> share mode is specified.
+            /// If there are existing open handles to a file, the call fails unless they were all opened with the <see cref="FileShare.FILE_SHARE_DELETE"/> share mode.
+            /// Subsequent open requests for the file fail, unless the <see cref="FileShare.FILE_SHARE_DELETE"/> share mode is specified.
             /// </summary>
             DeleteOnCloseFlag = 0x04000000,
 

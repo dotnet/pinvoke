@@ -99,7 +99,7 @@ public partial class Kernel32
         using (var tempFileHandle = CreateFile(
             testPath,
             PInvoke.Kernel32.FileAccess.GenericWrite,
-            PInvoke.Kernel32.FileShare.Read,
+            PInvoke.Kernel32.FileShare.FILE_SHARE_READ,
             null,
             CreationDisposition.CREATE_ALWAYS,
             CreateFileFlags.DeleteOnCloseFlag,
