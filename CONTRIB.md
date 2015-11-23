@@ -79,7 +79,12 @@ anything else found in native header files for these reasons:
 
 Helper methods should be kept at a minimum. The scope of this P/Invoke library is primarily
 to make native methods accessible from managed code -- not to create a high-level API that
-uses the native binary as an implementation detail.
+uses the native binary as an implementation detail. Think of helper methods as filling in
+where .NET interop marshaling falls short.
+
+Helper methods should usually appear as overloads of the P/Invoke methods by sharing their
+method name with the method they wrap. The "raw" P/Invoke method should also be `public`
+so callers who may have very particular requirements can skip the helper method.
 
 Helper methods are an excellent addition when one or more of these conditions are true
 of the P/Invoke method they wrap:
@@ -89,10 +94,19 @@ of the P/Invoke method they wrap:
 1. The method has a single out parameter that in a naturally managed API would typically
    serve as the return value, and the P/Invoke method's return value is void or an error code.
 1. A set of methods for enumeration can be wrapped with a helper that exposes an IEnumerable.
+1. Exposing asynchrony as a .NET Task via an async method.
 
-Helper methods should *not* be created merely for purposes of translating an error code to an exception.
-But if a helper method exists for other reasons, it is appropriate to throw instead of return
-an error code when the helper method uses its return value for something else.
+Helper methods should *not*:
+
+1. Merely translate an error code to an exception.
+   But if a helper method exists for other reasons, it is appropriate to throw instead of return
+   an error code when the helper method uses its return value for something else.
+1. Cater to specific use cases. This purpose should be reserved for an external project that focuses
+   on raising the abstraction layer for the native library.
+
+When a helper method does not exactly match the name of a P/Invoke method (e.g. enumerator
+or async helpers) the name should blend the method naming patterns of the native library
+with .NET conventions. For example, `EnumerateFiles` or `CreateFileAsync`.
 
 ### Xml documentation
 
