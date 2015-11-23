@@ -128,7 +128,7 @@ namespace PInvoke
         {
             errorMsg = string.Empty;
             int result = FormatMessage(
-                FormatMessageFlags.IgnoreInserts | FormatMessageFlags.FromSystem | FormatMessageFlags.ArgumentArray,
+                FormatMessageFlags.FORMAT_MESSAGE_IGNORE_INSERTS | FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM | FormatMessageFlags.FORMAT_MESSAGE_ARGUMENT_ARRAY,
                 IntPtr.Zero,
                 (uint)error,
                 0,
