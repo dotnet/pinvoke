@@ -101,7 +101,7 @@ namespace PInvoke
             public const string BCRYPT_HASH_BLOCK_LENGTH = "HashBlockLength";
 
             /// <summary>
-            /// The authentication tag lengths that are supported by the algorithm. This property is a BCRYPT_AUTH_TAG_LENGTHS_STRUCT structure. This property only applies to algorithms.
+            /// The authentication tag lengths that are supported by the algorithm. This property is a <see cref="BCRYPT_AUTH_TAG_LENGTHS_STRUCT"/> structure. This property only applies to algorithms.
             /// </summary>
             public const string BCRYPT_AUTH_TAG_LENGTH = "AuthTagLength";
 

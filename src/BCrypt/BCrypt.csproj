@@ -25,6 +25,7 @@
   <ItemGroup>
     <Compile Include="BCrypt+AlgorithmIdentifiers.cs" />
     <Compile Include="BCrypt+AsymmetricKeyBlobTypes.cs" />
+    <Compile Include="BCrypt+AuthModeFlags.cs" />
     <Compile Include="BCrypt+BCryptBuffer.cs" />
     <Compile Include="BCrypt+BCryptBufferDesc.cs" />
     <Compile Include="BCrypt+BCryptCloseAlgorithmProviderFlags.cs" />
@@ -45,6 +46,8 @@
     <Compile Include="BCrypt+BCryptSecretAgreementFlags.cs" />
     <Compile Include="BCrypt+BCryptSetPropertyFlags.cs" />
     <Compile Include="BCrypt+BCryptSignHashFlags.cs" />
+    <Compile Include="BCrypt+BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cs" />
+    <Compile Include="BCrypt+BCRYPT_AUTH_TAG_LENGTHS_STRUCT.cs" />
     <Compile Include="BCrypt+BCRYPT_KEY_DATA_BLOB_HEADER.cs" />
     <Compile Include="BCrypt+BCRYPT_KEY_LENGTHS_STRUCT.cs" />
     <Compile Include="BCrypt+BufferType.cs" />
