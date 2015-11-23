@@ -354,7 +354,7 @@ namespace PInvoke
         /// </param>
         /// <param name="creationDisposition">
         /// An action to take on a file or device that exists or does not exist.
-        /// For devices other than files, this parameter is usually set to <see cref="CreationDisposition.OpenExisting"/>.
+        /// For devices other than files, this parameter is usually set to <see cref="CreationDisposition.OPEN_EXISTING"/>.
         /// </param>
         /// <param name="flagsAndAttributes">
         /// The file or device attributes and flags, <see cref="CreateFileFlags.NormalAttribute"/> being the most common default value for files.

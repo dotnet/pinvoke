@@ -101,7 +101,7 @@ public partial class Kernel32
             PInvoke.Kernel32.FileAccess.GenericWrite,
             PInvoke.Kernel32.FileShare.Read,
             null,
-            CreationDisposition.CreateAlways,
+            CreationDisposition.CREATE_ALWAYS,
             CreateFileFlags.DeleteOnCloseFlag,
             new SafeObjectHandle()))
         {
@@ -247,7 +247,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericRead,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.NormalAttribute,
                 new SafeObjectHandle()))
             {
@@ -279,7 +279,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericRead,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
             {
@@ -328,7 +328,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericRead,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
             {
@@ -378,7 +378,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.NormalAttribute,
                 new SafeObjectHandle()))
             {
@@ -411,7 +411,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
             {
@@ -459,7 +459,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
             {
@@ -509,7 +509,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
             {
@@ -557,7 +557,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
             {
@@ -611,7 +611,7 @@ public partial class Kernel32
                 PInvoke.Kernel32.FileAccess.GenericWrite,
                 PInvoke.Kernel32.FileShare.None,
                 null,
-                CreationDisposition.OpenExisting,
+                CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.OverlappedFlag,
                 new SafeObjectHandle()))
             {
@@ -731,7 +731,7 @@ public partial class Kernel32
                     PInvoke.Kernel32.FileAccess.GenericRead | PInvoke.Kernel32.FileAccess.FILE_GENERIC_WRITE,
                     PInvoke.Kernel32.FileShare.None,
                     null,
-                    CreationDisposition.OpenExisting,
+                    CreationDisposition.OPEN_EXISTING,
                     0,
                     SafeObjectHandle.Null);
 
