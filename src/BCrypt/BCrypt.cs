@@ -68,7 +68,7 @@ namespace PInvoke
         /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <see cref="BCryptHashData"/> function. When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash"/> function.
         /// </param>
         /// <param name="pbHashObject">
-        /// A pointer to a buffer that receives the hash or MAC object. The <paramref name="cbHashObject"/> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.ObjectLength"/> property. This will provide the size of the hash or MAC object for the specified algorithm.
+        /// A pointer to a buffer that receives the hash or MAC object. The <paramref name="cbHashObject"/> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BCRYPT_OBJECT_LENGTH"/> property. This will provide the size of the hash or MAC object for the specified algorithm.
         /// This memory can only be freed after the handle pointed to by the <paramref name="phHash"/> parameter is destroyed.
         /// If the value of this parameter is NULL and the value of the <paramref name="cbHashObject"/> parameter is zero, the memory for the hash object is allocated and freed by this function.
         /// Windows 7:  This memory management functionality is available beginning with Windows 7.
@@ -166,7 +166,7 @@ namespace PInvoke
         /// <param name="pbIV">
         /// The address of a buffer that contains the initialization vector (IV) to use during decryption. The <paramref name="cbIV"/> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
         /// This parameter is optional and can be NULL if no IV is used.
-        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BlockLength"/> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BCRYPT_BLOCK_LENGTH"/> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
         /// </param>
         /// <param name="cbIV">
         /// The size, in bytes, of the <paramref name="pbIV"/> buffer.
@@ -233,7 +233,7 @@ namespace PInvoke
         /// </param>
         /// <param name="cbOutput">
         /// The size, in bytes, of the <paramref name="pbOutput"/> buffer. This size must exactly match the size of the hash or MAC value.
-        /// The size can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.HashLength"/> property. This will provide the size of the hash or MAC value for the specified algorithm.
+        /// The size can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BCRYPT_HASH_LENGTH"/> property. This will provide the size of the hash or MAC value for the specified algorithm.
         /// </param>
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
@@ -438,7 +438,7 @@ namespace PInvoke
         /// A pointer to a buffer that receives the imported key object.
         /// The <paramref name="cbKeyObject"/> parameter contains the size of this buffer.
         /// The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/>
-        /// function to get the <see cref="PropertyNames.ObjectLength"/> property. This will provide the size of the
+        /// function to get the <see cref="PropertyNames.BCRYPT_OBJECT_LENGTH"/> property. This will provide the size of the
         /// key object for the specified algorithm.
         /// This memory can only be freed after the phKey key handle is destroyed.
         /// </param>
