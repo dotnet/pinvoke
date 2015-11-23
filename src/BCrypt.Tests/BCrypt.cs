@@ -135,7 +135,7 @@ public class BCrypt
 
         using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
-            BCryptSetProperty(provider, PropertyNames.ChainingMode, ChainingModes.Ccm);
+            BCryptSetProperty(provider, PropertyNames.BCRYPT_CHAINING_MODE, ChainingModes.Ccm);
 
             byte[] plainText;
             byte[] cipherText;
@@ -143,10 +143,10 @@ public class BCrypt
             var nonceBuffer = new byte[12];
             random.NextBytes(nonceBuffer);
 
-            var tagLengths = BCryptGetProperty<BCRYPT_AUTH_TAG_LENGTHS_STRUCT>(provider, PropertyNames.AuthTagLength);
+            var tagLengths = BCryptGetProperty<BCRYPT_AUTH_TAG_LENGTHS_STRUCT>(provider, PropertyNames.BCRYPT_AUTH_TAG_LENGTH);
             var tagBuffer = new byte[tagLengths.MaxLength];
 
-            int blockSize = BCryptGetProperty<int>(provider, PropertyNames.BlockLength);
+            int blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
             plainText = new byte[blockSize];
             random.NextBytes(plainText);
 

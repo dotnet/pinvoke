@@ -80,7 +80,7 @@ namespace PInvoke
             /// The buffer must be long enough to include the whole authentication tag.
             /// Some authentication modes, such as CCM and GCM, support checking against a tag
             /// with multiple lengths. To obtain the valid authentication tag lengths use
-            /// <see cref="BCryptGetProperty{T}(SafeHandle, string, BCryptGetPropertyFlags)"/> to query the <see cref="PropertyNames.AuthTagLength"/> property.
+            /// <see cref="BCryptGetProperty{T}(SafeHandle, string, BCryptGetPropertyFlags)"/> to query the <see cref="PropertyNames.BCRYPT_AUTH_TAG_LENGTH"/> property.
             /// If there is no tag, this member must be set to zero.
             /// </summary>
             public int cbTag;
@@ -88,7 +88,7 @@ namespace PInvoke
             /// <summary>
             /// A pointer to a buffer that stores the partially computed MAC between calls to <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> when chaining encryption or decryption.
             /// If the input to encryption or decryption is scattered across multiple buffers, then you must chain calls to the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> functions. Chaining is indicated by setting the <see cref="AuthModeFlags.BCRYPT_AUTH_MODE_IN_PROGRESS_FLAG"/> flag in the <see cref="dwFlags"/> member.
-            /// This buffer must be supplied by the caller and must be at least as large as the maximum length of an authentication tag for the cipher you are using. To get the valid authentication tag lengths, use <see cref="BCryptGetProperty{T}(SafeHandle, string, BCryptGetPropertyFlags)"/> to query the <see cref="PropertyNames.AuthTagLength"/> property.
+            /// This buffer must be supplied by the caller and must be at least as large as the maximum length of an authentication tag for the cipher you are using. To get the valid authentication tag lengths, use <see cref="BCryptGetProperty{T}(SafeHandle, string, BCryptGetPropertyFlags)"/> to query the <see cref="PropertyNames.BCRYPT_AUTH_TAG_LENGTH"/> property.
             /// If <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> calls are not being chained, this member must be set to NULL.
             /// </summary>
             public IntPtr pbMacContext;
