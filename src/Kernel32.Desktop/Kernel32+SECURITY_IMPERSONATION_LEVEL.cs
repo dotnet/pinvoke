@@ -4,17 +4,14 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="SecurityImpersonationLevel"/> nested enum.
+    /// Contains the <see cref="SECURITY_IMPERSONATION_LEVEL"/> nested enum.
     /// </content>
     public partial class Kernel32
     {
         /// <summary>
         /// Contains values that specify security impersonation levels. Security impersonation levels govern the degree to which a server process can act on behalf of a client process.
         /// </summary>
-        /// <remarks>
-        /// Equivalent to the native SECURITY_IMPERSONATION_LEVEL enum.
-        /// </remarks>
-        public enum SecurityImpersonationLevel
+        public enum SECURITY_IMPERSONATION_LEVEL
         {
             /// <summary>
             /// The server process cannot obtain identification information about the client, and it cannot impersonate the client. It is defined with no value given, and thus, by ANSI C rules, defaults to a value of zero.

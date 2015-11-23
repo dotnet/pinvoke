@@ -135,7 +135,7 @@ namespace PInvoke
             /// <summary>
             /// Impersonates a client at the Anonymous impersonation level.
             /// </summary>
-            AnonymousSecurity = SecurityImpersonationLevel.SecurityAnonymous << 16,
+            AnonymousSecurity = SECURITY_IMPERSONATION_LEVEL.SecurityAnonymous << 16,
 
             /// <summary>
             /// The security tracking mode is dynamic. If this flag is not specified, the security tracking mode is static.
@@ -145,7 +145,7 @@ namespace PInvoke
             /// <summary>
             /// Impersonates a client at the Delegation impersonation level.
             /// </summary>
-            DelegationSecurity = SecurityImpersonationLevel.SecurityDelegation << 16,
+            DelegationSecurity = SECURITY_IMPERSONATION_LEVEL.SecurityDelegation << 16,
 
             /// <summary>
             /// Only the enabled aspects of the client's security context are available to the server. If you do not specify this flag, all aspects of the client's security context are available.
@@ -156,12 +156,12 @@ namespace PInvoke
             /// <summary>
             /// Impersonates a client at the Identification impersonation level.
             /// </summary>
-            IdentificationSecurity = SecurityImpersonationLevel.SecurityIdentification << 16,
+            IdentificationSecurity = SECURITY_IMPERSONATION_LEVEL.SecurityIdentification << 16,
 
             /// <summary>
             /// Impersonate a client at the impersonation level. This is the default behavior if no other flags are specified along with the SECURITY_SQOS_PRESENT flag.
             /// </summary>
-            ImpersonationSecurity = SecurityImpersonationLevel.SecurityImpersonation << 16,
+            ImpersonationSecurity = SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation << 16,
         }
     }
 }
