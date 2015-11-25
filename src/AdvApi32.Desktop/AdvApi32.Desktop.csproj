@@ -38,9 +38,14 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvApi32+ServiceStateQuery.cs" />
+    <Compile Include="AdvApi32+ServiceState.cs" />
+    <Compile Include="AdvApi32+ENUM_SERVICE_STATUS.cs" />
+    <Compile Include="AdvApi32+SERVICE_STATUS.cs" />
     <Compile Include="AdvApi32+SafeServiceHandle.cs" />
     <Compile Include="AdvApi32+SECURITY_INFORMATION.cs" />
     <Compile Include="AdvApi32+ServiceAccess.cs" />
+    <Compile Include="AdvApi32+ServiceControl.cs" />
     <Compile Include="AdvApi32+ServicePreferredNodeInfo.cs" />
     <Compile Include="AdvApi32+ServiceLaunchProtectedInfo.cs" />
     <Compile Include="AdvApi32+ServicePreshutdownInfo.cs" />

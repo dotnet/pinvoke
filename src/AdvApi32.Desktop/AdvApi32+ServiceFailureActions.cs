@@ -15,7 +15,7 @@ namespace PInvoke
         {
             /// <summary>
             /// The time after which to reset the failure count to zero if there are no failures, in seconds.
-            /// Specify <see cref="INFINITE"/> to indicate that this value should never be reset.
+            /// Specify <see cref="Constants.INFINITE"/> to indicate that this value should never be reset.
             /// </summary>
             public uint dwResetPeriod;
 
