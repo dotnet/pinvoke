@@ -123,6 +123,59 @@ public class BCrypt
         }
     }
 
+    [Fact]
+    public unsafe void EncryptDecrypt_Pointers()
+    {
+        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        {
+            byte[] plainText = new byte[] { 0x3, 0x5, 0x8 };
+            byte[] plainTextPadded;
+            byte[] cipherText;
+            int blockSize;
+            int cipherTextLength;
+
+            byte[] keyMaterial = new byte[128 / 8];
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                // Verify that without padding, an error is returned.
+                Assert.Equal(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
+
+                // Now do our own padding (zeros).
+                blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
+                plainTextPadded = new byte[blockSize];
+                Array.Copy(plainText, plainTextPadded, plainText.Length);
+                fixed (byte* pbInput = &plainTextPadded[0])
+                {
+                    BCryptEncrypt(key, pbInput, plainTextPadded.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+
+                    cipherText = new byte[cipherTextLength];
+                    fixed (byte* pbOutput = &cipherText[0])
+                    {
+                        BCryptEncrypt(key, pbInput, plainTextPadded.Length, null, null, 0, pbOutput, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    }
+
+                    Assert.NotEqual<byte>(plainTextPadded, cipherText);
+                }
+            }
+
+            // We must renew the key because there are residual effects on it from encryption
+            // that will prevent decryption from working.
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                byte[] decryptedText = new byte[plainTextPadded.Length];
+                int cbDecrypted;
+                fixed (byte* pbInput = &cipherText[0])
+                fixed (byte* pbOutput = &decryptedText[0])
+                {
+                    BCryptDecrypt(key, pbInput, cipherTextLength, null, null, 0, pbOutput, decryptedText.Length, out cbDecrypted, BCryptEncryptFlags.None).ThrowOnError();
+                }
+
+                Assert.Equal(plainTextPadded.Length, cbDecrypted);
+                Assert.Equal<byte>(plainTextPadded, decryptedText);
+            }
+        }
+    }
+
     /// <summary>
     /// Demonstrates use of an authenticated block chaining mode
     /// that requires use of several more struct types than
