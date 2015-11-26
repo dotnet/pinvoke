@@ -144,18 +144,26 @@ public class BCrypt
                 blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
                 plainTextPadded = new byte[blockSize];
                 Array.Copy(plainText, plainTextPadded, plainText.Length);
-                fixed (byte* pbInput = &plainTextPadded[0])
-                {
-                    BCryptEncrypt(key, pbInput, plainTextPadded.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                BCryptEncrypt(
+                    key,
+                    new ArraySegment<byte>(plainTextPadded),
+                    null,
+                    default(ArraySegment<byte>),
+                    default(ArraySegment<byte>),
+                    out cipherTextLength,
+                    BCryptEncryptFlags.None).ThrowOnError();
 
-                    cipherText = new byte[cipherTextLength];
-                    fixed (byte* pbOutput = &cipherText[0])
-                    {
-                        BCryptEncrypt(key, pbInput, plainTextPadded.Length, null, null, 0, pbOutput, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
-                    }
+                cipherText = new byte[cipherTextLength];
+                BCryptEncrypt(
+                    key,
+                    new ArraySegment<byte>(plainTextPadded),
+                    null,
+                    default(ArraySegment<byte>),
+                    new ArraySegment<byte>(cipherText),
+                    out cipherTextLength,
+                    BCryptEncryptFlags.None).ThrowOnError();
 
-                    Assert.NotEqual<byte>(plainTextPadded, cipherText);
-                }
+                Assert.NotEqual<byte>(plainTextPadded, cipherText);
             }
 
             // We must renew the key because there are residual effects on it from encryption
@@ -164,11 +172,14 @@ public class BCrypt
             {
                 byte[] decryptedText = new byte[plainTextPadded.Length];
                 int cbDecrypted;
-                fixed (byte* pbInput = &cipherText[0])
-                fixed (byte* pbOutput = &decryptedText[0])
-                {
-                    BCryptDecrypt(key, pbInput, cipherTextLength, null, null, 0, pbOutput, decryptedText.Length, out cbDecrypted, BCryptEncryptFlags.None).ThrowOnError();
-                }
+                BCryptDecrypt(
+                    key,
+                    new ArraySegment<byte>(cipherText),
+                    null,
+                    default(ArraySegment<byte>),
+                    new ArraySegment<byte>(decryptedText),
+                    out cbDecrypted,
+                    BCryptEncryptFlags.None).ThrowOnError();
 
                 Assert.Equal(plainTextPadded.Length, cbDecrypted);
                 Assert.Equal<byte>(plainTextPadded, decryptedText);

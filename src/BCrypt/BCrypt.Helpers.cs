@@ -13,6 +13,11 @@ namespace PInvoke
     public static partial class BCrypt
     {
         /// <summary>
+        /// An array whose content doesn't matter.
+        /// </summary>
+        private static readonly byte[] OneElementDummyArray = new byte[1];
+
+        /// <summary>
         /// Loads and initializes a CNG provider.
         /// </summary>
         /// <param name="pszAlgId">
@@ -315,6 +320,41 @@ namespace PInvoke
             return new ArraySegment<byte>(cipherText, 0, length);
         }
 
+        public static unsafe NTStatus BCryptEncrypt(
+            SafeKeyHandle key,
+            ArraySegment<byte> input,
+            void* paddingInfo,
+            ArraySegment<byte> iv,
+            ArraySegment<byte> output,
+            out int outputLength,
+            BCryptEncryptFlags flags)
+        {
+            // We have to make sure that the input, which may be null, does
+            // not cause a NRE in our fixed expressions below, which cannot do
+            // conditional expressions due to C# constraints.
+            EnsureNotNull(ref input);
+            EnsureNotNull(ref iv);
+            EnsureNotNull(ref output);
+
+            fixed (byte* pbInput = &input.Array[input.Offset])
+            fixed (byte* pbOutput = &output.Array[output.Offset])
+            fixed (byte* pbIV = &iv.Array[iv.Offset])
+            {
+                // As we call the P/Invoke method, restore any nulls that were originally there.
+                return BCryptEncrypt(
+                    key,
+                    ArrayOrOriginalNull(input, pbInput),
+                    input.Count,
+                    paddingInfo,
+                    ArrayOrOriginalNull(iv, pbIV),
+                    iv.Count,
+                    ArrayOrOriginalNull(output, pbOutput),
+                    output.Count,
+                    out outputLength,
+                    flags);
+            }
+        }
+
         /// <summary>
         /// Decrypts a block of data.
         /// </summary>
@@ -371,6 +411,41 @@ namespace PInvoke
 
             // Padding may result in a shorter output than previously estimated.
             return new ArraySegment<byte>(plainText, 0, length);
+        }
+
+        public static unsafe NTStatus BCryptDecrypt(
+            SafeKeyHandle key,
+            ArraySegment<byte> input,
+            void* paddingInfo,
+            ArraySegment<byte> iv,
+            ArraySegment<byte> output,
+            out int outputLength,
+            BCryptEncryptFlags flags)
+        {
+            // We have to make sure that the input, which may be null, does
+            // not cause a NRE in our fixed expressions below, which cannot do
+            // conditional expressions due to C# constraints.
+            EnsureNotNull(ref input);
+            EnsureNotNull(ref iv);
+            EnsureNotNull(ref output);
+
+            fixed (byte* pbInput = &input.Array[input.Offset])
+            fixed (byte* pbOutput = &output.Array[output.Offset])
+            fixed (byte* pbIV = &iv.Array[iv.Offset])
+            {
+                // As we call the P/Invoke method, restore any nulls that were originally there.
+                return BCryptDecrypt(
+                    key,
+                    ArrayOrOriginalNull(input, pbInput),
+                    input.Count,
+                    paddingInfo,
+                    ArrayOrOriginalNull(iv, pbIV),
+                    iv.Count,
+                    ArrayOrOriginalNull(output, pbOutput),
+                    output.Count,
+                    out outputLength,
+                    flags);
+            }
         }
 
         /// <summary>
@@ -523,6 +598,31 @@ namespace PInvoke
                     return (T)Marshal.PtrToStructure(pValuePtr, typeof(T));
                 }
             }
+        }
+
+        /// <summary>
+        /// Ensures that the specified byte array is not null.
+        /// </summary>
+        /// <param name="buffer">The byte buffer to replace with a non-null buffer, if null.</param>
+        private static void EnsureNotNull(ref ArraySegment<byte> buffer)
+        {
+            if (buffer.Array == null)
+            {
+                buffer = new ArraySegment<byte>(OneElementDummyArray, 0, 0);
+            }
+        }
+
+        /// <summary>
+        /// Returns the specified <paramref name="pointer"/>,
+        /// or null if <paramref name="buffer"/> was null before a call to
+        /// <see cref="EnsureNotNull(ref ArraySegment{byte})"/>.
+        /// </summary>
+        /// <param name="buffer">The buffer which may have originally been null.</param>
+        /// <param name="pointer">The pointer to some element in the buffer.</param>
+        /// <returns>The <paramref name="pointer"/> or <c>null</c>.</returns>
+        private static unsafe byte* ArrayOrOriginalNull(ArraySegment<byte> buffer, byte* pointer)
+        {
+            return buffer.Array == OneElementDummyArray ? null : pointer;
         }
     }
 }
