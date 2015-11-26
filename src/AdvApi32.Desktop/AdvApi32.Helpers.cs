@@ -21,7 +21,7 @@ namespace PInvoke
         /// The name and status of each service are provided.
         /// </summary>
         /// <returns>
-        /// An array of <see cref="ENUM_SERVICE_STATUS"/> structures that receive the name and service status information for each service in the database.
+        /// An IEnumerable of <see cref="ENUM_SERVICE_STATUS"/> structures that receive the name and service status information for each service in the database.
         /// </returns>
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
         public static IEnumerable<ENUM_SERVICE_STATUS> EnumServicesStatus()
