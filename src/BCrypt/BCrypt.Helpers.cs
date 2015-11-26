@@ -13,9 +13,14 @@ namespace PInvoke
     public static partial class BCrypt
     {
         /// <summary>
-        /// An array whose content doesn't matter.
+        /// An array that fills in for a null one.
         /// </summary>
-        private static readonly byte[] OneElementDummyArray = new byte[1];
+        private static readonly byte[] NonEmptyArrayReplacesNull = new byte[1];
+
+        /// <summary>
+        /// An array that fills in for one with no elements.
+        /// </summary>
+        private static readonly byte[] NonEmptyArrayReplacesEmpty = new byte[1];
 
         /// <summary>
         /// Loads and initializes a CNG provider.
@@ -361,9 +366,9 @@ namespace PInvoke
             // We have to make sure that the input, which may be null, does
             // not cause a NRE in our fixed expressions below, which cannot do
             // conditional expressions due to C# constraints.
-            EnsureNotNull(ref input);
-            EnsureNotNull(ref iv);
-            EnsureNotNull(ref output);
+            EnsureNotNullOrEmpty(ref input);
+            EnsureNotNullOrEmpty(ref iv);
+            EnsureNotNullOrEmpty(ref output);
 
             fixed (byte* pbInput = &input.Array[input.Offset])
             fixed (byte* pbOutput = &output.Array[output.Offset])
@@ -483,9 +488,9 @@ namespace PInvoke
             // We have to make sure that the input, which may be null, does
             // not cause a NRE in our fixed expressions below, which cannot do
             // conditional expressions due to C# constraints.
-            EnsureNotNull(ref input);
-            EnsureNotNull(ref iv);
-            EnsureNotNull(ref output);
+            EnsureNotNullOrEmpty(ref input);
+            EnsureNotNullOrEmpty(ref iv);
+            EnsureNotNullOrEmpty(ref output);
 
             fixed (byte* pbInput = &input.Array[input.Offset])
             fixed (byte* pbOutput = &output.Array[output.Offset])
@@ -662,25 +667,29 @@ namespace PInvoke
         /// Ensures that the specified byte array is not null.
         /// </summary>
         /// <param name="buffer">The byte buffer to replace with a non-null buffer, if null.</param>
-        private static void EnsureNotNull(ref ArraySegment<byte> buffer)
+        private static void EnsureNotNullOrEmpty(ref ArraySegment<byte> buffer)
         {
             if (buffer.Array == null)
             {
-                buffer = new ArraySegment<byte>(OneElementDummyArray, 0, 0);
+                buffer = new ArraySegment<byte>(NonEmptyArrayReplacesNull, 0, 0);
+            }
+            else if (buffer.Array.Length == 0)
+            {
+                buffer = new ArraySegment<byte>(NonEmptyArrayReplacesEmpty, 0, 0);
             }
         }
 
         /// <summary>
         /// Returns the specified <paramref name="pointer"/>,
         /// or null if <paramref name="buffer"/> was null before a call to
-        /// <see cref="EnsureNotNull(ref ArraySegment{byte})"/>.
+        /// <see cref="EnsureNotNullOrEmpty(ref ArraySegment{byte})"/>.
         /// </summary>
         /// <param name="buffer">The buffer which may have originally been null.</param>
         /// <param name="pointer">The pointer to some element in the buffer.</param>
         /// <returns>The <paramref name="pointer"/> or <c>null</c>.</returns>
         private static unsafe byte* ArrayOrOriginalNull(ArraySegment<byte> buffer, byte* pointer)
         {
-            return buffer.Array == OneElementDummyArray ? null : pointer;
+            return buffer.Array == NonEmptyArrayReplacesNull ? null : pointer;
         }
     }
 }

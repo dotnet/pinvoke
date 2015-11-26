@@ -187,6 +187,27 @@ public class BCrypt
         }
     }
 
+    [Fact]
+    public unsafe void EncryptDecrypt_PointerCornerCases()
+    {
+        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        {
+            byte[] keyMaterial = new byte[128 / 8];
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                int length;
+                BCryptEncrypt(
+                    key,
+                    new ArraySegment<byte>(new byte[0]),
+                    null,
+                    default(ArraySegment<byte>),
+                    new ArraySegment<byte>(new byte[1]),
+                    out length,
+                    BCryptEncryptFlags.None);
+            }
+        }
+    }
+
     /// <summary>
     /// Demonstrates use of an authenticated block chaining mode
     /// that requires use of several more struct types than
