@@ -144,7 +144,7 @@ namespace PInvoke
 
             if (lpServiceName.Trim() == string.Empty)
             {
-                throw new ArgumentException(nameof(lpServiceName));
+                throw new ArgumentException("Service name must not be empty", nameof(lpServiceName));
             }
 
             using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
