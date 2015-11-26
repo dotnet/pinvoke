@@ -289,7 +289,7 @@ namespace PInvoke
             SafeKeyHandle hKey,
             byte* pbInput,
             int cbInput,
-            byte* pPaddingInfo,
+            void* pPaddingInfo,
             byte* pbIV,
             int cbIV,
             byte* pbOutput,
