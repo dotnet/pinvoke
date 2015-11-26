@@ -33,7 +33,7 @@ namespace PInvoke
                     throw new Win32Exception();
                 }
 
-                int buffferSizeNeeded = 0;
+                int bufferSizeNeeded = 0;
                 int numServicesReturned = 0;
                 int resumeIndex = 0;
                 if (!EnumServicesStatus(
@@ -42,7 +42,7 @@ namespace PInvoke
                     ServiceStateQuery.SERVICE_STATE_ALL,
                     IntPtr.Zero,
                     0,
-                    ref buffferSizeNeeded,
+                    ref bufferSizeNeeded,
                     ref numServicesReturned,
                     ref resumeIndex))
                 {
@@ -52,26 +52,34 @@ namespace PInvoke
                         throw new Win32Exception(lastError);
                     }
 
-                    IntPtr buffer = Marshal.AllocHGlobal(buffferSizeNeeded);
-                    if (!EnumServicesStatus(
-                        scmHandle,
-                        ServiceType.SERVICE_WIN32,
-                        ServiceStateQuery.SERVICE_STATE_ALL,
-                        buffer,
-                        buffferSizeNeeded,
-                        ref buffferSizeNeeded,
-                        ref numServicesReturned,
-                        ref resumeIndex))
-                    {
-                        throw new Win32Exception();
-                    }
+                    IntPtr buffer = Marshal.AllocHGlobal(bufferSizeNeeded);
 
-                    int bufferSize = buffer.ToInt32();
-                    for (int i = 0; i < numServicesReturned; i++)
+                    try
                     {
-                        var serviceStatus = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure(new IntPtr(bufferSize), typeof(ENUM_SERVICE_STATUS));
-                        bufferSize += Marshal.SizeOf(serviceStatus);
-                        yield return serviceStatus;
+                        if (!EnumServicesStatus(
+                                    scmHandle,
+                                    ServiceType.SERVICE_WIN32,
+                                    ServiceStateQuery.SERVICE_STATE_ALL,
+                                    buffer,
+                                    bufferSizeNeeded,
+                                    ref bufferSizeNeeded,
+                                    ref numServicesReturned,
+                                    ref resumeIndex))
+                        {
+                            throw new Win32Exception();
+                        }
+
+                        int possition = buffer.ToInt32();
+                        for (int i = 0; i < numServicesReturned; i++)
+                        {
+                            var serviceStatus = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure(new IntPtr(possition), typeof(ENUM_SERVICE_STATUS));
+                            possition += Marshal.SizeOf(serviceStatus);
+                            yield return serviceStatus;
+                        }
+                    }
+                    finally
+                    {
+                        Marshal.FreeHGlobal(buffer);
                     }
                 }
             }
@@ -114,9 +122,14 @@ namespace PInvoke
         /// <exception cref="FileNotFoundException"><paramref name="lpBinaryPathName"/> cannot be found.</exception>
         public static void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
         {
-            if (string.IsNullOrWhiteSpace(lpBinaryPathName))
+            if (lpBinaryPathName == null)
             {
                 throw new ArgumentNullException(nameof(lpBinaryPathName));
+            }
+
+            if (lpBinaryPathName.Trim() == string.Empty)
+            {
+                throw new ArgumentException("Cannot be empty", nameof(lpBinaryPathName));
             }
 
             if (!File.Exists(lpBinaryPathName))
@@ -124,9 +137,14 @@ namespace PInvoke
                 throw new FileNotFoundException("Cannot find the file.", lpBinaryPathName);
             }
 
-            if (string.IsNullOrWhiteSpace(lpServiceName))
+            if (lpServiceName == null)
             {
                 throw new ArgumentNullException(nameof(lpServiceName));
+            }
+
+            if (lpServiceName.Trim() == string.Empty)
+            {
+                throw new ArgumentException(nameof(lpServiceName));
             }
 
             using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
@@ -165,24 +183,18 @@ namespace PInvoke
 
                     IntPtr lpInfo = Marshal.AllocHGlobal(Marshal.SizeOf(descriptionStruct));
 
-                    if (lpInfo == IntPtr.Zero)
+                    try
                     {
-                        throw new Win32Exception();
+                        Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
+                        if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
+                        {
+                            throw new Win32Exception();
+                        }
                     }
-
-                    Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
-
-                    if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
+                    finally
                     {
+                        Marshal.DestroyStructure(lpInfo, typeof(ServiceDescription));
                         Marshal.FreeHGlobal(lpInfo);
-                        throw new Win32Exception();
-                    }
-
-                    Marshal.FreeHGlobal(lpInfo);
-
-                    if (svcHandle.IsInvalid)
-                    {
-                        throw new Win32Exception();
                     }
                 }
             }
