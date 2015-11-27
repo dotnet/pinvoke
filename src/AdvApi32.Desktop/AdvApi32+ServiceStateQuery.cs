@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class AdvApi32
     {
         /// <summary>
-        /// Represents the state of the services to be enumerated (<see cref="EnumServicesStatus"/> or EnumServicesStatusEx).
+        /// Represents the state of the services to be enumerated (<see cref="EnumServicesStatus(SafeServiceHandle,ServiceType,ServiceStateQuery,IntPtr,int,ref int,ref int,ref int)"/> or EnumServicesStatusEx).
         /// </summary>
         [Flags]
         public enum ServiceStateQuery

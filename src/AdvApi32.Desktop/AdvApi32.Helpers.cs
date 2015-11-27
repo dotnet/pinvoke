@@ -4,6 +4,8 @@
 namespace PInvoke
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Runtime.InteropServices;
     using System.Security.AccessControl;
     using static Kernel32;
@@ -14,29 +16,158 @@ namespace PInvoke
     /// </content>
     public static partial class AdvApi32
     {
-        public static void InstallService(string servicePath, string serviceName, string serviceDisplayName, string serviceDescription, string userName, string password)
+        /// <summary>
+        /// Enumerates services in the specified service control manager database.
+        /// The name and status of each service are provided.
+        /// </summary>
+        /// <returns>
+        /// An IEnumerable of <see cref="ENUM_SERVICE_STATUS"/> structures that receive the name and service status information for each service in the database.
+        /// </returns>
+        /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
+        public static IEnumerable<ENUM_SERVICE_STATUS> EnumServicesStatus()
         {
-            using (SafeServiceHandle hSCManager = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
+            using (var scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_ENUMERATE_SERVICE))
             {
-                if (hSCManager.IsInvalid)
+                if (scmHandle.IsInvalid)
+                {
+                    throw new Win32Exception();
+                }
+
+                int bufferSizeNeeded = 0;
+                int numServicesReturned = 0;
+                int resumeIndex = 0;
+                if (!EnumServicesStatus(
+                    scmHandle,
+                    ServiceType.SERVICE_WIN32,
+                    ServiceStateQuery.SERVICE_STATE_ALL,
+                    IntPtr.Zero,
+                    0,
+                    ref bufferSizeNeeded,
+                    ref numServicesReturned,
+                    ref resumeIndex))
+                {
+                    var lastError = GetLastError();
+                    if (lastError != Win32ErrorCode.ERROR_MORE_DATA)
+                    {
+                        throw new Win32Exception(lastError);
+                    }
+
+                    IntPtr buffer = Marshal.AllocHGlobal(bufferSizeNeeded);
+
+                    try
+                    {
+                        if (!EnumServicesStatus(
+                                    scmHandle,
+                                    ServiceType.SERVICE_WIN32,
+                                    ServiceStateQuery.SERVICE_STATE_ALL,
+                                    buffer,
+                                    bufferSizeNeeded,
+                                    ref bufferSizeNeeded,
+                                    ref numServicesReturned,
+                                    ref resumeIndex))
+                        {
+                            throw new Win32Exception();
+                        }
+
+                        int possition = buffer.ToInt32();
+                        for (int i = 0; i < numServicesReturned; i++)
+                        {
+                            var serviceStatus = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure(new IntPtr(possition), typeof(ENUM_SERVICE_STATUS));
+                            possition += Marshal.SizeOf(serviceStatus);
+                            yield return serviceStatus;
+                        }
+                    }
+                    finally
+                    {
+                        Marshal.FreeHGlobal(buffer);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates a service object and adds it to service control manager database o the local computer.
+        /// </summary>
+        /// <param name="lpBinaryPathName">
+        /// The fully qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted.
+        /// For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"".
+        /// </param>
+        /// <param name="lpServiceName">
+        /// The name of the service to install. The maximum string length is 256 characters.
+        /// The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive.
+        /// Forward-slash (/) and backslash (\) are not valid service name characters.
+        /// </param>
+        /// <param name="lpDisplayName">
+        /// The display name to be used by user interface programs to identify the service.
+        /// This string has a maximum length of 256 characters. The name is case-preserved in the service control manager.
+        /// Display name comparisons are always case-insensitive.
+        /// </param>
+        /// <param name="lpDescription">
+        /// The description of the service. If this member is NULL, the description remains unchanged.
+        /// If this value is an empty string (""), the current description is deleted.
+        /// The service description must not exceed the size of a registry value of type REG_SZ.
+        /// </param>
+        /// <param name="lpServiceStartName">
+        /// The name of the account under which the service should run.
+        /// Use an account name in the form DomainName\UserName. The service process will be logged on as this user.
+        /// If the account belongs to the built-in domain, you can specify .\UserName.
+        /// </param>
+        /// <param name="lpPassword">
+        /// The password to the account name specified by the lpServiceStartName parameter.
+        /// Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account.
+        /// If the account name specified by the <paramref name="lpServiceStartName"/> parameter is the name of a managed service account or virtual account name, the lpPassword parameter must be NULL.
+        /// </param>
+        /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="lpServiceName" /> or <paramref name="lpBinaryPathName"/> are NULL or empty string.</exception>
+        /// <exception cref="FileNotFoundException"><paramref name="lpBinaryPathName"/> cannot be found.</exception>
+        public static void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
+        {
+            if (lpBinaryPathName == null)
+            {
+                throw new ArgumentNullException(nameof(lpBinaryPathName));
+            }
+
+            if (lpBinaryPathName.Trim() == string.Empty)
+            {
+                throw new ArgumentException("Cannot be empty", nameof(lpBinaryPathName));
+            }
+
+            if (!File.Exists(lpBinaryPathName))
+            {
+                throw new FileNotFoundException("Cannot find the file.", lpBinaryPathName);
+            }
+
+            if (lpServiceName == null)
+            {
+                throw new ArgumentNullException(nameof(lpServiceName));
+            }
+
+            if (lpServiceName.Trim() == string.Empty)
+            {
+                throw new ArgumentException("Service name must not be empty", nameof(lpServiceName));
+            }
+
+            using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
+            {
+                if (scmHandle.IsInvalid)
                 {
                     throw new Win32Exception();
                 }
 
                 SafeServiceHandle svcHandle = CreateService(
-                    hSCManager,
-                    serviceName,
-                    serviceDisplayName,
+                    scmHandle,
+                    lpServiceName,
+                    lpDisplayName,
                     ServiceAccess.SERVICE_ALL_ACCESS,
                     ServiceType.SERVICE_WIN32_OWN_PROCESS,
                     ServiceStartType.SERVICE_DEMAND_START,
                     ServiceErrorControl.SERVICE_ERROR_NORMAL,
-                    servicePath,
+                    lpBinaryPathName,
                     null,
                     0,
                     null,
-                    userName,
-                    password);
+                    lpServiceStartName,
+                    lpPassword);
 
                 using (svcHandle)
                 {
@@ -47,36 +178,46 @@ namespace PInvoke
 
                     ServiceDescription descriptionStruct = new ServiceDescription
                     {
-                        lpDescription = serviceDescription
+                        lpDescription = lpDescription
                     };
 
                     IntPtr lpInfo = Marshal.AllocHGlobal(Marshal.SizeOf(descriptionStruct));
 
-                    if (lpInfo == IntPtr.Zero)
+                    try
                     {
-                        throw new Win32Exception();
+                        Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
+                        if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
+                        {
+                            throw new Win32Exception();
+                        }
                     }
-
-                    Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
-
-                    if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
+                    finally
                     {
+                        Marshal.DestroyStructure(lpInfo, typeof(ServiceDescription));
                         Marshal.FreeHGlobal(lpInfo);
-                        throw new Win32Exception();
-                    }
-
-                    Marshal.FreeHGlobal(lpInfo);
-
-                    if (svcHandle.IsInvalid)
-                    {
-                        throw new Win32Exception();
                     }
                 }
             }
         }
 
-        public static void UninstallService(string serviceName)
+        /// <summary>
+        /// Marks the specified service for deletion from the service control manager database on the local computer.
+        /// </summary>
+        /// <param name="lpServiceName">
+        /// The name of the service to be opened. This is the name specified by the lpServiceName parameter of the <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function when the service object was created,
+        /// not the service display name that is shown by user interface applications to identify the service.
+        /// The maximum string length is 256 characters. The service control manager database preserves the case of the characters,
+        /// but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\) are invalid service name characters.
+        /// </param>
+        /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="lpServiceName" /> is NULL or an empty string.</exception>
+        public static void DeleteService(string lpServiceName)
         {
+            if (string.IsNullOrWhiteSpace(lpServiceName))
+            {
+                throw new ArgumentNullException(nameof(lpServiceName));
+            }
+
             using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.GenericWrite))
             {
                 if (scmHandle.IsInvalid)
@@ -84,7 +225,7 @@ namespace PInvoke
                     throw new Win32Exception();
                 }
 
-                using (SafeServiceHandle svcHandle = OpenService(scmHandle, serviceName, ServiceAccess.Delete))
+                using (SafeServiceHandle svcHandle = OpenService(scmHandle, lpServiceName, ServiceAccess.Delete))
                 {
                     if (svcHandle.IsInvalid)
                     {
@@ -143,7 +284,7 @@ namespace PInvoke
         /// <param name="hService">
         ///     A handle to the service control manager or the service. Handles to the service control manager
         ///     are returned by the <see cref="OpenSCManager" /> function, and handles to a service are returned by either the
-        ///     <see cref="OpenService" /> or <see cref="CreateService" /> function. The handle must have the READ_CONTROL access
+        ///     <see cref="OpenService" /> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The handle must have the READ_CONTROL access
         ///     right.
         /// </param>
         /// <param name="dwSecurityInformation">
@@ -188,7 +329,7 @@ namespace PInvoke
         /// <summary>The SetServiceObjectSecurity function sets the security descriptor of a service object.</summary>
         /// <param name="hService">
         ///     A handle to the service. This handle is returned by the <see cref="OpenService" /> or
-        ///     <see cref="CreateService" /> function. The access required for this handle depends on the security information
+        ///     <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The access required for this handle depends on the security information
         ///     specified in the <paramref name="dwSecurityInformation" /> parameter.
         /// </param>
         /// <param name="dwSecurityInformation">

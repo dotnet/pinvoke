@@ -27,7 +27,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hService">
         /// A handle to the service.
-        /// This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService"/> function and
+        /// This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function and
         /// must have the <see cref="ServiceAccess.SERVICE_CHANGE_CONFIG"/> access right.
         /// </param>
         /// <param name="dwServiceType">
@@ -181,7 +181,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hService">
         /// A handle to the service.
-        /// This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService"/> function and
+        /// This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function and
         /// must have the <see cref="ServiceAccess.SERVICE_CHANGE_CONFIG"/> access right.
         /// </param>
         /// <param name="dwInfoLevel">
@@ -206,7 +206,7 @@ namespace PInvoke
         /// To specify additional information when stopping a service, use the ControlServiceEx function.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService"/> function.
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function.
         /// The access rights required for this handle depend on the dwControl code requested.
         /// </param>
         /// <param name="dwControl">
@@ -336,7 +336,7 @@ namespace PInvoke
         /// Marks the specified service for deletion from the service control manager database.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService"/> function, and it must have the <see cref="ServiceAccess.Delete"/> access right
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.Delete"/> access right
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
@@ -350,7 +350,7 @@ namespace PInvoke
         /// Enumerates services in the specified service control manager database.
         /// The name and status of each service are provided.
         /// This function has been superseded by the EnumServicesStatusEx function.
-        /// It returns the same information <see cref="EnumServicesStatus"/> returns, plus the process identifier and additional information for the service.
+        /// It returns the same information <see cref="EnumServicesStatus(SafeServiceHandle,ServiceType,ServiceStateQuery,IntPtr,int,ref int,ref int,ref int)"/> returns, plus the process identifier and additional information for the service.
         /// In addition, EnumServicesStatusEx enables you to enumerate services that belong to a specified group.
         /// </summary>
         /// <param name="hSCManager">
@@ -487,7 +487,7 @@ namespace PInvoke
         /// Starts a service.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService"/> function, and it must have the <see cref="ServiceAccess.SERVICE_START"/> access right.
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.SERVICE_START"/> access right.
         /// </param>
         /// <param name="dwNumServiceArgs">
         /// The number of strings in the lpServiceArgVectors array. If lpServiceArgVectors is NULL, this parameter can be zero.
@@ -591,7 +591,7 @@ namespace PInvoke
         /// <param name="hService">
         ///     A handle to the service control manager or the service. Handles to the service control manager
         ///     are returned by the <see cref="OpenSCManager" /> function, and handles to a service are returned by either the
-        ///     <see cref="OpenService" /> or <see cref="CreateService" /> function. The handle must have the READ_CONTROL access
+        ///     <see cref="OpenService" /> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The handle must have the READ_CONTROL access
         ///     right.
         /// </param>
         /// <param name="dwSecurityInformation">
@@ -632,7 +632,7 @@ namespace PInvoke
         /// This function has been superseded by the QueryServiceStatusEx function. QueryServiceStatusEx returns the same information <see cref="QueryServiceStatus"/> returns, with the addition of the process identifier and additional information for the service.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or the <see cref="CreateService"/> function, and it must have the <see cref="ServiceAccess.SERVICE_QUERY_STATUS"/> access right.
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or the <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.SERVICE_QUERY_STATUS"/> access right.
         /// </param>
         /// <param name="dwServiceStatus">
         /// A pointer to a <see cref="SERVICE_STATUS"/> structure that receives the status information.
@@ -648,7 +648,7 @@ namespace PInvoke
         /// <summary>The SetServiceObjectSecurity function sets the security descriptor of a service object.</summary>
         /// <param name="hService">
         ///     A handle to the service. This handle is returned by the <see cref="OpenService" /> or
-        ///     <see cref="CreateService" /> function. The access required for this handle depends on the security information
+        ///     <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The access required for this handle depends on the security information
         ///     specified in the <paramref name="dwSecurityInformation" /> parameter.
         /// </param>
         /// <param name="dwSecurityInformation">
@@ -712,7 +712,7 @@ namespace PInvoke
         /// <param name="hSCObject">
         /// A handle to the service control manager object or the service object to close.
         /// Handles to service control manager objects are returned by the <see cref="OpenSCManager"/> function,
-        /// and handles to service objects are returned by either the <see cref="OpenService"/> or <see cref="CreateService"/> function.
+        /// and handles to service objects are returned by either the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
