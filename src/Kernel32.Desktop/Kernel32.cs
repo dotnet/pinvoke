@@ -1525,7 +1525,7 @@ namespace PInvoke
         ///     type specified, or if the function fails for another reason. To get extended error information, call
         ///     <see cref="GetLastError" />.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EnumResourceNames(SafeLibraryHandle hModule, IntPtr lpszType, EnumResNameProc lpEnumFunc, IntPtr lParam);
 
@@ -1627,14 +1627,59 @@ namespace PInvoke
         /// </param>
         /// <returns>
         ///     If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a
-        ///     handle to the resource, pass this handle to the LoadResource function.
+        ///     handle to the resource, pass this handle to the <see cref="LoadResource"/> function.
+        ///     <para>
+        ///         If the function fails, the return value is NULL. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr FindResource(SafeLibraryHandle hModule, IntPtr lpName, IntPtr lpType);
+
+        /// <summary>Retrieves a handle that can be used to obtain a pointer to the first byte of the specified resource in memory.</summary>
+        /// <param name="hModule">
+        ///     A handle to the module whose executable file contains the resource. If hModule is
+        ///     <see cref="SafeLibraryHandle.Null" />, the system loads the resource from the module that was used to create the
+        ///     current process.
+        /// </param>
+        /// <param name="hResInfo">
+        ///     A handle to the resource to be loaded. This handle is returned by the
+        ///     <see cref="FindResource" /> or FindResourceEx function.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a handle to the data associated with the resource.
         ///     <para>
         ///         If the function fails, the return value is NULL. To get extended error information, call
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern IntPtr FindResource(SafeLibraryHandle hModule, IntPtr lpName, IntPtr lpType);
+        public static extern IntPtr LoadResource(SafeLibraryHandle hModule, IntPtr hResInfo);
+
+        /// <summary>Retrieves a pointer to the specified resource in memory.</summary>
+        /// <param name="hResData">
+        ///     A handle to the resource to be accessed. The <see cref="LoadResource" /> function returns this
+        ///     handle.
+        /// </param>
+        /// <returns>
+        ///     If the loaded resource is available, the return value is a pointer to the first byte of the resource;
+        ///     otherwise, it is NULL.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern IntPtr LockResource(IntPtr hResData);
+
+        /// <summary>Retrieves the size, in bytes, of the specified resource.</summary>
+        /// <param name="hModule">A handle to the module whose executable file contains the resource.</param>
+        /// <param name="hResInfo">
+        ///     handle to the resource. This handle must be created by using the <see cref="FindResource" /> or
+        ///     FindResourceEx function.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is the number of bytes in the resource.
+        ///     <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern int SizeofResource(SafeLibraryHandle hModule, IntPtr hResInfo);
 
         /// <summary>
         ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the
