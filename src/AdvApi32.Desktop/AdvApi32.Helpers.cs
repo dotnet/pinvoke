@@ -118,18 +118,13 @@ namespace PInvoke
         /// If the account name specified by the <paramref name="lpServiceStartName"/> parameter is the name of a managed service account or virtual account name, the lpPassword parameter must be NULL.
         /// </param>
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="lpServiceName" /> or <paramref name="lpBinaryPathName"/> are NULL or empty string.</exception>
+        /// <exception cref="ArgumentException"><paramref name="lpServiceName" /> or <paramref name="lpBinaryPathName"/> are NULL or empty string.</exception>
         /// <exception cref="FileNotFoundException"><paramref name="lpBinaryPathName"/> cannot be found.</exception>
         public static void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
         {
-            if (lpBinaryPathName == null)
+            if (string.IsNullOrWhiteSpace(lpBinaryPathName))
             {
-                throw new ArgumentNullException(nameof(lpBinaryPathName));
-            }
-
-            if (lpBinaryPathName.Trim() == string.Empty)
-            {
-                throw new ArgumentException("Cannot be empty", nameof(lpBinaryPathName));
+                throw new ArgumentException("Binary path name must not be null nor empty", nameof(lpBinaryPathName));
             }
 
             if (!File.Exists(lpBinaryPathName))
@@ -137,14 +132,9 @@ namespace PInvoke
                 throw new FileNotFoundException("Cannot find the file.", lpBinaryPathName);
             }
 
-            if (lpServiceName == null)
+            if (string.IsNullOrWhiteSpace(lpServiceName))
             {
-                throw new ArgumentNullException(nameof(lpServiceName));
-            }
-
-            if (lpServiceName.Trim() == string.Empty)
-            {
-                throw new ArgumentException("Service name must not be empty", nameof(lpServiceName));
+                throw new ArgumentException("Service name must not be null nor empty", nameof(lpServiceName));
             }
 
             using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
@@ -210,12 +200,12 @@ namespace PInvoke
         /// but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\) are invalid service name characters.
         /// </param>
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="lpServiceName" /> is NULL or an empty string.</exception>
+        /// <exception cref="ArgumentException"><paramref name="lpServiceName" /> is NULL or an empty string.</exception>
         public static void DeleteService(string lpServiceName)
         {
             if (string.IsNullOrWhiteSpace(lpServiceName))
             {
-                throw new ArgumentNullException(nameof(lpServiceName));
+                throw new ArgumentException("Service name must not be null nor empty", nameof(lpServiceName));
             }
 
             using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.GenericWrite))
