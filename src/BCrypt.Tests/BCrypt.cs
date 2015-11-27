@@ -148,8 +148,8 @@ public class BCrypt
                     key,
                     new ArraySegment<byte>(plainTextPadded),
                     null,
-                    default(ArraySegment<byte>),
-                    default(ArraySegment<byte>),
+                    null,
+                    null,
                     out cipherTextLength,
                     BCryptEncryptFlags.None).ThrowOnError();
 
@@ -158,7 +158,7 @@ public class BCrypt
                     key,
                     new ArraySegment<byte>(plainTextPadded),
                     null,
-                    default(ArraySegment<byte>),
+                    null,
                     new ArraySegment<byte>(cipherText),
                     out cipherTextLength,
                     BCryptEncryptFlags.None).ThrowOnError();
@@ -176,7 +176,7 @@ public class BCrypt
                     key,
                     new ArraySegment<byte>(cipherText),
                     null,
-                    default(ArraySegment<byte>),
+                    null,
                     new ArraySegment<byte>(decryptedText),
                     out cbDecrypted,
                     BCryptEncryptFlags.None).ThrowOnError();
@@ -201,6 +201,19 @@ public class BCrypt
                     new ArraySegment<byte>(new byte[0]),
                     null,
                     default(ArraySegment<byte>),
+                    new ArraySegment<byte>(new byte[1]),
+                    out length,
+                    BCryptEncryptFlags.None);
+            }
+
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                int length;
+                BCryptEncrypt(
+                    key,
+                    new ArraySegment<byte>(new byte[0]),
+                    null,
+                    null,
                     new ArraySegment<byte>(new byte[1]),
                     out length,
                     BCryptEncryptFlags.None);

@@ -356,34 +356,38 @@ namespace PInvoke
         /// <returns>The encrypted ciphertext.</returns>
         public static unsafe NTStatus BCryptEncrypt(
             SafeKeyHandle key,
-            ArraySegment<byte> input,
+            ArraySegment<byte>? input,
             void* paddingInfo,
-            ArraySegment<byte> iv,
-            ArraySegment<byte> output,
+            ArraySegment<byte>? iv,
+            ArraySegment<byte>? output,
             out int outputLength,
             BCryptEncryptFlags flags)
         {
+            var inputLocal = input ?? default(ArraySegment<byte>);
+            var ivLocal = iv ?? default(ArraySegment<byte>);
+            var outputLocal = output ?? default(ArraySegment<byte>);
+
             // We have to make sure that the input, which may be null, does
             // not cause a NRE in our fixed expressions below, which cannot do
             // conditional expressions due to C# constraints.
-            EnsureNotNullOrEmpty(ref input);
-            EnsureNotNullOrEmpty(ref iv);
-            EnsureNotNullOrEmpty(ref output);
+            EnsureNotNullOrEmpty(ref inputLocal);
+            EnsureNotNullOrEmpty(ref ivLocal);
+            EnsureNotNullOrEmpty(ref outputLocal);
 
-            fixed (byte* pbInput = &input.Array[input.Offset])
-            fixed (byte* pbOutput = &output.Array[output.Offset])
-            fixed (byte* pbIV = &iv.Array[iv.Offset])
+            fixed (byte* pbInput = &inputLocal.Array[inputLocal.Offset])
+            fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
+            fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
             {
                 // As we call the P/Invoke method, restore any nulls that were originally there.
                 return BCryptEncrypt(
                     key,
-                    ArrayOrOriginalNull(input, pbInput),
-                    input.Count,
+                    ArrayOrOriginalNull(inputLocal, pbInput),
+                    inputLocal.Count,
                     paddingInfo,
-                    ArrayOrOriginalNull(iv, pbIV),
-                    iv.Count,
-                    ArrayOrOriginalNull(output, pbOutput),
-                    output.Count,
+                    ArrayOrOriginalNull(ivLocal, pbIV),
+                    ivLocal.Count,
+                    ArrayOrOriginalNull(outputLocal, pbOutput),
+                    outputLocal.Count,
                     out outputLength,
                     flags);
             }
@@ -478,34 +482,38 @@ namespace PInvoke
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         public static unsafe NTStatus BCryptDecrypt(
             SafeKeyHandle key,
-            ArraySegment<byte> input,
+            ArraySegment<byte>? input,
             void* paddingInfo,
-            ArraySegment<byte> iv,
-            ArraySegment<byte> output,
+            ArraySegment<byte>? iv,
+            ArraySegment<byte>? output,
             out int outputLength,
             BCryptEncryptFlags flags)
         {
+            var inputLocal = input ?? default(ArraySegment<byte>);
+            var ivLocal = iv ?? default(ArraySegment<byte>);
+            var outputLocal = output ?? default(ArraySegment<byte>);
+
             // We have to make sure that the input, which may be null, does
             // not cause a NRE in our fixed expressions below, which cannot do
             // conditional expressions due to C# constraints.
-            EnsureNotNullOrEmpty(ref input);
-            EnsureNotNullOrEmpty(ref iv);
-            EnsureNotNullOrEmpty(ref output);
+            EnsureNotNullOrEmpty(ref inputLocal);
+            EnsureNotNullOrEmpty(ref ivLocal);
+            EnsureNotNullOrEmpty(ref outputLocal);
 
-            fixed (byte* pbInput = &input.Array[input.Offset])
-            fixed (byte* pbOutput = &output.Array[output.Offset])
-            fixed (byte* pbIV = &iv.Array[iv.Offset])
+            fixed (byte* pbInput = &inputLocal.Array[inputLocal.Offset])
+            fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
+            fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
             {
                 // As we call the P/Invoke method, restore any nulls that were originally there.
                 return BCryptDecrypt(
                     key,
-                    ArrayOrOriginalNull(input, pbInput),
-                    input.Count,
+                    ArrayOrOriginalNull(inputLocal, pbInput),
+                    inputLocal.Count,
                     paddingInfo,
-                    ArrayOrOriginalNull(iv, pbIV),
-                    iv.Count,
-                    ArrayOrOriginalNull(output, pbOutput),
-                    output.Count,
+                    ArrayOrOriginalNull(ivLocal, pbIV),
+                    ivLocal.Count,
+                    ArrayOrOriginalNull(outputLocal, pbOutput),
+                    outputLocal.Count,
                     out outputLength,
                     flags);
             }
