@@ -13,6 +13,16 @@ namespace PInvoke
     public static partial class BCrypt
     {
         /// <summary>
+        /// An array that fills in for a null one.
+        /// </summary>
+        private static readonly byte[] NonEmptyArrayReplacesNull = new byte[1];
+
+        /// <summary>
+        /// An array that fills in for one with no elements.
+        /// </summary>
+        private static readonly byte[] NonEmptyArrayReplacesEmpty = new byte[1];
+
+        /// <summary>
         /// Loads and initializes a CNG provider.
         /// </summary>
         /// <param name="pszAlgId">
@@ -316,6 +326,74 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Encrypts a block of data.
+        /// </summary>
+        /// <param name="key">
+        /// The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/>, <see cref="BCryptGenerateKeyPair(SafeAlgorithmHandle, int)"/>, or <see cref="BCryptImportKey(SafeAlgorithmHandle, string, byte[], SafeKeyHandle, byte[], BCryptImportKeyFlags)"/>.
+        /// </param>
+        /// <param name="input">
+        /// The address of a buffer that contains the plaintext to be encrypted. The cbInput parameter contains the size of the plaintext to encrypt.
+        /// </param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the dwFlags parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="iv">
+        /// The address of a buffer that contains the initialization vector (IV) to use during encryption. The cbIV parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+        /// This parameter is optional and can be NULL if no IV is used.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the BCRYPT_BLOCK_LENGTH property.This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// </param>
+        /// <param name="output">
+        /// The address of the buffer that receives the ciphertext produced by this function. For more information, see Remarks.
+        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="input"/> parameter. In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.The <paramref name="paddingInfo"/> parameter is not modified.
+        /// If the values of both the <paramref name="output"/> and <paramref name="input"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="paddingInfo"/> parameter.
+        /// </param>
+        /// <param name="outputLength">
+        /// Receives the number of bytes copied to the <paramref name="output"/> buffer. If <paramref name="output"/> is NULL, this receives the size, in bytes, required for the ciphertext.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// </param>
+        /// <returns>The encrypted ciphertext.</returns>
+        public static unsafe NTStatus BCryptEncrypt(
+            SafeKeyHandle key,
+            ArraySegment<byte>? input,
+            void* paddingInfo,
+            ArraySegment<byte>? iv,
+            ArraySegment<byte>? output,
+            out int outputLength,
+            BCryptEncryptFlags flags)
+        {
+            var inputLocal = input ?? default(ArraySegment<byte>);
+            var ivLocal = iv ?? default(ArraySegment<byte>);
+            var outputLocal = output ?? default(ArraySegment<byte>);
+
+            // We have to make sure that the input, which may be null, does
+            // not cause a NRE in our fixed expressions below, which cannot do
+            // conditional expressions due to C# constraints.
+            EnsureNotNullOrEmpty(ref inputLocal);
+            EnsureNotNullOrEmpty(ref ivLocal);
+            EnsureNotNullOrEmpty(ref outputLocal);
+
+            fixed (byte* pbInput = &inputLocal.Array[inputLocal.Offset])
+            fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
+            fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
+            {
+                // As we call the P/Invoke method, restore any nulls that were originally there.
+                return BCryptEncrypt(
+                    key,
+                    ArrayOrOriginalNull(inputLocal, pbInput),
+                    inputLocal.Count,
+                    paddingInfo,
+                    ArrayOrOriginalNull(ivLocal, pbIV),
+                    ivLocal.Count,
+                    ArrayOrOriginalNull(outputLocal, pbOutput),
+                    outputLocal.Count,
+                    out outputLength,
+                    flags);
+            }
+        }
+
+        /// <summary>
         /// Decrypts a block of data.
         /// </summary>
         /// <param name="hKey">
@@ -371,6 +449,74 @@ namespace PInvoke
 
             // Padding may result in a shorter output than previously estimated.
             return new ArraySegment<byte>(plainText, 0, length);
+        }
+
+        /// <summary>
+        /// Decrypts a block of data.
+        /// </summary>
+        /// <param name="key">
+        /// The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <see cref="BCryptGenerateSymmetricKey(SafeAlgorithmHandle, byte[], byte[], BCryptGenerateSymmetricKeyFlags)"/>, <see cref="BCryptGenerateKeyPair(SafeAlgorithmHandle, int)"/>, or <see cref="BCryptImportKey(SafeAlgorithmHandle, string, byte[], SafeKeyHandle, byte[], BCryptImportKeyFlags)"/>.
+        /// </param>
+        /// <param name="input">
+        /// The address of a buffer that contains the ciphertext to be decrypted. For more information, see Remarks.
+        /// </param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <paramref name="flags"/> parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="iv">
+        /// The address of a buffer that contains the initialization vector (IV) to use during decryption. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+        /// This parameter is optional and can be NULL if no IV is used.
+        /// The required size of the IV can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BCRYPT_BLOCK_LENGTH"/> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
+        /// </param>
+        /// <param name="output">
+        /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
+        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="input"/> parameter.In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.
+        /// If the values of both the <paramref name="output"/> and <paramref name="input" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="paddingInfo"/> parameter, is verified.
+        /// </param>
+        /// <param name="outputLength">
+        /// A pointer to a ULONG variable to receive the number of bytes copied to the <paramref name="output"/> buffer. If <paramref name="output"/> is NULL, this receives the size, in bytes, required for the plaintext.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="key"/> parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        public static unsafe NTStatus BCryptDecrypt(
+            SafeKeyHandle key,
+            ArraySegment<byte>? input,
+            void* paddingInfo,
+            ArraySegment<byte>? iv,
+            ArraySegment<byte>? output,
+            out int outputLength,
+            BCryptEncryptFlags flags)
+        {
+            var inputLocal = input ?? default(ArraySegment<byte>);
+            var ivLocal = iv ?? default(ArraySegment<byte>);
+            var outputLocal = output ?? default(ArraySegment<byte>);
+
+            // We have to make sure that the input, which may be null, does
+            // not cause a NRE in our fixed expressions below, which cannot do
+            // conditional expressions due to C# constraints.
+            EnsureNotNullOrEmpty(ref inputLocal);
+            EnsureNotNullOrEmpty(ref ivLocal);
+            EnsureNotNullOrEmpty(ref outputLocal);
+
+            fixed (byte* pbInput = &inputLocal.Array[inputLocal.Offset])
+            fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
+            fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
+            {
+                // As we call the P/Invoke method, restore any nulls that were originally there.
+                return BCryptDecrypt(
+                    key,
+                    ArrayOrOriginalNull(inputLocal, pbInput),
+                    inputLocal.Count,
+                    paddingInfo,
+                    ArrayOrOriginalNull(ivLocal, pbIV),
+                    ivLocal.Count,
+                    ArrayOrOriginalNull(outputLocal, pbOutput),
+                    outputLocal.Count,
+                    out outputLength,
+                    flags);
+            }
         }
 
         /// <summary>
@@ -523,6 +669,35 @@ namespace PInvoke
                     return (T)Marshal.PtrToStructure(pValuePtr, typeof(T));
                 }
             }
+        }
+
+        /// <summary>
+        /// Ensures that the specified byte array is not null.
+        /// </summary>
+        /// <param name="buffer">The byte buffer to replace with a non-null buffer, if null.</param>
+        private static void EnsureNotNullOrEmpty(ref ArraySegment<byte> buffer)
+        {
+            if (buffer.Array == null)
+            {
+                buffer = new ArraySegment<byte>(NonEmptyArrayReplacesNull, 0, 0);
+            }
+            else if (buffer.Array.Length == 0)
+            {
+                buffer = new ArraySegment<byte>(NonEmptyArrayReplacesEmpty, 0, 0);
+            }
+        }
+
+        /// <summary>
+        /// Returns the specified <paramref name="pointer"/>,
+        /// or null if <paramref name="buffer"/> was null before a call to
+        /// <see cref="EnsureNotNullOrEmpty(ref ArraySegment{byte})"/>.
+        /// </summary>
+        /// <param name="buffer">The buffer which may have originally been null.</param>
+        /// <param name="pointer">The pointer to some element in the buffer.</param>
+        /// <returns>The <paramref name="pointer"/> or <c>null</c>.</returns>
+        private static unsafe byte* ArrayOrOriginalNull(ArraySegment<byte> buffer, byte* pointer)
+        {
+            return buffer.Array == NonEmptyArrayReplacesNull ? null : pointer;
         }
     }
 }

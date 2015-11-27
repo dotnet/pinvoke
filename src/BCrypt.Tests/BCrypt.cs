@@ -123,6 +123,104 @@ public class BCrypt
         }
     }
 
+    [Fact]
+    public unsafe void EncryptDecrypt_Pointers()
+    {
+        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        {
+            byte[] plainText = new byte[] { 0x3, 0x5, 0x8 };
+            byte[] plainTextPadded;
+            byte[] cipherText;
+            int blockSize;
+            int cipherTextLength;
+
+            byte[] keyMaterial = new byte[128 / 8];
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                // Verify that without padding, an error is returned.
+                Assert.Equal(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
+
+                // Now do our own padding (zeros).
+                blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
+                plainTextPadded = new byte[blockSize];
+                Array.Copy(plainText, plainTextPadded, plainText.Length);
+                BCryptEncrypt(
+                    key,
+                    new ArraySegment<byte>(plainTextPadded),
+                    null,
+                    null,
+                    null,
+                    out cipherTextLength,
+                    BCryptEncryptFlags.None).ThrowOnError();
+
+                cipherText = new byte[cipherTextLength];
+                BCryptEncrypt(
+                    key,
+                    new ArraySegment<byte>(plainTextPadded),
+                    null,
+                    null,
+                    new ArraySegment<byte>(cipherText),
+                    out cipherTextLength,
+                    BCryptEncryptFlags.None).ThrowOnError();
+
+                Assert.NotEqual<byte>(plainTextPadded, cipherText);
+            }
+
+            // We must renew the key because there are residual effects on it from encryption
+            // that will prevent decryption from working.
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                byte[] decryptedText = new byte[plainTextPadded.Length];
+                int cbDecrypted;
+                BCryptDecrypt(
+                    key,
+                    new ArraySegment<byte>(cipherText),
+                    null,
+                    null,
+                    new ArraySegment<byte>(decryptedText),
+                    out cbDecrypted,
+                    BCryptEncryptFlags.None).ThrowOnError();
+
+                Assert.Equal(plainTextPadded.Length, cbDecrypted);
+                Assert.Equal<byte>(plainTextPadded, decryptedText);
+            }
+        }
+    }
+
+    [Fact]
+    public unsafe void EncryptDecrypt_PointerCornerCases()
+    {
+        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        {
+            byte[] keyMaterial = new byte[128 / 8];
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                int length;
+                BCryptEncrypt(
+                    key,
+                    new ArraySegment<byte>(new byte[0]),
+                    null,
+                    default(ArraySegment<byte>),
+                    new ArraySegment<byte>(new byte[1]),
+                    out length,
+                    BCryptEncryptFlags.None);
+            }
+
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                int length;
+                BCryptEncrypt(
+                    key,
+                    new ArraySegment<byte>(new byte[0]),
+                    null,
+                    null,
+                    new ArraySegment<byte>(new byte[1]),
+                    out length,
+                    BCryptEncryptFlags.None);
+            }
+        }
+    }
+
     /// <summary>
     /// Demonstrates use of an authenticated block chaining mode
     /// that requires use of several more struct types than
