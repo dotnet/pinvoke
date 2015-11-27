@@ -1527,7 +1527,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool EnumResourceNames(SafeLibraryHandle hModule, IntPtr lpszType, EnumResNameProc lpEnumFunc, IntPtr lParam);
+        public static extern bool EnumResourceNames(SafeLibraryHandle hModule, IntPtr lpszType, EnumResNameProc lpEnumFunc, IntPtr lParam);
 
         /// <summary>Determines whether a value is an integer identifier for a resource.</summary>
         /// <param name="p">The pointer to be tested whether it contains an integer resource identifier.</param>
@@ -1608,6 +1608,33 @@ namespace PInvoke
 
         /// <summary>HTML resource.</summary>
         public static readonly IntPtr RT_HTML = MAKEINTRESOURCE(23);
+
+        /// <summary>
+        ///     Determines the location of a resource with the specified type and name in the specified module.
+        ///     <para>To specify a language, use the FindResourceEx function.</para>
+        /// </summary>
+        /// <param name="hModule">
+        ///     A handle to the module whose portable executable file or an accompanying MUI file contains the
+        ///     resource. If this parameter is NULL, the function searches the module used to create the current process.
+        /// </param>
+        /// <param name="lpName">
+        ///     The name of the resource. Alternately, rather than a pointer, this parameter can be
+        ///     <see cref="MAKEINTRESOURCE" />, where wInteger is the integer identifier of the resource.
+        /// </param>
+        /// <param name="lpType">
+        ///     The resource type. Alternately, rather than a pointer, this parameter can be
+        ///     <see cref="MAKEINTRESOURCE" />, where wInteger is the integer identifier of the given resource type.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a
+        ///     handle to the resource, pass this handle to the LoadResource function.
+        ///     <para>
+        ///         If the function fails, the return value is NULL. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern IntPtr FindResource(SafeLibraryHandle hModule, IntPtr lpName, IntPtr lpType);
 
         /// <summary>
         ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the
