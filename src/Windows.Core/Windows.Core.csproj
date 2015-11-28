@@ -24,6 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ApiSets.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="LIST_ENTRY.cs" />
     <Compile Include="NullableUInt32.cs" />
