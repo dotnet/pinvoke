@@ -8,6 +8,10 @@ namespace PInvoke
     /// <summary>
     /// Defines names of API Set dll's that may be used in P/Invoke signatures.
     /// </summary>
+    /// <remarks>
+    /// The API set names and members are documented here:
+    /// https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx
+    /// </remarks>
     public static class ApiSets
     {
         /// <summary>
