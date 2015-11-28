@@ -25,6 +25,11 @@ namespace PInvoke
         public const string api_ms_win_core_localization_l1_2_1 = "api-ms-win-core-localization-l1-2-1.dll";
 
         /// <summary>
+        /// The "api-ms-win-core-processthreads-l1-1-1.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_processthreads_l1_1_1 = "api-ms-win-core-processthreads-l1-1-1.dll";
+
+        /// <summary>
         /// The "api-ms-win-core-processthreads-l1-1-2.dll" constant.
         /// </summary>
         public const string api_ms_win_core_processthreads_l1_1_2 = "api-ms-win-core-processthreads-l1-1-2.dll";
@@ -33,6 +38,11 @@ namespace PInvoke
         /// The "api-ms-win-core-io-l1-1-1.dll" constant.
         /// </summary>
         public const string api_ms_win_core_io_l1_1_1 = "api-ms-win-core-io-l1-1-1.dll";
+
+        /// <summary>
+        /// The "api-ms-win-core-file-l1-2-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_file_l1_2_0 = "api-ms-win-core-file-l1-2-0.dll";
 
         /// <summary>
         /// The "api-ms-win-core-file-l1-2-1.dll" constant.
