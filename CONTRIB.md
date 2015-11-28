@@ -19,13 +19,25 @@ in this document.
 
 ### Project structure
 
- * One class library and NuGet package per P/Invoke'd DLL.
+ * One class library (or two, with a Shared Project between them) and NuGet package per P/Invoke'd DLL.
  * Types, enums, and constants defined in common Windows header files should be defined
    in the PInvoke.Windows.Core project.
 
 When introducing support for a new native DLL to this project, use the templates\AddNewLibrary.ps1
 Powershell cmdlet to create the projects necessary to support it and follow the instructions from that script.
 The library should also be added to the list on the [readme](README.md).
+
+### Win32 API Sets
+
+When developing a library for Win32, be aware of [API Sets][APISets] and follow the pattern in
+[Kernel32.cs](src\Kernel32.Shared\Kernel32.cs) to use them in the portable project but not for the
+"desktop" targeted project. 
+
+Be sure to use the *lowest* version of the API Sets facade that includes your function.
+For example, `FormatMessage` appears in `api-ms-win-core-localization-l1-2-1.dll` according to
+[Windows API Sets][APISets] but appears under `api-ms-win-core-localization-l1-2-0.dll`
+under the older [Windows 8 API Sets][APISets8] page. So we use the older so it works as well on
+Windows 8 as it does on newer Windows versions.
 
 ### File structure
 
@@ -203,3 +215,5 @@ validation build for your pull request, clicking ARTIFACTS, and noting the versi
 of the produced packages.
 
 [SigImp]: http://blogs.msdn.com/b/vbteam/archive/2008/03/14/making-pinvoke-easy.aspx
+[APISets]: https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx
+[APISets8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn505783(v=vs.85).aspx
