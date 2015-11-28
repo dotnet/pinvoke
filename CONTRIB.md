@@ -19,7 +19,8 @@ in this document.
 
 ### Project structure
 
- * One class library (or two, with a Shared Project between them) and NuGet package per P/Invoke'd DLL.
+ * One class library (or two, with a Shared Project between them, when portable and desktop are targets)
+   and NuGet package per P/Invoke'd DLL.
  * Types, enums, and constants defined in common Windows header files should be defined
    in the PInvoke.Windows.Core project.
 
@@ -30,7 +31,7 @@ The library should also be added to the list on the [readme](README.md).
 ### Win32 API Sets
 
 When developing a library for Win32, be aware of [API Sets][APISets] and follow the pattern in
-[Kernel32.cs](src\Kernel32.Shared\Kernel32.cs) to use them in the portable project but not for the
+[Kernel32.cs](src/Kernel32.Shared/Kernel32.cs) to use them in the portable project but not for the
 "desktop" targeted project. 
 
 Be sure to use the *lowest* version of the API Sets facade that includes your function.
