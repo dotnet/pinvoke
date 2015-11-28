@@ -15,14 +15,14 @@ namespace PInvoke
     {
 #pragma warning disable SA1303 // Const field names must begin with upper-case letter
 #if APISets
-        private const string api_ms_win_core_localization_l1_2_1 = ApiSets.api_ms_win_core_localization_l1_2_1;
+        private const string api_ms_win_core_localization_l1_2_0 = ApiSets.api_ms_win_core_localization_l1_2_0;
         private const string api_ms_win_core_processthreads_l1_1_2 = ApiSets.api_ms_win_core_processthreads_l1_1_2;
         private const string api_ms_win_core_io_l1_1_1 = ApiSets.api_ms_win_core_io_l1_1_1;
         private const string api_ms_win_core_file_l1_2_1 = ApiSets.api_ms_win_core_file_l1_2_1;
         private const string api_ms_win_core_synch_l1_2_0 = ApiSets.api_ms_win_core_synch_l1_2_0;
         private const string api_ms_win_core_handle_l1_1_0 = ApiSets.api_ms_win_core_handle_l1_1_0;
 #else
-        private const string api_ms_win_core_localization_l1_2_1 = nameof(Kernel32);
+        private const string api_ms_win_core_localization_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_processthreads_l1_1_2 = nameof(Kernel32);
         private const string api_ms_win_core_io_l1_1_1 = nameof(Kernel32);
         private const string api_ms_win_core_file_l1_2_1 = nameof(Kernel32);
@@ -120,7 +120,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is the number of TCHARs stored in the output buffer, excluding the terminating null character.
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(api_ms_win_core_localization_l1_2_1, CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport(api_ms_win_core_localization_l1_2_0, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int FormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
 
         /// <summary>

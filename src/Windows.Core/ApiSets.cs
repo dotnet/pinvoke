@@ -15,6 +15,11 @@ namespace PInvoke
     public static class ApiSets
     {
         /// <summary>
+        /// The "api-ms-win-core-localization-l1-2-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_localization_l1_2_0 = "api-ms-win-core-localization-l1-2-0.dll";
+
+        /// <summary>
         /// The "api-ms-win-core-localization-l1-2-1.dll" constant.
         /// </summary>
         public const string api_ms_win_core_localization_l1_2_1 = "api-ms-win-core-localization-l1-2-1.dll";
