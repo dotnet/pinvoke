@@ -18,6 +18,24 @@ namespace PInvoke
         /// </summary>
         public const int MAX_PATH = 260;
 
+#pragma warning disable SA1303 // Const field names must begin with upper-case letter
+#if APISets
+        private const string api_ms_win_core_localization_l1_2_0 = ApiSets.api_ms_win_core_localization_l1_2_0;
+        private const string api_ms_win_core_processthreads_l1_1_2 = ApiSets.api_ms_win_core_processthreads_l1_1_2;
+        private const string api_ms_win_core_io_l1_1_1 = ApiSets.api_ms_win_core_io_l1_1_1;
+        private const string api_ms_win_core_file_l1_2_1 = ApiSets.api_ms_win_core_file_l1_2_1;
+        private const string api_ms_win_core_synch_l1_2_0 = ApiSets.api_ms_win_core_synch_l1_2_0;
+        private const string api_ms_win_core_handle_l1_1_0 = ApiSets.api_ms_win_core_handle_l1_1_0;
+#else
+        private const string api_ms_win_core_localization_l1_2_0 = nameof(Kernel32);
+        private const string api_ms_win_core_processthreads_l1_1_2 = nameof(Kernel32);
+        private const string api_ms_win_core_io_l1_1_1 = nameof(Kernel32);
+        private const string api_ms_win_core_file_l1_2_1 = nameof(Kernel32);
+        private const string api_ms_win_core_synch_l1_2_0 = nameof(Kernel32);
+        private const string api_ms_win_core_handle_l1_1_0 = nameof(Kernel32);
+#endif
+#pragma warning restore SA1303 // Const field names must begin with upper-case letter
+
         /// <summary>
         /// Constant for invalid handle value
         /// </summary>
@@ -55,7 +73,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.
         /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// </returns>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_file_l1_2_1)]
         public static extern SafeFindFilesHandle FindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, IntPtr lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags);
 
         /// <summary>
@@ -102,20 +120,20 @@ namespace PInvoke
         /// If the function succeeds, the return value is the number of TCHARs stored in the output buffer, excluding the terminating null character.
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport(api_ms_win_core_localization_l1_2_0, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int FormatMessage(FormatMessageFlags dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
 
         /// <summary>
         /// Retrieves the thread identifier of the calling thread.
         /// </summary>
         /// <returns>The thread identifier of the calling thread.</returns>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_2)]
         public static extern uint GetCurrentThreadId();
 
         /// <summary>Retrieves the process identifier of the calling process.</summary>
         /// <returns>The process identifier of the calling process.</returns>
         /// <remarks>Until the process terminates, the process identifier uniquely identifies the process throughout the system.</remarks>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_2)]
         public static extern uint GetCurrentProcessId();
 
         /// <summary>Retrieves a pseudo handle for the current process.</summary>
@@ -141,7 +159,7 @@ namespace PInvoke
         ///         duplicate handle must be closed.
         ///     </para>
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_2)]
         public static extern SafeObjectHandle GetCurrentProcess();
 
         /// <summary>
@@ -175,7 +193,7 @@ namespace PInvoke
         ///         returns <see cref="Win32ErrorCode.ERROR_NOT_FOUND" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_io_l1_1_1, SetLastError = true)]
         public static extern unsafe bool CancelIoEx(
             SafeObjectHandle hFile,
             OVERLAPPED* lpOverlapped);
@@ -240,7 +258,7 @@ namespace PInvoke
         ///         it designates the read operation is pending completion asynchronously.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_2_1, SetLastError = true)]
         public static extern unsafe bool ReadFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
@@ -316,7 +334,7 @@ namespace PInvoke
         ///         it designates the write operation is pending completion asynchronously.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_2_1, SetLastError = true)]
         public static extern unsafe bool WriteFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
@@ -335,7 +353,7 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_2, SetLastError = true)]
         public static extern int SuspendThread(SafeObjectHandle hThread);
 
         /// <summary>
@@ -362,7 +380,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is the thread's previous suspend count.
         /// If the function fails, the return value is (DWORD) -1. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_2, SetLastError = true)]
         public static extern int ResumeThread(SafeObjectHandle hThread);
 
         /// <summary>
@@ -381,7 +399,7 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_synch_l1_2_0, SetLastError = true)]
         public static extern WaitForSingleObjectResult WaitForSingleObject(
             SafeHandle hHandle,
             uint dwMilliseconds);
@@ -394,7 +412,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_handle_l1_1_0, SetLastError = true)]
         public static extern bool CloseHandle(IntPtr hObject);
 
         /// <summary>Flushes the buffers of a specified file and causes all buffered data to be written to a file.</summary>
@@ -422,7 +440,7 @@ namespace PInvoke
         ///         <see cref="Win32ErrorCode.ERROR_INVALID_HANDLE" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_2_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlushFileBuffers(SafeObjectHandle hFile);
 
@@ -438,7 +456,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_2_1, SetLastError = true)]
         private static extern bool FindClose(IntPtr hFindFile);
     }
 }
