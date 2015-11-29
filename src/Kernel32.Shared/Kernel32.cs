@@ -18,6 +18,11 @@ namespace PInvoke
         /// </summary>
         public const int MAX_PATH = 260;
 
+        /// <summary>
+        /// Constant for invalid handle value
+        /// </summary>
+        public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
+
 #pragma warning disable SA1303 // Const field names must begin with upper-case letter
 #if APISets
         private const string api_ms_win_core_localization_l1_2_0 = ApiSets.api_ms_win_core_localization_l1_2_0;
@@ -35,11 +40,6 @@ namespace PInvoke
         private const string api_ms_win_core_handle_l1_1_0 = nameof(Kernel32);
 #endif
 #pragma warning restore SA1303 // Const field names must begin with upper-case letter
-
-        /// <summary>
-        /// Constant for invalid handle value
-        /// </summary>
-        public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
 
         /// <summary>
         /// Searches a directory for a file or subdirectory with a name and attributes that match those specified.

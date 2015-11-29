@@ -48,5 +48,35 @@ namespace PInvoke
         /// The "api-ms-win-core-handle-l1-1-0.dll" constant.
         /// </summary>
         public const string api_ms_win_core_handle_l1_1_0 = "api-ms-win-core-handle-l1-1-0.dll";
+
+        /// <summary>
+        /// The api-ms-win-core-processthreads-l1-1-1.dll constant.
+        /// </summary>
+        public const string api_ms_win_core_processthreads_l1_1_1 = "api-ms-win-core-processthreads-l1-1-1.dll";
+
+        /// <summary>
+        /// The api-ms-win-security-base-l1-2-0.dll constant.
+        /// </summary>
+        public const string api_ms_win_security_base_l1_2_0 = "api-ms-win-security-base-l1-2-0.dll";
+
+        /// <summary>
+        /// The api-ms-win-service-core-l1-1-1.dll constant.
+        /// </summary>
+        public const string api_ms_win_service_core_l1_1_1 = "api-ms-win-service-core-l1-1-1.dll";
+
+        /// <summary>
+        /// The api-ms-win-service-management-l1-1-0.dll constant.
+        /// </summary>
+        public const string api_ms_win_service_management_l1_1_0 = "api-ms-win-service-management-l1-1-0.dll";
+
+        /// <summary>
+        /// The api-ms-win-service-management-l2-1-0.dll constant.
+        /// </summary>
+        public const string api_ms_win_service_management_l2_1_0 = "api-ms-win-service-management-l2-1-0.dll";
+
+        /// <summary>
+        /// The api-ms-win-service-winsvc-l1-2-0.dll constant.
+        /// </summary>
+        public const string api_ms_win_service_winsvc_l1_2_0 = "api-ms-win-service-winsvc-l1-2-0.dll";
     }
 }
