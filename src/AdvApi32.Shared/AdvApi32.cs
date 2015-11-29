@@ -36,6 +36,7 @@ namespace PInvoke
         private const string api_ms_win_security_base_l1_2_0 = nameof(AdvApi32);
         private const string api_ms_win_service_winsvc_l1_2_0 = nameof(AdvApi32);
 #endif
+#pragma warning restore SA1303 // Const field names must begin with upper-case letter
 
         /// <summary>
         /// Changes the configuration parameters of a service.
