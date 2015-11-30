@@ -102,7 +102,7 @@ namespace PInvoke
             SafeDeviceInfoSetHandle deviceInfoSet,
             DeviceInfoData deviceInfoData,
             ref Guid interfaceClassGuid,
-            uint memberIndex,
+            int memberIndex,
             ref DeviceInterfaceData deviceInterfaceData);
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace PInvoke
         /// <param name="deviceInterfaceData">
         /// A pointer to an <see cref="DeviceInterfaceData" /> structure that specifies the
         /// interface in DeviceInfoSet for which to retrieve details. A pointer of this type is typically returned by
-        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,DeviceInfoData,ref Guid,uint,ref DeviceInterfaceData)" />.
+        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,DeviceInfoData,ref Guid,int,ref DeviceInterfaceData)" />.
         /// </param>
         /// <param name="deviceInterfaceDetailData">
         /// A pointer to an SP_DEVICE_INTERFACE_DETAIL_DATA structure to receive
@@ -150,7 +150,7 @@ namespace PInvoke
             SafeDeviceInfoSetHandle deviceInfoSet,
             ref DeviceInterfaceData deviceInterfaceData,
             IntPtr deviceInterfaceDetailData,
-            uint deviceInterfaceDetailDataSize,
+            int deviceInterfaceDetailDataSize,
             NullableUInt32 requiredSize,
             DeviceInfoData deviceInfoData);
 
@@ -175,7 +175,7 @@ namespace PInvoke
         [DllImport(nameof(SetupApi), SetLastError = true)]
         public static extern bool SetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
-            uint memberIndex,
+            int memberIndex,
             DeviceInfoData deviceInfoData);
 
         /// <summary>

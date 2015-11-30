@@ -23,7 +23,7 @@ namespace PInvoke
             /// <summary>
             /// The size of this data structure.
             /// </summary>
-            public uint cb;
+            public int cb;
 
             /// <summary>
             /// Reserved; must be NULL.
@@ -44,35 +44,35 @@ namespace PInvoke
             /// If <see cref="dwFlags"/> specifies STARTF_USEPOSITION, this member is the x offset of the upper left corner of a window if a new window is created, in pixels. Otherwise, this member is ignored.
             /// The offset is from the upper left corner of the screen. For GUI processes, the specified position is used the first time the new process calls CreateWindow to create an overlapped window if the x parameter of CreateWindow is CW_USEDEFAULT.
             /// </summary>
-            public uint dwX;
+            public int dwX;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies STARTF_USEPOSITION, this member is the y offset of the upper left corner of a window if a new window is created, in pixels. Otherwise, this member is ignored.
             /// The offset is from the upper left corner of the screen. For GUI processes, the specified position is used the first time the new process calls CreateWindow to create an overlapped window if the y parameter of CreateWindow is CW_USEDEFAULT.
             /// </summary>
-            public uint dwY;
+            public int dwY;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies STARTF_USESIZE, this member is the width of the window if a new window is created, in pixels. Otherwise, this member is ignored.
             /// For GUI processes, this is used only the first time the new process calls CreateWindow to create an overlapped window if the nWidth parameter of CreateWindow is CW_USEDEFAULT.
             /// </summary>
-            public uint dwXSize;
+            public int dwXSize;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies STARTF_USESIZE, this member is the height of the window if a new window is created, in pixels. Otherwise, this member is ignored.
             /// For GUI processes, this is used only the first time the new process calls CreateWindow to create an overlapped window if the nHeight parameter of CreateWindow is CW_USEDEFAULT.
             /// </summary>
-            public uint dwYSize;
+            public int dwYSize;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies STARTF_USECOUNTCHARS, if a new console window is created in a console process, this member specifies the screen buffer width, in character columns. Otherwise, this member is ignored.
             /// </summary>
-            public uint dwXCountChars;
+            public int dwXCountChars;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies STARTF_USECOUNTCHARS, if a new console window is created in a console process, this member specifies the screen buffer height, in character rows. Otherwise, this member is ignored.
             /// </summary>
-            public uint dwYCountChars;
+            public int dwYCountChars;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies STARTF_USEFILLATTRIBUTE, this member is the initial text and background colors if a new console window is created in a console application. Otherwise, this member is ignored.
@@ -129,7 +129,7 @@ namespace PInvoke
             {
                 return new STARTUPINFO
                 {
-                    cb = (uint)Marshal.SizeOf(typeof(STARTUPINFO)),
+                    cb = Marshal.SizeOf(typeof(STARTUPINFO)),
                     hStdInput = SafeObjectHandle.Null,
                     hStdOutput = SafeObjectHandle.Null,
                     hStdError = SafeObjectHandle.Null,

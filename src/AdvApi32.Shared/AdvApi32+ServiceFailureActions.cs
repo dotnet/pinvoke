@@ -17,7 +17,7 @@ namespace PInvoke
             /// The time after which to reset the failure count to zero if there are no failures, in seconds.
             /// Specify <see cref="Constants.INFINITE"/> to indicate that this value should never be reset.
             /// </summary>
-            public uint dwResetPeriod;
+            public int dwResetPeriod;
 
             /// <summary>
             /// The message to be broadcast to server users before rebooting in response to the <see cref="ServiceControlActionType.SC_ACTION_REBOOT"/> service controller action.
@@ -41,7 +41,7 @@ namespace PInvoke
             /// The number of elements in the lpsaActions array.
             /// If this value is 0, but lpsaActions is not NULL, the reset period and array of failure actions are deleted.
             /// </summary>
-            public uint cActions;
+            public int cActions;
 
             /// <summary>
             /// A pointer to an array of <see cref="ServiceControlAction"/> structures.

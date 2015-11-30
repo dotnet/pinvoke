@@ -250,12 +250,12 @@ namespace PInvoke
             bool success;
             unsafe
             {
-                uint returnLength;
+                int returnLength;
                 success = GetTokenInformation(
                     TokenHandle,
                     TOKEN_INFORMATION_CLASS.TokenElevationType,
                     &elevationType,
-                    (uint)sizeof(TOKEN_ELEVATION_TYPE),
+                    sizeof(TOKEN_ELEVATION_TYPE),
                     out returnLength);
             }
 
@@ -296,7 +296,7 @@ namespace PInvoke
             }
 
             var securityDescriptor = new byte[0];
-            uint bufSizeNeeded;
+            int bufSizeNeeded;
             QueryServiceObjectSecurity(hService, dwSecurityInformation, securityDescriptor, 0, out bufSizeNeeded);
 
             var lastError = GetLastError();

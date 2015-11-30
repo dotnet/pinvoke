@@ -20,9 +20,10 @@ namespace PInvoke
         public class SECURITY_ATTRIBUTES
         {
             /// <summary>
-            /// The size, in bytes, of this structure. Set this value to the size of the <see cref="SECURITY_ATTRIBUTES"/> structure.
+            /// The size, in bytes, of this structure.
+            /// This value is set by the constructor to the size of the <see cref="SECURITY_ATTRIBUTES"/> structure.
             /// </summary>
-            public uint nLength;
+            public int nLength;
 
             /// <summary>
             /// A pointer to a <see cref="SECURITY_DESCRIPTOR"/> structure that controls access to the object. If the value of this member is NULL, the object is assigned the default security descriptor associated with the access token of the calling process. This is not the same as granting access to everyone by assigning a NULL discretionary access control list (DACL). By default, the default DACL in the access token of a process allows access only to the user represented by the access token.
@@ -35,6 +36,14 @@ namespace PInvoke
             /// </summary>
             [MarshalAs(UnmanagedType.Bool)]
             public bool bInheritHandle;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SECURITY_ATTRIBUTES"/> class.
+            /// </summary>
+            public SECURITY_ATTRIBUTES()
+            {
+                this.nLength = Marshal.SizeOf(typeof(SECURITY_ATTRIBUTES));
+            }
         }
     }
 }

@@ -37,7 +37,7 @@ namespace PInvoke
             /// The number of SERVICE_TRIGGER_SPECIFIC_DATA_ITEM structures in the
             /// array pointed to by pDataItems.
             /// </summary>
-            public uint cDataItems;
+            public int cDataItems;
 
             /// <summary>
             /// A pointer to an array of SERVICE_TRIGGER_SPECIFIC_DATA_ITEM

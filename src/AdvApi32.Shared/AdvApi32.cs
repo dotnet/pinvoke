@@ -507,8 +507,8 @@ namespace PInvoke
             SafeObjectHandle TokenHandle,
             TOKEN_INFORMATION_CLASS TokenInformationClass,
             void* TokenInformation,
-            uint TokenInformationLength,
-            out uint ReturnLength);
+            int TokenInformationLength,
+            out int ReturnLength);
 
         /// <summary>
         ///     The QueryServiceObjectSecurity function retrieves a copy of the security descriptor associated with a service
@@ -550,8 +550,8 @@ namespace PInvoke
             SafeServiceHandle hService,
             SECURITY_INFORMATION dwSecurityInformation,
             byte[] lpSecurityDescriptor,
-            uint cbBufSize,
-            out uint pcbBytesNeeded);
+            int cbBufSize,
+            out int pcbBytesNeeded);
 
         /// <summary>
         /// Retrieves the current status of the specified service.
