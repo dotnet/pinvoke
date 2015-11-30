@@ -15,7 +15,7 @@ namespace PInvoke
         /// defines the range of tag sizes that are supported by the provider. This structure is used with the <see cref="PropertyNames.BCRYPT_AUTH_TAG_LENGTH"/> property.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct BCRYPT_AUTH_TAG_LENGTHS_STRUCT
+        public struct BCRYPT_AUTH_TAG_LENGTHS_STRUCT : IEnumerable<int>
         {
             /// <summary>
             /// The minimum length, in bytes, of a tag.
@@ -35,24 +35,25 @@ namespace PInvoke
             /// <summary>
             /// Gets a sequence of allowed tag sizes, from smallest to largest.
             /// </summary>
-            public IEnumerable<int> TagSizes
+            /// <returns>An enumerator over all allowed sizes.</returns>
+            public IEnumerator<int> GetEnumerator()
             {
-                get
+                if (this.Increment > 0)
                 {
-                    if (this.Increment > 0)
+                    for (int tagLength = this.MinLength; tagLength <= this.MaxLength; tagLength += this.Increment)
                     {
-                        for (int tagLength = this.MinLength; tagLength <= this.MaxLength; tagLength += this.Increment)
-                        {
-                            yield return tagLength;
-                        }
-                    }
-                    else
-                    {
-                        // We can't use the for loop as it would spin forever.
-                        yield return this.MinLength;
+                        yield return tagLength;
                     }
                 }
+                else
+                {
+                    // We can't use the for loop as it would spin forever.
+                    yield return this.MinLength;
+                }
             }
+
+            /// <inheritdoc />
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.GetEnumerator();
         }
     }
 }

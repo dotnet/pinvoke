@@ -32,7 +32,7 @@ public class BCrypt
             MaxLength = 12,
             Increment = 2,
         };
-        Assert.Equal(new[] { 8, 10, 12 }, keySizes.KeySizes);
+        Assert.Equal(new[] { 8, 10, 12 }, keySizes);
 
         keySizes = new BCRYPT_KEY_LENGTHS_STRUCT
         {
@@ -40,7 +40,7 @@ public class BCrypt
             MaxLength = 16,
             Increment = 0,
         };
-        Assert.Equal(new[] { 16 }, keySizes.KeySizes);
+        Assert.Equal(new[] { 16 }, keySizes);
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class BCrypt
             MaxLength = 12,
             Increment = 2,
         };
-        Assert.Equal(new[] { 8, 10, 12 }, tagSizes.TagSizes);
+        Assert.Equal(new[] { 8, 10, 12 }, tagSizes);
 
         tagSizes = new BCRYPT_AUTH_TAG_LENGTHS_STRUCT
         {
@@ -60,7 +60,7 @@ public class BCrypt
             MaxLength = 16,
             Increment = 0,
         };
-        Assert.Equal(new[] { 16 }, tagSizes.TagSizes);
+        Assert.Equal(new[] { 16 }, tagSizes);
     }
 
     [Fact]
