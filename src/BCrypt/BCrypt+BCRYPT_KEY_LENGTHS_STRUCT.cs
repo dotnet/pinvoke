@@ -40,9 +40,17 @@ namespace PInvoke
             {
                 get
                 {
-                    for (int keyLength = this.MinLength; keyLength <= this.MaxLength; keyLength += this.Increment)
+                    if (this.Increment > 0)
                     {
-                        yield return keyLength;
+                        for (int tagLength = this.MinLength; tagLength <= this.MaxLength; tagLength += this.Increment)
+                        {
+                            yield return tagLength;
+                        }
+                    }
+                    else
+                    {
+                        // We can't use the for loop as it would spin forever.
+                        yield return this.MinLength;
                     }
                 }
             }

@@ -39,9 +39,17 @@ namespace PInvoke
             {
                 get
                 {
-                    for (int tagLength = this.MinLength; tagLength <= this.MaxLength; tagLength += this.Increment)
+                    if (this.Increment > 0)
                     {
-                        yield return tagLength;
+                        for (int tagLength = this.MinLength; tagLength <= this.MaxLength; tagLength += this.Increment)
+                        {
+                            yield return tagLength;
+                        }
+                    }
+                    else
+                    {
+                        // We can't use the for loop as it would spin forever.
+                        yield return this.MinLength;
                     }
                 }
             }
