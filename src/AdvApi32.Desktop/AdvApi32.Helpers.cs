@@ -91,6 +91,9 @@ namespace PInvoke
         /// <param name="lpBinaryPathName">
         /// The fully qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted.
         /// For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"".
+        /// The path can also include arguments for an auto-start service.
+        /// For example, "d:\\myshare\\myservice.exe arg1 arg2".
+        /// These arguments are passed to the service entry point (typically the main function).
         /// </param>
         /// <param name="lpServiceName">
         /// The name of the service to install. The maximum string length is 256 characters.
@@ -119,17 +122,11 @@ namespace PInvoke
         /// </param>
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
         /// <exception cref="ArgumentException"><paramref name="lpServiceName" /> or <paramref name="lpBinaryPathName"/> are NULL or empty string.</exception>
-        /// <exception cref="FileNotFoundException"><paramref name="lpBinaryPathName"/> cannot be found.</exception>
         public static void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
         {
             if (string.IsNullOrWhiteSpace(lpBinaryPathName))
             {
                 throw new ArgumentException("Binary path name must not be null nor empty", nameof(lpBinaryPathName));
-            }
-
-            if (!File.Exists(lpBinaryPathName))
-            {
-                throw new FileNotFoundException("Cannot find the file.", lpBinaryPathName);
             }
 
             if (string.IsNullOrWhiteSpace(lpServiceName))
