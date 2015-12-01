@@ -115,8 +115,8 @@ namespace PInvoke
             var buffer = new StringBuilder(255);
             do
             {
-                var size = (uint)buffer.Capacity;
-                var success = QueryFullProcessImageName(hProcess, dwFlags, buffer, ref size);
+                int size = buffer.Capacity;
+                bool success = QueryFullProcessImageName(hProcess, dwFlags, buffer, ref size);
                 if (success)
                 {
                     return buffer.ToString();

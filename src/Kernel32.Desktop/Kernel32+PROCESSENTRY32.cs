@@ -23,17 +23,17 @@ namespace PInvoke
             /// <summary>
             /// The size of the structure, in bytes. Set automatically by the constructor.
             /// </summary>
-            public uint dwSize;
+            public int dwSize;
 
             /// <summary>
             /// This member is no longer used and is always set to zero.
             /// </summary>
-            public uint cntUsage;
+            public int cntUsage;
 
             /// <summary>
             /// The process identifier.
             /// </summary>
-            public uint th32ProcessID;
+            public int th32ProcessID;
 
             /// <summary>
             /// This member is no longer used and is always set to zero.
@@ -43,17 +43,17 @@ namespace PInvoke
             /// <summary>
             /// This member is no longer used and is always set to zero.
             /// </summary>
-            public uint th32ModuleID;
+            public int th32ModuleID;
 
             /// <summary>
             /// The number of execution threads started by the process.
             /// </summary>
-            public uint cntThreads;
+            public int cntThreads;
 
             /// <summary>
             /// The identifier of the process that created this process (its parent process).
             /// </summary>
-            public uint th32ParentProcessID;
+            public int th32ParentProcessID;
 
             /// <summary>
             /// The base priority of any threads created by this process.
@@ -70,7 +70,7 @@ namespace PInvoke
             /// <para>
             /// To retrieve the full path to the executable file, call the Module32First function and check the szExePath member
             /// of the MODULEENTRY32 structure that is returned. However, if the calling process is a 32-bit process, you must call the
-            /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref uint)" />
+            /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref int)" />
             /// function to retrieve the full path of the executable file for a 64-bit process.
             /// </para>
             /// </summary>
@@ -83,7 +83,7 @@ namespace PInvoke
             /// </summary>
             public PROCESSENTRY32()
             {
-                this.dwSize = (uint)Marshal.SizeOf(this);
+                this.dwSize = Marshal.SizeOf(this);
             }
         }
     }

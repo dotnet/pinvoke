@@ -80,9 +80,9 @@ namespace PInvoke
                     {
                         Marshal.FreeHGlobal(buffer);
                     }
+                    }
                 }
             }
-        }
 
         /// <summary>
         ///     Retrieves a copy of the security descriptor associated with a service object. You can also use the
@@ -113,7 +113,7 @@ namespace PInvoke
             }
 
             var securityDescriptor = new byte[0];
-            uint bufSizeNeeded;
+            int bufSizeNeeded;
             QueryServiceObjectSecurity(hService, dwSecurityInformation, securityDescriptor, 0, out bufSizeNeeded);
 
             var lastError = GetLastError();

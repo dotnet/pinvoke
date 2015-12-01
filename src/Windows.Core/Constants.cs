@@ -11,6 +11,6 @@ namespace PInvoke
         /// <summary>
         /// An infinite timeout.
         /// </summary>
-        public const uint INFINITE = unchecked((uint)-1);
+        public const int INFINITE = -1;
     }
 }

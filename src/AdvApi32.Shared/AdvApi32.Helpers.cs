@@ -175,12 +175,12 @@ namespace PInvoke
             bool success;
             unsafe
             {
-                uint returnLength;
+                int returnLength;
                 success = GetTokenInformation(
                     TokenHandle,
                     TOKEN_INFORMATION_CLASS.TokenElevationType,
                     &elevationType,
-                    (uint)sizeof(TOKEN_ELEVATION_TYPE),
+                    sizeof(TOKEN_ELEVATION_TYPE),
                     out returnLength);
             }
 

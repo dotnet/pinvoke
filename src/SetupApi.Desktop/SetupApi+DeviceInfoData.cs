@@ -46,7 +46,7 @@ namespace PInvoke
             /// The size, in bytes, of the <see cref="DeviceInfoData" /> structure. The constructor set this value automatically
             /// to the correct size.
             /// </summary>
-            public uint Size;
+            public int Size;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="DeviceInfoData" /> class with <see cref="Size" /> set to the correct
@@ -54,7 +54,7 @@ namespace PInvoke
             /// </summary>
             public DeviceInfoData()
             {
-                this.Size = (uint)Marshal.SizeOf(this);
+                this.Size = Marshal.SizeOf(this);
             }
         }
     }
