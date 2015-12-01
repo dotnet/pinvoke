@@ -34,5 +34,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)AdvApi32+TOKEN_ELEVATION_TYPE.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AdvApi32+TOKEN_INFORMATION_CLASS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AdvApi32.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AdvApi32.Helpers.cs" />
   </ItemGroup>
 </Project>
