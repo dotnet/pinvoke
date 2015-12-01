@@ -16,23 +16,23 @@ namespace PInvoke
         ///     Used to specify to <see cref="CreateNamedPipe" /> that the number of pipe instances that can be created is
         ///     limited only by the availability of system resources.
         /// </summary>
-        public const uint PIPE_UNLIMITED_INSTANCES = 255;
+        public const int PIPE_UNLIMITED_INSTANCES = 255;
 
         /// <summary>The time-out interval is the default value specified by the server process in the
         ///     <see cref="CreateNamedPipe" /> function.
         ///     <para>This constant is a special value for named pipes timeouts.</para>
         /// </summary>
-        public const uint NMPWAIT_USE_DEFAULT_WAIT = 0x00000000;
+        public const int NMPWAIT_USE_DEFAULT_WAIT = 0x00000000;
 
         /// <summary>The function does not return until an instance of the named pipe is available.
         ///     <para>This constant is a special value for named pipes timeouts.</para>
         /// </summary>
-        public const uint NMPWAIT_WAIT_FOREVER = 0xffffffff;
+        public const int NMPWAIT_WAIT_FOREVER = Constants.INFINITE;
 
         /// <summary>Does not wait for the named pipe. If the named pipe is not available, the function returns an error.
         ///     <para>This constant is a special value for named pipes timeouts.</para>
         /// </summary>
-        public const uint NMPWAIT_NOWAIT = 0x00000001;
+        public const int NMPWAIT_NOWAIT = 0x00000001;
 
         /// <summary>
         /// Creates a new process and its primary thread. The new process runs in the security context of the calling process.
@@ -232,7 +232,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool InitializeProcThreadAttributeList(
             IntPtr lpAttributeList,
-            uint dwAttributeCount,
+            int dwAttributeCount,
             uint dwFlags,
             ref IntPtr lpSize); // SIZE_T (the size varies with the bitness)
 
@@ -319,7 +319,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool AttachConsole(uint dwProcessId);
+        public static extern bool AttachConsole(int dwProcessId);
 
         /// <summary>
         /// Creates or opens a file or I/O device. The most commonly used I/O devices are as follows: file, file stream, directory, physical disk, volume, console buffer, tape drive, communications resource, mailslot, and pipe. The function returns a handle that can be used to access the file or device for various types of I/O depending on the file or device and the flags and attributes specified.
@@ -478,14 +478,14 @@ namespace PInvoke
         /// <para>To destroy the snapshot, call <see cref="SafeHandle.Close" /> on the returned handle.</para>
         /// <para>
         /// Note that you can use the
-        /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref uint)" />
+        /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref int)" />
         /// function to retrieve the full name of an executable image for both 32- and 64-bit processes from a 32-bit process.
         /// </para>
         /// </remarks>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern SafeObjectHandle CreateToolhelp32Snapshot(
             CreateToolhelp32SnapshotFlags dwFlags,
-            uint th32ProcessID);
+            int th32ProcessID);
 
         /// <summary>Retrieves information about the first process encountered in a system snapshot.</summary>
         /// <param name="hSnapshot">
@@ -549,7 +549,7 @@ namespace PInvoke
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags,
             StringBuilder lpExeName,
-            ref uint lpdwSize);
+            ref int lpdwSize);
 
         /// <summary>Opens an existing local process object.</summary>
         /// <param name="dwDesiredAccess">
@@ -582,7 +582,7 @@ namespace PInvoke
         public static extern SafeObjectHandle OpenProcess(
             ProcessAccess dwDesiredAccess,
             bool bInheritHandle,
-            uint dwProcessId);
+            int dwProcessId);
 
         /// <summary>
         /// Retrieves the results of an overlapped operation on the specified file, named pipe, or communications device.
@@ -640,7 +640,7 @@ namespace PInvoke
         public static extern unsafe bool GetOverlappedResult(
             SafeObjectHandle hFile,
             OVERLAPPED* lpOverlapped,
-            out uint lpNumberOfBytesTransferred,
+            out int lpNumberOfBytesTransferred,
             bool bWait);
 
         /// <summary>
@@ -737,7 +737,7 @@ namespace PInvoke
             out SafeObjectHandle hReadPipe,
             out SafeObjectHandle hWritePipe,
             SECURITY_ATTRIBUTES lpPipeAttributes,
-            uint nSize);
+            int nSize);
 
         /// <summary>Removes as many pages as possible from the working set of the specified process.</summary>
         /// <param name="hProcess">
@@ -862,10 +862,10 @@ namespace PInvoke
             string lpName,
             PipeAccessMode dwOpenMode,
             PipeMode dwPipeMode,
-            uint nMaxInstances,
-            uint nOutBufferSize,
-            uint nInBufferSize,
-            uint nDefaultTimeOut,
+            int nMaxInstances,
+            int nOutBufferSize,
+            int nInBufferSize,
+            int nDefaultTimeOut,
             SECURITY_ATTRIBUTES lpSecurityAttributes);
 
         /// <summary>
@@ -910,7 +910,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool WaitNamedPipe(
             string lpNamedPipeName,
-            uint nTimeOut);
+            int nTimeOut);
 
         /// <summary>
         ///     Enables a named pipe server process to wait for a client process to connect to an instance of a named pipe. A
@@ -990,11 +990,11 @@ namespace PInvoke
         public static extern unsafe bool CallNamedPipe(
             string lpNamedPipeName,
             void* lpInBuffer,
-            uint nInBufferSize,
+            int nInBufferSize,
             void* lpOutBuffer,
-            uint nOutBufferSize,
-            out uint lpBytesRead,
-            uint nTimeOut);
+            int nOutBufferSize,
+            out int lpBytesRead,
+            int nTimeOut);
 
         /// <summary>Disconnects the server end of a named pipe instance from a client process.</summary>
         /// <param name="hNamedPipe">
@@ -1032,7 +1032,7 @@ namespace PInvoke
         public static extern bool GetNamedPipeClientComputerName(
             SafeObjectHandle Pipe,
             StringBuilder ClientComputerName,
-            uint ClientComputerNameLength);
+            int ClientComputerNameLength);
 
         /// <summary>Retrieves the client process identifier for the specified named pipe.</summary>
         /// <param name="Pipe">
@@ -1051,7 +1051,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetNamedPipeClientProcessId(
             SafeObjectHandle Pipe,
-            out uint ClientProcessId);
+            out int ClientProcessId);
 
         /// <summary>
         /// Retrieves the client session identifier for the specified named pipe.
@@ -1072,7 +1072,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetNamedPipeClientSessionId(
             SafeObjectHandle Pipe,
-            out uint ClientSessionId);
+            out int ClientSessionId);
 
         /// <summary>
         ///     Retrieves information about a specified named pipe. The information returned can vary during the lifetime of
@@ -1132,7 +1132,7 @@ namespace PInvoke
             [In, Out] NullableUInt32 lpMaxCollectionCount,
             [In, Out] NullableUInt32 lpCollectDataTimeout,
             StringBuilder lpUserName,
-            uint nMaxUserNameSize);
+            int nMaxUserNameSize);
 
         /// <summary>Retrieves information about the specified named pipe.</summary>
         /// <param name="hNamedPipe">
@@ -1170,9 +1170,9 @@ namespace PInvoke
         public static extern bool GetNamedPipeInfo(
             SafeObjectHandle hNamedPipe,
             out NamedPipeInfoFlags lpFlags,
-            out uint lpOutBufferSize,
-            out uint lpInBufferSize,
-            out uint lpMaxInstances);
+            out int lpOutBufferSize,
+            out int lpInBufferSize,
+            out int lpMaxInstances);
 
         /// <summary>Retrieves the server process identifier for the specified named pipe.</summary>
         /// <param name="Pipe">
@@ -1191,7 +1191,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetNamedPipeServerProcessId(
             SafeObjectHandle Pipe,
-            out uint ServerProcessId);
+            out int ServerProcessId);
 
         /// <summary>
         /// Retrieves the server session identifier for the specified named pipe.
@@ -1212,7 +1212,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetNamedPipeServerSessionId(
             SafeObjectHandle Pipe,
-            out uint ServerSessionId);
+            out int ServerSessionId);
 
         /// <summary>
         ///     Copies data from a named or anonymous pipe into a buffer without removing it from the pipe. It also returns
@@ -1253,10 +1253,10 @@ namespace PInvoke
         public static extern unsafe bool PeekNamedPipe(
             SafeObjectHandle hNamedPipe,
             void* lpBuffer,
-            uint nBufferSize,
-            out uint lpBytesRead,
-            out uint lpTotalBytesAvail,
-            out uint lpBytesLeftThisMessage);
+            int nBufferSize,
+            out int lpBytesRead,
+            out int lpTotalBytesAvail,
+            out int lpBytesLeftThisMessage);
 
         /// <summary>
         ///     Sets the read mode and the blocking mode of the specified named pipe. If the specified handle is to the client
@@ -1354,7 +1354,7 @@ namespace PInvoke
         ///         If the message to be read is longer than the buffer specified by the <paramref name="nOutBufferSize" />
         ///         parameter, TransactNamedPipe returns FALSE and the <see cref="GetLastError" /> function returns
         ///         <see cref="Win32ErrorCode.ERROR_MORE_DATA" />. The remainder of the message can be read by a subsequent call to
-        ///         <see cref="ReadFile(SafeObjectHandle,void*,uint,NullableUInt32,OVERLAPPED*)" />, ReadFileEx, or PeekNamedPipe.
+        ///         <see cref="ReadFile(SafeObjectHandle,void*,int,NullableUInt32,OVERLAPPED*)" />, ReadFileEx, or PeekNamedPipe.
         ///     </para>
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
@@ -1362,10 +1362,10 @@ namespace PInvoke
         public static extern unsafe bool TransactNamedPipe(
             SafeObjectHandle hNamedPipe,
             void* lpInBuffer,
-            uint nInBufferSize,
+            int nInBufferSize,
             void* lpOutBuffer,
-            uint nOutBufferSize,
-            out uint lpBytesRead,
+            int nOutBufferSize,
+            out int lpBytesRead,
             OVERLAPPED* lpOverlapped);
 
         /// <summary>

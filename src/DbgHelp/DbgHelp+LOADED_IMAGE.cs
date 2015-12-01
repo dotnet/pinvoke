@@ -46,7 +46,7 @@ namespace PInvoke
             /// <summary>
             /// The number of COFF section headers.
             /// </summary>
-            public uint NumberOfSections;
+            public int NumberOfSections;
 
             /// <summary>
             /// A pointer to an IMAGE_SECTION_HEADER structure.
@@ -91,7 +91,7 @@ namespace PInvoke
             /// <summary>
             /// The size of the image, in bytes.
             /// </summary>
-            public uint SizeOfImage;
+            public int SizeOfImage;
         }
     }
 }

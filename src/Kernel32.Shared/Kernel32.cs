@@ -128,13 +128,13 @@ namespace PInvoke
         /// </summary>
         /// <returns>The thread identifier of the calling thread.</returns>
         [DllImport(api_ms_win_core_processthreads_l1_1_1)]
-        public static extern uint GetCurrentThreadId();
+        public static extern int GetCurrentThreadId();
 
         /// <summary>Retrieves the process identifier of the calling process.</summary>
         /// <returns>The process identifier of the calling process.</returns>
         /// <remarks>Until the process terminates, the process identifier uniquely identifies the process throughout the system.</remarks>
         [DllImport(api_ms_win_core_processthreads_l1_1_1)]
-        public static extern uint GetCurrentProcessId();
+        public static extern int GetCurrentProcessId();
 
         /// <summary>Retrieves a pseudo handle for the current process.</summary>
         /// <returns>The return value is a pseudo handle to the current process.</returns>
@@ -262,7 +262,7 @@ namespace PInvoke
         public static extern unsafe bool ReadFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
-            uint nNumberOfBytesToRead,
+            int nNumberOfBytesToRead,
             NullableUInt32 lpNumberOfBytesRead,
             OVERLAPPED* lpOverlapped);
 
@@ -338,7 +338,7 @@ namespace PInvoke
         public static extern unsafe bool WriteFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
-            uint nNumberOfBytesToWrite,
+            int nNumberOfBytesToWrite,
             NullableUInt32 lpNumberOfBytesWritten,
             OVERLAPPED* lpOverlapped);
 
@@ -402,7 +402,7 @@ namespace PInvoke
         [DllImport(api_ms_win_core_synch_l1_2_0, SetLastError = true)]
         public static extern WaitForSingleObjectResult WaitForSingleObject(
             SafeHandle hHandle,
-            uint dwMilliseconds);
+            int dwMilliseconds);
 
         /// <summary>
         /// Closes an open object handle.

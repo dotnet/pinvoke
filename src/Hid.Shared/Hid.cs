@@ -129,7 +129,7 @@ namespace PInvoke
         [DllImport(nameof(Hid), SetLastError = true)]
         public static extern bool HidD_SetNumInputBuffers(
             SafeObjectHandle hidDeviceObject,
-            uint numberBuffers);
+            int numberBuffers);
 
         /// <summary>
         /// Returns a top-level collection's preparsed data.

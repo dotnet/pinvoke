@@ -166,20 +166,20 @@ public partial class Kernel32
     public void GetCurrentThreadId_SameAsAppDomainOne()
     {
 #pragma warning disable CS0618 // Type or member is obsolete
-        var frameworkValue = AppDomain.GetCurrentThreadId();
+        int frameworkValue = AppDomain.GetCurrentThreadId();
 #pragma warning restore CS0618 // Type or member is obsolete
-        var pinvokeValue = GetCurrentThreadId();
+        int pinvokeValue = GetCurrentThreadId();
 
-        Assert.Equal((uint)frameworkValue, pinvokeValue);
+        Assert.Equal(frameworkValue, pinvokeValue);
     }
 
     [Fact]
     public void GetCurrentProcessId_SameAsProcessOne()
     {
-        var frameworkValue = Process.GetCurrentProcess().Id;
-        var pinvokeValue = GetCurrentProcessId();
+        int frameworkValue = Process.GetCurrentProcess().Id;
+        int pinvokeValue = GetCurrentProcessId();
 
-        Assert.Equal((uint)frameworkValue, pinvokeValue);
+        Assert.Equal(frameworkValue, pinvokeValue);
     }
 
     [Fact]
@@ -296,9 +296,9 @@ public partial class Kernel32
 
                     var lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
-                    uint bytesTransfered;
+                    int bytesTransfered;
                     var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
-                    Assert.Equal((uint)testDataSize, bytesTransfered);
+                    Assert.Equal(testDataSize, bytesTransfered);
                     Assert.True(overlappedResult);
                 }
 
@@ -348,9 +348,9 @@ public partial class Kernel32
                     var lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     Assert.True(evt.WaitOne(TimeSpan.FromSeconds(30)));
-                    uint bytesTransfered;
+                    int bytesTransfered;
                     var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, false);
-                    Assert.Equal((uint)testDataSize, bytesTransfered);
+                    Assert.Equal(testDataSize, bytesTransfered);
                     Assert.True(overlappedResult);
                 }
 
@@ -383,7 +383,7 @@ public partial class Kernel32
                 new SafeObjectHandle()))
             {
                 var bytesWritten = WriteFile(file, new ArraySegment<byte>(expected));
-                Assert.Equal((uint)testDataSize, bytesWritten);
+                Assert.Equal(testDataSize, bytesWritten);
             }
 
             var actual = File.ReadAllBytes(testPath);
@@ -427,9 +427,9 @@ public partial class Kernel32
 
                     var lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
-                    uint bytesTransfered;
+                    int bytesTransfered;
                     var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
-                    Assert.Equal((uint)testDataSize, bytesTransfered);
+                    Assert.Equal(testDataSize, bytesTransfered);
                     Assert.True(overlappedResult);
                 }
             }
@@ -478,9 +478,9 @@ public partial class Kernel32
                     var lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     Assert.True(evt.WaitOne(TimeSpan.FromSeconds(30)));
-                    uint bytesTransfered;
+                    int bytesTransfered;
                     var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, false);
-                    Assert.Equal((uint)testDataSize, bytesTransfered);
+                    Assert.Equal(testDataSize, bytesTransfered);
                     Assert.True(overlappedResult);
                 }
             }
@@ -531,7 +531,7 @@ public partial class Kernel32
                     }
                     finally
                     {
-                        uint bytesTransfered;
+                        int bytesTransfered;
                         GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
                     }
                 }
@@ -585,7 +585,7 @@ public partial class Kernel32
                     }
                     finally
                     {
-                        uint bytesTransfered;
+                        int bytesTransfered;
                         GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
                     }
                 }
@@ -639,7 +639,7 @@ public partial class Kernel32
                     }
                     finally
                     {
-                        uint bytesTransfered;
+                        int bytesTransfered;
                         GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
                     }
                 }
@@ -668,8 +668,8 @@ public partial class Kernel32
         using (writePipe)
         {
             var data = new byte[] { 1, 2, 3 };
-            Assert.Equal((uint)data.Length, WriteFile(writePipe, new ArraySegment<byte>(data)));
-            Assert.Equal(data, ReadFile(readPipe, (uint)data.Length));
+            Assert.Equal(data.Length, WriteFile(writePipe, new ArraySegment<byte>(data)));
+            Assert.Equal(data, ReadFile(readPipe, data.Length));
         }
     }
 
@@ -743,7 +743,7 @@ public partial class Kernel32
 
                     var writeBuffer = this.GetRandomSegment(42);
                     WriteFile(client, writeBuffer);
-                    Assert.Equal(writeBuffer, ReadFile(server, (uint)writeBuffer.Count));
+                    Assert.Equal(writeBuffer, ReadFile(server, writeBuffer.Count));
 
                     Assert.True(FlushFileBuffers(client));
                     Assert.True(FlushFileBuffers(server));

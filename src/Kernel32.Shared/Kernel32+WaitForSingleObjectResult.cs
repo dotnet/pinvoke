@@ -9,7 +9,7 @@ namespace PInvoke
     public static partial class Kernel32
     {
         /// <summary>
-        /// Values that may be returned from the <see cref="WaitForSingleObject(System.Runtime.InteropServices.SafeHandle, uint)"/> function.
+        /// Values that may be returned from the <see cref="WaitForSingleObject(System.Runtime.InteropServices.SafeHandle, int)"/> function.
         /// </summary>
         public enum WaitForSingleObjectResult : uint
         {

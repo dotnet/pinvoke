@@ -23,7 +23,7 @@ namespace PInvoke
             /// <summary>
             /// The length, in bytes, of the key.
             /// </summary>
-            public uint KeyLength;
+            public int KeyLength;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="EccKeyBlob"/> struct.
@@ -32,7 +32,7 @@ namespace PInvoke
             public EccKeyBlob(byte[] keyBlob)
             {
                 this.Magic = (EccKeyBlobMagicNumbers)BitConverter.ToUInt32(keyBlob, 0);
-                this.KeyLength = BitConverter.ToUInt32(keyBlob, 4);
+                this.KeyLength = BitConverter.ToInt32(keyBlob, 4);
             }
         }
     }

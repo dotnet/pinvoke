@@ -50,7 +50,7 @@ namespace PInvoke
             DeviceInfoData deviceInfoData,
             Guid interfaceClassGuid)
         {
-            uint index = 0;
+            int index = 0;
             while (true)
             {
                 var data = DeviceInterfaceData.Create();
@@ -112,7 +112,7 @@ namespace PInvoke
                     lpDeviceInfoSet,
                     ref oInterfaceData,
                     buffer,
-                    (uint)requiredSize,
+                    (int)requiredSize.Value,
                     null,
                     null);
 

@@ -69,7 +69,7 @@ namespace PInvoke
         /// <returns>The number of bytes written.</returns>
         /// <exception cref="Win32Exception">Thrown if the native method return false (Write failed).</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
-        public static unsafe uint WriteFile(SafeObjectHandle hFile, void* lpBuffer, uint nNumberOfBytesToWrite)
+        public static unsafe int WriteFile(SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite)
         {
             if (hFile == null)
             {
@@ -82,7 +82,7 @@ namespace PInvoke
                 throw new Win32Exception();
             }
 
-            return (uint)bytesWritten;
+            return (int)bytesWritten.Value;
         }
 
         /// <summary>Writes data synchronously to the specified file or input/output (I/O) device.</summary>
@@ -98,7 +98,7 @@ namespace PInvoke
         /// <returns>The number of bytes written.</returns>
         /// <exception cref="Win32Exception">Thrown if the native method return false (Write failed).</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
-        public static uint WriteFile(SafeObjectHandle hFile, ArraySegment<byte> lpBuffer)
+        public static int WriteFile(SafeObjectHandle hFile, ArraySegment<byte> lpBuffer)
         {
             if (hFile == null)
             {
@@ -110,7 +110,7 @@ namespace PInvoke
                 fixed (byte* pBuffer = lpBuffer.Array)
                 {
                     var pStart = pBuffer + lpBuffer.Offset;
-                    return WriteFile(hFile, pStart, (uint)lpBuffer.Count);
+                    return WriteFile(hFile, pStart, lpBuffer.Count);
                 }
             }
         }
@@ -126,7 +126,7 @@ namespace PInvoke
         /// <returns>The number of bytes read.</returns>
         /// <exception cref="Win32Exception">Thrown if the native method return false (Read failed).</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
-        public static unsafe uint ReadFile(SafeObjectHandle hFile, void* lpBuffer, uint nNumberOfBytesToRead)
+        public static unsafe int ReadFile(SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead)
         {
             if (hFile == null)
             {
@@ -139,7 +139,7 @@ namespace PInvoke
                 throw new Win32Exception();
             }
 
-            return (uint)bytesRead;
+            return (int)bytesRead.Value;
         }
 
         /// <summary>Reads data synchronously from the specified file or input/output (I/O) device.</summary>
@@ -152,14 +152,14 @@ namespace PInvoke
         /// <returns>The number of bytes read.</returns>
         /// <exception cref="Win32Exception">Thrown if the native method return false (Read failed).</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
-        public static uint ReadFile(SafeObjectHandle hFile, ArraySegment<byte> lpBuffer)
+        public static int ReadFile(SafeObjectHandle hFile, ArraySegment<byte> lpBuffer)
         {
             unsafe
             {
                 fixed (byte* pBuffer = lpBuffer.Array)
                 {
                     var pStart = pBuffer + lpBuffer.Offset;
-                    return ReadFile(hFile, pStart, (uint)lpBuffer.Count);
+                    return ReadFile(hFile, pStart, lpBuffer.Count);
                 }
             }
         }
@@ -177,13 +177,13 @@ namespace PInvoke
         /// </returns>
         /// <exception cref="Win32Exception">Thrown if the native method return false (Read failed).</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
-        public static ArraySegment<byte> ReadFile(SafeObjectHandle hFile, uint nNumberOfBytesToRead)
+        public static ArraySegment<byte> ReadFile(SafeObjectHandle hFile, int nNumberOfBytesToRead)
         {
             var buffer = new byte[nNumberOfBytesToRead];
             var segment = new ArraySegment<byte>(buffer);
 
             var bytesRead = ReadFile(hFile, segment);
-            return new ArraySegment<byte>(buffer, 0, (int)bytesRead);
+            return new ArraySegment<byte>(buffer, 0, bytesRead);
         }
     }
 }

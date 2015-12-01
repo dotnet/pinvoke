@@ -20,7 +20,7 @@ namespace PInvoke
             /// <summary>
             /// The version of the <see cref="BCryptBufferDesc"/> structure defined in this library.
             /// </summary>
-            public const int BCRYPTBUFFER_VERSION = 0;
+            public const uint BCRYPTBUFFER_VERSION = 0;
 
             /// <summary>
             /// The version of the structure.
