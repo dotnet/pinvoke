@@ -1,6 +1,7 @@
 ﻿{
   "supports": { },
   "dependencies": {
+    "NuProj.Common": "0.10.10-beta-g13363167e1"
   },
   "frameworks": {
     ".NETFramework,Version=v4.0": { }
