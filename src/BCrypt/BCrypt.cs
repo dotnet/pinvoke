@@ -568,9 +568,9 @@ namespace PInvoke
         /// </summary>
         /// <param name="hAlgorithm">The handle of the algorithm provider to import the key. This handle is obtained by calling the BCryptOpenAlgorithmProvider function.</param>
         /// <param name="hImportKey">This parameter is not currently used and should be NULL.</param>
-        /// <param name="pszBlobType">an identifier that specifies the type of BLOB that is contained in the <paramref name="pbInput"/> buffer.</param>
+        /// <param name="pszBlobType">An identifier that specifies the type of BLOB that is contained in the <paramref name="pbInput"/> buffer. Supported formats are defined in <see cref="AsymmetricKeyBlobTypes"/>.</param>
         /// <param name="phKey">A pointer to a BCRYPT_KEY_HANDLE that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as BCryptSignHash. This handle must be released when it is no longer needed by passing it to the <see cref="BCryptDestroyKey"/> function.</param>
-        /// <param name="pbInput">The address of a buffer that contains the key BLOB to import. The cbInput parameter contains the size of this buffer. The <paramref name="pszBlobType"/> parameter specifies the type of key BLOB this buffer contains.</param>
+        /// <param name="pbInput">The address of a buffer that contains the key BLOB to import. The <paramref name="cbInput"/> parameter contains the size of this buffer. The <paramref name="pszBlobType"/> parameter specifies the type of key BLOB this buffer contains.</param>
         /// <param name="cbInput">The size, in bytes, of the <paramref name="pbInput"/> buffer.</param>
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>

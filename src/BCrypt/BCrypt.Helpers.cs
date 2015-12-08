@@ -134,7 +134,7 @@ namespace PInvoke
             BCryptExportKey(
                 key,
                 exportKey,
-                AsymmetricKeyBlobTypes.EccPublic,
+                AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB,
                 keyBuffer,
                 keyBuffer.Length,
                 out length,
@@ -199,11 +199,19 @@ namespace PInvoke
             return hKey;
         }
 
+        /// <summary>
+        /// Imports a public/private key pair from a key BLOB.
+        /// </summary>
+        /// <param name="algorithm">The handle of the algorithm provider to import the key. This handle is obtained by calling the BCryptOpenAlgorithmProvider function.</param>
+        /// <param name="blobType">An identifier that specifies the type of BLOB that is contained in the <paramref name="input"/> buffer. Supported formats are defined in <see cref="AsymmetricKeyBlobTypes"/>.</param>
+        /// <param name="input">The address of a buffer that contains the key BLOB to import. The <paramref name="blobType"/> parameter specifies the type of key BLOB this buffer contains.</param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         public static SafeKeyHandle BCryptImportKeyPair(
             SafeAlgorithmHandle algorithm,
             string blobType,
             byte[] input,
-            BCryptImportKeyPairFlags flags)
+            BCryptImportKeyPairFlags flags = BCryptImportKeyPairFlags.None)
         {
             SafeKeyHandle result;
             var error = BCryptImportKeyPair(
