@@ -1,7 +1,10 @@
 {
   "supports": { },
   "dependencies": {
-    "Nerdbank.GitVersioning": "1.1.52-rc",
+    "Nerdbank.GitVersioning": {
+      "version": "1.1.52-rc",
+      "suppressParent": "none"
+    },
     "Nuproj": "0.10.10-beta-g13363167e1",
     "Nuproj.Common": {
       "version": "0.10.10-beta-g13363167e1",
