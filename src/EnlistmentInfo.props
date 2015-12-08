@@ -8,7 +8,7 @@
     <ProjectRoot>$(MSBuildThisFileDirectory)..\</ProjectRoot>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
     <NuProjPath>$(UserProfile)\.nuget\packages\NuProj\0.10.10-beta-g13363167e1\tools\</NuProjPath>
-    <NerdbankGitVersioningPath>$(UserProfile)\.nuget\packages\Nerdbank.GitVersioning\1.1.52-rc\</NerdbankGitVersioningPath>
+    <NerdbankGitVersioningPath>$(UserProfile)\.nuget\packages\Nerdbank.GitVersioning\1.1.61-rc\</NerdbankGitVersioningPath>
 
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
