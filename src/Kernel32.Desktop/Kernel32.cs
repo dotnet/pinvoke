@@ -97,7 +97,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CreateProcess(
             string lpApplicationName,
@@ -178,7 +178,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CreateProcessAsUser(
             IntPtr hToken,
@@ -202,7 +202,7 @@ namespace PInvoke
         /// <remarks>
         /// This function does not return a value, and does not fail.
         /// </remarks>
-        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, CharSet = CharSet.Unicode)]
         public static extern void GetStartupInfo(
             out STARTUPINFO lpStartupInfo);
 
@@ -230,7 +230,7 @@ namespace PInvoke
         /// To add attributes to the list, call the <see cref="UpdateProcThreadAttribute"/> function. To specify these attributes when creating a process, specify <see cref="CreateProcessFlags.EXTENDED_STARTUPINFO_PRESENT"/> in the dwCreationFlag parameter and a <see cref="STARTUPINFOEX"/> structure in the lpStartupInfo parameter. Note that you can specify the same <see cref="STARTUPINFOEX"/> structure to multiple child processes.
         /// When you have finished using the list, call the <see cref="DeleteProcThreadAttributeList"/> function.
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool InitializeProcThreadAttributeList(
             IntPtr lpAttributeList,
@@ -264,7 +264,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool UpdateProcThreadAttribute(
             IntPtr lpAttributeList,
@@ -281,7 +281,7 @@ namespace PInvoke
         /// <param name="lpAttributeList">
         /// The attribute list. This list is created by the <see cref="InitializeProcThreadAttributeList"/> function.
         /// </param>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static extern void DeleteProcThreadAttributeList(
             IntPtr lpAttributeList);
 
@@ -292,7 +292,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_console_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool AllocConsole();
 
@@ -303,7 +303,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_console_l2_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FreeConsole();
 
@@ -319,7 +319,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_console_l2_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool AttachConsole(int dwProcessId);
 
@@ -377,7 +377,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
         /// If the function fails, the return value is INVALID_HANDLE_VALUE.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(Kernel32), CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_2_0, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern SafeObjectHandle CreateFile(
             string filename,
             FileAccess access,
@@ -404,7 +404,7 @@ namespace PInvoke
         /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// If the function fails because no matching files can be found, the <see cref="GetLastError"/> function returns ERROR_FILE_NOT_FOUND.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeFindFilesHandle FindFirstFile(string lpFileName, out WIN32_FIND_DATA lpFindFileData);
 
         /// <summary>
@@ -417,7 +417,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero and the contents of lpFindFileData are indeterminate. To get extended error information, call the <see cref="GetLastError"/> function.
         /// If the function fails because no more matching files can be found, the <see cref="GetLastError"/> function returns ERROR_NO_MORE_FILES.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool FindNextFile(SafeFindFilesHandle hFindFile, out WIN32_FIND_DATA lpFindFileData);
 
         /// <summary>
@@ -546,7 +546,7 @@ namespace PInvoke
         /// <para>If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.</para>
         /// </returns>
         /// <remarks>Minimum OS: Windows Vista / Windows Server 2008.</remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_psapi_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool QueryFullProcessImageName(
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags,
@@ -580,7 +580,7 @@ namespace PInvoke
         /// </para>
         /// </param>
         /// <returns>If the function succeeds, the return value is an open handle to the specified process.</returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         public static extern SafeObjectHandle OpenProcess(
             ProcessAccess dwDesiredAccess,
             bool bInheritHandle,
@@ -638,7 +638,7 @@ namespace PInvoke
         /// situation, there is no way to know which operation caused the object's state to be signaled.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_io_l1_1_1, SetLastError = true)]
         public static extern unsafe bool GetOverlappedResult(
             SafeObjectHandle hFile,
             OVERLAPPED* lpOverlapped,
@@ -679,7 +679,7 @@ namespace PInvoke
         /// normally.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_io_l1_1_1, SetLastError = true)]
         public static extern bool CancelIo(SafeObjectHandle hFile);
 
         /// <summary>
@@ -733,7 +733,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CreatePipe(
             out SafeObjectHandle hReadPipe,
@@ -757,7 +757,7 @@ namespace PInvoke
         ///     This function is exported by kernel32.dll only since Windows 7, on previous version of windows it's
         ///     exported by Psapi.dll as "EmptyWorkingSet".
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_psapi_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool K32EmptyWorkingSet(SafeObjectHandle hProcess);
 
@@ -859,7 +859,7 @@ namespace PInvoke
         ///     function fails, the return value is an invalid handle. To get extended error information, call
         ///     <see cref="GetLastError" />.
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeObjectHandle CreateNamedPipe(
             string lpName,
             PipeAccessMode dwOpenMode,
@@ -908,7 +908,7 @@ namespace PInvoke
         ///         or opened by another client.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool WaitNamedPipe(
             string lpNamedPipeName,
@@ -957,7 +957,7 @@ namespace PInvoke
         ///         though the function returns zero.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool ConnectNamedPipe(
             SafeObjectHandle hNamedPipe,
@@ -1010,7 +1010,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DisconnectNamedPipe(
             SafeObjectHandle hNamedPipe);
@@ -1029,7 +1029,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetNamedPipeClientComputerName(
             SafeObjectHandle Pipe,
@@ -1250,7 +1250,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool PeekNamedPipe(
             SafeObjectHandle hNamedPipe,
@@ -1297,7 +1297,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetNamedPipeHandleState(
             SafeObjectHandle hNamedPipe,
@@ -1359,7 +1359,7 @@ namespace PInvoke
         ///         <see cref="ReadFile(SafeObjectHandle,void*,int,NullableUInt32,OVERLAPPED*)" />, ReadFileEx, or PeekNamedPipe.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool TransactNamedPipe(
             SafeObjectHandle hNamedPipe,
@@ -1386,7 +1386,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_libraryloader_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool FreeLibrary(IntPtr hModule);
     }

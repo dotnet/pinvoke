@@ -60,6 +60,16 @@ namespace PInvoke
         public const string api_ms_win_core_handle_l1_1_0 = "api-ms-win-core-handle-l1-1-0.dll";
 
         /// <summary>
+        /// The "api-ms-win-core-console-l1-1-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_console_l1_1_0 = "api-ms-win-core-console-l1-1-0.dll";
+
+        /// <summary>
+        /// The "api-ms-win-core-console-l2-1-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_console_l2_1_0 = "api-ms-win-core-console-l2-1-0.dll";
+
+        /// <summary>
         /// The api-ms-win-security-base-l1-2-0.dll constant.
         /// </summary>
         public const string api_ms_win_security_base_l1_2_0 = "api-ms-win-security-base-l1-2-0.dll";
@@ -83,5 +93,20 @@ namespace PInvoke
         /// The api-ms-win-service-winsvc-l1-2-0.dll constant.
         /// </summary>
         public const string api_ms_win_service_winsvc_l1_2_0 = "api-ms-win-service-winsvc-l1-2-0.dll";
+
+        /// <summary>
+        /// The "api-ms-win-core-psapi-l1-1-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_psapi_l1_1_0 = "api-ms-win-core-psapi-l1-1-0.dll";
+
+        /// <summary>
+        /// The "api-ms-win-core-namedpipe-l1-2-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_namedpipe_l1_2_0 = "api-ms-win-core-namedpipe-l1-2-0.dll";
+
+        /// <summary>
+        /// The "api-ms-win-core-libraryloader-l1-1-1.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_libraryloader_l1_1_1 = "api-ms-win-core-libraryloader-l1-1-1.dll";
     }
 }
