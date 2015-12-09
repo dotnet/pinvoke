@@ -31,6 +31,11 @@ namespace PInvoke
         private const string api_ms_win_core_file_l1_2_0 = ApiSets.api_ms_win_core_file_l1_2_0;
         private const string api_ms_win_core_synch_l1_2_0 = ApiSets.api_ms_win_core_synch_l1_2_0;
         private const string api_ms_win_core_handle_l1_1_0 = ApiSets.api_ms_win_core_handle_l1_1_0;
+        private const string api_ms_win_core_console_l1_1_0 = ApiSets.api_ms_win_core_console_l1_1_0;
+        private const string api_ms_win_core_console_l2_1_0 = ApiSets.api_ms_win_core_console_l2_1_0;
+        private const string api_ms_win_core_psapi_l1_1_0 = ApiSets.api_ms_win_core_psapi_l1_1_0;
+        private const string api_ms_win_core_namedpipe_l1_2_0 = ApiSets.api_ms_win_core_namedpipe_l1_2_0;
+        private const string api_ms_win_core_libraryloader_l1_1_1 = ApiSets.api_ms_win_core_libraryloader_l1_1_1;
 #else
         private const string api_ms_win_core_localization_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_processthreads_l1_1_1 = nameof(Kernel32);
@@ -38,6 +43,11 @@ namespace PInvoke
         private const string api_ms_win_core_file_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_synch_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_handle_l1_1_0 = nameof(Kernel32);
+        private const string api_ms_win_core_console_l1_1_0 = nameof(Kernel32);
+        private const string api_ms_win_core_console_l2_1_0 = nameof(Kernel32);
+        private const string api_ms_win_core_psapi_l1_1_0 = nameof(Kernel32);
+        private const string api_ms_win_core_namedpipe_l1_2_0 = nameof(Kernel32);
+        private const string api_ms_win_core_libraryloader_l1_1_1 = nameof(Kernel32);
 #endif
 #pragma warning restore SA1303 // Const field names must begin with upper-case letter
 
