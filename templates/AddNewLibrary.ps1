@@ -69,11 +69,13 @@ $SrcDirectories |% { Replace-Placeholders -LibraryName $LibraryName -Replacement
 
 & "$PSScriptRoot\CreateExportsTxtFile.ps1" -AssemblyPath "$env:windir\System32\$LibraryName.dll" -OutputDir "$Src\$LibraryName.Desktop\"
 
-Write-Output "Great. Your new projects have been created."
-Write-Output "Please add these new projects to your solution file:"
+Write-Output "Great. Your new projects have been created. Please also perform a few more manual steps:"
+Write-Output "1. Add these new projects to your solution file:"
 Write-Output "    $Src\$LibraryName\$LibraryName.csproj"
 Write-Output "    $Src\$LibraryName.Desktop\$LibraryName.Desktop.csproj"
 Write-Output "    $Src\$LibraryName.Shared\$LibraryName.Shared.shproj"
 Write-Output "    $Src\$LibraryName.Tests\$LibraryName.Tests.csproj"
 Write-Output "    $Src\$LibraryName.NuGet\$LibraryName.NuGet.nuproj"
-Write-Output "Also please add your library to the README.md file."
+Write-Output "2. Add your library to the README.md file."
+Write-Output "3. Add a project reference to $Src\$LibraryName.NuGet\$LibraryName.NuGet.nuproj"
+Write-Output "   into the PInvoke.Win32.nuproj project, if it's part of the Win32 API."
