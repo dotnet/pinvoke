@@ -64,7 +64,7 @@ Check out the [P/Invoke coverage](coverage.md) we have for each library.
 
 ## Contribution
 
-Please consider [contributing](CONTRIB.md) more P/Invoke method signatures to this project.
+Please consider [contributing](CONTRIBUTING.md) more P/Invoke method signatures to this project.
 Once you contribute, you can immediately consume your additions without waiting for another
 public release of the library.
 
