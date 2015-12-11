@@ -498,24 +498,6 @@ namespace PInvoke
             BCryptFinalizeKeyPairFlags dwFlags = BCryptFinalizeKeyPairFlags.None);
 
         /// <summary>
-        /// Destroys a key.
-        /// </summary>
-        /// <param name="hKey">The handle of the key to destroy.</param>
-        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
-        public static extern NTStatus BCryptDestroyKey(
-            IntPtr hKey);
-
-        /// <summary>
-        /// Destroys a secret agreement handle that was created by using the BCryptSecretAgreement function.
-        /// </summary>
-        /// <param name="hSecret">The handle of the secret to destroy.</param>
-        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
-        public static extern NTStatus BCryptDestroySecret(
-            IntPtr hSecret);
-
-        /// <summary>
         /// Imports a symmetric key from a key BLOB. The BCryptImportKeyPair function is used to import a public/private key pair.
         /// </summary>
         /// <param name="hAlgorithm">
@@ -787,5 +769,23 @@ namespace PInvoke
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
         private static extern NTStatus BCryptDestroyHash(IntPtr hHash);
+
+        /// <summary>
+        /// Destroys a key.
+        /// </summary>
+        /// <param name="hKey">The handle of the key to destroy.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
+        private static extern NTStatus BCryptDestroyKey(
+            IntPtr hKey);
+
+        /// <summary>
+        /// Destroys a secret agreement handle that was created by using the BCryptSecretAgreement function.
+        /// </summary>
+        /// <param name="hSecret">The handle of the secret to destroy.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
+        private static extern NTStatus BCryptDestroySecret(
+            IntPtr hSecret);
     }
 }
