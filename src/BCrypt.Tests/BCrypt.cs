@@ -89,7 +89,7 @@ public class BCrypt
     }
 
     [Fact]
-    public void EncryptDecrypt_DefaultPadding()
+    public unsafe void EncryptDecrypt_DefaultPadding()
     {
         using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
@@ -99,20 +99,20 @@ public class BCrypt
 
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                cipherText = BCryptEncrypt(key, plainText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
+                cipherText = BCryptEncrypt(key, plainText, null, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
                 Assert.NotEqual<byte>(plainText, cipherText);
             }
 
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                byte[] decryptedText = BCryptDecrypt(key, cipherText, IntPtr.Zero, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
+                byte[] decryptedText = BCryptDecrypt(key, cipherText, null, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
                 Assert.Equal<byte>(plainText, decryptedText);
             }
         }
     }
 
     [Fact]
-    public void EncryptDecrypt_NoPadding()
+    public unsafe void EncryptDecrypt_NoPadding()
     {
         using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
@@ -126,15 +126,15 @@ public class BCrypt
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 // Verify that without padding, an error is returned.
-                Assert.Equal(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
+                Assert.Equal(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
 
                 // Now do our own padding (zeros).
                 blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
                 plainTextPadded = new byte[blockSize];
                 Array.Copy(plainText, plainTextPadded, plainText.Length);
-                BCryptEncrypt(key, plainTextPadded, plainTextPadded.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                BCryptEncrypt(key, plainTextPadded, plainTextPadded.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                 cipherText = new byte[cipherTextLength];
-                BCryptEncrypt(key, plainTextPadded, plainTextPadded.Length, IntPtr.Zero, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                BCryptEncrypt(key, plainTextPadded, plainTextPadded.Length, null, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                 Assert.NotEqual<byte>(plainTextPadded, cipherText);
             }
 
@@ -144,7 +144,7 @@ public class BCrypt
             {
                 byte[] decryptedText = new byte[plainTextPadded.Length];
                 int cbDecrypted;
-                BCryptDecrypt(key, cipherText, cipherTextLength, IntPtr.Zero, null, 0, decryptedText, decryptedText.Length, out cbDecrypted, BCryptEncryptFlags.None).ThrowOnError();
+                BCryptDecrypt(key, cipherText, cipherTextLength, null, null, 0, decryptedText, decryptedText.Length, out cbDecrypted, BCryptEncryptFlags.None).ThrowOnError();
                 Assert.Equal(plainTextPadded.Length, cbDecrypted);
                 Assert.Equal<byte>(plainTextPadded, decryptedText);
             }
@@ -166,7 +166,7 @@ public class BCrypt
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 // Verify that without padding, an error is returned.
-                Assert.Equal(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, IntPtr.Zero, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
+                Assert.Equal(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
 
                 // Now do our own padding (zeros).
                 blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
@@ -290,11 +290,10 @@ public class BCrypt
                     authInfo.pbTag = new IntPtr(pTagBuffer);
                     authInfo.cbTag = tagBuffer.Length;
 
-                    var pAuthInfo = new IntPtr(&authInfo);
                     int cipherTextLength;
-                    BCryptEncrypt(key, plainText, plainText.Length, pAuthInfo, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                     cipherText = new byte[cipherTextLength];
-                    BCryptEncrypt(key, plainText, plainText.Length, pAuthInfo, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                 }
 
                 Assert.NotEqual<byte>(plainText, cipherText);
@@ -314,11 +313,10 @@ public class BCrypt
                     authInfo.pbTag = new IntPtr(pTagBuffer);
                     authInfo.cbTag = tagBuffer.Length;
 
-                    var pAuthInfo = new IntPtr(&authInfo);
                     int plainTextLength;
-                    BCryptDecrypt(key, cipherText, cipherText.Length, pAuthInfo, null, 0, null, 0, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    BCryptDecrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, null, 0, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
                     decryptedText = new byte[plainTextLength];
-                    BCryptEncrypt(key, cipherText, cipherText.Length, pAuthInfo, null, 0, decryptedText, decryptedText.Length, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    BCryptEncrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, decryptedText, decryptedText.Length, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
                     Array.Resize(ref decryptedText, plainTextLength);
                 }
 
@@ -348,7 +346,7 @@ public class BCrypt
     }
 
     [Fact]
-    public void SignHash()
+    public unsafe void SignHash()
     {
         using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
         {
@@ -358,10 +356,10 @@ public class BCrypt
                 BCryptFinalizeKeyPair(keyPair).ThrowOnError();
                 byte[] hashData = SHA1.Create().ComputeHash(new byte[] { 0x1 });
                 byte[] signature = BCryptSignHash(keyPair, hashData).ToArray();
-                NTStatus status = BCryptVerifySignature(keyPair, IntPtr.Zero, hashData, hashData.Length, signature, signature.Length);
+                NTStatus status = BCryptVerifySignature(keyPair, null, hashData, hashData.Length, signature, signature.Length);
                 Assert.Equal(NTStatus.STATUS_SUCCESS, status);
                 signature[0] = unchecked((byte)(signature[0] + 1));
-                status = BCryptVerifySignature(keyPair, IntPtr.Zero, hashData, hashData.Length, signature, signature.Length);
+                status = BCryptVerifySignature(keyPair, null, hashData, hashData.Length, signature, signature.Length);
                 Assert.Equal(NTStatus.STATUS_INVALID_SIGNATURE, status);
             }
         }

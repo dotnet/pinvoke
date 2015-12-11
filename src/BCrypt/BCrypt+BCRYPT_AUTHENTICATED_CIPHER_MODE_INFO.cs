@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class BCrypt
     {
         /// <summary>
-        /// Used with the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> functions
+        /// Used with the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> functions
         /// to contain additional information related to authenticated cipher modes.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
@@ -67,9 +67,9 @@ namespace PInvoke
             /// <summary>
             /// A pointer to a buffer.
             /// The use of this member depends on the function to which the structure is passed.
-            /// For <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/>
+            /// For <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/>
             /// the buffer will receive the authentication tag.
-            /// For <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/>
+            /// For <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/>
             /// the buffer contains the authentication tag to be checked against.
             /// If there is no tag, this member must be set to NULL.
             /// </summary>
@@ -86,23 +86,23 @@ namespace PInvoke
             public int cbTag;
 
             /// <summary>
-            /// A pointer to a buffer that stores the partially computed MAC between calls to <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> when chaining encryption or decryption.
-            /// If the input to encryption or decryption is scattered across multiple buffers, then you must chain calls to the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> functions. Chaining is indicated by setting the <see cref="AuthModeFlags.BCRYPT_AUTH_MODE_IN_PROGRESS_FLAG"/> flag in the <see cref="dwFlags"/> member.
+            /// A pointer to a buffer that stores the partially computed MAC between calls to <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> when chaining encryption or decryption.
+            /// If the input to encryption or decryption is scattered across multiple buffers, then you must chain calls to the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> functions. Chaining is indicated by setting the <see cref="AuthModeFlags.BCRYPT_AUTH_MODE_IN_PROGRESS_FLAG"/> flag in the <see cref="dwFlags"/> member.
             /// This buffer must be supplied by the caller and must be at least as large as the maximum length of an authentication tag for the cipher you are using. To get the valid authentication tag lengths, use <see cref="BCryptGetProperty{T}(SafeHandle, string, BCryptGetPropertyFlags)"/> to query the <see cref="PropertyNames.BCRYPT_AUTH_TAG_LENGTH"/> property.
-            /// If <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> calls are not being chained, this member must be set to NULL.
+            /// If <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> calls are not being chained, this member must be set to NULL.
             /// </summary>
             public IntPtr pbMacContext;
 
             /// <summary>
             /// The size, in bytes, of the buffer pointed to by the <see cref="pbMacContext"/> member.
-            /// If <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> calls are not being chained, this member must be set to zero.
+            /// If <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> calls are not being chained, this member must be set to zero.
             /// </summary>
             public int cbMacContext;
 
             /// <summary>
-            /// The length, in bytes, of additional authenticated data (AAD) to be used by the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> functions. This member is used only when chaining calls.
+            /// The length, in bytes, of additional authenticated data (AAD) to be used by the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> functions. This member is used only when chaining calls.
             /// This member is used only when the <see cref="AuthModeFlags.BCRYPT_AUTH_MODE_IN_PROGRESS_FLAG"/> flag in the <see cref="dwFlags"/> member is set.
-            /// On the first call to <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> or <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> you must set this field to zero.
+            /// On the first call to <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> or <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> you must set this field to zero.
             /// Note: During the chaining sequence, this member is maintained internally and must not be changed or the value of the computed MAC will be corrupted.
             /// </summary>
             public int cbAAD;
@@ -110,13 +110,13 @@ namespace PInvoke
             /// <summary>
             /// The length, in bytes, of the payload data that was encrypted or decrypted. This member is used only when chaining calls.
             /// This member is used only when the <see cref="AuthModeFlags.BCRYPT_AUTH_MODE_IN_PROGRESS_FLAG"/> flag in the <see cref="dwFlags"/> member is set.
-            /// On the first call to <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> or <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> you must set this field to zero.
+            /// On the first call to <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> or <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> you must set this field to zero.
             /// Note: During the chaining sequence, this member is maintained internally and must not be changed or the value of the computed MAC will be corrupted.
             /// </summary>
             public long cbData;
 
             /// <summary>
-            /// This flag is used when chaining <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> or <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> function calls.
+            /// This flag is used when chaining <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> or <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> function calls.
             /// If calls are not being chained, this member must be set to zero.
             /// </summary>
             public AuthModeFlags dwFlags;

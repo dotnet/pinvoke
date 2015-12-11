@@ -22,12 +22,12 @@ namespace PInvoke
             None = 0x0,
 
             /// <summary>
-            /// Indicates that <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> function calls are being chained and that the MAC value will not be computed. On the last call in the chain, clear this value to compute the MAC value for the entire chain.
+            /// Indicates that <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> function calls are being chained and that the MAC value will not be computed. On the last call in the chain, clear this value to compute the MAC value for the entire chain.
             /// </summary>
             BCRYPT_AUTH_MODE_CHAIN_CALLS_FLAG = 0x1,
 
             /// <summary>
-            /// Indicates that this <see cref="BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO"/> structure is being used in a sequence of chained <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> or <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, IntPtr, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> function calls. This flag is set and maintained internally.
+            /// Indicates that this <see cref="BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO"/> structure is being used in a sequence of chained <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> or <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> function calls. This flag is set and maintained internally.
             /// Note: During the chaining sequence, this flag value is maintained internally and must not be changed or the value of the computed MAC will be corrupted.
             /// </summary>
             BCRYPT_AUTH_MODE_IN_PROGRESS_FLAG = 0x2,
