@@ -77,6 +77,7 @@ namespace PInvoke
                     {
                         result[i] = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure(new IntPtr(position), typeof(ENUM_SERVICE_STATUS));
                         position += structSize;
+                        Marshal.DestroyStructure(new IntPtr(position), typeof(ENUM_SERVICE_STATUS));
                     }
 
                     return result;
