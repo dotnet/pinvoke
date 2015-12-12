@@ -18,7 +18,7 @@ namespace PInvoke
         /// Enumerates services in the specified service control manager database.
         /// The name and status of each service are provided.
         /// This function has been superseded by the EnumServicesStatusEx function.
-        /// It returns the same information <see cref="EnumServicesStatus(SafeServiceHandle,ServiceType,ServiceStateQuery,IntPtr,int,ref int,ref int,ref int)"/> returns, plus the process identifier and additional information for the service.
+        /// It returns the same information <see cref="EnumServicesStatus(SafeServiceHandle,ServiceType,ServiceStateQuery,byte*,int,ref int,ref int,ref int)"/> returns, plus the process identifier and additional information for the service.
         /// In addition, EnumServicesStatusEx enables you to enumerate services that belong to a specified group.
         /// </summary>
         /// <param name="hSCManager">
@@ -95,11 +95,11 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool EnumServicesStatus(
+        public static unsafe extern bool EnumServicesStatus(
             SafeServiceHandle hSCManager,
             ServiceType dwServiceType,
             ServiceStateQuery dwServiceState,
-            IntPtr lpServices,
+            byte* lpServices,
             int cbBufSize,
             ref int pcbBytesNeeded,
             ref int lpServicesReturned,

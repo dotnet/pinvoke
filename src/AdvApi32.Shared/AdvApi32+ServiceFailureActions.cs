@@ -47,7 +47,7 @@ namespace PInvoke
             /// A pointer to an array of <see cref="ServiceControlAction"/> structures.
             /// If this value is NULL, the <see cref="cActions"/> and <see cref="dwResetPeriod"/> members are ignored.
             /// </summary>
-            public System.IntPtr lpsaActions;
+            public ServiceControlAction[] lpsaActions;
         }
     }
 }
