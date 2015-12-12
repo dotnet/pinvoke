@@ -207,7 +207,7 @@ namespace PInvoke
         /// </param>
         /// <param name="lpInfo">
         /// A pointer to the new value to be set for the configuration information.
-        /// The format of this data depends on the value of the dwInfoLevel parameter.
+        /// The format of this data depends on the value of the <paramref name="dwInfoLevel"/> parameter.
         /// If this value is NULL, the information remains unchanged.
         /// </param>
         /// <returns>
@@ -224,7 +224,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hService">
         /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function.
-        /// The access rights required for this handle depend on the dwControl code requested.
+        /// The access rights required for this handle depend on the <paramref name="dwControl"/> code requested.
         /// </param>
         /// <param name="dwControl">
         /// This parameter can be one of the following control codes.

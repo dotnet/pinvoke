@@ -68,14 +68,14 @@ namespace PInvoke
         /// A pointer to a buffer that contains an array of <see cref="ENUM_SERVICE_STATUS"/> structures that receive the name and service status information for each service in the database.
         /// The buffer must be large enough to hold the structures, plus the strings to which their members point.
         /// The maximum size of this array is 256K bytes.
-        /// To determine the required size, specify NULL for this parameter and 0 for the cbBufSize parameter.
-        /// The function will fail and GetLastError will return <see cref="Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER"/>.
-        /// The pcbBytesNeeded parameter will receive the required size.
+        /// To determine the required size, specify NULL for this parameter and 0 for the <paramref name="cbBufSize" /> parameter.
+        /// The function will fail and <see cref="GetLastError"/> will return <see cref="Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER"/>.
+        /// The <paramref name="pcbBytesNeeded"/> parameter will receive the required size.
         /// Windows Server 2003 and Windows XP:  The maximum size of this array is 64K bytes.
         /// This limit was increased as of Windows Server 2003 with SP1 and Windows XP with SP2.
         /// </param>
         /// <param name="cbBufSize">
-        /// The size of the buffer pointed to by the lpServices parameter, in bytes.
+        /// The size of the buffer pointed to by the <paramref name="lpServices"/> parameter, in bytes.
         /// </param>
         /// <param name="pcbBytesNeeded">
         /// A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
@@ -86,12 +86,12 @@ namespace PInvoke
         /// <param name="lpResumeHandle">
         /// A pointer to a variable that, on input, specifies the starting point of enumeration.
         /// You must set this value to zero the first time this function is called. On output, this value is zero if the function succeeds.
-        /// However, if the function returns zero and the GetLastError function returns <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>,
+        /// However, if the function returns zero and the <see cref="GetLastError"/> function returns <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>,
         /// this value is used to indicate the next service entry to be read when the function is called to retrieve the additional data.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
