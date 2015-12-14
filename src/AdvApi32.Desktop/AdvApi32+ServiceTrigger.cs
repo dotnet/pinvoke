@@ -29,21 +29,21 @@ namespace PInvoke
 
             /// <summary>
             /// Points to a GUID that identifies the trigger event subtype. The value
-            /// of this member depends on the value of the dwTriggerType member.
+            /// of this member depends on the value of the <see cref="dwTriggerType"/> member.
             /// </summary>
             public IntPtr pTriggerSubtype;
 
             /// <summary>
-            /// The number of SERVICE_TRIGGER_SPECIFIC_DATA_ITEM structures in the
-            /// array pointed to by pDataItems.
+            /// The number of <see cref="SERVICE_TRIGGER_SPECIFIC_DATA_ITEM"/> structures in the
+            /// array pointed to by <see cref="pDataItems"/>.
             /// </summary>
             public int cDataItems;
 
             /// <summary>
-            /// A pointer to an array of SERVICE_TRIGGER_SPECIFIC_DATA_ITEM
+            /// A pointer to an array of <see cref="SERVICE_TRIGGER_SPECIFIC_DATA_ITEM"/>
             /// structures that contain trigger-specific data.
             /// </summary>
-            public IntPtr pDataItems;
+            public SERVICE_TRIGGER_SPECIFIC_DATA_ITEM[] pDataItems;
         }
     }
 }
