@@ -1,6 +1,7 @@
-{
+﻿{
   "supports": { },
   "dependencies": {
+    "StyleCop.Analyzers": "1.0.0-rc2",
     "xunit": "2.1.0",
     "xunit.runner.visualstudio": "2.1.0"
   },
