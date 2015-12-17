@@ -27,7 +27,7 @@ namespace PInvoke
             /// A pointer to an array of <see cref="ServiceTrigger"/> structures that specify the trigger events for the service.
             /// If the cTriggers member is 0, this member is not used.
             /// </summary>
-            public IntPtr pTriggers;
+            public ServiceTrigger[] pTriggers;
 
             /// <summary>
             /// This member is reserved and must be NULL.

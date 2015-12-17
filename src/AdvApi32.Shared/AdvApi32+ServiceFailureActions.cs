@@ -21,7 +21,7 @@ namespace PInvoke
 
             /// <summary>
             /// The message to be broadcast to server users before rebooting in response to the <see cref="ServiceControlActionType.SC_ACTION_REBOOT"/> service controller action.
-            /// If this value is NULL, the reboot message is unchanged.If the value is an empty string (""), the reboot message is deleted and no message is broadcast.
+            /// If this value is NULL, the reboot message is unchanged. If the value is an empty string (""), the reboot message is deleted and no message is broadcast.
             /// This member can specify a localized string using the following format:
             /// @[path\]
             /// dllname,-strID
@@ -39,15 +39,15 @@ namespace PInvoke
 
             /// <summary>
             /// The number of elements in the lpsaActions array.
-            /// If this value is 0, but lpsaActions is not NULL, the reset period and array of failure actions are deleted.
+            /// If this value is 0, but <see cref="lpsaActions"/> is not NULL, the reset period and array of failure actions are deleted.
             /// </summary>
             public int cActions;
 
             /// <summary>
             /// A pointer to an array of <see cref="ServiceControlAction"/> structures.
-            /// If this value is NULL, the cActions and dwResetPeriod members are ignored.
+            /// If this value is NULL, the <see cref="cActions"/> and <see cref="dwResetPeriod"/> members are ignored.
             /// </summary>
-            public System.IntPtr lpsaActions;
+            public ServiceControlAction[] lpsaActions;
         }
     }
 }

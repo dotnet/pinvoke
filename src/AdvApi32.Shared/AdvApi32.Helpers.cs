@@ -50,7 +50,7 @@ namespace PInvoke
         /// </param>
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
         /// <exception cref="ArgumentException"><paramref name="lpServiceName" /> or <paramref name="lpBinaryPathName"/> are NULL or empty string.</exception>
-        public static void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
+        public static unsafe void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
         {
             if (string.IsNullOrWhiteSpace(lpBinaryPathName))
             {
@@ -96,20 +96,15 @@ namespace PInvoke
                         lpDescription = lpDescription
                     };
 
-                    IntPtr lpInfo = Marshal.AllocHGlobal(Marshal.SizeOf(descriptionStruct));
-
-                    try
+                    fixed (void* lpInfo = new byte[Marshal.SizeOf(descriptionStruct)])
                     {
-                        Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
+                        Marshal.StructureToPtr(descriptionStruct, new IntPtr(lpInfo), false);
                         if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
                         {
                             throw new Win32Exception();
                         }
-                    }
-                    finally
-                    {
-                        Marshal.DestroyStructure(lpInfo, typeof(ServiceDescription));
-                        Marshal.FreeHGlobal(lpInfo);
+
+                        Marshal.DestroyStructure(new IntPtr(lpInfo), typeof(ServiceDescription));
                     }
                 }
             }

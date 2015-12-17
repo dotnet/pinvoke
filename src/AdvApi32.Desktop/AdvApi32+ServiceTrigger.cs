@@ -29,7 +29,7 @@ namespace PInvoke
 
             /// <summary>
             /// Points to a GUID that identifies the trigger event subtype. The value
-            /// of this member depends on the value of the dwTriggerType member.
+            /// of this member depends on the value of the <see cref="dwTriggerType"/> member.
             /// </summary>
             public IntPtr pTriggerSubtype;
 
