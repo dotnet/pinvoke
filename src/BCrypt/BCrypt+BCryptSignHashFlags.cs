@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class BCrypt
     {
         /// <summary>
-        /// Flags that can be passed to <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/>.
+        /// Flags that can be passed to <see cref="BCryptSignHash(SafeKeyHandle, byte[], void*, BCryptSignHashFlags)"/>.
         /// </summary>
         [Flags]
         public enum BCryptSignHashFlags

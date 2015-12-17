@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class BCrypt
     {
         /// <summary>
-        /// Flags that can be passed to the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> method.
+        /// Flags that can be passed to the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> method.
         /// </summary>
         [Flags]
         public enum BCryptEncryptFlags
