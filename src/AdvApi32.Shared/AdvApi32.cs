@@ -41,7 +41,7 @@ namespace PInvoke
 
         /// <summary>
         /// Changes the configuration parameters of a service.
-        /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2"/> function.
+        /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2(SafeServiceHandle, ServiceInfoLevel, void*)"/> function.
         /// </summary>
         /// <param name="hService">
         /// A handle to the service.
