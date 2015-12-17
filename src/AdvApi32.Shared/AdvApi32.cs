@@ -11,7 +11,7 @@ namespace PInvoke
     /// Exported functions from the AdvApi32.dll Windows library
     /// that are available to Desktop and Store apps.
     /// </content>
-    [OfferIntPtrOverload]
+    [OfferIntPtrOverloads]
     public static partial class AdvApi32
     {
         /// <summary>

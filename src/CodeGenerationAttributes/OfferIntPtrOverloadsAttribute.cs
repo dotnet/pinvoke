@@ -14,7 +14,7 @@ namespace PInvoke
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     [CodeGenerationAttribute("PInvoke.OfferIntPtrOverloadGenerator, CodeGeneration, Version=0.1.0.0, Culture=neutral, PublicKeyToken=9e300f9f87f04a7a")]
     [Conditional("CodeGeneration")]
-    public class OfferIntPtrOverloadAttribute : Attribute
+    public class OfferIntPtrOverloadsAttribute : Attribute
     {
     }
 }

@@ -28,7 +28,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OfferIntPtrOverloadAttribute.cs" />
+    <Compile Include="OfferIntPtrOverloadsAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
