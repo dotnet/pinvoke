@@ -562,7 +562,7 @@ namespace PInvoke
         /// The signature produced by this function.
         /// </returns>
         /// <remarks>
-        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
+        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature(SafeKeyHandle, void*, byte[], int, byte[], int, BCryptSignHashFlags)"/> function with an identical key and an identical hash of the original data.
         /// </remarks>
         public static unsafe ArraySegment<byte> BCryptSignHash(
             SafeKeyHandle key,

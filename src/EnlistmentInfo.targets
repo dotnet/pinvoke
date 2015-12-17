@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
+    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Desktop\" />
   </ItemGroup>
 
   <Import Project="NuProj.Extra.targets" Condition=" '$(MSBuildProjectExtension)' == '.nuproj' "/>
