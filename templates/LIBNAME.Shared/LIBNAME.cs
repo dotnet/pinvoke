@@ -10,6 +10,7 @@ namespace PInvoke
     /// Exported functions from the LIBNAME.dll Windows library
     /// that are available to Desktop and Store apps.
     /// </summary>
+    [OfferIntPtrOverload]
     public static partial class LIBNAME
     {
     }

@@ -25,6 +25,15 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeGenerationAttributes.Net40\CodeGenerationAttributes.Net40.csproj">
+      <Project>{6a77281b-c503-44ea-90c1-0e9868d06cd0}</Project>
+      <Name>CodeGenerationAttributes.Net40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
+      <Name>CodeGeneration</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
       <Project>{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}</Project>
       <Name>Kernel32.Desktop</Name>
