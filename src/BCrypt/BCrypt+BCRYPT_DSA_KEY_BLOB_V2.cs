@@ -1,10 +1,10 @@
 ﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
-using System.Runtime.InteropServices;
-
 namespace PInvoke
 {
+    using System.Runtime.InteropServices;
+
     /// <content>
     /// Contains the <see cref="BCRYPT_DSA_KEY_BLOB_V2"/> nested type.
     /// </content>

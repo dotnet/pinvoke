@@ -3,6 +3,9 @@
 
 namespace PInvoke
 {
+    /// <content>
+    /// Contains the <see cref="HASHALGORITHM_ENUM"/> nested type.
+    /// </content>
     public partial class BCrypt
     {
         public enum HASHALGORITHM_ENUM

@@ -3,6 +3,9 @@
 
 namespace PInvoke
 {
+    /// <content>
+    /// Contains the <see cref="DSAFIPSVERSION_ENUM"/> nested type.
+    /// </content>
     public partial class BCrypt
     {
         public enum DSAFIPSVERSION_ENUM
