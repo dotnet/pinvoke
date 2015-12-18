@@ -46,9 +46,11 @@
     <Compile Include="AdvApi32+ServiceTriggerAction.cs" />
     <Compile Include="AdvApi32+ServiceTriggerType.cs" />
     <Compile Include="AdvApi32+ServiceTriggerInfo.cs" />
+    <Compile Include="AdvApi32+SERVICE_TRIGGER_SPECIFIC_DATA_ITEM.cs" />
     <Compile Include="AdvApi32.cs" />
     <Compile Include="AdvApi32.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AdvApi32+ServiceTriggerDataType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdvApi32.exports.txt">
