@@ -21,7 +21,7 @@ namespace PInvoke
             /// If this value is an empty string (""), the current description is deleted.
             /// The service description must not exceed the size of a registry value of type REG_SZ.
             /// </summary>
-            [MarshalAs(UnmanagedType.LPStr)]
+            [MarshalAs(UnmanagedType.LPWStr)]
             public string lpDescription;
         }
     }
