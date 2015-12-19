@@ -11,6 +11,7 @@ namespace PInvoke
     /// Exported functions from the AdvApi32.dll Windows library
     /// that are available to Desktop and Store apps.
     /// </content>
+    [OfferIntPtrOverloads]
     public static partial class AdvApi32
     {
         /// <summary>
@@ -40,7 +41,7 @@ namespace PInvoke
 
         /// <summary>
         /// Changes the configuration parameters of a service.
-        /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2"/> function.
+        /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2(SafeServiceHandle, ServiceInfoLevel, void*)"/> function.
         /// </summary>
         /// <param name="hService">
         /// A handle to the service.

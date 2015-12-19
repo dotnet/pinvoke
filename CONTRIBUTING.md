@@ -84,7 +84,11 @@ anything else found in native header files for these reasons:
  * Prefer `SafeHandle`-derived types to `IntPtr` when dealing with handles.
    Mark P/Invoke methods that destroy handles private because they will necessarily take `IntPtr`
    and the pattern for users should be to `Dispose` of your `SafeHandle`.
- * Prefer `IntPtr` over unsafe pointers. But be sure the xml doc comments for the parameter specify the expected type.
+ * Prefer native pointers over `IntPtr`. We have automatic code generation in place during the build
+   to create `IntPtr` overloads of these methods.
+ * When a native method accepts a pointer to a byte array, consider creating two P/Invoke overloads:
+   one that takes `byte[]` and one that takes `byte*`. The former being more convenient for most callers,
+   while the latter is more efficient when callers may want to point to some offset into the array.
  * Prefer `enum` types over `int` or `uint` flags. Generally, name flags enums as `METHODNAMEFlags`, for example
    `CreateFileFlags` for the flags that are passed to `CreateFile`.
 

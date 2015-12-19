@@ -290,8 +290,9 @@ public class BCrypt
                     authInfo.pbTag = new IntPtr(pTagBuffer);
                     authInfo.cbTag = tagBuffer.Length;
 
+                    // Mix up calling the IntPtr and native pointer overloads so we test both.
                     int cipherTextLength;
-                    BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    BCryptEncrypt(key, plainText, plainText.Length, new IntPtr(&authInfo), null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                     cipherText = new byte[cipherTextLength];
                     BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                 }

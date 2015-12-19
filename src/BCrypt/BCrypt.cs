@@ -11,6 +11,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the BCrypt.dll Windows library.
     /// </summary>
+    [OfferIntPtrOverloads]
     public static partial class BCrypt
     {
         /// <summary>
@@ -371,7 +372,7 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         /// <remarks>
-        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
+        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature(SafeKeyHandle, void*, byte[], int, byte[], int, BCryptSignHashFlags)"/> function with an identical key and an identical hash of the original data.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
         public static unsafe extern NTStatus BCryptSignHash(
