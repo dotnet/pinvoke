@@ -11,6 +11,7 @@ namespace PInvoke
     /// Exported functions from the AdvApi32.dll Windows library
     /// that are available to Desktop and Store apps.
     /// </content>
+    [OfferIntPtrOverloads]
     public static partial class AdvApi32
     {
         /// <summary>
@@ -40,7 +41,7 @@ namespace PInvoke
 
         /// <summary>
         /// Changes the configuration parameters of a service.
-        /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2"/> function.
+        /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2(SafeServiceHandle, ServiceInfoLevel, void*)"/> function.
         /// </summary>
         /// <param name="hService">
         /// A handle to the service.
@@ -207,7 +208,7 @@ namespace PInvoke
         /// </param>
         /// <param name="lpInfo">
         /// A pointer to the new value to be set for the configuration information.
-        /// The format of this data depends on the value of the dwInfoLevel parameter.
+        /// The format of this data depends on the value of the <paramref name="dwInfoLevel"/> parameter.
         /// If this value is NULL, the information remains unchanged.
         /// </param>
         /// <returns>
@@ -216,7 +217,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_service_management_l2_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool ChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, IntPtr lpInfo);
+        public static unsafe extern bool ChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, void* lpInfo);
 
         /// <summary>
         /// Sends a control code to a service.
@@ -224,7 +225,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hService">
         /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function.
-        /// The access rights required for this handle depend on the dwControl code requested.
+        /// The access rights required for this handle depend on the <paramref name="dwControl"/> code requested.
         /// </param>
         /// <param name="dwControl">
         /// This parameter can be one of the following control codes.

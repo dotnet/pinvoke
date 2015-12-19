@@ -50,7 +50,7 @@ namespace PInvoke
         /// </param>
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
         /// <exception cref="ArgumentException"><paramref name="lpServiceName" /> or <paramref name="lpBinaryPathName"/> are NULL or empty string.</exception>
-        public static void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
+        public static unsafe void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
         {
             if (string.IsNullOrWhiteSpace(lpBinaryPathName))
             {
@@ -96,20 +96,15 @@ namespace PInvoke
                         lpDescription = lpDescription
                     };
 
-                    IntPtr lpInfo = Marshal.AllocHGlobal(Marshal.SizeOf(descriptionStruct));
-
-                    try
+                    fixed (void* lpInfo = new byte[Marshal.SizeOf(descriptionStruct)])
                     {
-                        Marshal.StructureToPtr(descriptionStruct, lpInfo, false);
+                        Marshal.StructureToPtr(descriptionStruct, new IntPtr(lpInfo), false);
                         if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
                         {
                             throw new Win32Exception();
                         }
-                    }
-                    finally
-                    {
-                        Marshal.DestroyStructure(lpInfo, typeof(ServiceDescription));
-                        Marshal.FreeHGlobal(lpInfo);
+
+                        Marshal.DestroyStructure(new IntPtr(lpInfo), typeof(ServiceDescription));
                     }
                 }
             }
@@ -155,14 +150,14 @@ namespace PInvoke
             }
         }
 
-        /// <summary>Get the elevation type of a token via <see cref="GetTokenInformation" />.</summary>
+        /// <summary>Get the elevation type of a token via <see cref="GetTokenInformation(SafeObjectHandle, TOKEN_INFORMATION_CLASS, void*, int, out int)" />.</summary>
         /// <param name="TokenHandle">
         ///     A handle to an access token from which information is retrieved. The handle must have
         ///     TOKEN_QUERY access.
         /// </param>
         /// <returns>The token elevation type</returns>
         /// <exception cref="ArgumentNullException"><paramref name="TokenHandle" /> is NULL.</exception>
-        /// <exception cref="Win32Exception">If the call to <see cref="GetTokenInformation" /> fails.</exception>
+        /// <exception cref="Win32Exception">If the call to <see cref="GetTokenInformation(SafeObjectHandle, TOKEN_INFORMATION_CLASS, void*, int, out int)" /> fails.</exception>
         public static TOKEN_ELEVATION_TYPE GetTokenElevationType(SafeObjectHandle TokenHandle)
         {
             if (TokenHandle == null)

@@ -70,7 +70,9 @@
     <Compile Include="BCrypt+SafeKeyHandle.cs" />
     <Compile Include="BCrypt+SafeSecretHandle.cs" />
     <Compile Include="BCrypt+SymmetricKeyBlobTypes.cs" />
-    <Compile Include="BCrypt.cs" />
+    <Compile Include="BCrypt.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="BCrypt.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,6 +80,16 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj">
+      <Project>{1387e009-7086-4572-ac8d-ce4242adec77}</Project>
+      <Name>CodeGenerationAttributes</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
+      <Name>CodeGeneration</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\Kernel32\Kernel32.csproj">
       <Project>{1fdc092a-d3e8-4cc4-b896-17e0a213f723}</Project>
       <Name>Kernel32</Name>

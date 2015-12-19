@@ -11,6 +11,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the BCrypt.dll Windows library.
     /// </summary>
+    [OfferIntPtrOverloads]
     public static partial class BCrypt
     {
         /// <summary>
@@ -114,7 +115,7 @@ namespace PInvoke
         /// <param name="cbIV">The size, in bytes, of the pbIV buffer.</param>
         /// <param name="pbOutput">
         /// The address of the buffer that receives the ciphertext produced by this function. The <paramref name="cbOutput"/> parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
+        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
         /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="pPaddingInfo"/> parameter.
         /// </param>
         /// <param name="cbOutput">
@@ -131,11 +132,11 @@ namespace PInvoke
         /// The <paramref name="pbInput"/> and <paramref name="pbOutput"/> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptEncrypt(
+        public static unsafe extern NTStatus BCryptEncrypt(
             SafeKeyHandle hKey,
             byte[] pbInput,
             int cbInput,
-            IntPtr pPaddingInfo,
+            void* pPaddingInfo,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pbIV,
             int cbIV,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 8)] byte[] pbOutput,
@@ -166,7 +167,7 @@ namespace PInvoke
         /// <param name="cbIV">The size, in bytes, of the pbIV buffer.</param>
         /// <param name="pbOutput">
         /// The address of the buffer that receives the ciphertext produced by this function. The <paramref name="cbOutput"/> parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
+        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
         /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="pPaddingInfo"/> parameter.
         /// </param>
         /// <param name="cbOutput">
@@ -220,7 +221,7 @@ namespace PInvoke
         /// </param>
         /// <param name="pbOutput">
         /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.
+        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.
         /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="pPaddingInfo"/> parameter, is verified.
         /// </param>
         /// <param name="cbOutput">
@@ -234,11 +235,11 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptDecrypt(
+        public static unsafe extern NTStatus BCryptDecrypt(
             SafeKeyHandle hKey,
             byte[] pbInput,
             int cbInput,
-            IntPtr pPaddingInfo,
+            void* pPaddingInfo,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pbIV,
             int cbIV,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 8)] byte[] pbOutput,
@@ -271,7 +272,7 @@ namespace PInvoke
         /// </param>
         /// <param name="pbOutput">
         /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], IntPtr, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.
+        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.
         /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="pPaddingInfo"/> parameter, is verified.
         /// </param>
         /// <param name="cbOutput">
@@ -371,12 +372,12 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         /// <remarks>
-        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature"/> function with an identical key and an identical hash of the original data.
+        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature(SafeKeyHandle, void*, byte[], int, byte[], int, BCryptSignHashFlags)"/> function with an identical key and an identical hash of the original data.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptSignHash(
+        public static unsafe extern NTStatus BCryptSignHash(
             SafeKeyHandle hKey,
-            IntPtr pPaddingInfo,
+            void* pPaddingInfo,
             byte[] pbInput,
             int cbInput,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] pbOutput,
@@ -388,7 +389,7 @@ namespace PInvoke
         /// Verifies that the specified signature matches the specified hash.
         /// </summary>
         /// <param name="hKey">
-        /// The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function.
+        /// The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <see cref="BCryptSignHash(SafeKeyHandle, byte[], void*, BCryptSignHashFlags)"/> function.
         /// </param>
         /// <param name="pPaddingInfo">
         /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="dwFlags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
@@ -400,10 +401,10 @@ namespace PInvoke
         /// The size, in bytes, of the <paramref name="pbHash"/> buffer.
         /// </param>
         /// <param name="pbSignature">
-        /// The address of a buffer that contains the signed hash of the data. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function is used to create the signature. The <paramref name="cbSignature"/> parameter contains the size of this buffer.
+        /// The address of a buffer that contains the signed hash of the data. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], void*, BCryptSignHashFlags)"/> function is used to create the signature. The <paramref name="cbSignature"/> parameter contains the size of this buffer.
         /// </param>
         /// <param name="cbSignature">
-        /// The size, in bytes, of the <paramref name="pbSignature"/> buffer. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], IntPtr, BCryptSignHashFlags)"/> function is used to create the signature.
+        /// The size, in bytes, of the <paramref name="pbSignature"/> buffer. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], void*, BCryptSignHashFlags)"/> function is used to create the signature.
         /// </param>
         /// <param name="dwFlags">
         /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
@@ -415,9 +416,9 @@ namespace PInvoke
         /// In particular, an invalid signature will produce a <see cref="NTStatus.STATUS_INVALID_SIGNATURE"/> result.
         /// </returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptVerifySignature(
+        public static unsafe extern NTStatus BCryptVerifySignature(
             SafeKeyHandle hKey,
-            IntPtr pPaddingInfo,
+            void* pPaddingInfo,
             byte[] pbHash,
             int cbHash,
             byte[] pbSignature,

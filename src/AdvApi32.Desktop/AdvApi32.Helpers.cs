@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Runtime.InteropServices;
     using System.Security.AccessControl;
     using static Kernel32;
@@ -23,7 +24,7 @@ namespace PInvoke
         /// An IEnumerable of <see cref="ENUM_SERVICE_STATUS"/> structures that receive the name and service status information for each service in the database.
         /// </returns>
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
-        public static IEnumerable<ENUM_SERVICE_STATUS> EnumServicesStatus()
+        public static unsafe IEnumerable<ENUM_SERVICE_STATUS> EnumServicesStatus()
         {
             using (var scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_ENUMERATE_SERVICE))
             {
@@ -35,54 +36,53 @@ namespace PInvoke
                 int bufferSizeNeeded = 0;
                 int numServicesReturned = 0;
                 int resumeIndex = 0;
-                if (!EnumServicesStatus(
+                if (EnumServicesStatus(
                     scmHandle,
                     ServiceType.SERVICE_WIN32,
                     ServiceStateQuery.SERVICE_STATE_ALL,
-                    IntPtr.Zero,
+                    null,
                     0,
                     ref bufferSizeNeeded,
                     ref numServicesReturned,
                     ref resumeIndex))
                 {
-                    var lastError = GetLastError();
-                    if (lastError != Win32ErrorCode.ERROR_MORE_DATA)
+                    return Enumerable.Empty<ENUM_SERVICE_STATUS>();
+                }
+
+                var lastError = GetLastError();
+                if (lastError != Win32ErrorCode.ERROR_MORE_DATA)
+                {
+                    throw new Win32Exception(lastError);
+                }
+
+                fixed (byte* buffer = new byte[bufferSizeNeeded])
+                {
+                    if (!EnumServicesStatus(
+                        scmHandle,
+                        ServiceType.SERVICE_WIN32,
+                        ServiceStateQuery.SERVICE_STATE_ALL,
+                        buffer,
+                        bufferSizeNeeded,
+                        ref bufferSizeNeeded,
+                        ref numServicesReturned,
+                        ref resumeIndex))
                     {
-                        throw new Win32Exception(lastError);
+                        throw new Win32Exception();
                     }
 
-                    IntPtr buffer = Marshal.AllocHGlobal(bufferSizeNeeded);
-
-                    try
+                    var result = new ENUM_SERVICE_STATUS[numServicesReturned];
+                    byte* position = buffer;
+                    int structSize = Marshal.SizeOf(typeof(ENUM_SERVICE_STATUS));
+                    for (int i = 0; i < numServicesReturned; i++)
                     {
-                        if (!EnumServicesStatus(
-                                    scmHandle,
-                                    ServiceType.SERVICE_WIN32,
-                                    ServiceStateQuery.SERVICE_STATE_ALL,
-                                    buffer,
-                                    bufferSizeNeeded,
-                                    ref bufferSizeNeeded,
-                                    ref numServicesReturned,
-                                    ref resumeIndex))
-                        {
-                            throw new Win32Exception();
-                        }
+                        result[i] = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure(new IntPtr(position), typeof(ENUM_SERVICE_STATUS));
+                        position += structSize;
+                    }
 
-                        int possition = buffer.ToInt32();
-                        for (int i = 0; i < numServicesReturned; i++)
-                        {
-                            var serviceStatus = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure(new IntPtr(possition), typeof(ENUM_SERVICE_STATUS));
-                            possition += Marshal.SizeOf(serviceStatus);
-                            yield return serviceStatus;
-                        }
-                    }
-                    finally
-                    {
-                        Marshal.FreeHGlobal(buffer);
-                    }
-                    }
+                    return result;
                 }
             }
+        }
 
         /// <summary>
         ///     Retrieves a copy of the security descriptor associated with a service object. You can also use the

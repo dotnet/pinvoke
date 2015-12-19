@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class AdvApi32
     {
         /// <summary>
-        /// Indicates the elevation type of token being queried by the <see cref="GetTokenInformation"/> function.
+        /// Indicates the elevation type of token being queried by the <see cref="GetTokenInformation(Kernel32.SafeObjectHandle, TOKEN_INFORMATION_CLASS, void*, int, out int)"/> function.
         /// </summary>
         public enum TOKEN_ELEVATION_TYPE
         {

@@ -12,7 +12,7 @@ namespace PInvoke
     public static partial class AdvApi32
     {
         /// <summary>
-        /// Contains trigger event information for a service. This structure is used by the <see cref="ChangeServiceConfig2"/> and QueryServiceConfig2 functions.
+        /// Contains trigger event information for a service. This structure is used by the <see cref="ChangeServiceConfig2(SafeServiceHandle, ServiceInfoLevel, void*)"/> and QueryServiceConfig2 functions.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct ServiceTriggerInfo
@@ -27,7 +27,7 @@ namespace PInvoke
             /// A pointer to an array of <see cref="ServiceTrigger"/> structures that specify the trigger events for the service.
             /// If the cTriggers member is 0, this member is not used.
             /// </summary>
-            public IntPtr pTriggers;
+            public ServiceTrigger[] pTriggers;
 
             /// <summary>
             /// This member is reserved and must be NULL.

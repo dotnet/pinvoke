@@ -113,6 +113,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvApi32", "AdvApi32\AdvApi
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Win32", "PInvoke.Win32\PInvoke.Win32.nuproj", "{65008241-13FE-4DA1-A197-28795195B6C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGeneration", "CodeGeneration\CodeGeneration.csproj", "{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerationAttributes", "CodeGenerationAttributes\CodeGenerationAttributes.csproj", "{1387E009-7086-4572-AC8D-CE4242ADEC77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGen", "CodeGen", "{BC58E358-D202-41B7-BDC3-38E084F36F0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGeneration.Debugging", "CodeGeneration.Debugging\CodeGeneration.Debugging.csproj", "{95305207-62AE-4019-83EC-079008625219}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerationAttributes.Net40", "CodeGenerationAttributes.Net40\CodeGenerationAttributes.Net40.csproj", "{6A77281B-C503-44EA-90C1-0E9868D06CD0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		AdvApi32.Shared\AdvApi32.Shared.projitems*{3fcbf2e0-1330-454c-8a17-af14eba6b244}*SharedItemsImports = 4
@@ -289,8 +299,30 @@ Global
 		{65008241-13FE-4DA1-A197-28795195B6C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65008241-13FE-4DA1-A197-28795195B6C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65008241-13FE-4DA1-A197-28795195B6C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1387E009-7086-4572-AC8D-CE4242ADEC77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1387E009-7086-4572-AC8D-CE4242ADEC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1387E009-7086-4572-AC8D-CE4242ADEC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1387E009-7086-4572-AC8D-CE4242ADEC77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95305207-62AE-4019-83EC-079008625219}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95305207-62AE-4019-83EC-079008625219}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95305207-62AE-4019-83EC-079008625219}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95305207-62AE-4019-83EC-079008625219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1815471-02AF-4BB9-8D83-652ADBAFF5B6} = {BC58E358-D202-41B7-BDC3-38E084F36F0B}
+		{1387E009-7086-4572-AC8D-CE4242ADEC77} = {BC58E358-D202-41B7-BDC3-38E084F36F0B}
+		{95305207-62AE-4019-83EC-079008625219} = {BC58E358-D202-41B7-BDC3-38E084F36F0B}
+		{6A77281B-C503-44EA-90C1-0E9868D06CD0} = {BC58E358-D202-41B7-BDC3-38E084F36F0B}
 	EndGlobalSection
 EndGlobal
