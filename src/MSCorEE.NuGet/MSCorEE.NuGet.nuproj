@@ -35,7 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSCorEE.Desktop\MSCorEE.Desktop.csproj" />
-    <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PInvoke.MSCorEE.nuspec" />
