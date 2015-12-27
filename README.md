@@ -52,6 +52,7 @@ Library      | Package name     | NuGet       | Description
 -------------|------------------|-------------|-------------
 advapi32.dll |`PInvoke.AdvApi32`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.AdvApi32.svg)](https://www.nuget.org/packages/PInvoke.AdvApi32)|Windows Advanced Services
 bcrypt.dll   |`PInvoke.BCrypt`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.BCrypt.svg)](https://www.nuget.org/packages/PInvoke.BCrypt)|[Windows Cryptography API: Next Generation][CNG]
+crypt32.dll  |`PInvoke.Crypt32` | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Crypt32.svg)](https://www.nuget.org/packages/PInvoke.Crypt32)|[Windows Cryptography API][Crypt32]
 gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Gdi32.svg)](https://www.nuget.org/packages/PInvoke.Gdi32)|[Windows Graphics Device Interface][Gdi]
 hid.dll      |`PInvoke.Hid`     | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Hid.svg)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
 kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Kernel32.svg)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
@@ -70,6 +71,7 @@ Once you contribute, you can immediately consume your additions without waiting 
 public release of the library.
 
 [CNG]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa376210
+[Crypt32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa380256
 [Hid]: https://msdn.microsoft.com/en-us/library/windows/hardware/ff538865
 [SetupApi]: https://msdn.microsoft.com/en-us/library/windows/hardware/ff550855
 [Gdi]: https://msdn.microsoft.com/en-us/library/dd145203
