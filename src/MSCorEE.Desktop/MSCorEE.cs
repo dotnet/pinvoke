@@ -10,6 +10,7 @@ namespace PInvoke
     /// Exported functions from the MSCorEE.dll Windows library
     /// that are available to Desktop and Store apps.
     /// </summary>
+    [OfferIntPtrOverloads]
     public static partial class MSCorEE
     {
         /// <summary>
@@ -47,7 +48,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="pbPublicKeyBlob">A structure of type PublicKeyBlob that contains the public portion of the key pair used to generate the strong name signature.</param>
         /// <param name="cbPublicKeyBlob">The size, in bytes, of <paramref name="pbPublicKeyBlob"/>.</param>
-        /// <param name="ppbStrongNameToken">The strong name token corresponding to the key passed in <paramref name="pbPublicKeyBlob"/>. The common language runtime allocates the memory in which to return the token. The caller must free this memory by using the <see cref="StrongNameFreeBuffer"/> method.</param>
+        /// <param name="ppbStrongNameToken">The strong name token corresponding to the key passed in <paramref name="pbPublicKeyBlob"/>. The common language runtime allocates the memory in which to return the token. The caller must free this memory by using the <see cref="StrongNameFreeBuffer(byte*)"/> method.</param>
         /// <param name="pcbStrongNameToken">The size, in bytes, of the returned strong name token.</param>
         /// <returns>
         /// S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure.
