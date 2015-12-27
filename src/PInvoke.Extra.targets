@@ -21,6 +21,6 @@
       <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">$(windir)\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
     </PropertyGroup>
     <Message Text="Exporting P/Invoke methods from $(TargetPath)" />
-    <Exec Command='$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp; &apos;$(ProjectRoot)tools\Create-PInvokeTxtFile.ps1&apos; &apos;$(TargetPath)&apos; } &quot;' />
+    <Exec LogStandardErrorAsError="true" Command='$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp; &apos;$(ProjectRoot)tools\Create-PInvokeTxtFile.ps1&apos; &apos;$(TargetPath)&apos; } &quot;' />
   </Target>
 </Project>
