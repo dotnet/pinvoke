@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\templates\AddNewLibrary.ps1 = ..\templates\AddNewLibrary.ps1
-		..\CONTRIB.md = ..\CONTRIB.md
+		..\CONTRIBUTING.md = ..\CONTRIBUTING.md
 		..\COPYRIGHT.md = ..\COPYRIGHT.md
 		..\templates\CreateExportsTxtFile.ps1 = ..\templates\CreateExportsTxtFile.ps1
 		..\LICENSE.txt = ..\LICENSE.txt
@@ -122,6 +122,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGeneration.Debugging", "CodeGeneration.Debugging\CodeGeneration.Debugging.csproj", "{95305207-62AE-4019-83EC-079008625219}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerationAttributes.Net40", "CodeGenerationAttributes.Net40\CodeGenerationAttributes.Net40.csproj", "{6A77281B-C503-44EA-90C1-0E9868D06CD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSCorEE.Desktop", "MSCorEE.Desktop\MSCorEE.Desktop.csproj", "{862717F8-F2DF-4DE8-9F03-5A98941B2747}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "MSCorEE.NuGet", "MSCorEE.NuGet\MSCorEE.NuGet.nuproj", "{A3D3A31C-AFE5-4372-8B3F-308A715A6F17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSCorEE.Tests", "MSCorEE.Tests\MSCorEE.Tests.csproj", "{A0070AA5-6122-4D81-8A21-EAE6069D2871}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypt32", "Crypt32\Crypt32.csproj", "{2355A580-2257-4A41-B7EC-F987993CE0C9}"
 EndProject
@@ -328,6 +334,18 @@ Global
 		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{862717F8-F2DF-4DE8-9F03-5A98941B2747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862717F8-F2DF-4DE8-9F03-5A98941B2747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862717F8-F2DF-4DE8-9F03-5A98941B2747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862717F8-F2DF-4DE8-9F03-5A98941B2747}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3D3A31C-AFE5-4372-8B3F-308A715A6F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D3A31C-AFE5-4372-8B3F-308A715A6F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D3A31C-AFE5-4372-8B3F-308A715A6F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D3A31C-AFE5-4372-8B3F-308A715A6F17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0070AA5-6122-4D81-8A21-EAE6069D2871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0070AA5-6122-4D81-8A21-EAE6069D2871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0070AA5-6122-4D81-8A21-EAE6069D2871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0070AA5-6122-4D81-8A21-EAE6069D2871}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2355A580-2257-4A41-B7EC-F987993CE0C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2355A580-2257-4A41-B7EC-F987993CE0C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2355A580-2257-4A41-B7EC-F987993CE0C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
