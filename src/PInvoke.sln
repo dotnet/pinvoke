@@ -123,6 +123,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGeneration.Debugging", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerationAttributes.Net40", "CodeGenerationAttributes.Net40\CodeGenerationAttributes.Net40.csproj", "{6A77281B-C503-44EA-90C1-0E9868D06CD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypt32", "Crypt32\Crypt32.csproj", "{2355A580-2257-4A41-B7EC-F987993CE0C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypt32.Desktop", "Crypt32.Desktop\Crypt32.Desktop.csproj", "{58E5CCCF-5486-4AA9-9069-7BA0C3F6DEEF}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Crypt32.NuGet", "Crypt32.NuGet\Crypt32.NuGet.nuproj", "{FD09A00B-44A4-4451-9499-CF8C33DF30A0}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Crypt32.Shared", "Crypt32.Shared\Crypt32.Shared.shproj", "{D9909F94-912E-41F1-BB8C-AC846D53218A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypt32.Tests", "Crypt32.Tests\Crypt32.Tests.csproj", "{BA90133E-FE3B-4FA0-84A1-79D5F90D1BEA}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		AdvApi32.Shared\AdvApi32.Shared.projitems*{3fcbf2e0-1330-454c-8a17-af14eba6b244}*SharedItemsImports = 4
@@ -131,12 +141,15 @@ Global
 		Hid.Shared\Hid.Shared.projitems*{41dd8edd-d861-41c0-a496-2eea17c49180}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{26aba748-b311-4094-9231-7490894e1157}*SharedItemsImports = 4
+		Crypt32.Shared\Crypt32.Shared.projitems*{d9909f94-912e-41f1-bb8c-ac846d53218a}*SharedItemsImports = 13
+		Crypt32.Shared\Crypt32.Shared.projitems*{2355a580-2257-4a41-b7ec-f987993ce0c9}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{3c02f98c-e145-4517-9cf0-d12c2c648e70}*SharedItemsImports = 4
 		AdvApi32.Shared\AdvApi32.Shared.projitems*{5c640905-72d0-4254-96b6-1fe31c8d7a66}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{d7224f5b-1aee-4624-a71f-f0bb10c63555}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}*SharedItemsImports = 4
 		AdvApi32.Shared\AdvApi32.Shared.projitems*{46eca0bd-f083-481b-a519-c4c910432f65}*SharedItemsImports = 4
+		Crypt32.Shared\Crypt32.Shared.projitems*{58e5cccf-5486-4aa9-9069-7ba0c3f6deef}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +328,22 @@ Global
 		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A77281B-C503-44EA-90C1-0E9868D06CD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2355A580-2257-4A41-B7EC-F987993CE0C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2355A580-2257-4A41-B7EC-F987993CE0C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2355A580-2257-4A41-B7EC-F987993CE0C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2355A580-2257-4A41-B7EC-F987993CE0C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E5CCCF-5486-4AA9-9069-7BA0C3F6DEEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E5CCCF-5486-4AA9-9069-7BA0C3F6DEEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E5CCCF-5486-4AA9-9069-7BA0C3F6DEEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E5CCCF-5486-4AA9-9069-7BA0C3F6DEEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD09A00B-44A4-4451-9499-CF8C33DF30A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD09A00B-44A4-4451-9499-CF8C33DF30A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD09A00B-44A4-4451-9499-CF8C33DF30A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD09A00B-44A4-4451-9499-CF8C33DF30A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA90133E-FE3B-4FA0-84A1-79D5F90D1BEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA90133E-FE3B-4FA0-84A1-79D5F90D1BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA90133E-FE3B-4FA0-84A1-79D5F90D1BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA90133E-FE3B-4FA0-84A1-79D5F90D1BEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
