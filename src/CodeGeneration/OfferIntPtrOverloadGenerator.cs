@@ -79,49 +79,101 @@ namespace PInvoke
             return SyntaxFactory.TokenList(list.Where(t => Array.IndexOf(modifiers, t.Kind()) < 0));
         }
 
-        private static ArgumentSyntax IntPtrOverloadParameterToArgument(ParameterSyntax p)
+        private static BlockSyntax CallNativePointerOverload(MethodDeclarationSyntax nativePointerOverload)
         {
-            var refOrOut = p.Modifiers.FirstOrDefault(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword));
-            ExpressionSyntax argRef = SyntaxFactory.IdentifierName(p.Identifier);
-            if (p.Type is PointerTypeSyntax)
+            var parametersRequiringCasts =
+                from p in nativePointerOverload.ParameterList.Parameters
+                where p.Type is PointerTypeSyntax && (p.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword) || m.IsKind(SyntaxKind.RefKeyword)) || !p.Type.Equals(VoidStar))
+                group p by p.Type into paramsByType
+                select paramsByType;
+
+            var redirectedParameters = new Dictionary<ParameterSyntax, IdentifierNameSyntax>();
+
+            var block = SyntaxFactory.Block();
+
+            foreach (var pType in parametersRequiringCasts)
             {
-                argRef =
-                    SyntaxFactory.InvocationExpression(
-                        SyntaxFactory.MemberAccessExpression(
-                            SyntaxKind.SimpleMemberAccessExpression,
-                            argRef,
-                            SyntaxFactory.IdentifierName(nameof(IntPtr.ToPointer))),
-                        SyntaxFactory.ArgumentList());
-                if (!p.Type.WithoutTrivia().IsEquivalentTo(VoidStar))
+                var varStatement = SyntaxFactory.VariableDeclaration(pType.Key);
+                foreach (var p in pType)
                 {
-                    argRef = SyntaxFactory.CastExpression(p.Type, argRef);
+                    var identifierName = SyntaxFactory.IdentifierName(p.Identifier.ValueText + "Local");
+                    var declarator = SyntaxFactory.VariableDeclarator(identifierName.Identifier);
+                    redirectedParameters.Add(p, identifierName);
+                    if (!p.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword)))
+                    {
+                        var voidStarPointer = SyntaxFactory.InvocationExpression(
+                            SyntaxFactory.MemberAccessExpression(
+                                SyntaxKind.SimpleMemberAccessExpression,
+                                SyntaxFactory.IdentifierName(p.Identifier),
+                                SyntaxFactory.IdentifierName(nameof(IntPtr.ToPointer))),
+                            SyntaxFactory.ArgumentList());
+                        var typedPointer = p.Type.Equals(VoidStar)
+                            ? (ExpressionSyntax)voidStarPointer
+                            : SyntaxFactory.CastExpression(p.Type, voidStarPointer);
+
+                        declarator = declarator.WithInitializer(SyntaxFactory.EqualsValueClause(typedPointer));
+                    }
+
+                    varStatement = varStatement.AddVariables(declarator);
+                    block = block.AddStatements(SyntaxFactory.LocalDeclarationStatement(varStatement));
                 }
             }
 
-            return SyntaxFactory.Argument(argRef)
-                .WithRefOrOutKeyword(refOrOut);
-        }
+            foreach (var p in nativePointerOverload.ParameterList.Parameters)
+            {
+                if (!redirectedParameters.ContainsKey(p))
+                {
+                    redirectedParameters.Add(p, SyntaxFactory.IdentifierName(p.Identifier));
+                }
+            }
 
-        private static BlockSyntax CallNativePointerOverload(MethodDeclarationSyntax nativePointerOverload)
-        {
             var invocationExpression = SyntaxFactory.InvocationExpression(
                 SyntaxFactory.IdentifierName(nativePointerOverload.Identifier.ValueText),
                 SyntaxFactory.ArgumentList(
                     SyntaxFactory.SeparatedList(
                         from p in nativePointerOverload.ParameterList.Parameters
-                        select IntPtrOverloadParameterToArgument(p))));
+                        let refOrOut = p.Modifiers.FirstOrDefault(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword))
+                        select SyntaxFactory.Argument(redirectedParameters[p]).WithRefOrOutKeyword(refOrOut))));
 
-            StatementSyntax statement;
+            IdentifierNameSyntax resultVariableName = null;
+            StatementSyntax invocationStatement;
             if (nativePointerOverload.ReturnType != null)
             {
-                statement = SyntaxFactory.ReturnStatement(invocationExpression);
+                resultVariableName = SyntaxFactory.IdentifierName("result"); // TODO: ensure this is unique.
+                invocationStatement = SyntaxFactory.LocalDeclarationStatement(
+                    SyntaxFactory.VariableDeclaration(nativePointerOverload.ReturnType)
+                        .AddVariables(
+                            SyntaxFactory.VariableDeclarator(resultVariableName.Identifier)
+                                .WithInitializer(SyntaxFactory.EqualsValueClause(invocationExpression))));
             }
             else
             {
-                statement = SyntaxFactory.ExpressionStatement(invocationExpression);
+                invocationStatement = SyntaxFactory.ExpressionStatement(invocationExpression);
             }
 
-            return SyntaxFactory.Block(statement);
+            block = block.AddStatements(invocationStatement);
+
+            foreach (var p in parametersRequiringCasts.SelectMany(g => g))
+            {
+                if (p.Modifiers.Any(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword)))
+                {
+                    var assignment = SyntaxFactory.AssignmentExpression(
+                        SyntaxKind.SimpleAssignmentExpression,
+                        SyntaxFactory.IdentifierName(p.Identifier),
+                        SyntaxFactory.ObjectCreationExpression(
+                            IntPtrTypeSyntax,
+                            SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(redirectedParameters[p]))),
+                            null));
+                    block = block.AddStatements(SyntaxFactory.ExpressionStatement(assignment));
+                }
+            }
+
+            if (resultVariableName != null)
+            {
+                block = block.AddStatements(SyntaxFactory.ReturnStatement(resultVariableName));
+            }
+
+            return block;
         }
     }
 }
