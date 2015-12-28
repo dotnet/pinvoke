@@ -49,7 +49,8 @@ namespace PInvoke
                     .WithParameterList(TransformParameterList(method.ParameterList))
                     .WithModifiers(RemoveModifier(method.Modifiers, SyntaxKind.ExternKeyword))
                     .WithAttributeLists(SyntaxFactory.List<AttributeListSyntax>())
-                    .WithLeadingTrivia(method.GetLeadingTrivia())
+                    .WithLeadingTrivia(method.GetLeadingTrivia().Where(t => !t.IsDirective))
+                    .WithTrailingTrivia(method.GetTrailingTrivia().Where(t => !t.IsDirective))
                     .WithBody(CallNativePointerOverload(method))
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None));
                 generatedType = generatedType.AddMembers(intPtrOverload);
