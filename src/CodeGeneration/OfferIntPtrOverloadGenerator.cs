@@ -32,7 +32,7 @@ namespace PInvoke
         }
 
         /// <inheritdoc />
-        public Task<IReadOnlyList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgressAndErrors progress, CancellationToken cancellationToken)
+        public Task<IReadOnlyList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
             var type = (ClassDeclarationSyntax)applyTo;
             var result = new List<MemberDeclarationSyntax>();
