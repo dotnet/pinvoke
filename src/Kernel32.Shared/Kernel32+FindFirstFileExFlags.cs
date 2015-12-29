@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Optional flags to pass to the <see cref="FindFirstFileEx"/> method.
+        /// Optional flags to pass to the <see cref="FindFirstFileEx(string, FINDEX_INFO_LEVELS, out WIN32_FIND_DATA, FINDEX_SEARCH_OPS, void*, FindFirstFileExFlags)"/> method.
         /// </summary>
         [Flags]
         public enum FindFirstFileExFlags

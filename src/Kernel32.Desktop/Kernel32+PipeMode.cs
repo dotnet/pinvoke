@@ -45,7 +45,7 @@ namespace PInvoke
             /// <summary>
             ///     Blocking mode is enabled. When the pipe handle is specified in the
             ///     <see cref="ReadFile(SafeObjectHandle,void*,int,NullableUInt32,OVERLAPPED*)" />,
-            ///     <see cref="WriteFile(SafeObjectHandle,void*,int,NullableUInt32,OVERLAPPED*)" />, or <see cref="ConnectNamedPipe"/> function, the
+            ///     <see cref="WriteFile(SafeObjectHandle,void*,int,NullableUInt32,OVERLAPPED*)" />, or <see cref="ConnectNamedPipe(SafeObjectHandle, OVERLAPPED*)"/> function, the
             ///     operations are not completed until there is data to read, all data is written, or a client is connected. Use of
             ///     this mode can mean waiting indefinitely in some situations for a client process to perform an action.
             /// </summary>

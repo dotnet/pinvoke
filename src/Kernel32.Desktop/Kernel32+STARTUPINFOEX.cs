@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Specifies the window station, desktop, standard handles, and attributes for a new process. It is used with the <see cref="CreateProcess"/> and <see cref="CreateProcessAsUser"/> functions.
+        /// Specifies the window station, desktop, standard handles, and attributes for a new process. It is used with the <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> and <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> functions.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct STARTUPINFOEX
@@ -23,7 +23,7 @@ namespace PInvoke
             public STARTUPINFO StartupInfo;
 
             /// <summary>
-            /// An attribute list. This list is created by the <see cref="InitializeProcThreadAttributeList"/> function.
+            /// An attribute list. This list is created by the <see cref="InitializeProcThreadAttributeList(PROC_THREAD_ATTRIBUTE_LIST*, int, uint, ref IntPtr)"/> function.
             /// </summary>
             public IntPtr lpAttributeList;
 

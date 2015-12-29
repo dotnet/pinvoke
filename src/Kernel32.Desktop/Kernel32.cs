@@ -38,7 +38,7 @@ namespace PInvoke
 
         /// <summary>
         /// Creates a new process and its primary thread. The new process runs in the security context of the calling process.
-        /// If the calling process is impersonating another user, the new process uses the token for the calling process, not the impersonation token. To run the new process in the security context of the user represented by the impersonation token, use the <see cref="CreateProcessAsUser"/> or CreateProcessWithLogonW function.
+        /// If the calling process is impersonating another user, the new process uses the token for the calling process, not the impersonation token. To run the new process in the security context of the user represented by the impersonation token, use the <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> or CreateProcessWithLogonW function.
         /// </summary>
         /// <param name="lpApplicationName">
         /// The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer.
@@ -99,14 +99,14 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CreateProcess(
+        public static unsafe extern bool CreateProcess(
             string lpApplicationName,
             string lpCommandLine,
             SECURITY_ATTRIBUTES lpProcessAttributes,
             SECURITY_ATTRIBUTES lpThreadAttributes,
             [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             CreateProcessFlags dwCreationFlags,
-            IntPtr lpEnvironment, // IntPtr because it may point to unicode or ANSI characters, based on a flag.
+            void* lpEnvironment, // pointer because it may point to unicode or ANSI characters, based on a flag.
             string lpCurrentDirectory,
             ref STARTUPINFO lpStartupInfo,
             out PROCESS_INFORMATION lpProcessInformation);
@@ -180,7 +180,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CreateProcessAsUser(
+        public static unsafe extern bool CreateProcessAsUser(
             IntPtr hToken,
             string lpApplicationName,
             string lpCommandLine,
@@ -188,7 +188,7 @@ namespace PInvoke
             SECURITY_ATTRIBUTES lpThreadAttributes,
             [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             CreateProcessFlags dwCreationFlags,
-            IntPtr lpEnvironment, // IntPtr because it may point to unicode or ANSI characters, based on a flag.
+            void* lpEnvironment, // pointer because it may point to unicode or ANSI characters, based on a flag.
             string lpCurrentDirectory,
             ref STARTUPINFO lpStartupInfo,
             out PROCESS_INFORMATION lpProcessInformation);
@@ -227,13 +227,13 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// First, call this function with the <paramref name="dwAttributeCount "/> parameter set to the maximum number of attributes you will be using and the lpAttributeList to NULL. The function returns the required buffer size in bytes in the lpSize parameter. Allocate enough space for the data in the lpAttributeList buffer and call the function again to initialize the buffer.
-        /// To add attributes to the list, call the <see cref="UpdateProcThreadAttribute"/> function. To specify these attributes when creating a process, specify <see cref="CreateProcessFlags.EXTENDED_STARTUPINFO_PRESENT"/> in the dwCreationFlag parameter and a <see cref="STARTUPINFOEX"/> structure in the lpStartupInfo parameter. Note that you can specify the same <see cref="STARTUPINFOEX"/> structure to multiple child processes.
+        /// To add attributes to the list, call the <see cref="UpdateProcThreadAttribute(PROC_THREAD_ATTRIBUTE_LIST*, uint, ref uint, IntPtr, IntPtr, ref IntPtr, ref IntPtr)"/> function. To specify these attributes when creating a process, specify <see cref="CreateProcessFlags.EXTENDED_STARTUPINFO_PRESENT"/> in the dwCreationFlag parameter and a <see cref="STARTUPINFOEX"/> structure in the lpStartupInfo parameter. Note that you can specify the same <see cref="STARTUPINFOEX"/> structure to multiple child processes.
         /// When you have finished using the list, call the <see cref="DeleteProcThreadAttributeList"/> function.
         /// </remarks>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool InitializeProcThreadAttributeList(
-            IntPtr lpAttributeList,
+        public static unsafe extern bool InitializeProcThreadAttributeList(
+            PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList,
             int dwAttributeCount,
             uint dwFlags,
             ref IntPtr lpSize); // SIZE_T (the size varies with the bitness)
@@ -242,7 +242,7 @@ namespace PInvoke
         /// Updates the specified attribute in a list of attributes for process and thread creation.
         /// </summary>
         /// <param name="lpAttributeList">
-        /// A pointer to an attribute list created by the <see cref="InitializeProcThreadAttributeList"/> function.
+        /// A pointer to an attribute list created by the <see cref="InitializeProcThreadAttributeList(PROC_THREAD_ATTRIBUTE_LIST*, int, uint, ref IntPtr)"/> function.
         /// </param>
         /// <param name="dwFlags">
         /// This parameter is reserved and must be zero.
@@ -266,8 +266,8 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool UpdateProcThreadAttribute(
-            IntPtr lpAttributeList,
+        public static unsafe extern bool UpdateProcThreadAttribute(
+            PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList,
             uint dwFlags,
             ref uint Attribute,
             IntPtr lpValue,
@@ -279,7 +279,7 @@ namespace PInvoke
         /// Deletes the specified list of attributes for process and thread creation.
         /// </summary>
         /// <param name="lpAttributeList">
-        /// The attribute list. This list is created by the <see cref="InitializeProcThreadAttributeList"/> function.
+        /// The attribute list. This list is created by the <see cref="InitializeProcThreadAttributeList(PROC_THREAD_ATTRIBUTE_LIST*, int, uint, ref IntPtr)"/> function.
         /// </param>
         [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static extern void DeleteProcThreadAttributeList(
@@ -657,7 +657,7 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, the return value is nonzero. The cancel operation for all pending I/O operations issued by
         /// the calling thread for the specified file handle was successfully requested. The thread can use the
-        /// <see cref="GetOverlappedResult" /> function to determine when the I/O operations themselves have been completed.
+        /// <see cref="GetOverlappedResult(SafeObjectHandle, OVERLAPPED*, out int, bool)" /> function to determine when the I/O operations themselves have been completed.
         /// <para>
         /// If the function fails, the return value is zero (0). To get extended error information, call the
         /// <see cref="GetLastError" /> function.
@@ -872,7 +872,7 @@ namespace PInvoke
 
         /// <summary>
         ///     Waits until either a time-out interval elapses or an instance of the specified named pipe is available for
-        ///     connection (that is, the pipe's server process has a pending <see cref="ConnectNamedPipe" /> operation on the
+        ///     connection (that is, the pipe's server process has a pending <see cref="ConnectNamedPipe(SafeObjectHandle, OVERLAPPED*)" /> operation on the
         ///     pipe).
         /// </summary>
         /// <param name="lpNamedPipeName">
