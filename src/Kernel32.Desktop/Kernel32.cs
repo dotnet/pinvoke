@@ -227,8 +227,8 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// First, call this function with the <paramref name="dwAttributeCount "/> parameter set to the maximum number of attributes you will be using and the lpAttributeList to NULL. The function returns the required buffer size in bytes in the lpSize parameter. Allocate enough space for the data in the lpAttributeList buffer and call the function again to initialize the buffer.
-        /// To add attributes to the list, call the <see cref="UpdateProcThreadAttribute(PROC_THREAD_ATTRIBUTE_LIST*, uint, ref uint, IntPtr, IntPtr, ref IntPtr, ref IntPtr)"/> function. To specify these attributes when creating a process, specify <see cref="CreateProcessFlags.EXTENDED_STARTUPINFO_PRESENT"/> in the dwCreationFlag parameter and a <see cref="STARTUPINFOEX"/> structure in the lpStartupInfo parameter. Note that you can specify the same <see cref="STARTUPINFOEX"/> structure to multiple child processes.
-        /// When you have finished using the list, call the <see cref="DeleteProcThreadAttributeList"/> function.
+        /// To add attributes to the list, call the <see cref="UpdateProcThreadAttribute(PROC_THREAD_ATTRIBUTE_LIST*, uint, ref uint, void*, IntPtr, ref IntPtr, ref IntPtr)"/> function. To specify these attributes when creating a process, specify <see cref="CreateProcessFlags.EXTENDED_STARTUPINFO_PRESENT"/> in the dwCreationFlag parameter and a <see cref="STARTUPINFOEX"/> structure in the lpStartupInfo parameter. Note that you can specify the same <see cref="STARTUPINFOEX"/> structure to multiple child processes.
+        /// When you have finished using the list, call the <see cref="DeleteProcThreadAttributeList(PROC_THREAD_ATTRIBUTE_LIST*)"/> function.
         /// </remarks>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -251,7 +251,7 @@ namespace PInvoke
         /// The attribute key to update in the attribute list.
         /// </param>
         /// <param name="lpValue">
-        /// A pointer to the attribute value. This value should persist until the attribute is destroyed using the <see cref="DeleteProcThreadAttributeList"/> function.
+        /// A pointer to the attribute value. This value should persist until the attribute is destroyed using the <see cref="DeleteProcThreadAttributeList(PROC_THREAD_ATTRIBUTE_LIST*)"/> function.
         /// </param>
         /// <param name="cbSize">
         /// The size of the attribute value specified by the <paramref name="lpValue"/> parameter.
@@ -270,7 +270,7 @@ namespace PInvoke
             PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList,
             uint dwFlags,
             ref uint Attribute,
-            IntPtr lpValue,
+            void* lpValue,
             IntPtr cbSize, // SIZE_T varies by bitness
             ref IntPtr lpPreviousValue,
             ref IntPtr lpReturnSize);
@@ -282,8 +282,8 @@ namespace PInvoke
         /// The attribute list. This list is created by the <see cref="InitializeProcThreadAttributeList(PROC_THREAD_ATTRIBUTE_LIST*, int, uint, ref IntPtr)"/> function.
         /// </param>
         [DllImport(api_ms_win_core_processthreads_l1_1_1)]
-        public static extern void DeleteProcThreadAttributeList(
-            IntPtr lpAttributeList);
+        public static unsafe extern void DeleteProcThreadAttributeList(
+            PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList);
 
         /// <summary>
         /// Allocates a new console for the calling process.
