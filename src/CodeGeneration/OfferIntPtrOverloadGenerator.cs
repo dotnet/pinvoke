@@ -138,7 +138,7 @@ namespace PInvoke
 
             IdentifierNameSyntax resultVariableName = null;
             StatementSyntax invocationStatement;
-            if (nativePointerOverload.ReturnType != null)
+            if (nativePointerOverload.ReturnType != null && (nativePointerOverload.ReturnType as PredefinedTypeSyntax)?.Keyword.Kind() != SyntaxKind.VoidKeyword)
             {
                 resultVariableName = SyntaxFactory.IdentifierName("result"); // TODO: ensure this is unique.
                 invocationStatement = SyntaxFactory.LocalDeclarationStatement(
