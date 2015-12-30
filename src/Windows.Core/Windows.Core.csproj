@@ -31,6 +31,8 @@
     <Compile Include="IMAGE_NT_HEADERS.cs" />
     <Compile Include="IMAGE_OPTIONAL_HEADER.cs" />
     <Compile Include="IMAGE_OPTIONAL_HEADER_DIRECTORIES.cs" />
+    <Compile Include="IMAGE_OPTIONAL_HEADER+MagicType.cs" />
+    <Compile Include="IMAGE_OPTIONAL_HEADER+SubsystemType.cs" />
     <Compile Include="IMAGE_SECTION_HEADER.cs" />
     <Compile Include="LIST_ENTRY.cs" />
     <Compile Include="NullableUInt32.cs" />

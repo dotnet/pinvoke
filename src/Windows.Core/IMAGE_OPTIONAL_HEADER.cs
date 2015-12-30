@@ -18,9 +18,9 @@ namespace PInvoke
     /// <para>The number of directories is not fixed. Check the NumberOfRvaAndSizes member before looking for a specific directory.</para>
     /// </remarks>
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct IMAGE_OPTIONAL_HEADER
+    public unsafe partial struct IMAGE_OPTIONAL_HEADER
     {
-        public ushort Magic;
+        public MagicType Magic;
         public byte MajorLinkerVersion;
         public byte MinorLinkerVersion;
         public uint SizeOfCode;
@@ -42,7 +42,7 @@ namespace PInvoke
         public uint SizeOfImage;
         public uint SizeOfHeaders;
         public uint CheckSum;
-        public ushort Subsystem;
+        public SubsystemType Subsystem;
         public ushort DllCharacteristics;
         public UIntPtr SizeOfStackReserve;
         public UIntPtr SizeOfStackCommit;
