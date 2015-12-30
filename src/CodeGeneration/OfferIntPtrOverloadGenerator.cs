@@ -32,10 +32,9 @@ namespace PInvoke
         }
 
         /// <inheritdoc />
-        public Task<IReadOnlyList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
+        public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
             var type = (ClassDeclarationSyntax)applyTo;
-            var result = new List<MemberDeclarationSyntax>();
             var generatedType = type
                 .WithMembers(SyntaxFactory.List<MemberDeclarationSyntax>());
             var methodsWithNativePointers =
@@ -56,8 +55,7 @@ namespace PInvoke
                 generatedType = generatedType.AddMembers(intPtrOverload);
             }
 
-            result.Add(generatedType);
-            return Task.FromResult<IReadOnlyList<MemberDeclarationSyntax>>(result);
+            return Task.FromResult(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(generatedType));
         }
 
         private static IEnumerable<ParameterSyntax> WhereIsPointerParameter(IEnumerable<ParameterSyntax> parameters)

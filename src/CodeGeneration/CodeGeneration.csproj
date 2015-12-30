@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OfferIntPtrOverloadGenerator.cs" />
+    <Compile Include="OfferIntPtrPropertyAccessorsGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

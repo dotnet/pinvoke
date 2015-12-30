@@ -29,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OfferIntPtrOverloadsAttribute.cs" />
+    <Compile Include="OfferIntPtrPropertyAccessorsAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
