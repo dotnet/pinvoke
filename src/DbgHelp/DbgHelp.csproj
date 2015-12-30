@@ -24,7 +24,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DbgHelp+Characteristics.cs" />
-    <Compile Include="DbgHelp+LOADED_IMAGE.cs" />
+    <Compile Include="DbgHelp+LOADED_IMAGE.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="DbgHelp.cs" />
     <Compile Include="DbgHelp.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -33,6 +35,16 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj">
+      <Project>{1387e009-7086-4572-ac8d-ce4242adec77}</Project>
+      <Name>CodeGenerationAttributes</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
+      <Name>CodeGeneration</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>

@@ -8,8 +8,10 @@ using static PInvoke.DbgHelp;
 
 public class DbgHelp
 {
-    [Fact(Skip = "No tests yet")]
-    public void NoTests()
+    [Fact]
+    public void IntPtrGeneration()
     {
+        LOADED_IMAGE image = default(LOADED_IMAGE);
+        image.FileHeader_IntPtr = IntPtr.Zero;
     }
 }
