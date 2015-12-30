@@ -2,15 +2,18 @@
 .SYNOPSIS
 Updates the coverage.md file in the source tree.
 
-.PARAMETER Directory
-The directory to search for the exports and pinvokes files (e.g. bin\debug).
+.PARAMETER Configuration
+The build configuration to search for the exports and pinvokes files (e.g. "release").
 #>
 Param(
-	[Parameter(Mandatory=$true)]
-	[string]$Directory
+	[Parameter()]
+	[string]$Configuration='release'
 )
 
-$Shields = & "$PSScriptRoot\Get-Shields.ps1" -Directory $Directory
+nuget restore "$PSScriptRoot\..\src"
+msbuild "$PSScriptRoot\..\src\PInvoke.sln" /p:configuration=$Configuration /p:GeneratePInvokesTxt=true
+
+$Shields = & "$PSScriptRoot\Get-Shields.ps1" -Directory "$PSScriptRoot\..\bin\$Configuration"
 $CoveragePath = Resolve-Path "$PSScriptRoot\..\coverage.md"
 
 Set-Content -Path $CoveragePath -Value "# P/Invoke coverage report
