@@ -32,7 +32,7 @@ namespace PInvoke
         }
 
         /// <inheritdoc />
-        public Task<IReadOnlyList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgressAndErrors progress, CancellationToken cancellationToken)
+        public Task<IReadOnlyList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
             var type = (ClassDeclarationSyntax)applyTo;
             var result = new List<MemberDeclarationSyntax>();
@@ -49,7 +49,8 @@ namespace PInvoke
                     .WithParameterList(TransformParameterList(method.ParameterList))
                     .WithModifiers(RemoveModifier(method.Modifiers, SyntaxKind.ExternKeyword))
                     .WithAttributeLists(SyntaxFactory.List<AttributeListSyntax>())
-                    .WithLeadingTrivia(method.GetLeadingTrivia())
+                    .WithLeadingTrivia(method.GetLeadingTrivia().Where(t => !t.IsDirective))
+                    .WithTrailingTrivia(method.GetTrailingTrivia().Where(t => !t.IsDirective))
                     .WithBody(CallNativePointerOverload(method))
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None));
                 generatedType = generatedType.AddMembers(intPtrOverload);
@@ -137,7 +138,7 @@ namespace PInvoke
 
             IdentifierNameSyntax resultVariableName = null;
             StatementSyntax invocationStatement;
-            if (nativePointerOverload.ReturnType != null)
+            if (nativePointerOverload.ReturnType != null && (nativePointerOverload.ReturnType as PredefinedTypeSyntax)?.Keyword.Kind() != SyntaxKind.VoidKeyword)
             {
                 resultVariableName = SyntaxFactory.IdentifierName("result"); // TODO: ensure this is unique.
                 invocationStatement = SyntaxFactory.LocalDeclarationStatement(
