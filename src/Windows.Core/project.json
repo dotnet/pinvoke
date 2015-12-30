@@ -2,7 +2,7 @@
   "supports": { },
   "dependencies": {
     "Nerdbank.GitVersioning": {
-      "version": "1.1.61-rc",
+      "version": "1.2.1",
       "suppressParent": "none"
     },
     "Nuproj": "0.10.27-beta-g2363d7cd98",

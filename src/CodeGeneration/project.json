@@ -5,7 +5,7 @@
       "suppressParent": "none"
     },
     "Nerdbank.GitVersioning": {
-      "version": "1.1.61-rc",
+      "version": "1.2.1",
       "suppressParent": "none"
     },
     "Nuproj.Common": {
