@@ -26,6 +26,11 @@
   <ItemGroup>
     <Compile Include="ApiSets.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="IMAGE_DATA_DIRECTORY.cs" />
+    <Compile Include="IMAGE_FILE_HEADER.cs" />
+    <Compile Include="IMAGE_NT_HEADERS.cs" />
+    <Compile Include="IMAGE_OPTIONAL_HEADER.cs" />
+    <Compile Include="IMAGE_SECTION_HEADER.cs" />
     <Compile Include="LIST_ENTRY.cs" />
     <Compile Include="NullableUInt32.cs" />
     <Compile Include="NullableGuid.cs" />
