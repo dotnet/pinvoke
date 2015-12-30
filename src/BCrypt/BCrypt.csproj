@@ -26,8 +26,12 @@
     <Compile Include="BCrypt+AlgorithmIdentifiers.cs" />
     <Compile Include="BCrypt+AsymmetricKeyBlobTypes.cs" />
     <Compile Include="BCrypt+AuthModeFlags.cs" />
-    <Compile Include="BCrypt+BCryptBuffer.cs" />
-    <Compile Include="BCrypt+BCryptBufferDesc.cs" />
+    <Compile Include="BCrypt+BCryptBuffer.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="BCrypt+BCryptBufferDesc.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="BCrypt+BCryptCloseAlgorithmProviderFlags.cs" />
     <Compile Include="BCrypt+BCryptCreateHashFlags.cs" />
     <Compile Include="BCrypt+BCryptDeriveKeyFlags.cs" />

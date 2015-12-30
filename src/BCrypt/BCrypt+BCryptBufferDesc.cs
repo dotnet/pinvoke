@@ -15,7 +15,8 @@ namespace PInvoke
         /// Used to contain a set of generic CNG buffers.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct BCryptBufferDesc
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct BCryptBufferDesc
         {
             /// <summary>
             /// The version of the <see cref="BCryptBufferDesc"/> structure defined in this library.
@@ -39,7 +40,7 @@ namespace PInvoke
             /// The address of an array of <see cref="BCryptBuffer"/> structures that contain the buffers.
             /// The <see cref="cBuffers"/> member contains the number of elements in this array.
             /// </summary>
-            public IntPtr pBuffers;
+            public BCryptBuffer* pBuffers;
         }
     }
 }
