@@ -48,7 +48,9 @@
     <Compile Include="Kernel32+SECURITY_ATTRIBUTES.cs" />
     <Compile Include="Kernel32+SECURITY_DESCRIPTOR.cs" />
     <Compile Include="Kernel32+StartupInfoFlags.cs" />
-    <Compile Include="Kernel32+STARTUPINFOEX.cs" />
+    <Compile Include="Kernel32+STARTUPINFOEX.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="Kernel32+STARTUPINFO.cs" />
     <Compile Include="Kernel32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>

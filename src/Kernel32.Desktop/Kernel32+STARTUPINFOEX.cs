@@ -15,7 +15,8 @@ namespace PInvoke
         /// Specifies the window station, desktop, standard handles, and attributes for a new process. It is used with the <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> and <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> functions.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct STARTUPINFOEX
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct STARTUPINFOEX
         {
             /// <summary>
             /// A <see cref="STARTUPINFO"/> structure.
@@ -25,7 +26,7 @@ namespace PInvoke
             /// <summary>
             /// An attribute list. This list is created by the <see cref="InitializeProcThreadAttributeList(PROC_THREAD_ATTRIBUTE_LIST*, int, uint, ref IntPtr)"/> function.
             /// </summary>
-            public IntPtr lpAttributeList;
+            public PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList;
 
             /// <summary>
             /// Creates an instance of this structure and initializes its members to
