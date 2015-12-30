@@ -50,11 +50,6 @@ namespace PInvoke
         public UIntPtr SizeOfHeapCommit;
         public uint LoaderFlags;
         public uint NumberOfRvaAndSizes;
-
-        /// <summary>
-        /// A pointer to the first <see cref="IMAGE_DATA_DIRECTORY"/> structure in the data directory.
-        /// This array must have length <see cref="Constants.IMAGE_NUMBEROF_DIRECTORY_ENTRIES"/>.
-        /// </summary>
-        public IMAGE_DATA_DIRECTORY* DataDirectory;
+        public IMAGE_OPTIONAL_HEADER_DIRECTORIES DataDirectory;
     }
 }
