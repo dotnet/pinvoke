@@ -15,7 +15,8 @@ namespace PInvoke
         /// Used to represent a generic CNG buffer.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct BCryptBuffer
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct BCryptBuffer
         {
             /// <summary>
             /// The size, in bytes, of the buffer.
@@ -28,9 +29,9 @@ namespace PInvoke
             public BufferType BufferType;
 
             /// <summary>
-            /// A 32-bit value defined by the <see cref="BufferType"/> member.
+            /// A pointer-sized value defined by the <see cref="BufferType"/> member.
             /// </summary>
-            public IntPtr pvBuffer;
+            public void* pvBuffer;
         }
     }
 }

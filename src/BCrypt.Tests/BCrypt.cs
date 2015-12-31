@@ -285,14 +285,14 @@ public class BCrypt
                 fixed (byte* pTagBuffer = &tagBuffer[0])
                 fixed (byte* pNonce = &nonceBuffer[0])
                 {
-                    authInfo.pbNonce = new IntPtr(pNonce);
+                    authInfo.pbNonce = pNonce;
                     authInfo.cbNonce = nonceBuffer.Length;
-                    authInfo.pbTag = new IntPtr(pTagBuffer);
+                    authInfo.pbTag = pTagBuffer;
                     authInfo.cbTag = tagBuffer.Length;
 
                     // Mix up calling the IntPtr and native pointer overloads so we test both.
                     int cipherTextLength;
-                    BCryptEncrypt(key, plainText, plainText.Length, new IntPtr(&authInfo), null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                     cipherText = new byte[cipherTextLength];
                     BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                 }
@@ -309,9 +309,9 @@ public class BCrypt
                 fixed (byte* pTagBuffer = &tagBuffer[0])
                 fixed (byte* pNonce = &nonceBuffer[0])
                 {
-                    authInfo.pbNonce = new IntPtr(pNonce);
+                    authInfo.pbNonce = pNonce;
                     authInfo.cbNonce = nonceBuffer.Length;
-                    authInfo.pbTag = new IntPtr(pTagBuffer);
+                    authInfo.pbTag = pTagBuffer;
                     authInfo.cbTag = tagBuffer.Length;
 
                     int plainTextLength;
@@ -379,6 +379,13 @@ public class BCrypt
                 Assert.False(key.IsInvalid);
             }
         }
+    }
+
+    [Fact]
+    public void IntPtrStructPropertyAccessor()
+    {
+        BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO s = default(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO);
+        s.pbAuthData_IntPtr = IntPtr.Zero;
     }
 
     /// <summary>

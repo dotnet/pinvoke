@@ -16,7 +16,8 @@ namespace PInvoke
         /// to contain additional information related to authenticated cipher modes.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO
         {
             /// <summary>
             /// The version of the <see cref="BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO"/> struct.
@@ -43,7 +44,7 @@ namespace PInvoke
             /// chaining modes, and will return an error if none is present.
             /// If a nonce is not used, this member must be set to NULL.
             /// </summary>
-            public IntPtr pbNonce;
+            public byte* pbNonce;
 
             /// <summary>
             /// The size, in bytes, of the buffer pointed to by the <see cref="pbNonce"/> member.
@@ -56,7 +57,7 @@ namespace PInvoke
             /// This is data that will be included in the Message Authentication Code (MAC) but not encrypted.
             /// If there is no authenticated data, this member must be set to NULL.
             /// </summary>
-            public IntPtr pbAuthData;
+            public byte* pbAuthData;
 
             /// <summary>
             /// The size, in bytes, of the buffer pointed to by the <see cref="pbAuthData"/> member.
@@ -73,7 +74,7 @@ namespace PInvoke
             /// the buffer contains the authentication tag to be checked against.
             /// If there is no tag, this member must be set to NULL.
             /// </summary>
-            public IntPtr pbTag;
+            public byte* pbTag;
 
             /// <summary>
             /// The size, in bytes, of the <see cref="pbTag"/> buffer.
@@ -91,7 +92,7 @@ namespace PInvoke
             /// This buffer must be supplied by the caller and must be at least as large as the maximum length of an authentication tag for the cipher you are using. To get the valid authentication tag lengths, use <see cref="BCryptGetProperty{T}(SafeHandle, string, BCryptGetPropertyFlags)"/> to query the <see cref="PropertyNames.BCRYPT_AUTH_TAG_LENGTH"/> property.
             /// If <see cref="BCryptEncrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], int, void*, byte[], int, byte[], int, out int, BCryptEncryptFlags)"/> calls are not being chained, this member must be set to NULL.
             /// </summary>
-            public IntPtr pbMacContext;
+            public byte* pbMacContext;
 
             /// <summary>
             /// The size, in bytes, of the buffer pointed to by the <see cref="pbMacContext"/> member.
