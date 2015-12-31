@@ -27,6 +27,7 @@
     <Compile Include="ApiSets.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="IMAGE_DATA_DIRECTORY.cs" />
+    <Compile Include="IMAGE_FILE_HEADER+CharacteristicsType.cs" />
     <Compile Include="IMAGE_FILE_HEADER+MachineType.cs" />
     <Compile Include="IMAGE_FILE_HEADER.cs" />
     <Compile Include="IMAGE_NT_HEADERS.cs" />
