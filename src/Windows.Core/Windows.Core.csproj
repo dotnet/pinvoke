@@ -31,6 +31,7 @@
     <Compile Include="IMAGE_FILE_HEADER+MachineType.cs" />
     <Compile Include="IMAGE_FILE_HEADER.cs" />
     <Compile Include="IMAGE_NT_HEADERS.cs" />
+    <Compile Include="IMAGE_OPTIONAL_HEADER+DllCharacteristicsType.cs" />
     <Compile Include="IMAGE_OPTIONAL_HEADER.cs" />
     <Compile Include="IMAGE_OPTIONAL_HEADER_DIRECTORIES.cs" />
     <Compile Include="IMAGE_OPTIONAL_HEADER+MagicType.cs" />
