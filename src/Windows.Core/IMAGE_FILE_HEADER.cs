@@ -3,9 +3,12 @@
 
 namespace PInvoke
 {
-    public struct IMAGE_FILE_HEADER
+    /// <summary>
+    /// Represents the COFF header format.
+    /// </summary>
+    public partial struct IMAGE_FILE_HEADER
     {
-        public ushort Machine;
+        public MachineType Machine;
         public ushort NumberOfSections;
         public uint TimeDateStamp;
         public uint PointerToSymbolTable;
