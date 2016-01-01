@@ -69,8 +69,20 @@ namespace PInvoke
         {
             var resultingList = list.ReplaceNodes(
                 WhereIsPointerParameter(list.Parameters),
-                (n1, n2) => n2.WithType(IntPtrTypeSyntax));
+                (n1, n2) => TransformParameterDefaultValue(n2.WithType(IntPtrTypeSyntax)));
             return resultingList;
+        }
+
+        private static ParameterSyntax TransformParameterDefaultValue(ParameterSyntax parameter)
+        {
+            // Just neutralize the default parameter since null can't be assigned to IntPtr,
+            // and to avoid method overload ambiguities when parameters are omitted.
+            return parameter.WithDefault(null);
+
+            // We could translate the null to default(IntPtr) like this:
+            ////return parameter.Default?.Value.Kind() == SyntaxKind.NullLiteralExpression
+            ////    ? parameter.WithDefault(SyntaxFactory.EqualsValueClause(SyntaxFactory.DefaultExpression(IntPtrTypeSyntax)))
+            ////    : parameter;
         }
 
         private static SyntaxTokenList RemoveModifier(SyntaxTokenList list, params SyntaxKind[] modifiers)
