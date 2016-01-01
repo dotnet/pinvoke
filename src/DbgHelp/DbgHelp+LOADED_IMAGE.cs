@@ -15,7 +15,8 @@ namespace PInvoke
         /// Contains information about the loaded image.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct LOADED_IMAGE
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct LOADED_IMAGE
         {
             /// <summary>
             /// The file name of the mapped file.
@@ -31,17 +32,17 @@ namespace PInvoke
             /// <summary>
             /// The base address of the mapped file.
             /// </summary>
-            public IntPtr MappedAddress;
+            public byte* MappedAddress;
 
             /// <summary>
             /// A pointer to an IMAGE_NT_HEADERS structure.
             /// </summary>
-            public IntPtr FileHeader;
+            public IMAGE_NT_HEADERS* FileHeader;
 
             /// <summary>
             /// A pointer to an IMAGE_SECTION_HEADER structure.
             /// </summary>
-            public IntPtr LastRvaSection;
+            public IMAGE_SECTION_HEADER* LastRvaSection;
 
             /// <summary>
             /// The number of COFF section headers.
@@ -51,7 +52,7 @@ namespace PInvoke
             /// <summary>
             /// A pointer to an IMAGE_SECTION_HEADER structure.
             /// </summary>
-            public IntPtr Sections;
+            public IMAGE_SECTION_HEADER* Sections;
 
             /// <summary>
             /// The image characteristics value.
