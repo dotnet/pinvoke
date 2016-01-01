@@ -38,8 +38,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SetupApi+DeviceInfoData.cs" />
-    <Compile Include="SetupApi+DeviceInterfaceData.cs" />
+    <Compile Include="SetupApi+SP_DEVINFO_DATA.cs" />
+    <Compile Include="SetupApi+SP_DEVICE_INTERFACE_DATA.cs" />
     <Compile Include="SetupApi+DeviceInterfaceDataFlags.cs" />
     <Compile Include="SetupApi+GetClassDevsFlags.cs" />
     <Compile Include="SetupApi+SafeDeviceInfoSetHandle.cs" />

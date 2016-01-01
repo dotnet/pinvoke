@@ -68,7 +68,7 @@ namespace PInvoke
         /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs(NullableGuid,string,IntPtr,GetClassDevsFlags)" />.
         /// </param>
         /// <param name="deviceInfoData">
-        /// A pointer to an <see cref="DeviceInfoData" /> structure that specifies a device
+        /// A pointer to an <see cref="SP_DEVINFO_DATA" /> structure that specifies a device
         /// information element in DeviceInfoSet. This parameter is optional and can be <see langword="null" />. If this parameter
         /// is specified, SetupDiEnumDeviceInterfaces constrains the enumeration to the interfaces that are supported by the
         /// specified device. If this parameter is <see langword="null" />, repeated calls to SetupDiEnumDeviceInterfaces return
@@ -87,10 +87,10 @@ namespace PInvoke
         /// </param>
         /// <param name="deviceInterfaceData">
         /// A pointer to a caller-allocated buffer that contains, on successful return, a
-        /// completed <see cref="DeviceInterfaceData" /> structure that identifies an interface that meets the search parameters.
+        /// completed <see cref="SP_DEVICE_INTERFACE_DATA" /> structure that identifies an interface that meets the search parameters.
         /// The caller
-        /// must set <see cref="DeviceInterfaceData.Size" /> before calling this function either manually or via
-        /// <see cref="DeviceInterfaceData.Create" />.
+        /// must set <see cref="SP_DEVICE_INTERFACE_DATA.Size" /> before calling this function either manually or via
+        /// <see cref="SP_DEVICE_INTERFACE_DATA.Create" />.
         /// </param>
         /// <returns>
         /// Returns <see langword="true" /> if the function completed without error. If the function completed with an
@@ -100,10 +100,10 @@ namespace PInvoke
         [DllImport(nameof(SetupApi), SetLastError = true)]
         public static extern bool SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle deviceInfoSet,
-            DeviceInfoData deviceInfoData,
+            SP_DEVINFO_DATA deviceInfoData,
             ref Guid interfaceClassGuid,
             int memberIndex,
-            ref DeviceInterfaceData deviceInterfaceData);
+            ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData);
 
         /// <summary>
         /// Returns details about a device interface.
@@ -113,9 +113,9 @@ namespace PInvoke
         /// return information. This handle is typically returned by <see cref="SetupDiGetClassDevs(NullableGuid,string,IntPtr,GetClassDevsFlags)" />.
         /// </param>
         /// <param name="deviceInterfaceData">
-        /// A pointer to an <see cref="DeviceInterfaceData" /> structure that specifies the
+        /// A pointer to an <see cref="SP_DEVICE_INTERFACE_DATA" /> structure that specifies the
         /// interface in DeviceInfoSet for which to retrieve details. A pointer of this type is typically returned by
-        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,DeviceInfoData,ref Guid,int,ref DeviceInterfaceData)" />.
+        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,SP_DEVINFO_DATA,ref Guid,int,ref SP_DEVICE_INTERFACE_DATA)" />.
         /// </param>
         /// <param name="deviceInterfaceDetailData">
         /// A pointer to an SP_DEVICE_INTERFACE_DETAIL_DATA structure to receive
@@ -137,7 +137,7 @@ namespace PInvoke
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to a buffer that receives information about the device that supports the requested interface. The caller
-        /// must set <see cref="DeviceInfoData.Size" /> before calling this function.
+        /// must set <see cref="SP_DEVINFO_DATA.Size" /> before calling this function.
         /// <para>This parameter is optional and can be <see langword="null" />.</para>
         /// </param>
         /// <returns>
@@ -148,24 +148,24 @@ namespace PInvoke
         [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
-            ref DeviceInterfaceData deviceInterfaceData,
+            ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData,
             IntPtr deviceInterfaceDetailData,
             int deviceInterfaceDetailDataSize,
             NullableUInt32 requiredSize,
-            DeviceInfoData deviceInfoData);
+            SP_DEVINFO_DATA deviceInfoData);
 
         /// <summary>
-        /// Returns a <see cref="DeviceInfoData" /> structure that specifies a device information element in a device information
+        /// Returns a <see cref="SP_DEVINFO_DATA" /> structure that specifies a device information element in a device information
         /// set.
         /// </summary>
         /// <param name="deviceInfoSet">
-        /// A handle to the device information set for which to return an <see cref="DeviceInfoData" />
+        /// A handle to the device information set for which to return an <see cref="SP_DEVINFO_DATA" />
         /// structure that represents a device information element.
         /// </param>
         /// <param name="memberIndex">A zero-based index of the device information element to retrieve.</param>
         /// <param name="deviceInfoData">
-        /// A pointer to an <see cref="DeviceInfoData"/> structure to receive information about an enumerated
-        /// device information element. The caller must set <see cref="DeviceInfoData.Size" /> before calling this function.
+        /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure to receive information about an enumerated
+        /// device information element. The caller must set <see cref="SP_DEVINFO_DATA.Size" /> before calling this function.
         /// </param>
         /// <returns>
         /// Returns <see langword="true" /> if the function completed without error. If the function completed with an
@@ -176,7 +176,7 @@ namespace PInvoke
         public static extern bool SetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
             int memberIndex,
-            DeviceInfoData deviceInfoData);
+            SP_DEVINFO_DATA deviceInfoData);
 
         /// <summary>
         /// Deletes a device information set and frees all associated memory.

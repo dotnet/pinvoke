@@ -45,15 +45,15 @@ namespace PInvoke
             return result;
         }
 
-        public static IEnumerable<DeviceInterfaceData> SetupDiEnumDeviceInterfaces(
+        public static IEnumerable<SP_DEVICE_INTERFACE_DATA> SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle lpDeviceInfoSet,
-            DeviceInfoData deviceInfoData,
+            SP_DEVINFO_DATA deviceInfoData,
             Guid interfaceClassGuid)
         {
             int index = 0;
             while (true)
             {
-                var data = DeviceInterfaceData.Create();
+                var data = SP_DEVICE_INTERFACE_DATA.Create();
 
                 var result = SetupDiEnumDeviceInterfaces(
                     lpDeviceInfoSet,
@@ -80,8 +80,8 @@ namespace PInvoke
 
         public static string SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
-            DeviceInterfaceData interfaceData,
-            DeviceInfoData deviceInfoData)
+            SP_DEVICE_INTERFACE_DATA interfaceData,
+            SP_DEVINFO_DATA deviceInfoData)
         {
             var requiredSize = new NullableUInt32();
 

@@ -8,7 +8,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="DeviceInfoData" /> nested struct.
+    /// Contains the <see cref="SP_DEVINFO_DATA" /> nested struct.
     /// </content>
     public partial class SetupApi
     {
@@ -20,7 +20,7 @@ namespace PInvoke
             "SA1401:Fields must be private",
             Justification = "Used in DllImport Marshaling.")]
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public class DeviceInfoData
+        public class SP_DEVINFO_DATA
         {
             /// <summary>
             /// The GUID of the device's setup class.
@@ -30,7 +30,7 @@ namespace PInvoke
             /// <summary>
             /// An opaque handle to the device instance (also known as a handle to the devnode).
             /// <para>
-            /// Some functions, such as SetupDiXxx functions, take the whole <see cref="DeviceInfoData" /> structure as input to
+            /// Some functions, such as SetupDiXxx functions, take the whole <see cref="SP_DEVINFO_DATA" /> structure as input to
             /// identify a device in a device information set.Other functions, such as CM_Xxx functions like CM_Get_DevNode_Status,
             /// take this DevInst handle as input.
             /// </para>
@@ -43,16 +43,16 @@ namespace PInvoke
             public IntPtr Reserved;
 
             /// <summary>
-            /// The size, in bytes, of the <see cref="DeviceInfoData" /> structure. The constructor set this value automatically
+            /// The size, in bytes, of the <see cref="SP_DEVINFO_DATA" /> structure. The constructor set this value automatically
             /// to the correct size.
             /// </summary>
             public int Size;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="DeviceInfoData" /> class with <see cref="Size" /> set to the correct
+            /// Initializes a new instance of the <see cref="SP_DEVINFO_DATA" /> class with <see cref="Size" /> set to the correct
             /// value.
             /// </summary>
-            public DeviceInfoData()
+            public SP_DEVINFO_DATA()
             {
                 this.Size = Marshal.SizeOf(this);
             }
