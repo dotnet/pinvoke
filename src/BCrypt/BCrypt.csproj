@@ -79,7 +79,9 @@
     <Compile Include="BCrypt.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
-    <Compile Include="BCrypt.Helpers.cs" />
+    <Compile Include="BCrypt.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
