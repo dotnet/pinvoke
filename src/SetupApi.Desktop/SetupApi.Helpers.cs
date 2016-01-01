@@ -79,20 +79,20 @@ namespace PInvoke
         }
 
         public static string SetupDiGetDeviceInterfaceDetail(
-            SafeDeviceInfoSetHandle lpDeviceInfoSet,
-            DeviceInterfaceData oInterfaceData,
-            IntPtr lpDeviceInfoData)
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            DeviceInterfaceData interfaceData,
+            DeviceInfoData deviceInfoData)
         {
             var requiredSize = new NullableUInt32();
 
             // First call to get the size to allocate
             SetupDiGetDeviceInterfaceDetail(
-                lpDeviceInfoSet,
-                ref oInterfaceData,
+                deviceInfoSet,
+                ref interfaceData,
                 IntPtr.Zero,
                 0,
                 requiredSize,
-                null);
+                deviceInfoData);
 
             // As we passed an empty buffer we know that the function will fail, not need to check the result.
             var lastError = GetLastError();
@@ -109,8 +109,8 @@ namespace PInvoke
 
                 // Second call to get the value
                 var success = SetupDiGetDeviceInterfaceDetail(
-                    lpDeviceInfoSet,
-                    ref oInterfaceData,
+                    deviceInfoSet,
+                    ref interfaceData,
                     buffer,
                     (int)requiredSize.Value,
                     null,
