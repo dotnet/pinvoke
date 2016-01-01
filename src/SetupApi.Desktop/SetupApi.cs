@@ -121,9 +121,7 @@ namespace PInvoke
         /// A pointer to an SP_DEVICE_INTERFACE_DETAIL_DATA structure to receive
         /// information about the specified interface. This parameter is optional and can be <see langword="null" />. This
         /// parameter must be <see langword="null" /> if <paramref name="deviceInterfaceDetailDataSize"/> is zero. If this parameter is specified, the
-        /// caller must set <paramref name="deviceInterfaceDetailData"/>.cbSize to sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA) before calling this
-        /// function. The cbSize member always contains the size of the fixed part of the data structure, not a size reflecting the
-        /// variable-length string at the end.
+        /// caller must set <paramref name="deviceInterfaceDetailData"/>.cbSize to <see cref="SP_DEVICE_INTERFACE_DETAIL_DATA.ReportableStructSize"/>.
         /// </param>
         /// <param name="deviceInterfaceDetailDataSize">
         /// The size of the <paramref name="deviceInterfaceDetailData" /> buffer.
@@ -131,7 +129,7 @@ namespace PInvoke
         /// </param>
         /// <param name="requiredSize">
         /// A pointer to a variable of type <see cref="uint" /> that receives the required size of the
-        /// DeviceInterfaceDetailData buffer. This size includes the size of the fixed part of the structure plus the number of
+        /// <paramref name="deviceInterfaceDetailData"/> buffer. This size includes the size of the fixed part of the structure plus the number of
         /// bytes required for the variable-length device path string. This parameter is optional and can be
         /// <see langword="null" />.
         /// </param>
@@ -146,12 +144,12 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool SetupDiGetDeviceInterfaceDetail(
+        public static extern unsafe bool SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
             ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData,
-            IntPtr deviceInterfaceDetailData,
+            SP_DEVICE_INTERFACE_DETAIL_DATA* deviceInterfaceDetailData,
             int deviceInterfaceDetailDataSize,
-            NullableUInt32 requiredSize,
+            int* requiredSize,
             SP_DEVINFO_DATA deviceInfoData);
 
         /// <summary>

@@ -14,22 +14,6 @@ namespace PInvoke
     /// </content>
     public static partial class SetupApi
     {
-        private static readonly Lazy<int> DeviceInterfaceDetailDataSize = new Lazy<int>(() =>
-        {
-            // The structure size take into account an Int32 and a character
-            switch (IntPtr.Size)
-            {
-                case 4: // 32-bits
-                    // The character can be 1 or 2 octets depending on ANSI / Unicode
-                    return 4 + Marshal.SystemDefaultCharSize;
-                case 8: // 64-bits
-                    // Due to alignment, the size is always the same
-                    return 8;
-                default:
-                    throw new NotSupportedException("Non 32 or 64-bits windows aren't supported");
-            }
-        });
-
         public static SafeDeviceInfoSetHandle SetupDiGetClassDevs(
             Guid? classGuid,
             string enumerator,
@@ -78,20 +62,20 @@ namespace PInvoke
             }
         }
 
-        public static string SetupDiGetDeviceInterfaceDetail(
+        public static unsafe string SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
             SP_DEVICE_INTERFACE_DATA interfaceData,
             SP_DEVINFO_DATA deviceInfoData)
         {
-            var requiredSize = new NullableUInt32();
+            int requiredSize;
 
             // First call to get the size to allocate
             SetupDiGetDeviceInterfaceDetail(
                 deviceInfoSet,
                 ref interfaceData,
-                IntPtr.Zero,
+                null,
                 0,
-                requiredSize,
+                &requiredSize,
                 deviceInfoData);
 
             // As we passed an empty buffer we know that the function will fail, not need to check the result.
@@ -101,18 +85,17 @@ namespace PInvoke
                 throw new Win32Exception(lastError);
             }
 
-            var buffer = Marshal.AllocHGlobal((int)requiredSize.Value);
-
-            try
+            fixed (byte* pBuffer = new byte[requiredSize])
             {
-                Marshal.WriteInt32(buffer, DeviceInterfaceDetailDataSize.Value);
+                var pDetail = (SP_DEVICE_INTERFACE_DETAIL_DATA*)pBuffer;
+                pDetail->cbSize = SP_DEVICE_INTERFACE_DETAIL_DATA.ReportableStructSize;
 
                 // Second call to get the value
                 var success = SetupDiGetDeviceInterfaceDetail(
                     deviceInfoSet,
                     ref interfaceData,
-                    buffer,
-                    (int)requiredSize.Value,
+                    pDetail,
+                    requiredSize,
                     null,
                     null);
 
@@ -122,12 +105,7 @@ namespace PInvoke
                     return null;
                 }
 
-                var strPtr = new IntPtr(buffer.ToInt64() + 4);
-                return Marshal.PtrToStringAuto(strPtr);
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(buffer);
+                return SP_DEVICE_INTERFACE_DETAIL_DATA.GetDevicePath(pDetail);
             }
         }
     }
