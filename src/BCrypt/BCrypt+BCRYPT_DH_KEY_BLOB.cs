@@ -25,7 +25,7 @@ namespace PInvoke
             /// <summary>
             /// The length, in bytes, of the key.
             /// </summary>
-            public uint cbKey;
+            public int cbKey;
 
             /// <summary>
             /// Enumerates the values that may be used in <see cref="dwMagic"/>.

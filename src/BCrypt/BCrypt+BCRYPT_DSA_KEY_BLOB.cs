@@ -28,12 +28,12 @@ namespace PInvoke
             /// <summary>
             /// The length, in bytes, of the key.
             /// </summary>
-            public uint cbKey;
+            public int cbKey;
 
             /// <summary>
             /// The number of iterations, in big-endian format, used to generate q.
             /// </summary>
-            public uint Count;
+            public int Count;
 
             /// <summary>
             /// The seed value, in big-endian format, used to generate q.

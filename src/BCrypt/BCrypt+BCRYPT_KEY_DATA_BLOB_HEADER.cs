@@ -24,20 +24,27 @@ namespace PInvoke
 
             /// <summary>
             /// The magic value for the key.
-            /// This member must be the following value.
-            /// BCRYPT_KEY_DATA_BLOB_MAGIC (0x4d42444b)
+            /// This member must be the following value: <see cref="MagicNumber.BCRYPT_KEY_DATA_BLOB_MAGIC"/>
             /// </summary>
-            public uint dwMagic;
+            public MagicNumber dwMagic;
 
             /// <summary>
             /// Contains the numeric version of the key.
             /// </summary>
-            public uint dwVersion;
+            public int dwVersion;
 
             /// <summary>
             /// The size, in bytes, of the key data.
             /// </summary>
             public int cbKeyData;
+
+            /// <summary>
+            /// Values for the <see cref="dwMagic"/> field.
+            /// </summary>
+            public enum MagicNumber : uint
+            {
+                BCRYPT_KEY_DATA_BLOB_MAGIC = 0x4d42444b,
+            }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="BCRYPT_KEY_DATA_BLOB_HEADER"/> struct.
@@ -48,7 +55,7 @@ namespace PInvoke
             {
                 return new BCRYPT_KEY_DATA_BLOB_HEADER
                 {
-                    dwMagic = 0x4d42444b,
+                    dwMagic = MagicNumber.BCRYPT_KEY_DATA_BLOB_MAGIC,
                     dwVersion = BCRYPT_KEY_DATA_BLOB_VERSION1,
                     cbKeyData = cbKeyData,
                 };
@@ -74,7 +81,7 @@ namespace PInvoke
             {
                 int headerLength = Marshal.SizeOf(typeof(BCRYPT_KEY_DATA_BLOB_HEADER));
                 byte[] keyWithHeader = new byte[headerLength + keyMaterial.Length];
-                Array.Copy(BitConverter.GetBytes(this.dwMagic), keyWithHeader, sizeof(uint));
+                Array.Copy(BitConverter.GetBytes((uint)this.dwMagic), keyWithHeader, sizeof(uint));
                 Array.Copy(BitConverter.GetBytes(this.dwVersion), 0, keyWithHeader, sizeof(uint), sizeof(uint));
                 Array.Copy(BitConverter.GetBytes(this.cbKeyData), 0, keyWithHeader, sizeof(uint) * 2, sizeof(int));
                 Array.Copy(keyMaterial, 0, keyWithHeader, headerLength, keyMaterial.Length);
