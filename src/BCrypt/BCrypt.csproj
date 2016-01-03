@@ -63,6 +63,7 @@
     <Compile Include="BCrypt+BCRYPT_OAEP_PADDING_INFO.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
+    <Compile Include="BCrypt+BCRYPT_PKCS1_PADDING_INFO.cs" />
     <Compile Include="BCrypt+BCRYPT_RSAKEY_BLOB.cs" />
     <Compile Include="BCrypt+BCRYPT_DH_KEY_BLOB.cs" />
     <Compile Include="BCrypt+BufferType.cs" />
