@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System.Runtime.InteropServices;
+
     /// <content>
     /// Contains the <see cref="BCRYPT_PKCS1_PADDING_INFO"/> nested type.
     /// </content>
@@ -11,6 +13,7 @@ namespace PInvoke
         /// <summary>
         /// The BCRYPT_PKCS1_PADDING_INFO structure is used to provide options for the PKCS #1 padding scheme.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_PKCS1_PADDING_INFO
         {
             /// <summary>
