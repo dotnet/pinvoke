@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System.Runtime.InteropServices;
+
     /// <content>
     /// Contains the <see cref="BCRYPT_ECCKEY_BLOB"/> nested type.
     /// </content>
@@ -12,6 +14,7 @@ namespace PInvoke
         /// A key blob format for transporting ECC keys.
         /// Used as a header for an elliptic curve public key or private key BLOB in memory.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_ECCKEY_BLOB
         {
             /// <summary>

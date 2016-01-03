@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System.Runtime.InteropServices;
+
     /// <content>
     /// Contains the <see cref="BCRYPT_KEY_BLOB"/> nested type.
     /// </content>
@@ -12,6 +14,7 @@ namespace PInvoke
         /// Represents a key blob header that identifies a key blob format for transporting keys.
         /// The base structure for all CNG key BLOBs. All CNG key BLOBs are based on this structure. For example, the <see cref="BCRYPT_RSAKEY_BLOB"/> structure is based on this structure.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_KEY_BLOB
         {
             /// <summary>

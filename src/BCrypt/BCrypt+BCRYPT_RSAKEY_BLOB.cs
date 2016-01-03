@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System.Runtime.InteropServices;
+
     /// <content>
     /// Contains the <see cref="BCRYPT_RSAKEY_BLOB"/> nested type.
     /// </content>
@@ -11,6 +13,7 @@ namespace PInvoke
         /// <summary>
         /// A key blob format for transporting RSA keys.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_RSAKEY_BLOB
         {
             /// <summary>
