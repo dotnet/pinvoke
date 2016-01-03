@@ -28,7 +28,7 @@ namespace PInvoke
             /// The size, in bytes, of this structure.
             /// Do not set this field directly. Use the <see cref="Create"/> method instead.
             /// </summary>
-            public uint cbSize;
+            public int cbSize;
 
             /// <summary>
             /// The version number of the structure.
@@ -130,7 +130,7 @@ namespace PInvoke
             {
                 return new BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO
                 {
-                    cbSize = (uint)Marshal.SizeOf(typeof(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO)),
+                    cbSize = Marshal.SizeOf(typeof(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO)),
                     dwInfoVersion = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION,
                 };
             }

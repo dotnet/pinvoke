@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System.Runtime.InteropServices;
+
     /// <content>
     /// Contains the <see cref="BCRYPT_RSAKEY_BLOB"/> nested type.
     /// </content>
@@ -11,43 +13,48 @@ namespace PInvoke
         /// <summary>
         /// A key blob format for transporting RSA keys.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_RSAKEY_BLOB
         {
-            public const uint BCRYPT_RSAPUBLIC_MAGIC = 0x31415352;  // RSA1
-            public const uint BCRYPT_RSAPRIVATE_MAGIC = 0x32415352; // RSA2
-            public const uint BCRYPT_RSAFULLPRIVATE_MAGIC = 0x33415352;  // RSA3
-
             /// <summary>
             /// Specifies the type of RSA key this BLOB represents.
-            /// This can be one of the following values:
-            /// <see cref="BCRYPT_RSAPUBLIC_MAGIC"/>, <see cref="BCRYPT_RSAPRIVATE_MAGIC"/>, <see cref="BCRYPT_RSAFULLPRIVATE_MAGIC"/>.
             /// </summary>
-            public uint Magic;
+            public MagicNumber Magic;
 
             /// <summary>
             /// The size, in bits, of the key.
             /// </summary>
-            public uint BitLength;
+            public int BitLength;
 
             /// <summary>
             /// The size, in bytes, of the exponent of the key.
             /// </summary>
-            public uint cbPublicExp;
+            public int cbPublicExp;
 
             /// <summary>
             /// The size, in bytes, of the modulus of the key.
             /// </summary>
-            public uint cbModulus;
+            public int cbModulus;
 
             /// <summary>
             /// The size, in bytes, of the first prime number of the key. This is only used for private key BLOBs.
             /// </summary>
-            public uint cbPrime1;
+            public int cbPrime1;
 
             /// <summary>
             /// The size, in bytes, of the second prime number of the key. This is only used for private key BLOBs.
             /// </summary>
-            public uint cbPrime2;
+            public int cbPrime2;
+
+            /// <summary>
+            /// Enumerates the values that may be expected in the <see cref="Magic"/> field.
+            /// </summary>
+            public enum MagicNumber : uint
+            {
+                BCRYPT_RSAPUBLIC_MAGIC = 0x31415352,  // RSA1
+                BCRYPT_RSAPRIVATE_MAGIC = 0x32415352, // RSA2
+                BCRYPT_RSAFULLPRIVATE_MAGIC = 0x33415352,  // RSA3
+            }
         }
     }
 }

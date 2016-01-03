@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System.Runtime.InteropServices;
+
     /// <content>
     /// Contains the <see cref="BCRYPT_DH_KEY_BLOB"/> nested type.
     /// </content>
@@ -12,21 +14,27 @@ namespace PInvoke
         /// A key blob format for transporting DH keys.
         /// Used as a header for a Diffie-Hellman public key or private key BLOB in memory.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_DH_KEY_BLOB
         {
-            public const uint BCRYPT_DH_PUBLIC_MAGIC = 0x42504844;  // DHPB
-            public const uint BCRYPT_DH_PRIVATE_MAGIC = 0x56504844; // DHPV
-
             /// <summary>
-            /// Determines the type of key this structure represents. This can be one of the following values:
-            /// <see cref="BCRYPT_DH_PUBLIC_MAGIC"/>, <see cref="BCRYPT_DH_PRIVATE_MAGIC"/>.
+            /// Determines the type of key this structure represents.
             /// </summary>
-            public uint dwMagic;
+            public MagicNumber dwMagic;
 
             /// <summary>
             /// The length, in bytes, of the key.
             /// </summary>
-            public uint cbKey;
+            public int cbKey;
+
+            /// <summary>
+            /// Enumerates the values that may be used in <see cref="dwMagic"/>.
+            /// </summary>
+            public enum MagicNumber : uint
+            {
+                BCRYPT_DH_PUBLIC_MAGIC = 0x42504844,  // DHPB
+                BCRYPT_DH_PRIVATE_MAGIC = 0x56504844, // DHPV
+            }
         }
     }
 }
