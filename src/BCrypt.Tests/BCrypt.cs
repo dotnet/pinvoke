@@ -386,6 +386,8 @@ public class BCrypt
     {
         BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO s = default(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO);
         s.pbAuthData_IntPtr = IntPtr.Zero;
+        BCRYPT_OAEP_PADDING_INFO oaep = default(BCRYPT_OAEP_PADDING_INFO);
+        oaep.pbLabel_IntPtr = IntPtr.Zero;
     }
 
     /// <summary>

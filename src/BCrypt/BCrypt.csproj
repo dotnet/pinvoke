@@ -60,6 +60,9 @@
     <Compile Include="BCrypt+BCRYPT_KEY_DATA_BLOB_HEADER.cs" />
     <Compile Include="BCrypt+BCRYPT_KEY_LENGTHS_STRUCT.cs" />
     <Compile Include="BCrypt+BCRYPT_ECCKEY_BLOB.cs" />
+    <Compile Include="BCrypt+BCRYPT_OAEP_PADDING_INFO.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="BCrypt+BCRYPT_RSAKEY_BLOB.cs" />
     <Compile Include="BCrypt+BCRYPT_DH_KEY_BLOB.cs" />
     <Compile Include="BCrypt+BufferType.cs" />
