@@ -13,16 +13,10 @@ namespace PInvoke
         /// </summary>
         public struct BCRYPT_RSAKEY_BLOB
         {
-            public const uint BCRYPT_RSAPUBLIC_MAGIC = 0x31415352;  // RSA1
-            public const uint BCRYPT_RSAPRIVATE_MAGIC = 0x32415352; // RSA2
-            public const uint BCRYPT_RSAFULLPRIVATE_MAGIC = 0x33415352;  // RSA3
-
             /// <summary>
             /// Specifies the type of RSA key this BLOB represents.
-            /// This can be one of the following values:
-            /// <see cref="BCRYPT_RSAPUBLIC_MAGIC"/>, <see cref="BCRYPT_RSAPRIVATE_MAGIC"/>, <see cref="BCRYPT_RSAFULLPRIVATE_MAGIC"/>.
             /// </summary>
-            public uint Magic;
+            public MagicNumber Magic;
 
             /// <summary>
             /// The size, in bits, of the key.
@@ -48,6 +42,16 @@ namespace PInvoke
             /// The size, in bytes, of the second prime number of the key. This is only used for private key BLOBs.
             /// </summary>
             public uint cbPrime2;
+
+            /// <summary>
+            /// Enumerates the values that may be expected in the <see cref="Magic"/> field.
+            /// </summary>
+            public enum MagicNumber : uint
+            {
+                BCRYPT_RSAPUBLIC_MAGIC = 0x31415352,  // RSA1
+                BCRYPT_RSAPRIVATE_MAGIC = 0x32415352, // RSA2
+                BCRYPT_RSAFULLPRIVATE_MAGIC = 0x33415352,  // RSA3
+            }
         }
     }
 }
