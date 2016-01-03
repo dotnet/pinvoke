@@ -21,27 +21,27 @@ namespace PInvoke
             /// <summary>
             /// The size, in bits, of the key.
             /// </summary>
-            public uint BitLength;
+            public int BitLength;
 
             /// <summary>
             /// The size, in bytes, of the exponent of the key.
             /// </summary>
-            public uint cbPublicExp;
+            public int cbPublicExp;
 
             /// <summary>
             /// The size, in bytes, of the modulus of the key.
             /// </summary>
-            public uint cbModulus;
+            public int cbModulus;
 
             /// <summary>
             /// The size, in bytes, of the first prime number of the key. This is only used for private key BLOBs.
             /// </summary>
-            public uint cbPrime1;
+            public int cbPrime1;
 
             /// <summary>
             /// The size, in bytes, of the second prime number of the key. This is only used for private key BLOBs.
             /// </summary>
-            public uint cbPrime2;
+            public int cbPrime2;
 
             /// <summary>
             /// Enumerates the values that may be expected in the <see cref="Magic"/> field.
