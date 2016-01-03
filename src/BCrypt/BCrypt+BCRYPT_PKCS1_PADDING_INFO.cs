@@ -18,6 +18,7 @@ namespace PInvoke
         {
             /// <summary>
             /// A pointer to a null-terminated Unicode string that identifies the cryptographic algorithm to use to create the padding. This algorithm must be a hashing algorithm. When creating a signature, the object identifier (OID) that corresponds to this algorithm is added to the DigestInfo element in the signature, and if this member is NULL, then the OID is not added. When verifying a signature, the verification fails if the OID that corresponds to this member is not the same as the OID in the signature. If there is no OID in the signature, then verification fails unless this member is NULL.
+            /// Typically the value comes from a constant defined in <see cref="AlgorithmIdentifiers"/>.
             /// </summary>
             public string pszAlgId;
         }
