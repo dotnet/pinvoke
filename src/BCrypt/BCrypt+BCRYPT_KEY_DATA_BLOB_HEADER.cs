@@ -31,7 +31,7 @@ namespace PInvoke
             /// <summary>
             /// Contains the numeric version of the key.
             /// </summary>
-            public int dwVersion;
+            public uint dwVersion;
 
             /// <summary>
             /// The size, in bytes, of the key data.
