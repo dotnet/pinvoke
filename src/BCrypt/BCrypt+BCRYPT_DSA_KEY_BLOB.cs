@@ -21,20 +21,9 @@ namespace PInvoke
         public struct BCRYPT_DSA_KEY_BLOB
         {
             /// <summary>
-            /// The structure represents a DSA public key.
+            /// Determines the type of key this structure represents.
             /// </summary>
-            public const uint BCRYPT_DSA_PUBLIC_MAGIC = 0x42505344;  // DSPB
-
-            /// <summary>
-            /// The structure represents a DSA private key.
-            /// </summary>
-            public const uint BCRYPT_DSA_PRIVATE_MAGIC = 0x56505344;  // DSPV
-
-            /// <summary>
-            /// Determines the type of key this structure represents. This can be one of the following values:
-            /// <see cref="BCRYPT_DSA_PUBLIC_MAGIC"/>, <see cref="BCRYPT_DSA_PRIVATE_MAGIC"/>.
-            /// </summary>
-            public uint dwMagic;
+            public MagicNumber dwMagic;
 
             /// <summary>
             /// The length, in bytes, of the key.
@@ -57,6 +46,22 @@ namespace PInvoke
             /// </summary>
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
             public byte[] q;
+
+            /// <summary>
+            /// Enumerates the possible values for <see cref="dwMagic"/>.
+            /// </summary>
+            public enum MagicNumber : uint
+            {
+                /// <summary>
+                /// The structure represents a DSA public key.
+                /// </summary>
+                BCRYPT_DSA_PUBLIC_MAGIC = 0x42505344,  // DSPB
+
+                /// <summary>
+                /// The structure represents a DSA private key.
+                /// </summary>
+                BCRYPT_DSA_PRIVATE_MAGIC = 0x56505344,  // DSPV
+            }
         }
     }
 }
