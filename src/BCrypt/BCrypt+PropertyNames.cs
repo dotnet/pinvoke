@@ -47,7 +47,7 @@ namespace PInvoke
             /// <summary>
             /// The size, in bits, of the key value of a symmetric key provider. This data type is a DWORD.
             /// </summary>
-            public const string KeyLength = "KeyLength";
+            public const string BCRYPT_KEY_LENGTH = "KeyLength";
 
             /// <summary>
             /// This property is not used. The <see cref="BCRYPT_OBJECT_LENGTH"/> property is used to obtain this information.
@@ -129,17 +129,17 @@ namespace PInvoke
             /// <summary>
             /// Undocumented.
             /// </summary>
-            public const string PrimitiveType = "PrimitiveType";
+            public const string BCRYPT_PRIMITIVE_TYPE = "PrimitiveType";
 
             /// <summary>
             /// Undocumented.
             /// </summary>
-            public const string IsKeyedHash = "IsKeyedHash";
+            public const string BCRYPT_IS_KEYED_HASH = "IsKeyedHash";
 
             /// <summary>
             /// Undocumented.
             /// </summary>
-            public const string IsReusableHash = "IsReusableHash";
+            public const string BCRYPT_IS_REUSABLE_HASH = "IsReusableHash";
         }
     }
 }
