@@ -26,7 +26,7 @@ namespace PInvoke
         /// <summary>
         /// The original Win32 error code that resulted in this exception.
         /// </summary>
-        private readonly int nativeErrorCode;
+        private readonly Win32ErrorCode nativeErrorCode;
 #endif
 
         /// <summary>
@@ -46,19 +46,10 @@ namespace PInvoke
         /// </summary>
         /// <param name="error">The Win32 error code associated with this exception.</param>
         public Win32Exception(Win32ErrorCode error)
-            : this((int)error)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Win32Exception"/> class.
-        /// </summary>
-        /// <param name="error">The Win32 error code associated with this exception.</param>
-        public Win32Exception(int error)
 #if DESKTOP
-            : base(error)
+            : base((int)error)
 #else
-            : this(error, GetErrorMessage(error))
+            : this(error, GetErrorMessage((int)error))
 #endif
         {
         }
@@ -67,10 +58,19 @@ namespace PInvoke
         /// Initializes a new instance of the <see cref="Win32Exception"/> class.
         /// </summary>
         /// <param name="error">The Win32 error code associated with this exception.</param>
+        public Win32Exception(int error)
+            : this((Win32ErrorCode)error)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Win32Exception"/> class.
+        /// </summary>
+        /// <param name="error">The Win32 error code associated with this exception.</param>
         /// <param name="message">The message for this exception.</param>
-        public Win32Exception(int error, string message)
+        public Win32Exception(Win32ErrorCode error, string message)
 #if DESKTOP
-            : base(error, message)
+            : base((int)error, message)
 #else
             : base(message)
 #endif
@@ -88,9 +88,9 @@ namespace PInvoke
         /// of what portable offers (lest runtime errors in our users occur).
         /// </devremarks>
 #if DESKTOP
-        public new int NativeErrorCode => base.NativeErrorCode;
+        public new Win32ErrorCode NativeErrorCode => (Win32ErrorCode)base.NativeErrorCode;
 #else
-        public int NativeErrorCode => this.nativeErrorCode;
+        public Win32ErrorCode NativeErrorCode => this.nativeErrorCode;
 #endif
 
 #if !DESKTOP
