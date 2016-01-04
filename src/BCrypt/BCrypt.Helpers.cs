@@ -597,6 +597,55 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Verifies that the specified signature matches the specified hash.
+        /// </summary>
+        /// <param name="key">
+        /// The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <see cref="BCryptSignHash(SafeKeyHandle, byte[], void*, BCryptSignHashFlags)"/> function.
+        /// </param>
+        /// <param name="hash">
+        /// The address of a buffer that contains the hash of the data.
+        /// </param>
+        /// <param name="signature">
+        /// The address of a buffer that contains the signed hash of the data. The <see cref="BCryptSignHash(SafeKeyHandle, byte[], void*, BCryptSignHashFlags)"/> function is used to create the signature.
+        /// </param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="dwFlags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// If the key is a symmetric key, this parameter is not used and should be zero.
+        /// If the key is an asymmetric key, this can be one of the following values.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the signature is valid; <c>false</c> otherwise.
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown when any error occurs other than an invalid signature.</exception>
+        public static unsafe bool BCryptVerifySignature(
+            SafeKeyHandle key,
+            byte[] hash,
+            byte[] signature,
+            void* paddingInfo = null,
+            BCryptSignHashFlags flags = BCryptSignHashFlags.None)
+        {
+            NTStatus status = BCryptVerifySignature(
+                key,
+                paddingInfo,
+                hash,
+                hash.Length,
+                signature,
+                signature.Length,
+                flags);
+
+            if (status == NTStatus.STATUS_INVALID_SIGNATURE)
+            {
+                return false;
+            }
+
+            status.ThrowOnError();
+            return true;
+        }
+
+        /// <summary>
         /// Creates a secret agreement value from a private and a public key.
         /// </summary>
         /// <param name="privateKey">
