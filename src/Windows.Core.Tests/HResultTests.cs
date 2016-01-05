@@ -115,6 +115,19 @@ public class HResultTests
     }
 
     [Fact]
+    public void EqualOperators()
+    {
+        HResult hr3 = 3;
+        HResult hr3b = 3;
+        HResult hr5 = 5;
+
+        Assert.True(hr3 != hr5);
+        Assert.True(hr3 == hr3b);
+        Assert.False(hr3 == hr5);
+        Assert.False(hr3 != hr3b);
+    }
+
+    [Fact]
     public void DebuggerDisplay()
     {
         HResult hr = 0x10;
