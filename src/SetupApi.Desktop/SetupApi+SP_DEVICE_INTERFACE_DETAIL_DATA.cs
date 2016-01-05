@@ -14,7 +14,7 @@ namespace PInvoke
         /// <summary>
         /// An SP_DEVICE_INTERFACE_DETAIL_DATA structure contains the path for a device interface.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public unsafe struct SP_DEVICE_INTERFACE_DETAIL_DATA
         {
             /// <summary>
