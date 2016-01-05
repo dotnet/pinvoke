@@ -8,8 +8,9 @@ using static PInvoke.AdvApi32;
 
 public class AdvApi32
 {
-    [Fact(Skip = "No tests yet")]
-    public void NoTests()
+    [Fact]
+    public void LsaNtStatusToWinError_UsesTable()
     {
+        Assert.Equal(Win32ErrorCode.ERROR_NOACCESS, LsaNtStatusToWinError(NTStatus.STATUS_ACCESS_VIOLATION));
     }
 }
