@@ -851,7 +851,7 @@ namespace PInvoke
                 ////case NTStatus.STATUS_CLUSTER_NO_SECURITY_CONTEXT: return Win32ErrorCode.ERROR_CLUSTER_NO_SECURITY_CONTEXT;
                 ////case NTStatus.STATUS_CLUSTER_NETWORK_NOT_INTERNAL: return Win32ErrorCode.ERROR_CLUSTER_NETWORK_NOT_INTERNAL;
                 default:
-                    throw new ArgumentException($"Unknown translation for NTStatus value {status}.", nameof(status));
+                    throw new ArgumentException($"Unknown translation for NTStatus value 0x{status:x8}.", nameof(status));
             }
         }
     }
