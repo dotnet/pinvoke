@@ -27,6 +27,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HResultTests.cs" />
     <Compile Include="NullableGuidTests.cs" />
     <Compile Include="NullableUInt32Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
