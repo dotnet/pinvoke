@@ -390,6 +390,24 @@ public class BCrypt
         oaep.pbLabel_IntPtr = IntPtr.Zero;
     }
 
+    [Fact]
+    public unsafe void PaddingInfo_Pinnable()
+    {
+        // These padding structures must be allowed to get their address
+        // as they are always passed by pointer not by value.
+        // This test ensures that they are pinnable, thus preventing anyone
+        // from changing the char* field types to string for usability reasons
+        // and unknowingly breaking pinnability.
+        var oaepPaddingInfo = default(BCRYPT_OAEP_PADDING_INFO);
+        void* pPaddingInfo = &oaepPaddingInfo;
+
+        var pkcs1PaddingInfo = default(BCRYPT_PKCS1_PADDING_INFO);
+        pPaddingInfo = &pkcs1PaddingInfo;
+
+        var pssPaddingInfo = default(BCRYPT_PSS_PADDING_INFO);
+        pPaddingInfo = &pssPaddingInfo;
+    }
+
     /// <summary>
     /// Gets the minimum length of a key (in bits).
     /// </summary>
