@@ -104,5 +104,15 @@ namespace PInvoke
             ref int pcbBytesNeeded,
             ref int lpServicesReturned,
             ref int lpResumeHandle);
+
+        /// <summary>
+        /// Converts an NTSTATUS code returned by an LSA function to a Windows error code.
+        /// </summary>
+        /// <param name="Status">An NTSTATUS code returned by an LSA function call. This value will be converted to a System error code.</param>
+        /// <returns>
+        /// The return value is the Windows error code that corresponds to the Status parameter. If there is no corresponding Windows error code, the return value is <see cref="Win32ErrorCode.ERROR_MR_MID_NOT_FOUND"/>.
+        /// </returns>
+        [DllImport(nameof(AdvApi32))]
+        public static extern Win32ErrorCode LsaNtStatusToWinError(NTStatus Status);
     }
 }
