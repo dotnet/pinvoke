@@ -7,22 +7,88 @@ namespace PInvoke
     using System.Diagnostics;
     using System.Runtime.InteropServices;
 
+#pragma warning disable SA1124 // DoNotUseRegions
+
+    /// <summary>
+    /// Describes an HRESULT error or success condition.
+    /// </summary>
     [DebuggerDisplay("{DebuggerDisplay}")]
+    [StructLayout(LayoutKind.Sequential)]
     public struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
     {
+        #region Common HRESULT constants
+
+        /// <summary>
+        /// Operation successful, and returned a false result.
+        /// </summary>
         public static readonly HResult S_FALSE = 1;
+
+        /// <summary>
+        /// Operation successful
+        /// </summary>
         public static readonly HResult S_OK = 0;
 
+        /// <summary>
+        /// Unspecified failure
+        /// </summary>
         public static readonly HResult E_FAIL = 0x80004005;
+
+        /// <summary>
+        /// Operation aborted
+        /// </summary>
         public static readonly HResult E_ABORT = 0x80004004;
+
+        /// <summary>
+        /// General access denied error
+        /// </summary>
         public static readonly HResult E_ACCESSDENIED = 0x80070005;
+
+        /// <summary>
+        /// Handle that is not valid
+        /// </summary>
         public static readonly HResult E_HANDLE = 0x80070006;
+
+        /// <summary>
+        /// One or more arguments are not valid
+        /// </summary>
         public static readonly HResult E_INVALIDARG = 0x80070057;
+
+        /// <summary>
+        /// No such interface supported
+        /// </summary>
         public static readonly HResult E_NOINTERFACE = 0x80004002;
+
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public static readonly HResult E_NOTIMPL = 0x80004001;
+
+        /// <summary>
+        /// Failed to allocate necessary memory
+        /// </summary>
         public static readonly HResult E_OUTOFMEMORY = 0x8007000E;
+
+        /// <summary>
+        /// Pointer that is not valid
+        /// </summary>
         public static readonly HResult E_POINTER = 0x80004003;
+
+        /// <summary>
+        /// Unexpected failure
+        /// </summary>
         public static readonly HResult E_UNEXPECTED = 0x8000FFFF;
+
+        #endregion
+
+        /// <summary>
+        /// The mask of the bits that describe the <see cref="Facility"/>.
+        /// </summary>
+        private const int FacilityMask = 0x7ff0000;
+
+        /// <summary>
+        /// The mask of the bits that describe the facility's status <see cref="Code"/>.
+        /// </summary>
+        private const int CodeMask = 0xffff;
 
         /// <summary>
         /// The value of the HRESULT.
@@ -66,6 +132,16 @@ namespace PInvoke
         /// Gets a value indicating whether this HRESULT represents a failured operation.
         /// </summary>
         public bool Failed => this.value < 0;
+
+        /// <summary>
+        /// Gets the facility code bits from the HRESULT.
+        /// </summary>
+        public int Facility => this.value & FacilityMask;
+
+        /// <summary>
+        /// Gets the facility's status code bits from the HRESULT.
+        /// </summary>
+        public int Code => this.value & CodeMask;
 
         /// <summary>
         /// Gets the string to display in a data tip when debugging.

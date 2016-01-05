@@ -140,6 +140,18 @@ public class HResultTests
     }
 
     [Fact]
+    public void Facility()
+    {
+        Assert.Equal(0x7ff0000, new HResult(0xffffffff).Facility);
+    }
+
+    [Fact]
+    public void Code()
+    {
+        Assert.Equal(0xffff, new HResult(0xffffffff).Code);
+    }
+
+    [Fact]
     public void ThrowOnFailure()
     {
         Assert.Throws<COMException>(() => HResult.E_FAIL.ThrowOnFailure());
