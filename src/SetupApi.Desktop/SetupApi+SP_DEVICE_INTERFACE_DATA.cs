@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="DeviceInterfaceData"/> nested struct.
+    /// Contains the <see cref="SP_DEVICE_INTERFACE_DATA"/> nested struct.
     /// </content>
     public partial class SetupApi
     {
@@ -15,10 +15,10 @@ namespace PInvoke
         /// Defines a device interface in a device information set.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct DeviceInterfaceData
+        public struct SP_DEVICE_INTERFACE_DATA
         {
             /// <summary>
-            /// The size, in bytes, of the <see cref="DeviceInterfaceData" /> structure. <see cref="Create" /> set this value
+            /// The size, in bytes, of the <see cref="SP_DEVICE_INTERFACE_DATA" /> structure. <see cref="Create" /> set this value
             /// automatically
             /// to the correct value.
             /// </summary>
@@ -42,10 +42,10 @@ namespace PInvoke
             /// <summary>
             /// Create an instance with <see cref="Size" /> set to the correct value.
             /// </summary>
-            /// <returns>An instance of <see cref="DeviceInterfaceData" /> with it's <see cref="Size" /> member set.</returns>
-            public static DeviceInterfaceData Create()
+            /// <returns>An instance of <see cref="SP_DEVICE_INTERFACE_DATA" /> with it's <see cref="Size" /> member set.</returns>
+            public static SP_DEVICE_INTERFACE_DATA Create()
             {
-                var result = default(DeviceInterfaceData);
+                var result = default(SP_DEVICE_INTERFACE_DATA);
                 result.Size = Marshal.SizeOf(result);
                 return result;
             }

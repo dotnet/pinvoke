@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class SetupApi
     {
         /// <summary>
-        /// The flags present in <see cref="DeviceInterfaceData" /> structure.
+        /// The flags present in <see cref="SP_DEVICE_INTERFACE_DATA" /> structure.
         /// </summary>
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Original API names are used for consistency")]
         [Flags]
