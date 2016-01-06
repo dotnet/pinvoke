@@ -8,6 +8,7 @@ namespace PInvoke
     /// </summary>
     internal static class NTStatusFacilities
     {
+        internal const uint NTStatusFacility = 0x10000000;
         internal const uint HidErrorCode = (uint)0x11 << 16;
     }
 }

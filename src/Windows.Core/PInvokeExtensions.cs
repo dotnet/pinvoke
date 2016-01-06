@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.Runtime.InteropServices;
 
     /// <summary>
     /// Extension methods for commonly defined types.
@@ -18,6 +19,30 @@ namespace PInvoke
         public static NTStatus ToNTStatus(int hresult)
         {
             return (NTStatus)((hresult & 0xC0007FFF) | ((int)NTStatus.FACILITY_FILTER_MANAGER << 16) | 0x40000000);
+        }
+
+        /// <summary>
+        /// Converts an NTStatus to an HRESULT.
+        /// </summary>
+        /// <param name="status">The <see cref="NTStatus"/> to convert.</param>
+        /// <returns>The HRESULT.</returns>
+        public static int ToHResult(this NTStatus status)
+        {
+            // From winerror.h
+            // #define HRESULT_FROM_NT(x)      ((HRESULT) ((x) | FACILITY_NT_BIT))
+            return (int)status | (int)NTStatusFacilities.NTStatusFacility;
+        }
+
+        /// <summary>
+        /// Throws an exception if a P/Invoke failed.
+        /// </summary>
+        /// <param name="status">The result of the P/Invoke call.</param>
+        public static void ThrowOnError(this NTStatus status)
+        {
+            if ((int)status < 0)
+            {
+                Marshal.ThrowExceptionForHR(status.ToHResult());
+            }
         }
 
         /// <summary>
