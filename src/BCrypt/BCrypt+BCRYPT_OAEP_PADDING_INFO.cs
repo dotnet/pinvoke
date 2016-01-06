@@ -21,7 +21,7 @@ namespace PInvoke
             /// A pointer to a null-terminated Unicode string that identifies the cryptographic algorithm to use to create the padding. This algorithm must be a hashing algorithm.
             /// Typically the value comes from a constant defined in <see cref="AlgorithmIdentifiers"/>.
             /// </summary>
-            public string pszAlgId;
+            public char* pszAlgId;
 
             /// <summary>
             /// The address of a buffer that contains the data to use to create the padding. The <see cref="cbLabel"/> member contains the size of this buffer.
