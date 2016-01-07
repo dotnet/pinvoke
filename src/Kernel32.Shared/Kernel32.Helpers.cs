@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Text;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -12,6 +13,75 @@ namespace PInvoke
     /// </content>
     public static partial class Kernel32
     {
+        /// <summary>
+        /// Formats a message string. The function requires a message definition as input. The message definition can come from a buffer passed into the function. It can come from a message table resource in an already-loaded module. Or the caller can ask the function to search the system's message table resource(s) for the message definition. The function finds the message definition in a message table resource based on a message identifier and a language identifier. The function copies the formatted message text to an output buffer, processing any embedded insert sequences if requested.
+        /// </summary>
+        /// <param name="dwFlags">
+        /// The formatting options, and how to interpret the lpSource parameter. The low-order byte of dwFlags specifies how the function handles line breaks in the output buffer. The low-order byte can also specify the maximum width of a formatted output line.
+        /// The <see cref="FormatMessageFlags.FORMAT_MESSAGE_ARGUMENT_ARRAY"/> flag is always added
+        /// and the <see cref="FormatMessageFlags.FORMAT_MESSAGE_ALLOCATE_BUFFER"/> flag is always suppressed by this helper method
+        /// </param>
+        /// <param name="lpSource">
+        /// The location of the message definition. The type of this parameter depends upon the settings in the <paramref name="dwFlags"/> parameter.
+        /// If <see cref="FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE"/>: A handle to the module that contains the message table to search.
+        /// If <see cref="FormatMessageFlags.FORMAT_MESSAGE_FROM_STRING"/>: Pointer to a string that consists of unformatted message text. It will be scanned for inserts and formatted accordingly.
+        /// If neither of these flags is set in dwFlags, then lpSource is ignored.
+        /// </param>
+        /// <param name="dwMessageId">
+        /// The message identifier for the requested message. This parameter is ignored if dwFlags includes <see cref="FormatMessageFlags.FORMAT_MESSAGE_FROM_STRING" />.
+        /// </param>
+        /// <param name="dwLanguageId">
+        /// The language identifier for the requested message. This parameter is ignored if dwFlags includes <see cref="FormatMessageFlags.FORMAT_MESSAGE_FROM_STRING"/>.
+        /// If you pass a specific LANGID in this parameter, FormatMessage will return a message for that LANGID only.If the function cannot find a message for that LANGID, it sets Last-Error to ERROR_RESOURCE_LANG_NOT_FOUND.If you pass in zero, FormatMessage looks for a message for LANGIDs in the following order:
+        /// Language neutral
+        /// Thread LANGID, based on the thread's locale value
+        /// User default LANGID, based on the user's default locale value
+        /// System default LANGID, based on the system default locale value
+        /// US English
+        /// If FormatMessage does not locate a message for any of the preceding LANGIDs, it returns any language message string that is present.If that fails, it returns ERROR_RESOURCE_LANG_NOT_FOUND.
+        /// </param>
+        /// <param name="Arguments">
+        /// An array of values that are used as insert values in the formatted message. A %1 in the format string indicates the first value in the Arguments array; a %2 indicates the second argument; and so on.
+        /// The interpretation of each value depends on the formatting information associated with the insert in the message definition.The default is to treat each value as a pointer to a null-terminated string.
+        /// By default, the Arguments parameter is of type va_list*, which is a language- and implementation-specific data type for describing a variable number of arguments.The state of the va_list argument is undefined upon return from the function.To use the va_list again, destroy the variable argument list pointer using va_end and reinitialize it with va_start.
+        /// If you do not have a pointer of type va_list*, then specify the FORMAT_MESSAGE_ARGUMENT_ARRAY flag and pass a pointer to an array of DWORD_PTR values; those values are input to the message formatted as the insert values.Each insert must have a corresponding element in the array.
+        /// </param>
+        /// <param name="maxAllowedBufferSize">The maximum size of the returned string. If exceeded, <c>null</c> is returned.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the number of TCHARs stored in the output buffer, excluding the terminating null character.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        public static unsafe string FormatMessage(FormatMessageFlags dwFlags, void* lpSource, int dwMessageId, int dwLanguageId, IntPtr[] Arguments, int maxAllowedBufferSize)
+        {
+            string errorMsg;
+
+            StringBuilder sb = new StringBuilder(256);
+            do
+            {
+                if (TryGetErrorMessage(dwFlags, lpSource, dwMessageId, dwLanguageId, sb, Arguments, out errorMsg))
+                {
+                    return errorMsg;
+                }
+                else
+                {
+                    if (GetLastError() == Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
+                    {
+                        // increase the capacity of the StringBuilder by 4 times.
+                        sb.Capacity *= 4;
+                    }
+                    else
+                    {
+                        // No message with the given ID was found, or some other error occurred.
+                        return null;
+                    }
+                }
+            }
+            while (sb.Capacity < maxAllowedBufferSize);
+
+            // If you come here then a size as large as 65K is also not sufficient.
+            return null;
+        }
+
         /// <summary>
         ///     Returns the error code returned by the last unmanaged function that was called using platform invoke that has
         ///     the <see cref="DllImportAttribute.SetLastError" /> flag set.
@@ -184,6 +254,74 @@ namespace PInvoke
 
             var bytesRead = ReadFile(hFile, segment);
             return new ArraySegment<byte>(buffer, 0, bytesRead);
+        }
+
+        /// <summary>
+        /// Tries to get the error message text using the supplied buffer.
+        /// </summary>
+        /// <param name="flags">
+        /// The formatting options, and how to interpret the lpSource parameter. The low-order byte of dwFlags specifies how the function handles line breaks in the output buffer. The low-order byte can also specify the maximum width of a formatted output line.
+        /// </param>
+        /// <param name="source">
+        /// The location of the message definition. The type of this parameter depends upon the settings in the <paramref name="flags"/> parameter.
+        /// If <see cref="FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE"/>: A handle to the module that contains the message table to search.
+        /// If <see cref="FormatMessageFlags.FORMAT_MESSAGE_FROM_STRING"/>: Pointer to a string that consists of unformatted message text. It will be scanned for inserts and formatted accordingly.
+        /// If neither of these flags is set in dwFlags, then lpSource is ignored.
+        /// </param>
+        /// <param name="messageId">
+        /// The message identifier for the requested message. This parameter is ignored if dwFlags includes <see cref="FormatMessageFlags.FORMAT_MESSAGE_FROM_STRING" />.
+        /// </param>
+        /// <param name="languageId">
+        /// The language identifier for the requested message. This parameter is ignored if dwFlags includes <see cref="FormatMessageFlags.FORMAT_MESSAGE_FROM_STRING"/>.
+        /// If you pass a specific LANGID in this parameter, FormatMessage will return a message for that LANGID only.If the function cannot find a message for that LANGID, it sets Last-Error to ERROR_RESOURCE_LANG_NOT_FOUND.If you pass in zero, FormatMessage looks for a message for LANGIDs in the following order:
+        /// Language neutral
+        /// Thread LANGID, based on the thread's locale value
+        /// User default LANGID, based on the user's default locale value
+        /// System default LANGID, based on the system default locale value
+        /// US English
+        /// If FormatMessage does not locate a message for any of the preceding LANGIDs, it returns any language message string that is present.If that fails, it returns ERROR_RESOURCE_LANG_NOT_FOUND.
+        /// </param>
+        /// <param name="sb">The buffer to use for acquiring the message.</param>
+        /// <param name="arguments">
+        /// An array of values that are used as insert values in the formatted message. A %1 in the format string indicates the first value in the Arguments array; a %2 indicates the second argument; and so on.
+        /// The interpretation of each value depends on the formatting information associated with the insert in the message definition.The default is to treat each value as a pointer to a null-terminated string.
+        /// By default, the Arguments parameter is of type va_list*, which is a language- and implementation-specific data type for describing a variable number of arguments.The state of the va_list argument is undefined upon return from the function.To use the va_list again, destroy the variable argument list pointer using va_end and reinitialize it with va_start.
+        /// If you do not have a pointer of type va_list*, then specify the FORMAT_MESSAGE_ARGUMENT_ARRAY flag and pass a pointer to an array of DWORD_PTR values; those values are input to the message formatted as the insert values.Each insert must have a corresponding element in the array.
+        /// </param>
+        /// <param name="errorMsg">Receives the resulting error message.</param>
+        /// <returns><c>true</c> if the attempt is successful; <c>false</c> otherwise.</returns>
+        private static unsafe bool TryGetErrorMessage(FormatMessageFlags flags, void* source, int messageId, int languageId, StringBuilder sb, IntPtr[] arguments, out string errorMsg)
+        {
+            errorMsg = string.Empty;
+            int result = FormatMessage(
+                flags | FormatMessageFlags.FORMAT_MESSAGE_ARGUMENT_ARRAY & ~FormatMessageFlags.FORMAT_MESSAGE_ALLOCATE_BUFFER,
+                source,
+                messageId,
+                languageId,
+                sb,
+                sb.Capacity + 1,
+                arguments);
+            if (result > 0)
+            {
+                int i = sb.Length;
+                while (i > 0)
+                {
+                    char ch = sb[i - 1];
+                    if (ch > 32 && ch != '.')
+                    {
+                        break;
+                    }
+
+                    i--;
+                }
+
+                errorMsg = sb.ToString(0, i);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

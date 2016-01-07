@@ -4,10 +4,7 @@
 namespace PInvoke
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Runtime.InteropServices;
-    using System.Text;
     using static Kernel32;
 
     public class Win32Exception
@@ -94,73 +91,15 @@ namespace PInvoke
 #endif
 
 #if !DESKTOP
-        private static string GetErrorMessage(int error)
+        private static unsafe string GetErrorMessage(int error)
         {
-            string errorMsg;
-
-            StringBuilder sb = new StringBuilder(256);
-            do
-            {
-                if (TryGetErrorMessage(error, sb, out errorMsg))
-                {
-                    return errorMsg;
-                }
-                else
-                {
-                    // increase the capacity of the StringBuilder by 4 times.
-                    sb.Capacity *= 4;
-                }
-            }
-            while (sb.Capacity < MaxAllowedBufferSize);
-
-            // If you come here then a size as large as 65K is also not sufficient and so we give the generic errorMsg.
-            return "Unknown error (0x" + Convert.ToString(error, 16) + ")";
-        }
-
-        /// <summary>
-        /// Tries to get the error message text using the supplied buffer.
-        /// </summary>
-        /// <param name="error">The error number to get text for.</param>
-        /// <param name="sb">The buffer to use for acquiring the message.</param>
-        /// <param name="errorMsg">Receives the resulting error message.</param>
-        /// <returns><c>true</c> if the attempt is successful; <c>false</c> otherwise.</returns>
-        private static bool TryGetErrorMessage(int error, StringBuilder sb, out string errorMsg)
-        {
-            errorMsg = string.Empty;
-            int result = FormatMessage(
-                FormatMessageFlags.FORMAT_MESSAGE_IGNORE_INSERTS | FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM | FormatMessageFlags.FORMAT_MESSAGE_ARGUMENT_ARRAY,
-                IntPtr.Zero,
-                (uint)error,
+            return FormatMessage(
+                FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM,
+                null,
+                error,
                 0,
-                sb,
-                sb.Capacity + 1,
-                null);
-            if (result > 0)
-            {
-                int i = sb.Length;
-                while (i > 0)
-                {
-                    char ch = sb[i - 1];
-                    if (ch > 32 && ch != '.')
-                    {
-                        break;
-                    }
-
-                    i--;
-                }
-
-                errorMsg = sb.ToString(0, i);
-            }
-            else if (GetLastError() == Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
-            {
-                return false;
-            }
-            else
-            {
-                errorMsg = "Unknown error (0x" + Convert.ToString(error, 16) + ")";
-            }
-
-            return true;
+                null,
+                MaxAllowedBufferSize) ?? $"Unknown error (0x{error:x8})";
         }
 #endif
     }

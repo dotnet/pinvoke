@@ -129,10 +129,10 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is the number of TCHARs stored in the output buffer, excluding the terminating null character.
-        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(api_ms_win_core_localization_l1_2_0, CharSet = CharSet.Unicode, SetLastError = true)]
-        public static unsafe extern int FormatMessage(FormatMessageFlags dwFlags, void* lpSource, uint dwMessageId, uint dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
+        public static unsafe extern int FormatMessage(FormatMessageFlags dwFlags, void* lpSource, int dwMessageId, int dwLanguageId, StringBuilder lpBuffer, int nSize, IntPtr[] Arguments);
 
         /// <summary>
         /// Retrieves the thread identifier of the calling thread.

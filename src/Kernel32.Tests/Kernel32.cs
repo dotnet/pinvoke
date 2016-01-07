@@ -157,6 +157,22 @@ public partial class Kernel32
     }
 
     [Fact]
+    public void FormatMessage_NTStatus()
+    {
+        using (var ntdll = LoadLibrary("ntdll.dll"))
+        {
+            string actual = FormatMessage(
+                FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE,
+                ntdll.DangerousGetHandle(),
+                (int)NTStatus.DBG_REPLY_LATER,
+                0,
+                null,
+                500);
+            Assert.Equal("Debugger will reply later", actual);
+        }
+    }
+
+    [Fact]
     public void Win32Exception_DerivesFromBCLType()
     {
         Assert.IsAssignableFrom<System.ComponentModel.Win32Exception>(new PInvoke.Win32Exception(1));
