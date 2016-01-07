@@ -30,6 +30,7 @@
     <Compile Include="HResultTests.cs" />
     <Compile Include="NullableGuidTests.cs" />
     <Compile Include="NullableUInt32Tests.cs" />
+    <Compile Include="PInvokeExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

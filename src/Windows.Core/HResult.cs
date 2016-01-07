@@ -14,7 +14,7 @@ namespace PInvoke
     /// </summary>
     [DebuggerDisplay("{DebuggerDisplay}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
+    public partial struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
     {
         #region Common HRESULT constants
 
