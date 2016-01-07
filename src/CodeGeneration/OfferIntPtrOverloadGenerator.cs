@@ -39,13 +39,15 @@ namespace PInvoke
                 .WithMembers(SyntaxFactory.List<MemberDeclarationSyntax>());
             var methodsWithNativePointers =
                 from method in type.Members.OfType<MethodDeclarationSyntax>()
-                where WhereIsPointerParameter(method.ParameterList.Parameters).Any()
+                where WhereIsPointerParameter(method.ParameterList.Parameters).Any() || method.ReturnType is PointerTypeSyntax
                 select method;
 
             foreach (var method in methodsWithNativePointers)
             {
                 var intPtrOverload = method
                     .WithParameterList(TransformParameterList(method.ParameterList))
+                    .WithReturnType(TransformReturnType(method.ReturnType))
+                    .WithIdentifier(TransformMethodName(method))
                     .WithModifiers(RemoveModifier(method.Modifiers, SyntaxKind.ExternKeyword))
                     .WithAttributeLists(SyntaxFactory.List<AttributeListSyntax>())
                     .WithLeadingTrivia(method.GetLeadingTrivia().Where(t => !t.IsDirective))
@@ -64,6 +66,18 @@ namespace PInvoke
                    where p.Type is PointerTypeSyntax
                    select p;
         }
+
+        private static SyntaxToken TransformMethodName(MethodDeclarationSyntax method)
+        {
+            // When the method overload being generated has exactly the same parameter types
+            // as the original (because the transformation is only in the return type),
+            // we must give the method a new name.
+            return WhereIsPointerParameter(method.ParameterList.Parameters).Any()
+                ? method.Identifier
+                : SyntaxFactory.Identifier(method.Identifier.ValueText + "_IntPtr");
+        }
+
+        private static TypeSyntax TransformReturnType(TypeSyntax returnType) => returnType is PointerTypeSyntax ? IntPtrTypeSyntax : returnType;
 
         private static ParameterListSyntax TransformParameterList(ParameterListSyntax list)
         {
@@ -181,7 +195,13 @@ namespace PInvoke
 
             if (resultVariableName != null)
             {
-                block = block.AddStatements(SyntaxFactory.ReturnStatement(resultVariableName));
+                ExpressionSyntax returnedValue = nativePointerOverload.ReturnType is PointerTypeSyntax
+                    ? (ExpressionSyntax)SyntaxFactory.ObjectCreationExpression(
+                        IntPtrTypeSyntax,
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(resultVariableName))),
+                        null)
+                    : resultVariableName;
+                block = block.AddStatements(SyntaxFactory.ReturnStatement(returnedValue));
             }
 
             return block;
