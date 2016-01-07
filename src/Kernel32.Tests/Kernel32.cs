@@ -756,6 +756,13 @@ public partial class Kernel32
         }
     }
 
+    [Fact]
+    public unsafe void LocalAlloc_LocalFree()
+    {
+        IntPtr hlocal = LocalAlloc_IntPtr(LocalAllocFlags.LMEM_FIXED, 5);
+        Assert.Equal(IntPtr.Zero, LocalFree(hlocal));
+    }
+
     private ArraySegment<byte> GetRandomSegment(int size)
     {
         var result = new ArraySegment<byte>(new byte[size]);

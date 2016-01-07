@@ -1371,6 +1371,53 @@ namespace PInvoke
             OVERLAPPED* lpOverlapped);
 
         /// <summary>
+        /// Allocates the specified number of bytes from the heap.
+        /// </summary>
+        /// <param name="uFlags">
+        /// The memory allocation attributes. The default is the <see cref="LocalAllocFlags.LMEM_FIXED"/> value. This parameter can be one or more of the following values, except for the incompatible combinations that are specifically noted.
+        /// </param>
+        /// <param name="uBytes">The number of bytes to allocate. If this parameter is zero and the <paramref name="uFlags"/> parameter specifies <see cref="LocalAllocFlags.LMEM_MOVEABLE"/>, the function returns a handle to a memory object that is marked as discarded.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the newly allocated memory object.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* LocalAlloc(LocalAllocFlags uFlags, IntPtr uBytes);
+
+        /// <summary>
+        /// Changes the size or the attributes of a specified local memory object. The size can increase or decrease.
+        /// </summary>
+        /// <param name="hMem">A handle to the local memory object to be reallocated. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function.</param>
+        /// <param name="uBytes">The new size of the memory block, in bytes. If uFlags specifies <see cref="LocalReAllocFlags.LMEM_MODIFY"/>, this parameter is ignored.</param>
+        /// <param name="uFlags">
+        /// The reallocation options. If <see cref="LocalReAllocFlags.LMEM_MODIFY"/> is specified, the function modifies the attributes of the memory object only (the uBytes parameter is ignored.) Otherwise, the function reallocates the memory object.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the reallocated memory object.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>
+        /// If LocalReAlloc fails, the original memory is not freed, and the original handle and pointer are still valid.
+        /// If LocalReAlloc reallocates a fixed object, the value of the handle returned is the address of the first byte of the memory block. To access the memory, a process can simply cast the return value to a pointer.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* LocalReAlloc(void* hMem, IntPtr uBytes, LocalReAllocFlags uFlags);
+
+        /// <summary>
+        /// Frees the specified local memory object and invalidates its handle.
+        /// </summary>
+        /// <param name="hMem">
+        /// A handle to the local memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function. It is not safe to free memory allocated with GlobalAlloc.
+        /// If the hMem parameter is NULL, LocalFree ignores the parameter and returns NULL.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is NULL.
+        /// If the function fails, the return value is equal to a handle to <paramref name="hMem"/>. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* LocalFree(void* hMem);
+
+        /// <summary>
         ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the
         ///     reference count reaches zero, the module is unloaded from the address space of the calling process and the handle
         ///     is no longer valid.

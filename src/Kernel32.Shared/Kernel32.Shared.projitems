@@ -22,7 +22,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Kernel32.Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Win32Exception.cs" />
   </ItemGroup>
