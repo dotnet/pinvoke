@@ -12,5 +12,16 @@ namespace PInvoke
     /// </content>
     public static partial class NTDll
     {
+        /// <summary>
+        /// Converts the specified NTSTATUS code to its equivalent system error code.
+        /// </summary>
+        /// <param name="Status">The NTSTATUS code to be converted.</param>
+        /// <returns>The function returns the corresponding system error code.</returns>
+        /// <remarks>
+        /// There is no function that provides the inverse functionality of RtlNtStatusToDosError, which would convert a system error code to its corresponding NTSTATUS code.
+        /// ERROR_MR_MID_NOT_FOUND is returned when the specified NTSTATUS code does not have a corresponding system error code.
+        /// </remarks>
+        [DllImport(nameof(NTDll))]
+        public static extern Win32ErrorCode RtlNtStatusToDosError(NTStatus Status);
     }
 }

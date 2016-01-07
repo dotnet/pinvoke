@@ -12,7 +12,8 @@
     <ProjectGuid>{F580109D-3C86-4CE4-B686-53F2A3CB1314}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>PInvoke.NTDll.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -37,6 +38,10 @@
     <ProjectReference Include="..\NTDll.Desktop\NTDll.Desktop.csproj">
       <Project>{62872B6B-BB44-4890-B308-3EEC6984B542}</Project>
       <Name>NTDll.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
+      <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
+      <Name>Windows.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
