@@ -11,43 +11,36 @@
       <Platform>AnyCPU</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AdvApi32.NuGet\AdvApi32.NuGet.nuproj" />
-    <ProjectReference Include="..\BCrypt.NuGet\BCrypt.NuGet.nuproj" />
-    <ProjectReference Include="..\Crypt32.NuGet\Crypt32.NuGet.nuproj" />
-    <ProjectReference Include="..\DbgHelp.NuGet\DbgHelp.NuGet.nuproj" />
-    <ProjectReference Include="..\Gdi32.NuGet\Gdi32.NuGet.nuproj" />
-    <ProjectReference Include="..\Hid.NuGet\Hid.NuGet.nuproj" />
-    <ProjectReference Include="..\ImageHlp.NuGet\ImageHlp.NuGet.nuproj" />
-    <ProjectReference Include="..\Kernel32.NuGet\Kernel32.NuGet.nuproj" />
-    <ProjectReference Include="..\NCrypt.NuGet\NCrypt.NuGet.nuproj" />
-    <ProjectReference Include="..\NTDll.NuGet\NTDll.NuGet.nuproj" />
-    <ProjectReference Include="..\Psapi.NuGet\Psapi.NuGet.nuproj" />
-    <ProjectReference Include="..\SetupApi.NuGet\SetupApi.NuGet.nuproj" />
-    <ProjectReference Include="..\User32.NuGet\User32.NuGet.nuproj" />
-    <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>65008241-13fe-4da1-a197-28795195b6c2</ProjectGuid>
+    <ProjectGuid>{67DA3EF0-E1ED-48F7-A1A1-C295FB3FF322}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
+    <NuSpecTemplate>PInvoke.NTDll.nuspec</NuSpecTemplate>
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
-    <Id>PInvoke.Win32</Id>
-    <Version>1.0.0</Version>
-    <Title>PInvoke.Win32</Title>
+    <Id>PInvoke.NTDll</Id>
+    <Title>PInvoke.NTDll</Title>
     <Authors>Andrew Arnott</Authors>
     <Owners>aarnott</Owners>
-    <Summary>P/Invoke methods for Win32 APIs</Summary>
-    <Description>P/Invoke methods for Win32 APIs</Description>
+    <Summary>P/Invoke methods for the Windows NTDll.dll.</Summary>
+    <Description>P/Invoke methods for the Windows NTDll.dll.</Description>
     <ReleaseNotes>
     </ReleaseNotes>
     <ProjectUrl>https://github.com/AArnott/pinvoke</ProjectUrl>
     <LicenseUrl>https://github.com/AArnott/pinvoke/blob/master/LICENSE.txt</LicenseUrl>
     <Copyright>Copyright © Andrew Arnott</Copyright>
     <Tags>pinvoke .net pcl</Tags>
+    <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NTDll\NTDll.csproj" />
+    <ProjectReference Include="..\NTDll.Desktop\NTDll.Desktop.csproj" />
+    <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PInvoke.NTDll.nuspec" />
+  </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
 </Project>
