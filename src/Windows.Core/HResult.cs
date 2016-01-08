@@ -148,37 +148,25 @@ namespace PInvoke
         /// Converts an <see cref="int"/> into an <see cref="HResult"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static implicit operator HResult(int hr)
-        {
-            return new HResult(hr);
-        }
+        public static implicit operator HResult(int hr) => new HResult(hr);
 
         /// <summary>
         /// Converts an <see cref="HResult"/> into an <see cref="int"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static implicit operator int(HResult hr)
-        {
-            return hr.value;
-        }
+        public static implicit operator int(HResult hr) => hr.value;
 
         /// <summary>
         /// Converts an <see cref="uint"/> into an <see cref="HResult"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static implicit operator HResult(uint hr)
-        {
-            return new HResult((int)hr);
-        }
+        public static implicit operator HResult(uint hr) => new HResult((int)hr);
 
         /// <summary>
         /// Converts an <see cref="HResult"/> into an <see cref="uint"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static explicit operator uint(HResult hr)
-        {
-            return (uint)hr.value;
-        }
+        public static explicit operator uint(HResult hr) => (uint)hr.value;
 
         /// <summary>
         /// Throws an exception if this HRESULT <see cref="Failed"/>, based on the failure value.
@@ -206,16 +194,10 @@ namespace PInvoke
         public override int GetHashCode() => this.value;
 
         /// <inheritdoc />
-        public bool Equals(HResult other)
-        {
-            return this.value == other.value;
-        }
+        public bool Equals(HResult other) => this.value == other.value;
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            return obj is HResult && this.Equals((HResult)obj);
-        }
+        public override bool Equals(object obj) => obj is HResult && this.Equals((HResult)obj);
 
         /// <inheritdoc />
         public int CompareTo(object obj) => ((IComparable)this.value).CompareTo(obj);
