@@ -6,18 +6,6 @@ namespace PInvoke
     public static class Kernel32Extensions
     {
         /// <summary>
-        /// Throws an exception if a P/Invoke failed.
-        /// </summary>
-        /// <param name="status">The result of the P/Invoke call.</param>
-        public static void ThrowOnError(this NTStatus status)
-        {
-            if ((int)status < 0)
-            {
-                status.ToWin32ErrorCode().ThrowOnError();
-            }
-        }
-
-        /// <summary>
         /// Throws an exception when an error occurs.
         /// </summary>
         /// <param name="errorCode">The result of the P/Invoke call.</param>
