@@ -10,19 +10,76 @@ namespace PInvoke
     /// <summary>
     /// Describes an HRESULT error or success condition.
     /// </summary>
+    /// <remarks>
+    ///  HRESULTs are 32 bit values layed out as follows:
+    ///
+    ///   3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1
+    ///   1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
+    ///  +-+-+-+-+-+---------------------+-------------------------------+
+    ///  |S|R|C|N|r|    Facility         |               Code            |
+    ///  +-+-+-+-+-+---------------------+-------------------------------+
+    ///
+    ///  where
+    ///
+    ///      S - Severity - indicates success/fail
+    ///
+    ///          0 - Success
+    ///          1 - Fail (COERROR)
+    ///
+    ///      R - reserved portion of the facility code, corresponds to NT's
+    ///              second severity bit.
+    ///
+    ///      C - reserved portion of the facility code, corresponds to NT's
+    ///              C field.
+    ///
+    ///      N - reserved portion of the facility code. Used to indicate a
+    ///              mapped NT status value.
+    ///
+    ///      r - reserved portion of the facility code. Reserved for internal
+    ///              use. Used to indicate HRESULT values that are not status
+    ///              values, but are instead message ids for display strings.
+    ///
+    ///      Facility - is the facility code
+    ///
+    ///      Code - is the facility's status code
+    ///
+    /// </remarks>
     [DebuggerDisplay("{DebuggerDisplay}")]
     [StructLayout(LayoutKind.Sequential)]
     public partial struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
     {
+        /// <summary>
+        /// The mask of the bits that describe the <see cref="Severity"/>.
+        /// </summary>
+        private const uint SeverityMask = 0x80000000;
+
+        /// <summary>
+        /// The number of bits that <see cref="Severity"/> values are shifted
+        /// in order to fit within <see cref="SeverityMask"/>.
+        /// </summary>
+        private const int SeverityShift = 31;
+
         /// <summary>
         /// The mask of the bits that describe the <see cref="Facility"/>.
         /// </summary>
         private const int FacilityMask = 0x7ff0000;
 
         /// <summary>
+        /// The number of bits that <see cref="Facility"/> values are shifted
+        /// in order to fit within <see cref="FacilityMask"/>.
+        /// </summary>
+        private const int FacilityShift = 16;
+
+        /// <summary>
         /// The mask of the bits that describe the facility's status <see cref="Code"/>.
         /// </summary>
         private const int CodeMask = 0xffff;
+
+        /// <summary>
+        /// The number of bits that <see cref="Code"/> values are shifted
+        /// in order to fit within <see cref="CodeMask"/>.
+        /// </summary>
+        private const int CodeShift = 0;
 
         /// <summary>
         /// The value of the HRESULT.
@@ -68,14 +125,19 @@ namespace PInvoke
         public bool Failed => this.value < 0;
 
         /// <summary>
-        /// Gets the facility code bits from the HRESULT.
+        /// Gets the facility code of the HRESULT.
         /// </summary>
-        public int Facility => this.value & FacilityMask;
+        public FacilityCodes Facility => (FacilityCodes)((this.value & FacilityMask) >> FacilityShift);
+
+        /// <summary>
+        /// Gets the severity of the HRESULT.
+        /// </summary>
+        public SeverityCodes Severity => (SeverityCodes)((this.value & SeverityMask) >> SeverityShift);
 
         /// <summary>
         /// Gets the facility's status code bits from the HRESULT.
         /// </summary>
-        public int Code => this.value & CodeMask;
+        public int Code => (this.value & CodeMask) >> CodeShift;
 
         /// <summary>
         /// Gets the string to display in a data tip when debugging.

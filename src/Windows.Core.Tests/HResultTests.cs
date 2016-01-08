@@ -155,7 +155,7 @@ public class HResultTests
     [Fact]
     public void Facility()
     {
-        Assert.Equal(0x7ff0000, new HResult(0xffffffff).Facility);
+        Assert.Equal(0x7ff0000, (int)new HResult(0xffffffff).Facility);
     }
 
     [Fact]

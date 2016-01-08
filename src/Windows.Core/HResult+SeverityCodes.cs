@@ -11,10 +11,10 @@ namespace PInvoke
         /// <summary>
         /// HRESULT severity codes defined by winerror.h
         /// </summary>
-        internal static class SeverityCodes
+        public enum SeverityCodes
         {
-            public const int Success = 0;
-            public const int Fail = 1;
+            Success = 0,
+            Fail = 1,
         }
     }
 }
