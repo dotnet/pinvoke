@@ -9,6 +9,7 @@ public class KernelExtensionsTests
     [Fact]
     public void ThrowOnError_DoesNotThrowOnSuccess()
     {
-        NTStatus.STATUS_SUCCESS.ThrowOnError();
+        NTStatus success = NTStatus.STATUS_SUCCESS;
+        success.ThrowOnError();
     }
 }

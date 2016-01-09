@@ -43,11 +43,12 @@
     <Compile Include="IMAGE_SECTION_HEADER+CharacteristicsType.cs" />
     <Compile Include="IMAGE_SECTION_HEADER.cs" />
     <Compile Include="LIST_ENTRY.cs" />
+    <Compile Include="NTStatus+CommonCodes.cs" />
+    <Compile Include="NTStatus+SeverityCodes.cs" />
+    <Compile Include="NTStatus+FacilityCodes.cs" />
     <Compile Include="NullableUInt32.cs" />
     <Compile Include="NullableGuid.cs" />
     <Compile Include="NTStatus.cs" />
-    <Compile Include="NTStatusFacilities.cs" />
-    <Compile Include="NTStatusSeverity.cs" />
     <Compile Include="PInvokeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Win32ErrorCode.cs" />

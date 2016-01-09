@@ -11,7 +11,8 @@ public class PInvokeExtensionsTests
     [Fact]
     public void ToHResult_FromNTStatus()
     {
-        Assert.Equal(0xD000022A, NTStatus.STATUS_DUPLICATE_OBJECTID.ToHResult());
+        NTStatus duplicate = NTStatus.STATUS_DUPLICATE_OBJECTID;
+        Assert.Equal(0xD000022A, duplicate.ToHResult());
     }
 
     [Fact]
@@ -23,7 +24,9 @@ public class PInvokeExtensionsTests
     [Fact]
     public void ThrowOnError_NTStatus()
     {
-        NTStatus.STATUS_SUCCESS.ThrowOnError();
-        Assert.Throws<COMException>(() => NTStatus.RPC_NT_CALL_FAILED.ThrowOnError());
+        NTStatus success = NTStatus.STATUS_SUCCESS;
+        success.ThrowOnError();
+        NTStatus failure = NTStatus.RPC_NT_CALL_FAILED;
+        Assert.Throws<COMException>(() => failure.ThrowOnError());
     }
 }

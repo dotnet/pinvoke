@@ -6,39 +6,37 @@ using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 
-public class HResultTests
+public class NTStatusTests
 {
     [Fact]
     public void Ctor_Int32()
     {
-        Assert.Equal(3, new HResult(3).AsInt32);
+        Assert.Equal(3, ((NTStatus)3).AsInt32);
     }
 
     [Fact]
     public void Ctor_UInt32()
     {
-        Assert.Equal(3, new HResult((uint)3).AsInt32);
+        Assert.Equal(3, new NTStatus((uint)3).AsInt32);
     }
 
     [Fact]
     public void DefaultIs0()
     {
-        Assert.Equal(0, default(HResult).AsInt32);
+        Assert.Equal(0, default(NTStatus).AsInt32);
     }
 
     [Fact]
     public void PopularValuesPredefined()
     {
-        Assert.Equal(0, HResult.S_OK.AsInt32);
-        Assert.Equal(0x80004005, HResult.E_FAIL);
-        Assert.Equal(1, HResult.S_FALSE.AsInt32);
+        Assert.Equal(0u, NTStatus.STATUS_SUCCESS);
     }
 
     [Fact]
     public void AsUInt32()
     {
         uint expectedValue = 5;
-        HResult hr = expectedValue;
+        NTStatus hr = expectedValue;
         uint actualValue = hr.AsUInt32;
         Assert.Equal(expectedValue, actualValue);
     }
@@ -47,24 +45,24 @@ public class HResultTests
     public void ImplicitCast_Int32()
     {
         int originalValue = 0x5;
-        HResult hr = originalValue;
-        int backToInt = hr;
-        Assert.Equal(originalValue, backToInt);
+        NTStatus hr = originalValue;
+        Assert.Equal(originalValue, hr.AsInt32);
     }
 
     [Fact]
     public void ImplicitCast_UInt32()
     {
         uint originalValue = 0x5;
-        HResult hr = originalValue;
-        Assert.Equal(originalValue, hr.AsUInt32);
+        NTStatus hr = originalValue;
+        uint backToUInt = hr;
+        Assert.Equal(originalValue, backToUInt);
     }
 
     [Fact]
     public void ExplicitCast_Int32()
     {
         int originalValue = 0x5;
-        HResult hr = (HResult)originalValue;
+        NTStatus hr = (NTStatus)originalValue;
         Assert.Equal(originalValue, (int)hr);
     }
 
@@ -72,21 +70,21 @@ public class HResultTests
     public void ExplicitCast_UInt32()
     {
         uint originalValue = 0x5;
-        HResult hr = (HResult)originalValue;
+        NTStatus hr = (NTStatus)originalValue;
         Assert.Equal(originalValue, (uint)hr);
     }
 
     [Fact]
     public void ToString_FormatsNumberAsHex()
     {
-        HResult hr = 0x80000000;
+        NTStatus hr = 0x80000000;
         Assert.Equal("0x80000000", hr.ToString());
     }
 
     [Fact]
     public void ToString_IsFormattable()
     {
-        HResult hr = 0x10;
+        NTStatus hr = 0x10;
         Assert.Equal("0010", $"{hr:x4}");
         Assert.Equal("00000010", $"{hr:x8}");
     }
@@ -94,16 +92,16 @@ public class HResultTests
     [Fact]
     public void GetHashCodeReturnsValue()
     {
-        Assert.Equal(3, new HResult(3).GetHashCode());
-        Assert.Equal(4, new HResult(4).GetHashCode());
+        Assert.Equal(3, ((NTStatus)3).GetHashCode());
+        Assert.Equal(4, ((NTStatus)4).GetHashCode());
     }
 
     [Fact]
     public void EqualityChecks()
     {
-        HResult hr3 = 3;
-        HResult hr5 = 5;
-        IEquatable<HResult> hr3Equatable = hr3;
+        NTStatus hr3 = 3;
+        NTStatus hr5 = 5;
+        IEquatable<NTStatus> hr3Equatable = hr3;
 
         Assert.Equal(hr3, hr3);
         Assert.True(hr3.Equals(hr3));
@@ -117,9 +115,9 @@ public class HResultTests
     [Fact]
     public void EqualOperators()
     {
-        HResult hr3 = 3;
-        HResult hr3b = 3;
-        HResult hr5 = 5;
+        NTStatus hr3 = 3;
+        NTStatus hr3b = 3;
+        NTStatus hr5 = 5;
 
         Assert.True(hr3 != hr5);
         Assert.True(hr3 == hr3b);
@@ -130,53 +128,38 @@ public class HResultTests
     [Fact]
     public void DebuggerDisplay()
     {
-        HResult hr = 0x10;
-        var privateProperty = typeof(HResult).GetProperty("DebuggerDisplay", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        NTStatus hr = 0x10;
+        var privateProperty = typeof(NTStatus).GetProperty("DebuggerDisplay", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         object value = privateProperty.GetMethod.Invoke(hr, null);
         Assert.Equal("0x00000010", value);
     }
 
     [Fact]
-    public void Succeeded()
-    {
-        Assert.True(HResult.S_OK.Succeeded);
-        Assert.True(HResult.S_FALSE.Succeeded);
-        Assert.False(new HResult(-1).Succeeded);
-    }
-
-    [Fact]
-    public void Failed()
-    {
-        Assert.False(HResult.S_OK.Failed);
-        Assert.False(HResult.S_FALSE.Failed);
-        Assert.True(new HResult(-1).Failed);
-    }
-
-    [Fact]
     public void Severity()
     {
-        Assert.Equal((HResult.SeverityCodes)0x1, new HResult(0x80000000).Severity);
-        Assert.Equal((HResult.SeverityCodes)0x0, new HResult(0x7fffffff).Severity);
+        Assert.Equal((NTStatus.SeverityCodes)0x3, new NTStatus(0xc0000000).Severity);
+        Assert.Equal((NTStatus.SeverityCodes)0x0, new NTStatus(0x3fffffff).Severity);
+    }
+
+    [Fact]
+    public void CustomerCode()
+    {
+        Assert.Equal(1u, new NTStatus(0x20000000).CustomerCode);
+        Assert.Equal(0u, new NTStatus(0xdfffffff).CustomerCode);
     }
 
     [Fact]
     public void Facility()
     {
-        Assert.Equal((HResult.FacilityCodes)0x7ff, new HResult(0x7ff0000).Facility);
-        Assert.Equal((HResult.FacilityCodes)0x0, new HResult(0xf800ffff).Facility);
+        // The hex values used here are deliberately selected.
+        // 9 is encoded in binary as 1001, which places 1's at the edges and 0's everywhere else.
+        // So if the bit mask or bit shift is wrong, it will have to be detected.
+        Assert.Equal((NTStatus.FacilityCodes)0x999, new NTStatus(0xf999ffff).Facility);
     }
 
     [Fact]
     public void Code()
     {
-        Assert.Equal(0xffff, new HResult(0xffffffff).Code);
-    }
-
-    [Fact]
-    public void ThrowOnFailure()
-    {
-        Assert.Throws<COMException>(() => HResult.E_FAIL.ThrowOnFailure());
-        HResult.S_OK.ThrowOnFailure();
-        HResult.S_FALSE.ThrowOnFailure();
+        Assert.Equal<uint>(0x9999, new NTStatus(0xffff9999).Code);
     }
 }

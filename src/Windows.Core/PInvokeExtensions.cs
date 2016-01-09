@@ -21,7 +21,7 @@ namespace PInvoke
         {
             // From winerror.h
             // #define HRESULT_FROM_NT(x)      ((HRESULT) ((x) | FACILITY_NT_BIT))
-            return (int)status | (int)NTStatusFacilities.NTStatusFacility;
+            return status | (int)FACILITY_NT_BIT;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace PInvoke
         /// <param name="status">The result of the P/Invoke call.</param>
         public static void ThrowOnError(this NTStatus status)
         {
-            if ((int)status < 0)
+            if (status.Severity == NTStatus.SeverityCodes.STATUS_SEVERITY_ERROR)
             {
                 Marshal.ThrowExceptionForHR(status.ToHResult());
             }
