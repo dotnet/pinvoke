@@ -5,8 +5,12 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Runtime.Serialization;
     using static Kernel32;
 
+#if DESKTOP
+    [Serializable]
+#endif
     public class Win32Exception
 #if DESKTOP
         : System.ComponentModel.Win32Exception
@@ -76,6 +80,19 @@ namespace PInvoke
             this.nativeErrorCode = error;
 #endif
         }
+
+#if DESKTOP
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Win32Exception"/> class
+        /// for deserialization.
+        /// </summary>
+        /// <param name="info">Serialization information.</param>
+        /// <param name="context">Streaming context.</param>
+        protected Win32Exception(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+#endif
 
         /// <summary>
         /// Gets the Win32 error code associated with this exception.

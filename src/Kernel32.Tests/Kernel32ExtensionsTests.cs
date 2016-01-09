@@ -21,4 +21,17 @@ public partial class Kernel32ExtensionsTests
         Assert.Equal(exception.Message, deserializedException.Message);
         Assert.Equal(exception.StatusCode, deserializedException.StatusCode);
     }
+
+    [Fact]
+    public void Win32Exception_Serializable()
+    {
+        var exception = new Win32Exception(Win32ErrorCode.DNS_ERROR_AXFR, "It works, yo");
+        var formatter = new BinaryFormatter();
+        var ms = new MemoryStream();
+        formatter.Serialize(ms, exception);
+        ms.Position = 0;
+        var deserializedException = (Win32Exception)formatter.Deserialize(ms);
+        Assert.Equal(exception.Message, deserializedException.Message);
+        Assert.Equal(exception.NativeErrorCode, deserializedException.NativeErrorCode);
+    }
 }
