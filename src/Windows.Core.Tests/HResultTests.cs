@@ -169,7 +169,7 @@ public class HResultTests
     [Fact]
     public void Code()
     {
-        Assert.Equal(0xffff, new HResult(0xffffffff).Code);
+        Assert.Equal(0xffff, new HResult(0xffffffff).FacilityCode);
     }
 
     [Fact]

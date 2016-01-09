@@ -32,7 +32,7 @@ namespace PInvoke
     /// FacilityCodes 0x5 - 0xF have been allocated by various drivers.
     /// The success status codes 0 - 63 are reserved for wait completion status.
     /// </remarks>
-    [DebuggerDisplay("{DebuggerDisplay}")]
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     [StructLayout(LayoutKind.Sequential)]
     public partial struct NTStatus : IComparable, IComparable<NTStatus>, IEquatable<NTStatus>, IFormattable
     {
@@ -70,15 +70,15 @@ namespace PInvoke
         private const int FacilityShift = 16;
 
         /// <summary>
-        /// The mask of the bits that describe the facility's status <see cref="Code"/>.
+        /// The mask of the bits that describe the facility's status <see cref="FacilityCode"/>.
         /// </summary>
-        private const uint CodeMask = 0xffff;
+        private const uint FacilityCodeMask = 0xffff;
 
         /// <summary>
-        /// The number of bits that <see cref="Code"/> values are shifted
-        /// in order to fit within <see cref="CodeMask"/>.
+        /// The number of bits that <see cref="FacilityCode"/> values are shifted
+        /// in order to fit within <see cref="FacilityCodeMask"/>.
         /// </summary>
-        private const int CodeShift = 0;
+        private const int FacilityCodeShift = 0;
 
         /// <summary>
         /// The value of the NTStatus.
@@ -106,11 +106,13 @@ namespace PInvoke
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit signed integer.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public int AsInt32 => (int)this.value;
 
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit unsigned integer.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public uint AsUInt32 => this.value;
 
         /// <summary>
@@ -131,11 +133,12 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility's status code bits from the NT_STATUS.
         /// </summary>
-        public uint Code => (this.AsUInt32 & CodeMask) >> CodeShift;
+        public uint FacilityCode => (this.AsUInt32 & FacilityCodeMask) >> FacilityCodeShift;
 
         /// <summary>
         /// Gets the string to display in a data tip when debugging.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay => this.ToString();
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace PInvoke
     ///      Code - is the facility's status code
     ///
     /// </remarks>
-    [DebuggerDisplay("{DebuggerDisplay}")]
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     [StructLayout(LayoutKind.Sequential)]
     public partial struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
     {
@@ -71,15 +71,15 @@ namespace PInvoke
         private const int FacilityShift = 16;
 
         /// <summary>
-        /// The mask of the bits that describe the facility's status <see cref="Code"/>.
+        /// The mask of the bits that describe the facility's status <see cref="FacilityCode"/>.
         /// </summary>
-        private const int CodeMask = 0xffff;
+        private const int FacilityCodeMask = 0xffff;
 
         /// <summary>
-        /// The number of bits that <see cref="Code"/> values are shifted
-        /// in order to fit within <see cref="CodeMask"/>.
+        /// The number of bits that <see cref="FacilityCode"/> values are shifted
+        /// in order to fit within <see cref="FacilityCodeMask"/>.
         /// </summary>
-        private const int CodeShift = 0;
+        private const int FacilityCodeShift = 0;
 
         /// <summary>
         /// The value of the HRESULT.
@@ -107,21 +107,25 @@ namespace PInvoke
         /// <summary>
         /// Gets the HRESULT as a 32-bit signed integer.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public int AsInt32 => this.value;
 
         /// <summary>
         /// Gets the HRESULT as a 32-bit unsigned integer.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public uint AsUInt32 => (uint)this.value;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a successful operation.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool Succeeded => this.value >= 0;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a failured operation.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool Failed => this.value < 0;
 
         /// <summary>
@@ -137,11 +141,12 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility's status code bits from the HRESULT.
         /// </summary>
-        public int Code => (this.value & CodeMask) >> CodeShift;
+        public int FacilityCode => (this.value & FacilityCodeMask) >> FacilityCodeShift;
 
         /// <summary>
         /// Gets the string to display in a data tip when debugging.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay => this.ToString();
 
         /// <summary>
