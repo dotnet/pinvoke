@@ -20,13 +20,4 @@ public class PInvokeExtensionsTests
     {
         Assert.Equal(0x80071392, Win32ErrorCode.ERROR_OBJECT_ALREADY_EXISTS.ToHResult());
     }
-
-    [Fact]
-    public void ThrowOnError_NTStatus()
-    {
-        NTStatus success = NTStatus.STATUS_SUCCESS;
-        success.ThrowOnError();
-        NTStatus failure = NTStatus.RPC_NT_CALL_FAILED;
-        Assert.Throws<COMException>(() => failure.ThrowOnError());
-    }
 }

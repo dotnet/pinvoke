@@ -11,7 +11,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NTStatusExceptionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Win32ExceptionTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)KernelExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32ExtensionsTests.cs" />
   </ItemGroup>
 </Project>

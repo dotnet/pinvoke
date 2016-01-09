@@ -37,17 +37,5 @@ namespace PInvoke
                 ? (HResult)(int)error
                 : (HResult)(int)(((int)error & 0x0000ffff) | ((int)FACILITY_WIN32 << 16) | 0x80000000);
         }
-
-        /// <summary>
-        /// Throws an exception if a P/Invoke failed.
-        /// </summary>
-        /// <param name="status">The result of the P/Invoke call.</param>
-        public static void ThrowOnError(this NTStatus status)
-        {
-            if (status.Severity == NTStatus.SeverityCodes.STATUS_SEVERITY_ERROR)
-            {
-                Marshal.ThrowExceptionForHR(status.ToHResult());
-            }
-        }
     }
 }
