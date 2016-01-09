@@ -83,13 +83,13 @@ namespace PInvoke
         /// <summary>
         /// The value of the NTStatus.
         /// </summary>
-        private readonly int value;
+        private readonly uint value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NTStatus"/> struct.
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
-        public NTStatus(int status)
+        public NTStatus(uint status)
         {
             this.value = status;
         }
@@ -98,20 +98,20 @@ namespace PInvoke
         /// Initializes a new instance of the <see cref="NTStatus"/> struct.
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
-        public NTStatus(uint status)
-            : this((int)status)
+        public NTStatus(int status)
+            : this((uint)status)
         {
         }
 
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit signed integer.
         /// </summary>
-        public int AsInt32 => this.value;
+        public int AsInt32 => (int)this.value;
 
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit unsigned integer.
         /// </summary>
-        public uint AsUInt32 => (uint)this.value;
+        public uint AsUInt32 => this.value;
 
         /// <summary>
         /// Gets the severity code of this value.
@@ -148,7 +148,7 @@ namespace PInvoke
         /// Converts an <see cref="NTStatus"/> into an <see cref="int"/>.
         /// </summary>
         /// <param name="hr">The value of the NT_STATUS.</param>
-        public static explicit operator int(NTStatus hr) => hr.value;
+        public static explicit operator int(NTStatus hr) => (int)hr.value;
 
         /// <summary>
         /// Converts an <see cref="uint"/> into an <see cref="NTStatus"/>.
@@ -160,7 +160,7 @@ namespace PInvoke
         /// Converts an <see cref="NTStatus"/> into an <see cref="uint"/>.
         /// </summary>
         /// <param name="status">The value of the NT_STATUS.</param>
-        public static implicit operator uint(NTStatus status) => (uint)status.value;
+        public static implicit operator uint(NTStatus status) => status.value;
 
         /// <inheritdoc />
         public override int GetHashCode() => (int)this.value;
