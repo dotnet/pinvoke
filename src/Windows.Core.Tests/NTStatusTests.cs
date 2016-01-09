@@ -36,8 +36,8 @@ public class NTStatusTests
     public void AsUInt32()
     {
         uint expectedValue = 5;
-        NTStatus hr = expectedValue;
-        uint actualValue = hr.AsUInt32;
+        NTStatus status = expectedValue;
+        uint actualValue = status.AsUInt32;
         Assert.Equal(expectedValue, actualValue);
     }
 
@@ -45,16 +45,16 @@ public class NTStatusTests
     public void ImplicitCast_Int32()
     {
         int originalValue = 0x5;
-        NTStatus hr = originalValue;
-        Assert.Equal(originalValue, hr.AsInt32);
+        NTStatus status = originalValue;
+        Assert.Equal(originalValue, status.AsInt32);
     }
 
     [Fact]
     public void ImplicitCast_UInt32()
     {
         uint originalValue = 0x5;
-        NTStatus hr = originalValue;
-        uint backToUInt = hr;
+        NTStatus status = originalValue;
+        uint backToUInt = status;
         Assert.Equal(originalValue, backToUInt);
     }
 
@@ -62,31 +62,31 @@ public class NTStatusTests
     public void ExplicitCast_Int32()
     {
         int originalValue = 0x5;
-        NTStatus hr = (NTStatus)originalValue;
-        Assert.Equal(originalValue, (int)hr);
+        NTStatus status = (NTStatus)originalValue;
+        Assert.Equal(originalValue, (int)status);
     }
 
     [Fact]
     public void ExplicitCast_UInt32()
     {
         uint originalValue = 0x5;
-        NTStatus hr = (NTStatus)originalValue;
-        Assert.Equal(originalValue, (uint)hr);
+        NTStatus status = (NTStatus)originalValue;
+        Assert.Equal(originalValue, (uint)status);
     }
 
     [Fact]
     public void ToString_FormatsNumberAsHex()
     {
-        NTStatus hr = 0x80000000;
-        Assert.Equal("0x80000000", hr.ToString());
+        NTStatus status = 0x80000000;
+        Assert.Equal("0x80000000", status.ToString());
     }
 
     [Fact]
     public void ToString_IsFormattable()
     {
-        NTStatus hr = 0x10;
-        Assert.Equal("0010", $"{hr:x4}");
-        Assert.Equal("00000010", $"{hr:x8}");
+        NTStatus status = 0x10;
+        Assert.Equal("0010", $"{status:x4}");
+        Assert.Equal("00000010", $"{status:x8}");
     }
 
     [Fact]
@@ -128,9 +128,9 @@ public class NTStatusTests
     [Fact]
     public void DebuggerDisplay()
     {
-        NTStatus hr = 0x10;
+        NTStatus status = 0x10;
         var privateProperty = typeof(NTStatus).GetProperty("DebuggerDisplay", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        object value = privateProperty.GetMethod.Invoke(hr, null);
+        object value = privateProperty.GetMethod.Invoke(status, null);
         Assert.Equal("0x00000010", value);
     }
 
