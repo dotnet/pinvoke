@@ -104,30 +104,6 @@ namespace PInvoke
         }
 
         /// <summary>
-        /// Converts an <see cref="int"/> into an <see cref="NTStatus"/>.
-        /// </summary>
-        /// <param name="hr">The value of the NT_STATUS.</param>
-        public static implicit operator NTStatus(int hr) => new NTStatus(hr);
-
-        /// <summary>
-        /// Converts an <see cref="NTStatus"/> into an <see cref="int"/>.
-        /// </summary>
-        /// <param name="hr">The value of the NT_STATUS.</param>
-        public static explicit operator int(NTStatus hr) => hr.value;
-
-        /// <summary>
-        /// Converts an <see cref="uint"/> into an <see cref="NTStatus"/>.
-        /// </summary>
-        /// <param name="status">The value of the NT_STATUS.</param>
-        public static implicit operator NTStatus(uint status) => new NTStatus(status);
-
-        /// <summary>
-        /// Converts an <see cref="NTStatus"/> into an <see cref="uint"/>.
-        /// </summary>
-        /// <param name="status">The value of the NT_STATUS.</param>
-        public static implicit operator uint(NTStatus status) => (uint)status.value;
-
-        /// <summary>
         /// Gets the NT_STATUS as a 32-bit signed integer.
         /// </summary>
         public int AsInt32 => this.value;
@@ -161,6 +137,30 @@ namespace PInvoke
         /// Gets the string to display in a data tip when debugging.
         /// </summary>
         private string DebuggerDisplay => this.ToString();
+
+        /// <summary>
+        /// Converts an <see cref="int"/> into an <see cref="NTStatus"/>.
+        /// </summary>
+        /// <param name="hr">The value of the NT_STATUS.</param>
+        public static implicit operator NTStatus(int hr) => new NTStatus(hr);
+
+        /// <summary>
+        /// Converts an <see cref="NTStatus"/> into an <see cref="int"/>.
+        /// </summary>
+        /// <param name="hr">The value of the NT_STATUS.</param>
+        public static explicit operator int(NTStatus hr) => hr.value;
+
+        /// <summary>
+        /// Converts an <see cref="uint"/> into an <see cref="NTStatus"/>.
+        /// </summary>
+        /// <param name="status">The value of the NT_STATUS.</param>
+        public static implicit operator NTStatus(uint status) => new NTStatus(status);
+
+        /// <summary>
+        /// Converts an <see cref="NTStatus"/> into an <see cref="uint"/>.
+        /// </summary>
+        /// <param name="status">The value of the NT_STATUS.</param>
+        public static implicit operator uint(NTStatus status) => (uint)status.value;
 
         /// <inheritdoc />
         public override int GetHashCode() => (int)this.value;
