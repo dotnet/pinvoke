@@ -166,16 +166,10 @@ namespace PInvoke
         public override int GetHashCode() => (int)this.value;
 
         /// <inheritdoc />
-        public bool Equals(NTStatus other)
-        {
-            return this.value == other.value;
-        }
+        public bool Equals(NTStatus other) => this.value == other.value;
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            return obj is NTStatus && this.Equals((NTStatus)obj);
-        }
+        public override bool Equals(object obj) => obj is NTStatus && this.Equals((NTStatus)obj);
 
         /// <inheritdoc />
         public int CompareTo(object obj) => ((IComparable)this.value).CompareTo(obj);
