@@ -14,7 +14,7 @@ namespace PInvoke
         {
             if (errorCode != Win32ErrorCode.ERROR_SUCCESS)
             {
-                throw new Win32Exception((int)errorCode);
+                throw new Win32Exception(errorCode);
             }
         }
 

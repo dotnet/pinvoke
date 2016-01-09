@@ -8,6 +8,9 @@ namespace PInvoke
     using System.Runtime.Serialization;
     using static Kernel32;
 
+    /// <summary>
+    /// An exception thrown for a failure described by a <see cref="Win32ErrorCode"/>.
+    /// </summary>
 #if DESKTOP
     [Serializable]
 #endif
@@ -116,7 +119,7 @@ namespace PInvoke
                 error,
                 0,
                 null,
-                MaxAllowedBufferSize) ?? $"Unknown error (0x{error:x8})";
+                MaxAllowedBufferSize) ?? $"Unknown Win32 error (0x{error:x8})";
         }
 #endif
     }
