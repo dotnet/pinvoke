@@ -47,4 +47,11 @@ public partial class Kernel32ExtensionsTests
 #endif
         }
     }
+
+    [Fact]
+    public void GetMessage_Win32ErrorCode()
+    {
+        string message = Win32ErrorCode.ERROR_INVALID_LABEL.GetMessage();
+        Assert.Equal("Indicates a particular Security ID may not be assigned as the label of an object", message);
+    }
 }

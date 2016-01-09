@@ -23,11 +23,6 @@ namespace PInvoke
     {
 #if !DESKTOP
         /// <summary>
-        /// The maximum memory we are willing to allocate for the exception message.
-        /// </summary>
-        private const int MaxAllowedBufferSize = 65 * 1024;
-
-        /// <summary>
         /// The original Win32 error code that resulted in this exception.
         /// </summary>
         private readonly Win32ErrorCode nativeErrorCode;
@@ -53,7 +48,7 @@ namespace PInvoke
 #if DESKTOP
             : base((int)error)
 #else
-            : this(error, GetErrorMessage((int)error))
+            : this(error, error.GetMessage())
 #endif
         {
         }
@@ -108,19 +103,6 @@ namespace PInvoke
         public new Win32ErrorCode NativeErrorCode => (Win32ErrorCode)base.NativeErrorCode;
 #else
         public Win32ErrorCode NativeErrorCode => this.nativeErrorCode;
-#endif
-
-#if !DESKTOP
-        private static unsafe string GetErrorMessage(int error)
-        {
-            return FormatMessage(
-                FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM,
-                null,
-                error,
-                0,
-                null,
-                MaxAllowedBufferSize) ?? $"Unknown Win32 error (0x{error:x8})";
-        }
 #endif
     }
 }

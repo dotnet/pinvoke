@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Kernel32.Helpers.cs" />
     <Compile Include="Kernel32+NullablePipeMode.cs" />
+    <Compile Include="Kernel32Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

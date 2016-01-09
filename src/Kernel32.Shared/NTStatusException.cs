@@ -16,11 +16,6 @@ namespace PInvoke
     public class NTStatusException : Exception
     {
         /// <summary>
-        /// The maximum memory we are willing to allocate for the exception message.
-        /// </summary>
-        private const int MaxAllowedBufferSize = 65 * 1024;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="NTStatusException"/> class.
         /// </summary>
         /// <param name="statusCode">The status code identifying the error.</param>
@@ -85,26 +80,13 @@ namespace PInvoke
         /// </summary>
         /// <param name="status">The <see cref="NTStatus"/> for the error.</param>
         /// <returns>The description of the error.</returns>
-        private static unsafe string GetMessage(NTStatus status)
+        private static string GetMessage(NTStatus status)
         {
 #if DESKTOP
-            using (var ntdll = LoadLibrary("ntdll.dll"))
-            {
-                string formattedMessage = FormatMessage(
-                    FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE,
-                    ntdll.DangerousGetHandle(),
-                    (int)status,
-                    0,
-                    null,
-                    MaxAllowedBufferSize);
-                if (formattedMessage != null)
-                {
-                    return formattedMessage;
-                }
-            }
-#endif
-
+            return status.GetMessage();
+#else
             return $"Unknown NT_STATUS error (0x{status:x8})";
+#endif
         }
     }
 }

@@ -3,8 +3,34 @@
 
 namespace PInvoke
 {
-    public static class Kernel32Extensions
+    using static PInvoke.Kernel32;
+
+    /// <summary>
+    /// Extension methods available for and from the Kernel32 library.
+    /// </summary>
+    public static partial class Kernel32Extensions
     {
+        /// <summary>
+        /// The maximum memory we are willing to allocate for the exception message.
+        /// </summary>
+        private const int MaxAllowedBufferSize = 65 * 1024;
+
+        /// <summary>
+        /// Gets the text associated with a <see cref="Win32ErrorCode"/>.
+        /// </summary>
+        /// <param name="error">The error code.</param>
+        /// <returns>The error message.</returns>
+        public static unsafe string GetMessage(this Win32ErrorCode error)
+        {
+            return FormatMessage(
+                FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM,
+                null,
+                (int)error,
+                0,
+                null,
+                MaxAllowedBufferSize) ?? $"Unknown Win32 error (0x{(int)error:x8})";
+        }
+
         /// <summary>
         /// Throws an exception when an error occurs.
         /// </summary>

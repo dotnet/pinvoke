@@ -10,6 +10,14 @@ using Xunit;
 public partial class Kernel32ExtensionsTests
 {
     [Fact]
+    public void GetMessage_NTStatus()
+    {
+        NTStatus error = NTStatus.EPT_NT_INVALID_ENTRY;
+        string message = error.GetMessage();
+        Assert.Equal("The entry is invalid", message);
+    }
+
+    [Fact]
     public void NTStatusException_Serializable()
     {
         var exception = new NTStatusException(NTStatus.STATUS_TPM_AUDITFAIL_SUCCESSFUL, "It works, yo");
