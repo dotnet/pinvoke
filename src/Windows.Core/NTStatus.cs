@@ -32,7 +32,7 @@ namespace PInvoke
     /// FacilityCodes 0x5 - 0xF have been allocated by various drivers.
     /// The success status codes 0 - 63 are reserved for wait completion status.
     /// </remarks>
-    [DebuggerDisplay("{value}")]
+    [DebuggerDisplay("{Value}")]
     [StructLayout(LayoutKind.Sequential)]
     public partial struct NTStatus : IComparable, IComparable<NTStatus>, IEquatable<NTStatus>, IFormattable
     {
@@ -81,12 +81,6 @@ namespace PInvoke
         private const int FacilityCodeShift = 0;
 
         /// <summary>
-        /// The value of the NTStatus.
-        /// </summary>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Code value;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="NTStatus"/> struct.
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
@@ -110,25 +104,25 @@ namespace PInvoke
         /// <param name="status">The value of the NTStatus.</param>
         public NTStatus(Code status)
         {
-            this.value = status;
+            this.Value = status;
         }
 
         /// <summary>
         /// Gets the full NT_STATUS value, as a <see cref="Code"/> enum.
         /// </summary>
-        public Code Value => this.value;
+        public Code Value { get; }
 
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit signed integer.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int AsInt32 => (int)this.value;
+        public int AsInt32 => (int)this.Value;
 
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit unsigned integer.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public uint AsUInt32 => (uint)this.value;
+        public uint AsUInt32 => (uint)this.Value;
 
         /// <summary>
         /// Gets the severity code of this value.
@@ -184,25 +178,25 @@ namespace PInvoke
         /// Converts an <see cref="NTStatus"/> to its <see cref="Code"/> enum representation.
         /// </summary>
         /// <param name="status">The value to convert.</param>
-        public static implicit operator Code(NTStatus status) => status.value;
+        public static implicit operator Code(NTStatus status) => status.Value;
 
         /// <inheritdoc />
-        public override int GetHashCode() => (int)this.value;
+        public override int GetHashCode() => (int)this.Value;
 
         /// <inheritdoc />
-        public bool Equals(NTStatus other) => this.value == other.value;
+        public bool Equals(NTStatus other) => this.Value == other.Value;
 
         /// <inheritdoc />
         public override bool Equals(object obj) => obj is NTStatus && this.Equals((NTStatus)obj);
 
         /// <inheritdoc />
-        public int CompareTo(object obj) => ((IComparable)this.value).CompareTo(obj);
+        public int CompareTo(object obj) => ((IComparable)this.Value).CompareTo(obj);
 
         /// <inheritdoc />
-        public int CompareTo(NTStatus other) => this.value.CompareTo(other.value);
+        public int CompareTo(NTStatus other) => this.Value.CompareTo(other.Value);
 
         /// <inheritdoc />
-        public override string ToString() => this.value.ToString();
+        public override string ToString() => this.Value.ToString();
 
         /// <inheritdoc />
         public string ToString(string format, IFormatProvider formatProvider) => this.AsUInt32.ToString(format, formatProvider);
