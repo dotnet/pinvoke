@@ -35,7 +35,7 @@ namespace PInvoke
             FACILITY_WIN32K_NTUSER = 0x3E << FacilityShift,
             FACILITY_WIN32K_NTGDI = 0x3F << FacilityShift,
             FACILITY_NDIS_ERROR_CODE = 0x23 << FacilityShift,
-            FACILTIY_MUI_ERROR_CODE = 0xB << FacilityShift,
+            FACILTIY_MUI_ERROR_CODE = 0xB << FacilityShift, // Yes! the typo in "FACILTIY" is actually in the original ntstatus.h file
             FACILITY_MONITOR = 0x1D << FacilityShift,
             FACILITY_MAXIMUM_VALUE = 0xE8 << FacilityShift,
             FACILITY_IPSEC = 0x36 << FacilityShift,
