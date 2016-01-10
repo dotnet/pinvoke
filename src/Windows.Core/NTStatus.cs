@@ -32,7 +32,7 @@ namespace PInvoke
     /// FacilityCodes 0x5 - 0xF have been allocated by various drivers.
     /// The success status codes 0 - 63 are reserved for wait completion status.
     /// </remarks>
-    [DebuggerDisplay("{DebuggerDisplay,nq}")]
+    [DebuggerDisplay("{value}")]
     [StructLayout(LayoutKind.Sequential)]
     public partial struct NTStatus : IComparable, IComparable<NTStatus>, IEquatable<NTStatus>, IFormattable
     {
@@ -83,15 +83,16 @@ namespace PInvoke
         /// <summary>
         /// The value of the NTStatus.
         /// </summary>
-        private readonly uint value;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Code value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NTStatus"/> struct.
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
         public NTStatus(uint status)
+            : this((Code)status)
         {
-            this.value = status;
         }
 
         /// <summary>
@@ -99,9 +100,23 @@ namespace PInvoke
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
         public NTStatus(int status)
-            : this((uint)status)
+            : this((Code)status)
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NTStatus"/> struct.
+        /// </summary>
+        /// <param name="status">The value of the NTStatus.</param>
+        public NTStatus(Code status)
+        {
+            this.value = status;
+        }
+
+        /// <summary>
+        /// Gets the full NT_STATUS value, as a <see cref="Code"/> enum.
+        /// </summary>
+        public Code Value => this.value;
 
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit signed integer.
@@ -113,7 +128,7 @@ namespace PInvoke
         /// Gets the NT_STATUS as a 32-bit unsigned integer.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public uint AsUInt32 => this.value;
+        public uint AsUInt32 => (uint)this.value;
 
         /// <summary>
         /// Gets the severity code of this value.
@@ -128,7 +143,7 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility code of this value.
         /// </summary>
-        public FacilityCodes Facility => (FacilityCodes)(this.value & FacilityMask);
+        public FacilityCodes Facility => (FacilityCodes)(this.AsUInt32 & FacilityMask);
 
         /// <summary>
         /// Gets the facility's status code bits from the NT_STATUS.
@@ -136,22 +151,16 @@ namespace PInvoke
         public uint FacilityCode => this.AsUInt32 & FacilityCodeMask;
 
         /// <summary>
-        /// Gets the string to display in a data tip when debugging.
-        /// </summary>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string DebuggerDisplay => this.ToString();
-
-        /// <summary>
         /// Converts an <see cref="int"/> into an <see cref="NTStatus"/>.
         /// </summary>
-        /// <param name="hr">The value of the NT_STATUS.</param>
-        public static implicit operator NTStatus(int hr) => new NTStatus(hr);
+        /// <param name="status">The value of the NT_STATUS.</param>
+        public static implicit operator NTStatus(int status) => new NTStatus(status);
 
         /// <summary>
         /// Converts an <see cref="NTStatus"/> into an <see cref="int"/>.
         /// </summary>
-        /// <param name="hr">The value of the NT_STATUS.</param>
-        public static explicit operator int(NTStatus hr) => (int)hr.value;
+        /// <param name="status">The value of the NT_STATUS.</param>
+        public static explicit operator int(NTStatus status) => status.AsInt32;
 
         /// <summary>
         /// Converts an <see cref="uint"/> into an <see cref="NTStatus"/>.
@@ -163,7 +172,19 @@ namespace PInvoke
         /// Converts an <see cref="NTStatus"/> into an <see cref="uint"/>.
         /// </summary>
         /// <param name="status">The value of the NT_STATUS.</param>
-        public static implicit operator uint(NTStatus status) => status.value;
+        public static implicit operator uint(NTStatus status) => status.AsUInt32;
+
+        /// <summary>
+        /// Converts a <see cref="Code"/> enum to its structural <see cref="NTStatus"/> representation.
+        /// </summary>
+        /// <param name="status">The value to convert.</param>
+        public static implicit operator NTStatus(Code status) => new NTStatus(status);
+
+        /// <summary>
+        /// Converts an <see cref="NTStatus"/> to its <see cref="Code"/> enum representation.
+        /// </summary>
+        /// <param name="status">The value to convert.</param>
+        public static implicit operator Code(NTStatus status) => status.value;
 
         /// <inheritdoc />
         public override int GetHashCode() => (int)this.value;
@@ -181,9 +202,9 @@ namespace PInvoke
         public int CompareTo(NTStatus other) => this.value.CompareTo(other.value);
 
         /// <inheritdoc />
-        public override string ToString() => $"0x{this.value:x8}";
+        public override string ToString() => this.value.ToString();
 
         /// <inheritdoc />
-        public string ToString(string format, IFormatProvider formatProvider) => this.value.ToString(format, formatProvider);
+        public string ToString(string format, IFormatProvider formatProvider) => this.AsUInt32.ToString(format, formatProvider);
     }
 }

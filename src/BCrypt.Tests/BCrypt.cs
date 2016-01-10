@@ -126,7 +126,7 @@ public class BCrypt
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 // Verify that without padding, an error is returned.
-                Assert.Equal<NTStatus>(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
+                Assert.Equal<NTStatus>(NTStatus.Code.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
 
                 // Now do our own padding (zeros).
                 blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
@@ -166,7 +166,7 @@ public class BCrypt
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 // Verify that without padding, an error is returned.
-                Assert.Equal<NTStatus>(NTStatus.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
+                Assert.Equal<NTStatus>(NTStatus.Code.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
 
                 // Now do our own padding (zeros).
                 blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
@@ -358,10 +358,10 @@ public class BCrypt
                 byte[] hashData = SHA1.Create().ComputeHash(new byte[] { 0x1 });
                 byte[] signature = BCryptSignHash(keyPair, hashData).ToArray();
                 NTStatus status = BCryptVerifySignature(keyPair, null, hashData, hashData.Length, signature, signature.Length);
-                Assert.Equal<NTStatus>(NTStatus.STATUS_SUCCESS, status);
+                Assert.Equal<NTStatus>(NTStatus.Code.STATUS_SUCCESS, status);
                 signature[0] = unchecked((byte)(signature[0] + 1));
                 status = BCryptVerifySignature(keyPair, null, hashData, hashData.Length, signature, signature.Length);
-                Assert.Equal<NTStatus>(NTStatus.STATUS_INVALID_SIGNATURE, status);
+                Assert.Equal<NTStatus>(NTStatus.Code.STATUS_INVALID_SIGNATURE, status);
             }
         }
     }

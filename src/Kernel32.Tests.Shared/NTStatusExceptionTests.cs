@@ -12,7 +12,7 @@ public partial class NTStatusExceptionTests
     [Fact]
     public void NTStatusException_NativeErrorCode()
     {
-        NTStatus error = NTStatus.EPT_NT_INVALID_ENTRY;
+        NTStatus error = NTStatus.Code.EPT_NT_INVALID_ENTRY;
         var ex = new NTStatusException(error);
         Assert.Equal(error, ex.StatusCode);
     }
@@ -20,7 +20,7 @@ public partial class NTStatusExceptionTests
     [Fact]
     public void NTStatusException_Message()
     {
-        NTStatus error = NTStatus.EPT_NT_INVALID_ENTRY;
+        NTStatus error = NTStatus.Code.EPT_NT_INVALID_ENTRY;
         var ex = new NTStatusException(error);
 #if DESKTOP
         Assert.Equal("The entry is invalid", ex.Message);
@@ -40,7 +40,7 @@ public partial class NTStatusExceptionTests
     [Fact]
     public void NTStatusException_CodeAndMessage()
     {
-        NTStatus error = NTStatus.EPT_NT_INVALID_ENTRY;
+        NTStatus error = NTStatus.Code.EPT_NT_INVALID_ENTRY;
         var ex = new NTStatusException(error, "msg");
         Assert.Equal(error, ex.StatusCode);
         Assert.Equal("msg", ex.Message);

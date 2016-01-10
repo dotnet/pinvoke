@@ -29,7 +29,7 @@ public class NTStatusTests
     [Fact]
     public void PopularValuesPredefined()
     {
-        Assert.Equal(0u, NTStatus.STATUS_SUCCESS);
+        Assert.Equal(0u, (uint)NTStatus.Code.STATUS_SUCCESS);
     }
 
     [Fact]
@@ -78,7 +78,9 @@ public class NTStatusTests
     public void ToString_FormatsNumberAsHex()
     {
         NTStatus status = 0x80000000;
-        Assert.Equal("0x80000000", status.ToString());
+        Assert.Equal("2147483648", status.ToString());
+        status = NTStatus.Code.DBG_CONTINUE;
+        Assert.Equal("DBG_CONTINUE", status.ToString());
     }
 
     [Fact]
@@ -123,15 +125,6 @@ public class NTStatusTests
         Assert.True(hr3 == hr3b);
         Assert.False(hr3 == hr5);
         Assert.False(hr3 != hr3b);
-    }
-
-    [Fact]
-    public void DebuggerDisplay()
-    {
-        NTStatus status = 0x10;
-        var privateProperty = typeof(NTStatus).GetProperty("DebuggerDisplay", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        object value = privateProperty.GetMethod.Invoke(status, null);
-        Assert.Equal("0x00000010", value);
     }
 
     [Fact]

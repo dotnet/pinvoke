@@ -11,8 +11,8 @@ public class NTDll
     [Fact]
     public void RtlNtStatusToDosError_Test()
     {
-        Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, RtlNtStatusToDosError(NTStatus.STATUS_PENDING));
-        Assert.Equal(Win32ErrorCode.ERROR_SUCCESS, RtlNtStatusToDosError(NTStatus.STATUS_SUCCESS));
+        Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, RtlNtStatusToDosError(NTStatus.Code.STATUS_PENDING));
+        Assert.Equal(Win32ErrorCode.ERROR_SUCCESS, RtlNtStatusToDosError(NTStatus.Code.STATUS_SUCCESS));
 
         // You'd think these would be more or less obviously correct return values, but this API
         // actually does a pitiful job of producing valid return values.

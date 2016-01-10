@@ -43,7 +43,7 @@
     <Compile Include="IMAGE_SECTION_HEADER+CharacteristicsType.cs" />
     <Compile Include="IMAGE_SECTION_HEADER.cs" />
     <Compile Include="LIST_ENTRY.cs" />
-    <Compile Include="NTStatus+CommonCodes.cs" />
+    <Compile Include="NTStatus+Code.cs" />
     <Compile Include="NTStatus+SeverityCodes.cs" />
     <Compile Include="NTStatus+FacilityCodes.cs" />
     <Compile Include="NullableUInt32.cs" />

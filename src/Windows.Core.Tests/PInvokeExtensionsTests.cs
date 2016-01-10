@@ -11,7 +11,7 @@ public class PInvokeExtensionsTests
     [Fact]
     public void ToHResult_FromNTStatus()
     {
-        NTStatus duplicate = NTStatus.STATUS_DUPLICATE_OBJECTID;
+        NTStatus duplicate = NTStatus.Code.STATUS_DUPLICATE_OBJECTID;
         Assert.Equal(0xD000022A, duplicate.ToHResult());
     }
 

@@ -352,7 +352,7 @@ namespace PInvoke
         /// </param>
         /// <param name="output">
         /// The address of the buffer that receives the ciphertext produced by this function. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="input"/> parameter. In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.The <paramref name="paddingInfo"/> parameter is not modified.
+        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="input"/> parameter. In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.The <paramref name="paddingInfo"/> parameter is not modified.
         /// If the values of both the <paramref name="output"/> and <paramref name="input"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="paddingInfo"/> parameter.
         /// </param>
         /// <param name="outputLength">
@@ -478,7 +478,7 @@ namespace PInvoke
         /// </param>
         /// <param name="output">
         /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="input"/> parameter.In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTStatus.STATUS_SUCCESS"/>.
+        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="input"/> parameter.In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.
         /// If the values of both the <paramref name="output"/> and <paramref name="input" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="paddingInfo"/> parameter, is verified.
         /// </param>
         /// <param name="outputLength">
@@ -636,7 +636,7 @@ namespace PInvoke
                 signature.Length,
                 flags);
 
-            if (status == NTStatus.STATUS_INVALID_SIGNATURE)
+            if (status == NTStatus.Code.STATUS_INVALID_SIGNATURE)
             {
                 return false;
             }

@@ -35,7 +35,7 @@ namespace PInvoke
             /// <inheritdoc />
             protected override bool ReleaseHandle()
             {
-                return BCryptCloseAlgorithmProvider(this.handle, 0) == NTStatus.STATUS_SUCCESS;
+                return BCryptCloseAlgorithmProvider(this.handle, 0) == NTStatus.Code.STATUS_SUCCESS;
             }
         }
     }
