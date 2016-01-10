@@ -5,7 +5,7 @@ environment:
   VisualStudioVersion: 14.0
   GeneratePInvokesTxt: true
 before_build:
-- ps: nuget restore src
+- ps: nuget restore src -Verbosity quiet
 build:
   project: src\pinvoke.sln
   verbosity: minimal
