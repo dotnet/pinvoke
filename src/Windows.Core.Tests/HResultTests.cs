@@ -155,19 +155,19 @@ public class HResultTests
     [Fact]
     public void Severity()
     {
-        Assert.Equal((HResult.SeverityCodes)0x80000000u, new HResult(0xffffffff).Severity);
+        Assert.Equal((HResult.SeverityCode)0x80000000u, new HResult(0xffffffff).Severity);
     }
 
     [Fact]
     public void Facility()
     {
-        Assert.Equal((HResult.FacilityCodes)0x7ff0000, new HResult(0xffffffff).Facility);
+        Assert.Equal((HResult.FacilityCode)0x7ff0000, new HResult(0xffffffff).Facility);
     }
 
     [Fact]
     public void Code()
     {
-        Assert.Equal(0xffff, new HResult(0xffffffff).FacilityCode);
+        Assert.Equal(0xffff, new HResult(0xffffffff).FacilityStatus);
     }
 
     [Fact]

@@ -4,14 +4,14 @@
 namespace PInvoke
 {
     /// <content>
-    /// The <see cref="FacilityCodes"/> nested type.
+    /// The <see cref="FacilityCode"/> nested type.
     /// </content>
     public partial struct HResult
     {
         /// <summary>
         /// HRESULT facility codes defined by winerror.h
         /// </summary>
-        public enum FacilityCodes : uint
+        public enum FacilityCode : uint
         {
             FACILITY_XPS = 82,
             FACILITY_XAML = 43,

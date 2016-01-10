@@ -5,7 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
-    using static PInvoke.HResult.FacilityCodes;
+    using static PInvoke.HResult.FacilityCode;
 
     /// <summary>
     /// Extension methods for commonly defined types.

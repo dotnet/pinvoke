@@ -71,15 +71,15 @@ namespace PInvoke
         private const int FacilityShift = 16;
 
         /// <summary>
-        /// The mask of the bits that describe the facility's status <see cref="FacilityCode"/>.
+        /// The mask of the bits that describe the <see cref="FacilityStatus"/>.
         /// </summary>
-        private const int FacilityCodeMask = 0xffff;
+        private const int FacilityStatusMask = 0xffff;
 
         /// <summary>
-        /// The number of bits that <see cref="FacilityCode"/> values are shifted
-        /// in order to fit within <see cref="FacilityCodeMask"/>.
+        /// The number of bits that <see cref="FacilityStatus"/> values are shifted
+        /// in order to fit within <see cref="FacilityStatusMask"/>.
         /// </summary>
-        private const int FacilityCodeShift = 0;
+        private const int FacilityStatusShift = 0;
 
         /// <summary>
         /// The value of the HRESULT.
@@ -131,17 +131,17 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility code of the HRESULT.
         /// </summary>
-        public FacilityCodes Facility => (FacilityCodes)(this.value & FacilityMask);
+        public FacilityCode Facility => (FacilityCode)(this.value & FacilityMask);
 
         /// <summary>
         /// Gets the severity of the HRESULT.
         /// </summary>
-        public SeverityCodes Severity => (SeverityCodes)(this.value & SeverityMask);
+        public SeverityCode Severity => (SeverityCode)(this.value & SeverityMask);
 
         /// <summary>
         /// Gets the facility's status code bits from the HRESULT.
         /// </summary>
-        public int FacilityCode => this.value & FacilityCodeMask;
+        public int FacilityStatus => this.value & FacilityStatusMask;
 
         /// <summary>
         /// Gets the string to display in a data tip when debugging.

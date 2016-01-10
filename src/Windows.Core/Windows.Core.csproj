@@ -27,8 +27,8 @@
     <Compile Include="ApiSets.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="HResult+CommonCodes.cs" />
-    <Compile Include="HResult+FacilityCodes.cs" />
-    <Compile Include="HResult+SeverityCodes.cs" />
+    <Compile Include="HResult+FacilityCode.cs" />
+    <Compile Include="HResult+SeverityCode.cs" />
     <Compile Include="HResult.cs" />
     <Compile Include="IMAGE_DATA_DIRECTORY.cs" />
     <Compile Include="IMAGE_FILE_HEADER+CharacteristicsType.cs" />

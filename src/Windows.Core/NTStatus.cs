@@ -70,15 +70,15 @@ namespace PInvoke
         private const int FacilityShift = 16;
 
         /// <summary>
-        /// The mask of the bits that describe the facility's status <see cref="FacilityStatusCode"/>.
+        /// The mask of the bits that describe the facility's status <see cref="FacilityStatus"/>.
         /// </summary>
-        private const uint FacilityStatusCodeMask = 0xffff;
+        private const uint FacilityStatusMask = 0xffff;
 
         /// <summary>
-        /// The number of bits that <see cref="FacilityStatusCode"/> values are shifted
-        /// in order to fit within <see cref="FacilityStatusCodeMask"/>.
+        /// The number of bits that <see cref="FacilityStatus"/> values are shifted
+        /// in order to fit within <see cref="FacilityStatusMask"/>.
         /// </summary>
-        private const int FacilityStatusCodeShift = 0;
+        private const int FacilityStatusShift = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NTStatus"/> struct.
@@ -142,7 +142,7 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility's status code bits from the NT_STATUS.
         /// </summary>
-        public uint FacilityStatusCode => this.AsUInt32 & FacilityStatusCodeMask;
+        public uint FacilityStatus => this.AsUInt32 & FacilityStatusMask;
 
         /// <summary>
         /// Converts an <see cref="int"/> into an <see cref="NTStatus"/>.

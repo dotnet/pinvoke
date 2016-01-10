@@ -148,6 +148,6 @@ public class NTStatusTests
     [Fact]
     public void Code()
     {
-        Assert.Equal<uint>(0xffff, new NTStatus(0xffffffff).FacilityStatusCode);
+        Assert.Equal<uint>(0xffff, new NTStatus(0xffffffff).FacilityStatus);
     }
 }

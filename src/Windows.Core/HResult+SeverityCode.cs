@@ -4,14 +4,14 @@
 namespace PInvoke
 {
     /// <content>
-    /// The <see cref="SeverityCodes"/> nested type.
+    /// The <see cref="SeverityCode"/> nested type.
     /// </content>
     public partial struct HResult
     {
         /// <summary>
         /// HRESULT severity codes defined by winerror.h
         /// </summary>
-        public enum SeverityCodes : uint
+        public enum SeverityCode : uint
         {
             Success = 0,
             Fail = 1,
