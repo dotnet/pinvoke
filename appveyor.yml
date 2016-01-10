@@ -4,6 +4,8 @@ configuration: Release
 environment:
   VisualStudioVersion: 14.0
   GeneratePInvokesTxt: true
+cache:
+- '%USERPROFILE%\.nuget\packages'
 before_build:
 - ps: nuget restore src
 build:
