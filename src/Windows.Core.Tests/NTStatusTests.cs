@@ -9,6 +9,14 @@ using Xunit;
 public class NTStatusTests
 {
     [Fact]
+    public void MarshaledSize()
+    {
+        // It's imperative that the struct be exactly the size of an Int32
+        // since we use it in interop.
+        Assert.Equal(sizeof(int), Marshal.SizeOf(typeof(NTStatus)));
+    }
+
+    [Fact]
     public void Ctor_Int32()
     {
         Assert.Equal(3, ((NTStatus)3).AsInt32);

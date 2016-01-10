@@ -82,17 +82,21 @@ namespace PInvoke
         private const int FacilityStatusShift = 0;
 
         /// <summary>
-        /// The value of the HRESULT.
+        /// Initializes a new instance of the <see cref="HResult"/> struct.
         /// </summary>
-        private readonly int value;
+        /// <param name="value">The value of the HRESULT.</param>
+        public HResult(Code value)
+        {
+            this.Value = value;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HResult"/> struct.
         /// </summary>
         /// <param name="value">The value of the HRESULT.</param>
         public HResult(int value)
+            : this((Code)value)
         {
-            this.value = value;
         }
 
         /// <summary>
@@ -100,48 +104,53 @@ namespace PInvoke
         /// </summary>
         /// <param name="value">The value of the HRESULT.</param>
         public HResult(uint value)
-            : this((int)value)
+            : this((Code)value)
         {
         }
+
+        /// <summary>
+        /// Gets the full HRESULT value, as a <see cref="Code"/> enum.
+        /// </summary>
+        public Code Value { get; }
 
         /// <summary>
         /// Gets the HRESULT as a 32-bit signed integer.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int AsInt32 => this.value;
+        public int AsInt32 => (int)this.Value;
 
         /// <summary>
         /// Gets the HRESULT as a 32-bit unsigned integer.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public uint AsUInt32 => (uint)this.value;
+        public uint AsUInt32 => (uint)this.Value;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a successful operation.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool Succeeded => this.value >= 0;
+        public bool Succeeded => this.Value >= 0;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a failured operation.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool Failed => this.value < 0;
+        public bool Failed => this.Value < 0;
 
         /// <summary>
         /// Gets the facility code of the HRESULT.
         /// </summary>
-        public FacilityCode Facility => (FacilityCode)(this.value & FacilityMask);
+        public FacilityCode Facility => (FacilityCode)(this.AsUInt32 & FacilityMask);
 
         /// <summary>
         /// Gets the severity of the HRESULT.
         /// </summary>
-        public SeverityCode Severity => (SeverityCode)(this.value & SeverityMask);
+        public SeverityCode Severity => (SeverityCode)(this.AsUInt32 & SeverityMask);
 
         /// <summary>
         /// Gets the facility's status code bits from the HRESULT.
         /// </summary>
-        public int FacilityStatus => this.value & FacilityStatusMask;
+        public uint FacilityStatus => this.AsUInt32 & FacilityStatusMask;
 
         /// <summary>
         /// Gets the string to display in a data tip when debugging.
@@ -159,26 +168,38 @@ namespace PInvoke
         /// Converts an <see cref="HResult"/> into an <see cref="int"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static implicit operator int(HResult hr) => hr.value;
+        public static implicit operator int(HResult hr) => hr.AsInt32;
 
         /// <summary>
         /// Converts an <see cref="uint"/> into an <see cref="HResult"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static implicit operator HResult(uint hr) => new HResult((int)hr);
+        public static implicit operator HResult(uint hr) => new HResult(hr);
 
         /// <summary>
         /// Converts an <see cref="HResult"/> into an <see cref="uint"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static explicit operator uint(HResult hr) => (uint)hr.value;
+        public static explicit operator uint(HResult hr) => hr.AsUInt32;
+
+        /// <summary>
+        /// Converts a <see cref="Code"/> enum to its structural <see cref="HResult"/> representation.
+        /// </summary>
+        /// <param name="hr">The value to convert.</param>
+        public static implicit operator HResult(Code hr) => new HResult(hr);
+
+        /// <summary>
+        /// Converts an <see cref="HResult"/> to its <see cref="Code"/> enum representation.
+        /// </summary>
+        /// <param name="hr">The value to convert.</param>
+        public static implicit operator Code(HResult hr) => hr.Value;
 
         /// <summary>
         /// Throws an exception if this HRESULT <see cref="Failed"/>, based on the failure value.
         /// </summary>
         public void ThrowOnFailure()
         {
-            Marshal.ThrowExceptionForHR(this.value);
+            Marshal.ThrowExceptionForHR(this.AsInt32);
         }
 
         /// <summary>
@@ -192,28 +213,28 @@ namespace PInvoke
         /// </param>
         public void ThrowOnFailure(IntPtr errorInfo)
         {
-            Marshal.ThrowExceptionForHR(this.value, errorInfo);
+            Marshal.ThrowExceptionForHR(this.AsInt32, errorInfo);
         }
 
         /// <inheritdoc />
-        public override int GetHashCode() => this.value;
+        public override int GetHashCode() => this.AsInt32;
 
         /// <inheritdoc />
-        public bool Equals(HResult other) => this.value == other.value;
+        public bool Equals(HResult other) => this.Value == other.Value;
 
         /// <inheritdoc />
         public override bool Equals(object obj) => obj is HResult && this.Equals((HResult)obj);
 
         /// <inheritdoc />
-        public int CompareTo(object obj) => ((IComparable)this.value).CompareTo(obj);
+        public int CompareTo(object obj) => ((IComparable)this.Value).CompareTo(obj);
 
         /// <inheritdoc />
-        public int CompareTo(HResult other) => this.value.CompareTo(other.value);
+        public int CompareTo(HResult other) => this.Value.CompareTo(other.Value);
 
         /// <inheritdoc />
-        public override string ToString() => $"0x{this.value:x8}";
+        public override string ToString() => $"0x{this.Value:x8}";
 
         /// <inheritdoc />
-        public string ToString(string format, IFormatProvider formatProvider) => this.value.ToString(format, formatProvider);
+        public string ToString(string format, IFormatProvider formatProvider) => this.AsUInt32.ToString(format, formatProvider);
     }
 }

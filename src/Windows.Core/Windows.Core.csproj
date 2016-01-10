@@ -26,7 +26,7 @@
   <ItemGroup>
     <Compile Include="ApiSets.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="HResult+CommonCodes.cs" />
+    <Compile Include="HResult+Code.cs" />
     <Compile Include="HResult+FacilityCode.cs" />
     <Compile Include="HResult+SeverityCode.cs" />
     <Compile Include="HResult.cs" />
