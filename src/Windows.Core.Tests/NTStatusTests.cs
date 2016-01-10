@@ -83,7 +83,7 @@ public class NTStatusTests
     }
 
     [Fact]
-    public void ToString_FormatsNumberAsHex()
+    public void ToString_FormatsNumberAsDecimalOrName()
     {
         NTStatus status = 0x80000000;
         Assert.Equal("2147483648", status.ToString());

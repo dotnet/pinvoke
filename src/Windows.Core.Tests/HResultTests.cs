@@ -85,10 +85,12 @@ public class HResultTests
     }
 
     [Fact]
-    public void ToString_FormatsNumberAsHex()
+    public void ToString_FormatsNumberAsDecimalOrName()
     {
         HResult hr = 0x80000000;
-        Assert.Equal("0x80000000", hr.ToString());
+        Assert.Equal("2147483648", hr.ToString());
+        hr = HResult.Code.E_INVALIDARG;
+        Assert.Equal("E_INVALIDARG", hr.ToString());
     }
 
     [Fact]
@@ -133,15 +135,6 @@ public class HResultTests
         Assert.True(hr3 == hr3b);
         Assert.False(hr3 == hr5);
         Assert.False(hr3 != hr3b);
-    }
-
-    [Fact]
-    public void DebuggerDisplay()
-    {
-        HResult hr = 0x10;
-        var privateProperty = typeof(HResult).GetProperty("DebuggerDisplay", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        object value = privateProperty.GetMethod.Invoke(hr, null);
-        Assert.Equal("0x00000010", value);
     }
 
     [Fact]

@@ -44,7 +44,7 @@ namespace PInvoke
     ///      Code - is the facility's status code
     ///
     /// </remarks>
-    [DebuggerDisplay("{DebuggerDisplay,nq}")]
+    [DebuggerDisplay("{Value}")]
     [StructLayout(LayoutKind.Sequential)]
     public partial struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
     {
@@ -122,20 +122,19 @@ namespace PInvoke
         /// <summary>
         /// Gets the HRESULT as a 32-bit unsigned integer.
         /// </summary>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public uint AsUInt32 => (uint)this.Value;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a successful operation.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool Succeeded => this.Value >= 0;
+        public bool Succeeded => this.Severity == SeverityCode.Success;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a failured operation.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool Failed => this.Value < 0;
+        public bool Failed => this.Severity == SeverityCode.Fail;
 
         /// <summary>
         /// Gets the facility code of the HRESULT.
@@ -151,12 +150,6 @@ namespace PInvoke
         /// Gets the facility's status code bits from the HRESULT.
         /// </summary>
         public uint FacilityStatus => this.AsUInt32 & FacilityStatusMask;
-
-        /// <summary>
-        /// Gets the string to display in a data tip when debugging.
-        /// </summary>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string DebuggerDisplay => this.ToString();
 
         /// <summary>
         /// Converts an <see cref="int"/> into an <see cref="HResult"/>.
@@ -232,7 +225,7 @@ namespace PInvoke
         public int CompareTo(HResult other) => this.Value.CompareTo(other.Value);
 
         /// <inheritdoc />
-        public override string ToString() => $"0x{this.Value:x8}";
+        public override string ToString() => this.Value.ToString();
 
         /// <inheritdoc />
         public string ToString(string format, IFormatProvider formatProvider) => this.AsUInt32.ToString(format, formatProvider);

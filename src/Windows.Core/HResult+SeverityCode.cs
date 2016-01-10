@@ -14,7 +14,7 @@ namespace PInvoke
         public enum SeverityCode : uint
         {
             Success = 0,
-            Fail = 1,
+            Fail = 0x80000000,
         }
     }
 }

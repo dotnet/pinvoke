@@ -121,7 +121,6 @@ namespace PInvoke
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit unsigned integer.
         /// </summary>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public uint AsUInt32 => (uint)this.Value;
 
         /// <summary>
