@@ -130,7 +130,7 @@ public class NTStatusTests
     [Fact]
     public void Severity()
     {
-        Assert.Equal((NTStatus.SeverityCodes)0xc0000000, new NTStatus(0xffffffff).Severity);
+        Assert.Equal((NTStatus.SeverityCode)0xc0000000, new NTStatus(0xffffffff).Severity);
     }
 
     [Fact]
@@ -142,12 +142,12 @@ public class NTStatusTests
     [Fact]
     public void Facility()
     {
-        Assert.Equal((NTStatus.FacilityCodes)0xfff0000, new NTStatus(0xffffffff).Facility);
+        Assert.Equal((NTStatus.FacilityCode)0xfff0000, new NTStatus(0xffffffff).Facility);
     }
 
     [Fact]
     public void Code()
     {
-        Assert.Equal<uint>(0xffff, new NTStatus(0xffffffff).FacilityCode);
+        Assert.Equal<uint>(0xffff, new NTStatus(0xffffffff).FacilityStatusCode);
     }
 }

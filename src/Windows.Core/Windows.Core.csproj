@@ -44,8 +44,8 @@
     <Compile Include="IMAGE_SECTION_HEADER.cs" />
     <Compile Include="LIST_ENTRY.cs" />
     <Compile Include="NTStatus+Code.cs" />
-    <Compile Include="NTStatus+SeverityCodes.cs" />
-    <Compile Include="NTStatus+FacilityCodes.cs" />
+    <Compile Include="NTStatus+SeverityCode.cs" />
+    <Compile Include="NTStatus+FacilityCode.cs" />
     <Compile Include="NullableUInt32.cs" />
     <Compile Include="NullableGuid.cs" />
     <Compile Include="NTStatus.cs" />

@@ -4,14 +4,14 @@
 namespace PInvoke
 {
     /// <content>
-    /// The <see cref="SeverityCodes"/> nested type.
+    /// The <see cref="SeverityCode"/> nested type.
     /// </content>
     public partial struct NTStatus
     {
         /// <summary>
-        /// The <see cref="NTStatus"/> facility codes.
+        /// The <see cref="NTStatus"/> severity codes.
         /// </summary>
-        public enum SeverityCodes : uint
+        public enum SeverityCode : uint
         {
             STATUS_SEVERITY_SUCCESS = 0x0 << SeverityShift,
             STATUS_SEVERITY_INFORMATIONAL = 0x1 << SeverityShift,

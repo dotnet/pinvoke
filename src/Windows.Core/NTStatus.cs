@@ -70,15 +70,15 @@ namespace PInvoke
         private const int FacilityShift = 16;
 
         /// <summary>
-        /// The mask of the bits that describe the facility's status <see cref="FacilityCode"/>.
+        /// The mask of the bits that describe the facility's status <see cref="FacilityStatusCode"/>.
         /// </summary>
-        private const uint FacilityCodeMask = 0xffff;
+        private const uint FacilityStatusCodeMask = 0xffff;
 
         /// <summary>
-        /// The number of bits that <see cref="FacilityCode"/> values are shifted
-        /// in order to fit within <see cref="FacilityCodeMask"/>.
+        /// The number of bits that <see cref="FacilityStatusCode"/> values are shifted
+        /// in order to fit within <see cref="FacilityStatusCodeMask"/>.
         /// </summary>
-        private const int FacilityCodeShift = 0;
+        private const int FacilityStatusCodeShift = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NTStatus"/> struct.
@@ -127,7 +127,7 @@ namespace PInvoke
         /// <summary>
         /// Gets the severity code of this value.
         /// </summary>
-        public SeverityCodes Severity => (SeverityCodes)(this.AsUInt32 & SeverityMask);
+        public SeverityCode Severity => (SeverityCode)(this.AsUInt32 & SeverityMask);
 
         /// <summary>
         /// Gets the customer code portion of this value.
@@ -137,12 +137,12 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility code of this value.
         /// </summary>
-        public FacilityCodes Facility => (FacilityCodes)(this.AsUInt32 & FacilityMask);
+        public FacilityCode Facility => (FacilityCode)(this.AsUInt32 & FacilityMask);
 
         /// <summary>
         /// Gets the facility's status code bits from the NT_STATUS.
         /// </summary>
-        public uint FacilityCode => this.AsUInt32 & FacilityCodeMask;
+        public uint FacilityStatusCode => this.AsUInt32 & FacilityStatusCodeMask;
 
         /// <summary>
         /// Converts an <see cref="int"/> into an <see cref="NTStatus"/>.

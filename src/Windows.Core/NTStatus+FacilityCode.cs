@@ -4,14 +4,14 @@
 namespace PInvoke
 {
     /// <content>
-    /// The <see cref="FacilityCodes"/> nested type.
+    /// The <see cref="FacilityCode"/> nested type.
     /// </content>
     public partial struct NTStatus
     {
         /// <summary>
         /// The <see cref="NTStatus"/> facility codes.
         /// </summary>
-        public enum FacilityCodes
+        public enum FacilityCode
         {
             FACILITY_VOLSNAP = 0x50 << FacilityShift,
             FACILITY_VOLMGR = 0x38 << FacilityShift,

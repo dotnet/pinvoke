@@ -50,7 +50,7 @@ namespace PInvoke
         /// <param name="status">The result of the P/Invoke call.</param>
         public static void ThrowOnError(this NTStatus status)
         {
-            if (status.Severity == NTStatus.SeverityCodes.STATUS_SEVERITY_ERROR)
+            if (status.Severity == NTStatus.SeverityCode.STATUS_SEVERITY_ERROR)
             {
                 throw new NTStatusException(status);
             }
