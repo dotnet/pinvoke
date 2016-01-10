@@ -4,10 +4,13 @@ configuration: Release
 environment:
   VisualStudioVersion: 14.0
   GeneratePInvokesTxt: true
+cache:
+- '%USERPROFILE%\.nuget\packages'
 before_build:
 - ps: nuget restore src -Verbosity quiet
 build:
   project: src\pinvoke.sln
+  parallel: true
   verbosity: minimal
 artifacts:
 - path: bin\**\*.nupkg
