@@ -137,29 +137,24 @@ public class NTStatusTests
     [Fact]
     public void Severity()
     {
-        Assert.Equal((NTStatus.SeverityCodes)0x3, new NTStatus(0xc0000000).Severity);
-        Assert.Equal((NTStatus.SeverityCodes)0x0, new NTStatus(0x3fffffff).Severity);
+        Assert.Equal((NTStatus.SeverityCodes)0xc0000000, new NTStatus(0xffffffff).Severity);
     }
 
     [Fact]
     public void CustomerCode()
     {
-        Assert.Equal(1u, new NTStatus(0x20000000).CustomerCode);
-        Assert.Equal(0u, new NTStatus(0xdfffffff).CustomerCode);
+        Assert.Equal(0x20000000u, new NTStatus(0xffffffff).CustomerCode);
     }
 
     [Fact]
     public void Facility()
     {
-        // The hex values used here are deliberately selected.
-        // 9 is encoded in binary as 1001, which places 1's at the edges and 0's everywhere else.
-        // So if the bit mask or bit shift is wrong, it will have to be detected.
-        Assert.Equal((NTStatus.FacilityCodes)0x999, new NTStatus(0xf999ffff).Facility);
+        Assert.Equal((NTStatus.FacilityCodes)0xfff0000, new NTStatus(0xffffffff).Facility);
     }
 
     [Fact]
     public void Code()
     {
-        Assert.Equal<uint>(0x9999, new NTStatus(0xffff9999).FacilityCode);
+        Assert.Equal<uint>(0xffff, new NTStatus(0xffffffff).FacilityCode);
     }
 }

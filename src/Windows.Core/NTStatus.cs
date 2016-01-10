@@ -118,22 +118,22 @@ namespace PInvoke
         /// <summary>
         /// Gets the severity code of this value.
         /// </summary>
-        public SeverityCodes Severity => (SeverityCodes)((this.AsUInt32 & SeverityMask) >> SeverityShift);
+        public SeverityCodes Severity => (SeverityCodes)(this.AsUInt32 & SeverityMask);
 
         /// <summary>
-        /// Gets the customer code portion of this value (with bits shifted to the right).
+        /// Gets the customer code portion of this value.
         /// </summary>
-        public uint CustomerCode => (this.AsUInt32 & CustomerCodeMask) >> CustomerCodeShift;
+        public uint CustomerCode => this.AsUInt32 & CustomerCodeMask;
 
         /// <summary>
         /// Gets the facility code of this value.
         /// </summary>
-        public FacilityCodes Facility => (FacilityCodes)((this.value & FacilityMask) >> FacilityShift);
+        public FacilityCodes Facility => (FacilityCodes)(this.value & FacilityMask);
 
         /// <summary>
         /// Gets the facility's status code bits from the NT_STATUS.
         /// </summary>
-        public uint FacilityCode => (this.AsUInt32 & FacilityCodeMask) >> FacilityCodeShift;
+        public uint FacilityCode => this.AsUInt32 & FacilityCodeMask;
 
         /// <summary>
         /// Gets the string to display in a data tip when debugging.

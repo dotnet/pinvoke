@@ -13,10 +13,10 @@ namespace PInvoke
         /// </summary>
         public enum SeverityCodes : uint
         {
-            STATUS_SEVERITY_SUCCESS = 0x0,
-            STATUS_SEVERITY_INFORMATIONAL = 0x1,
-            STATUS_SEVERITY_WARNING = 0x2,
-            STATUS_SEVERITY_ERROR = 0x3,
+            STATUS_SEVERITY_SUCCESS = 0x0 << SeverityShift,
+            STATUS_SEVERITY_INFORMATIONAL = 0x1 << SeverityShift,
+            STATUS_SEVERITY_WARNING = 0x2u << SeverityShift,
+            STATUS_SEVERITY_ERROR = 0x3u << SeverityShift,
         }
     }
 }

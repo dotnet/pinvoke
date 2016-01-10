@@ -131,17 +131,17 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility code of the HRESULT.
         /// </summary>
-        public FacilityCodes Facility => (FacilityCodes)((this.value & FacilityMask) >> FacilityShift);
+        public FacilityCodes Facility => (FacilityCodes)(this.value & FacilityMask);
 
         /// <summary>
         /// Gets the severity of the HRESULT.
         /// </summary>
-        public SeverityCodes Severity => (SeverityCodes)((this.value & SeverityMask) >> SeverityShift);
+        public SeverityCodes Severity => (SeverityCodes)(this.value & SeverityMask);
 
         /// <summary>
         /// Gets the facility's status code bits from the HRESULT.
         /// </summary>
-        public int FacilityCode => (this.value & FacilityCodeMask) >> FacilityCodeShift;
+        public int FacilityCode => this.value & FacilityCodeMask;
 
         /// <summary>
         /// Gets the string to display in a data tip when debugging.

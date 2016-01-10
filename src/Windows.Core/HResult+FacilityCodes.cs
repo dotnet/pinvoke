@@ -11,7 +11,7 @@ namespace PInvoke
         /// <summary>
         /// HRESULT facility codes defined by winerror.h
         /// </summary>
-        public enum FacilityCodes
+        public enum FacilityCodes : uint
         {
             FACILITY_XPS = 82,
             FACILITY_XAML = 43,

@@ -11,7 +11,7 @@ namespace PInvoke
         /// <summary>
         /// HRESULT severity codes defined by winerror.h
         /// </summary>
-        public enum SeverityCodes
+        public enum SeverityCodes : uint
         {
             Success = 0,
             Fail = 1,
