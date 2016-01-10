@@ -10,6 +10,7 @@ before_build:
 - ps: nuget restore src
 build:
   project: src\pinvoke.sln
+  parallel: true
   verbosity: minimal
 artifacts:
 - path: bin\**\*.nupkg
