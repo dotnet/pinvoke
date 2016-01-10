@@ -9,7 +9,9 @@
     <Import_RootNamespace>PInvoke</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)LIBNAME.Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LIBNAME.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)LIBNAME.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>

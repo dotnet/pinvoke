@@ -35,6 +35,8 @@
     <Compile Include="Kernel32+CreationDisposition.cs" />
     <Compile Include="Kernel32+FileAccess.cs" />
     <Compile Include="Kernel32+FileShare.cs" />
+    <Compile Include="Kernel32+LocalReAllocFlags.cs" />
+    <Compile Include="Kernel32+LocalAllocFlags.cs" />
     <Compile Include="Kernel32+NamedPipeInfoFlags.cs" />
     <Compile Include="Kernel32+PipeMode.cs" />
     <Compile Include="Kernel32+PipeAccessMode.cs" />
@@ -55,7 +57,9 @@
     <Compile Include="Kernel32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
-    <Compile Include="Kernel32.Helpers.cs" />
+    <Compile Include="Kernel32.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="Kernel32+NullablePipeMode.cs" />
     <Compile Include="Kernel32Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
