@@ -10,7 +10,7 @@ using static PInvoke.Kernel32;
 public partial class NTStatusExceptionTests
 {
     [Fact]
-    public void NTStatusException_NativeErrorCode()
+    public void NTStatusException_StatusCode()
     {
         NTStatus error = NTStatus.Code.EPT_NT_INVALID_ENTRY;
         var ex = new NTStatusException(error);
@@ -23,9 +23,9 @@ public partial class NTStatusExceptionTests
         NTStatus error = NTStatus.Code.EPT_NT_INVALID_ENTRY;
         var ex = new NTStatusException(error);
 #if DESKTOP
-        Assert.Equal("The entry is invalid", ex.Message);
+        Assert.Equal("The entry is invalid (NT_STATUS error: EPT_NT_INVALID_ENTRY)", ex.Message);
 #else
-        Assert.Equal("Unknown NT_STATUS error (0xc0020034)", ex.Message);
+        Assert.Equal("NT_STATUS error: EPT_NT_INVALID_ENTRY", ex.Message);
 #endif
     }
 
@@ -34,7 +34,7 @@ public partial class NTStatusExceptionTests
     {
         NTStatus error = 0x11111111;
         var ex = new NTStatusException(error);
-        Assert.Equal("Unknown NT_STATUS error (0x11111111)", ex.Message);
+        Assert.Equal("NT_STATUS error: 0x11111111", ex.Message);
     }
 
     [Fact]

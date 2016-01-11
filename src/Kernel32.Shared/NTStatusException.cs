@@ -20,7 +20,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="statusCode">The status code identifying the error.</param>
         public NTStatusException(NTStatus statusCode)
-            : this(statusCode, null)
+            : this(statusCode, null, null)
         {
         }
 
@@ -30,9 +30,8 @@ namespace PInvoke
         /// <param name="statusCode">The status code identifying the error.</param>
         /// <param name="message">The exception message (which may be null to use the default).</param>
         public NTStatusException(NTStatus statusCode, string message)
-            : base(message ?? GetMessage(statusCode))
+            : this(statusCode, message, null)
         {
-            this.StatusCode = statusCode;
         }
 
         /// <summary>
@@ -82,11 +81,16 @@ namespace PInvoke
         /// <returns>The description of the error.</returns>
         private static string GetMessage(NTStatus status)
         {
+            string statusAsString = Enum.GetName(typeof(NTStatus.Code), status.AsUInt32) ?? $"0x{(int)status:x8}";
+            string insert = $"NT_STATUS error: {statusAsString}";
+            string message = null;
 #if DESKTOP
-            return status.GetMessage();
-#else
-            return $"Unknown NT_STATUS error (0x{status:x8})";
+            message = status.GetMessage();
 #endif
+
+            return message != null
+                ? $"{message} ({insert})"
+                : insert;
         }
     }
 }
