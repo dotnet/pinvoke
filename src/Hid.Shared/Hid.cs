@@ -154,7 +154,7 @@ namespace PInvoke
         /// <see cref="HidpCaps" /> structure.
         /// </param>
         /// <returns>
-        /// <see cref="NTStatus.HIDP_STATUS_SUCCESS" /> on success or <see cref="NTStatus.HIDP_STATUS_INVALID_PREPARSED_DATA" /> if rhe
+        /// <see cref="NTStatus.Code.HIDP_STATUS_SUCCESS" /> on success or <see cref="NTStatus.Code.HIDP_STATUS_INVALID_PREPARSED_DATA" /> if rhe
         /// specified preparsed data is invalid.
         /// </returns>
         [DllImport(nameof(Hid), SetLastError = true)]

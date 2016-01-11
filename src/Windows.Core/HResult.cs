@@ -7,78 +7,57 @@ namespace PInvoke
     using System.Diagnostics;
     using System.Runtime.InteropServices;
 
-#pragma warning disable SA1124 // DoNotUseRegions
-
     /// <summary>
     /// Describes an HRESULT error or success condition.
     /// </summary>
-    [DebuggerDisplay("{DebuggerDisplay}")]
+    /// <remarks>
+    ///  HRESULTs are 32 bit values layed out as follows:
+    ///
+    ///   3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1
+    ///   1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
+    ///  +-+-+-+-+-+---------------------+-------------------------------+
+    ///  |S|R|C|N|r|    Facility         |               Code            |
+    ///  +-+-+-+-+-+---------------------+-------------------------------+
+    ///
+    ///  where
+    ///
+    ///      S - Severity - indicates success/fail
+    ///
+    ///          0 - Success
+    ///          1 - Fail (COERROR)
+    ///
+    ///      R - reserved portion of the facility code, corresponds to NT's
+    ///              second severity bit.
+    ///
+    ///      C - reserved portion of the facility code, corresponds to NT's
+    ///              C field.
+    ///
+    ///      N - reserved portion of the facility code. Used to indicate a
+    ///              mapped NT status value.
+    ///
+    ///      r - reserved portion of the facility code. Reserved for internal
+    ///              use. Used to indicate HRESULT values that are not status
+    ///              values, but are instead message ids for display strings.
+    ///
+    ///      Facility - is the facility code
+    ///
+    ///      Code - is the facility's status code
+    ///
+    /// </remarks>
+    [DebuggerDisplay("{Value}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
+    public partial struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
     {
-        #region Common HRESULT constants
+        /// <summary>
+        /// The mask of the bits that describe the <see cref="Severity"/>.
+        /// </summary>
+        private const uint SeverityMask = 0x80000000;
 
         /// <summary>
-        /// Operation successful, and returned a false result.
+        /// The number of bits that <see cref="Severity"/> values are shifted
+        /// in order to fit within <see cref="SeverityMask"/>.
         /// </summary>
-        public static readonly HResult S_FALSE = 1;
-
-        /// <summary>
-        /// Operation successful
-        /// </summary>
-        public static readonly HResult S_OK = 0;
-
-        /// <summary>
-        /// Unspecified failure
-        /// </summary>
-        public static readonly HResult E_FAIL = 0x80004005;
-
-        /// <summary>
-        /// Operation aborted
-        /// </summary>
-        public static readonly HResult E_ABORT = 0x80004004;
-
-        /// <summary>
-        /// General access denied error
-        /// </summary>
-        public static readonly HResult E_ACCESSDENIED = 0x80070005;
-
-        /// <summary>
-        /// Handle that is not valid
-        /// </summary>
-        public static readonly HResult E_HANDLE = 0x80070006;
-
-        /// <summary>
-        /// One or more arguments are not valid
-        /// </summary>
-        public static readonly HResult E_INVALIDARG = 0x80070057;
-
-        /// <summary>
-        /// No such interface supported
-        /// </summary>
-        public static readonly HResult E_NOINTERFACE = 0x80004002;
-
-        /// <summary>
-        /// Not implemented
-        /// </summary>
-        public static readonly HResult E_NOTIMPL = 0x80004001;
-
-        /// <summary>
-        /// Failed to allocate necessary memory
-        /// </summary>
-        public static readonly HResult E_OUTOFMEMORY = 0x8007000E;
-
-        /// <summary>
-        /// Pointer that is not valid
-        /// </summary>
-        public static readonly HResult E_POINTER = 0x80004003;
-
-        /// <summary>
-        /// Unexpected failure
-        /// </summary>
-        public static readonly HResult E_UNEXPECTED = 0x8000FFFF;
-
-        #endregion
+        private const int SeverityShift = 31;
 
         /// <summary>
         /// The mask of the bits that describe the <see cref="Facility"/>.
@@ -86,22 +65,38 @@ namespace PInvoke
         private const int FacilityMask = 0x7ff0000;
 
         /// <summary>
-        /// The mask of the bits that describe the facility's status <see cref="Code"/>.
+        /// The number of bits that <see cref="Facility"/> values are shifted
+        /// in order to fit within <see cref="FacilityMask"/>.
         /// </summary>
-        private const int CodeMask = 0xffff;
+        private const int FacilityShift = 16;
 
         /// <summary>
-        /// The value of the HRESULT.
+        /// The mask of the bits that describe the <see cref="FacilityStatus"/>.
         /// </summary>
-        private readonly int value;
+        private const int FacilityStatusMask = 0xffff;
+
+        /// <summary>
+        /// The number of bits that <see cref="FacilityStatus"/> values are shifted
+        /// in order to fit within <see cref="FacilityStatusMask"/>.
+        /// </summary>
+        private const int FacilityStatusShift = 0;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HResult"/> struct.
+        /// </summary>
+        /// <param name="value">The value of the HRESULT.</param>
+        public HResult(Code value)
+        {
+            this.Value = value;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HResult"/> struct.
         /// </summary>
         /// <param name="value">The value of the HRESULT.</param>
         public HResult(int value)
+            : this((Code)value)
         {
-            this.value = value;
         }
 
         /// <summary>
@@ -109,87 +104,95 @@ namespace PInvoke
         /// </summary>
         /// <param name="value">The value of the HRESULT.</param>
         public HResult(uint value)
-            : this((int)value)
+            : this((Code)value)
         {
         }
 
         /// <summary>
+        /// Gets the full HRESULT value, as a <see cref="Code"/> enum.
+        /// </summary>
+        public Code Value { get; }
+
+        /// <summary>
         /// Gets the HRESULT as a 32-bit signed integer.
         /// </summary>
-        public int AsInt32 => this.value;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public int AsInt32 => (int)this.Value;
 
         /// <summary>
         /// Gets the HRESULT as a 32-bit unsigned integer.
         /// </summary>
-        public uint AsUInt32 => (uint)this.value;
+        public uint AsUInt32 => (uint)this.Value;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a successful operation.
         /// </summary>
-        public bool Succeeded => this.value >= 0;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public bool Succeeded => this.Severity == SeverityCode.Success;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a failured operation.
         /// </summary>
-        public bool Failed => this.value < 0;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public bool Failed => this.Severity == SeverityCode.Fail;
 
         /// <summary>
-        /// Gets the facility code bits from the HRESULT.
+        /// Gets the facility code of the HRESULT.
         /// </summary>
-        public int Facility => this.value & FacilityMask;
+        public FacilityCode Facility => (FacilityCode)(this.AsUInt32 & FacilityMask);
+
+        /// <summary>
+        /// Gets the severity of the HRESULT.
+        /// </summary>
+        public SeverityCode Severity => (SeverityCode)(this.AsUInt32 & SeverityMask);
 
         /// <summary>
         /// Gets the facility's status code bits from the HRESULT.
         /// </summary>
-        public int Code => this.value & CodeMask;
-
-        /// <summary>
-        /// Gets the string to display in a data tip when debugging.
-        /// </summary>
-        private string DebuggerDisplay => this.ToString();
+        public uint FacilityStatus => this.AsUInt32 & FacilityStatusMask;
 
         /// <summary>
         /// Converts an <see cref="int"/> into an <see cref="HResult"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static implicit operator HResult(int hr)
-        {
-            return new HResult(hr);
-        }
+        public static implicit operator HResult(int hr) => new HResult(hr);
 
         /// <summary>
         /// Converts an <see cref="HResult"/> into an <see cref="int"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static implicit operator int(HResult hr)
-        {
-            return hr.value;
-        }
+        public static implicit operator int(HResult hr) => hr.AsInt32;
 
         /// <summary>
         /// Converts an <see cref="uint"/> into an <see cref="HResult"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static implicit operator HResult(uint hr)
-        {
-            return new HResult((int)hr);
-        }
+        public static implicit operator HResult(uint hr) => new HResult(hr);
 
         /// <summary>
         /// Converts an <see cref="HResult"/> into an <see cref="uint"/>.
         /// </summary>
         /// <param name="hr">The value of the HRESULT.</param>
-        public static explicit operator uint(HResult hr)
-        {
-            return (uint)hr.value;
-        }
+        public static explicit operator uint(HResult hr) => hr.AsUInt32;
+
+        /// <summary>
+        /// Converts a <see cref="Code"/> enum to its structural <see cref="HResult"/> representation.
+        /// </summary>
+        /// <param name="hr">The value to convert.</param>
+        public static implicit operator HResult(Code hr) => new HResult(hr);
+
+        /// <summary>
+        /// Converts an <see cref="HResult"/> to its <see cref="Code"/> enum representation.
+        /// </summary>
+        /// <param name="hr">The value to convert.</param>
+        public static implicit operator Code(HResult hr) => hr.Value;
 
         /// <summary>
         /// Throws an exception if this HRESULT <see cref="Failed"/>, based on the failure value.
         /// </summary>
         public void ThrowOnFailure()
         {
-            Marshal.ThrowExceptionForHR(this.value);
+            Marshal.ThrowExceptionForHR(this.AsInt32);
         }
 
         /// <summary>
@@ -203,34 +206,28 @@ namespace PInvoke
         /// </param>
         public void ThrowOnFailure(IntPtr errorInfo)
         {
-            Marshal.ThrowExceptionForHR(this.value, errorInfo);
+            Marshal.ThrowExceptionForHR(this.AsInt32, errorInfo);
         }
 
         /// <inheritdoc />
-        public override int GetHashCode() => this.value;
+        public override int GetHashCode() => this.AsInt32;
 
         /// <inheritdoc />
-        public bool Equals(HResult other)
-        {
-            return this.value == other.value;
-        }
+        public bool Equals(HResult other) => this.Value == other.Value;
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            return obj is HResult && this.Equals((HResult)obj);
-        }
+        public override bool Equals(object obj) => obj is HResult && this.Equals((HResult)obj);
 
         /// <inheritdoc />
-        public int CompareTo(object obj) => ((IComparable)this.value).CompareTo(obj);
+        public int CompareTo(object obj) => ((IComparable)this.Value).CompareTo(obj);
 
         /// <inheritdoc />
-        public int CompareTo(HResult other) => this.value.CompareTo(other.value);
+        public int CompareTo(HResult other) => this.Value.CompareTo(other.Value);
 
         /// <inheritdoc />
-        public override string ToString() => $"0x{this.value:x8}";
+        public override string ToString() => this.Value.ToString();
 
         /// <inheritdoc />
-        public string ToString(string format, IFormatProvider formatProvider) => this.value.ToString(format, formatProvider);
+        public string ToString(string format, IFormatProvider formatProvider) => this.AsUInt32.ToString(format, formatProvider);
     }
 }

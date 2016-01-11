@@ -4,12 +4,16 @@
 namespace PInvoke
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Runtime.InteropServices;
-    using System.Text;
+    using System.Runtime.Serialization;
     using static Kernel32;
 
+    /// <summary>
+    /// An exception thrown for a failure described by a <see cref="Win32ErrorCode"/>.
+    /// </summary>
+#if DESKTOP
+    [Serializable]
+#endif
     public class Win32Exception
 #if DESKTOP
         : System.ComponentModel.Win32Exception
@@ -18,11 +22,6 @@ namespace PInvoke
 #endif
     {
 #if !DESKTOP
-        /// <summary>
-        /// The maximum memory we are willing to allocate for the exception message.
-        /// </summary>
-        private const int MaxAllowedBufferSize = 65 * 1024;
-
         /// <summary>
         /// The original Win32 error code that resulted in this exception.
         /// </summary>
@@ -49,7 +48,7 @@ namespace PInvoke
 #if DESKTOP
             : base((int)error)
 #else
-            : this(error, GetErrorMessage((int)error))
+            : this(error, error.GetMessage())
 #endif
         {
         }
@@ -80,6 +79,19 @@ namespace PInvoke
 #endif
         }
 
+#if DESKTOP
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Win32Exception"/> class
+        /// for deserialization.
+        /// </summary>
+        /// <param name="info">Serialization information.</param>
+        /// <param name="context">Streaming context.</param>
+        protected Win32Exception(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+#endif
+
         /// <summary>
         /// Gets the Win32 error code associated with this exception.
         /// </summary>
@@ -91,77 +103,6 @@ namespace PInvoke
         public new Win32ErrorCode NativeErrorCode => (Win32ErrorCode)base.NativeErrorCode;
 #else
         public Win32ErrorCode NativeErrorCode => this.nativeErrorCode;
-#endif
-
-#if !DESKTOP
-        private static string GetErrorMessage(int error)
-        {
-            string errorMsg;
-
-            StringBuilder sb = new StringBuilder(256);
-            do
-            {
-                if (TryGetErrorMessage(error, sb, out errorMsg))
-                {
-                    return errorMsg;
-                }
-                else
-                {
-                    // increase the capacity of the StringBuilder by 4 times.
-                    sb.Capacity *= 4;
-                }
-            }
-            while (sb.Capacity < MaxAllowedBufferSize);
-
-            // If you come here then a size as large as 65K is also not sufficient and so we give the generic errorMsg.
-            return "Unknown error (0x" + Convert.ToString(error, 16) + ")";
-        }
-
-        /// <summary>
-        /// Tries to get the error message text using the supplied buffer.
-        /// </summary>
-        /// <param name="error">The error number to get text for.</param>
-        /// <param name="sb">The buffer to use for acquiring the message.</param>
-        /// <param name="errorMsg">Receives the resulting error message.</param>
-        /// <returns><c>true</c> if the attempt is successful; <c>false</c> otherwise.</returns>
-        private static bool TryGetErrorMessage(int error, StringBuilder sb, out string errorMsg)
-        {
-            errorMsg = string.Empty;
-            int result = FormatMessage(
-                FormatMessageFlags.FORMAT_MESSAGE_IGNORE_INSERTS | FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM | FormatMessageFlags.FORMAT_MESSAGE_ARGUMENT_ARRAY,
-                IntPtr.Zero,
-                (uint)error,
-                0,
-                sb,
-                sb.Capacity + 1,
-                null);
-            if (result > 0)
-            {
-                int i = sb.Length;
-                while (i > 0)
-                {
-                    char ch = sb[i - 1];
-                    if (ch > 32 && ch != '.')
-                    {
-                        break;
-                    }
-
-                    i--;
-                }
-
-                errorMsg = sb.ToString(0, i);
-            }
-            else if (GetLastError() == Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
-            {
-                return false;
-            }
-            else
-            {
-                errorMsg = "Unknown error (0x" + Convert.ToString(error, 16) + ")";
-            }
-
-            return true;
-        }
 #endif
     }
 }

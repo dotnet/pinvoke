@@ -9,6 +9,14 @@ using Xunit;
 public class HResultTests
 {
     [Fact]
+    public void MarshaledSize()
+    {
+        // It's imperative that the struct be exactly the size of an Int32
+        // since we use it in interop.
+        Assert.Equal(sizeof(int), Marshal.SizeOf(typeof(HResult)));
+    }
+
+    [Fact]
     public void Ctor_Int32()
     {
         Assert.Equal(3, new HResult(3).AsInt32);
@@ -29,9 +37,9 @@ public class HResultTests
     [Fact]
     public void PopularValuesPredefined()
     {
-        Assert.Equal(0, HResult.S_OK.AsInt32);
-        Assert.Equal(0x80004005, HResult.E_FAIL);
-        Assert.Equal(1, HResult.S_FALSE.AsInt32);
+        Assert.Equal(0u, (uint)HResult.Code.S_OK);
+        Assert.Equal(0x80004005u, (uint)HResult.Code.E_FAIL);
+        Assert.Equal(1u, (uint)HResult.Code.S_FALSE);
     }
 
     [Fact]
@@ -77,10 +85,12 @@ public class HResultTests
     }
 
     [Fact]
-    public void ToString_FormatsNumberAsHex()
+    public void ToString_FormatsNumberAsDecimalOrName()
     {
         HResult hr = 0x80000000;
-        Assert.Equal("0x80000000", hr.ToString());
+        Assert.Equal("2147483648", hr.ToString());
+        hr = HResult.Code.E_INVALIDARG;
+        Assert.Equal("E_INVALIDARG", hr.ToString());
     }
 
     [Fact]
@@ -128,47 +138,44 @@ public class HResultTests
     }
 
     [Fact]
-    public void DebuggerDisplay()
-    {
-        HResult hr = 0x10;
-        var privateProperty = typeof(HResult).GetProperty("DebuggerDisplay", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        object value = privateProperty.GetMethod.Invoke(hr, null);
-        Assert.Equal("0x00000010", value);
-    }
-
-    [Fact]
     public void Succeeded()
     {
-        Assert.True(HResult.S_OK.Succeeded);
-        Assert.True(HResult.S_FALSE.Succeeded);
+        Assert.True(((HResult)HResult.Code.S_OK).Succeeded);
+        Assert.True(((HResult)HResult.Code.S_FALSE).Succeeded);
         Assert.False(new HResult(-1).Succeeded);
     }
 
     [Fact]
     public void Failed()
     {
-        Assert.False(HResult.S_OK.Failed);
-        Assert.False(HResult.S_FALSE.Failed);
+        Assert.False(((HResult)HResult.Code.S_OK).Failed);
+        Assert.False(((HResult)HResult.Code.S_FALSE).Failed);
         Assert.True(new HResult(-1).Failed);
+    }
+
+    [Fact]
+    public void Severity()
+    {
+        Assert.Equal((HResult.SeverityCode)0x80000000u, new HResult(0xffffffff).Severity);
     }
 
     [Fact]
     public void Facility()
     {
-        Assert.Equal(0x7ff0000, new HResult(0xffffffff).Facility);
+        Assert.Equal((HResult.FacilityCode)0x7ff0000, new HResult(0xffffffff).Facility);
     }
 
     [Fact]
     public void Code()
     {
-        Assert.Equal(0xffff, new HResult(0xffffffff).Code);
+        Assert.Equal(0xffffu, new HResult(0xffffffff).FacilityStatus);
     }
 
     [Fact]
     public void ThrowOnFailure()
     {
-        Assert.Throws<COMException>(() => HResult.E_FAIL.ThrowOnFailure());
-        HResult.S_OK.ThrowOnFailure();
-        HResult.S_FALSE.ThrowOnFailure();
+        Assert.Throws<COMException>(() => ((HResult)HResult.Code.E_FAIL).ThrowOnFailure());
+        ((HResult)HResult.Code.S_OK).ThrowOnFailure();
+        ((HResult)HResult.Code.S_FALSE).ThrowOnFailure();
     }
 }

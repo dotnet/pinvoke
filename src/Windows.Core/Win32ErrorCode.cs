@@ -3,6 +3,9 @@
 
 namespace PInvoke
 {
+    /// <summary>
+    /// Win32 system error codes.
+    /// </summary>
     public enum Win32ErrorCode
     {
         /// <summary>

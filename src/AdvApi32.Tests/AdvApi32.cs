@@ -11,6 +11,6 @@ public class AdvApi32
     [Fact]
     public void LsaNtStatusToWinError_UsesTable()
     {
-        Assert.Equal(Win32ErrorCode.ERROR_NOACCESS, LsaNtStatusToWinError(NTStatus.STATUS_ACCESS_VIOLATION));
+        Assert.Equal(Win32ErrorCode.ERROR_NOACCESS, LsaNtStatusToWinError(NTStatus.Code.STATUS_ACCESS_VIOLATION));
     }
 }

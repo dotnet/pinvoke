@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Flags passed to the <see cref="FormatMessage(FormatMessageFlags, void*, uint, uint, System.Text.StringBuilder, int, IntPtr[])"/> method.
+        /// Flags passed to the <see cref="FormatMessage(FormatMessageFlags, void*, int, int, IntPtr[], int)"/> method.
         /// </summary>
         [Flags]
         public enum FormatMessageFlags

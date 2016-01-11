@@ -3,18 +3,32 @@
 
 namespace PInvoke
 {
-    public static class Kernel32Extensions
+    using static PInvoke.Kernel32;
+
+    /// <summary>
+    /// Extension methods available for and from the Kernel32 library.
+    /// </summary>
+    public static partial class Kernel32Extensions
     {
         /// <summary>
-        /// Throws an exception if a P/Invoke failed.
+        /// The maximum memory we are willing to allocate for the exception message.
         /// </summary>
-        /// <param name="status">The result of the P/Invoke call.</param>
-        public static void ThrowOnError(this NTStatus status)
+        private const int MaxAllowedBufferSize = 65 * 1024;
+
+        /// <summary>
+        /// Gets the text associated with a <see cref="Win32ErrorCode"/>.
+        /// </summary>
+        /// <param name="error">The error code.</param>
+        /// <returns>The error message.</returns>
+        public static unsafe string GetMessage(this Win32ErrorCode error)
         {
-            if ((int)status < 0)
-            {
-                status.ToWin32ErrorCode().ThrowOnError();
-            }
+            return FormatMessage(
+                FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM,
+                null,
+                (int)error,
+                0,
+                null,
+                MaxAllowedBufferSize) ?? $"Unknown Win32 error (0x{(int)error:x8})";
         }
 
         /// <summary>
@@ -26,7 +40,19 @@ namespace PInvoke
         {
             if (errorCode != Win32ErrorCode.ERROR_SUCCESS)
             {
-                throw new Win32Exception((int)errorCode);
+                throw new Win32Exception(errorCode);
+            }
+        }
+
+        /// <summary>
+        /// Throws an exception if a P/Invoke failed.
+        /// </summary>
+        /// <param name="status">The result of the P/Invoke call.</param>
+        public static void ThrowOnError(this NTStatus status)
+        {
+            if (status.Severity == NTStatus.SeverityCode.STATUS_SEVERITY_ERROR)
+            {
+                throw new NTStatusException(status);
             }
         }
     }
