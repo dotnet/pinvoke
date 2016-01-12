@@ -16,7 +16,7 @@ public class NCrypt
         }
     }
 
-    [Fact(Skip = "fails, and I don't know how to fix it")]
+    [Fact]
     public void CreatePersistedKey()
     {
         using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
