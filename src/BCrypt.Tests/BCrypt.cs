@@ -367,6 +367,20 @@ public class BCrypt
     }
 
     [Fact]
+    public void ExportKey_ECDHPublic()
+    {
+        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM))
+        {
+            using (var key = BCryptGenerateKeyPair(algorithm, 256))
+            {
+                BCryptFinalizeKeyPair(key).ThrowOnError();
+                var exported = BCryptExportKey(key, SafeKeyHandle.Null, AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB);
+                Assert.NotNull(exported.Array);
+            }
+        }
+    }
+
+    [Fact]
     public void ImportKey()
     {
         using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
