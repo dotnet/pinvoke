@@ -41,9 +41,9 @@ public partial class Kernel32ExtensionsTests
         catch (NTStatusException ex)
         {
 #if DESKTOP
-            Assert.Equal("The remote procedure call failed (NT_STATUS error: RPC_NT_CALL_FAILED)", ex.Message);
+            Assert.Equal("The remote procedure call failed (NT_STATUS error: RPC_NT_CALL_FAILED (0xC002001B))", ex.Message);
 #else
-            Assert.Equal("NT_STATUS error: RPC_NT_CALL_FAILED", ex.Message);
+            Assert.Equal("NT_STATUS error: RPC_NT_CALL_FAILED (0xC002001B)", ex.Message);
 #endif
         }
     }
