@@ -43,7 +43,7 @@ namespace PInvoke
         public NTStatusException(NTStatus statusCode, string message, Exception inner)
             : base(message ?? GetMessage(statusCode), inner)
         {
-            this.StatusCode = statusCode;
+            this.NativeErrorCode = statusCode;
         }
 
 #if DESKTOP
@@ -56,20 +56,20 @@ namespace PInvoke
         protected NTStatusException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            this.StatusCode = info.GetUInt32(nameof(this.StatusCode));
+            this.NativeErrorCode = info.GetUInt32(nameof(this.NativeErrorCode));
         }
 #endif
 
         /// <summary>
         /// Gets the <see cref="NTStatus"/> code that identifies the error condition.
         /// </summary>
-        public NTStatus StatusCode { get; }
+        public NTStatus NativeErrorCode { get; }
 
 #if DESKTOP
         /// <inheritdoc />
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue(nameof(this.StatusCode), this.StatusCode.AsUInt32);
+            info.AddValue(nameof(this.NativeErrorCode), this.NativeErrorCode.AsUInt32);
             base.GetObjectData(info, context);
         }
 #endif

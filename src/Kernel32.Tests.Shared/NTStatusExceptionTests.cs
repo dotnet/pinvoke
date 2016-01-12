@@ -10,11 +10,11 @@ using static PInvoke.Kernel32;
 public partial class NTStatusExceptionTests
 {
     [Fact]
-    public void NTStatusException_StatusCode()
+    public void NTStatusException_NativeErrorCode()
     {
         NTStatus error = NTStatus.Code.EPT_NT_INVALID_ENTRY;
         var ex = new NTStatusException(error);
-        Assert.Equal(error, ex.StatusCode);
+        Assert.Equal(error, ex.NativeErrorCode);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public partial class NTStatusExceptionTests
     {
         NTStatus error = NTStatus.Code.EPT_NT_INVALID_ENTRY;
         var ex = new NTStatusException(error, "msg");
-        Assert.Equal(error, ex.StatusCode);
+        Assert.Equal(error, ex.NativeErrorCode);
         Assert.Equal("msg", ex.Message);
     }
 }

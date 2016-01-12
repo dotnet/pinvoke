@@ -27,7 +27,7 @@ public partial class Kernel32ExtensionsTests
         ms.Position = 0;
         var deserializedException = (NTStatusException)formatter.Deserialize(ms);
         Assert.Equal(exception.Message, deserializedException.Message);
-        Assert.Equal(exception.StatusCode, deserializedException.StatusCode);
+        Assert.Equal(exception.NativeErrorCode, deserializedException.NativeErrorCode);
     }
 
     [Fact]
