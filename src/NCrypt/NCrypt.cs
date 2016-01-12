@@ -49,7 +49,7 @@ namespace PInvoke
         /// </param>
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport(nameof(NCrypt))]
+        [DllImport(nameof(NCrypt), CharSet = CharSet.Unicode)]
         public static extern SECURITY_STATUS NCryptCreatePersistedKey(
             SafeProviderHandle hProvider,
             out SafeKeyHandle phKey,
