@@ -87,7 +87,9 @@ namespace PInvoke
 
         private static string GetSeverityString(SECURITY_STATUS status)
         {
-            return "error";
+            return status == SECURITY_STATUS.ERROR_SUCCESS
+                ? "success"
+                : "error";
         }
     }
 }
