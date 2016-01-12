@@ -14,7 +14,7 @@ namespace PInvoke
         /// Gets the text associated with an <see cref="NTStatus"/>.
         /// </summary>
         /// <param name="status">The error code.</param>
-        /// <returns>The error message.</returns>
+        /// <returns>The error message. Or <c>null</c> if no message could be found.</returns>
         public static string GetMessage(this NTStatus status)
         {
             using (var ntdll = LoadLibrary("ntdll.dll"))
@@ -32,7 +32,7 @@ namespace PInvoke
                 }
             }
 
-            return $"Unknown NT_STATUS error (0x{status:x8})";
+            return null;
         }
     }
 }

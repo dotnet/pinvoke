@@ -20,7 +20,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="statusCode">The status code identifying the error.</param>
         public NTStatusException(NTStatus statusCode)
-            : this(statusCode, null)
+            : this(statusCode, null, null)
         {
         }
 
@@ -30,9 +30,8 @@ namespace PInvoke
         /// <param name="statusCode">The status code identifying the error.</param>
         /// <param name="message">The exception message (which may be null to use the default).</param>
         public NTStatusException(NTStatus statusCode, string message)
-            : base(message ?? GetMessage(statusCode))
+            : this(statusCode, message, null)
         {
-            this.StatusCode = statusCode;
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace PInvoke
         public NTStatusException(NTStatus statusCode, string message, Exception inner)
             : base(message ?? GetMessage(statusCode), inner)
         {
-            this.StatusCode = statusCode;
+            this.NativeErrorCode = statusCode;
         }
 
 #if DESKTOP
@@ -57,20 +56,20 @@ namespace PInvoke
         protected NTStatusException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            this.StatusCode = info.GetUInt32(nameof(this.StatusCode));
+            this.NativeErrorCode = info.GetUInt32(nameof(this.NativeErrorCode));
         }
 #endif
 
         /// <summary>
         /// Gets the <see cref="NTStatus"/> code that identifies the error condition.
         /// </summary>
-        public NTStatus StatusCode { get; }
+        public NTStatus NativeErrorCode { get; }
 
 #if DESKTOP
         /// <inheritdoc />
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue(nameof(this.StatusCode), this.StatusCode.AsUInt32);
+            info.AddValue(nameof(this.NativeErrorCode), this.NativeErrorCode.AsUInt32);
             base.GetObjectData(info, context);
         }
 #endif
@@ -82,11 +81,37 @@ namespace PInvoke
         /// <returns>The description of the error.</returns>
         private static string GetMessage(NTStatus status)
         {
+            string hexCode = $"0x{(int)status:X8}";
+            string namedCode = Enum.GetName(typeof(NTStatus.Code), status.AsUInt32);
+            string statusAsString = namedCode != null
+                ? $"{namedCode} ({hexCode})"
+                : hexCode;
+            string insert = $"NT_STATUS {GetSeverityString(status)}: {statusAsString}";
+            string message = null;
 #if DESKTOP
-            return status.GetMessage();
-#else
-            return $"Unknown NT_STATUS error (0x{status:x8})";
+            message = status.GetMessage();
 #endif
+
+            return message != null
+                ? $"{message} ({insert})"
+                : insert;
+        }
+
+        private static string GetSeverityString(NTStatus status)
+        {
+            switch (status.Severity)
+            {
+                case NTStatus.SeverityCode.STATUS_SEVERITY_SUCCESS:
+                    return "success";
+                case NTStatus.SeverityCode.STATUS_SEVERITY_INFORMATIONAL:
+                    return "information";
+                case NTStatus.SeverityCode.STATUS_SEVERITY_WARNING:
+                    return "warning";
+                case NTStatus.SeverityCode.STATUS_SEVERITY_ERROR:
+                    return "error";
+                default:
+                    return string.Empty;
+            }
         }
     }
 }

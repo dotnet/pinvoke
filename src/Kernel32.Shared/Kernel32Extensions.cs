@@ -19,7 +19,7 @@ namespace PInvoke
         /// Gets the text associated with a <see cref="Win32ErrorCode"/>.
         /// </summary>
         /// <param name="error">The error code.</param>
-        /// <returns>The error message.</returns>
+        /// <returns>The error message. Or <c>null</c> if no message could be found.</returns>
         public static unsafe string GetMessage(this Win32ErrorCode error)
         {
             return FormatMessage(
@@ -28,7 +28,7 @@ namespace PInvoke
                 (int)error,
                 0,
                 null,
-                MaxAllowedBufferSize) ?? $"Unknown Win32 error (0x{(int)error:x8})";
+                MaxAllowedBufferSize);
         }
 
         /// <summary>
