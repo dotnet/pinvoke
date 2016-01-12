@@ -10,6 +10,7 @@ namespace PInvoke
     /// Exported functions from the NCrypt.dll Windows library
     /// that are available to Desktop and Store apps.
     /// </summary>
+    [OfferIntPtrOverloads]
     public static partial class NCrypt
     {
         /// <summary>
@@ -72,6 +73,32 @@ namespace PInvoke
         public static extern SECURITY_STATUS NCryptFinalizeKey(
             SafeKeyHandle hKey,
             NCryptFinalizeKeyFlags dwFlags = NCryptFinalizeKeyFlags.None);
+
+        /// <summary>
+        /// The NCryptExportKey function exports a CNG key to a memory BLOB.
+        /// </summary>
+        /// <param name="hKey">A handle of the key to export.</param>
+        /// <param name="hExportKey">A handle to a cryptographic key of the destination user. The key data within the exported key BLOB is encrypted by using this key. This ensures that only the destination user is able to make use of the key BLOB.</param>
+        /// <param name="pszBlobType">A null-terminated Unicode string that contains an identifier that specifies the type of BLOB to export. This can be one of the values defined by the <see cref="BCrypt.AsymmetricKeyBlobTypes"/> or <see cref="BCrypt.SymmetricKeyBlobTypes"/> classes.</param>
+        /// <param name="pParameterList">The address of an NCryptBufferDesc structure that receives parameter information for the key. This parameter can be NULL if this information is not needed.</param>
+        /// <param name="pbOutput">The address of a buffer that receives the key BLOB. The <paramref name="cbOutput"/> parameter contains the size of this buffer. If this parameter is NULL, this function will place the required size, in bytes, in the DWORD pointed to by the <paramref name="pcbResult"/> parameter.</param>
+        /// <param name="cbOutput">The size, in bytes, of the <paramref name="pbOutput" /> buffer.</param>
+        /// <param name="pcbResult">The address of a DWORD variable that receives the number of bytes copied to the <paramref name="pbOutput"/> buffer. If the <paramref name="pbOutput"/> parameter is NULL, this function will place the required size, in bytes, in the DWORD pointed to by this parameter.</param>
+        /// <param name="dwFlags">Flags that modify function behavior. This can be zero or a combination of one or more of the following values. The set of valid flags is specific to each key storage provider.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// A service must not call this function from its StartService Function. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
+        /// </remarks>
+        [DllImport(nameof(NCrypt), CharSet = CharSet.Unicode)]
+        public static extern unsafe SECURITY_STATUS NCryptExportKey(
+            SafeKeyHandle hKey,
+            SafeKeyHandle hExportKey,
+            string pszBlobType,
+            NCryptBufferDesc* pParameterList,
+            byte[] pbOutput,
+            int cbOutput,
+            out int pcbResult,
+            NCryptExportKeyFlags dwFlags = NCryptExportKeyFlags.None);
 
         /// <summary>
         /// Retrieves the value of a named property for a key storage object.

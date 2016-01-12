@@ -29,6 +29,20 @@ public class NCrypt
     }
 
     [Fact]
+    public unsafe void ExportRSAPublicKey()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
+            {
+                NCryptFinalizeKey(key).ThrowOnError();
+                var exported = NCryptExportKey(key, SafeKeyHandle.Null, BCrypt.AsymmetricKeyBlobTypes.BCRYPT_RSAPUBLIC_BLOB, null);
+                Assert.NotNull(exported.Array);
+            }
+        }
+    }
+
+    [Fact]
     public void GetPropertyOfT()
     {
         using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))

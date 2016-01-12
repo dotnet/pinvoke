@@ -70,6 +70,33 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// The NCryptExportKey function exports a CNG key to a memory BLOB.
+        /// </summary>
+        /// <param name="key">A handle of the key to export.</param>
+        /// <param name="exportKey">A handle to a cryptographic key of the destination user. The key data within the exported key BLOB is encrypted by using this key. This ensures that only the destination user is able to make use of the key BLOB.</param>
+        /// <param name="blobType">A null-terminated Unicode string that contains an identifier that specifies the type of BLOB to export. This can be one of the values defined by the <see cref="BCrypt.AsymmetricKeyBlobTypes"/> or <see cref="BCrypt.SymmetricKeyBlobTypes"/> classes.</param>
+        /// <param name="parameterList">The address of an NCryptBufferDesc structure that receives parameter information for the key. This parameter can be NULL if this information is not needed.</param>
+        /// <param name="flags">Flags that modify function behavior. This can be zero or a combination of one or more of the following values. The set of valid flags is specific to each key storage provider.</param>
+        /// <returns>Returns the exported key.</returns>
+        /// <exception cref="SecurityStatusException">Thrown if an error code is returned from the native function.</exception>
+        /// <remarks>
+        /// A service must not call this function from its StartService Function. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
+        /// </remarks>
+        public static unsafe ArraySegment<byte> NCryptExportKey(
+            SafeKeyHandle key,
+            SafeKeyHandle exportKey,
+            string blobType,
+            NCryptBufferDesc* parameterList,
+            NCryptExportKeyFlags flags = NCryptExportKeyFlags.None)
+        {
+            int pcbResult;
+            NCryptExportKey(key, exportKey, blobType, parameterList, null, 0, out pcbResult, flags).ThrowOnError();
+            byte[] result = new byte[pcbResult];
+            NCryptExportKey(key, exportKey, blobType, parameterList, result, result.Length, out pcbResult, flags).ThrowOnError();
+            return new ArraySegment<byte>(result, 0, pcbResult);
+        }
+
+        /// <summary>
         /// Retrieves the value of a named property for a key storage object.
         /// </summary>
         /// <param name="hObject">
