@@ -37,7 +37,9 @@
     <Compile Include="NCrypt+SECURITY_STATUS.cs" />
     <Compile Include="NCrypt.cs" />
     <Compile Include="NCrypt.Helpers.cs" />
+    <Compile Include="NCryptExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityStatusException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
@@ -46,6 +48,10 @@
     <ProjectReference Include="..\BCrypt\BCrypt.csproj">
       <Project>{9ce056e3-5d53-4092-97cc-78826a4d1c14}</Project>
       <Name>BCrypt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kernel32\Kernel32.csproj">
+      <Project>{1fdc092a-d3e8-4cc4-b896-17e0a213f723}</Project>
+      <Name>Kernel32</Name>
     </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>

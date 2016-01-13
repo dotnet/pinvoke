@@ -113,20 +113,5 @@ namespace PInvoke
                 }
             }
         }
-
-        /// <summary>
-        /// Throws an exception if an NCrypt function returned a failure error code.
-        /// </summary>
-        /// <param name="status">The result from an NCrypt function.</param>
-        public static void ThrowOnError(this SECURITY_STATUS status)
-        {
-            switch (status)
-            {
-                case SECURITY_STATUS.ERROR_SUCCESS:
-                    return;
-                default:
-                    throw new Exception($"SECURITY_STATUS: {status} (0x{(int)status:x8})");
-            }
-        }
     }
 }
