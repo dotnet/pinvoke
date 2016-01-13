@@ -678,39 +678,58 @@ namespace PInvoke
         /// Sets the value of a named property for a CNG object.
         /// </summary>
         /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
-        /// <param name="property">
+        /// <param name="pszProperty">
         /// A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
         /// </param>
-        /// <param name="input">The address of a buffer that contains the new property value. The <paramref name="inputSize"/> parameter contains the size of this buffer.</param>
-        /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
-        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <param name="pbInput">The address of a buffer that contains the new property value. The <paramref name="cbInput"/> parameter contains the size of this buffer.</param>
+        /// <param name="cbInput">The size, in bytes, of the <paramref name="pbInput"/> buffer.</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTStatus BCryptSetProperty(
+        public static extern unsafe NTStatus BCryptSetProperty(
             SafeHandle hObject,
-            string property,
-            [In, MarshalAs(UnmanagedType.LPArray)] byte[] input,
-            int inputSize,
-            BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None);
+            string pszProperty,
+            byte* pbInput,
+            int cbInput,
+            BCryptSetPropertyFlags dwFlags = BCryptSetPropertyFlags.None);
 
         /// <summary>
         /// Sets the value of a named property for a CNG object.
         /// </summary>
         /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
-        /// <param name="property">
-        /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
+        /// <param name="pszProperty">
+        /// A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
         /// </param>
-        /// <param name="input">The new property value. The <paramref name="inputSize"/> parameter contains the size of this buffer.</param>
-        /// <param name="inputSize">The size, in bytes, of the <paramref name="input"/> buffer.</param>
-        /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <param name="pbInput">The address of a buffer that contains the new property value. The <paramref name="cbInput"/> parameter contains the size of this buffer.</param>
+        /// <param name="cbInput">The size, in bytes, of the <paramref name="pbInput"/> buffer.</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern NTStatus BCryptSetProperty(
             SafeHandle hObject,
-            string property,
-            string input,
-            int inputSize,
-            BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None);
+            string pszProperty,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pbInput,
+            int cbInput,
+            BCryptSetPropertyFlags dwFlags = BCryptSetPropertyFlags.None);
+
+        /// <summary>
+        /// Sets the value of a named property for a CNG object.
+        /// </summary>
+        /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
+        /// <param name="pszProperty">
+        /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
+        /// </param>
+        /// <param name="pbInput">The new property value. The <paramref name="cbInput"/> parameter contains the size of this buffer.</param>
+        /// <param name="cbInput">The size, in bytes, of the <paramref name="pbInput"/> buffer.</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
+        public static extern NTStatus BCryptSetProperty(
+            SafeHandle hObject,
+            string pszProperty,
+            string pbInput,
+            int cbInput,
+            BCryptSetPropertyFlags dwFlags = BCryptSetPropertyFlags.None);
 
         /// <summary>
         /// Retrieves the value of a named property for a CNG object.

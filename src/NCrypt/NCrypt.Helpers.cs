@@ -140,5 +140,113 @@ namespace PInvoke
                 }
             }
         }
+
+        /// <summary>
+        /// Sets the value of a named property for a CNG object.
+        /// </summary>
+        /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
+        /// <param name="propertyName">
+        /// The name of the property to set. This can be one of the predefined <see cref="KeyStoragePropertyIdentifiers"/> or a custom property identifier.
+        /// </param>
+        /// <param name="propertyValue">The new property value.</param>
+        public static void NCryptSetProperty(SafeHandle hObject, string propertyName, string propertyValue)
+        {
+            var error = NCryptSetProperty(
+                hObject,
+                propertyName,
+                propertyValue,
+                propertyValue != null ? (propertyValue.Length + 1) * sizeof(char) : 0,
+                0);
+            error.ThrowOnError();
+        }
+
+        /// <summary>
+        /// Sets the value of a named property for a CNG object.
+        /// </summary>
+        /// <typeparam name="T">The type of value being set.</typeparam>
+        /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
+        /// <param name="propertyName">
+        /// The name of the property to set. This can be one of the predefined <see cref="KeyStoragePropertyIdentifiers"/> or a custom property identifier.
+        /// </param>
+        /// <param name="propertyValue">The new property value.</param>
+        /// <param name="flags">Flags to pass to <see cref="NCryptSetProperty(SafeHandle, string, byte*, int, NCryptSetPropertyFlags)"/></param>
+        public static unsafe void NCryptSetProperty<T>(SafeHandle hObject, string propertyName, T propertyValue, NCryptSetPropertyFlags flags = NCryptSetPropertyFlags.None)
+        {
+            int bufferSize = Marshal.SizeOf(propertyValue);
+            fixed (byte* valueBuffer = new byte[bufferSize])
+            {
+                Marshal.StructureToPtr(propertyValue, new IntPtr(valueBuffer), false);
+                try
+                {
+                    NCryptSetProperty(hObject, propertyName, valueBuffer, bufferSize, flags).ThrowOnError();
+                }
+                finally
+                {
+                    Marshal.DestroyStructure(new IntPtr(valueBuffer), typeof(T));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Encrypts a block of data.
+        /// </summary>
+        /// <param name="key">
+        /// The handle of the key to use to encrypt the data.
+        /// </param>
+        /// <param name="plaintext">
+        /// The address of a buffer that contains the plaintext to be encrypted. The cbInput parameter contains the size of the plaintext to encrypt.
+        /// </param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the dwFlags parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// </param>
+        /// <returns>Returns the ciphertext.</returns>
+        public static unsafe ArraySegment<byte> NCryptEncrypt(SafeKeyHandle key, byte[] plaintext, void* paddingInfo = null, NCryptEncryptFlags flags = NCryptEncryptFlags.None)
+        {
+            fixed (byte* pPlaintext = &plaintext[0])
+            {
+                int pcbResult;
+                NCryptEncrypt(key, pPlaintext, plaintext.Length, paddingInfo, null, 0, out pcbResult, flags).ThrowOnError();
+                byte[] ciphertext = new byte[pcbResult];
+                fixed (byte* pCiphertext = &ciphertext[0])
+                {
+                    NCryptEncrypt(key, pPlaintext, plaintext.Length, paddingInfo, pCiphertext, pcbResult, out pcbResult, flags).ThrowOnError();
+                    return new ArraySegment<byte>(ciphertext, 0, pcbResult);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Decrypts a block of data.
+        /// </summary>
+        /// <param name="key">
+        /// The handle of the key to use to decrypt the data.
+        /// </param>
+        /// <param name="ciphertext">
+        /// The address of a buffer that contains the ciphertext to be decrypted. The <paramref name="ciphertext"/> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
+        /// </param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <paramref name="flags"/> parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="key"/> parameter.
+        /// </param>
+        /// <returns>Returns the plaintext.</returns>
+        public static unsafe ArraySegment<byte> NCryptDecrypt(SafeKeyHandle key, byte[] ciphertext, void* paddingInfo = null, NCryptEncryptFlags flags = NCryptEncryptFlags.None)
+        {
+            fixed (byte* pCiphertext = &ciphertext[0])
+            {
+                int pcbResult;
+                NCryptDecrypt(key, pCiphertext, ciphertext.Length, paddingInfo, null, 0, out pcbResult, flags).ThrowOnError();
+                byte[] plaintext = new byte[pcbResult];
+                fixed (byte* pPlaintext = &plaintext[0])
+                {
+                    NCryptDecrypt(key, pCiphertext, ciphertext.Length, paddingInfo, pPlaintext, pcbResult, out pcbResult, flags).ThrowOnError();
+                    return new ArraySegment<byte>(plaintext, 0, pcbResult);
+                }
+            }
+        }
     }
 }

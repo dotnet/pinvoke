@@ -9,7 +9,7 @@ namespace PInvoke
     public static partial class NCrypt
     {
         /// <summary>
-        /// Flags that may be supplied to the <see cref="NCryptSetProperty"/> function.
+        /// Flags that may be supplied to the <see cref="NCryptSetProperty(System.Runtime.InteropServices.SafeHandle, string, byte*, int, NCryptSetPropertyFlags)"/> function.
         /// </summary>
         public enum NCryptSetPropertyFlags
         {
