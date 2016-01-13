@@ -23,10 +23,18 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="NCrypt+BufferType.cs" />
     <Compile Include="NCrypt+LegacyKeySpec.cs" />
     <Compile Include="NCrypt+KeyStorageProviders.cs" />
     <Compile Include="NCrypt+KeyStorageImplementationType.cs" />
+    <Compile Include="NCrypt+NCryptBuffer.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="NCrypt+NCryptBufferDesc.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="NCrypt+NCryptCreatePersistedKeyFlags.cs" />
+    <Compile Include="NCrypt+NCryptExportKeyFlags.cs" />
     <Compile Include="NCrypt+NCryptFinalizeKeyFlags.cs" />
     <Compile Include="NCrypt+NCryptSetPropertyFlags.cs" />
     <Compile Include="NCrypt+NCryptGetPropertyFlags.cs" />
@@ -35,8 +43,12 @@
     <Compile Include="NCrypt+SafeKeyHandle.cs" />
     <Compile Include="NCrypt+SafeProviderHandle.cs" />
     <Compile Include="NCrypt+SECURITY_STATUS.cs" />
-    <Compile Include="NCrypt.cs" />
-    <Compile Include="NCrypt.Helpers.cs" />
+    <Compile Include="NCrypt.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="NCrypt.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="NCryptExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityStatusException.cs" />
@@ -45,6 +57,16 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj">
+      <Project>{1387e009-7086-4572-ac8d-ce4242adec77}</Project>
+      <Name>CodeGenerationAttributes</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
+      <Name>CodeGeneration</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\BCrypt\BCrypt.csproj">
       <Project>{9ce056e3-5d53-4092-97cc-78826a4d1c14}</Project>
       <Name>BCrypt</Name>
