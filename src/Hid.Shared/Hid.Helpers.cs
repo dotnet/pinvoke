@@ -50,10 +50,10 @@ namespace PInvoke
             var result = HidP_GetCaps(preparsedData, ref hidCaps);
             switch (result.Value)
             {
-                case NTStatus.Code.HIDP_STATUS_SUCCESS:
+                case NTSTATUS.Code.HIDP_STATUS_SUCCESS:
                     return hidCaps;
 
-                case NTStatus.Code.HIDP_STATUS_INVALID_PREPARSED_DATA:
+                case NTSTATUS.Code.HIDP_STATUS_INVALID_PREPARSED_DATA:
                     throw new ArgumentException("The specified preparsed data is invalid.", nameof(preparsedData));
 
                 default:

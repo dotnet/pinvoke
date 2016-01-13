@@ -34,7 +34,7 @@ namespace PInvoke
     /// </remarks>
     [DebuggerDisplay("{Value}")]
     [StructLayout(LayoutKind.Sequential)]
-    public partial struct NTStatus : IComparable, IComparable<NTStatus>, IEquatable<NTStatus>, IFormattable
+    public partial struct NTSTATUS : IComparable, IComparable<NTSTATUS>, IEquatable<NTSTATUS>, IFormattable
     {
         /// <summary>
         /// The mask of the bits that describe the <see cref="Severity"/>.
@@ -81,28 +81,28 @@ namespace PInvoke
         private const int FacilityStatusShift = 0;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NTStatus"/> struct.
+        /// Initializes a new instance of the <see cref="NTSTATUS"/> struct.
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
-        public NTStatus(uint status)
+        public NTSTATUS(uint status)
             : this((Code)status)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NTStatus"/> struct.
+        /// Initializes a new instance of the <see cref="NTSTATUS"/> struct.
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
-        public NTStatus(int status)
+        public NTSTATUS(int status)
             : this((Code)status)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NTStatus"/> struct.
+        /// Initializes a new instance of the <see cref="NTSTATUS"/> struct.
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
-        public NTStatus(Code status)
+        public NTSTATUS(Code status)
         {
             this.Value = status;
         }
@@ -144,55 +144,55 @@ namespace PInvoke
         public uint FacilityStatus => this.AsUInt32 & FacilityStatusMask;
 
         /// <summary>
-        /// Converts an <see cref="int"/> into an <see cref="NTStatus"/>.
+        /// Converts an <see cref="int"/> into an <see cref="NTSTATUS"/>.
         /// </summary>
         /// <param name="status">The value of the NT_STATUS.</param>
-        public static implicit operator NTStatus(int status) => new NTStatus(status);
+        public static implicit operator NTSTATUS(int status) => new NTSTATUS(status);
 
         /// <summary>
-        /// Converts an <see cref="NTStatus"/> into an <see cref="int"/>.
+        /// Converts an <see cref="NTSTATUS"/> into an <see cref="int"/>.
         /// </summary>
         /// <param name="status">The value of the NT_STATUS.</param>
-        public static explicit operator int(NTStatus status) => status.AsInt32;
+        public static explicit operator int(NTSTATUS status) => status.AsInt32;
 
         /// <summary>
-        /// Converts an <see cref="uint"/> into an <see cref="NTStatus"/>.
+        /// Converts an <see cref="uint"/> into an <see cref="NTSTATUS"/>.
         /// </summary>
         /// <param name="status">The value of the NT_STATUS.</param>
-        public static implicit operator NTStatus(uint status) => new NTStatus(status);
+        public static implicit operator NTSTATUS(uint status) => new NTSTATUS(status);
 
         /// <summary>
-        /// Converts an <see cref="NTStatus"/> into an <see cref="uint"/>.
+        /// Converts an <see cref="NTSTATUS"/> into an <see cref="uint"/>.
         /// </summary>
         /// <param name="status">The value of the NT_STATUS.</param>
-        public static implicit operator uint(NTStatus status) => status.AsUInt32;
+        public static implicit operator uint(NTSTATUS status) => status.AsUInt32;
 
         /// <summary>
-        /// Converts a <see cref="Code"/> enum to its structural <see cref="NTStatus"/> representation.
+        /// Converts a <see cref="Code"/> enum to its structural <see cref="NTSTATUS"/> representation.
         /// </summary>
         /// <param name="status">The value to convert.</param>
-        public static implicit operator NTStatus(Code status) => new NTStatus(status);
+        public static implicit operator NTSTATUS(Code status) => new NTSTATUS(status);
 
         /// <summary>
-        /// Converts an <see cref="NTStatus"/> to its <see cref="Code"/> enum representation.
+        /// Converts an <see cref="NTSTATUS"/> to its <see cref="Code"/> enum representation.
         /// </summary>
         /// <param name="status">The value to convert.</param>
-        public static implicit operator Code(NTStatus status) => status.Value;
+        public static implicit operator Code(NTSTATUS status) => status.Value;
 
         /// <inheritdoc />
         public override int GetHashCode() => (int)this.Value;
 
         /// <inheritdoc />
-        public bool Equals(NTStatus other) => this.Value == other.Value;
+        public bool Equals(NTSTATUS other) => this.Value == other.Value;
 
         /// <inheritdoc />
-        public override bool Equals(object obj) => obj is NTStatus && this.Equals((NTStatus)obj);
+        public override bool Equals(object obj) => obj is NTSTATUS && this.Equals((NTSTATUS)obj);
 
         /// <inheritdoc />
         public int CompareTo(object obj) => ((IComparable)this.Value).CompareTo(obj);
 
         /// <inheritdoc />
-        public int CompareTo(NTStatus other) => this.Value.CompareTo(other.Value);
+        public int CompareTo(NTSTATUS other) => this.Value.CompareTo(other.Value);
 
         /// <inheritdoc />
         public override string ToString() => this.Value.ToString();

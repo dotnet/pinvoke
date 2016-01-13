@@ -6,10 +6,10 @@ namespace PInvoke
     /// <content>
     /// The <see cref="FacilityCode"/> nested type.
     /// </content>
-    public partial struct NTStatus
+    public partial struct NTSTATUS
     {
         /// <summary>
-        /// The <see cref="NTStatus"/> facility codes.
+        /// The <see cref="NTSTATUS"/> facility codes.
         /// </summary>
         public enum FacilityCode
         {

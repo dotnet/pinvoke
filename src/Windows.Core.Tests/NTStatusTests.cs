@@ -13,38 +13,38 @@ public class NTStatusTests
     {
         // It's imperative that the struct be exactly the size of an Int32
         // since we use it in interop.
-        Assert.Equal(sizeof(int), Marshal.SizeOf(typeof(NTStatus)));
+        Assert.Equal(sizeof(int), Marshal.SizeOf(typeof(NTSTATUS)));
     }
 
     [Fact]
     public void Ctor_Int32()
     {
-        Assert.Equal(3, ((NTStatus)3).AsInt32);
+        Assert.Equal(3, ((NTSTATUS)3).AsInt32);
     }
 
     [Fact]
     public void Ctor_UInt32()
     {
-        Assert.Equal(3, new NTStatus((uint)3).AsInt32);
+        Assert.Equal(3, new NTSTATUS((uint)3).AsInt32);
     }
 
     [Fact]
     public void DefaultIs0()
     {
-        Assert.Equal(0, default(NTStatus).AsInt32);
+        Assert.Equal(0, default(NTSTATUS).AsInt32);
     }
 
     [Fact]
     public void PopularValuesPredefined()
     {
-        Assert.Equal(0u, (uint)NTStatus.Code.STATUS_SUCCESS);
+        Assert.Equal(0u, (uint)NTSTATUS.Code.STATUS_SUCCESS);
     }
 
     [Fact]
     public void AsUInt32()
     {
         uint expectedValue = 5;
-        NTStatus status = expectedValue;
+        NTSTATUS status = expectedValue;
         uint actualValue = status.AsUInt32;
         Assert.Equal(expectedValue, actualValue);
     }
@@ -53,7 +53,7 @@ public class NTStatusTests
     public void ImplicitCast_Int32()
     {
         int originalValue = 0x5;
-        NTStatus status = originalValue;
+        NTSTATUS status = originalValue;
         Assert.Equal(originalValue, status.AsInt32);
     }
 
@@ -61,7 +61,7 @@ public class NTStatusTests
     public void ImplicitCast_UInt32()
     {
         uint originalValue = 0x5;
-        NTStatus status = originalValue;
+        NTSTATUS status = originalValue;
         uint backToUInt = status;
         Assert.Equal(originalValue, backToUInt);
     }
@@ -70,7 +70,7 @@ public class NTStatusTests
     public void ExplicitCast_Int32()
     {
         int originalValue = 0x5;
-        NTStatus status = (NTStatus)originalValue;
+        NTSTATUS status = (NTSTATUS)originalValue;
         Assert.Equal(originalValue, (int)status);
     }
 
@@ -78,23 +78,23 @@ public class NTStatusTests
     public void ExplicitCast_UInt32()
     {
         uint originalValue = 0x5;
-        NTStatus status = (NTStatus)originalValue;
+        NTSTATUS status = (NTSTATUS)originalValue;
         Assert.Equal(originalValue, (uint)status);
     }
 
     [Fact]
     public void ToString_FormatsNumberAsDecimalOrName()
     {
-        NTStatus status = 0x80000000;
+        NTSTATUS status = 0x80000000;
         Assert.Equal("2147483648", status.ToString());
-        status = NTStatus.Code.DBG_CONTINUE;
+        status = NTSTATUS.Code.DBG_CONTINUE;
         Assert.Equal("DBG_CONTINUE", status.ToString());
     }
 
     [Fact]
     public void ToString_IsFormattable()
     {
-        NTStatus status = 0x10;
+        NTSTATUS status = 0x10;
         Assert.Equal("0010", $"{status:x4}");
         Assert.Equal("00000010", $"{status:x8}");
     }
@@ -102,16 +102,16 @@ public class NTStatusTests
     [Fact]
     public void GetHashCodeReturnsValue()
     {
-        Assert.Equal(3, ((NTStatus)3).GetHashCode());
-        Assert.Equal(4, ((NTStatus)4).GetHashCode());
+        Assert.Equal(3, ((NTSTATUS)3).GetHashCode());
+        Assert.Equal(4, ((NTSTATUS)4).GetHashCode());
     }
 
     [Fact]
     public void EqualityChecks()
     {
-        NTStatus hr3 = 3;
-        NTStatus hr5 = 5;
-        IEquatable<NTStatus> hr3Equatable = hr3;
+        NTSTATUS hr3 = 3;
+        NTSTATUS hr5 = 5;
+        IEquatable<NTSTATUS> hr3Equatable = hr3;
 
         Assert.Equal(hr3, hr3);
         Assert.True(hr3.Equals(hr3));
@@ -125,9 +125,9 @@ public class NTStatusTests
     [Fact]
     public void EqualOperators()
     {
-        NTStatus hr3 = 3;
-        NTStatus hr3b = 3;
-        NTStatus hr5 = 5;
+        NTSTATUS hr3 = 3;
+        NTSTATUS hr3b = 3;
+        NTSTATUS hr5 = 5;
 
         Assert.True(hr3 != hr5);
         Assert.True(hr3 == hr3b);
@@ -138,24 +138,24 @@ public class NTStatusTests
     [Fact]
     public void Severity()
     {
-        Assert.Equal((NTStatus.SeverityCode)0xc0000000, new NTStatus(0xffffffff).Severity);
+        Assert.Equal((NTSTATUS.SeverityCode)0xc0000000, new NTSTATUS(0xffffffff).Severity);
     }
 
     [Fact]
     public void CustomerCode()
     {
-        Assert.Equal(0x20000000u, new NTStatus(0xffffffff).CustomerCode);
+        Assert.Equal(0x20000000u, new NTSTATUS(0xffffffff).CustomerCode);
     }
 
     [Fact]
     public void Facility()
     {
-        Assert.Equal((NTStatus.FacilityCode)0xfff0000, new NTStatus(0xffffffff).Facility);
+        Assert.Equal((NTSTATUS.FacilityCode)0xfff0000, new NTSTATUS(0xffffffff).Facility);
     }
 
     [Fact]
     public void Code()
     {
-        Assert.Equal<uint>(0xffff, new NTStatus(0xffffffff).FacilityStatus);
+        Assert.Equal<uint>(0xffff, new NTSTATUS(0xffffffff).FacilityStatus);
     }
 }

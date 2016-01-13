@@ -8,7 +8,7 @@ namespace PInvoke
     using static PInvoke.Kernel32;
 
     /// <summary>
-    /// An exception thrown for a failure described by a <see cref="NTStatus"/>.
+    /// An exception thrown for a failure described by a <see cref="NTSTATUS"/>.
     /// </summary>
 #if DESKTOP
     [Serializable]
@@ -19,7 +19,7 @@ namespace PInvoke
         /// Initializes a new instance of the <see cref="NTStatusException"/> class.
         /// </summary>
         /// <param name="statusCode">The status code identifying the error.</param>
-        public NTStatusException(NTStatus statusCode)
+        public NTStatusException(NTSTATUS statusCode)
             : this(statusCode, null, null)
         {
         }
@@ -29,7 +29,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="statusCode">The status code identifying the error.</param>
         /// <param name="message">The exception message (which may be null to use the default).</param>
-        public NTStatusException(NTStatus statusCode, string message)
+        public NTStatusException(NTSTATUS statusCode, string message)
             : this(statusCode, message, null)
         {
         }
@@ -40,7 +40,7 @@ namespace PInvoke
         /// <param name="statusCode">The status code identifying the error.</param>
         /// <param name="message">The exception message (which may be null to use the default).</param>
         /// <param name="inner">The inner exception.</param>
-        public NTStatusException(NTStatus statusCode, string message, Exception inner)
+        public NTStatusException(NTSTATUS statusCode, string message, Exception inner)
             : base(message ?? GetMessage(statusCode), inner)
         {
             this.NativeErrorCode = statusCode;
@@ -61,9 +61,9 @@ namespace PInvoke
 #endif
 
         /// <summary>
-        /// Gets the <see cref="NTStatus"/> code that identifies the error condition.
+        /// Gets the <see cref="NTSTATUS"/> code that identifies the error condition.
         /// </summary>
-        public NTStatus NativeErrorCode { get; }
+        public NTSTATUS NativeErrorCode { get; }
 
 #if DESKTOP
         /// <inheritdoc />
@@ -75,14 +75,14 @@ namespace PInvoke
 #endif
 
         /// <summary>
-        /// Gets the message associated with the given <see cref="NTStatus"/>.
+        /// Gets the message associated with the given <see cref="NTSTATUS"/>.
         /// </summary>
-        /// <param name="status">The <see cref="NTStatus"/> for the error.</param>
+        /// <param name="status">The <see cref="NTSTATUS"/> for the error.</param>
         /// <returns>The description of the error.</returns>
-        private static string GetMessage(NTStatus status)
+        private static string GetMessage(NTSTATUS status)
         {
             string hexCode = $"0x{(int)status:X8}";
-            string namedCode = Enum.GetName(typeof(NTStatus.Code), status.AsUInt32);
+            string namedCode = Enum.GetName(typeof(NTSTATUS.Code), status.AsUInt32);
             string statusAsString = namedCode != null
                 ? $"{namedCode} ({hexCode})"
                 : hexCode;
@@ -97,17 +97,17 @@ namespace PInvoke
                 : insert;
         }
 
-        private static string GetSeverityString(NTStatus status)
+        private static string GetSeverityString(NTSTATUS status)
         {
             switch (status.Severity)
             {
-                case NTStatus.SeverityCode.STATUS_SEVERITY_SUCCESS:
+                case NTSTATUS.SeverityCode.STATUS_SEVERITY_SUCCESS:
                     return "success";
-                case NTStatus.SeverityCode.STATUS_SEVERITY_INFORMATIONAL:
+                case NTSTATUS.SeverityCode.STATUS_SEVERITY_INFORMATIONAL:
                     return "information";
-                case NTStatus.SeverityCode.STATUS_SEVERITY_WARNING:
+                case NTSTATUS.SeverityCode.STATUS_SEVERITY_WARNING:
                     return "warning";
-                case NTStatus.SeverityCode.STATUS_SEVERITY_ERROR:
+                case NTSTATUS.SeverityCode.STATUS_SEVERITY_ERROR:
                     return "error";
                 default:
                     return string.Empty;

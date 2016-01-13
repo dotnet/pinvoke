@@ -164,7 +164,7 @@ public partial class Kernel32
             string actual = FormatMessage(
                 FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE,
                 ntdll.DangerousGetHandle(),
-                (int)NTStatus.Code.DBG_REPLY_LATER,
+                (int)NTSTATUS.Code.DBG_REPLY_LATER,
                 0,
                 null,
                 500);

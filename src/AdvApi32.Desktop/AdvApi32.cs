@@ -113,6 +113,6 @@ namespace PInvoke
         /// The return value is the Windows error code that corresponds to the Status parameter. If there is no corresponding Windows error code, the return value is <see cref="Win32ErrorCode.ERROR_MR_MID_NOT_FOUND"/>.
         /// </returns>
         [DllImport(nameof(AdvApi32))]
-        public static extern Win32ErrorCode LsaNtStatusToWinError(NTStatus Status);
+        public static extern Win32ErrorCode LsaNtStatusToWinError(NTSTATUS Status);
     }
 }

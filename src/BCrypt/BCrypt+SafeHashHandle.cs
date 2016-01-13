@@ -35,7 +35,7 @@ namespace PInvoke
             /// <inheritdoc />
             protected override bool ReleaseHandle()
             {
-                return BCryptDestroyHash(this.handle) == NTStatus.Code.STATUS_SUCCESS;
+                return BCryptDestroyHash(this.handle) == NTSTATUS.Code.STATUS_SUCCESS;
             }
         }
     }

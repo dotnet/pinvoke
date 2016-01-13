@@ -352,7 +352,7 @@ namespace PInvoke
         /// </param>
         /// <param name="output">
         /// The address of the buffer that receives the ciphertext produced by this function. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="input"/> parameter. In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.The <paramref name="paddingInfo"/> parameter is not modified.
+        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="input"/> parameter. In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/>.The <paramref name="paddingInfo"/> parameter is not modified.
         /// If the values of both the <paramref name="output"/> and <paramref name="input"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="paddingInfo"/> parameter.
         /// </param>
         /// <param name="outputLength">
@@ -362,7 +362,7 @@ namespace PInvoke
         /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
         /// </param>
         /// <returns>The encrypted ciphertext.</returns>
-        public static unsafe NTStatus BCryptEncrypt(
+        public static unsafe NTSTATUS BCryptEncrypt(
             SafeKeyHandle key,
             ArraySegment<byte>? input,
             void* paddingInfo,
@@ -478,7 +478,7 @@ namespace PInvoke
         /// </param>
         /// <param name="output">
         /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="input"/> parameter.In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.
+        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="input"/> parameter.In this case, the location pointed to by the <paramref name="outputLength"/> parameter contains this size, and the function returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/>.
         /// If the values of both the <paramref name="output"/> and <paramref name="input" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="paddingInfo"/> parameter, is verified.
         /// </param>
         /// <param name="outputLength">
@@ -488,7 +488,7 @@ namespace PInvoke
         /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="key"/> parameter.
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        public static unsafe NTStatus BCryptDecrypt(
+        public static unsafe NTSTATUS BCryptDecrypt(
             SafeKeyHandle key,
             ArraySegment<byte>? input,
             void* paddingInfo,
@@ -627,7 +627,7 @@ namespace PInvoke
             void* paddingInfo = null,
             BCryptSignHashFlags flags = BCryptSignHashFlags.None)
         {
-            NTStatus status = BCryptVerifySignature(
+            NTSTATUS status = BCryptVerifySignature(
                 key,
                 paddingInfo,
                 hash,
@@ -636,7 +636,7 @@ namespace PInvoke
                 signature.Length,
                 flags);
 
-            if (status == NTStatus.Code.STATUS_INVALID_SIGNATURE)
+            if (status == NTSTATUS.Code.STATUS_INVALID_SIGNATURE)
             {
                 return false;
             }

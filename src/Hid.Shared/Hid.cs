@@ -154,11 +154,11 @@ namespace PInvoke
         /// <see cref="HidpCaps" /> structure.
         /// </param>
         /// <returns>
-        /// <see cref="NTStatus.Code.HIDP_STATUS_SUCCESS" /> on success or <see cref="NTStatus.Code.HIDP_STATUS_INVALID_PREPARSED_DATA" /> if rhe
+        /// <see cref="NTSTATUS.Code.HIDP_STATUS_SUCCESS" /> on success or <see cref="NTSTATUS.Code.HIDP_STATUS_INVALID_PREPARSED_DATA" /> if rhe
         /// specified preparsed data is invalid.
         /// </returns>
         [DllImport(nameof(Hid), SetLastError = true)]
-        public static extern NTStatus HidP_GetCaps(SafePreparsedDataHandle preparsedData, ref HidpCaps capabilities);
+        public static extern NTSTATUS HidP_GetCaps(SafePreparsedDataHandle preparsedData, ref HidpCaps capabilities);
 
         /// <summary>
         /// Releases the resources that the HID class driver allocated to hold a top-level collection's preparsed data.
