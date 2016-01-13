@@ -34,6 +34,7 @@
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="NCrypt+NCryptCreatePersistedKeyFlags.cs" />
+    <Compile Include="NCrypt+NCryptEncryptFlags.cs" />
     <Compile Include="NCrypt+NCryptExportKeyFlags.cs" />
     <Compile Include="NCrypt+NCryptFinalizeKeyFlags.cs" />
     <Compile Include="NCrypt+NCryptSetPropertyFlags.cs" />

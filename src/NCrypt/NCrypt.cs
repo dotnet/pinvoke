@@ -147,12 +147,120 @@ namespace PInvoke
         /// <param name="dwFlags">Flags that modify function behavior.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(NCrypt), CharSet = CharSet.Unicode)]
+        public static extern unsafe SECURITY_STATUS NCryptSetProperty(
+            SafeHandle hObject,
+            string pszProperty,
+            byte* pbInput,
+            int cbInput,
+            NCryptSetPropertyFlags dwFlags);
+
+        /// <summary>
+        /// Sets the value for a named property for a CNG key storage object.
+        /// </summary>
+        /// <param name="hObject">The handle of the key storage object to set the property for.</param>
+        /// <param name="pszProperty">
+        /// A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <see cref="KeyStoragePropertyIdentifiers"/> or a custom property identifier.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the new property value. The <paramref name="cbInput"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbInput">
+        /// The size, in bytes, of the <paramref name="pbInput"/> buffer.
+        /// </param>
+        /// <param name="dwFlags">Flags that modify function behavior.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(NCrypt), CharSet = CharSet.Unicode)]
         public static extern SECURITY_STATUS NCryptSetProperty(
             SafeHandle hObject,
             string pszProperty,
-            byte[] pbInput,
+            string pbInput,
             int cbInput,
             NCryptSetPropertyFlags dwFlags);
+
+        /// <summary>
+        /// Encrypts a block of data.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to encrypt the data.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the plaintext to be encrypted. The cbInput parameter contains the size of the plaintext to encrypt.
+        /// </param>
+        /// <param name="cbInput">
+        /// The number of bytes in the pbInput buffer to encrypt.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the dwFlags parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="pbOutput">
+        /// The address of the buffer that receives the ciphertext produced by this function. The <paramref name="cbOutput"/> parameter contains the size of this buffer. For more information, see Remarks.
+        /// If this parameter is NULL, this function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
+        /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="pPaddingInfo"/> parameter.
+        /// </param>
+        /// <param name="cbOutput">
+        /// The size, in bytes, of the <paramref name="pbOutput"/> buffer. This parameter is ignored if the <paramref name="pbOutput"/> parameter is NULL.
+        /// </param>
+        /// <param name="pcbResult">
+        /// A pointer to a DWORD variable that receives the number of bytes copied to the <paramref name="pbOutput"/> buffer. If <paramref name="pbOutput"/> is NULL, this receives the size, in bytes, required for the ciphertext.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// The <paramref name="pbInput"/> and <paramref name="pbOutput"/> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
+        /// </remarks>
+        [DllImport(nameof(NCrypt))]
+        public static unsafe extern SECURITY_STATUS NCryptEncrypt(
+            SafeKeyHandle hKey,
+            byte* pbInput,
+            int cbInput,
+            void* pPaddingInfo,
+            byte* pbOutput,
+            int cbOutput,
+            out int pcbResult,
+            NCryptEncryptFlags dwFlags = NCryptEncryptFlags.None);
+
+        /// <summary>
+        /// Decrypts a block of data.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to decrypt the data.
+        /// </param>
+        /// <param name="pbInput">
+        /// The address of a buffer that contains the ciphertext to be decrypted. The <paramref name="cbInput"/> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
+        /// </param>
+        /// <param name="cbInput">
+        /// The number of bytes in the <paramref name="pbInput"/> buffer to decrypt.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an authenticated encryption mode is used, this parameter must point to a BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <paramref name="dwFlags"/> parameter. Otherwise, the parameter must be set to NULL.
+        /// </param>
+        /// <param name="pbOutput">
+        /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
+        /// If this parameter is NULL, this function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.
+        /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="pPaddingInfo"/> parameter, is verified.
+        /// </param>
+        /// <param name="cbOutput">
+        /// The size, in bytes, of the <paramref name="pbOutput"/> buffer. This parameter is ignored if the <paramref name="pbOutput"/> parameter is NULL.
+        /// </param>
+        /// <param name="pcbResult">
+        /// A pointer to a ULONG variable to receive the number of bytes copied to the <paramref name="pbOutput"/> buffer. If <paramref name="pbOutput"/> is NULL, this receives the size, in bytes, required for the plaintext.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(NCrypt))]
+        public static unsafe extern SECURITY_STATUS NCryptDecrypt(
+            SafeKeyHandle hKey,
+            byte* pbInput,
+            int cbInput,
+            void* pPaddingInfo,
+            byte* pbOutput,
+            int cbOutput,
+            out int pcbResult,
+            NCryptEncryptFlags dwFlags);
 
         /// <summary>
         /// Frees a CNG key storage object.

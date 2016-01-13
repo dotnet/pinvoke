@@ -679,15 +679,43 @@ namespace PInvoke
         /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
         /// </param>
         /// <param name="propertyValue">The new property value.</param>
-        public static void BCryptSetProperty(SafeHandle hObject, string propertyName, string propertyValue)
+        /// <param name="flags">Flags to pass to <see cref="BCryptSetProperty(SafeHandle, string, byte[], int, BCryptSetPropertyFlags)"/></param>
+        public static void BCryptSetProperty(SafeHandle hObject, string propertyName, string propertyValue, BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None)
         {
             var error = BCryptSetProperty(
                 hObject,
                 propertyName,
                 propertyValue,
                 propertyValue != null ? (propertyValue.Length + 1) * sizeof(char) : 0,
-                0);
+                flags);
             error.ThrowOnError();
+        }
+
+        /// <summary>
+        /// Sets the value of a named property for a CNG object.
+        /// </summary>
+        /// <typeparam name="T">The type of value being set.</typeparam>
+        /// <param name="hObject">A handle that represents the CNG object to set the property value for.</param>
+        /// <param name="propertyName">
+        /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
+        /// </param>
+        /// <param name="propertyValue">The new property value.</param>
+        /// <param name="flags">Flags to pass to <see cref="BCryptSetProperty(SafeHandle, string, byte[], int, BCryptSetPropertyFlags)"/></param>
+        public static unsafe void BCryptSetProperty<T>(SafeHandle hObject, string propertyName, T propertyValue, BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None)
+        {
+            int bufferSize = Marshal.SizeOf(propertyValue);
+            fixed (byte* valueBuffer = new byte[bufferSize])
+            {
+                Marshal.StructureToPtr(propertyValue, new IntPtr(valueBuffer), false);
+                try
+                {
+                    BCryptSetProperty(hObject, propertyName, valueBuffer, bufferSize, flags).ThrowOnError();
+                }
+                finally
+                {
+                    Marshal.DestroyStructure(new IntPtr(valueBuffer), typeof(T));
+                }
+            }
         }
 
         /// <summary>

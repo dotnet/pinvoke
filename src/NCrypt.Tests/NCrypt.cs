@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.Linq;
 using PInvoke;
 using Xunit;
 using static PInvoke.NCrypt;
@@ -38,6 +39,27 @@ public class NCrypt
                 NCryptFinalizeKey(key).ThrowOnError();
                 var exported = NCryptExportKey(key, SafeKeyHandle.Null, BCrypt.AsymmetricKeyBlobTypes.BCRYPT_RSAPUBLIC_BLOB, null);
                 Assert.NotNull(exported.Array);
+            }
+        }
+    }
+
+    [Fact]
+    public unsafe void EncryptDecryptRSA()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
+            {
+                NCryptSetProperty(key, KeyStoragePropertyIdentifiers.NCRYPT_LENGTH_PROPERTY, 512);
+                NCryptFinalizeKey(key).ThrowOnError();
+
+                const NCryptEncryptFlags flags = NCryptEncryptFlags.NCRYPT_PAD_PKCS1_FLAG;
+                byte[] plaintext = new byte[] { 0x1, 0x2, 0x3 };
+                ArraySegment<byte> cipherText = NCryptEncrypt(key, plaintext, flags: flags);
+                Assert.NotEqual(plaintext, cipherText.Array.Take(cipherText.Count));
+
+                ArraySegment<byte> decryptedPlaintext = NCryptDecrypt(key, cipherText.ToArray(), flags: flags);
+                Assert.Equal(plaintext, decryptedPlaintext.Take(decryptedPlaintext.Count));
             }
         }
     }
