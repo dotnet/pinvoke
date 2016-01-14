@@ -28,9 +28,9 @@ public partial class Kernel32ExtensionsTests
     [Fact]
     public void ThrowOnError_NTStatus()
     {
-        NTStatus success = NTStatus.Code.STATUS_SUCCESS;
+        NTSTATUS success = NTSTATUS.Code.STATUS_SUCCESS;
         success.ThrowOnError();
-        NTStatus failure = NTStatus.Code.RPC_NT_CALL_FAILED;
+        NTSTATUS failure = NTSTATUS.Code.RPC_NT_CALL_FAILED;
         Assert.Throws<NTStatusException>(() => failure.ThrowOnError());
 
         try

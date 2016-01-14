@@ -8,10 +8,10 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="Code"/> nested type.
     /// </content>
-    public partial struct NTStatus
+    public partial struct NTSTATUS
     {
         /// <summary>
-        /// Common <see cref="NTStatus"/> constants.
+        /// Common <see cref="NTSTATUS"/> constants.
         /// </summary>
         public enum Code : uint
         {

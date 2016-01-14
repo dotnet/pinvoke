@@ -22,6 +22,6 @@ namespace PInvoke
         /// ERROR_MR_MID_NOT_FOUND is returned when the specified NTSTATUS code does not have a corresponding system error code.
         /// </remarks>
         [DllImport(nameof(NTDll))]
-        public static extern Win32ErrorCode RtlNtStatusToDosError(NTStatus Status);
+        public static extern Win32ErrorCode RtlNtStatusToDosError(NTSTATUS Status);
     }
 }

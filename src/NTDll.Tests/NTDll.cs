@@ -11,9 +11,9 @@ public class NTDll
     [Fact]
     public void RtlNtStatusToDosError_Test()
     {
-        Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, RtlNtStatusToDosError(NTStatus.Code.STATUS_PENDING));
-        Assert.Equal(Win32ErrorCode.ERROR_SUCCESS, RtlNtStatusToDosError(NTStatus.Code.STATUS_SUCCESS));
-        Assert.Equal(Win32ErrorCode.ERROR_OBJECT_ALREADY_EXISTS, RtlNtStatusToDosError(NTStatus.Code.STATUS_DUPLICATE_OBJECTID));
+        Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, RtlNtStatusToDosError(NTSTATUS.Code.STATUS_PENDING));
+        Assert.Equal(Win32ErrorCode.ERROR_SUCCESS, RtlNtStatusToDosError(NTSTATUS.Code.STATUS_SUCCESS));
+        Assert.Equal(Win32ErrorCode.ERROR_OBJECT_ALREADY_EXISTS, RtlNtStatusToDosError(NTSTATUS.Code.STATUS_DUPLICATE_OBJECTID));
 
         // You'd think these would be more or less obviously correct return values, but this API
         // actually does a pitiful job of producing valid return values.

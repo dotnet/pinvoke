@@ -12,7 +12,7 @@ public partial class Kernel32ExtensionsTests
     [Fact]
     public void GetMessage_NTStatus()
     {
-        NTStatus error = NTStatus.Code.EPT_NT_INVALID_ENTRY;
+        NTSTATUS error = NTSTATUS.Code.EPT_NT_INVALID_ENTRY;
         string message = error.GetMessage();
         Assert.Equal("The entry is invalid", message);
     }
@@ -20,7 +20,7 @@ public partial class Kernel32ExtensionsTests
     [Fact]
     public void NTStatusException_Serializable()
     {
-        var exception = new NTStatusException(NTStatus.Code.STATUS_TPM_AUDITFAIL_SUCCESSFUL, "It works, yo");
+        var exception = new NTStatusException(NTSTATUS.Code.STATUS_TPM_AUDITFAIL_SUCCESSFUL, "It works, yo");
         var formatter = new BinaryFormatter();
         var ms = new MemoryStream();
         formatter.Serialize(ms, exception);

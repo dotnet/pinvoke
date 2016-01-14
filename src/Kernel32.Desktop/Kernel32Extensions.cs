@@ -11,11 +11,11 @@ namespace PInvoke
     public static partial class Kernel32Extensions
     {
         /// <summary>
-        /// Gets the text associated with an <see cref="NTStatus"/>.
+        /// Gets the text associated with an <see cref="NTSTATUS"/>.
         /// </summary>
         /// <param name="status">The error code.</param>
         /// <returns>The error message. Or <c>null</c> if no message could be found.</returns>
-        public static string GetMessage(this NTStatus status)
+        public static string GetMessage(this NTSTATUS status)
         {
             using (var ntdll = LoadLibrary("ntdll.dll"))
             {

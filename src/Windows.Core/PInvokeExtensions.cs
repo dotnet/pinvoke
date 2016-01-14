@@ -13,11 +13,11 @@ namespace PInvoke
     public static class PInvokeExtensions
     {
         /// <summary>
-        /// Converts an <see cref="NTStatus"/> to an <see cref="HResult"/>.
+        /// Converts an <see cref="NTSTATUS"/> to an <see cref="HResult"/>.
         /// </summary>
-        /// <param name="status">The <see cref="NTStatus"/> to convert.</param>
+        /// <param name="status">The <see cref="NTSTATUS"/> to convert.</param>
         /// <returns>The <see cref="HResult"/>.</returns>
-        public static HResult ToHResult(this NTStatus status)
+        public static HResult ToHResult(this NTSTATUS status)
         {
             // From winerror.h
             // #define HRESULT_FROM_NT(x)      ((HRESULT) ((x) | FACILITY_NT_BIT))

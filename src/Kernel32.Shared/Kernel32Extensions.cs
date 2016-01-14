@@ -48,9 +48,9 @@ namespace PInvoke
         /// Throws an exception if a P/Invoke failed.
         /// </summary>
         /// <param name="status">The result of the P/Invoke call.</param>
-        public static void ThrowOnError(this NTStatus status)
+        public static void ThrowOnError(this NTSTATUS status)
         {
-            if (status.Severity == NTStatus.SeverityCode.STATUS_SEVERITY_ERROR)
+            if (status.Severity == NTSTATUS.SeverityCode.STATUS_SEVERITY_ERROR)
             {
                 throw new NTStatusException(status);
             }

@@ -6,10 +6,10 @@ namespace PInvoke
     /// <content>
     /// The <see cref="SeverityCode"/> nested type.
     /// </content>
-    public partial struct NTStatus
+    public partial struct NTSTATUS
     {
         /// <summary>
-        /// The <see cref="NTStatus"/> severity codes.
+        /// The <see cref="NTSTATUS"/> severity codes.
         /// </summary>
         public enum SeverityCode : uint
         {

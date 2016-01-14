@@ -48,7 +48,7 @@ namespace PInvoke
         /// Returns a status code that indicates the success or failure of the function.
         /// </returns>
         [DllImport(nameof(BCrypt), SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true)]
-        public static extern NTStatus BCryptOpenAlgorithmProvider(
+        public static extern NTSTATUS BCryptOpenAlgorithmProvider(
             out SafeAlgorithmHandle phAlgorithm,
             string pszAlgId,
             string pszImplementation,
@@ -83,7 +83,7 @@ namespace PInvoke
         /// <param name="dwFlags">Flags that modify the behavior of the function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptCreateHash(
+        public static extern NTSTATUS BCryptCreateHash(
             SafeAlgorithmHandle hAlgorithm,
             out SafeHashHandle phHash,
             byte[] pbHashObject,
@@ -115,7 +115,7 @@ namespace PInvoke
         /// <param name="cbIV">The size, in bytes, of the pbIV buffer.</param>
         /// <param name="pbOutput">
         /// The address of the buffer that receives the ciphertext produced by this function. The <paramref name="cbOutput"/> parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
+        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
         /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="pPaddingInfo"/> parameter.
         /// </param>
         /// <param name="cbOutput">
@@ -132,7 +132,7 @@ namespace PInvoke
         /// The <paramref name="pbInput"/> and <paramref name="pbOutput"/> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static unsafe extern NTStatus BCryptEncrypt(
+        public static unsafe extern NTSTATUS BCryptEncrypt(
             SafeKeyHandle hKey,
             byte[] pbInput,
             int cbInput,
@@ -167,7 +167,7 @@ namespace PInvoke
         /// <param name="cbIV">The size, in bytes, of the pbIV buffer.</param>
         /// <param name="pbOutput">
         /// The address of the buffer that receives the ciphertext produced by this function. The <paramref name="cbOutput"/> parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
+        /// If this parameter is NULL, the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size needed for the ciphertext of the data passed in the <paramref name="pbInput"/> parameter. In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/>.The <paramref name="pPaddingInfo"/> parameter is not modified.
         /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput"/> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag is returned in the <paramref name="pPaddingInfo"/> parameter.
         /// </param>
         /// <param name="cbOutput">
@@ -184,7 +184,7 @@ namespace PInvoke
         /// The <paramref name="pbInput"/> and <paramref name="pbOutput"/> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static unsafe extern NTStatus BCryptEncrypt(
+        public static unsafe extern NTSTATUS BCryptEncrypt(
             SafeKeyHandle hKey,
             byte* pbInput,
             int cbInput,
@@ -221,7 +221,7 @@ namespace PInvoke
         /// </param>
         /// <param name="pbOutput">
         /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.
+        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/>.
         /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="pPaddingInfo"/> parameter, is verified.
         /// </param>
         /// <param name="cbOutput">
@@ -235,7 +235,7 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static unsafe extern NTStatus BCryptDecrypt(
+        public static unsafe extern NTSTATUS BCryptDecrypt(
             SafeKeyHandle hKey,
             byte[] pbInput,
             int cbInput,
@@ -272,7 +272,7 @@ namespace PInvoke
         /// </param>
         /// <param name="pbOutput">
         /// The address of a buffer to receive the plaintext produced by this function. The cbOutput parameter contains the size of this buffer. For more information, see Remarks.
-        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTStatus.Code.STATUS_SUCCESS"/>.
+        /// If this parameter is NULL, the <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> function calculates the size required for the plaintext of the encrypted data passed in the <paramref name="pbInput"/> parameter.In this case, the location pointed to by the <paramref name="pcbResult"/> parameter contains this size, and the function returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/>.
         /// If the values of both the <paramref name="pbOutput"/> and <paramref name="pbInput" /> parameters are NULL, an error is returned unless an authenticated encryption algorithm is in use.In the latter case, the call is treated as an authenticated encryption call with zero length data, and the authentication tag, passed in the <paramref name="pPaddingInfo"/> parameter, is verified.
         /// </param>
         /// <param name="cbOutput">
@@ -286,7 +286,7 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static unsafe extern NTStatus BCryptDecrypt(
+        public static unsafe extern NTSTATUS BCryptDecrypt(
             SafeKeyHandle hKey,
             byte* pbInput,
             int cbInput,
@@ -315,7 +315,7 @@ namespace PInvoke
         /// After the <see cref="BCryptFinishHash(SafeHashHandle, byte[], int, BCryptFinishHashFlags)"/> function has been called for a specified handle, that handle cannot be reused.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptHashData(
+        public static extern NTSTATUS BCryptHashData(
             SafeHashHandle hHash,
             byte[] pbInput,
             int cbInput,
@@ -337,7 +337,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptFinishHash(
+        public static extern NTSTATUS BCryptFinishHash(
             SafeHashHandle hHash,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbOutput,
             int cbOutput,
@@ -375,7 +375,7 @@ namespace PInvoke
         /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature(SafeKeyHandle, void*, byte[], int, byte[], int, BCryptSignHashFlags)"/> function with an identical key and an identical hash of the original data.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static unsafe extern NTStatus BCryptSignHash(
+        public static unsafe extern NTSTATUS BCryptSignHash(
             SafeKeyHandle hKey,
             void* pPaddingInfo,
             byte[] pbInput,
@@ -413,10 +413,10 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// Returns a status code that indicates the success or failure of the function.
-        /// In particular, an invalid signature will produce a <see cref="NTStatus.Code.STATUS_INVALID_SIGNATURE"/> result.
+        /// In particular, an invalid signature will produce a <see cref="NTSTATUS.Code.STATUS_INVALID_SIGNATURE"/> result.
         /// </returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static unsafe extern NTStatus BCryptVerifySignature(
+        public static unsafe extern NTSTATUS BCryptVerifySignature(
             SafeKeyHandle hKey,
             void* pPaddingInfo,
             byte[] pbHash,
@@ -439,7 +439,7 @@ namespace PInvoke
         /// BCryptFinalizeKeyPair function is called.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
-        public static extern NTStatus BCryptGenerateKeyPair(
+        public static extern NTSTATUS BCryptGenerateKeyPair(
             SafeAlgorithmHandle hAlgorithm,
             out SafeKeyHandle phKey,
             int dwLength,
@@ -473,7 +473,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptGenerateSymmetricKey(
+        public static extern NTSTATUS BCryptGenerateSymmetricKey(
             SafeAlgorithmHandle hAlgorithm,
             out SafeKeyHandle phKey,
             byte[] pbKeyObject,
@@ -494,7 +494,7 @@ namespace PInvoke
         /// can no longer be used for this key.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
-        public static extern NTStatus BCryptFinalizeKeyPair(
+        public static extern NTSTATUS BCryptFinalizeKeyPair(
             SafeKeyHandle hKey,
             BCryptFinalizeKeyPairFlags dwFlags = BCryptFinalizeKeyPairFlags.None);
 
@@ -535,7 +535,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTStatus BCryptImportKey(
+        public static extern NTSTATUS BCryptImportKey(
             SafeAlgorithmHandle hAlgorithm,
             SafeKeyHandle hImportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
@@ -558,7 +558,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTStatus BCryptImportKeyPair(
+        public static extern NTSTATUS BCryptImportKeyPair(
             SafeAlgorithmHandle hAlgorithm,
             SafeKeyHandle hImportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
@@ -595,7 +595,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTStatus BCryptExportKey(
+        public static extern NTSTATUS BCryptExportKey(
             SafeKeyHandle hKey,
             SafeKeyHandle hExportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
@@ -623,7 +623,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
-        public static extern NTStatus BCryptSecretAgreement(
+        public static extern NTSTATUS BCryptSecretAgreement(
             SafeKeyHandle privateKey,
             SafeKeyHandle publicKey,
             out SafeSecretHandle secret,
@@ -665,7 +665,7 @@ namespace PInvoke
         /// Returns a status code that indicates the success or failure of the function.
         /// </returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTStatus BCryptDeriveKey(
+        public static extern NTSTATUS BCryptDeriveKey(
             SafeSecretHandle sharedSecret,
             string keyDerivationFunction,
             [In] ref BCryptBufferDesc kdfParameters,
@@ -686,7 +686,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern unsafe NTStatus BCryptSetProperty(
+        public static extern unsafe NTSTATUS BCryptSetProperty(
             SafeHandle hObject,
             string pszProperty,
             byte* pbInput,
@@ -705,7 +705,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTStatus BCryptSetProperty(
+        public static extern NTSTATUS BCryptSetProperty(
             SafeHandle hObject,
             string pszProperty,
             [In, MarshalAs(UnmanagedType.LPArray)] byte[] pbInput,
@@ -724,7 +724,7 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTStatus BCryptSetProperty(
+        public static extern NTSTATUS BCryptSetProperty(
             SafeHandle hObject,
             string pszProperty,
             string pbInput,
@@ -742,7 +742,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTStatus BCryptGetProperty(
+        public static extern NTSTATUS BCryptGetProperty(
             SafeHandle hObject,
             string property,
             [Out, MarshalAs(UnmanagedType.LPArray)] byte[] output,
@@ -765,7 +765,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTStatus BCryptGenRandom(
+        public static extern NTSTATUS BCryptGenRandom(
             SafeAlgorithmHandle hAlgorithm,
             byte[] pbBuffer,
             int cbBuffer,
@@ -778,7 +778,7 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
-        private static extern NTStatus BCryptCloseAlgorithmProvider(
+        private static extern NTSTATUS BCryptCloseAlgorithmProvider(
             IntPtr algorithmHandle,
             BCryptCloseAlgorithmProviderFlags flags = BCryptCloseAlgorithmProviderFlags.None);
 
@@ -788,7 +788,7 @@ namespace PInvoke
         /// <param name="hHash">The handle of the hash or MAC object to destroy. This handle is obtained by using the <see cref="BCryptCreateHash(SafeAlgorithmHandle, out SafeHashHandle, byte[], int, byte[], int, BCryptCreateHashFlags)"/> function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        private static extern NTStatus BCryptDestroyHash(IntPtr hHash);
+        private static extern NTSTATUS BCryptDestroyHash(IntPtr hHash);
 
         /// <summary>
         /// Destroys a key.
@@ -796,7 +796,7 @@ namespace PInvoke
         /// <param name="hKey">The handle of the key to destroy.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
-        private static extern NTStatus BCryptDestroyKey(
+        private static extern NTSTATUS BCryptDestroyKey(
             IntPtr hKey);
 
         /// <summary>
@@ -805,7 +805,7 @@ namespace PInvoke
         /// <param name="hSecret">The handle of the secret to destroy.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true)]
-        private static extern NTStatus BCryptDestroySecret(
+        private static extern NTSTATUS BCryptDestroySecret(
             IntPtr hSecret);
     }
 }
