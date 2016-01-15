@@ -73,6 +73,7 @@
     <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
       <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
       <Name>CodeGeneration</Name>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
