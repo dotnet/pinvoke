@@ -28,10 +28,12 @@
     <ProjectReference Include="..\CodeGenerationAttributes.Net40\CodeGenerationAttributes.Net40.csproj">
       <Project>{6a77281b-c503-44ea-90c1-0e9868d06cd0}</Project>
       <Name>CodeGenerationAttributes.Net40</Name>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
     </ProjectReference>
     <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
       <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
       <Name>CodeGeneration</Name>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
