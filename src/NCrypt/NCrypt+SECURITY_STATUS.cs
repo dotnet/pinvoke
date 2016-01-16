@@ -11,6 +11,9 @@ namespace PInvoke
         /// <summary>
         /// Describes the error codes that may be returned from NCrypt functions.
         /// </summary>
+        /// <remarks>
+        /// These values are encoded as <see cref="HResult"/> with <see cref="HResult.FacilityCode.FACILITY_SECURITY"/> as the facility code.
+        /// </remarks>
         public enum SECURITY_STATUS : uint
         {
             /// <summary>
