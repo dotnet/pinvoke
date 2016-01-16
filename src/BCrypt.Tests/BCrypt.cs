@@ -282,8 +282,8 @@ public class BCrypt
             using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 var authInfo = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.Create();
-                fixed (byte* pTagBuffer = &tagBuffer[0])
-                fixed (byte* pNonce = &nonceBuffer[0])
+                fixed (byte* pTagBuffer = tagBuffer)
+                fixed (byte* pNonce = nonceBuffer)
                 {
                     authInfo.pbNonce = pNonce;
                     authInfo.cbNonce = nonceBuffer.Length;
@@ -306,8 +306,8 @@ public class BCrypt
                 byte[] decryptedText;
 
                 var authInfo = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.Create();
-                fixed (byte* pTagBuffer = &tagBuffer[0])
-                fixed (byte* pNonce = &nonceBuffer[0])
+                fixed (byte* pTagBuffer = tagBuffer)
+                fixed (byte* pNonce = nonceBuffer)
                 {
                     authInfo.pbNonce = pNonce;
                     authInfo.cbNonce = nonceBuffer.Length;

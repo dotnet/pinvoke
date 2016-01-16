@@ -21,7 +21,7 @@ namespace PInvoke
         /// <returns>The public key.</returns>
         public static unsafe byte[] StrongNameGetPublicKey(byte[] keyBlob)
         {
-            fixed (byte* keyBlobPtr = &keyBlob[0])
+            fixed (byte* keyBlobPtr = keyBlob)
             {
                 byte* publicKeyBlob;
                 int publicKeyBlobLength;
@@ -53,7 +53,7 @@ namespace PInvoke
         /// <returns>The strong name token corresponding to the key passed in <paramref name="publicKeyBlob"/>.</returns>
         public static unsafe byte[] StrongNameTokenFromPublicKey(byte[] publicKeyBlob)
         {
-            fixed (byte* keyBlobPtr = &publicKeyBlob[0])
+            fixed (byte* keyBlobPtr = publicKeyBlob)
             {
                 byte* strongNameToken;
                 int strongNameTokenLength;
