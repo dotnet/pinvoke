@@ -205,12 +205,12 @@ namespace PInvoke
         /// <returns>Returns the ciphertext.</returns>
         public static unsafe ArraySegment<byte> NCryptEncrypt(SafeKeyHandle key, byte[] plaintext, void* paddingInfo = null, NCryptEncryptFlags flags = NCryptEncryptFlags.None)
         {
-            fixed (byte* pPlaintext = &plaintext[0])
+            fixed (byte* pPlaintext = plaintext)
             {
                 int pcbResult;
                 NCryptEncrypt(key, pPlaintext, plaintext.Length, paddingInfo, null, 0, out pcbResult, flags).ThrowOnError();
                 byte[] ciphertext = new byte[pcbResult];
-                fixed (byte* pCiphertext = &ciphertext[0])
+                fixed (byte* pCiphertext = ciphertext)
                 {
                     NCryptEncrypt(key, pPlaintext, plaintext.Length, paddingInfo, pCiphertext, pcbResult, out pcbResult, flags).ThrowOnError();
                     return new ArraySegment<byte>(ciphertext, 0, pcbResult);
@@ -236,12 +236,12 @@ namespace PInvoke
         /// <returns>Returns the plaintext.</returns>
         public static unsafe ArraySegment<byte> NCryptDecrypt(SafeKeyHandle key, byte[] ciphertext, void* paddingInfo = null, NCryptEncryptFlags flags = NCryptEncryptFlags.None)
         {
-            fixed (byte* pCiphertext = &ciphertext[0])
+            fixed (byte* pCiphertext = ciphertext)
             {
                 int pcbResult;
                 NCryptDecrypt(key, pCiphertext, ciphertext.Length, paddingInfo, null, 0, out pcbResult, flags).ThrowOnError();
                 byte[] plaintext = new byte[pcbResult];
-                fixed (byte* pPlaintext = &plaintext[0])
+                fixed (byte* pPlaintext = plaintext)
                 {
                     NCryptDecrypt(key, pCiphertext, ciphertext.Length, paddingInfo, pPlaintext, pcbResult, out pcbResult, flags).ThrowOnError();
                     return new ArraySegment<byte>(plaintext, 0, pcbResult);

@@ -15,7 +15,7 @@ public class Crypt32
     public unsafe void PFXImportCertStoreTest()
     {
         byte[] protectedPfxContent = ReadEmbeddedResource("protectedPair.pfx");
-        fixed (byte* pbData = &protectedPfxContent[0])
+        fixed (byte* pbData = protectedPfxContent)
         {
             var data = new CRYPT_DATA_BLOB
             {
