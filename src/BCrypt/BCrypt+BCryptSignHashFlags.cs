@@ -22,12 +22,12 @@ namespace PInvoke
             None = 0x0,
 
             /// <summary>
-            /// Use the PKCS1 padding scheme. The pPaddingInfo parameter is a pointer to a BCRYPT_PKCS1_PADDING_INFO structure.
+            /// Use the PKCS1 padding scheme. The pPaddingInfo parameter is a pointer to a <see cref="BCRYPT_PKCS1_PADDING_INFO"/> structure.
             /// </summary>
             BCRYPT_PAD_PKCS1 = 0x2,
 
             /// <summary>
-            /// Use the Probabilistic Signature Scheme (PSS) padding scheme. The pPaddingInfo parameter is a pointer to a BCRYPT_PSS_PADDING_INFO structure.
+            /// Use the Probabilistic Signature Scheme (PSS) padding scheme. The pPaddingInfo parameter is a pointer to a <see cref="BCRYPT_PSS_PADDING_INFO"/> structure.
             /// </summary>
             BCRYPT_PAD_PSS = 0x00000008,
         }

@@ -11,6 +11,9 @@ namespace PInvoke
         /// <summary>
         /// Describes the error codes that may be returned from NCrypt functions.
         /// </summary>
+        /// <remarks>
+        /// These values are encoded as <see cref="HResult"/> with <see cref="HResult.FacilityCode.FACILITY_SECURITY"/> as the facility code.
+        /// </remarks>
         public enum SECURITY_STATUS : uint
         {
             /// <summary>
@@ -125,6 +128,57 @@ namespace PInvoke
 
             /// <summary>No more data is available.</summary>
             NTE_NO_MORE_ITEMS = 0x8009002a,
+
+            /// <summary>Provider could not perform the action since the context was acquired as silent.</summary>
+            NTE_SILENT_CONTEXT = 0x80090022,
+
+            /// <summary>The security token does not have storage space available for an additional container.</summary>
+            NTE_TOKEN_KEYSET_STORAGE_FULL = 0x80090023,
+
+            /// <summary>The profile for the user is a temporary profile.</summary>
+            NTE_TEMPORARY_PROFILE = 0x80090024,
+
+            /// <summary>The key parameters could not be set because the CSP uses fixed parameters.</summary>
+            NTE_FIXEDPARAMETER = 0x80090025,
+
+            /// <summary>The supplied handle is invalid.</summary>
+            NTE_INVALID_HANDLE = 0x80090026,
+
+            /// <summary>The parameter is incorrect.</summary>
+            NTE_INVALID_PARAMETER = 0x80090027,
+
+            /// <summary>The supplied buffers overlap incorrectly.</summary>
+            NTE_BUFFERS_OVERLAP = 0x8009002B,
+
+            /// <summary>The specified data could not be decrypted.</summary>
+            NTE_DECRYPTION_FAILURE = 0x8009002C,
+
+            /// <summary>An internal consistency check failed.</summary>
+            NTE_INTERNAL_ERROR = 0x8009002D,
+
+            /// <summary>This operation requires input from the user.</summary>
+            NTE_UI_REQUIRED = 0x8009002E,
+
+            /// <summary>The cryptographic provider does not support HMAC.</summary>
+            NTE_HMAC_NOT_SUPPORTED = 0x8009002F,
+
+            /// <summary>The device that is required by this cryptographic provider is not ready for use.</summary>
+            NTE_DEVICE_NOT_READY = 0x80090030,
+
+            /// <summary>The dictionary attack mitigation is triggered and the provided authorization was ignored by the provider.</summary>
+            NTE_AUTHENTICATION_IGNORED = 0x80090031,
+
+            /// <summary>The validation of the provided data failed the integrity or signature validation.</summary>
+            NTE_VALIDATION_FAILED = 0x80090032,
+
+            /// <summary>Incorrect password.</summary>
+            NTE_INCORRECT_PASSWORD = 0x80090033,
+
+            /// <summary>Encryption failed.</summary>
+            NTE_ENCRYPTION_FAILURE = 0x80090034,
+
+            /// <summary>The device that is required by this cryptographic provider is not found on this platform.</summary>
+            NTE_DEVICE_NOT_FOUND = 0x80090035,
         }
     }
 }
