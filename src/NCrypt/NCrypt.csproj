@@ -41,6 +41,7 @@
     <Compile Include="NCrypt+NCryptGetPropertyFlags.cs" />
     <Compile Include="NCrypt+NCryptOpenStorageProviderFlags.cs" />
     <Compile Include="NCrypt+KeyStoragePropertyIdentifiers.cs" />
+    <Compile Include="NCrypt+NCRYPT_SUPPORTED_LENGTHS.cs" />
     <Compile Include="NCrypt+SafeKeyHandle.cs" />
     <Compile Include="NCrypt+SafeProviderHandle.cs" />
     <Compile Include="NCrypt+SECURITY_STATUS.cs" />
