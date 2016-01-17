@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 using PInvoke;
 using Xunit;
 using static PInvoke.NCrypt;
@@ -65,6 +66,35 @@ public class NCrypt
     }
 
     [Fact]
+    public unsafe void SignHash()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            using (var keyPair = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
+            {
+                int keySize = GetMinimumKeySize(keyPair);
+                NCryptSetProperty(keyPair, KeyStoragePropertyIdentifiers.NCRYPT_LENGTH_PROPERTY, keySize);
+                NCryptFinalizeKey(keyPair).ThrowOnError();
+                byte[] hashData = SHA1.Create().ComputeHash(new byte[] { 0x1 });
+                var flags = NCryptSignHashFlags.BCRYPT_PAD_PKCS1;
+                fixed (char* pAlgorithm = BCrypt.AlgorithmIdentifiers.BCRYPT_SHA1_ALGORITHM.ToCharArrayWithNullTerminator())
+                {
+                    var paddingInfo = new BCrypt.BCRYPT_PKCS1_PADDING_INFO()
+                    {
+                        pszAlgId = pAlgorithm,
+                    };
+                    byte[] signature = NCryptSignHash(keyPair, &paddingInfo, hashData, flags).ToArray();
+                    bool valid = NCryptVerifySignature(keyPair, &paddingInfo, hashData, signature, flags);
+                    Assert.True(valid);
+                    signature[0] = unchecked((byte)(signature[0] + 1));
+                    valid = NCryptVerifySignature(keyPair, &paddingInfo, hashData, signature, flags);
+                    Assert.False(valid);
+                }
+            }
+        }
+    }
+
+    [Fact]
     public void GetPropertyOfT()
     {
         using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
@@ -72,5 +102,11 @@ public class NCrypt
             var actual = (KeyStorageImplementationType)NCryptGetProperty<int>(provider, KeyStoragePropertyIdentifiers.NCRYPT_IMPL_TYPE_PROPERTY);
             Assert.Equal(KeyStorageImplementationType.NCRYPT_IMPL_SOFTWARE_FLAG, actual);
         }
+    }
+
+    private static int GetMinimumKeySize(SafeKeyHandle algorithm)
+    {
+        var keyLengths = NCryptGetProperty<NCRYPT_SUPPORTED_LENGTHS>(algorithm, KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY);
+        return keyLengths.dwMinLength;
     }
 }

@@ -263,6 +263,88 @@ namespace PInvoke
             NCryptEncryptFlags dwFlags);
 
         /// <summary>
+        /// Creates a signature of a hash value.
+        /// </summary>
+        /// <param name="hKey">The handle of the key to use to sign the hash.</param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="dwFlags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="pbHashValue">
+        /// A pointer to a buffer that contains the hash value to sign. The <paramref name="cbHashValue"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbHashValue">
+        /// The number of bytes in the <paramref name="pbHashValue"/> buffer to sign.
+        /// </param>
+        /// <param name="pbSignature">
+        /// The address of a buffer to receive the signature produced by this function. The <paramref name="cbSignature"/> parameter contains the size of this buffer.
+        /// If this parameter is NULL, this function will calculate the size required for the signature and return the size in the location pointed to by the <paramref name="pcbResult"/> parameter.
+        /// </param>
+        /// <param name="cbSignature">
+        /// The size, in bytes, of the <paramref name="pbSignature"/> buffer. This parameter is ignored if the <paramref name="pbSignature"/> parameter is NULL.
+        /// </param>
+        /// <param name="pcbResult">
+        /// A pointer to a ULONG variable that receives the number of bytes copied to the <paramref name="pbSignature"/> buffer.
+        /// If <paramref name="pbSignature"/> is NULL, this receives the size, in bytes, required for the signature.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="hKey"/> parameter.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// To later verify that the signature is valid, call the <see cref="NCryptVerifySignature(SafeKeyHandle, void*, byte*, int, byte*, int, NCryptSignHashFlags)"/> function with an identical key and an identical hash of the original data.
+        /// </remarks>
+        [DllImport(nameof(NCrypt))]
+        public static unsafe extern SECURITY_STATUS NCryptSignHash(
+            SafeKeyHandle hKey,
+            void* pPaddingInfo,
+            byte* pbHashValue,
+            int cbHashValue,
+            byte* pbSignature,
+            int cbSignature,
+            out int pcbResult,
+            NCryptSignHashFlags dwFlags);
+
+        /// <summary>
+        /// Verifies that the specified signature matches the specified hash.
+        /// </summary>
+        /// <param name="hKey">
+        /// The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <see cref="NCryptSignHash(SafeKeyHandle, void*, byte*, int, byte*, int, out int, NCryptSignHashFlags)"/> function.
+        /// </param>
+        /// <param name="pPaddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="dwFlags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="pbHashValue">
+        /// The address of a buffer that contains the hash of the data. The <paramref name="cbHashValue"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbHashValue">
+        /// The size, in bytes, of the <paramref name="pbHashValue"/> buffer.
+        /// </param>
+        /// <param name="pbSignature">
+        /// The address of a buffer that contains the signed hash of the data. The <see cref="NCryptSignHash(SafeKeyHandle, void*, byte*, int, byte*, int, out int, NCryptSignHashFlags)"/> function is used to create the signature. The <paramref name="cbSignature"/> parameter contains the size of this buffer.
+        /// </param>
+        /// <param name="cbSignature">
+        /// The size, in bytes, of the <paramref name="pbSignature"/> buffer. The <see cref="NCryptSignHash(SafeKeyHandle, void*, byte*, int, byte*, int, out int, NCryptSignHashFlags)"/> function is used to create the signature.
+        /// </param>
+        /// <param name="dwFlags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// If the key is a symmetric key, this parameter is not used and should be zero.
+        /// If the key is an asymmetric key, this can be one of the following values.
+        /// </param>
+        /// <returns>
+        /// Returns a status code that indicates the success or failure of the function.
+        /// In particular, an invalid signature will produce a <see cref="SECURITY_STATUS.NTE_BAD_SIGNATURE"/> result.
+        /// </returns>
+        [DllImport(nameof(NCrypt))]
+        public static unsafe extern SECURITY_STATUS NCryptVerifySignature(
+            SafeKeyHandle hKey,
+            void* pPaddingInfo,
+            byte* pbHashValue,
+            int cbHashValue,
+            byte* pbSignature,
+            int cbSignature,
+            NCryptSignHashFlags dwFlags = NCryptSignHashFlags.None);
+
+        /// <summary>
         /// Frees a CNG key storage object.
         /// </summary>
         /// <param name="hObject">
