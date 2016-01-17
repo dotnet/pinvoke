@@ -23,6 +23,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="NCrypt+AsymmetricKeyBlobTypes.cs" />
     <Compile Include="NCrypt+NCryptSignHashFlags.cs" />
     <Compile Include="NCrypt+BufferType.cs" />
     <Compile Include="NCrypt+LegacyKeySpec.cs" />
@@ -42,10 +43,12 @@
     <Compile Include="NCrypt+NCryptGetPropertyFlags.cs" />
     <Compile Include="NCrypt+NCryptOpenStorageProviderFlags.cs" />
     <Compile Include="NCrypt+KeyStoragePropertyIdentifiers.cs" />
+    <Compile Include="NCrypt+NCRYPT_KEY_BLOB_HEADER.cs" />
     <Compile Include="NCrypt+NCRYPT_SUPPORTED_LENGTHS.cs" />
     <Compile Include="NCrypt+SafeKeyHandle.cs" />
     <Compile Include="NCrypt+SafeProviderHandle.cs" />
     <Compile Include="NCrypt+SECURITY_STATUS.cs" />
+    <Compile Include="NCrypt+SymmetricKeyBlobTypes.cs" />
     <Compile Include="NCrypt.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>

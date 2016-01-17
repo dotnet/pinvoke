@@ -8,7 +8,7 @@ namespace PInvoke
     /// </content>
     public partial class BCrypt
     {
-        public static class SymmetricKeyBlobTypes
+        public class SymmetricKeyBlobTypes
         {
             /// <summary>
             /// Import a symmetric key from an AES key–wrapped key BLOB. The hImportKey parameter must reference a valid BCRYPT_KEY_HANDLE pointer to the key encryption key.
@@ -24,6 +24,16 @@ namespace PInvoke
             /// Import a symmetric key BLOB in a format that is specific to a single CSP. Opaque BLOBs are not transferable and must be imported by using the same CSP that generated the BLOB. Opaque BLOBs are only intended to be used for interprocess transfer of keys and are not suitable to be persisted and read in across versions of a provider.
             /// </summary>
             public const string BCRYPT_OPAQUE_KEY_BLOB = "OpaqueKeyBlob";
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SymmetricKeyBlobTypes"/> class.
+            /// </summary>
+            /// <remarks>
+            /// Suppresses generation of a public default constructor.
+            /// </remarks>
+            protected SymmetricKeyBlobTypes()
+            {
+            }
         }
     }
 }

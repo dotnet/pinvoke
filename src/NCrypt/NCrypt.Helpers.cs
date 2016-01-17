@@ -89,11 +89,36 @@ namespace PInvoke
             NCryptBufferDesc* parameterList = null,
             NCryptExportKeyFlags flags = NCryptExportKeyFlags.None)
         {
+            exportKey = exportKey ?? SafeKeyHandle.Null;
             int pcbResult;
             NCryptExportKey(key, exportKey, blobType, parameterList, null, 0, out pcbResult, flags).ThrowOnError();
             byte[] result = new byte[pcbResult];
             NCryptExportKey(key, exportKey, blobType, parameterList, result, result.Length, out pcbResult, flags).ThrowOnError();
             return new ArraySegment<byte>(result, 0, pcbResult);
+        }
+
+        public static unsafe SafeKeyHandle NCryptImportKey(
+            SafeProviderHandle provider,
+            SafeKeyHandle importKey,
+            string blobType,
+            NCryptBufferDesc* parameterList,
+            byte[] keyData,
+            NCryptExportKeyFlags flags = NCryptExportKeyFlags.None)
+        {
+            fixed (byte* pKeyData = keyData)
+            {
+                SafeKeyHandle importedKey;
+                NCryptImportKey(
+                    provider,
+                    importKey ?? SafeKeyHandle.Null,
+                    blobType,
+                    parameterList,
+                    out importedKey,
+                    pKeyData,
+                    keyData.Length,
+                    flags).ThrowOnError();
+                return importedKey;
+            }
         }
 
         /// <summary>

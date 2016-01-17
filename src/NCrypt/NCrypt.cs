@@ -101,6 +101,41 @@ namespace PInvoke
             NCryptExportKeyFlags dwFlags = NCryptExportKeyFlags.None);
 
         /// <summary>
+        /// Imports a Cryptography API: Next Generation (CNG) key from a memory BLOB.
+        /// </summary>
+        /// <param name="hProvider">The handle of the key storage provider.</param>
+        /// <param name="hImportKey">
+        /// The handle of the cryptographic key with which the key data within the imported key BLOB was encrypted. This must be a handle to the same key that was passed in the hExportKey parameter of the NCryptExportKey function. If this parameter is NULL, the key BLOB is assumed to not be encrypted.
+        /// </param>
+        /// <param name="pszBlobType">
+        /// A null-terminated Unicode string that contains an identifier that specifies the format of the key BLOB. These formats are specific to a particular key storage provider. Commonly a value from <see cref="AsymmetricKeyBlobTypes"/> or <see cref="SymmetricKeyBlobTypes"/>.
+        /// </param>
+        /// <param name="pParameterList">
+        /// The address of an <see cref="NCryptBufferDesc"/> structure that points to an array of buffers that contain parameter information for the key.
+        /// </param>
+        /// <param name="phKey">
+        /// The address of an NCRYPT_KEY_HANDLE variable that receives the handle of the key. When you have finished using this handle, release it by calling <see cref="SafeHandle.Dispose()"/> on the value.
+        /// </param>
+        /// <param name="pbData">The address of a buffer that contains the key BLOB to be imported. The <paramref name="cbData"/> parameter contains the size of this buffer.</param>
+        /// <param name="cbData">The size, in bytes, of the <paramref name="pbData"/> buffer.</param>
+        /// <param name="dwFlags">Flags that modify function behavior.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// If a key name is not supplied, the Microsoft Software KSP treats the key as ephemeral and does not store it persistently. For the NCRYPT_OPAQUETRANSPORT_BLOB type, the key name is stored within the BLOB when it is exported. For other BLOB formats, the name can be supplied in an NCRYPTBUFFER_PKCS_KEY_NAME buffer parameter within the pParameterList parameter.
+        /// On Windows Server 2008 and Windows Vista, only keys imported as PKCS #7 envelope BLOBs (NCRYPT_PKCS7_ENVELOPE_BLOB) or PKCS #8 private key BLOBs (NCRYPT_PKCS8_PRIVATE_KEY_BLOB) can be persisted by using the above method. To persist keys imported through other BLOB types on these platforms, use the method documented in Key Import and Export.
+        /// </remarks>
+        [DllImport(nameof(NCrypt), CharSet = CharSet.Unicode)]
+        public static extern unsafe SECURITY_STATUS NCryptImportKey(
+            SafeProviderHandle hProvider,
+            SafeKeyHandle hImportKey,
+            string pszBlobType,
+            NCryptBufferDesc* pParameterList,
+            out SafeKeyHandle phKey,
+            byte* pbData,
+            int cbData,
+            NCryptExportKeyFlags dwFlags = NCryptExportKeyFlags.None);
+
+        /// <summary>
         /// Retrieves the value of a named property for a key storage object.
         /// </summary>
         /// <param name="hObject">
