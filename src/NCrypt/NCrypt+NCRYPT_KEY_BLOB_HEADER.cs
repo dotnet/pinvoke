@@ -14,6 +14,9 @@ namespace PInvoke
     /// </content>
     public partial class NCrypt
     {
+        /// <summary>
+        /// Contains a key BLOB. This structure is used by the <see cref="NCryptExportKey(SafeKeyHandle, SafeKeyHandle, string, NCryptBufferDesc*, byte[], int, out int, NCryptExportKeyFlags)"/> and <see cref="NCryptImportKey(SafeProviderHandle, SafeKeyHandle, string, NCryptBufferDesc*, out SafeKeyHandle, byte*, int, NCryptExportKeyFlags)"/> functions.
+        /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct NCRYPT_KEY_BLOB_HEADER
         {
@@ -22,13 +25,19 @@ namespace PInvoke
             /// </summary>
             public int cbSize;
 
+            /// <summary>
+            /// Identifies the BLOB type.
+            /// </summary>
             public MagicNumber dwMagic;
 
             /// <summary>
-            /// The size of the algorithm, in bytes, including terminating 0.
+            /// Size, in bytes, of the null-terminated algorithm name, including the terminating zero.
             /// </summary>
             public int cbAlgName;
 
+            /// <summary>
+            /// Size, in bytes, of the BLOB.
+            /// </summary>
             public int cbKeyData;
 
             /// <summary>
