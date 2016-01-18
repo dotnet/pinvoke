@@ -33,6 +33,7 @@
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="BCrypt+BCryptCloseAlgorithmProviderFlags.cs" />
+    <Compile Include="BCrypt+BCryptEnumAlgorithmsFlags.cs" />
     <Compile Include="BCrypt+BCryptCreateHashFlags.cs" />
     <Compile Include="BCrypt+BCryptDeriveKeyFlags.cs" />
     <Compile Include="BCrypt+BCryptEncryptFlags.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="BCrypt+BCryptSecretAgreementFlags.cs" />
     <Compile Include="BCrypt+BCryptSetPropertyFlags.cs" />
     <Compile Include="BCrypt+BCryptSignHashFlags.cs" />
+    <Compile Include="BCrypt+BCRYPT_ALGORITHM_IDENTIFIER.cs" />
     <Compile Include="BCrypt+BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
@@ -77,6 +79,7 @@
     <Compile Include="BCrypt+EccKeyBlob.cs" />
     <Compile Include="BCrypt+EccKeyBlobMagicNumbers.cs" />
     <Compile Include="BCrypt+HASHALGORITHM_ENUM.cs" />
+    <Compile Include="BCrypt+InterfaceIdentifiers.cs" />
     <Compile Include="BCrypt+KeyDerivationFunctions.cs" />
     <Compile Include="BCrypt+PaddingSchemes.cs" />
     <Compile Include="BCrypt+PropertyNames.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="BCrypt.Helpers.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
+    <Compile Include="BCrypt+AlgorithmOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
