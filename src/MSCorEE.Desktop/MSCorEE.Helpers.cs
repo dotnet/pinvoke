@@ -42,7 +42,7 @@ namespace PInvoke
         {
             byte* publicKeyBlob;
             int publicKeyBlobLength;
-            Marshal.ThrowExceptionForHR(StrongNameGetPublicKey(keyContainer, null, 0, out publicKeyBlob, out publicKeyBlobLength));
+            Marshal.ThrowExceptionForHR(StrongNameGetPublicKey(keyContainer, (byte*)null, 0, out publicKeyBlob, out publicKeyBlobLength));
             return MarshalNativeBuffer(publicKeyBlob, publicKeyBlobLength);
         }
 

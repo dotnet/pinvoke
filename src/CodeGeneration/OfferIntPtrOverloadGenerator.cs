@@ -21,6 +21,10 @@ namespace PInvoke
     {
         private static readonly TypeSyntax VoidStar = SyntaxFactory.ParseTypeName("void*");
 
+        private static readonly TypeSyntax ByteStar = SyntaxFactory.ParseTypeName("byte*");
+
+        private static readonly TypeSyntax ByteArray = SyntaxFactory.ParseTypeName("byte[]");
+
         private static readonly TypeSyntax IntPtrTypeSyntax = SyntaxFactory.ParseTypeName("System.IntPtr");
 
         /// <summary>
@@ -29,6 +33,14 @@ namespace PInvoke
         /// <param name="data">Generator attribute data.</param>
         public OfferIntPtrOverloadGenerator(AttributeData data)
         {
+        }
+
+        [Flags]
+        private enum GeneratorFlags
+        {
+            None = 0x0,
+            NativePointerToIntPtr = 0x1,
+            NativeBytePointerToByteArray = 0x2,
         }
 
         /// <inheritdoc />
@@ -44,20 +56,57 @@ namespace PInvoke
 
             foreach (var method in methodsWithNativePointers)
             {
-                var intPtrOverload = method
-                    .WithParameterList(TransformParameterList(method.ParameterList))
+                var transformedMethodBase = method
                     .WithReturnType(TransformReturnType(method.ReturnType))
                     .WithIdentifier(TransformMethodName(method))
                     .WithModifiers(RemoveModifier(method.Modifiers, SyntaxKind.ExternKeyword))
                     .WithAttributeLists(SyntaxFactory.List<AttributeListSyntax>())
                     .WithLeadingTrivia(method.GetLeadingTrivia().Where(t => !t.IsDirective))
                     .WithTrailingTrivia(method.GetTrailingTrivia().Where(t => !t.IsDirective))
-                    .WithBody(CallNativePointerOverload(method))
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None));
+
+                var flags = GeneratorFlags.NativePointerToIntPtr;
+                var intPtrOverload = transformedMethodBase
+                    .WithParameterList(TransformParameterList(method.ParameterList, flags))
+                    .WithBody(CallNativePointerOverload(method, flags));
                 generatedType = generatedType.AddMembers(intPtrOverload);
+
+                var nativePointerParameters = method.ParameterList.Parameters.Where(p => p.Type is PointerTypeSyntax);
+                var byteArrayInParameters = nativePointerParameters.Where(IsByteStarInParameter);
+                if (byteArrayInParameters.Any())
+                {
+                    flags = GeneratorFlags.NativePointerToIntPtr | GeneratorFlags.NativeBytePointerToByteArray;
+                    var byteArrayAndIntPtrOverload = transformedMethodBase
+                        .WithParameterList(TransformParameterList(method.ParameterList, flags))
+                        .WithBody(CallNativePointerOverload(method, flags));
+                    generatedType = generatedType.AddMembers(byteArrayAndIntPtrOverload);
+
+                    // If there are native pointers that aren't byte*, it would produce a unique method signature
+                    // for a method that only converts the byte* parameters and leaves other native pointers alone.
+                    if (nativePointerParameters.Except(byteArrayInParameters).Any())
+                    {
+                        flags = GeneratorFlags.NativeBytePointerToByteArray;
+                        var byteArrayOverload = transformedMethodBase
+                            .WithParameterList(TransformParameterList(method.ParameterList, flags))
+                            .WithBody(CallNativePointerOverload(method, flags));
+                        generatedType = generatedType.AddMembers(byteArrayOverload);
+                    }
+                }
             }
 
             return Task.FromResult(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(generatedType));
+        }
+
+        private static bool IsByteStarInParameter(ParameterSyntax parameter)
+        {
+            return IsByteStar(parameter.Type) && !parameter.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword) || m.IsKind(SyntaxKind.RefKeyword));
+        }
+
+        private static bool IsByteStar(TypeSyntax typeSyntax)
+        {
+            var nativePointerType = typeSyntax as PointerTypeSyntax;
+            var predefinedElementType = nativePointerType?.ElementType as PredefinedTypeSyntax;
+            return predefinedElementType?.Keyword.IsKind(SyntaxKind.ByteKeyword) ?? false;
         }
 
         private static IEnumerable<ParameterSyntax> WhereIsPointerParameter(IEnumerable<ParameterSyntax> parameters)
@@ -79,11 +128,18 @@ namespace PInvoke
 
         private static TypeSyntax TransformReturnType(TypeSyntax returnType) => returnType is PointerTypeSyntax ? IntPtrTypeSyntax : returnType;
 
-        private static ParameterListSyntax TransformParameterList(ParameterListSyntax list)
+        private static ParameterListSyntax TransformParameterList(ParameterListSyntax list, GeneratorFlags flags)
         {
             var resultingList = list.ReplaceNodes(
                 WhereIsPointerParameter(list.Parameters),
-                (n1, n2) => TransformParameterDefaultValue(n2.WithType(IntPtrTypeSyntax)));
+                (n1, n2) =>
+                {
+                    bool changeToByteArray = flags.HasFlag(GeneratorFlags.NativeBytePointerToByteArray) && IsByteStarInParameter(n2);
+                    bool changeToIntPtr = flags.HasFlag(GeneratorFlags.NativePointerToIntPtr);
+                    return changeToByteArray ? TransformParameterDefaultValue(n2.WithType(ByteArray))
+                        : changeToIntPtr ? TransformParameterDefaultValue(n2.WithType(IntPtrTypeSyntax))
+                        : n2;
+                });
             return resultingList;
         }
 
@@ -104,17 +160,28 @@ namespace PInvoke
             return SyntaxFactory.TokenList(list.Where(t => Array.IndexOf(modifiers, t.Kind()) < 0));
         }
 
-        private static BlockSyntax CallNativePointerOverload(MethodDeclarationSyntax nativePointerOverload)
+        private static BlockSyntax CallNativePointerOverload(MethodDeclarationSyntax nativePointerOverload, GeneratorFlags flags)
         {
+            var byteArrayTransformParameters =
+                (from p in nativePointerOverload.ParameterList.Parameters
+                 where flags.HasFlag(GeneratorFlags.NativeBytePointerToByteArray) && IsByteStarInParameter(p)
+                 select p).ToList();
             var parametersRequiringCasts =
                 from p in nativePointerOverload.ParameterList.Parameters
+                where flags.HasFlag(GeneratorFlags.NativePointerToIntPtr)
                 where p.Type is PointerTypeSyntax && (p.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword) || m.IsKind(SyntaxKind.RefKeyword)) || !p.Type.Equals(VoidStar))
+                where !byteArrayTransformParameters.Contains(p)
                 group p by p.Type into paramsByType
                 select paramsByType;
 
             var redirectedParameters = new Dictionary<ParameterSyntax, IdentifierNameSyntax>();
 
             var block = SyntaxFactory.Block();
+
+            foreach (var byteStarParam in byteArrayTransformParameters)
+            {
+                redirectedParameters.Add(byteStarParam, SyntaxFactory.IdentifierName("p" + byteStarParam.Identifier.ValueText));
+            }
 
             foreach (var pType in parametersRequiringCasts)
             {
@@ -202,6 +269,23 @@ namespace PInvoke
                         null)
                     : resultVariableName;
                 block = block.AddStatements(SyntaxFactory.ReturnStatement(returnedValue));
+            }
+
+            if (byteArrayTransformParameters.Any())
+            {
+                StatementSyntax outermost = block;
+                foreach (var p in byteArrayTransformParameters)
+                {
+                    var nameOfPointerLocal = redirectedParameters[p].Identifier;
+                    var nameOfArrayParameter = SyntaxFactory.IdentifierName(p.Identifier);
+                    var fixedArrayDecl = SyntaxFactory.VariableDeclarator(nameOfPointerLocal)
+                        .WithInitializer(SyntaxFactory.EqualsValueClause(nameOfArrayParameter));
+                    outermost = SyntaxFactory.FixedStatement(
+                        SyntaxFactory.VariableDeclaration(ByteStar).AddVariables(fixedArrayDecl),
+                        outermost);
+                }
+
+                block = SyntaxFactory.Block(outermost);
             }
 
             return block;
