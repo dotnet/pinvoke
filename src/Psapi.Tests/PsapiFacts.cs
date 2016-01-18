@@ -2,15 +2,18 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
-using PInvoke;
 using Xunit;
-using static PInvoke.AdvApi32;
+using static PInvoke.Kernel32;
+using static PInvoke.Psapi;
 
-public class AdvApi32
+public class PsapiFacts
 {
     [Fact]
-    public void LsaNtStatusToWinError_UsesTable()
+    public void EmptyWorkingSet_Run()
     {
-        Assert.Equal(Win32ErrorCode.ERROR_NOACCESS, LsaNtStatusToWinError(NTSTATUS.Code.STATUS_ACCESS_VIOLATION));
+        using (var pid = GetCurrentProcess())
+        {
+            Assert.True(EmptyWorkingSet(pid));
+        }
     }
 }

@@ -31,7 +31,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NCrypt.cs" />
+    <Compile Include="NCryptFacts.cs" />
     <Compile Include="NCryptExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityStatusExceptionTests.cs" />

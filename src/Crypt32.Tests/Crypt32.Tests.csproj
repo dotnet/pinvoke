@@ -32,7 +32,7 @@
     <EmbeddedResource Include="protectedPair.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Crypt32.cs" />
+    <Compile Include="Crypt32Facts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

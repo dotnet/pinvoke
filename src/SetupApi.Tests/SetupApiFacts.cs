@@ -4,14 +4,12 @@
 using System;
 using PInvoke;
 using Xunit;
-using static PInvoke.DbgHelp;
+using static PInvoke.SetupApi;
 
-public class DbgHelp
+public class SetupApiFacts
 {
-    [Fact]
-    public void IntPtrGeneration()
+    [Fact(Skip = "No tests yet")]
+    public void NoTests()
     {
-        LOADED_IMAGE image = default(LOADED_IMAGE);
-        image.FileHeader_IntPtr = IntPtr.Zero;
     }
 }

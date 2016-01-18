@@ -31,7 +31,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Kernel32.cs" />
+    <Compile Include="Kernel32Facts.cs" />
     <Compile Include="IgnoreOnOsVersionUnderFactAttribute.cs" />
     <Compile Include="Kernel32ExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

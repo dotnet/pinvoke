@@ -7,7 +7,7 @@ using Xunit;
 using static PInvoke.DbgHelp;
 using static PInvoke.ImageHlp;
 
-public class ImageHlp
+public class ImageHlpFacts
 {
     [Fact(Skip = "Fails on appveyor")]
     public void MapAndLoadTest()

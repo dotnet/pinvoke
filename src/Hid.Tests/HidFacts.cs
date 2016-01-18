@@ -7,7 +7,7 @@ using Xunit;
 using static PInvoke.Hid;
 using static PInvoke.Kernel32;
 
-public class Hid
+public class HidFacts
 {
     [Fact]
     public void HidD_GetHidGuid_ReturnExpectedValue()

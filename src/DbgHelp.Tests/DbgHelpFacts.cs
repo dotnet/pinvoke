@@ -4,12 +4,14 @@
 using System;
 using PInvoke;
 using Xunit;
-using static PInvoke.LIBNAME;
+using static PInvoke.DbgHelp;
 
-public class LIBNAME
+public class DbgHelpFacts
 {
-    [Fact(Skip = "No tests yet")]
-    public void NoTests()
+    [Fact]
+    public void IntPtrGeneration()
     {
+        LOADED_IMAGE image = default(LOADED_IMAGE);
+        image.FileHeader_IntPtr = IntPtr.Zero;
     }
 }
