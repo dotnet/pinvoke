@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using PInvoke;
 using Xunit;
 
-public partial class Kernel32ExtensionsTests
+public partial class Kernel32ExtensionsFacts
 {
     [Fact]
     public void GetMessage_NTStatus()

@@ -7,7 +7,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
 
-public partial class Win32ExceptionTests
+public partial class Win32ExceptionFacts
 {
     [Fact]
     public void Win32Exception_NativeErrorCode()

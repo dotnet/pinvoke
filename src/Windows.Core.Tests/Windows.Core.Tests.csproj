@@ -27,11 +27,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NTStatusTests.cs" />
-    <Compile Include="HResultTests.cs" />
-    <Compile Include="NullableGuidTests.cs" />
-    <Compile Include="NullableUInt32Tests.cs" />
-    <Compile Include="PInvokeExtensionsTests.cs" />
+    <Compile Include="NTStatusFacts.cs" />
+    <Compile Include="HResultFacts.cs" />
+    <Compile Include="NullableGuidFacts.cs" />
+    <Compile Include="NullableUInt32Facts.cs" />
+    <Compile Include="PInvokeExtensionsFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

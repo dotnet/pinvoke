@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 
-public class PInvokeExtensionsTests
+public class PInvokeExtensionsFacts
 {
     [Fact]
     public void ToHResult_FromNTStatus()

@@ -33,7 +33,7 @@
   <ItemGroup>
     <Compile Include="Kernel32Facts.cs" />
     <Compile Include="IgnoreOnOsVersionUnderFactAttribute.cs" />
-    <Compile Include="Kernel32ExtensionsTests.cs" />
+    <Compile Include="Kernel32ExtensionsFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

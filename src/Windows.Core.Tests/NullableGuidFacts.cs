@@ -5,7 +5,7 @@ using System;
 using PInvoke;
 using Xunit;
 
-public class NullableGuidTests
+public class NullableGuidFacts
 {
     private readonly Guid testGuid = Guid.NewGuid();
 

@@ -6,7 +6,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.NCrypt;
 
-public class NCryptExtensionsTests
+public class NCryptExtensionsFacts
 {
     [Fact]
     public void GetMessage_SecurityStatus()

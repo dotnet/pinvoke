@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 
-public class HResultTests
+public class HResultFacts
 {
     [Fact]
     public void MarshaledSize()

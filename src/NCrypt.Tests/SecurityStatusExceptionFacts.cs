@@ -10,7 +10,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.NCrypt;
 
-public class SecurityStatusExceptionTests
+public class SecurityStatusExceptionFacts
 {
     [Fact]
     public void SecurityStatusException_NativeErrorCode()

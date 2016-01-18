@@ -7,7 +7,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
 
-public partial class NTStatusExceptionTests
+public partial class NTStatusExceptionFacts
 {
     [Fact]
     public void NTStatusException_NativeErrorCode()
