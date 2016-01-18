@@ -6,10 +6,18 @@ using System.Linq;
 using System.Security.Cryptography;
 using PInvoke;
 using Xunit;
+using Xunit.Abstractions;
 using static PInvoke.NCrypt;
 
 public class NCrypt
 {
+    private readonly ITestOutputHelper logger;
+
+    public NCrypt(ITestOutputHelper logger)
+    {
+        this.logger = logger;
+    }
+
     [Fact]
     public void OpenStorageProvider()
     {
@@ -26,6 +34,22 @@ public class NCrypt
             using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
             {
                 NCryptFinalizeKey(key).ThrowOnError();
+            }
+        }
+    }
+
+    [Fact]
+    public void NCryptDeleteKey_Test()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            string keyName = $"PInvokeTest_{Guid.NewGuid():N}";
+            using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM, keyName))
+            {
+                NCryptFinalizeKey(key).ThrowOnError();
+
+                // TODO: add test to enumerate named keys before and after deleting this one.
+                NCryptDeleteKey(key).ThrowOnError();
             }
         }
     }
@@ -106,6 +130,93 @@ public class NCrypt
         {
             var actual = (KeyStorageImplementationType)NCryptGetProperty<int>(provider, KeyStoragePropertyIdentifiers.NCRYPT_IMPL_TYPE_PROPERTY);
             Assert.Equal(KeyStorageImplementationType.NCRYPT_IMPL_SOFTWARE_FLAG, actual);
+        }
+    }
+
+    [Fact]
+    public unsafe void NCryptEnumAlgorithms_Test()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            int algCount;
+            NCryptAlgorithmName* algList;
+            NCryptEnumAlgorithms(
+                provider,
+                AlgorithmOperations.NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION | AlgorithmOperations.NCRYPT_KEY_DERIVATION_OPERATION,
+                out algCount,
+                out algList).ThrowOnError();
+            Assert.NotEqual(0, algCount);
+            for (int i = 0; i < algCount; i++)
+            {
+                this.logger.WriteLine(algList[i].Name);
+            }
+
+            NCryptFreeBuffer(algList).ThrowOnError();
+        }
+    }
+
+    [Fact]
+    public unsafe void NCryptEnumStorageProviders_Test()
+    {
+        int providerCount;
+        NCryptProviderName* providerList;
+        NCryptEnumStorageProviders(
+            out providerCount,
+            out providerList).ThrowOnError();
+        Assert.NotEqual(0, providerCount);
+        for (int i = 0; i < providerCount; i++)
+        {
+            this.logger.WriteLine("{0}: {1}", providerList[i].Name, providerList[i].Comment);
+        }
+
+        NCryptFreeBuffer(providerList).ThrowOnError();
+    }
+
+    [Fact]
+    public void NCryptIsAlgSupported_Test()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            Assert.Equal(SECURITY_STATUS.NTE_NOT_SUPPORTED, NCryptIsAlgSupported(provider, "Foo"));
+            Assert.Equal(SECURITY_STATUS.ERROR_SUCCESS, NCryptIsAlgSupported(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM));
+        }
+    }
+
+    [Fact]
+    public unsafe void NCryptEnumKeys_Test()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            const string scope = null;
+            NCryptKeyName* keyName;
+            void* enumState = null;
+            SECURITY_STATUS status = NCryptEnumKeys(provider, scope, out keyName, ref enumState);
+            while (status == SECURITY_STATUS.ERROR_SUCCESS)
+            {
+                this.logger.WriteLine($"{keyName->Name} ({keyName->Algid})");
+
+                if (keyName->Name.StartsWith("PclCrypto_"))
+                {
+                    using (var key = NCryptOpenKey(provider, *keyName))
+                    {
+                        NCryptDeleteKey(key).ThrowOnError();
+                        key.SetHandleAsInvalid();
+                    }
+                }
+
+                NCryptFreeBuffer(keyName).ThrowOnError();
+                status = NCryptEnumKeys(provider, scope, out keyName, ref enumState);
+            }
+
+            if (enumState != null)
+            {
+                NCryptFreeBuffer(enumState).ThrowOnError();
+            }
+
+            if (status != SECURITY_STATUS.NTE_NO_MORE_ITEMS)
+            {
+                status.ThrowOnError();
+            }
         }
     }
 

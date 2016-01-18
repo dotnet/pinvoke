@@ -70,6 +70,45 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Opens a key that exists in the specified CNG key storage provider.
+        /// </summary>
+        /// <param name="provider">The handle of the key storage provider to open the key from.</param>
+        /// <param name="keyName">A pointer to a null-terminated Unicode string that contains the name of the key to retrieve.</param>
+        /// <param name="legacyKeySpec">A legacy identifier that specifies the type of key.</param>
+        /// <param name="flags">Flags that modify function behavior.</param>
+        /// <returns>
+        /// A pointer to a NCRYPT_KEY_HANDLE variable that receives the key handle. When you have finished using this handle, release it by calling its <see cref="SafeHandle.Dispose()"/> method.
+        /// </returns>
+        public static SafeKeyHandle NCryptOpenKey(
+            SafeProviderHandle provider,
+            string keyName,
+            LegacyKeySpec legacyKeySpec,
+            NCryptOpenKeyFlags flags = NCryptOpenKeyFlags.None)
+        {
+            SafeKeyHandle key;
+            NCryptOpenKey(
+                provider,
+                out key,
+                keyName,
+                legacyKeySpec,
+                flags).ThrowOnError();
+            return key;
+        }
+
+        /// <summary>
+        /// Opens a key that exists in the specified CNG key storage provider.
+        /// </summary>
+        /// <param name="provider">The handle of the key storage provider to open the key from.</param>
+        /// <param name="keyName">The description of the key to open.</param>
+        /// <returns>
+        /// A pointer to a NCRYPT_KEY_HANDLE variable that receives the key handle. When you have finished using this handle, release it by calling its <see cref="SafeHandle.Dispose()"/> method.
+        /// </returns>
+        public static SafeKeyHandle NCryptOpenKey(SafeProviderHandle provider, NCryptKeyName keyName)
+        {
+            return NCryptOpenKey(provider, keyName.Name, keyName.dwLegacyKeySpec, (NCryptOpenKeyFlags)keyName.dwFlags);
+        }
+
+        /// <summary>
         /// The NCryptExportKey function exports a CNG key to a memory BLOB.
         /// </summary>
         /// <param name="key">A handle of the key to export.</param>
