@@ -119,7 +119,7 @@ namespace PInvoke
         public static extern unsafe SECURITY_STATUS NCryptKeyDerivation(
             SafeKeyHandle hKey,
             NCryptBufferDesc* pParameterList,
-            out byte* pbDerivedKey,
+            byte* pbDerivedKey,
             int cbDerivedKey,
             out int pcbResult,
             NCryptKeyDerivationFlags dwFlags = NCryptKeyDerivationFlags.None);
