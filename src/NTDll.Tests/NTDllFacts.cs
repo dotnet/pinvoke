@@ -6,7 +6,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.NTDll;
 
-public class NTDll
+public class NTDllFacts
 {
     [Fact]
     public void RtlNtStatusToDosError_Test()

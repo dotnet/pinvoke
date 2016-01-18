@@ -9,7 +9,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.Crypt32;
 
-public class Crypt32
+public class Crypt32Facts
 {
     [Fact]
     public unsafe void PFXImportCertStoreTest()

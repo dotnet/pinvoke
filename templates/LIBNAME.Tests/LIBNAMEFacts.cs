@@ -2,18 +2,14 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using PInvoke;
 using Xunit;
-using static PInvoke.Kernel32;
-using static PInvoke.Psapi;
+using static PInvoke.LIBNAME;
 
-public class Psapi
+public class LIBNAMEFacts
 {
-    [Fact]
-    public void EmptyWorkingSet_Run()
+    [Fact(Skip = "No tests yet")]
+    public void NoTests()
     {
-        using (var pid = GetCurrentProcess())
-        {
-            Assert.True(EmptyWorkingSet(pid));
-        }
     }
 }

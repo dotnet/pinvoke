@@ -5,7 +5,7 @@ using System;
 using PInvoke;
 using Xunit;
 
-public class NullableUInt32Tests
+public class NullableUInt32Facts
 {
     [Fact]
     public void ConstructorSetValue()

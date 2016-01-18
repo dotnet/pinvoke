@@ -9,11 +9,11 @@ using Xunit;
 using Xunit.Abstractions;
 using static PInvoke.NCrypt;
 
-public class NCrypt
+public class NCryptFacts
 {
     private readonly ITestOutputHelper logger;
 
-    public NCrypt(ITestOutputHelper logger)
+    public NCryptFacts(ITestOutputHelper logger)
     {
         this.logger = logger;
     }

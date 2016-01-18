@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 
-public class NTStatusTests
+public class NTStatusFacts
 {
     [Fact]
     public void MarshaledSize()

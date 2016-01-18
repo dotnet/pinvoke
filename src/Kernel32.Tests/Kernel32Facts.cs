@@ -12,7 +12,7 @@ using Xunit;
 using static PInvoke.Constants;
 using static PInvoke.Kernel32;
 
-public partial class Kernel32
+public partial class Kernel32Facts
 {
     private readonly Random random = new Random();
 

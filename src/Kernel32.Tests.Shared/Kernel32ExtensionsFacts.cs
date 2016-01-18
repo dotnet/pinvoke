@@ -4,7 +4,7 @@
 using PInvoke;
 using Xunit;
 
-public partial class Kernel32ExtensionsTests
+public partial class Kernel32ExtensionsFacts
 {
     [Fact]
     public void ThrowOnError_Win32ErrorCode()

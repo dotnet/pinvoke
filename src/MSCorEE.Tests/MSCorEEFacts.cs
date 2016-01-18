@@ -8,7 +8,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.MSCorEE;
 
-public class MSCorEE
+public class MSCorEEFacts
 {
     [Fact]
     public void StrongNameGetPublicKey_ReadSnkFile()
