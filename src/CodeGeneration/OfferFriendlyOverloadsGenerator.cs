@@ -15,9 +15,10 @@ namespace PInvoke
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     /// <summary>
-    /// Generates an <see cref="IntPtr"/> overload of a method that accepts native pointers.
+    /// Generates <see cref="IntPtr"/> and/or <c>byte[]</c> overloads
+    /// of a method that accepts native pointers.
     /// </summary>
-    public class OfferIntPtrOverloadGenerator : ICodeGenerator
+    public class OfferFriendlyOverloadsGenerator : ICodeGenerator
     {
         private static readonly TypeSyntax VoidStar = SyntaxFactory.ParseTypeName("void*");
 
@@ -28,10 +29,10 @@ namespace PInvoke
         private static readonly TypeSyntax IntPtrTypeSyntax = SyntaxFactory.ParseTypeName("System.IntPtr");
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OfferIntPtrOverloadGenerator"/> class.
+        /// Initializes a new instance of the <see cref="OfferFriendlyOverloadsGenerator"/> class.
         /// </summary>
         /// <param name="data">Generator attribute data.</param>
-        public OfferIntPtrOverloadGenerator(AttributeData data)
+        public OfferFriendlyOverloadsGenerator(AttributeData data)
         {
         }
 

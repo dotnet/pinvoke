@@ -11,7 +11,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the BCrypt.dll Windows library.
     /// </summary>
-    [OfferIntPtrOverloads]
+    [OfferFriendlyOverloads]
     public static partial class BCrypt
     {
         /// <summary>
