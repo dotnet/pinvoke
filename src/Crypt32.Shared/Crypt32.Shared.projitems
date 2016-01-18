@@ -10,7 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CertCloseStoreFlags.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CRYPT_DATA_BLOB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CRYPT_DATA_BLOB.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+PFXImportCertStoreFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32.Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32.cs">

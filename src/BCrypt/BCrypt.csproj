@@ -51,7 +51,9 @@
     <Compile Include="BCrypt+BCryptSecretAgreementFlags.cs" />
     <Compile Include="BCrypt+BCryptSetPropertyFlags.cs" />
     <Compile Include="BCrypt+BCryptSignHashFlags.cs" />
-    <Compile Include="BCrypt+BCRYPT_ALGORITHM_IDENTIFIER.cs" />
+    <Compile Include="BCrypt+BCRYPT_ALGORITHM_IDENTIFIER.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="BCrypt+BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>

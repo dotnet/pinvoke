@@ -31,13 +31,17 @@
     <Compile Include="NCrypt+NCryptIsAlgSupportedFlags.cs" />
     <Compile Include="NCrypt+AlgorithmOperations.cs" />
     <Compile Include="NCrypt+AsymmetricKeyBlobTypes.cs" />
-    <Compile Include="NCrypt+NCryptAlgorithmName.cs" />
+    <Compile Include="NCrypt+NCryptAlgorithmName.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="NCrypt+NCryptDeriveKeyFlags.cs" />
     <Compile Include="NCrypt+NCryptEnumAlgorithmsFlags.cs" />
     <Compile Include="NCrypt+NCryptKeyName.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
-    <Compile Include="NCrypt+NCryptProviderName.cs" />
+    <Compile Include="NCrypt+NCryptProviderName.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="NCrypt+NCryptSecretAgreementFlags.cs" />
     <Compile Include="NCrypt+NCryptDeleteKeyFlags.cs" />
     <Compile Include="NCrypt+NCryptSignHashFlags.cs" />

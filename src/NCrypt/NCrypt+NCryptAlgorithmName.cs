@@ -14,7 +14,8 @@ namespace PInvoke
         /// The NCryptAlgorithmName structure is used to contain information about a CNG algorithm.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public unsafe struct NCryptAlgorithmName
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct NCryptAlgorithmName
         {
             /// <summary>
             /// A pointer to a null-terminated Unicode string that contains the name of the algorithm. This can be one of the standard <see cref="BCrypt.AlgorithmIdentifiers"/> or the identifier for another registered algorithm.

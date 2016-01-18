@@ -14,7 +14,8 @@ namespace PInvoke
         /// Used with the <see cref="BCryptEnumAlgorithms(AlgorithmOperations, out int, out BCRYPT_ALGORITHM_IDENTIFIER*, BCryptEnumAlgorithmsFlags)"/> function to contain a cryptographic algorithm identifier.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public unsafe struct BCRYPT_ALGORITHM_IDENTIFIER
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct BCRYPT_ALGORITHM_IDENTIFIER
         {
             /// <summary>
             /// A pointer to a null-terminated Unicode string that contains the string identifier of the algorithm. The <see cref="AlgorithmIdentifiers"/> class contains the predefined algorithm identifiers.
