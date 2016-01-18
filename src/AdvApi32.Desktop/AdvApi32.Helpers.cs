@@ -40,7 +40,7 @@ namespace PInvoke
                     scmHandle,
                     ServiceType.SERVICE_WIN32,
                     ServiceStateQuery.SERVICE_STATE_ALL,
-                    null,
+                    IntPtr.Zero,
                     0,
                     ref bufferSizeNeeded,
                     ref numServicesReturned,
