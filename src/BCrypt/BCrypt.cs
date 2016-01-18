@@ -15,6 +15,23 @@ namespace PInvoke
     public static partial class BCrypt
     {
         /// <summary>
+        /// The BCryptEnumAlgorithms function gets a list of the registered algorithm identifiers.
+        /// </summary>
+        /// <param name="dwAlgOperations">A value that specifies the algorithm operation types to include in the enumeration.</param>
+        /// <param name="pAlgCount">A pointer to a ULONG variable to receive the number of elements in the <paramref name="ppAlgList"/> array.</param>
+        /// <param name="ppAlgList">
+        /// The address of a <see cref="BCRYPT_ALGORITHM_IDENTIFIER"/> structure pointer to receive the array of registered algorithm identifiers. This pointer must be passed to the <see cref="BCryptFreeBuffer(void*)"/> function when it is no longer needed.
+        /// </param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern unsafe NTSTATUS BCryptEnumAlgorithms(
+            AlgorithmOperations dwAlgOperations,
+            out int pAlgCount,
+            out BCRYPT_ALGORITHM_IDENTIFIER* ppAlgList,
+            BCryptEnumAlgorithmsFlags dwFlags = BCryptEnumAlgorithmsFlags.None);
+
+        /// <summary>
         /// Loads and initializes a CNG provider.
         /// </summary>
         /// <param name="phAlgorithm">
@@ -770,6 +787,13 @@ namespace PInvoke
             byte[] pbBuffer,
             int cbBuffer,
             BCryptGenRandomFlags flags = BCryptGenRandomFlags.None);
+
+        /// <summary>
+        /// The BCryptFreeBuffer function is used to free memory that was allocated by one of the CNG functions.
+        /// </summary>
+        /// <param name="pvBuffer">A pointer to the memory buffer to be freed.</param>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern unsafe void BCryptFreeBuffer(void* pvBuffer);
 
         /// <summary>
         /// Closes an algorithm provider.

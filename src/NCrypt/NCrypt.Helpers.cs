@@ -70,6 +70,45 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Opens a key that exists in the specified CNG key storage provider.
+        /// </summary>
+        /// <param name="provider">The handle of the key storage provider to open the key from.</param>
+        /// <param name="keyName">A pointer to a null-terminated Unicode string that contains the name of the key to retrieve.</param>
+        /// <param name="legacyKeySpec">A legacy identifier that specifies the type of key.</param>
+        /// <param name="flags">Flags that modify function behavior.</param>
+        /// <returns>
+        /// A pointer to a NCRYPT_KEY_HANDLE variable that receives the key handle. When you have finished using this handle, release it by calling its <see cref="SafeHandle.Dispose()"/> method.
+        /// </returns>
+        public static SafeKeyHandle NCryptOpenKey(
+            SafeProviderHandle provider,
+            string keyName,
+            LegacyKeySpec legacyKeySpec,
+            NCryptOpenKeyFlags flags = NCryptOpenKeyFlags.None)
+        {
+            SafeKeyHandle key;
+            NCryptOpenKey(
+                provider,
+                out key,
+                keyName,
+                legacyKeySpec,
+                flags).ThrowOnError();
+            return key;
+        }
+
+        /// <summary>
+        /// Opens a key that exists in the specified CNG key storage provider.
+        /// </summary>
+        /// <param name="provider">The handle of the key storage provider to open the key from.</param>
+        /// <param name="keyName">The description of the key to open.</param>
+        /// <returns>
+        /// A pointer to a NCRYPT_KEY_HANDLE variable that receives the key handle. When you have finished using this handle, release it by calling its <see cref="SafeHandle.Dispose()"/> method.
+        /// </returns>
+        public static SafeKeyHandle NCryptOpenKey(SafeProviderHandle provider, NCryptKeyName keyName)
+        {
+            return NCryptOpenKey(provider, keyName.Name, keyName.dwLegacyKeySpec, (NCryptOpenKeyFlags)keyName.dwFlags);
+        }
+
+        /// <summary>
         /// The NCryptExportKey function exports a CNG key to a memory BLOB.
         /// </summary>
         /// <param name="key">A handle of the key to export.</param>
@@ -86,14 +125,39 @@ namespace PInvoke
             SafeKeyHandle key,
             SafeKeyHandle exportKey,
             string blobType,
-            NCryptBufferDesc* parameterList,
+            NCryptBufferDesc* parameterList = null,
             NCryptExportKeyFlags flags = NCryptExportKeyFlags.None)
         {
+            exportKey = exportKey ?? SafeKeyHandle.Null;
             int pcbResult;
             NCryptExportKey(key, exportKey, blobType, parameterList, null, 0, out pcbResult, flags).ThrowOnError();
             byte[] result = new byte[pcbResult];
             NCryptExportKey(key, exportKey, blobType, parameterList, result, result.Length, out pcbResult, flags).ThrowOnError();
             return new ArraySegment<byte>(result, 0, pcbResult);
+        }
+
+        public static unsafe SafeKeyHandle NCryptImportKey(
+            SafeProviderHandle provider,
+            SafeKeyHandle importKey,
+            string blobType,
+            NCryptBufferDesc* parameterList,
+            byte[] keyData,
+            NCryptExportKeyFlags flags = NCryptExportKeyFlags.None)
+        {
+            fixed (byte* pKeyData = keyData)
+            {
+                SafeKeyHandle importedKey;
+                NCryptImportKey(
+                    provider,
+                    importKey ?? SafeKeyHandle.Null,
+                    blobType,
+                    parameterList,
+                    out importedKey,
+                    pKeyData,
+                    keyData.Length,
+                    flags).ThrowOnError();
+                return importedKey;
+            }
         }
 
         /// <summary>
@@ -246,6 +310,80 @@ namespace PInvoke
                     NCryptDecrypt(key, pCiphertext, ciphertext.Length, paddingInfo, pPlaintext, pcbResult, out pcbResult, flags).ThrowOnError();
                     return new ArraySegment<byte>(plaintext, 0, pcbResult);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Creates a signature of a hash value.
+        /// </summary>
+        /// <param name="key">The handle of the key to use to sign the hash.</param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="flags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="hashValue">
+        /// A pointer to a buffer that contains the hash value to sign.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="key"/> parameter.
+        /// </param>
+        /// <returns>
+        /// The signature produced by this function.
+        /// </returns>
+        /// <remarks>
+        /// To later verify that the signature is valid, call the <see cref="NCryptVerifySignature(SafeKeyHandle, void*, byte*, int, byte*, int, NCryptSignHashFlags)"/> function with an identical key and an identical hash of the original data.
+        /// </remarks>
+        public static unsafe ArraySegment<byte> NCryptSignHash(SafeKeyHandle key, void* paddingInfo, byte[] hashValue, NCryptSignHashFlags flags = NCryptSignHashFlags.None)
+        {
+            fixed (byte* pHashValue = hashValue)
+            {
+                int pcbResult;
+                NCryptSignHash(key, paddingInfo, pHashValue, hashValue.Length, null, 0, out pcbResult, flags).ThrowOnError();
+                var signatureBuffer = new byte[pcbResult];
+                fixed (byte* pSignatureBuffer = signatureBuffer)
+                {
+                    NCryptSignHash(key, paddingInfo, pHashValue, hashValue.Length, pSignatureBuffer, signatureBuffer.Length, out pcbResult, flags).ThrowOnError();
+                    return new ArraySegment<byte>(signatureBuffer, 0, pcbResult);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Verifies that the specified signature matches the specified hash.
+        /// </summary>
+        /// <param name="key">
+        /// The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <see cref="NCryptSignHash(SafeKeyHandle, void*, byte*, int, byte*, int, out int, NCryptSignHashFlags)"/> function.
+        /// </param>
+        /// <param name="paddingInfo">
+        /// A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <paramref name="flags"/> parameter. This parameter is only used with asymmetric keys and must be NULL otherwise.
+        /// </param>
+        /// <param name="hashValue">
+        /// The address of a buffer that contains the hash of the data.
+        /// </param>
+        /// <param name="signature">
+        /// The address of a buffer that contains the signed hash of the data. The <see cref="NCryptSignHash(SafeKeyHandle, void*, byte*, int, byte*, int, out int, NCryptSignHashFlags)"/> function is used to create the signature.
+        /// </param>
+        /// <param name="flags">
+        /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
+        /// If the key is a symmetric key, this parameter is not used and should be zero.
+        /// If the key is an asymmetric key, this can be one of the following values.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the signature is valid; <c>false</c> otherwise.
+        /// </returns>
+        /// <exception cref="SecurityStatusException">Thrown if any other error besides an invalid signature occurs.</exception>
+        public static unsafe bool NCryptVerifySignature(SafeKeyHandle key, void* paddingInfo, byte[] hashValue, byte[] signature, NCryptSignHashFlags flags = NCryptSignHashFlags.None)
+        {
+            fixed (byte* pHashValue = hashValue)
+            fixed (byte* pSignature = signature)
+            {
+                SECURITY_STATUS result = NCryptVerifySignature(key, paddingInfo, pHashValue, hashValue.Length, pSignature, signature.Length, flags);
+                if (result == SECURITY_STATUS.NTE_BAD_SIGNATURE)
+                {
+                    return false;
+                }
+
+                result.ThrowOnError();
+                return true;
             }
         }
     }

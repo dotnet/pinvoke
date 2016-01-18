@@ -7,30 +7,30 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SafeKeyHandle"/> nested class.
+    /// Contains the <see cref="SafeSecretHandle"/> nested class.
     /// </content>
-    public static partial class NCrypt
+    public partial class NCrypt
     {
         /// <summary>
-        /// An NCrypt key handle.
+        /// An NCrypt secret agreement handle.
         /// </summary>
-        public class SafeKeyHandle : SafeHandle
+        public class SafeSecretHandle : SafeHandle
         {
             /// <summary>
             /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
             /// </summary>
-            public static readonly SafeKeyHandle Null = new SafeKeyHandle();
+            public static readonly SafeSecretHandle Null = new SafeSecretHandle();
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SafeKeyHandle"/> class.
+            /// Initializes a new instance of the <see cref="SafeSecretHandle"/> class.
             /// </summary>
-            public SafeKeyHandle()
+            public SafeSecretHandle()
                 : base(IntPtr.Zero, true)
             {
             }
 
             /// <inheritdoc />
-            public override bool IsInvalid => this.handle == IntPtr.Zero || !NCryptIsKeyHandle(this.handle);
+            public override bool IsInvalid => this.handle == IntPtr.Zero;
 
             /// <inheritdoc />
             protected override bool ReleaseHandle()

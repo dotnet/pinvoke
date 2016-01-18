@@ -8,11 +8,31 @@ namespace PInvoke
     /// </content>
     public partial class BCrypt
     {
+        /// <summary>
+        /// Key derivation functions.
+        /// See https://msdn.microsoft.com/en-us/library/windows/desktop/aa376252(v=vs.85).aspx for more information.
+        /// </summary>
         public static class KeyDerivationFunctions
         {
-            public const string HASH = "HASH";
-            public const string HMAC = "HMAC";
-            public const string TLS_PRF = "TLS_PRF";
+            /// <summary>
+            /// Use the hash key derivation function.
+            /// </summary>
+            public const string BCRYPT_KDF_HASH = "HASH";
+
+            /// <summary>
+            /// Use the Hash-Based Message Authentication Code (HMAC) key derivation function.
+            /// </summary>
+            public const string BCRYPT_KDF_HMAC = "HMAC";
+
+            /// <summary>
+            /// Use the transport layer security (TLS) pseudo-random function (PRF) key derivation function.
+            /// </summary>
+            public const string BCRYPT_KDF_TLS_PRF = "TLS_PRF";
+
+            /// <summary>
+            /// Use the SP800-56A key derivation function.
+            /// </summary>
+            public const string BCRYPT_KDF_SP80056A_CONCAT = "SP800_56A_CONCAT";
         }
     }
 }

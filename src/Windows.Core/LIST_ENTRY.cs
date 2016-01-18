@@ -5,8 +5,12 @@ namespace PInvoke
 {
     using System.Runtime.InteropServices;
 
+    /// <summary>
+    /// Describes a link in a doubly-linked list.
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct LIST_ENTRY
+    [OfferIntPtrPropertyAccessors]
+    public unsafe partial struct LIST_ENTRY
     {
         public LIST_ENTRY* Flink;
         public LIST_ENTRY* Blink;

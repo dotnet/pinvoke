@@ -13,7 +13,7 @@ namespace PInvoke
         /// <summary>
         /// Defines the asymmetric key blob types supported by Win32.
         /// </summary>
-        public static class AsymmetricKeyBlobTypes
+        public class AsymmetricKeyBlobTypes
         {
             #region Structures used to represent key blobs.
 
@@ -137,6 +137,16 @@ namespace PInvoke
             public const string LEGACY_RSAPRIVATE_BLOB = "CAPIPRIVATEBLOB";
 
             #endregion
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="AsymmetricKeyBlobTypes"/> class.
+            /// </summary>
+            /// <remarks>
+            /// Suppresses generation of a public default constructor.
+            /// </remarks>
+            protected AsymmetricKeyBlobTypes()
+            {
+            }
         }
     }
 }

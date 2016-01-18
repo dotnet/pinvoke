@@ -7,10 +7,18 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using PInvoke;
 using Xunit;
+using Xunit.Abstractions;
 using static PInvoke.BCrypt;
 
 public class BCrypt
 {
+    private readonly ITestOutputHelper logger;
+
+    public BCrypt(ITestOutputHelper logger)
+    {
+        this.logger = logger;
+    }
+
     [Fact]
     public void BCryptGetPropertyOfT()
     {
@@ -420,6 +428,24 @@ public class BCrypt
 
         var pssPaddingInfo = default(BCRYPT_PSS_PADDING_INFO);
         pPaddingInfo = &pssPaddingInfo;
+    }
+
+    [Fact]
+    public unsafe void BCryptEnumAlgorithms_Test()
+    {
+        int algCount;
+        BCRYPT_ALGORITHM_IDENTIFIER* algList;
+        BCryptEnumAlgorithms(
+            AlgorithmOperations.BCRYPT_HASH_OPERATION | AlgorithmOperations.BCRYPT_RNG_OPERATION,
+            out algCount,
+            out algList).ThrowOnError();
+        Assert.NotEqual(0, algCount);
+        for (int i = 0; i < algCount; i++)
+        {
+            this.logger.WriteLine(algList[i].Name);
+        }
+
+        BCryptFreeBuffer(algList);
     }
 
     /// <summary>

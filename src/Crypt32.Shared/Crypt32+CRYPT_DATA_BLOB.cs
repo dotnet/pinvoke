@@ -11,7 +11,8 @@ namespace PInvoke
         /// <summary>
         /// A structure that contains an arbitrary array of bytes. The structure definition includes aliases appropriate to the various functions that use it.
         /// </summary>
-        public unsafe struct CRYPT_DATA_BLOB
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct CRYPT_DATA_BLOB
         {
             /// <summary>
             /// A DWORD variable that contains the count, in bytes, of data.
