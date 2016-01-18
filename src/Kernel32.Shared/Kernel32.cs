@@ -11,7 +11,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the Kernel32.dll Windows library.
     /// </summary>
-    [OfferIntPtrOverloads]
+    [OfferFriendlyOverloads]
     public static partial class Kernel32
     {
         /// <summary>

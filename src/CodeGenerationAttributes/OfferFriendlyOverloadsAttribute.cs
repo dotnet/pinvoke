@@ -12,9 +12,9 @@ namespace PInvoke
     /// <see cref="IntPtr"/> parameters instead of native pointers.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    [CodeGenerationAttribute("PInvoke.OfferIntPtrOverloadGenerator, CodeGeneration, Version=0.1.0.0, Culture=neutral, PublicKeyToken=9e300f9f87f04a7a")]
+    [CodeGenerationAttribute("PInvoke.OfferFriendlyOverloadsGenerator, CodeGeneration, Version=0.1.0.0, Culture=neutral, PublicKeyToken=9e300f9f87f04a7a")]
     [Conditional("CodeGeneration")]
-    public class OfferIntPtrOverloadsAttribute : Attribute
+    public class OfferFriendlyOverloadsAttribute : Attribute
     {
     }
 }

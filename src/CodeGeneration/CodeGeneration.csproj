@@ -30,7 +30,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OfferIntPtrOverloadGenerator.cs" />
+    <Compile Include="OfferFriendlyOverloadsGenerator.cs" />
     <Compile Include="OfferIntPtrPropertyAccessorsGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

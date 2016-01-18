@@ -10,7 +10,7 @@ namespace PInvoke
     /// Exported functions from the NCrypt.dll Windows library
     /// that are available to Desktop and Store apps.
     /// </summary>
-    [OfferIntPtrOverloads]
+    [OfferFriendlyOverloads]
     public static partial class NCrypt
     {
         /// <summary>
@@ -119,13 +119,13 @@ namespace PInvoke
         public static extern unsafe SECURITY_STATUS NCryptKeyDerivation(
             SafeKeyHandle hKey,
             NCryptBufferDesc* pParameterList,
-            out byte* pbDerivedKey,
+            byte* pbDerivedKey,
             int cbDerivedKey,
             out int pcbResult,
             NCryptKeyDerivationFlags dwFlags = NCryptKeyDerivationFlags.None);
 
         /// <summary>
-        /// Derives a key from a secret agreement value. This function is intended to be used as part of a secret agreement procedure using persisted secret agreement keys. To derive key material by using a persisted secret instead, use the <see cref="NCryptKeyDerivation(SafeKeyHandle, NCryptBufferDesc*, out byte*, int, out int, NCryptKeyDerivationFlags)"/> function.
+        /// Derives a key from a secret agreement value. This function is intended to be used as part of a secret agreement procedure using persisted secret agreement keys. To derive key material by using a persisted secret instead, use the <see cref="NCryptKeyDerivation(SafeKeyHandle, NCryptBufferDesc*, byte*, int, out int, NCryptKeyDerivationFlags)"/> function.
         /// </summary>
         /// <param name="hSharedSecret">The secret agreement handle to create the key from. This handle is obtained from the <see cref="NCryptSecretAgreement(SafeKeyHandle, SafeKeyHandle, out SafeSecretHandle, NCryptSecretAgreementFlags)"/> function.</param>
         /// <param name="pwszKDF">A pointer to a null-terminated Unicode string that identifies the key derivation function (KDF) to use to derive the key. It can be one of the strings defined in <see cref="BCrypt.KeyDerivationFunctions"/>.</param>

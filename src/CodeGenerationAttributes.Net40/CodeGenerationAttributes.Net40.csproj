@@ -31,8 +31,8 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CodeGenerationAttributes\OfferIntPtrOverloadsAttribute.cs">
-      <Link>OfferIntPtrOverloadsAttribute.cs</Link>
+    <Compile Include="..\CodeGenerationAttributes\OfferFriendlyOverloadsAttribute.cs">
+      <Link>OfferFriendlyOverloadsAttribute.cs</Link>
     </Compile>
     <Compile Include="..\CodeGenerationAttributes\OfferIntPtrPropertyAccessorsAttribute.cs">
       <Link>OfferIntPtrPropertyAccessorsAttribute.cs</Link>

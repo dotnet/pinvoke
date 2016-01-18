@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class NCrypt
     {
         /// <summary>
-        /// Flags that may be passed to the <see cref="NCryptKeyDerivation(SafeKeyHandle, NCryptBufferDesc*, out byte*, int, out int, NCryptKeyDerivationFlags)"/> method.
+        /// Flags that may be passed to the <see cref="NCryptKeyDerivation(SafeKeyHandle, NCryptBufferDesc*, byte*, int, out int, NCryptKeyDerivationFlags)"/> method.
         /// </summary>
         public enum NCryptKeyDerivationFlags : uint
         {
