@@ -136,6 +136,26 @@ namespace PInvoke
             return new ArraySegment<byte>(result, 0, pcbResult);
         }
 
+        /// <summary>
+        /// Imports a Cryptography API: Next Generation (CNG) key from a memory BLOB.
+        /// </summary>
+        /// <param name="provider">The handle of the key storage provider.</param>
+        /// <param name="importKey">
+        /// The handle of the cryptographic key with which the key data within the imported key BLOB was encrypted. This must be a handle to the same key that was passed in the hExportKey parameter of the NCryptExportKey function. If this parameter is NULL, the key BLOB is assumed to not be encrypted.
+        /// </param>
+        /// <param name="blobType">
+        /// A null-terminated Unicode string that contains an identifier that specifies the format of the key BLOB. These formats are specific to a particular key storage provider. Commonly a value from <see cref="AsymmetricKeyBlobTypes"/> or <see cref="SymmetricKeyBlobTypes"/>.
+        /// </param>
+        /// <param name="parameterList">
+        /// The address of an <see cref="NCryptBufferDesc"/> structure that points to an array of buffers that contain parameter information for the key.
+        /// </param>
+        /// <param name="keyData">The address of a buffer that contains the key BLOB to be imported.</param>
+        /// <param name="flags">Flags that modify function behavior.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// If a key name is not supplied, the Microsoft Software KSP treats the key as ephemeral and does not store it persistently. For the NCRYPT_OPAQUETRANSPORT_BLOB type, the key name is stored within the BLOB when it is exported. For other BLOB formats, the name can be supplied in an NCRYPTBUFFER_PKCS_KEY_NAME buffer parameter within the pParameterList parameter.
+        /// On Windows Server 2008 and Windows Vista, only keys imported as PKCS #7 envelope BLOBs (NCRYPT_PKCS7_ENVELOPE_BLOB) or PKCS #8 private key BLOBs (NCRYPT_PKCS8_PRIVATE_KEY_BLOB) can be persisted by using the above method. To persist keys imported through other BLOB types on these platforms, use the method documented in Key Import and Export.
+        /// </remarks>
         public static unsafe SafeKeyHandle NCryptImportKey(
             SafeProviderHandle provider,
             SafeKeyHandle importKey,
