@@ -220,9 +220,9 @@ public class NCryptFacts
         }
     }
 
-    private static int GetMinimumKeySize(SafeKeyHandle algorithm)
+    private static int GetMinimumKeySize(SafeKeyHandle key)
     {
-        var keyLengths = NCryptGetProperty<NCRYPT_SUPPORTED_LENGTHS>(algorithm, KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY);
+        var keyLengths = NCryptGetProperty<NCRYPT_SUPPORTED_LENGTHS>(key, KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY);
         return keyLengths.dwMinLength;
     }
 }
