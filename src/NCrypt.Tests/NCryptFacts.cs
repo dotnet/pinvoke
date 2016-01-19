@@ -128,8 +128,8 @@ public class NCryptFacts
     {
         using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            var actual = (KeyStorageImplementationType)NCryptGetProperty<int>(provider, KeyStoragePropertyIdentifiers.NCRYPT_IMPL_TYPE_PROPERTY);
-            Assert.Equal(KeyStorageImplementationType.NCRYPT_IMPL_SOFTWARE_FLAG, actual);
+            var actual = (KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY)NCryptGetProperty<int>(provider, KeyStoragePropertyIdentifiers.NCRYPT_IMPL_TYPE_PROPERTY);
+            Assert.Equal(KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY.NCRYPT_IMPL_SOFTWARE_FLAG, actual);
         }
     }
 
@@ -220,9 +220,9 @@ public class NCryptFacts
         }
     }
 
-    private static int GetMinimumKeySize(SafeKeyHandle algorithm)
+    private static int GetMinimumKeySize(SafeKeyHandle key)
     {
-        var keyLengths = NCryptGetProperty<NCRYPT_SUPPORTED_LENGTHS>(algorithm, KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY);
+        var keyLengths = NCryptGetProperty<NCRYPT_SUPPORTED_LENGTHS>(key, KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY);
         return keyLengths.dwMinLength;
     }
 }

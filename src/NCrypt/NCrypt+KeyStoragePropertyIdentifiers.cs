@@ -16,6 +16,7 @@ namespace PInvoke
         {
             /// <summary>
             /// A null-terminated Unicode string that contains the name of the object's algorithm group. This property only applies to keys.
+            /// And may contain any of the values defined by <see cref="KeyStoragePropertyValues.NCRYPT_ALGORITHM_GROUP_PROPERTY"/>.
             /// </summary>
             public const string NCRYPT_ALGORITHM_GROUP_PROPERTY = "Algorithm Group";
 
@@ -53,10 +54,25 @@ namespace PInvoke
             public const string NCRYPT_CHAINING_MODE_PROPERTY = "Chaining Mode";
             public const string NCRYPT_AUTH_TAG_LENGTH = "AuthTagLength";
             public const string NCRYPT_UI_POLICY_PROPERTY = "UI Policy";
+
+            /// <summary>
+            /// A DWORD that contains a set of flags that specify the export policy for a persisted key. This property only applies to keys.
+            /// This can contain zero or a combination of one or more of the values defined by <see cref="KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY"/>.
+            /// </summary>
             public const string NCRYPT_EXPORT_POLICY_PROPERTY = "Export Policy";
             public const string NCRYPT_WINDOW_HANDLE_PROPERTY = "HWND Handle";
             public const string NCRYPT_USE_CONTEXT_PROPERTY = "Use Context";
+
+            /// <summary>
+            /// A DWORD that contains a set of flags that define the usage details for a key. This property only applies to keys.
+            /// This can contain zero or a combination of one or more of the values defined by <see cref="KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY"/>.
+            /// </summary>
             public const string NCRYPT_KEY_USAGE_PROPERTY = "Key Usage";
+
+            /// <summary>
+            /// A DWORD that contains a set of flags that define the key type. This property only applies to keys.
+            /// This can contain zero or the value defined by <see cref="KeyStoragePropertyValues.NCRYPT_KEY_TYPE_PROPERTY"/>.
+            /// </summary>
             public const string NCRYPT_KEY_TYPE_PROPERTY = "Key Type";
             public const string NCRYPT_VERSION_PROPERTY = "Version";
             public const string NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY = "Security Descr Support";
@@ -104,7 +120,7 @@ namespace PInvoke
 
             /// <summary>
             /// A DWORD that contains a set of flags that define implementation details of the provider. This property only applies to key storage providers.
-            /// This can contain zero or a combination of one or more of the values defined by the <see cref="KeyStorageImplementationType"/> enum.
+            /// This can contain zero or a combination of one or more of the values defined by the <see cref="KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY"/> enum.
             /// </summary>
             public const string NCRYPT_IMPL_TYPE_PROPERTY = "Impl Type";
         }

@@ -56,17 +56,17 @@ public class BCryptFacts
     {
         var tagSizes = new BCRYPT_AUTH_TAG_LENGTHS_STRUCT
         {
-            MinLength = 8,
-            MaxLength = 12,
-            Increment = 2,
+            dwMinLength = 8,
+            dwMaxLength = 12,
+            dwIncrement = 2,
         };
         Assert.Equal(new[] { 8, 10, 12 }, tagSizes);
 
         tagSizes = new BCRYPT_AUTH_TAG_LENGTHS_STRUCT
         {
-            MinLength = 16,
-            MaxLength = 16,
-            Increment = 0,
+            dwMinLength = 16,
+            dwMaxLength = 16,
+            dwIncrement = 0,
         };
         Assert.Equal(new[] { 16 }, tagSizes);
     }
@@ -278,7 +278,7 @@ public class BCryptFacts
             random.NextBytes(nonceBuffer);
 
             var tagLengths = BCryptGetProperty<BCRYPT_AUTH_TAG_LENGTHS_STRUCT>(provider, PropertyNames.BCRYPT_AUTH_TAG_LENGTH);
-            var tagBuffer = new byte[tagLengths.MaxLength];
+            var tagBuffer = new byte[tagLengths.dwMaxLength];
 
             int blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
             plainText = new byte[blockSize];

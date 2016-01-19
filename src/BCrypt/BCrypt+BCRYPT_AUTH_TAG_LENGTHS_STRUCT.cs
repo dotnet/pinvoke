@@ -20,17 +20,17 @@ namespace PInvoke
             /// <summary>
             /// The minimum length, in bytes, of a tag.
             /// </summary>
-            public int MinLength;
+            public int dwMinLength;
 
             /// <summary>
             /// The maximum length, in bytes, of a tag.
             /// </summary>
-            public int MaxLength;
+            public int dwMaxLength;
 
             /// <summary>
             /// The number of bytes that the tag size can be incremented between dwMinLength and dwMaxLength.
             /// </summary>
-            public int Increment;
+            public int dwIncrement;
 
             /// <summary>
             /// Gets a sequence of allowed tag sizes, from smallest to largest.
@@ -38,9 +38,9 @@ namespace PInvoke
             /// <returns>An enumerator over all allowed sizes.</returns>
             public IEnumerator<int> GetEnumerator()
             {
-                if (this.Increment > 0)
+                if (this.dwIncrement > 0)
                 {
-                    for (int tagLength = this.MinLength; tagLength <= this.MaxLength; tagLength += this.Increment)
+                    for (int tagLength = this.dwMinLength; tagLength <= this.dwMaxLength; tagLength += this.dwIncrement)
                     {
                         yield return tagLength;
                     }
@@ -48,7 +48,7 @@ namespace PInvoke
                 else
                 {
                     // We can't use the for loop as it would spin forever.
-                    yield return this.MinLength;
+                    yield return this.dwMinLength;
                 }
             }
 
