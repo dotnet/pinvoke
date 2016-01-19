@@ -24,6 +24,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="NCrypt+InterfaceIdentifiers.cs" />
+    <Compile Include="NCrypt+KeyStoragePropertyValues.cs" />
     <Compile Include="NCrypt+NCryptKeyDerivationFlags.cs" />
     <Compile Include="NCrypt+NCryptOpenKeyFlags.cs" />
     <Compile Include="NCrypt+NCryptEnumKeysFlags.cs" />
@@ -48,7 +49,6 @@
     <Compile Include="NCrypt+BufferType.cs" />
     <Compile Include="NCrypt+LegacyKeySpec.cs" />
     <Compile Include="NCrypt+KeyStorageProviders.cs" />
-    <Compile Include="NCrypt+KeyStorageImplementationType.cs" />
     <Compile Include="NCrypt+NCryptBuffer.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
