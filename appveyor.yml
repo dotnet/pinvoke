@@ -4,6 +4,8 @@ configuration: Release
 environment:
   VisualStudioVersion: 14.0
   GeneratePInvokesTxt: true
+  NuGetApiKey:
+    secure: Ql19CstT9GvFNeSIAjXvgHXZg+/pNaYJ2jVkzde4LT2vwSyjiQgQ+M332wVYtu+r
 cache:
 - '%USERPROFILE%\.nuget\packages'
 before_build:
@@ -19,6 +21,14 @@ artifacts:
   name: PInvoke method coverage
 - path: bin\**\*.exports.txt
   name: Exported methods
+on_success:
+- ps: >-
+    if ($env:NuGetApiKey -and $env:APPVEYOR_REPO_TAG_NAME -match "^v\d\.\d") {
+        Write-Output "Publishing release packages to nuget.org due to pushed tag $env:APPVEYOR_REPO_TAG_NAME"
+        Get-ChildItem bin\Release\Packages\*.nupkg -exclude *.symbols.nupkg |% {
+            nuget push $_ -ApiKey $env:NuGetApiKey
+        }
+    }
 notifications:
 - provider: Webhook
   url: https://webhooks.gitter.im/e/c4d61fc5002e9a62a22f
