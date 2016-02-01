@@ -206,7 +206,9 @@ public partial class Kernel32Facts
         using (snapshot)
         {
             var processes = Process32Enumerate(snapshot).ToList();
-            Assert.Contains(processes, p => p.th32ProcessID == currentProcess);
+            var win32Process = processes.Single(p => p.th32ProcessID == currentProcess);
+            var netProcess = Process.GetCurrentProcess();
+            Assert.Equal(netProcess.MainModule.ModuleName, win32Process.ExeFile, true);
         }
     }
 

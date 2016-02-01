@@ -505,7 +505,7 @@ namespace PInvoke
         /// information.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool Process32First(SafeObjectHandle hSnapshot, [In, Out] PROCESSENTRY32 lppe);
+        public static extern unsafe bool Process32First(SafeObjectHandle hSnapshot, PROCESSENTRY32* lppe);
 
         /// <summary>Retrieves information about the next process recorded in a system snapshot.</summary>
         /// <param name="hSnapshot">
@@ -521,13 +521,13 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// To retrieve information about the first process recorded in a snapshot, use the
-        /// <see cref="Process32First(SafeObjectHandle,PROCESSENTRY32)" />
+        /// <see cref="Process32First(SafeObjectHandle,PROCESSENTRY32*)" />
         /// function.
         /// </remarks>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool Process32Next(
+        public static extern unsafe bool Process32Next(
             SafeObjectHandle hSnapshot,
-            [In, Out] PROCESSENTRY32 lppe);
+            PROCESSENTRY32* lppe);
 
         /// <summary>Retrieves the full name of the executable image for the specified process.</summary>
         /// <param name="hProcess">

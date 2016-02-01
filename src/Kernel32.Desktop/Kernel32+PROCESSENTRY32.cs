@@ -13,12 +13,16 @@ namespace PInvoke
     /// </content>
     public partial class Kernel32
     {
+        /// <summary>
+        /// Describes an entry from a list of the processes residing in the system address space when a snapshot was taken.
+        /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [SuppressMessage(
             "StyleCop.CSharp.MaintainabilityRules",
             "SA1401:Fields must be private",
             Justification = "Used in DllImport Marshaling.")]
-        public class PROCESSENTRY32
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct PROCESSENTRY32
         {
             /// <summary>
             /// The size of the structure, in bytes. Set automatically by the constructor.
@@ -74,16 +78,39 @@ namespace PInvoke
             /// function to retrieve the full path of the executable file for a 64-bit process.
             /// </para>
             /// </summary>
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH)]
-            public string szExeFile;
+            public fixed char szExeFile[MAX_PATH];
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="PROCESSENTRY32" /> class with <see cref="dwSize" /> set to the
-            /// correct value.
+            /// Gets the name of the executable file for the process, as specified by the <see cref="szExeFile"/> character array.
+            /// <para>
+            /// To retrieve the full path to the executable file, call the Module32First function and check the szExePath member
+            /// of the MODULEENTRY32 structure that is returned. However, if the calling process is a 32-bit process, you must call the
+            /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref int)" />
+            /// function to retrieve the full path of the executable file for a 64-bit process.
+            /// </para>
             /// </summary>
-            public PROCESSENTRY32()
+            public string ExeFile
             {
-                this.dwSize = Marshal.SizeOf(this);
+                get
+                {
+                    fixed (char* exeFile = this.szExeFile)
+                    {
+                        return new string(exeFile);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="PROCESSENTRY32" /> struct
+            /// with <see cref="dwSize" /> set to the correct value.
+            /// </summary>
+            /// <returns>An instance of <see cref="PROCESSENTRY32"/>.</returns>
+            public static PROCESSENTRY32 Create()
+            {
+                return new PROCESSENTRY32
+                {
+                    dwSize = Marshal.SizeOf(typeof(PROCESSENTRY32)),
+                };
             }
         }
     }

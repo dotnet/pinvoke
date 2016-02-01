@@ -41,7 +41,9 @@
     <Compile Include="Kernel32+PipeMode.cs" />
     <Compile Include="Kernel32+PipeAccessMode.cs" />
     <Compile Include="Kernel32+ProcessAccess.cs" />
-    <Compile Include="Kernel32+PROCESSENTRY32.cs" />
+    <Compile Include="Kernel32+PROCESSENTRY32.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="Kernel32+PROCESS_INFORMATION.cs" />
     <Compile Include="Kernel32+PROC_THREAD_ATTRIBUTE_LIST.cs" />
     <Compile Include="Kernel32+QueryFullProcessImageNameFlags.cs" />

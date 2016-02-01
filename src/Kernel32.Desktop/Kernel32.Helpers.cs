@@ -24,15 +24,15 @@ namespace PInvoke
         /// </returns>
         /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
-        public static PROCESSENTRY32 Process32First(SafeObjectHandle hSnapshot)
+        public static unsafe PROCESSENTRY32? Process32First(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)
             {
                 throw new ArgumentNullException(nameof(hSnapshot));
             }
 
-            var entry = new PROCESSENTRY32();
-            if (Process32First(hSnapshot, entry))
+            var entry = PROCESSENTRY32.Create();
+            if (Process32First(hSnapshot, &entry))
             {
                 return entry;
             }
@@ -57,15 +57,15 @@ namespace PInvoke
         /// </returns>
         /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
-        public static PROCESSENTRY32 Process32Next(SafeObjectHandle hSnapshot)
+        public static unsafe PROCESSENTRY32? Process32Next(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)
             {
                 throw new ArgumentNullException(nameof(hSnapshot));
             }
 
-            var entry = new PROCESSENTRY32();
-            if (Process32Next(hSnapshot, entry))
+            var entry = PROCESSENTRY32.Create();
+            if (Process32Next(hSnapshot, &entry))
             {
                 return entry;
             }
@@ -98,9 +98,9 @@ namespace PInvoke
 
             var entry = Process32First(hSnapshot);
 
-            while (entry != null)
+            while (entry.HasValue)
             {
-                yield return entry;
+                yield return entry.Value;
                 entry = Process32Next(hSnapshot);
             }
         }
