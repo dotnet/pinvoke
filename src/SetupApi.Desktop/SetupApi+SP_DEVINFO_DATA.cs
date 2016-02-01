@@ -20,7 +20,7 @@ namespace PInvoke
             "SA1401:Fields must be private",
             Justification = "Used in DllImport Marshaling.")]
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public class SP_DEVINFO_DATA
+        public struct SP_DEVINFO_DATA
         {
             /// <summary>
             /// The GUID of the device's setup class.
@@ -49,12 +49,16 @@ namespace PInvoke
             public int Size;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SP_DEVINFO_DATA" /> class with <see cref="Size" /> set to the correct
-            /// value.
+            /// Initializes a new instance of the <see cref="SP_DEVINFO_DATA" /> struct
+            /// with <see cref="Size" /> set to the correct value.
             /// </summary>
-            public SP_DEVINFO_DATA()
+            /// <returns>An instance of <see cref="SP_DEVINFO_DATA"/>.</returns>
+            public static SP_DEVINFO_DATA Create()
             {
-                this.Size = Marshal.SizeOf(this);
+                return new SP_DEVINFO_DATA
+                {
+                    Size = Marshal.SizeOf(typeof(SP_DEVINFO_DATA)),
+                };
             }
         }
     }

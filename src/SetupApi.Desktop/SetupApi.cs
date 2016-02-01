@@ -10,6 +10,7 @@ namespace PInvoke
     /// Exported functions from the SetupApi.dll Windows library
     /// that are available to Desktop apps only.
     /// </content>
+    [OfferFriendlyOverloads]
     public static partial class SetupApi
     {
         /// <summary>
@@ -73,7 +74,7 @@ namespace PInvoke
         /// is specified, SetupDiEnumDeviceInterfaces constrains the enumeration to the interfaces that are supported by the
         /// specified device. If this parameter is <see langword="null" />, repeated calls to SetupDiEnumDeviceInterfaces return
         /// information about the interfaces that are associated with all the device information elements in DeviceInfoSet. This
-        /// pointer is typically returned by <see cref="SetupDiEnumDeviceInfo" />.
+        /// pointer is typically returned by <see cref="SetupDiEnumDeviceInfo(SafeDeviceInfoSetHandle, int, SP_DEVINFO_DATA*)" />.
         /// </param>
         /// <param name="interfaceClassGuid">
         /// A pointer to a <see cref="Guid" /> that specifies the device interface class for the
@@ -98,9 +99,9 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true)]
-        public static extern bool SetupDiEnumDeviceInterfaces(
+        public static extern unsafe bool SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle deviceInfoSet,
-            SP_DEVINFO_DATA deviceInfoData,
+            SP_DEVINFO_DATA* deviceInfoData,
             ref Guid interfaceClassGuid,
             int memberIndex,
             ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData);
@@ -115,7 +116,7 @@ namespace PInvoke
         /// <param name="deviceInterfaceData">
         /// A pointer to an <see cref="SP_DEVICE_INTERFACE_DATA" /> structure that specifies the
         /// interface in DeviceInfoSet for which to retrieve details. A pointer of this type is typically returned by
-        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,SP_DEVINFO_DATA,ref Guid,int,ref SP_DEVICE_INTERFACE_DATA)" />.
+        /// <see cref="SetupDiEnumDeviceInterfaces(SafeDeviceInfoSetHandle,SP_DEVINFO_DATA*,ref Guid,int,ref SP_DEVICE_INTERFACE_DATA)" />.
         /// </param>
         /// <param name="deviceInterfaceDetailData">
         /// A pointer to an SP_DEVICE_INTERFACE_DETAIL_DATA structure to receive
@@ -150,7 +151,7 @@ namespace PInvoke
             SP_DEVICE_INTERFACE_DETAIL_DATA* deviceInterfaceDetailData,
             int deviceInterfaceDetailDataSize,
             int* requiredSize,
-            SP_DEVINFO_DATA deviceInfoData);
+            SP_DEVINFO_DATA* deviceInfoData);
 
         /// <summary>
         /// Returns a <see cref="SP_DEVINFO_DATA" /> structure that specifies a device information element in a device information
@@ -171,10 +172,10 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true)]
-        public static extern bool SetupDiEnumDeviceInfo(
+        public static extern unsafe bool SetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
             int memberIndex,
-            SP_DEVINFO_DATA deviceInfoData);
+            SP_DEVINFO_DATA* deviceInfoData);
 
         /// <summary>
         /// Deletes a device information set and frees all associated memory.

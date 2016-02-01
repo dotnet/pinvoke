@@ -29,43 +29,18 @@ namespace PInvoke
             return result;
         }
 
-        public static IEnumerable<SP_DEVICE_INTERFACE_DATA> SetupDiEnumDeviceInterfaces(
+        public static unsafe IEnumerable<SP_DEVICE_INTERFACE_DATA> SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle lpDeviceInfoSet,
-            SP_DEVINFO_DATA deviceInfoData,
+            SP_DEVINFO_DATA* deviceInfoData,
             Guid interfaceClassGuid)
         {
-            int index = 0;
-            while (true)
-            {
-                var data = SP_DEVICE_INTERFACE_DATA.Create();
-
-                var result = SetupDiEnumDeviceInterfaces(
-                    lpDeviceInfoSet,
-                    deviceInfoData,
-                    ref interfaceClassGuid,
-                    index,
-                    ref data);
-
-                if (!result)
-                {
-                    var lastError = GetLastError();
-                    if (lastError != Win32ErrorCode.ERROR_NO_MORE_ITEMS)
-                    {
-                        throw new Win32Exception(lastError);
-                    }
-
-                    yield break;
-                }
-
-                yield return data;
-                index++;
-            }
+            return SetupDiEnumDeviceInterfacesHelper(lpDeviceInfoSet, new IntPtr(deviceInfoData), interfaceClassGuid);
         }
 
         public static unsafe string SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
             SP_DEVICE_INTERFACE_DATA interfaceData,
-            SP_DEVINFO_DATA deviceInfoData)
+            SP_DEVINFO_DATA* deviceInfoData)
         {
             int requiredSize;
 
@@ -106,6 +81,39 @@ namespace PInvoke
                 }
 
                 return SP_DEVICE_INTERFACE_DETAIL_DATA.GetDevicePath(pDetail);
+            }
+        }
+
+        private static IEnumerable<SP_DEVICE_INTERFACE_DATA> SetupDiEnumDeviceInterfacesHelper(
+            SafeDeviceInfoSetHandle lpDeviceInfoSet,
+            IntPtr deviceInfoData,
+            Guid interfaceClassGuid)
+        {
+            int index = 0;
+            while (true)
+            {
+                var data = SP_DEVICE_INTERFACE_DATA.Create();
+
+                var result = SetupDiEnumDeviceInterfaces(
+                    lpDeviceInfoSet,
+                    deviceInfoData,
+                    ref interfaceClassGuid,
+                    index,
+                    ref data);
+
+                if (!result)
+                {
+                    var lastError = GetLastError();
+                    if (lastError != Win32ErrorCode.ERROR_NO_MORE_ITEMS)
+                    {
+                        throw new Win32Exception(lastError);
+                    }
+
+                    yield break;
+                }
+
+                yield return data;
+                index++;
             }
         }
     }
