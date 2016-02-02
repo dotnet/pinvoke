@@ -31,6 +31,9 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CodeGenerationAttributes\IsArrayAttribute.cs">
+      <Link>IsArrayAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\CodeGenerationAttributes\OfferFriendlyOverloadsAttribute.cs">
       <Link>OfferFriendlyOverloadsAttribute.cs</Link>
     </Compile>

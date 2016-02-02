@@ -28,6 +28,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IsArrayAttribute.cs" />
     <Compile Include="OfferFriendlyOverloadsAttribute.cs" />
     <Compile Include="OfferIntPtrPropertyAccessorsAttribute.cs" />
   </ItemGroup>

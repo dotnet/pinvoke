@@ -34,7 +34,14 @@ namespace PInvoke
             SP_DEVINFO_DATA* deviceInfoData,
             Guid interfaceClassGuid)
         {
-            return SetupDiEnumDeviceInterfacesHelper(lpDeviceInfoSet, new IntPtr(deviceInfoData), interfaceClassGuid);
+            // Copy out the value of the struct pointed to (if any) so that
+            // the caller does not need to remember to keep the pointer fixed
+            // for the entire enumeration.
+            var deviceInfoDataCopy = deviceInfoData != null ? (SP_DEVINFO_DATA?)*deviceInfoData : null;
+            return SetupDiEnumDeviceInterfacesHelper(
+                lpDeviceInfoSet,
+                deviceInfoDataCopy,
+                interfaceClassGuid);
         }
 
         public static unsafe string SetupDiGetDeviceInterfaceDetail(
@@ -86,7 +93,7 @@ namespace PInvoke
 
         private static IEnumerable<SP_DEVICE_INTERFACE_DATA> SetupDiEnumDeviceInterfacesHelper(
             SafeDeviceInfoSetHandle lpDeviceInfoSet,
-            IntPtr deviceInfoData,
+            SP_DEVINFO_DATA? deviceInfoData,
             Guid interfaceClassGuid)
         {
             int index = 0;
@@ -94,12 +101,26 @@ namespace PInvoke
             {
                 var data = SP_DEVICE_INTERFACE_DATA.Create();
 
-                var result = SetupDiEnumDeviceInterfaces(
-                    lpDeviceInfoSet,
-                    deviceInfoData,
-                    ref interfaceClassGuid,
-                    index,
-                    ref data);
+                bool result;
+                if (deviceInfoData.HasValue)
+                {
+                    var deviceInfoDataLocal = deviceInfoData.Value;
+                    result = SetupDiEnumDeviceInterfaces(
+                        lpDeviceInfoSet,
+                        ref deviceInfoDataLocal,
+                        ref interfaceClassGuid,
+                        index,
+                        ref data);
+                }
+                else
+                {
+                    result = SetupDiEnumDeviceInterfaces(
+                        lpDeviceInfoSet,
+                        IntPtr.Zero,
+                        ref interfaceClassGuid,
+                        index,
+                        ref data);
+                }
 
                 if (!result)
                 {
