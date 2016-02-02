@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Specifies the window station, desktop, standard handles, and attributes for a new process. It is used with the <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> and <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> functions.
+        /// Specifies the window station, desktop, standard handles, and attributes for a new process. It is used with the <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> and <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> functions.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]

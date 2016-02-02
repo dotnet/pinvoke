@@ -15,13 +15,13 @@ namespace PInvoke
     public static partial class Kernel32
     {
         /// <summary>
-        ///     Used to specify to <see cref="CreateNamedPipe" /> that the number of pipe instances that can be created is
+        ///     Used to specify to <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> that the number of pipe instances that can be created is
         ///     limited only by the availability of system resources.
         /// </summary>
         public const int PIPE_UNLIMITED_INSTANCES = 255;
 
         /// <summary>The time-out interval is the default value specified by the server process in the
-        ///     <see cref="CreateNamedPipe" /> function.
+        ///     <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function.
         ///     <para>This constant is a special value for named pipes timeouts.</para>
         /// </summary>
         public const int NMPWAIT_USE_DEFAULT_WAIT = 0x00000000;
@@ -38,7 +38,7 @@ namespace PInvoke
 
         /// <summary>
         /// Creates a new process and its primary thread. The new process runs in the security context of the calling process.
-        /// If the calling process is impersonating another user, the new process uses the token for the calling process, not the impersonation token. To run the new process in the security context of the user represented by the impersonation token, use the <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> or CreateProcessWithLogonW function.
+        /// If the calling process is impersonating another user, the new process uses the token for the calling process, not the impersonation token. To run the new process in the security context of the user represented by the impersonation token, use the <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> or CreateProcessWithLogonW function.
         /// </summary>
         /// <param name="lpApplicationName">
         /// The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer.
@@ -102,8 +102,8 @@ namespace PInvoke
         public static unsafe extern bool CreateProcess(
             string lpApplicationName,
             string lpCommandLine,
-            SECURITY_ATTRIBUTES lpProcessAttributes,
-            SECURITY_ATTRIBUTES lpThreadAttributes,
+            [IsArray(false)] SECURITY_ATTRIBUTES* lpProcessAttributes,
+            [IsArray(false)] SECURITY_ATTRIBUTES* lpThreadAttributes,
             [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             CreateProcessFlags dwCreationFlags,
             void* lpEnvironment, // pointer because it may point to unicode or ANSI characters, based on a flag.
@@ -184,8 +184,8 @@ namespace PInvoke
             IntPtr hToken,
             string lpApplicationName,
             string lpCommandLine,
-            SECURITY_ATTRIBUTES lpProcessAttributes,
-            SECURITY_ATTRIBUTES lpThreadAttributes,
+            [IsArray(false)] SECURITY_ATTRIBUTES* lpProcessAttributes,
+            [IsArray(false)] SECURITY_ATTRIBUTES* lpThreadAttributes,
             [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             CreateProcessFlags dwCreationFlags,
             void* lpEnvironment, // pointer because it may point to unicode or ANSI characters, based on a flag.
@@ -342,8 +342,8 @@ namespace PInvoke
         /// </param>
         /// <param name="share">
         /// The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or none (refer to the following table). Access requests to attributes or extended attributes are not affected by this flag.
-        /// If this parameter is zero and <see cref="CreateFile"/> succeeds, the file or device cannot be shared and cannot be opened again until the handle to the file or device is closed. For more information, see the Remarks section.
-        /// You cannot request a sharing mode that conflicts with the access mode that is specified in an existing request that has an open handle. <see cref="CreateFile"/> would fail and the <see cref="GetLastError"/> function would return ERROR_SHARING_VIOLATION.
+        /// If this parameter is zero and <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> succeeds, the file or device cannot be shared and cannot be opened again until the handle to the file or device is closed. For more information, see the Remarks section.
+        /// You cannot request a sharing mode that conflicts with the access mode that is specified in an existing request that has an open handle. <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> would fail and the <see cref="GetLastError"/> function would return ERROR_SHARING_VIOLATION.
         /// To enable a process to share a file or device while another process has the file or device open, use a compatible combination of one or more of the following values. For more information about valid combinations of this parameter with the dwDesiredAccess parameter, see Creating and Opening Files.
         /// </param>
         /// <param name="securityAttributes">
@@ -378,11 +378,11 @@ namespace PInvoke
         /// If the function fails, the return value is INVALID_HANDLE_VALUE.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(api_ms_win_core_file_l1_2_0, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern SafeObjectHandle CreateFile(
+        public static extern unsafe SafeObjectHandle CreateFile(
             string filename,
             FileAccess access,
             FileShare share,
-            SECURITY_ATTRIBUTES securityAttributes,
+            [IsArray(false)] SECURITY_ATTRIBUTES* securityAttributes,
             CreationDisposition creationDisposition,
             CreateFileFlags flagsAndAttributes,
             SafeObjectHandle templateFile);
@@ -735,10 +735,10 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CreatePipe(
+        public static extern unsafe bool CreatePipe(
             out SafeObjectHandle hReadPipe,
             out SafeObjectHandle hWritePipe,
-            SECURITY_ATTRIBUTES lpPipeAttributes,
+            [IsArray(false)] SECURITY_ATTRIBUTES* lpPipeAttributes,
             int nSize);
 
         /// <summary>Removes as many pages as possible from the working set of the specified process.</summary>
@@ -860,7 +860,7 @@ namespace PInvoke
         ///     <see cref="GetLastError" />.
         /// </returns>
         [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeObjectHandle CreateNamedPipe(
+        public static extern unsafe SafeObjectHandle CreateNamedPipe(
             string lpName,
             PipeAccessMode dwOpenMode,
             PipeMode dwPipeMode,
@@ -868,7 +868,7 @@ namespace PInvoke
             int nOutBufferSize,
             int nInBufferSize,
             int nDefaultTimeOut,
-            SECURITY_ATTRIBUTES lpSecurityAttributes);
+            [IsArray(false)] SECURITY_ATTRIBUTES* lpSecurityAttributes);
 
         /// <summary>
         ///     Waits until either a time-out interval elapses or an instance of the specified named pipe is available for
@@ -902,9 +902,9 @@ namespace PInvoke
         ///         <see cref="Win32ErrorCode.ERROR_SEM_TIMEOUT" />.
         ///     </para>
         ///     <para>
-        ///         If the function succeeds, the process should use the <see cref="CreateFile" /> function to open a handle to
+        ///         If the function succeeds, the process should use the <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function to open a handle to
         ///         the named pipe. A return value of TRUE indicates that there is at least one instance of the pipe available. A
-        ///         subsequent <see cref="CreateFile" /> call to the pipe can fail, because the instance was closed by the server
+        ///         subsequent <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> call to the pipe can fail, because the instance was closed by the server
         ///         or opened by another client.
         ///     </para>
         /// </returns>
@@ -1142,7 +1142,7 @@ namespace PInvoke
         ///     pipe for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a
         ///     write-only pipe.
         ///     <para>
-        ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe" />
+        ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe(out SafeObjectHandle, out SafeObjectHandle, SECURITY_ATTRIBUTES*, int)" />
         ///         function.
         ///     </para>
         /// </param>
@@ -1179,7 +1179,7 @@ namespace PInvoke
         /// <summary>Retrieves the server process identifier for the specified named pipe.</summary>
         /// <param name="Pipe">
         ///     A handle to an instance of a named pipe. This handle must be created by the
-        ///     <see cref="CreateNamedPipe" /> function.
+        ///     <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function.
         /// </param>
         /// <param name="ServerProcessId">The process identifier.</param>
         /// <returns>
@@ -1200,7 +1200,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="Pipe">
         ///     A handle to an instance of a named pipe. This handle must be created by the
-        ///     <see cref="CreateNamedPipe" /> function.
+        ///     <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function.
         /// </param>
         /// <param name="ServerSessionId">The session identifier.</param>
         /// <returns>
@@ -1222,8 +1222,8 @@ namespace PInvoke
         /// </summary>
         /// <param name="hNamedPipe">
         ///     A handle to the pipe. This parameter can be a handle to a named pipe instance, as returned by
-        ///     the <see cref="CreateNamedPipe" /> or <see cref="CreateFile" /> function, or it can be a handle to the read end of
-        ///     an anonymous pipe, as returned by the <see cref="CreatePipe" /> function. The handle must have GENERIC_READ access
+        ///     the <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> or <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function, or it can be a handle to the read end of
+        ///     an anonymous pipe, as returned by the <see cref="CreatePipe(out SafeObjectHandle, out SafeObjectHandle, SECURITY_ATTRIBUTES*, int)" /> function. The handle must have GENERIC_READ access
         ///     to the pipe.
         /// </param>
         /// <param name="lpBuffer">
@@ -1267,11 +1267,11 @@ namespace PInvoke
         /// </summary>
         /// <param name="hNamedPipe">
         ///     A handle to the named pipe instance. This parameter can be a handle to the server end of the
-        ///     pipe, as returned by the <see cref="CreateNamedPipe" /> function, or to the client end of the pipe, as returned by
-        ///     the <see cref="CreateFile" /> function. The handle must have GENERIC_WRITE access to the named pipe for a
+        ///     pipe, as returned by the <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function, or to the client end of the pipe, as returned by
+        ///     the <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function. The handle must have GENERIC_WRITE access to the named pipe for a
         ///     write-only or read/write pipe, or it must have GENERIC_READ and FILE_WRITE_ATTRIBUTES access for a read-only pipe.
         ///     <para>
-        ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe" />
+        ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe(out SafeObjectHandle, out SafeObjectHandle, SECURITY_ATTRIBUTES*, int)" />
         ///         function.
         ///     </para>
         /// </param>
@@ -1310,10 +1310,10 @@ namespace PInvoke
         ///     network operation.
         /// </summary>
         /// <param name="hNamedPipe">
-        ///     A handle to the named pipe returned by the <see cref="CreateNamedPipe" /> or
-        ///     <see cref="CreateFile" /> function.
+        ///     A handle to the named pipe returned by the <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> or
+        ///     <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function.
         ///     <para>
-        ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe" />
+        ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe(out SafeObjectHandle, out SafeObjectHandle, SECURITY_ATTRIBUTES*, int)" />
         ///         function.
         ///     </para>
         /// </param>

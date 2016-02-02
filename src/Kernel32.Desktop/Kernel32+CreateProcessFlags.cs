@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Flags that may be passed to the <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, IntPtr, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> function.
+        /// Flags that may be passed to the <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> function.
         /// </summary>
         [Flags]
         public enum CreateProcessFlags

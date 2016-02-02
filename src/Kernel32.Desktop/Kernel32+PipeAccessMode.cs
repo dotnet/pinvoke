@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Pipe access mode used when creating a pipe using <see cref="CreateNamedPipe"/>.
+        /// Pipe access mode used when creating a pipe using <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)"/>.
         /// </summary>
         [Flags]
         public enum PipeAccessMode : uint
