@@ -1299,11 +1299,11 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetNamedPipeHandleState(
+        public static extern unsafe bool SetNamedPipeHandleState(
             SafeObjectHandle hNamedPipe,
-            NullablePipeMode lpMode,
-            NullableUInt32 lpMaxCollectionCount,
-            NullableUInt32 lpCollectDataTimeout);
+            [IsArray(false)] PipeMode* lpMode,
+            [IsArray(false)] int* lpMaxCollectionCount,
+            [IsArray(false)] int* lpCollectDataTimeout);
 
         /// <summary>
         ///     Combines the functions that write a message to and read a message from the specified named pipe into a single
