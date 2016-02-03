@@ -24,8 +24,8 @@ public partial class Kernel32Facts
         bool result = CreateProcess(
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "cmd.exe"),
             "/c dir",
-            null,
-            null,
+            IntPtr.Zero,
+            IntPtr.Zero,
             false,
             CreateProcessFlags.CREATE_NO_WINDOW,
             IntPtr.Zero,
@@ -59,7 +59,7 @@ public partial class Kernel32Facts
                     null,
                     false,
                     CreateProcessFlags.CREATE_NO_WINDOW | CreateProcessFlags.CREATE_UNICODE_ENVIRONMENT,
-                    new IntPtr(environmentBlock),
+                    environmentBlock,
                     null,
                     ref startupInfo,
                     out processInformation);
@@ -98,9 +98,9 @@ public partial class Kernel32Facts
         string testPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         using (var tempFileHandle = CreateFile(
             testPath,
-            PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
-            PInvoke.Kernel32.FileShare.FILE_SHARE_READ,
-            null,
+            Kernel32.FileAccess.GENERIC_WRITE,
+            Kernel32.FileShare.FILE_SHARE_READ,
+            IntPtr.Zero,
             CreationDisposition.CREATE_ALWAYS,
             CreateFileFlags.FILE_FLAG_DELETE_ON_CLOSE,
             new SafeObjectHandle()))
@@ -206,7 +206,9 @@ public partial class Kernel32Facts
         using (snapshot)
         {
             var processes = Process32Enumerate(snapshot).ToList();
-            Assert.Contains(processes, p => p.th32ProcessID == currentProcess);
+            var win32Process = processes.Single(p => p.th32ProcessID == currentProcess);
+            var netProcess = Process.GetCurrentProcess();
+            Assert.Equal(netProcess.MainModule.ModuleName, win32Process.ExeFile, true);
         }
     }
 
@@ -260,9 +262,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_READ,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_READ,
+                Kernel32.FileShare.None,
+                IntPtr.Zero,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_ATTRIBUTE_NORMAL,
                 new SafeObjectHandle()))
@@ -391,9 +393,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_WRITE,
+                Kernel32.FileShare.None,
+                IntPtr.Zero,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_ATTRIBUTE_NORMAL,
                 new SafeObjectHandle()))
@@ -679,7 +681,7 @@ public partial class Kernel32Facts
     public void CreatePipe_ReadWrite()
     {
         SafeObjectHandle readPipe, writePipe;
-        Assert.True(CreatePipe(out readPipe, out writePipe, null, 0));
+        Assert.True(CreatePipe(out readPipe, out writePipe, IntPtr.Zero, 0));
         using (readPipe)
         using (writePipe)
         {

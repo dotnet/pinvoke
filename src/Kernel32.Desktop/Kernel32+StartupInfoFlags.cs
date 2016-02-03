@@ -22,7 +22,7 @@ namespace PInvoke
             None = 0x0,
 
             /// <summary>
-            /// Indicates that the cursor is in feedback mode for two seconds after <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES, SECURITY_ATTRIBUTES, bool, CreateProcessFlags, IntPtr, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> is called. The Working in Background cursor is displayed (see the Pointers tab in the Mouse control panel utility).
+            /// Indicates that the cursor is in feedback mode for two seconds after <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> is called. The Working in Background cursor is displayed (see the Pointers tab in the Mouse control panel utility).
             /// If during those two seconds the process makes the first GUI call, the system gives five more seconds to the process. If during those five seconds the process shows a window, the system gives five more seconds to the process to finish drawing the window.
             /// The system turns the feedback cursor off after the first call to GetMessage, regardless of whether the process is drawing.
             /// </summary>

@@ -24,15 +24,15 @@ namespace PInvoke
         /// </returns>
         /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
-        public static PROCESSENTRY32 Process32First(SafeObjectHandle hSnapshot)
+        public static unsafe PROCESSENTRY32? Process32First(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)
             {
                 throw new ArgumentNullException(nameof(hSnapshot));
             }
 
-            var entry = new PROCESSENTRY32();
-            if (Process32First(hSnapshot, entry))
+            var entry = PROCESSENTRY32.Create();
+            if (Process32First(hSnapshot, &entry))
             {
                 return entry;
             }
@@ -57,15 +57,15 @@ namespace PInvoke
         /// </returns>
         /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
-        public static PROCESSENTRY32 Process32Next(SafeObjectHandle hSnapshot)
+        public static unsafe PROCESSENTRY32? Process32Next(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)
             {
                 throw new ArgumentNullException(nameof(hSnapshot));
             }
 
-            var entry = new PROCESSENTRY32();
-            if (Process32Next(hSnapshot, entry))
+            var entry = PROCESSENTRY32.Create();
+            if (Process32Next(hSnapshot, &entry))
             {
                 return entry;
             }
@@ -98,9 +98,9 @@ namespace PInvoke
 
             var entry = Process32First(hSnapshot);
 
-            while (entry != null)
+            while (entry.HasValue)
             {
-                yield return entry;
+                yield return entry.Value;
                 entry = Process32Next(hSnapshot);
             }
         }
@@ -184,6 +184,59 @@ namespace PInvoke
             // as an Int32 no matter the process bitness. So safely 'upscale' the Int32 to
             // the appropriate IntPtr and call the native overload.
             return LocalReAlloc(hMem, new IntPtr(uBytes), uFlags);
+        }
+
+        /// <summary>
+        ///     Sets the read mode and the blocking mode of the specified named pipe. If the specified handle is to the client
+        ///     end of a named pipe and if the named pipe server process is on a remote computer, the function can also be used to
+        ///     control local buffering.
+        /// </summary>
+        /// <param name="hNamedPipe">
+        ///     A handle to the named pipe instance. This parameter can be a handle to the server end of the
+        ///     pipe, as returned by the <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function, or to the client end of the pipe, as returned by
+        ///     the <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function. The handle must have GENERIC_WRITE access to the named pipe for a
+        ///     write-only or read/write pipe, or it must have GENERIC_READ and FILE_WRITE_ATTRIBUTES access for a read-only pipe.
+        ///     <para>
+        ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe(out SafeObjectHandle, out SafeObjectHandle, SECURITY_ATTRIBUTES*, int)" />
+        ///         function.
+        ///     </para>
+        /// </param>
+        /// <param name="lpMode">The new pipe mode. The mode is a combination of a read-mode flag and a wait-mode flag.</param>
+        /// <param name="lpMaxCollectionCount">
+        ///     The maximum number of bytes collected on the client computer before transmission to
+        ///     the server. This parameter must be NULL if the specified pipe handle is to the server end of a named pipe or if
+        ///     client and server processes are on the same machine. This parameter is ignored if the client process specifies the
+        ///     FILE_FLAG_WRITE_THROUGH flag in the CreateFile function when the handle was created. This parameter can be NULL if
+        ///     the collection count is not being set.
+        /// </param>
+        /// <param name="lpCollectDataTimeout">
+        ///     The maximum time, in milliseconds, that can pass before a remote named pipe
+        ///     transfers information over the network. This parameter must be NULL if the specified pipe handle is to the server
+        ///     end of a named pipe or if client and server processes are on the same computer. This parameter is ignored if the
+        ///     client process specified the FILE_FLAG_WRITE_THROUGH flag in the CreateFile function when the handle was created.
+        ///     This parameter can be NULL if the collection count is not being set.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        public static unsafe bool SetNamedPipeHandleState(
+            SafeObjectHandle hNamedPipe,
+            PipeMode? lpMode,
+            int? lpMaxCollectionCount,
+            int? lpCollectDataTimeout)
+        {
+            PipeMode lpModeLocal = lpMode.HasValue ? lpMode.Value : default(PipeMode);
+            int lpMaxCollectionCountLocal = lpMaxCollectionCount.HasValue ? lpMaxCollectionCount.Value : 0;
+            int lpCollectDataTimeoutLocal = lpCollectDataTimeout.HasValue ? lpCollectDataTimeout.Value : 0;
+            return SetNamedPipeHandleState(
+                hNamedPipe,
+                lpMode.HasValue ? &lpModeLocal : null,
+                lpMaxCollectionCount.HasValue ? &lpMaxCollectionCountLocal : null,
+                lpCollectDataTimeout.HasValue ? &lpCollectDataTimeoutLocal : null);
         }
     }
 }

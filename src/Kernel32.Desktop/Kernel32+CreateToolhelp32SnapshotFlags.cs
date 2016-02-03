@@ -52,7 +52,7 @@ namespace PInvoke
 
             /// <summary>
             /// Includes all processes in the system in the snapshot. To enumerate the processes, see
-            /// <see cref="Process32First(SafeObjectHandle,PROCESSENTRY32)"/>.
+            /// <see cref="Process32First(SafeObjectHandle,PROCESSENTRY32*)"/>.
             /// </summary>
             TH32CS_SNAPPROCESS = 0x00000002,
 

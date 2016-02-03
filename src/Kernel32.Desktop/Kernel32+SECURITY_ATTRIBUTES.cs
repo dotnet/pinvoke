@@ -17,7 +17,7 @@ namespace PInvoke
         /// The SECURITY_ATTRIBUTES structure contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable. This structure provides security settings for objects created by various functions, such as CreateFile, CreatePipe, CreateProcess, RegCreateKeyEx, or RegSaveKeyEx.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public class SECURITY_ATTRIBUTES
+        public struct SECURITY_ATTRIBUTES
         {
             /// <summary>
             /// The size, in bytes, of this structure.
@@ -34,15 +34,23 @@ namespace PInvoke
             /// <summary>
             /// A Boolean value that specifies whether the returned handle is inherited when a new process is created. If this member is TRUE, the new process inherits the handle.
             /// </summary>
-            [MarshalAs(UnmanagedType.Bool)]
-            public bool bInheritHandle;
+            public int bInheritHandle;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SECURITY_ATTRIBUTES"/> class.
+            /// Gets a value indicating whether the returned handle is inherited when a new process is created. If this member is TRUE, the new process inherits the handle.
             /// </summary>
-            public SECURITY_ATTRIBUTES()
+            public bool InheritHandle => this.bInheritHandle != 0;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SECURITY_ATTRIBUTES"/> struct.
+            /// </summary>
+            /// <returns>A new instance of <see cref="SECURITY_ATTRIBUTES"/>.</returns>
+            public static SECURITY_ATTRIBUTES Create()
             {
-                this.nLength = Marshal.SizeOf(typeof(SECURITY_ATTRIBUTES));
+                return new SECURITY_ATTRIBUTES
+                {
+                    nLength = Marshal.SizeOf(typeof(SECURITY_ATTRIBUTES)),
+                };
             }
         }
     }

@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Describes file access flags that may be passed to <see cref="CreateFile"/>.
+        /// Describes file access flags that may be passed to <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/>.
         /// </summary>
         [Flags]
         public enum FileAccess : uint

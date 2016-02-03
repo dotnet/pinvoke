@@ -10,7 +10,7 @@ namespace PInvoke
     /// </content>
     public partial class Kernel32
     {
-        /// <summary>A named pipe usage mode, used in <see cref="CreateNamedPipe" />.</summary>
+        /// <summary>A named pipe usage mode, used in <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" />.</summary>
         [Flags]
         public enum PipeMode : uint
         {

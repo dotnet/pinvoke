@@ -25,6 +25,17 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeGenerationAttributes.Net40\CodeGenerationAttributes.Net40.csproj">
+      <Project>{6a77281b-c503-44ea-90c1-0e9868d06cd0}</Project>
+      <Name>CodeGenerationAttributes.Net40</Name>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
+      <Name>CodeGeneration</Name>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
       <Project>{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}</Project>
       <Name>Kernel32.Desktop</Name>
@@ -44,9 +55,13 @@
     <Compile Include="SetupApi+DeviceInterfaceDataFlags.cs" />
     <Compile Include="SetupApi+GetClassDevsFlags.cs" />
     <Compile Include="SetupApi+SafeDeviceInfoSetHandle.cs" />
-    <Compile Include="SetupApi.cs" />
+    <Compile Include="SetupApi.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetupApi.Helpers.cs" />
+    <Compile Include="SetupApi.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="SetupApi.exports.txt">
