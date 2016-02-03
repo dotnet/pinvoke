@@ -1301,9 +1301,9 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool SetNamedPipeHandleState(
             SafeObjectHandle hNamedPipe,
-            [IsArray(false)] PipeMode* lpMode,
-            [IsArray(false)] int* lpMaxCollectionCount,
-            [IsArray(false)] int* lpCollectDataTimeout);
+            [In, IsArray(false)] PipeMode* lpMode,
+            [In, IsArray(false)] int* lpMaxCollectionCount,
+            [In, IsArray(false)] int* lpCollectDataTimeout);
 
         /// <summary>
         ///     Combines the functions that write a message to and read a message from the specified named pipe into a single
