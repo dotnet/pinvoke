@@ -1127,12 +1127,12 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetNamedPipeHandleState(
+        public static extern unsafe bool GetNamedPipeHandleState(
             SafeObjectHandle hNamedPipe,
             out PipeMode lpState,
-            [In, Out] NullableUInt32 lpCurInstances,
-            [In, Out] NullableUInt32 lpMaxCollectionCount,
-            [In, Out] NullableUInt32 lpCollectDataTimeout,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCurInstances,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpMaxCollectionCount,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCollectDataTimeout,
             StringBuilder lpUserName,
             int nMaxUserNameSize);
 

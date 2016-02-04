@@ -14,21 +14,6 @@ namespace PInvoke
     /// </content>
     public static partial class SetupApi
     {
-        public static SafeDeviceInfoSetHandle SetupDiGetClassDevs(
-            Guid? classGuid,
-            string enumerator,
-            IntPtr hwndParent,
-            GetClassDevsFlags flags)
-        {
-            var result = SetupDiGetClassDevs((NullableGuid)classGuid, enumerator, hwndParent, flags);
-            if (result.IsInvalid)
-            {
-                throw new Win32Exception();
-            }
-
-            return result;
-        }
-
         public static unsafe IEnumerable<SP_DEVICE_INTERFACE_DATA> SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle lpDeviceInfoSet,
             SP_DEVINFO_DATA* deviceInfoData,
