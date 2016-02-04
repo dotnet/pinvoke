@@ -101,26 +101,12 @@ namespace PInvoke
             {
                 var data = SP_DEVICE_INTERFACE_DATA.Create();
 
-                bool result;
-                if (deviceInfoData.HasValue)
-                {
-                    var deviceInfoDataLocal = deviceInfoData.Value;
-                    result = SetupDiEnumDeviceInterfaces(
-                        lpDeviceInfoSet,
-                        ref deviceInfoDataLocal,
-                        ref interfaceClassGuid,
-                        index,
-                        ref data);
-                }
-                else
-                {
-                    result = SetupDiEnumDeviceInterfaces(
-                        lpDeviceInfoSet,
-                        IntPtr.Zero,
-                        ref interfaceClassGuid,
-                        index,
-                        ref data);
-                }
+                bool result = SetupDiEnumDeviceInterfaces(
+                    lpDeviceInfoSet,
+                    deviceInfoData,
+                    ref interfaceClassGuid,
+                    index,
+                    ref data);
 
                 if (!result)
                 {

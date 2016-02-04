@@ -55,7 +55,7 @@ public partial class Kernel32Facts
                 bool result = CreateProcess(
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "cmd.exe"),
                     $"/c set > \"{commandOutputFileName}\"",
-                    null,
+                    (SECURITY_ATTRIBUTES?)null,
                     null,
                     false,
                     CreateProcessFlags.CREATE_NO_WINDOW | CreateProcessFlags.CREATE_UNICODE_ENVIRONMENT,
@@ -294,9 +294,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_READ,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_READ,
+                Kernel32.FileShare.None,
+                (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
@@ -343,9 +343,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_READ,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_READ,
+                Kernel32.FileShare.None,
+                (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
@@ -426,9 +426,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_WRITE,
+                Kernel32.FileShare.None,
+                (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
@@ -474,9 +474,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_WRITE,
+                Kernel32.FileShare.None,
+                (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
@@ -524,9 +524,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_WRITE,
+                Kernel32.FileShare.None,
+                (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
@@ -572,9 +572,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_WRITE,
+                Kernel32.FileShare.None,
+                (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
@@ -626,9 +626,9 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                PInvoke.Kernel32.FileAccess.GENERIC_WRITE,
-                PInvoke.Kernel32.FileShare.None,
-                null,
+                Kernel32.FileAccess.GENERIC_WRITE,
+                Kernel32.FileShare.None,
+                (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
                 CreateFileFlags.FILE_FLAG_OVERLAPPED,
                 new SafeObjectHandle()))
@@ -729,7 +729,7 @@ public partial class Kernel32Facts
             255,
             255,
             0,
-            null);
+            (SECURITY_ATTRIBUTES?)null);
 
         Assert.False(server.IsInvalid);
         using (server)
@@ -746,9 +746,9 @@ public partial class Kernel32Facts
 
                 var client = CreateFile(
                     pipeName,
-                    PInvoke.Kernel32.FileAccess.GENERIC_READ | PInvoke.Kernel32.FileAccess.FILE_GENERIC_WRITE,
-                    PInvoke.Kernel32.FileShare.None,
-                    null,
+                    Kernel32.FileAccess.GENERIC_READ | Kernel32.FileAccess.FILE_GENERIC_WRITE,
+                    Kernel32.FileShare.None,
+                    (SECURITY_ATTRIBUTES?)null,
                     CreationDisposition.OPEN_EXISTING,
                     0,
                     SafeObjectHandle.Null);

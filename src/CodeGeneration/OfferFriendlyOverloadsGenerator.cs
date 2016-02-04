@@ -60,34 +60,6 @@ namespace PInvoke
             NativePointerToFriendly = 0x2,
         }
 
-        [Flags]
-        private enum ParameterOptions
-        {
-            /// <summary>
-            /// For native pointers, assume the pointer is to the first element in an array.
-            /// </summary>
-            IsArray = 0x1,
-
-            /// <summary>
-            /// Consider that data is passed to the receiving function via this parameter.
-            /// </summary>
-            IsIn = 0x2,
-
-            /// <summary>
-            /// Consider that data is returned from the receiving function via this parameter.
-            /// </summary>
-            IsOut = 0x4,
-
-            /// <summary>
-            /// Consider that data is passed and returned to and from the receiving function via this parameter.
-            /// </summary>
-            IsBidirectional = IsIn | IsOut,
-
-            ShouldBeRef = IsBidirectional,
-            ShouldBeArray = IsArray,
-            ShouldBeNullable = IsIn,
-        }
-
         /// <inheritdoc />
         public async Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
@@ -107,24 +79,24 @@ namespace PInvoke
                 var refOrArrayAttributedParameters =
                     from parameter in nativePointerParameters
                     let attributes = parameter.AttributeLists.SelectMany(al => al.Attributes)
-                    let isArrayAttribute = attributes.FirstOrDefault(attribute => (attribute.Name as SimpleNameSyntax)?.Identifier.ValueText == "IsArray")
-                    where isArrayAttribute != null
-                    let inAttribute = attributes.FirstOrDefault(attribute => (attribute.Name as SimpleNameSyntax)?.Identifier.ValueText == "In")
-                    let isArrayArg = isArrayAttribute.ArgumentList.Arguments.FirstOrDefault()?.Expression
-                    let isArray = isArrayArg != null ? semanticModel.GetConstantValue(isArrayArg) : true
+                    let friendlyAttribute = attributes.FirstOrDefault(attribute => (attribute.Name as SimpleNameSyntax)?.Identifier.ValueText == "Friendly")
+                    where friendlyAttribute != null
+                    let friendlyFlagsExpression = friendlyAttribute.ArgumentList.Arguments.First().Expression
+                    let friendlyFlags = (FriendlyFlags)(int)semanticModel.GetConstantValue(friendlyFlagsExpression).Value
                     select new
                     {
                         Parameter = parameter,
-                        Options = (isArray.HasValue ? ((bool)isArray.Value ? ParameterOptions.IsArray : 0) : ParameterOptions.IsArray)
-                                | (inAttribute != null ? ParameterOptions.IsIn : ParameterOptions.IsBidirectional)
+                        Flags = friendlyFlags
                     };
+                var parametersToFriendlyTransform = refOrArrayAttributedParameters.ToDictionary(p => p.Parameter, p => p.Flags);
+
+                // Consider undecorated byte* parameters to have a Friendly attribute by default.
                 var byteArrayInParameters = nativePointerParameters.Where(IsByteStarInParameter);
-                var parametersToFriendlyTransform = refOrArrayAttributedParameters.ToDictionary(p => p.Parameter, p => p.Options);
                 foreach (var p in byteArrayInParameters)
                 {
                     if (!parametersToFriendlyTransform.ContainsKey(p))
                     {
-                        parametersToFriendlyTransform[p] = ParameterOptions.IsArray;
+                        parametersToFriendlyTransform[p] = FriendlyFlags.Array | FriendlyFlags.Bidirectional;
                     }
                 }
 
@@ -198,30 +170,57 @@ namespace PInvoke
 
         private static TypeSyntax TransformReturnType(TypeSyntax returnType) => returnType is PointerTypeSyntax ? IntPtrTypeSyntax : returnType;
 
-        private static ParameterListSyntax TransformParameterList(ParameterListSyntax list, GeneratorFlags flags, IReadOnlyDictionary<ParameterSyntax, ParameterOptions> parametersToFriendlyTransform)
+        private static ParameterListSyntax TransformParameterList(ParameterListSyntax list, GeneratorFlags generatorFlags, IReadOnlyDictionary<ParameterSyntax, FriendlyFlags> parametersToFriendlyTransform)
         {
             var resultingList = list.ReplaceNodes(
                 WhereIsPointerParameter(list.Parameters),
                 (n1, n2) =>
                 {
-                    bool changeToArray = flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(n1) && parametersToFriendlyTransform[n1] == ParameterOptions.ShouldBeArray;
-                    bool changeToNullable = flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(n1) && parametersToFriendlyTransform[n1] == ParameterOptions.ShouldBeNullable;
-                    bool changeToRef = flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(n1) && parametersToFriendlyTransform[n1] == ParameterOptions.ShouldBeRef;
-                    bool changeToIntPtr = flags.HasFlag(GeneratorFlags.NativePointerToIntPtr);
-                    return changeToArray ? TransformParameterDefaultValue(ConvertPointerToArrayParameter(n2))
-                        : changeToRef ? TransformParameterDefaultValue(ConvertPointerToRefParameter(n2))
-                        : changeToNullable ? TransformParameterDefaultValue(ConvertPointerToNullableParameter(n2))
-                        : changeToIntPtr ? TransformParameterDefaultValue(n2.WithType(IntPtrTypeSyntax))
-                        : n2;
+                    // Remove all attributes
+                    n2 = n2.WithAttributeLists(SyntaxFactory.List<AttributeListSyntax>());
+
+                    FriendlyFlags friendlyFlags;
+                    if (generatorFlags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.TryGetValue(n1, out friendlyFlags))
+                    {
+                        var pointerType = (PointerTypeSyntax)n2.Type;
+                        var alteredParameter = n2.WithDefault(null);
+                        if (friendlyFlags.HasFlag(FriendlyFlags.Array))
+                        {
+                            alteredParameter = alteredParameter
+                                .WithType(SyntaxFactory.ArrayType(pointerType.ElementType, OneDimensionalUnspecifiedLengthArray));
+                        }
+                        else
+                        {
+                            if (friendlyFlags.HasFlag(FriendlyFlags.Optional))
+                            {
+                                alteredParameter = alteredParameter
+                                    .WithType(SyntaxFactory.NullableType(pointerType.ElementType));
+                            }
+
+                            if (friendlyFlags.HasFlag(FriendlyFlags.Out))
+                            {
+                                SyntaxKind modifier = friendlyFlags.HasFlag(FriendlyFlags.Optional) || friendlyFlags.HasFlag(FriendlyFlags.In)
+                                     ? SyntaxKind.RefKeyword
+                                     : SyntaxKind.OutKeyword;
+                                alteredParameter = alteredParameter
+                                    .AddModifiers(SyntaxFactory.Token(modifier));
+                            }
+                        }
+
+                        return alteredParameter;
+                    }
+                    else if (generatorFlags.HasFlag(GeneratorFlags.NativePointerToIntPtr))
+                    {
+                        return n2
+                            .WithType(IntPtrTypeSyntax)
+                            .WithDefault(null);
+                    }
+                    else
+                    {
+                        return n2;
+                    }
                 });
             return resultingList;
-        }
-
-        private static ParameterSyntax ConvertPointerToArrayParameter(ParameterSyntax parameter)
-        {
-            var pointerType = (PointerTypeSyntax)parameter.Type;
-            return parameter
-                .WithType(SyntaxFactory.ArrayType(pointerType.ElementType, OneDimensionalUnspecifiedLengthArray));
         }
 
         private static ParameterSyntax ConvertPointerToRefParameter(ParameterSyntax parameter)
@@ -239,37 +238,51 @@ namespace PInvoke
                 .WithType(SyntaxFactory.NullableType(pointerType.ElementType));
         }
 
-        private static ParameterSyntax TransformParameterDefaultValue(ParameterSyntax parameter)
-        {
-            // Just neutralize the default parameter since null can't be assigned to IntPtr,
-            // and to avoid method overload ambiguities when parameters are omitted.
-            return parameter.WithDefault(null);
-
-            // We could translate the null to default(IntPtr) like this:
-            ////return parameter.Default?.Value.Kind() == SyntaxKind.NullLiteralExpression
-            ////    ? parameter.WithDefault(SyntaxFactory.EqualsValueClause(SyntaxFactory.DefaultExpression(IntPtrTypeSyntax)))
-            ////    : parameter;
-        }
-
         private static SyntaxTokenList RemoveModifier(SyntaxTokenList list, params SyntaxKind[] modifiers)
         {
             return SyntaxFactory.TokenList(list.Where(t => Array.IndexOf(modifiers, t.Kind()) < 0));
         }
 
-        private static BlockSyntax CallNativePointerOverload(MethodDeclarationSyntax nativePointerOverload, GeneratorFlags flags, IReadOnlyDictionary<ParameterSyntax, ParameterOptions> parametersToFriendlyTransform)
+        private static BlockSyntax CallNativePointerOverload(MethodDeclarationSyntax nativePointerOverload, GeneratorFlags flags, IReadOnlyDictionary<ParameterSyntax, FriendlyFlags> parametersToFriendlyTransform)
         {
-            var arrayTransformParameters =
-                (from p in nativePointerOverload.ParameterList.Parameters
-                 where flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(p) && parametersToFriendlyTransform[p] == ParameterOptions.ShouldBeArray
-                 select p).ToList();
-            var refTransformParameters =
-                (from p in nativePointerOverload.ParameterList.Parameters
-                 where flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(p) && parametersToFriendlyTransform[p] == ParameterOptions.ShouldBeRef
-                 select p).ToList();
-            var nullableTransformParameters =
-                (from p in nativePointerOverload.ParameterList.Parameters
-                 where flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(p) && parametersToFriendlyTransform[p] == ParameterOptions.ShouldBeNullable
-                 select p).ToList();
+            var redirectedParameters = new Dictionary<ParameterSyntax, IdentifierNameSyntax>();
+            var invocationArguments = new Dictionary<ParameterSyntax, ExpressionSyntax>();
+
+            var block = SyntaxFactory.Block();
+
+            var arrayTransformParameters = new List<ParameterSyntax>();
+            var refTransformParameters = new List<ParameterSyntax>();
+            var nullableTransformParameters = new List<ParameterSyntax>();
+            if (flags.HasFlag(GeneratorFlags.NativePointerToFriendly))
+            {
+                foreach (var parameter in nativePointerOverload.ParameterList.Parameters)
+                {
+                    FriendlyFlags friendlyFlags;
+                    if (parametersToFriendlyTransform.TryGetValue(parameter, out friendlyFlags))
+                    {
+                        if (friendlyFlags.HasFlag(FriendlyFlags.Array))
+                        {
+                            arrayTransformParameters.Add(parameter);
+                            redirectedParameters.Add(parameter, SyntaxFactory.IdentifierName("p" + parameter.Identifier.ValueText));
+                        }
+                        else
+                        {
+                            if (friendlyFlags.HasFlag(FriendlyFlags.Out))
+                            {
+                                refTransformParameters.Add(parameter);
+                                redirectedParameters.Add(parameter, SyntaxFactory.IdentifierName("p" + parameter.Identifier.ValueText));
+                            }
+
+                            if (friendlyFlags.HasFlag(FriendlyFlags.Optional))
+                            {
+                                nullableTransformParameters.Add(parameter);
+                                redirectedParameters.Add(parameter, SyntaxFactory.IdentifierName(parameter.Identifier.ValueText + "Local"));
+                            }
+                        }
+                    }
+                }
+            }
+
             var parametersRequiringCasts =
                 from p in nativePointerOverload.ParameterList.Parameters
                 where flags.HasFlag(GeneratorFlags.NativePointerToIntPtr)
@@ -277,26 +290,6 @@ namespace PInvoke
                 where !arrayTransformParameters.Contains(p) && !refTransformParameters.Contains(p) && !nullableTransformParameters.Contains(p)
                 group p by p.Type into paramsByType
                 select paramsByType;
-
-            var redirectedParameters = new Dictionary<ParameterSyntax, IdentifierNameSyntax>();
-            var invocationArguments = new Dictionary<ParameterSyntax, ExpressionSyntax>();
-
-            var block = SyntaxFactory.Block();
-
-            foreach (var arrayPointerParam in arrayTransformParameters)
-            {
-                redirectedParameters.Add(arrayPointerParam, SyntaxFactory.IdentifierName("p" + arrayPointerParam.Identifier.ValueText));
-            }
-
-            foreach (var refPointerParam in refTransformParameters)
-            {
-                redirectedParameters.Add(refPointerParam, SyntaxFactory.IdentifierName("p" + refPointerParam.Identifier.ValueText));
-            }
-
-            foreach (var nullableParam in nullableTransformParameters)
-            {
-                redirectedParameters.Add(nullableParam, SyntaxFactory.IdentifierName(nullableParam.Identifier.ValueText + "Local"));
-            }
 
             foreach (var pType in parametersRequiringCasts)
             {

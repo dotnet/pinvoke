@@ -101,7 +101,7 @@ namespace PInvoke
         [DllImport(nameof(SetupApi), SetLastError = true)]
         public static extern unsafe bool SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle deviceInfoSet,
-            [IsArray(false)] SP_DEVINFO_DATA* deviceInfoData,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
             ref Guid interfaceClassGuid,
             int memberIndex,
             ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData);
