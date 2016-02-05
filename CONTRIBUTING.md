@@ -84,13 +84,18 @@ anything else found in native header files for these reasons:
  * Prefer `SafeHandle`-derived types to `IntPtr` when dealing with handles.
    Mark P/Invoke methods that destroy handles private because they will necessarily take `IntPtr`
    and the pattern for users should be to `Dispose` of your `SafeHandle`.
- * Prefer native pointers over `IntPtr`. We have automatic code generation in place during the build
-   to create `IntPtr` overloads of these methods.
- * When a native method accepts a pointer to a byte array, consider creating two P/Invoke overloads:
-   one that takes `byte[]` and one that takes `byte*`. The former being more convenient for most callers,
-   while the latter is more efficient when callers may want to point to some offset into the array.
- * Prefer `enum` types over `int` or `uint` flags. Generally, name flags enums as `METHODNAMEFlags`, for example
-   `CreateFileFlags` for the flags that are passed to `CreateFile`.
+ * Use native pointers instead of `IntPtr`. We have automatic code generation in place during the build
+   to create `IntPtr` overloads of these methods. The only known exception where `IntPtr` is OK
+   to use directly is when the value isn't actually a pointer that should ever be dereferenced (e.g.
+   a handle that is only ever returned back to the library that produced it).
+ * When a native method accepts a pointer to an array of structs, use `struct*` as the parameter type
+   and add `[Friendly(FriendlyFlags.Array)]` to that parameter (the attribute is not necessary on `byte*`).
+   The code generator will then produce an overload that takes `struct[]` for you.
+ * When a native method accepts a pointer to a single value, you may optionally add this attribute to the
+   parameter with more or less flags: `[Friendly(FriendlyFlags.In | FriendlyFlags.Optional)]` which leads
+   to the code generator producing `struct?`, `ref struct`, or `ref struct?` overloads for that parameter.
+ * Prefer `enum` types over `int` or `uint` for flags. Generally, name flags enums as `METHODNAMEFlags`.
+   For example: `CreateFileFlags` for the flags that are passed to `CreateFile`.
 
 ### Helper methods
 
