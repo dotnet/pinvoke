@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="User32+FlashWindowFlags.cs" />
     <Compile Include="User32+FLASHWINFO.cs" />
+    <Compile Include="User32+LookupIconIdFromDirectoryExFlags.cs" />
     <Compile Include="User32+MapVirtualKeyTranslation.cs" />
     <Compile Include="User32+MenuItemFlags.cs" />
     <Compile Include="User32+MENUITEMINFO.cs" />
@@ -36,14 +37,29 @@
     <Compile Include="User32+WindowLongIndexFlags.cs" />
     <Compile Include="User32+WindowsHookType.cs" />
     <Compile Include="User32+WindowShowStyle.cs" />
-    <Compile Include="User32.cs" />
-    <Compile Include="User32.Helpers.cs" />
+    <Compile Include="User32.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="User32.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeGenerationAttributes.Net40\CodeGenerationAttributes.Net40.csproj">
+      <Project>{6a77281b-c503-44ea-90c1-0e9868d06cd0}</Project>
+      <Name>CodeGenerationAttributes.Net40</Name>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
+      <Name>CodeGeneration</Name>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>
