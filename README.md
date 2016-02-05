@@ -31,6 +31,12 @@ var error = BCryptOpenAlgorithm(AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM); /
 var error = BCrypt.BCryptOpenAlgorithm(BCrypt.AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM); // C# 5 syntax
 ```
 
+Sometimes a PInvoke method may have multiple overloads. For example every method that accepts
+`struct*` parameters has an overload that accepts `IntPtr` in its place. In other cases there
+may be overloads that accept `struct*` and `struct?`. In some of these cases that can lead to
+compiler errors if you pass in `null` because both `struct*` and `struct?` overloads can match.
+To resolve the issue, add a cast to your null: `(struct?)null` to resolve the ambiguity.
+
 ## Design goals
 
 Provide a slightly higher than lowest level API for P/Invoke signatures.
