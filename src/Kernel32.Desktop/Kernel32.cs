@@ -1356,7 +1356,7 @@ namespace PInvoke
         ///         If the message to be read is longer than the buffer specified by the <paramref name="nOutBufferSize" />
         ///         parameter, TransactNamedPipe returns FALSE and the <see cref="GetLastError" /> function returns
         ///         <see cref="Win32ErrorCode.ERROR_MORE_DATA" />. The remainder of the message can be read by a subsequent call to
-        ///         <see cref="ReadFile(SafeObjectHandle,void*,int,NullableUInt32,OVERLAPPED*)" />, ReadFileEx, or PeekNamedPipe.
+        ///         <see cref="ReadFile(SafeObjectHandle,void*,int,int*,OVERLAPPED*)" />, ReadFileEx, or PeekNamedPipe.
         ///     </para>
         /// </returns>
         [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true)]
