@@ -29,6 +29,7 @@
     <Compile Include="User32+MenuItemState.cs" />
     <Compile Include="User32+MenuItemType.cs" />
     <Compile Include="User32+MenuMembersMask.cs" />
+    <Compile Include="User32+SafeDCHandle.cs" />
     <Compile Include="User32+SafeHookHandle.cs" />
     <Compile Include="User32+GetAncestorFlags.cs" />
     <Compile Include="User32+SetWindowLongFlags.cs" />
