@@ -48,8 +48,6 @@
     <Compile Include="NTSTATUS+Code.cs" />
     <Compile Include="NTSTATUS+SeverityCode.cs" />
     <Compile Include="NTSTATUS+FacilityCode.cs" />
-    <Compile Include="NullableUInt32.cs" />
-    <Compile Include="NullableGuid.cs" />
     <Compile Include="NTSTATUS.cs" />
     <Compile Include="PInvokeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

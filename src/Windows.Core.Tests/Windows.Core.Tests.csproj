@@ -29,8 +29,6 @@
   <ItemGroup>
     <Compile Include="NTStatusFacts.cs" />
     <Compile Include="HResultFacts.cs" />
-    <Compile Include="NullableGuidFacts.cs" />
-    <Compile Include="NullableUInt32Facts.cs" />
     <Compile Include="PInvokeExtensionsFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -149,9 +149,14 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NTDll.Shared", "NTDll.Share
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTDll.Tests", "NTDll.Tests\NTDll.Tests.csproj", "{F580109D-3C86-4CE4-B686-53F2A3CB1314}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CodeGenerationAttributes.Shared", "CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.shproj", "{8E4F09C1-D236-4273-A6EA-F50A5CF0AF62}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		AdvApi32.Shared\AdvApi32.Shared.projitems*{3fcbf2e0-1330-454c-8a17-af14eba6b244}*SharedItemsImports = 4
+		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{6a77281b-c503-44ea-90c1-0e9868d06cd0}*SharedItemsImports = 4
+		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{8e4f09c1-d236-4273-a6ea-f50a5cf0af62}*SharedItemsImports = 13
+		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{1387e009-7086-4572-ac8d-ce4242adec77}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{f37b9b20-0d43-49db-bf85-519a525c64d8}*SharedItemsImports = 13
 		Hid.Shared\Hid.Shared.projitems*{66c709c8-3ace-4e27-aee0-ec22d9f029d8}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{41dd8edd-d861-41c0-a496-2eea17c49180}*SharedItemsImports = 13
@@ -400,5 +405,6 @@ Global
 		{1387E009-7086-4572-AC8D-CE4242ADEC77} = {BC58E358-D202-41B7-BDC3-38E084F36F0B}
 		{95305207-62AE-4019-83EC-079008625219} = {BC58E358-D202-41B7-BDC3-38E084F36F0B}
 		{6A77281B-C503-44EA-90C1-0E9868D06CD0} = {BC58E358-D202-41B7-BDC3-38E084F36F0B}
+		{8E4F09C1-D236-4273-A6EA-F50A5CF0AF62} = {BC58E358-D202-41B7-BDC3-38E084F36F0B}
 	EndGlobalSection
 EndGlobal

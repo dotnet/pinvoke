@@ -146,13 +146,13 @@ namespace PInvoke
                 throw new ArgumentNullException(nameof(hFile));
             }
 
-            var bytesWritten = (NullableUInt32)0;
-            if (!WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, bytesWritten, null))
+            var bytesWritten = (int?)0;
+            if (!WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, ref bytesWritten, null))
             {
                 throw new Win32Exception();
             }
 
-            return (int)bytesWritten.Value;
+            return bytesWritten.Value;
         }
 
         /// <summary>Writes data synchronously to the specified file or input/output (I/O) device.</summary>
@@ -203,13 +203,13 @@ namespace PInvoke
                 throw new ArgumentNullException(nameof(hFile));
             }
 
-            var bytesRead = (NullableUInt32)0;
-            if (!ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, bytesRead, null))
+            var bytesRead = (int?)0;
+            if (!ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, ref bytesRead, null))
             {
                 throw new Win32Exception();
             }
 
-            return (int)bytesRead.Value;
+            return bytesRead.Value;
         }
 
         /// <summary>Reads data synchronously from the specified file or input/output (I/O) device.</summary>

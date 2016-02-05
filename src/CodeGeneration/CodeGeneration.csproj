@@ -30,6 +30,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CodeGenerationAttributes.Shared\FriendlyFlags.cs">
+      <Link>FriendlyFlags.cs</Link>
+    </Compile>
     <Compile Include="OfferFriendlyOverloadsGenerator.cs" />
     <Compile Include="OfferIntPtrPropertyAccessorsGenerator.cs" />
   </ItemGroup>

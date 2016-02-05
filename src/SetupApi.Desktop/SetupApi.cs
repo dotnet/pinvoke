@@ -55,8 +55,8 @@ namespace PInvoke
         /// installed devices that matched the supplied parameters. If the operation fails, the function returns an invalid handle.
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeDeviceInfoSetHandle SetupDiGetClassDevs(
-            NullableGuid classGuid,
+        public static extern unsafe SafeDeviceInfoSetHandle SetupDiGetClassDevs(
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Guid* classGuid,
             string enumerator,
             IntPtr hwndParent,
             GetClassDevsFlags flags);
@@ -101,7 +101,7 @@ namespace PInvoke
         [DllImport(nameof(SetupApi), SetLastError = true)]
         public static extern unsafe bool SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle deviceInfoSet,
-            [IsArray(false)] SP_DEVINFO_DATA* deviceInfoData,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
             ref Guid interfaceClassGuid,
             int memberIndex,
             ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData);

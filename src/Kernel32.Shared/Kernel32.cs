@@ -274,7 +274,7 @@ namespace PInvoke
             SafeObjectHandle hFile,
             void* lpBuffer,
             int nNumberOfBytesToRead,
-            NullableUInt32 lpNumberOfBytesRead,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] int* lpNumberOfBytesRead,
             OVERLAPPED* lpOverlapped);
 
         /// <summary>
@@ -350,7 +350,7 @@ namespace PInvoke
             SafeObjectHandle hFile,
             void* lpBuffer,
             int nNumberOfBytesToWrite,
-            NullableUInt32 lpNumberOfBytesWritten,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] int* lpNumberOfBytesWritten,
             OVERLAPPED* lpOverlapped);
 
         /// <summary>

@@ -30,17 +30,7 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\CodeGenerationAttributes\IsArrayAttribute.cs">
-      <Link>IsArrayAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\CodeGenerationAttributes\OfferFriendlyOverloadsAttribute.cs">
-      <Link>OfferFriendlyOverloadsAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\CodeGenerationAttributes\OfferIntPtrPropertyAccessorsAttribute.cs">
-      <Link>OfferIntPtrPropertyAccessorsAttribute.cs</Link>
-    </Compile>
-  </ItemGroup>
+  <Import Project="..\CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
 </Project>

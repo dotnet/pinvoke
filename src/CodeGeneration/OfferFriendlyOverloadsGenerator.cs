@@ -78,17 +78,25 @@ namespace PInvoke
 
                 var refOrArrayAttributedParameters =
                     from parameter in nativePointerParameters
-                    from attribute in parameter.AttributeLists.SelectMany(al => al.Attributes)
-                    where (attribute.Name as SimpleNameSyntax)?.Identifier.ValueText == "IsArray"
-                    let isArray = semanticModel.GetConstantValue(attribute.ArgumentList.Arguments.FirstOrDefault()?.Expression)
-                    select new { Parameter = parameter, IsArray = isArray.HasValue ? (bool)isArray.Value : true };
+                    let attributes = parameter.AttributeLists.SelectMany(al => al.Attributes)
+                    let friendlyAttribute = attributes.FirstOrDefault(attribute => (attribute.Name as SimpleNameSyntax)?.Identifier.ValueText == "Friendly")
+                    where friendlyAttribute != null
+                    let friendlyFlagsExpression = friendlyAttribute.ArgumentList.Arguments.First().Expression
+                    let friendlyFlags = (FriendlyFlags)(int)semanticModel.GetConstantValue(friendlyFlagsExpression).Value
+                    select new
+                    {
+                        Parameter = parameter,
+                        Flags = friendlyFlags
+                    };
+                var parametersToFriendlyTransform = refOrArrayAttributedParameters.ToDictionary(p => p.Parameter, p => p.Flags);
+
+                // Consider undecorated byte* parameters to have a Friendly attribute by default.
                 var byteArrayInParameters = nativePointerParameters.Where(IsByteStarInParameter);
-                var parametersToFriendlyTransform = refOrArrayAttributedParameters.ToDictionary(p => p.Parameter, p => p.IsArray);
                 foreach (var p in byteArrayInParameters)
                 {
                     if (!parametersToFriendlyTransform.ContainsKey(p))
                     {
-                        parametersToFriendlyTransform[p] = true;
+                        parametersToFriendlyTransform[p] = FriendlyFlags.Array | FriendlyFlags.Bidirectional;
                     }
                 }
 
@@ -162,28 +170,57 @@ namespace PInvoke
 
         private static TypeSyntax TransformReturnType(TypeSyntax returnType) => returnType is PointerTypeSyntax ? IntPtrTypeSyntax : returnType;
 
-        private static ParameterListSyntax TransformParameterList(ParameterListSyntax list, GeneratorFlags flags, IReadOnlyDictionary<ParameterSyntax, bool> parametersToFriendlyTransform)
+        private static ParameterListSyntax TransformParameterList(ParameterListSyntax list, GeneratorFlags generatorFlags, IReadOnlyDictionary<ParameterSyntax, FriendlyFlags> parametersToFriendlyTransform)
         {
             var resultingList = list.ReplaceNodes(
                 WhereIsPointerParameter(list.Parameters),
                 (n1, n2) =>
                 {
-                    bool changeToArray = flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(n1) && parametersToFriendlyTransform[n1];
-                    bool changeToRef = flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(n1) && !parametersToFriendlyTransform[n1];
-                    bool changeToIntPtr = flags.HasFlag(GeneratorFlags.NativePointerToIntPtr);
-                    return changeToArray ? TransformParameterDefaultValue(ConvertPointerToArrayParameter(n2))
-                        : changeToRef ? TransformParameterDefaultValue(ConvertPointerToRefParameter(n2))
-                        : changeToIntPtr ? TransformParameterDefaultValue(n2.WithType(IntPtrTypeSyntax))
-                        : n2;
+                    // Remove all attributes
+                    n2 = n2.WithAttributeLists(SyntaxFactory.List<AttributeListSyntax>());
+
+                    FriendlyFlags friendlyFlags;
+                    if (generatorFlags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.TryGetValue(n1, out friendlyFlags))
+                    {
+                        var pointerType = (PointerTypeSyntax)n2.Type;
+                        var alteredParameter = n2.WithDefault(null);
+                        if (friendlyFlags.HasFlag(FriendlyFlags.Array))
+                        {
+                            alteredParameter = alteredParameter
+                                .WithType(SyntaxFactory.ArrayType(pointerType.ElementType, OneDimensionalUnspecifiedLengthArray));
+                        }
+                        else
+                        {
+                            if (friendlyFlags.HasFlag(FriendlyFlags.Optional))
+                            {
+                                alteredParameter = alteredParameter
+                                    .WithType(SyntaxFactory.NullableType(pointerType.ElementType));
+                            }
+
+                            if (friendlyFlags.HasFlag(FriendlyFlags.Out))
+                            {
+                                SyntaxKind modifier = friendlyFlags.HasFlag(FriendlyFlags.Optional) || friendlyFlags.HasFlag(FriendlyFlags.In)
+                                     ? SyntaxKind.RefKeyword
+                                     : SyntaxKind.OutKeyword;
+                                alteredParameter = alteredParameter
+                                    .AddModifiers(SyntaxFactory.Token(modifier));
+                            }
+                        }
+
+                        return alteredParameter;
+                    }
+                    else if (generatorFlags.HasFlag(GeneratorFlags.NativePointerToIntPtr))
+                    {
+                        return n2
+                            .WithType(IntPtrTypeSyntax)
+                            .WithDefault(null);
+                    }
+                    else
+                    {
+                        return n2;
+                    }
                 });
             return resultingList;
-        }
-
-        private static ParameterSyntax ConvertPointerToArrayParameter(ParameterSyntax parameter)
-        {
-            var pointerType = (PointerTypeSyntax)parameter.Type;
-            return parameter
-                .WithType(SyntaxFactory.ArrayType(pointerType.ElementType, OneDimensionalUnspecifiedLengthArray));
         }
 
         private static ParameterSyntax ConvertPointerToRefParameter(ParameterSyntax parameter)
@@ -194,16 +231,11 @@ namespace PInvoke
                 .WithType(pointerType.ElementType);
         }
 
-        private static ParameterSyntax TransformParameterDefaultValue(ParameterSyntax parameter)
+        private static ParameterSyntax ConvertPointerToNullableParameter(ParameterSyntax parameter)
         {
-            // Just neutralize the default parameter since null can't be assigned to IntPtr,
-            // and to avoid method overload ambiguities when parameters are omitted.
-            return parameter.WithDefault(null);
-
-            // We could translate the null to default(IntPtr) like this:
-            ////return parameter.Default?.Value.Kind() == SyntaxKind.NullLiteralExpression
-            ////    ? parameter.WithDefault(SyntaxFactory.EqualsValueClause(SyntaxFactory.DefaultExpression(IntPtrTypeSyntax)))
-            ////    : parameter;
+            var pointerType = (PointerTypeSyntax)parameter.Type;
+            return parameter
+                .WithType(SyntaxFactory.NullableType(pointerType.ElementType));
         }
 
         private static SyntaxTokenList RemoveModifier(SyntaxTokenList list, params SyntaxKind[] modifiers)
@@ -211,71 +243,117 @@ namespace PInvoke
             return SyntaxFactory.TokenList(list.Where(t => Array.IndexOf(modifiers, t.Kind()) < 0));
         }
 
-        private static BlockSyntax CallNativePointerOverload(MethodDeclarationSyntax nativePointerOverload, GeneratorFlags flags, IReadOnlyDictionary<ParameterSyntax, bool> parametersToFriendlyTransform)
+        private static BlockSyntax CallNativePointerOverload(MethodDeclarationSyntax nativePointerOverload, GeneratorFlags flags, IReadOnlyDictionary<ParameterSyntax, FriendlyFlags> parametersToFriendlyTransform)
         {
-            var arrayTransformParameters =
-                (from p in nativePointerOverload.ParameterList.Parameters
-                 where flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(p) && parametersToFriendlyTransform[p]
-                 select p).ToList();
-            var refTransformParameters =
-                (from p in nativePointerOverload.ParameterList.Parameters
-                 where flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.ContainsKey(p) && !parametersToFriendlyTransform[p]
-                 select p).ToList();
-            var parametersRequiringCasts =
-                from p in nativePointerOverload.ParameterList.Parameters
-                where flags.HasFlag(GeneratorFlags.NativePointerToIntPtr)
-                where p.Type is PointerTypeSyntax && (p.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword) || m.IsKind(SyntaxKind.RefKeyword)) || !p.Type.Equals(VoidStar))
-                where !arrayTransformParameters.Contains(p) && !refTransformParameters.Contains(p)
-                group p by p.Type into paramsByType
-                select paramsByType;
-
-            var redirectedParameters = new Dictionary<ParameterSyntax, IdentifierNameSyntax>();
-
-            var block = SyntaxFactory.Block();
-
-            foreach (var arrayPointerParam in arrayTransformParameters)
+            Func<ParameterSyntax, IdentifierNameSyntax> getLocalSubstituteName = p => SyntaxFactory.IdentifierName(p.Identifier.ValueText + "Local");
+            var invocationArguments = new Dictionary<ParameterSyntax, ArgumentSyntax>();
+            foreach (var p in nativePointerOverload.ParameterList.Parameters)
             {
-                redirectedParameters.Add(arrayPointerParam, SyntaxFactory.IdentifierName("p" + arrayPointerParam.Identifier.ValueText));
+                var refOrOut = p.Modifiers.FirstOrDefault(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword));
+                invocationArguments[p] = SyntaxFactory
+                    .Argument(SyntaxFactory.IdentifierName(p.Identifier))
+                    .WithRefOrOutKeyword(refOrOut);
             }
 
-            foreach (var arrayPointerParam in refTransformParameters)
-            {
-                redirectedParameters.Add(arrayPointerParam, SyntaxFactory.IdentifierName("p" + arrayPointerParam.Identifier.ValueText));
-            }
+            var prelude = new List<StatementSyntax>();
+            var postlude = new List<StatementSyntax>();
+            var fixedStatements = new List<FixedStatementSyntax>();
 
-            foreach (var pType in parametersRequiringCasts)
+            foreach (var parameter in nativePointerOverload.ParameterList.Parameters.Where(p => p.Type is PointerTypeSyntax))
             {
-                var varStatement = SyntaxFactory.VariableDeclaration(pType.Key);
-                foreach (var p in pType)
+                var parameterName = SyntaxFactory.IdentifierName(parameter.Identifier);
+                var localVarName = getLocalSubstituteName(parameter);
+                FriendlyFlags friendlyFlags;
+                if (flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.TryGetValue(parameter, out friendlyFlags))
                 {
-                    var identifierName = SyntaxFactory.IdentifierName(p.Identifier.ValueText + "Local");
-                    var declarator = SyntaxFactory.VariableDeclarator(identifierName.Identifier);
-                    redirectedParameters.Add(p, identifierName);
-                    if (!p.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword)))
+                    if (friendlyFlags.HasFlag(FriendlyFlags.Array))
+                    {
+                        var fixedArrayDecl = SyntaxFactory.VariableDeclarator(localVarName.Identifier)
+                            .WithInitializer(SyntaxFactory.EqualsValueClause(parameterName));
+                        fixedStatements.Add(SyntaxFactory.FixedStatement(
+                            SyntaxFactory.VariableDeclaration(parameter.Type).AddVariables(fixedArrayDecl),
+                            SyntaxFactory.Block()));
+
+                        invocationArguments[parameter] = invocationArguments[parameter].WithExpression(localVarName);
+                    }
+                    else
+                    {
+                        if (friendlyFlags.HasFlag(FriendlyFlags.Optional))
+                        {
+                            var nullableType = (PointerTypeSyntax)parameter.Type;
+                            var hasValueExpression = SyntaxFactory.MemberAccessExpression(
+                                SyntaxKind.SimpleMemberAccessExpression,
+                                SyntaxFactory.IdentifierName(parameter.Identifier),
+                                SyntaxFactory.IdentifierName(nameof(Nullable<int>.HasValue)));
+                            var valueExpression = SyntaxFactory.MemberAccessExpression(
+                                SyntaxKind.SimpleMemberAccessExpression,
+                                SyntaxFactory.IdentifierName(parameter.Identifier),
+                                SyntaxFactory.IdentifierName(nameof(Nullable<int>.Value)));
+                            var defaultExpression = SyntaxFactory.DefaultExpression(nullableType.ElementType);
+                            var varStatement = SyntaxFactory.VariableDeclaration(nullableType.ElementType).AddVariables(
+                                SyntaxFactory.VariableDeclarator(localVarName.Identifier)
+                                    .WithInitializer(SyntaxFactory.EqualsValueClause(
+                                        SyntaxFactory.ConditionalExpression(
+                                            hasValueExpression,
+                                            valueExpression,
+                                            defaultExpression))));
+                            prelude.Add(SyntaxFactory.LocalDeclarationStatement(varStatement));
+
+                            if (friendlyFlags.HasFlag(FriendlyFlags.Out))
+                            {
+                                // someParam = someParamLocal;
+                                var assignBackToParameter = SyntaxFactory.AssignmentExpression(
+                                    SyntaxKind.SimpleAssignmentExpression,
+                                    parameterName,
+                                    localVarName);
+                                var conditionalStatement = SyntaxFactory.IfStatement(
+                                    hasValueExpression,
+                                    SyntaxFactory.ExpressionStatement(assignBackToParameter));
+                                postlude.Add(conditionalStatement);
+                            }
+
+                            invocationArguments[parameter] = invocationArguments[parameter].WithExpression(
+                                SyntaxFactory.ConditionalExpression(
+                                hasValueExpression,
+                                SyntaxFactory.PrefixUnaryExpression(SyntaxKind.AddressOfExpression, localVarName),
+                                SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)));
+                        }
+                    }
+                }
+                else if (flags.HasFlag(GeneratorFlags.NativePointerToIntPtr))
+                {
+                    var varStatement = SyntaxFactory.VariableDeclaration(parameter.Type);
+                    var declarator = SyntaxFactory.VariableDeclarator(localVarName.Identifier);
+                    if (parameter.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword)))
+                    {
+                        var assignment = SyntaxFactory.AssignmentExpression(
+                            SyntaxKind.SimpleAssignmentExpression,
+                            parameterName,
+                            SyntaxFactory.ObjectCreationExpression(
+                                IntPtrTypeSyntax,
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(localVarName))),
+                                null));
+                        postlude.Add(SyntaxFactory.ExpressionStatement(assignment));
+                    }
+                    else
                     {
                         var voidStarPointer = SyntaxFactory.InvocationExpression(
                             SyntaxFactory.MemberAccessExpression(
                                 SyntaxKind.SimpleMemberAccessExpression,
-                                SyntaxFactory.IdentifierName(p.Identifier),
+                                SyntaxFactory.IdentifierName(parameter.Identifier),
                                 SyntaxFactory.IdentifierName(nameof(IntPtr.ToPointer))),
                             SyntaxFactory.ArgumentList());
-                        var typedPointer = p.Type.Equals(VoidStar)
+                        var typedPointer = parameter.Type.Equals(VoidStar)
                             ? (ExpressionSyntax)voidStarPointer
-                            : SyntaxFactory.CastExpression(p.Type, voidStarPointer);
+                            : SyntaxFactory.CastExpression(parameter.Type, voidStarPointer);
 
                         declarator = declarator.WithInitializer(SyntaxFactory.EqualsValueClause(typedPointer));
                     }
 
                     varStatement = varStatement.AddVariables(declarator);
-                    block = block.AddStatements(SyntaxFactory.LocalDeclarationStatement(varStatement));
-                }
-            }
+                    prelude.Add(SyntaxFactory.LocalDeclarationStatement(varStatement));
 
-            foreach (var p in nativePointerOverload.ParameterList.Parameters)
-            {
-                if (!redirectedParameters.ContainsKey(p))
-                {
-                    redirectedParameters.Add(p, SyntaxFactory.IdentifierName(p.Identifier));
+                    invocationArguments[parameter] = invocationArguments[parameter].WithExpression(localVarName);
                 }
             }
 
@@ -284,8 +362,7 @@ namespace PInvoke
                 SyntaxFactory.ArgumentList(
                     SyntaxFactory.SeparatedList(
                         from p in nativePointerOverload.ParameterList.Parameters
-                        let refOrOut = p.Modifiers.FirstOrDefault(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword))
-                        select SyntaxFactory.Argument(redirectedParameters[p]).WithRefOrOutKeyword(refOrOut))));
+                        select invocationArguments[p])));
 
             IdentifierNameSyntax resultVariableName = null;
             StatementSyntax invocationStatement;
@@ -303,22 +380,10 @@ namespace PInvoke
                 invocationStatement = SyntaxFactory.ExpressionStatement(invocationExpression);
             }
 
-            block = block.AddStatements(invocationStatement);
-
-            foreach (var p in parametersRequiringCasts.SelectMany(g => g))
-            {
-                if (p.Modifiers.Any(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword)))
-                {
-                    var assignment = SyntaxFactory.AssignmentExpression(
-                        SyntaxKind.SimpleAssignmentExpression,
-                        SyntaxFactory.IdentifierName(p.Identifier),
-                        SyntaxFactory.ObjectCreationExpression(
-                            IntPtrTypeSyntax,
-                            SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(redirectedParameters[p]))),
-                            null));
-                    block = block.AddStatements(SyntaxFactory.ExpressionStatement(assignment));
-                }
-            }
+            var block = SyntaxFactory.Block()
+                .AddStatements(prelude.ToArray())
+                .AddStatements(invocationStatement)
+                .AddStatements(postlude.ToArray());
 
             if (resultVariableName != null)
             {
@@ -331,44 +396,24 @@ namespace PInvoke
                 block = block.AddStatements(SyntaxFactory.ReturnStatement(returnedValue));
             }
 
-            if (arrayTransformParameters.Any())
+            if (fixedStatements.Count > 0)
             {
                 StatementSyntax outermost = block;
-                foreach (var p in arrayTransformParameters)
+                foreach (var statement in fixedStatements)
                 {
-                    var nameOfPointerLocal = redirectedParameters[p].Identifier;
-                    var nameOfArrayParameter = SyntaxFactory.IdentifierName(p.Identifier);
-                    var fixedArrayDecl = SyntaxFactory.VariableDeclarator(nameOfPointerLocal)
-                        .WithInitializer(SyntaxFactory.EqualsValueClause(nameOfArrayParameter));
-                    outermost = SyntaxFactory.FixedStatement(
-                        SyntaxFactory.VariableDeclaration(p.Type).AddVariables(fixedArrayDecl),
-                        outermost);
-                }
-
-                block = SyntaxFactory.Block(outermost);
-            }
-
-            if (refTransformParameters.Any())
-            {
-                StatementSyntax outermost = block;
-                foreach (var p in refTransformParameters)
-                {
-                    var nameOfPointerLocal = redirectedParameters[p].Identifier;
-                    var nameOfRefParameter = SyntaxFactory.IdentifierName(p.Identifier);
-                    var fixedArrayDecl = SyntaxFactory.VariableDeclarator(nameOfPointerLocal)
-                        .WithInitializer(SyntaxFactory.EqualsValueClause(
-                            SyntaxFactory.PrefixUnaryExpression(
-                                SyntaxKind.AddressOfExpression,
-                                nameOfRefParameter)));
-                    outermost = SyntaxFactory.FixedStatement(
-                        SyntaxFactory.VariableDeclaration(p.Type).AddVariables(fixedArrayDecl),
-                        outermost);
+                    outermost = statement.WithStatement(outermost);
                 }
 
                 block = SyntaxFactory.Block(outermost);
             }
 
             return block;
+        }
+
+        private static TValue GetValueOrDefault<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default(TValue))
+        {
+            TValue entry;
+            return dictionary.TryGetValue(key, out entry) ? entry : defaultValue;
         }
     }
 }

@@ -102,8 +102,8 @@ namespace PInvoke
         public static unsafe extern bool CreateProcess(
             string lpApplicationName,
             string lpCommandLine,
-            [IsArray(false)] SECURITY_ATTRIBUTES* lpProcessAttributes,
-            [IsArray(false)] SECURITY_ATTRIBUTES* lpThreadAttributes,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpProcessAttributes,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpThreadAttributes,
             [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             CreateProcessFlags dwCreationFlags,
             void* lpEnvironment, // pointer because it may point to unicode or ANSI characters, based on a flag.
@@ -184,8 +184,8 @@ namespace PInvoke
             IntPtr hToken,
             string lpApplicationName,
             string lpCommandLine,
-            [IsArray(false)] SECURITY_ATTRIBUTES* lpProcessAttributes,
-            [IsArray(false)] SECURITY_ATTRIBUTES* lpThreadAttributes,
+            [Friendly(FriendlyFlags.Optional | FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpProcessAttributes,
+            [Friendly(FriendlyFlags.Optional | FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpThreadAttributes,
             [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             CreateProcessFlags dwCreationFlags,
             void* lpEnvironment, // pointer because it may point to unicode or ANSI characters, based on a flag.
@@ -382,7 +382,7 @@ namespace PInvoke
             string filename,
             FileAccess access,
             FileShare share,
-            [IsArray(false)] SECURITY_ATTRIBUTES* securityAttributes,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* securityAttributes,
             CreationDisposition creationDisposition,
             CreateFileFlags flagsAndAttributes,
             SafeObjectHandle templateFile);
@@ -738,7 +738,7 @@ namespace PInvoke
         public static extern unsafe bool CreatePipe(
             out SafeObjectHandle hReadPipe,
             out SafeObjectHandle hWritePipe,
-            [IsArray(false)] SECURITY_ATTRIBUTES* lpPipeAttributes,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpPipeAttributes,
             int nSize);
 
         /// <summary>Removes as many pages as possible from the working set of the specified process.</summary>
@@ -868,7 +868,7 @@ namespace PInvoke
             int nOutBufferSize,
             int nInBufferSize,
             int nDefaultTimeOut,
-            [IsArray(false)] SECURITY_ATTRIBUTES* lpSecurityAttributes);
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpSecurityAttributes);
 
         /// <summary>
         ///     Waits until either a time-out interval elapses or an instance of the specified named pipe is available for
@@ -1127,12 +1127,12 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetNamedPipeHandleState(
+        public static extern unsafe bool GetNamedPipeHandleState(
             SafeObjectHandle hNamedPipe,
             out PipeMode lpState,
-            [In, Out] NullableUInt32 lpCurInstances,
-            [In, Out] NullableUInt32 lpMaxCollectionCount,
-            [In, Out] NullableUInt32 lpCollectDataTimeout,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCurInstances,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpMaxCollectionCount,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCollectDataTimeout,
             StringBuilder lpUserName,
             int nMaxUserNameSize);
 
@@ -1301,9 +1301,9 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool SetNamedPipeHandleState(
             SafeObjectHandle hNamedPipe,
-            [IsArray(false)] PipeMode* lpMode,
-            [IsArray(false)] int* lpMaxCollectionCount,
-            [IsArray(false)] int* lpCollectDataTimeout);
+            [Friendly(FriendlyFlags.Optional | FriendlyFlags.In)] PipeMode* lpMode,
+            [Friendly(FriendlyFlags.Optional | FriendlyFlags.In)] int* lpMaxCollectionCount,
+            [Friendly(FriendlyFlags.Optional | FriendlyFlags.In)] int* lpCollectDataTimeout);
 
         /// <summary>
         ///     Combines the functions that write a message to and read a message from the specified named pipe into a single
