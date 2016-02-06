@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="LookupIconIdFromDirectoryExFlags"/> nested type.
     /// </content>
-    partial class User32
+    public partial class User32
     {
         /// <summary>
         /// Flags for the <see cref="LookupIconIdFromDirectoryEx(byte*, bool, int, int, LookupIconIdFromDirectoryExFlags)"/> method.

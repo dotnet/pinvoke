@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25005.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CD09C869-A027-4F21-B78F-22CF072B9C7F}"
 	ProjectSection(SolutionItems) = preProject
@@ -150,6 +150,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTDll.Tests", "NTDll.Tests\NTDll.Tests.csproj", "{F580109D-3C86-4CE4-B686-53F2A3CB1314}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CodeGenerationAttributes.Shared", "CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.shproj", "{8E4F09C1-D236-4273-A6EA-F50A5CF0AF62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UxTheme.Desktop", "UxTheme.Desktop\UxTheme.Desktop.csproj", "{3D1C8CE4-27F5-42BB-A7BD-CD5DEAB58EF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UxTheme.Tests", "UxTheme.Tests\UxTheme.Tests.csproj", "{79E61C04-D712-47ED-B070-A56E5CD7A258}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "UxTheme.NuGet", "UxTheme.NuGet\UxTheme.NuGet.nuproj", "{32BED0F0-0957-4917-B677-52E9BFBE43AB}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -396,6 +402,18 @@ Global
 		{F580109D-3C86-4CE4-B686-53F2A3CB1314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F580109D-3C86-4CE4-B686-53F2A3CB1314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F580109D-3C86-4CE4-B686-53F2A3CB1314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1C8CE4-27F5-42BB-A7BD-CD5DEAB58EF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1C8CE4-27F5-42BB-A7BD-CD5DEAB58EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1C8CE4-27F5-42BB-A7BD-CD5DEAB58EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1C8CE4-27F5-42BB-A7BD-CD5DEAB58EF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E61C04-D712-47ED-B070-A56E5CD7A258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E61C04-D712-47ED-B070-A56E5CD7A258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E61C04-D712-47ED-B070-A56E5CD7A258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E61C04-D712-47ED-B070-A56E5CD7A258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32BED0F0-0957-4917-B677-52E9BFBE43AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32BED0F0-0957-4917-B677-52E9BFBE43AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32BED0F0-0957-4917-B677-52E9BFBE43AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32BED0F0-0957-4917-B677-52E9BFBE43AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="SafeDCHandle"/> nested type.
     /// </content>
-    partial class User32
+    public partial class User32
     {
         /// <summary>
         /// A SafeHandle to track DC handles.
