@@ -11,6 +11,20 @@ namespace PInvoke
     /// </summary>
     public static partial class Gdi32
     {
+        /// <summary>
+        /// The GetDeviceCaps function retrieves device-specific information for the specified device.
+        /// </summary>
+        /// <param name="hdc">A handle to the DC.</param>
+        /// <param name="nIndex">The item to be returned.</param>
+        /// <returns>
+        /// The return value specifies the value of the desired item.
+        /// When nIndex is BITSPIXEL and the device has 15bpp or 16bpp, the return value is 16.
+        /// </returns>
+        [DllImport(nameof(Gdi32), SetLastError = false)]
+        public static extern int GetDeviceCaps(
+            User32.SafeDCHandle hdc,
+            int nIndex);
+
         [DllImport(nameof(Gdi32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject(IntPtr hObject);

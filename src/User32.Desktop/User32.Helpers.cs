@@ -12,9 +12,19 @@ namespace PInvoke
     /// </content>
     public static partial class User32
     {
-        // This is where you define methods that assist in calling P/Invoke methods.
-        // For example, if a P/Invoke method requires allocating unmanaged memory
-        // and freeing it up after the call, a helper method in this file would
-        // make "P/Invoking" for most callers much easier and is a welcome addition.
+        /// <summary>
+        /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
+        /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC for the entire screen.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the DC for the specified window's client area.
+        /// If the function fails, the return value is NULL.
+        /// </returns>
+        public static SafeDCHandle GetDC(IntPtr hWnd)
+        {
+            var hdc = GetDC_IntPtr(hWnd);
+            return hdc != IntPtr.Zero ? new SafeDCHandle(hWnd, hdc) : null;
+        }
     }
 }
