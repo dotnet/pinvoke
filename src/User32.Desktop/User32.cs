@@ -69,6 +69,18 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
+        /// <summary>
+        /// The ReleaseDC function releases a device context (DC), freeing it for use by other applications. The effect of the ReleaseDC function depends on the type of DC. It frees only common and window DCs. It has no effect on class or private DCs.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose DC is to be released.</param>
+        /// <param name="hDC">A handle to the DC to be released.</param>
+        /// <returns>
+        /// The return value indicates whether the DC was released. If the DC was released, the return value is 1.
+        /// If the DC was not released, the return value is zero.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = false)]
+        public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr FindWindowEx(
             IntPtr parentHandle,
@@ -425,6 +437,18 @@ namespace PInvoke
             int cxDesired,
             int cyDesired,
             LookupIconIdFromDirectoryExFlags Flags);
+
+        /// <summary>
+        /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
+        /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC for the entire screen.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the DC for the specified window's client area.
+        /// If the function fails, the return value is NULL.
+        /// </returns>
+        [DllImport(nameof(User32), EntryPoint = "GetDC", SetLastError = false)]
+        private static extern IntPtr GetDC_IntPtr(IntPtr hWnd);
 
         /// <summary>
         ///     Removes a hook procedure installed in a hook chain by the
