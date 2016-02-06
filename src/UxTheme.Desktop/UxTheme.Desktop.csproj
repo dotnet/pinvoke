@@ -50,9 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UxTheme+MARGINS.cs" />
     <Compile Include="UxTheme+SafeThemeHandle.cs" />
-    <Compile Include="UxTheme.cs" />
-    <Compile Include="UxTheme.Helpers.cs" />
+    <Compile Include="UxTheme.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="UxTheme.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="UxTheme.exports.txt">

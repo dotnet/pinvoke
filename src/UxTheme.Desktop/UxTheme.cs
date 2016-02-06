@@ -31,6 +31,27 @@ namespace PInvoke
             string pszClassList);
 
         /// <summary>
+        /// Retrieves the value of a <see cref="MARGINS"/> property.
+        /// </summary>
+        /// <param name="hTheme">Handle to a window's specified theme data. Use <see cref="OpenThemeData"/> to create an HTHEME.</param>
+        /// <param name="hdc">HDC to select fonts into. This parameter may be set to <see cref="User32.SafeDCHandle.Null"/>.</param>
+        /// <param name="iPartId">Value of type int that specifies the part that contains the MARGINS property. See Parts and States.</param>
+        /// <param name="iStateId">Value of type int that specifies the state of the part. See Parts and States.</param>
+        /// <param name="iPropId">Value of type int that specifies the property to retrieve. For a list of possible values, see Property Identifiers.</param>
+        /// <param name="prc">Pointer to a <see cref="RECT"/> structure that contains the rectangle that specifies the area to be drawn into. This parameter may be set to NULL.</param>
+        /// <param name="pMargins">Pointer to a <see cref="MARGINS"/> structure that receives the retrieved value.</param>
+        /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(UxTheme))]
+        public static extern unsafe HResult GetThemeMargins(
+            SafeThemeHandle hTheme,
+            User32.SafeDCHandle hdc,
+            int iPartId,
+            int iStateId,
+            int iPropId,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] RECT* prc,
+            out MARGINS pMargins);
+
+        /// <summary>
         /// Closes the theme data handle.
         /// </summary>
         /// <param name="hTheme">Handle to a window's specified theme data. Use <see cref="OpenThemeData"/> to create an HTHEME.</param>
