@@ -9,6 +9,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the User32.dll Windows library.
     /// </summary>
+    [OfferFriendlyOverloads]
     public static partial class User32
     {
         /// <summary>
@@ -392,6 +393,50 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr GetActiveWindow();
+
+        /// <summary>
+        /// Searches through icon or cursor data for the icon or cursor that best fits the current display device.
+        /// To specify a desired height or width, use the LookupIconIdFromDirectoryEx function.
+        /// </summary>
+        /// <param name="presbits">
+        /// The icon or cursor directory data. Because this function does not validate the resource data, it causes a general protection (GP) fault or returns an undefined value if <paramref name="presbits"/> is not pointing to valid resource data.
+        /// </param>
+        /// <param name="fIcon">
+        /// Indicates whether an icon or a cursor is sought. If this parameter is TRUE, the function is searching for an icon; if the parameter is FALSE, the function is searching for a cursor.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is an integer resource identifier for the icon or cursor that best fits the current display device.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe int LookupIconIdFromDirectory(
+            byte* presbits,
+            [MarshalAs(UnmanagedType.Bool)] bool fIcon);
+
+        /// <summary>
+        /// Searches through icon or cursor data for the icon or cursor that best fits the current display device.
+        /// To specify a desired height or width, use the LookupIconIdFromDirectoryEx function.
+        /// </summary>
+        /// <param name="presbits">
+        /// The icon or cursor directory data. Because this function does not validate the resource data, it causes a general protection (GP) fault or returns an undefined value if <paramref name="presbits"/> is not pointing to valid resource data.
+        /// </param>
+        /// <param name="fIcon">
+        /// Indicates whether an icon or a cursor is sought. If this parameter is TRUE, the function is searching for an icon; if the parameter is FALSE, the function is searching for a cursor.
+        /// </param>
+        /// <param name="cxDesired">The desired width, in pixels, of the icon. If this parameter is zero, the function uses the SM_CXICON or SM_CXCURSOR system metric value.</param>
+        /// <param name="cyDesired">The desired height, in pixels, of the icon. If this parameter is zero, the function uses the SM_CYICON or SM_CYCURSOR system metric value.</param>
+        /// <param name="Flags">A combination of the following values.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is an integer resource identifier for the icon or cursor that best fits the current display device.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe int LookupIconIdFromDirectoryEx(
+            byte* presbits,
+            [MarshalAs(UnmanagedType.Bool)] bool fIcon,
+            int cxDesired,
+            int cyDesired,
+            LookupIconIdFromDirectoryExFlags Flags);
 
         /// <summary>
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
