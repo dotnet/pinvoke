@@ -36,6 +36,103 @@ namespace PInvoke
         /// </summary>
         public const int NMPWAIT_NOWAIT = 0x00000001;
 
+        /// <summary>Hardware-dependent cursor resource.</summary>
+        public static readonly unsafe char* RT_CURSOR = MAKEINTRESOURCE(1);
+
+        /// <summary>Bitmap resource.</summary>
+        public static readonly unsafe char* RT_BITMAP = MAKEINTRESOURCE(2);
+
+        /// <summary>Hardware-dependent icon resource.</summary>
+        public static readonly unsafe char* RT_ICON = MAKEINTRESOURCE(3);
+
+        /// <summary>Menu resource.</summary>
+        public static readonly unsafe char* RT_MENU = MAKEINTRESOURCE(4);
+
+        /// <summary>Dialog box.</summary>
+        public static readonly unsafe char* RT_DIALOG = MAKEINTRESOURCE(5);
+
+        /// <summary>String-table entry.</summary>
+        public static readonly unsafe char* RT_STRING = MAKEINTRESOURCE(6);
+
+        /// <summary>Font directory resource.</summary>
+        public static readonly unsafe char* RT_FONTDIR = MAKEINTRESOURCE(7);
+
+        /// <summary>Font resource.</summary>
+        public static readonly unsafe char* RT_FONT = MAKEINTRESOURCE(8);
+
+        /// <summary>Accelerator table.</summary>
+        public static readonly unsafe char* RT_ACCELERATOR = MAKEINTRESOURCE(9);
+
+        /// <summary>Application-defined resource (raw data).</summary>
+        public static readonly unsafe char* RT_RCDATA = MAKEINTRESOURCE(10);
+
+        /// <summary>Message-table entry.</summary>
+        public static readonly unsafe char* RT_MESSAGETABLE = MAKEINTRESOURCE(11);
+
+        /// <summary>Hardware-independent cursor resource.</summary>
+        public static readonly unsafe char* RT_GROUP_CURSOR = MAKEINTRESOURCE(12);
+
+        /// <summary>Hardware-independent icon resource.</summary>
+        public static readonly unsafe char* RT_GROUP_ICON = MAKEINTRESOURCE(14);
+
+        /// <summary>Version resource</summary>
+        public static readonly unsafe char* RT_VERSION = MAKEINTRESOURCE(16);
+
+        /// <summary>
+        ///     Allows a resource editing tool to associate a string with an .rc file. Typically, the string is the name of the
+        ///     header file that provides symbolic names. The resource compiler parses the string but otherwise ignores the value.
+        ///     For example,
+        ///     <para>
+        ///         <code>1 DLGINCLUDE "MyFile.h"</code>
+        ///     </para>
+        /// </summary>
+        public static readonly unsafe char* RT_DLGINCLUDE = MAKEINTRESOURCE(17);
+
+        /// <summary>Plug and Play resource.</summary>
+        public static readonly unsafe char* RT_PLUGPLAY = MAKEINTRESOURCE(19);
+
+        /// <summary>VXD.</summary>
+        public static readonly unsafe char* RT_VXD = MAKEINTRESOURCE(20);
+
+        /// <summary>Animated cursor.</summary>
+        public static readonly unsafe char* RT_ANICURSOR = MAKEINTRESOURCE(21);
+
+        /// <summary>Animated icon.</summary>
+        public static readonly unsafe char* RT_ANIICON = MAKEINTRESOURCE(22);
+
+        /// <summary>HTML resource.</summary>
+        public static readonly unsafe char* RT_HTML = MAKEINTRESOURCE(23);
+
+        /// <summary>
+        ///     An application-defined callback function used with the EnumResourceNames and EnumResourceNamesEx functions. It
+        ///     receives the type and name of a resource. The ENUMRESNAMEPROC type defines a pointer to this callback function.
+        ///     EnumResNameProc is a placeholder for the application-defined function name.
+        /// </summary>
+        /// <param name="hModule">
+        ///     A handle to the module whose executable file contains the resources that are being enumerated.
+        ///     <para>
+        ///         If this parameter is <see langword="null" />, the function enumerates the resource names in the
+        ///         module used to create the current process.
+        ///     </para>
+        /// </param>
+        /// <param name="lpszType">
+        ///     The type of resource for which the name is being enumerated. Alternately, rather than a pointer,
+        ///     this parameter can be <see cref="MAKEINTRESOURCE" />(ID), where ID is an integer value representing a predefined
+        ///     resource type.
+        /// </param>
+        /// <param name="lpszName">
+        ///     The name of a resource of the type being enumerated. Alternately, rather than a pointer, this
+        ///     parameter can be <see cref="MAKEINTRESOURCE" />(ID), where ID is the integer identifier of the resource. For more
+        ///     information, see the Remarks section below.
+        /// </param>
+        /// <param name="lParam">
+        ///     An application-defined parameter passed to the <see cref="EnumResourceNames" /> or
+        ///     EnumResourceNamesEx function. This parameter can be used in error checking.
+        /// </param>
+        /// <returns>Returns TRUE to continue enumeration or FALSE to stop enumeration.</returns>
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public unsafe delegate bool EnumResNameProc(IntPtr hModule, char* lpszType, char* lpszName, IntPtr lParam);
+
         /// <summary>
         /// Generates simple tones on the speaker. The function is synchronous; it performs an alertable wait and does not return control to its caller until the sound finishes.
         /// </summary>
@@ -1467,36 +1564,6 @@ namespace PInvoke
         public static extern unsafe void* LocalFree(void* hMem);
 
         /// <summary>
-        ///     An application-defined callback function used with the EnumResourceNames and EnumResourceNamesEx functions. It
-        ///     receives the type and name of a resource. The ENUMRESNAMEPROC type defines a pointer to this callback function.
-        ///     EnumResNameProc is a placeholder for the application-defined function name.
-        /// </summary>
-        /// <param name="hModule">
-        ///     A handle to the module whose executable file contains the resources that are being enumerated.
-        ///     <para>
-        ///         If this parameter is <see cref="SafeLibraryHandle.Null" />, the function enumerates the resource names in the
-        ///         module used to create the current process.
-        ///     </para>
-        /// </param>
-        /// <param name="lpszType">
-        ///     The type of resource for which the name is being enumerated. Alternately, rather than a pointer,
-        ///     this parameter can be <see cref="MAKEINTRESOURCE" />(ID), where ID is an integer value representing a predefined
-        ///     resource type.
-        /// </param>
-        /// <param name="lpszName">
-        ///     The name of a resource of the type being enumerated. Alternately, rather than a pointer, this
-        ///     parameter can be <see cref="MAKEINTRESOURCE" />(ID), where ID is the integer identifier of the resource. For more
-        ///     information, see the Remarks section below.
-        /// </param>
-        /// <param name="lParam">
-        ///     An application-defined parameter passed to the <see cref="EnumResourceNames" /> or
-        ///     EnumResourceNamesEx function. This parameter can be used in error checking.
-        /// </param>
-        /// <returns>Returns TRUE to continue enumeration or FALSE to stop enumeration.</returns>
-        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-        public delegate bool EnumResNameProc(IntPtr hModule, IntPtr lpszType, IntPtr lpszName, IntPtr lParam);
-
-        /// <summary>
         ///     Enumerates resources of a specified type within a binary module. For Windows Vista and later, this is
         ///     typically a language-neutral Portable Executable (LN file), and the enumeration will also include resources from
         ///     the corresponding language-specific resource files (.mui files) that contain localizable language resources. It is
@@ -1527,12 +1594,12 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool EnumResourceNames(SafeLibraryHandle hModule, IntPtr lpszType, EnumResNameProc lpEnumFunc, IntPtr lParam);
+        public static extern unsafe bool EnumResourceNames(SafeLibraryHandle hModule, char* lpszType, EnumResNameProc lpEnumFunc, IntPtr lParam);
 
         /// <summary>Determines whether a value is an integer identifier for a resource.</summary>
         /// <param name="p">The pointer to be tested whether it contains an integer resource identifier.</param>
         /// <returns>If the value is a resource identifier, the return value is TRUE. Otherwise, the return value is FALSE.</returns>
-        public static bool IS_INTRESOURCE(IntPtr p) => p.ToInt64() >> 16 == 0;
+        public static unsafe bool IS_INTRESOURCE(char* p) => (long)p >> 16 == 0;
 
         /// <summary>
         ///     Converts an integer value to a resource type compatible with the resource-management functions. This macro is
@@ -1540,74 +1607,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="wInteger">The integer value to be converted.</param>
         /// <returns>The return value is the specified value in the low-order word and zero in the high-order word.</returns>
-        public static IntPtr MAKEINTRESOURCE(int wInteger) => new IntPtr(wInteger);
-
-        /// <summary>Hardware-dependent cursor resource.</summary>
-        public static readonly IntPtr RT_CURSOR = MAKEINTRESOURCE(1);
-
-        /// <summary>Bitmap resource.</summary>
-        public static readonly IntPtr RT_BITMAP = MAKEINTRESOURCE(2);
-
-        /// <summary>Hardware-dependent icon resource.</summary>
-        public static readonly IntPtr RT_ICON = MAKEINTRESOURCE(3);
-
-        /// <summary>Menu resource.</summary>
-        public static readonly IntPtr RT_MENU = MAKEINTRESOURCE(4);
-
-        /// <summary>Dialog box.</summary>
-        public static readonly IntPtr RT_DIALOG = MAKEINTRESOURCE(5);
-
-        /// <summary>String-table entry.</summary>
-        public static readonly IntPtr RT_STRING = MAKEINTRESOURCE(6);
-
-        /// <summary>Font directory resource.</summary>
-        public static readonly IntPtr RT_FONTDIR = MAKEINTRESOURCE(7);
-
-        /// <summary>Font resource.</summary>
-        public static readonly IntPtr RT_FONT = MAKEINTRESOURCE(8);
-
-        /// <summary>Accelerator table.</summary>
-        public static readonly IntPtr RT_ACCELERATOR = MAKEINTRESOURCE(9);
-
-        /// <summary>Application-defined resource (raw data).</summary>
-        public static readonly IntPtr RT_RCDATA = MAKEINTRESOURCE(10);
-
-        /// <summary>Message-table entry.</summary>
-        public static readonly IntPtr RT_MESSAGETABLE = MAKEINTRESOURCE(11);
-
-        /// <summary>Hardware-independent cursor resource.</summary>
-        public static readonly IntPtr RT_GROUP_CURSOR = MAKEINTRESOURCE(12);
-
-        /// <summary>Hardware-independent icon resource.</summary>
-        public static readonly IntPtr RT_GROUP_ICON = MAKEINTRESOURCE(14);
-
-        /// <summary>Version resource</summary>
-        public static readonly IntPtr RT_VERSION = MAKEINTRESOURCE(16);
-
-        /// <summary>
-        ///     Allows a resource editing tool to associate a string with an .rc file. Typically, the string is the name of the
-        ///     header file that provides symbolic names. The resource compiler parses the string but otherwise ignores the value.
-        ///     For example,
-        ///     <para>
-        ///         <code>1 DLGINCLUDE "MyFile.h"</code>
-        ///     </para>
-        /// </summary>
-        public static readonly IntPtr RT_DLGINCLUDE = MAKEINTRESOURCE(17);
-
-        /// <summary>Plug and Play resource.</summary>
-        public static readonly IntPtr RT_PLUGPLAY = MAKEINTRESOURCE(19);
-
-        /// <summary>VXD.</summary>
-        public static readonly IntPtr RT_VXD = MAKEINTRESOURCE(20);
-
-        /// <summary>Animated cursor.</summary>
-        public static readonly IntPtr RT_ANICURSOR = MAKEINTRESOURCE(21);
-
-        /// <summary>Animated icon.</summary>
-        public static readonly IntPtr RT_ANIICON = MAKEINTRESOURCE(22);
-
-        /// <summary>HTML resource.</summary>
-        public static readonly IntPtr RT_HTML = MAKEINTRESOURCE(23);
+        public static unsafe char* MAKEINTRESOURCE(int wInteger) => (char*)wInteger;
 
         /// <summary>
         ///     Determines the location of a resource with the specified type and name in the specified module.
@@ -1634,7 +1634,7 @@ namespace PInvoke
         ///     </para>
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindResource(SafeLibraryHandle hModule, IntPtr lpName, IntPtr lpType);
+        public static extern unsafe IntPtr FindResource(SafeLibraryHandle hModule, char* lpName, char* lpType);
 
         /// <summary>Retrieves a handle that can be used to obtain a pointer to the first byte of the specified resource in memory.</summary>
         /// <param name="hModule">
