@@ -107,7 +107,8 @@ namespace PInvoke
                     .WithAttributeLists(SyntaxFactory.List<AttributeListSyntax>())
                     .WithLeadingTrivia(method.GetLeadingTrivia().Where(t => !t.IsDirective))
                     .WithTrailingTrivia(method.GetTrailingTrivia().Where(t => !t.IsDirective))
-                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None));
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None))
+                    .WithExpressionBody(null);
 
                 var flags = GeneratorFlags.NativePointerToIntPtr;
                 var intPtrOverload = transformedMethodBase
