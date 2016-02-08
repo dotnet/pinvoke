@@ -790,13 +790,15 @@ public partial class Kernel32Facts
     }
 
     [Fact]
-    public unsafe void FindResource_LoadResource_LockResource()
+    public unsafe void Find_And_Load_Bmp_Icon_Resource()
     {
-        // Let's load the icon for .bmp files
-        using (var imageRes = LoadLibrary("imageres.dll"))
+        // shell32.dll contains at position #1 the icon for unknown files
+        using (var imageRes = LoadLibrary("shell32.dll"))
         {
+            Assert.False(imageRes.IsInvalid);
+
             // Locate where the resource is (Can be in some language dll)
-            var resInfo = FindResource(imageRes, MAKEINTRESOURCE(66), RT_GROUP_ICON);
+            var resInfo = FindResource(imageRes, MAKEINTRESOURCE(1), RT_GROUP_ICON);
             Assert.NotEqual(IntPtr.Zero, resInfo);
 
             // Get a handle to the resource
@@ -810,11 +812,30 @@ public partial class Kernel32Facts
     }
 
     [Fact]
-    public unsafe void EnumResourceNames_And_Find_Known_One()
+    public unsafe void Get_Size_Of_Bmp_Icon_Resource()
     {
-        // Let's load the icon for bmp files
-        using (var imageRes = LoadLibrary("imageres.dll"))
+        using (var imageRes = LoadLibrary("shell32.dll"))
         {
+            Assert.False(imageRes.IsInvalid);
+
+            // Load the icon for unknown files
+            var resInfo = FindResource(imageRes, MAKEINTRESOURCE(1), RT_GROUP_ICON);
+            Assert.NotEqual(IntPtr.Zero, resInfo);
+
+            // Should be able to get it's size
+            var size = SizeofResource(imageRes, resInfo);
+            Assert.NotEqual(0, size);
+        }
+    }
+
+    [Fact]
+    public unsafe void Enumerate_Imageres_Resources()
+    {
+        // Let's load the icon for unknown files
+        using (var imageRes = LoadLibrary("shell32.dll"))
+        {
+            Assert.False(imageRes.IsInvalid);
+
             List<int> intResources = new List<int>();
 
             EnumResNameProc onResourceFound = (module, type, name, lparam) =>
@@ -830,7 +851,7 @@ public partial class Kernel32Facts
             Assert.True(EnumResourceNames(imageRes, RT_GROUP_ICON, onResourceFound, IntPtr.Zero));
 
             // The icon for .bmp files
-            Assert.Contains(66, intResources);
+            Assert.Contains(1, intResources);
         }
     }
 
