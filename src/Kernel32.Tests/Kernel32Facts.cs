@@ -11,6 +11,7 @@ using PInvoke;
 using Xunit;
 using static PInvoke.Constants;
 using static PInvoke.Kernel32;
+using System.Collections.Generic;
 
 public partial class Kernel32Facts
 {
@@ -786,6 +787,51 @@ public partial class Kernel32Facts
     {
         IntPtr hlocal = LocalAlloc_IntPtr(LocalAllocFlags.LMEM_FIXED, 5);
         Assert.Equal(IntPtr.Zero, LocalFree(hlocal));
+    }
+
+    [Fact]
+    public unsafe void FindResource_LoadResource_LockResource()
+    {
+        // Let's load the icon for .bmp files
+        using (var imageRes = LoadLibrary("imageres.dll"))
+        {
+            // Locate where the resource is (Can be in some language dll)
+            var resInfo = FindResource(imageRes, MAKEINTRESOURCE(66), RT_GROUP_ICON);
+            Assert.NotEqual(IntPtr.Zero, resInfo);
+
+            // Get a handle to the resource
+            var resHGlobal = LoadResource(imageRes, resInfo);
+            Assert.NotEqual(IntPtr.Zero, resHGlobal);
+
+            // Get a pointer to the data
+            var ptr = LockResource(resHGlobal);
+            Assert.True(ptr != null);
+        }
+    }
+
+    [Fact]
+    public unsafe void EnumResourceNames_And_Find_Known_One()
+    {
+        // Let's load the icon for bmp files
+        using (var imageRes = LoadLibrary("imageres.dll"))
+        {
+            List<int> intResources = new List<int>();
+
+            EnumResNameProc onResourceFound = (module, type, name, lparam) =>
+            {
+                if (IS_INTRESOURCE(name))
+                {
+                    intResources.Add((int)name);
+                }
+
+                return true;
+            };
+
+            Assert.True(EnumResourceNames(imageRes, RT_GROUP_ICON, onResourceFound, IntPtr.Zero));
+
+            // The icon for .bmp files
+            Assert.Contains(66, intResources);
+        }
     }
 
     private ArraySegment<byte> GetRandomSegment(int size)
