@@ -1666,7 +1666,7 @@ namespace PInvoke
         ///     otherwise, it is NULL.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern IntPtr LockResource(IntPtr hResData);
+        public static unsafe extern void* LockResource(IntPtr hResData);
 
         /// <summary>Retrieves the size, in bytes, of the specified resource.</summary>
         /// <param name="hModule">A handle to the module whose executable file contains the resource.</param>
