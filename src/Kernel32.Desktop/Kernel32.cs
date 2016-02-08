@@ -1615,7 +1615,8 @@ namespace PInvoke
         /// </summary>
         /// <param name="hModule">
         ///     A handle to the module whose portable executable file or an accompanying MUI file contains the
-        ///     resource. If this parameter is NULL, the function searches the module used to create the current process.
+        ///     resource. If this parameter is <see cref="SafeLibraryHandle.Null" />, the function searches the module used to
+        ///     create the current process.
         /// </param>
         /// <param name="lpName">
         ///     The name of the resource. Alternately, rather than a pointer, this parameter can be
@@ -1644,7 +1645,7 @@ namespace PInvoke
         /// </param>
         /// <param name="hResInfo">
         ///     A handle to the resource to be loaded. This handle is returned by the
-        ///     <see cref="FindResource" /> or FindResourceEx function.
+        ///     <see cref="FindResource(SafeLibraryHandle, char*, char*)" /> or FindResourceEx function.
         /// </param>
         /// <returns>
         ///     If the function succeeds, the return value is a handle to the data associated with the resource.
