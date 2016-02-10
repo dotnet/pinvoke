@@ -257,6 +257,34 @@ public class BCryptFacts
         }
     }
 
+    [Fact]
+    public unsafe void EncryptDecrypt_EmptyBuffer()
+    {
+        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        {
+            byte[] keyMaterial = new byte[128 / 8];
+            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            {
+                var cipherText = BCryptEncrypt(
+                     key,
+                     new byte[0],
+                     null,
+                     new byte[keyMaterial.Length],
+                     BCryptEncryptFlags.BCRYPT_BLOCK_PADDING);
+                Assert.Equal(BCryptGetProperty<int>(key, PropertyNames.BCRYPT_BLOCK_LENGTH), cipherText.Count);
+
+                var plainText = BCryptDecrypt(
+                    key,
+                    cipherText.ToArray(),
+                    null,
+                    new byte[keyMaterial.Length],
+                    BCryptEncryptFlags.BCRYPT_BLOCK_PADDING);
+
+                Assert.Equal(0, plainText.Count);
+            }
+        }
+    }
+
     /// <summary>
     /// Demonstrates use of an authenticated block chaining mode
     /// that requires use of several more struct types than

@@ -307,26 +307,20 @@ namespace PInvoke
             int length;
             BCryptEncrypt(
                 hKey,
-                pbInput,
-                pbInput.Length,
+                ArraySegmentFor(pbInput),
                 pPaddingInfo,
-                pbIV,
-                pbIV?.Length ?? 0,
+                ArraySegmentFor(pbIV),
                 null,
-                0,
                 out length,
                 dwFlags).ThrowOnError();
 
             byte[] cipherText = new byte[length];
             BCryptEncrypt(
                 hKey,
-                pbInput,
-                pbInput.Length,
+                ArraySegmentFor(pbInput),
                 pPaddingInfo,
-                pbIV,
-                pbIV?.Length ?? 0,
-                cipherText,
-                cipherText.Length,
+                ArraySegmentFor(pbIV),
+                ArraySegmentFor(cipherText),
                 out length,
                 dwFlags).ThrowOnError();
 
@@ -771,6 +765,13 @@ namespace PInvoke
                 buffer = new ArraySegment<byte>(NonEmptyArrayReplacesEmpty, 0, 0);
             }
         }
+
+        /// <summary>
+        /// Returns an array segment for the specified array.
+        /// </summary>
+        /// <param name="buffer">The byte buffer to wrap as an ArraySegment.</param>
+        /// <returns>An array segment.</returns>
+        private static ArraySegment<byte> ArraySegmentFor(byte[] buffer) => buffer == null ? default(ArraySegment<byte>) : new ArraySegment<byte>(buffer);
 
         /// <summary>
         /// Returns the specified <paramref name="pointer"/>,
