@@ -108,7 +108,7 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="MODULEENTRY32" /> struct
             /// with <see cref="dwSize" /> set to the correct value.
             /// </summary>
-            /// <returns>An instance of <see cref="PROCESSENTRY32"/>.</returns>
+            /// <returns>An instance of <see cref="MODULEENTRY32"/>.</returns>
             public static MODULEENTRY32 Create()
             {
                 return new MODULEENTRY32

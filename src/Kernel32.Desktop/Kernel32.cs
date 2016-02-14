@@ -529,6 +529,48 @@ namespace PInvoke
             SafeObjectHandle hSnapshot,
             PROCESSENTRY32* lppe);
 
+        /// <summary>
+        /// Retrieves information about the first module associated with a process.
+        /// <param name="hSnapshot">
+        /// A handle to the snapshot returned from a previous call to the
+        /// <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <param name="lpme">
+        /// A <see cref="MODULEENTRY32"/> structure.
+        /// </param>
+        /// <returns>
+        /// Returns <see langword="true" /> if the first entry of the module list has been copied to the buffer or
+        /// <see langword="false" /> otherwise. The <see cref="Win32ErrorCode.ERROR_NO_MORE_FILES" /> error value is returned by
+        /// the <see cref="Marshal.GetLastWin32Error" /> function if no modules exist or the snapshot does not contain module
+        /// information.
+        /// </returns>
+        /// </summary>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe bool Module32First(SafeObjectHandle hSnapshot, MODULEENTRY32* lpme);
+
+
+        /// <summary>Retrieves information about the next process recorded in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        /// A handle to the snapshot returned from a previous call to the
+        /// <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <param name="lpme">A <see cref="MODULEENTRY32"/> structure.</param>
+        /// <returns>
+        /// Returns <see langword="true" /> if the next entry of the module list has been copied to the buffer or
+        /// <see langword="false" /> otherwise. The <see cref="Win32ErrorCode.ERROR_NO_MORE_FILES" /> error value is returned by
+        /// the <see cref="Marshal.GetLastWin32Error" /> function if no modules exist or the snapshot does not contain module
+        /// information.
+        /// </returns>
+        /// <remarks>
+        /// To retrieve information about the first module recorded in a snapshot, use the
+        /// <see cref="Module32First(SafeObjectHandle,MODULEENTRY32*)" />
+        /// function.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe bool Module32Next(
+            SafeObjectHandle hSnapshot,
+            MODULEENTRY32* lpme);
+
         /// <summary>Retrieves the full name of the executable image for the specified process.</summary>
         /// <param name="hProcess">
         /// A handle to the process. This handle must be created with the

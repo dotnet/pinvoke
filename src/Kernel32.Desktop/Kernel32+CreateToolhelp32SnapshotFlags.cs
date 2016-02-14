@@ -29,7 +29,7 @@ namespace PInvoke
 
             /// <summary>
             /// Includes all modules of the process specified in th32ProcessID in the snapshot.
-            /// To enumerate the modules, see Module32First.
+            /// To enumerate the modules, see <see cref="Module32First(SafeObjectHandle,MODULEENTRY32*)"/>.
             /// If the function fails with <see cref="Win32ErrorCode.ERROR_BAD_LENGTH"/>, retry the function until
             /// it succeeds.
             /// <para>
