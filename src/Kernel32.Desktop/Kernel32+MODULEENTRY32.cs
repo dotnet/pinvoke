@@ -27,7 +27,7 @@ namespace PInvoke
         public unsafe partial struct MODULEENTRY32
         {
             /// <summary>
-            /// The size of the structure, in bytes. Set automatically by the constructor.
+            /// The size of the structure, in bytes. Set automatically by the <see cref="Create"/> method.
             /// </summary>
             public int dwSize;
 
@@ -118,6 +118,5 @@ namespace PInvoke
                 };
             }
         }
-
     }
 }
