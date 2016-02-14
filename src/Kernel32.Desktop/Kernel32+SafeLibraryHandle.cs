@@ -16,7 +16,7 @@ namespace PInvoke
         /// </summary>
         public class SafeLibraryHandle : SafeHandle
         {
-            public static readonly SafeLibraryHandle Null = new SafeLibraryHandle(new IntPtr(0), false);
+            public static readonly SafeLibraryHandle Null = new SafeLibraryHandle(IntPtr.Zero, false);
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeLibraryHandle"/> class.
