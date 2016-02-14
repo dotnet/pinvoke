@@ -533,13 +533,13 @@ namespace PInvoke
         /// Retrieves information about the first module associated with a process.
         /// <param name="hSnapshot">A handle to the snapshot returned from a previous call to the <see cref="CreateToolhelp32Snapshot" /> function.</param>
         /// <param name="lpme">A <see cref="MODULEENTRY32"/> structure.</param>
+        /// </summary>
         /// <returns>
         /// Returns <see langword="true" /> if the first entry of the module list has been copied to the buffer or
         /// <see langword="false" /> otherwise. The <see cref="Win32ErrorCode.ERROR_NO_MORE_FILES" /> error value is returned by
         /// the <see cref="Marshal.GetLastWin32Error" /> function if no modules exist or the snapshot does not contain module
         /// information.
         /// </returns>
-        /// </summary>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe bool Module32First(SafeObjectHandle hSnapshot, MODULEENTRY32* lpme);
 
