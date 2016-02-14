@@ -25,7 +25,7 @@ namespace PInvoke
         public unsafe partial struct PROCESSENTRY32
         {
             /// <summary>
-            /// The size of the structure, in bytes. Set automatically by the constructor.
+            /// The size of the structure, in bytes. Set automatically by the <see cref="Create"/> method.
             /// </summary>
             public int dwSize;
 
@@ -83,8 +83,8 @@ namespace PInvoke
             /// <summary>
             /// Gets the name of the executable file for the process, as specified by the <see cref="szExeFile"/> character array.
             /// <para>
-            /// To retrieve the full path to the executable file, call the Module32First function and check the szExePath member
-            /// of the MODULEENTRY32 structure that is returned. However, if the calling process is a 32-bit process, you must call the
+            /// To retrieve the full path to the executable file, call the <see cref="Kernel32.Module32First(SafeObjectHandle,MODULEENTRY32*)"/> function and check the <see cref="MODULEENTRY32.szExePath"/> member
+            /// of the <see cref="MODULEENTRY32"/> structure that is returned. However, if the calling process is a 32-bit process, you must call the
             /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref int)" />
             /// function to retrieve the full path of the executable file for a 64-bit process.
             /// </para>

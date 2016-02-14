@@ -105,6 +105,98 @@ namespace PInvoke
             }
         }
 
+        /// <summary>Retrieves information about the first module encountered in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        ///     A handle to the snapshot returned from a previous call to the
+        ///     <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <returns>
+        ///     The first <see cref="MODULEENTRY32" /> if there was any or <see langword="null" /> otherwise (No values in
+        ///     the snapshot).
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
+        public static unsafe MODULEENTRY32? Module32First(SafeObjectHandle hSnapshot)
+        {
+            if (hSnapshot == null)
+            {
+                throw new ArgumentNullException(nameof(hSnapshot));
+            }
+
+            var entry = MODULEENTRY32.Create();
+            if (Module32First(hSnapshot, &entry))
+            {
+                return entry;
+            }
+
+            var lastError = GetLastError();
+            if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
+            {
+                throw new Win32Exception(lastError);
+            }
+
+            return null;
+        }
+
+        /// <summary>Retrieves information about the next module encountered in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        ///     A handle to the snapshot returned from a previous call to the
+        ///     <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <returns>
+        ///     The next <see cref="MODULEENTRY32" /> if there was any or <see langword="null" /> otherwise (No more values
+        ///     in the snapshot).
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
+        public static unsafe MODULEENTRY32? Module32Next(SafeObjectHandle hSnapshot)
+        {
+            if (hSnapshot == null)
+            {
+                throw new ArgumentNullException(nameof(hSnapshot));
+            }
+
+            var entry = MODULEENTRY32.Create();
+            if (Module32Next(hSnapshot, &entry))
+            {
+                return entry;
+            }
+
+            var lastError = GetLastError();
+            if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
+            {
+                throw new Win32Exception(lastError);
+            }
+
+            return null;
+        }
+
+        /// <summary>Retrieves information about next module encountered in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        ///     A handle to the snapshot returned from a previous call to the
+        ///     <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <returns>
+        ///     An enumeration of all the <see cref="MODULEENTRY32" /> present in the snapshot.
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
+        public static IEnumerable<MODULEENTRY32> Module32Enumerate(SafeObjectHandle hSnapshot)
+        {
+            if (hSnapshot == null)
+            {
+                throw new ArgumentNullException(nameof(hSnapshot));
+            }
+
+            var entry = Module32First(hSnapshot);
+
+            while (entry.HasValue)
+            {
+                yield return entry.Value;
+                entry = Module32Next(hSnapshot);
+            }
+        }
+
         public static string QueryFullProcessImageName(
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags = QueryFullProcessImageNameFlags.None)
