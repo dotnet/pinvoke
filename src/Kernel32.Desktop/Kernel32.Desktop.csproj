@@ -35,6 +35,9 @@
     <Compile Include="Kernel32+CreationDisposition.cs" />
     <Compile Include="Kernel32+FileAccess.cs" />
     <Compile Include="Kernel32+FileShare.cs" />
+    <Compile Include="Kernel32+GRPICONDIR.cs" />
+    <Compile Include="Kernel32+ICONDIR.cs" />
+    <Compile Include="Kernel32+ICONDIRENTRY.cs" />
     <Compile Include="Kernel32+LocalReAllocFlags.cs" />
     <Compile Include="Kernel32+LocalAllocFlags.cs" />
     <Compile Include="Kernel32+MODULEENTRY32.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="Kernel32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
+    <Compile Include="Kernel32+GRPICONDIRENTRY.cs" />
     <Compile Include="Kernel32.Helpers.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
