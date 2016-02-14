@@ -32,7 +32,7 @@ namespace PInvoke
             }
 
             var entry = PROCESSENTRY32.Create();
-            if (Process32First(hSnapshot, &entry))
+            if (Module32First(hSnapshot, &entry))
             {
                 return entry;
             }
@@ -104,6 +104,40 @@ namespace PInvoke
                 entry = Process32Next(hSnapshot);
             }
         }
+
+        /// <summary>Retrieves information about the first process encountered in a system snapshot.</summary>
+        /// <param name="hSnapshot">
+        ///     A handle to the snapshot returned from a previous call to the
+        ///     <see cref="CreateToolhelp32Snapshot" /> function.
+        /// </param>
+        /// <returns>
+        ///     The first <see cref="PROCESSENTRY32" /> if there was any or <see langword="null" /> otherwise (No values in
+        ///     the snapshot).
+        /// </returns>
+        /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
+        public static unsafe PROCESSENTRY32? Module32First(SafeObjectHandle hSnapshot)
+        {
+            if (hSnapshot == null)
+            {
+                throw new ArgumentNullException(nameof(hSnapshot));
+            }
+
+            var entry = MODULEENTRY32.Create();
+            if (Process32First(hSnapshot, &entry))
+            {
+                return entry;
+            }
+
+            var lastError = GetLastError();
+            if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
+            {
+                throw new Win32Exception(lastError);
+            }
+
+            return null;
+        }
+
 
         public static string QueryFullProcessImageName(
             SafeObjectHandle hProcess,

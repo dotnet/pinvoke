@@ -37,6 +37,7 @@
     <Compile Include="Kernel32+FileShare.cs" />
     <Compile Include="Kernel32+LocalReAllocFlags.cs" />
     <Compile Include="Kernel32+LocalAllocFlags.cs" />
+    <Compile Include="Kernel32+MODULEENTRY32.cs" />
     <Compile Include="Kernel32+NamedPipeInfoFlags.cs" />
     <Compile Include="Kernel32+PipeMode.cs" />
     <Compile Include="Kernel32+PipeAccessMode.cs" />

@@ -15,6 +15,11 @@ namespace PInvoke
     public static partial class Kernel32
     {
         /// <summary>
+        /// The maximum length of a name for a process module.
+        /// </summary>
+        public const int MAX_MODULE_NAME32 = 255;
+
+        /// <summary>
         /// The maximum length of file paths for most Win32 functions.
         /// </summary>
         public const int MAX_PATH = 260;
