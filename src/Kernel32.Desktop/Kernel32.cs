@@ -505,7 +505,9 @@ namespace PInvoke
         /// information.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern unsafe bool Process32First(SafeObjectHandle hSnapshot, PROCESSENTRY32* lppe);
+        public static extern unsafe bool Process32First(
+            SafeObjectHandle hSnapshot,
+            [Friendly(FriendlyFlags.Bidirectional)] PROCESSENTRY32* lppe);
 
         /// <summary>Retrieves information about the next process recorded in a system snapshot.</summary>
         /// <param name="hSnapshot">
@@ -527,7 +529,7 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe bool Process32Next(
             SafeObjectHandle hSnapshot,
-            PROCESSENTRY32* lppe);
+            [Friendly(FriendlyFlags.Bidirectional)] PROCESSENTRY32* lppe);
 
         /// <summary>Retrieves the full name of the executable image for the specified process.</summary>
         /// <param name="hProcess">
