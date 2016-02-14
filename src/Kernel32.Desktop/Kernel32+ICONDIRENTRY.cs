@@ -1,11 +1,14 @@
 ﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
-using System.Runtime.InteropServices;
-
 namespace PInvoke
 {
-    partial class Kernel32
+    using System.Runtime.InteropServices;
+
+    /// <content>
+    /// Contains the <see cref="ICONDIRENTRY"/> nested type.
+    /// </content>
+    public partial class Kernel32
     {
         /// <summary>
         /// Represents an icon as stored in a '.ico' file
