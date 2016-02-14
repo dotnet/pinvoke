@@ -71,6 +71,7 @@ ntdll.dll    |`PInvoke.NTDll`   | [![NuGet](https://img.shields.io/nuget/dt/PInv
 psapi.dll    |`PInvoke.Psapi`   | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Psapi.svg)](https://www.nuget.org/packages/PInvoke.Psapi)|[Windows Process Status API][Psapi]
 setupapi.dll |`PInvoke.SetupApi`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.SetupApi.svg)](https://www.nuget.org/packages/PInvoke.SetupApi)|[Windows setup API][SetupApi]
 user32.dll   |`PInvoke.User32`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.User32.svg)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
+userenv.dll   |`PInvoke.Userenv` | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Userenv.svg)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
 uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.UxTheme.svg)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
 
 Check out the [P/Invoke coverage](coverage.md) we have for each library.
