@@ -4,6 +4,8 @@ P/Invoke
 [![Build status](https://ci.appveyor.com/api/projects/status/idu56hy4jwytxd3x?branch=master&svg=true)](https://ci.appveyor.com/project/AArnott/pinvoke)
 [![Join the chat at https://gitter.im/AArnott/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AArnott/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+[![Issue Stats][pull-requests-img]][pull-requests-url] [![Issue Stats][issues-closed-img]][issues-closed-url]
+
 A library intended to contain all P/Invoke method signatures for popular operating systems.
 Think of it as http://pinvoke.net, but proven to compile and work properly, and often
 with sample usage in the form of unit tests.
@@ -85,3 +87,9 @@ public release of the library.
 [Gdi]: https://msdn.microsoft.com/en-us/library/dd145203
 [Psapi]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms684884.aspx
 [UxTheme]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773187(v=vs.85).aspx
+
+[pull-requests-img]: http://www.issuestats.com/github/aarnott/pinvoke/badge/pr
+[pull-requests-url]: http://www.issuestats.com/github/aarnott/pinvoke
+
+[issues-closed-img]: http://www.issuestats.com/github/aarnott/pinvoke/badge/issue
+[issues-closed-url]: http://www.issuestats.com/github/aarnott/pinvoke
