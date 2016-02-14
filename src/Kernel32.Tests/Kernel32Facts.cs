@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,9 +10,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using PInvoke;
 using Xunit;
-using static PInvoke.Constants;
 using static PInvoke.Kernel32;
-using System.Collections.Generic;
 
 public partial class Kernel32Facts
 {

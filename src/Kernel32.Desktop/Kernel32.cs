@@ -126,7 +126,7 @@ namespace PInvoke
         ///     information, see the Remarks section below.
         /// </param>
         /// <param name="lParam">
-        ///     An application-defined parameter passed to the <see cref="EnumResourceNames" /> or
+        ///     An application-defined parameter passed to the <see cref="EnumResourceNames(SafeLibraryHandle,char*,EnumResNameProc,IntPtr)" /> or
         ///     EnumResourceNamesEx function. This parameter can be used in error checking.
         /// </param>
         /// <returns>Returns TRUE to continue enumeration or FALSE to stop enumeration.</returns>
@@ -1672,7 +1672,7 @@ namespace PInvoke
         /// <summary>Retrieves the size, in bytes, of the specified resource.</summary>
         /// <param name="hModule">A handle to the module whose executable file contains the resource.</param>
         /// <param name="hResInfo">
-        ///     handle to the resource. This handle must be created by using the <see cref="FindResource" /> or
+        ///     handle to the resource. This handle must be created by using the <see cref="FindResource(SafeLibraryHandle,char*,char*)" /> or
         ///     FindResourceEx function.
         /// </param>
         /// <returns>
