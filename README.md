@@ -6,9 +6,12 @@ P/Invoke
 
 [![Issue Stats][pull-requests-img]][pull-requests-url] [![Issue Stats][issues-closed-img]][issues-closed-url]
 
-A library intended to contain all P/Invoke method signatures for popular operating systems.
+A collection of libraries intended to contain all P/Invoke method signatures for popular operating systems.
 Think of it as http://pinvoke.net, but proven to compile and work properly, and often
 with sample usage in the form of unit tests.
+
+Each library is exposed as its own NuGet package, and may include .NET Portable libraries as applicable,
+exposing those APIs that are available only on Desktop, or Store, or both as appropriate.
 
 ## Usage
 
@@ -46,8 +49,6 @@ For example, instead of `IntPtr` parameters and `uint` flags, you'll see `SafeHa
 types as parameters and flags `enum` types. API documentation will be provided via XML doc comments
 for easy reading with Intellisense, along with links to the describing pages on MSDN
 or elsewhere as applicable.
-
-This is a portable library so you can use it anywhere.
 
 ## Distribution
 
