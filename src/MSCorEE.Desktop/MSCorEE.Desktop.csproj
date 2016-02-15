@@ -14,12 +14,17 @@
     <RootNamespace>PInvoke</RootNamespace>
     <AssemblyName>PInvoke.MSCorEE</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <ResolveComReferenceSilent>true</ResolveComReferenceSilent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\metahost.tlb">
+      <Visible>false</Visible>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMFileReference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -36,11 +41,20 @@
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
+      <Project>{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}</Project>
+      <Name>Kernel32.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
+      <Project>{B08C3C79-4CDD-4D37-933C-07D3452FD5F1}</Project>
+      <Name>Windows.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IEnumUnknownExtensions.cs" />
     <Compile Include="MSCorEE.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
