@@ -6,6 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using static Kernel32;
+
     /// <summary>
     /// Exported functions from the Userenv.dll Windows library
     /// that are available to Desktop and Store apps.
