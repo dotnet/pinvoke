@@ -14,12 +14,16 @@
     <RootNamespace>PInvoke</RootNamespace>
     <AssemblyName>PInvoke.MSCorEE</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <ResolveComReferenceSilent>true</ResolveComReferenceSilent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\metahost.tlb">
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMFileReference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,14 +49,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IClrRuntimeInfo.cs" />
     <Compile Include="IEnumUnknownExtensions.cs" />
-    <Compile Include="IClrMetaHost.cs" />
-    <Compile Include="IEnumUnknown.cs" />
     <Compile Include="MSCorEE.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
-    <Compile Include="MSCorEE.Helpers+IClrMetaHost.cs" />
     <Compile Include="MSCorEE.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
