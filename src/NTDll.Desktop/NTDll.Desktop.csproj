@@ -45,6 +45,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NTDll+UNICODE_STRING.cs" />
+    <Compile Include="NTDll+OBJECT_ATTRIBUTES.cs" />
     <Compile Include="NTDll.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
