@@ -19,7 +19,8 @@ public partial class Kernel32Facts
     [Fact]
     public void Beep_Nostalgia()
     {
-        Assert.True(Beep(750, 10));
+        // Beep usually returns true -- but not on servers (like AppVeyor CI).
+        Beep(750, 10);
     }
 
     [Fact]
