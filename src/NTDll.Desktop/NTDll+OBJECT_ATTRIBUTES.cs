@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -31,7 +32,7 @@ namespace PInvoke
             public IntPtr RootDirectory;
 
             /// <summary>
-            /// Pointer to a <see cref="UNICODE_STRING"/> that contains the name of the object for which a handle is to be opened.
+            /// A <see cref="UNICODE_STRING"/> that contains the name of the object for which a handle is to be opened.
             /// This must either be a fully qualified object name, or a relative path name to the directory specified by the <see cref="RootDirectory"/> member.
             /// </summary>
             public UNICODE_STRING ObjectName;
@@ -39,7 +40,7 @@ namespace PInvoke
             /// <summary>
             /// Bitmask of flags that specify object handle attributes.
             /// </summary>
-            public uint Attributes;
+            public ObjectHandleAttributes Attributes;
 
             /// <summary>
             /// Specifies a security descriptor (SECURITY_DESCRIPTOR) for the object when the object is created. If this member is NULL, the object will receive default security settings.
@@ -57,7 +58,7 @@ namespace PInvoke
             /// <param name="name">A string that contains the name of the object for which a handle is to be opened.</param>
             /// <param name="attributes">A bitmask of flags that specify object handle attributes.</param>
             /// <returns>An <see cref="OBJECT_ATTRIBUTES"/> instance with all the fields set correctly.</returns>
-            public static OBJECT_ATTRIBUTES Create(string name, uint attributes)
+            public static OBJECT_ATTRIBUTES Create(string name, ObjectHandleAttributes attributes)
             {
                 return new OBJECT_ATTRIBUTES
                 {
@@ -65,6 +66,24 @@ namespace PInvoke
                     ObjectName = UNICODE_STRING.Create(name),
                     Attributes = attributes
                 };
+            }
+
+            [SuppressMessage(
+                "StyleCop.CSharp.MaintainabilityRules",
+                "SA1201:ElementsMustAppearInTheCorrectOrder",
+                Justification = "Nested enum definition.")]
+            [Flags]
+            public enum ObjectHandleAttributes
+            {
+                OBJ_INHERIT = 0x00000002,
+                OBJ_PERMANENT = 0x00000010,
+                OBJ_EXCLUSIVE = 0x00000020,
+                OBJ_CASE_INSENSITIVE = 0x00000040,
+                OBJ_OPENIF = 0x00000080,
+                OBJ_OPENLINK = 0x00000100,
+                OBJ_KERNEL_HANDLE = 0x00000200,
+                OBJ_FORCE_ACCESS_CHECK = 0x00000400,
+                OBJ_VALID_ATTRIBUTES = 0x000007F2,
             }
         }
     }
