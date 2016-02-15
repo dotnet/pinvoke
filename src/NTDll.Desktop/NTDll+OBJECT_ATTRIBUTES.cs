@@ -4,7 +4,6 @@
 namespace PInvoke
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -16,7 +15,8 @@ namespace PInvoke
         /// The OBJECT_ATTRIBUTES structure specifies attributes that can be applied to objects or object handles by routines that create objects and/or return handles to objects.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public struct OBJECT_ATTRIBUTES
+        [OfferIntPtrPropertyAccessors]
+        public partial struct OBJECT_ATTRIBUTES
         {
             /// <summary>
             /// The number of bytes of data contained in this structure. The <see cref="Create"/> method sets this member to <c>sizeof(OBJECT_ATTRIBUTES)</c>.
@@ -52,6 +52,20 @@ namespace PInvoke
             /// </summary>
             public IntPtr SecurityQualityOfService;
 
+            [Flags]
+            public enum ObjectHandleAttributes
+            {
+                OBJ_INHERIT = 0x00000002,
+                OBJ_PERMANENT = 0x00000010,
+                OBJ_EXCLUSIVE = 0x00000020,
+                OBJ_CASE_INSENSITIVE = 0x00000040,
+                OBJ_OPENIF = 0x00000080,
+                OBJ_OPENLINK = 0x00000100,
+                OBJ_KERNEL_HANDLE = 0x00000200,
+                OBJ_FORCE_ACCESS_CHECK = 0x00000400,
+                OBJ_VALID_ATTRIBUTES = 0x000007F2,
+            }
+
             /// <summary>
             /// Initializes a new instance of the <see cref="OBJECT_ATTRIBUTES"/>structure.
             /// </summary>
@@ -66,24 +80,6 @@ namespace PInvoke
                     ObjectName = UNICODE_STRING.Create(name),
                     Attributes = attributes
                 };
-            }
-
-            [SuppressMessage(
-                "StyleCop.CSharp.MaintainabilityRules",
-                "SA1201:ElementsMustAppearInTheCorrectOrder",
-                Justification = "Nested enum definition.")]
-            [Flags]
-            public enum ObjectHandleAttributes
-            {
-                OBJ_INHERIT = 0x00000002,
-                OBJ_PERMANENT = 0x00000010,
-                OBJ_EXCLUSIVE = 0x00000020,
-                OBJ_CASE_INSENSITIVE = 0x00000040,
-                OBJ_OPENIF = 0x00000080,
-                OBJ_OPENLINK = 0x00000100,
-                OBJ_KERNEL_HANDLE = 0x00000200,
-                OBJ_FORCE_ACCESS_CHECK = 0x00000400,
-                OBJ_VALID_ATTRIBUTES = 0x000007F2,
             }
         }
     }
