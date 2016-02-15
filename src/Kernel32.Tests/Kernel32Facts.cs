@@ -17,6 +17,12 @@ public partial class Kernel32Facts
     private readonly Random random = new Random();
 
     [Fact]
+    public void Beep_Nostalgia()
+    {
+        Assert.True(Beep(750, 10));
+    }
+
+    [Fact]
     public void CreateProcess_CmdListDirectories()
     {
         STARTUPINFO startupInfo = STARTUPINFO.Create();
