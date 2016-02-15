@@ -74,6 +74,41 @@ public class NCryptFacts
     }
 
     [Fact]
+    public void ExportKey_ECDHPublic()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            using (var key = NCryptCreatePersistedKey(
+                provider,
+                BCrypt.AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM))
+            {
+                NCryptFinalizeKey(key).ThrowOnError();
+                var exported = NCryptExportKey(key, SafeKeyHandle.Null, AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB, IntPtr.Zero);
+                Assert.NotNull(exported.Array);
+            }
+        }
+    }
+
+    [Fact]
+    public void ImportKey_ECDHPublic()
+    {
+        const string ecdhPublicBase64 = "RUNLMSAAAAC4EtbkVuPCJQIzxjfb+NbYkxxN2FoMZnPxBdTp3GI4NiPQz3fdBaLtLBa95UuBWjnBnvF1q4vfKwdkSTe1ieIx";
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            using (var key = NCryptImportKey(
+                provider,
+                SafeKeyHandle.Null,
+                AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB,
+                IntPtr.Zero,
+                Convert.FromBase64String(ecdhPublicBase64)))
+            {
+                Assert.NotNull(key);
+                Assert.False(key.IsInvalid);
+            }
+        }
+    }
+
+    [Fact]
     public unsafe void EncryptDecryptRSA()
     {
         using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
