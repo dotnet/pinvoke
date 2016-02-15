@@ -113,12 +113,4 @@ public class MSCorEEFacts
             return ms.ToArray();
         }
     }
-
-    private static ICLRMetaHost CreateClrMetaHost()
-    {
-        object pClrMetaHost;
-        HResult result = CLRCreateInstance(CLSID_CLRMetaHost, typeof(ICLRMetaHost).GUID, out pClrMetaHost);
-        result.ThrowOnFailure();
-        return (ICLRMetaHost)pClrMetaHost;
-    }
 }
