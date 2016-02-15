@@ -2,7 +2,10 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using PInvoke;
 using Xunit;
@@ -28,6 +31,22 @@ public class MSCorEEFacts
         string actual = BitConverter.ToString(publicKeyToken).Replace("-", string.Empty).ToLowerInvariant();
         string expected = "ca2d1515679318f5";
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void ShouldGetRuntimesFromCurrentProcess()
+    {
+        Process process = Process.GetCurrentProcess();
+        IEnumerable<string> result = GetProcessRuntimes(process.SafeHandle);
+        Assert.Contains("v4.0.30319", result);
+    }
+
+    [Fact]
+    public void ShouldGetRuntimeFromFile()
+    {
+        Process process = Process.GetCurrentProcess();
+        string result = GetFileRuntime(process.MainModule.FileName);
+        Assert.Equal("v4.0.30319", result);
     }
 
     private static byte[] GetKeyFileBytes(string keyFileName)

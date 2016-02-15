@@ -36,14 +36,23 @@
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
+      <Project>{B08C3C79-4CDD-4D37-933C-07D3452FD5F1}</Project>
+      <Name>Windows.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IClrRuntimeInfo.cs" />
+    <Compile Include="IEnumUnknownExtensions.cs" />
+    <Compile Include="IClrMetaHost.cs" />
+    <Compile Include="IEnumUnknown.cs" />
     <Compile Include="MSCorEE.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
+    <Compile Include="MSCorEE.Helpers+IClrMetaHost.cs" />
     <Compile Include="MSCorEE.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
