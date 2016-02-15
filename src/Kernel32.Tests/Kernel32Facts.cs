@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using PInvoke;
 using Xunit;
-using static PInvoke.Constants;
 using static PInvoke.Kernel32;
 
 public partial class Kernel32Facts
@@ -786,6 +786,72 @@ public partial class Kernel32Facts
     {
         IntPtr hlocal = LocalAlloc_IntPtr(LocalAllocFlags.LMEM_FIXED, 5);
         Assert.Equal(IntPtr.Zero, LocalFree(hlocal));
+    }
+
+    [Fact]
+    public unsafe void Find_And_Load_Bmp_Icon_Resource()
+    {
+        // shell32.dll contains at position #1 the icon for unknown files
+        using (var imageRes = LoadLibrary("shell32.dll"))
+        {
+            Assert.False(imageRes.IsInvalid);
+
+            // Locate where the resource is (Can be in some language dll)
+            var resInfo = FindResource(imageRes, MAKEINTRESOURCE(1), RT_GROUP_ICON);
+            Assert.NotEqual(IntPtr.Zero, resInfo);
+
+            // Get a handle to the resource
+            var resHGlobal = LoadResource(imageRes, resInfo);
+            Assert.NotEqual(IntPtr.Zero, resHGlobal);
+
+            // Get a pointer to the data
+            var ptr = LockResource(resHGlobal);
+            Assert.True(ptr != null);
+        }
+    }
+
+    [Fact]
+    public unsafe void Get_Size_Of_Bmp_Icon_Resource()
+    {
+        using (var imageRes = LoadLibrary("shell32.dll"))
+        {
+            Assert.False(imageRes.IsInvalid);
+
+            // Load the icon for unknown files
+            var resInfo = FindResource(imageRes, MAKEINTRESOURCE(1), RT_GROUP_ICON);
+            Assert.NotEqual(IntPtr.Zero, resInfo);
+
+            // Should be able to get it's size
+            var size = SizeofResource(imageRes, resInfo);
+            Assert.NotEqual(0, size);
+        }
+    }
+
+    [Fact]
+    public unsafe void Enumerate_Imageres_Resources()
+    {
+        // Let's load the icon for unknown files
+        using (var imageRes = LoadLibrary("shell32.dll"))
+        {
+            Assert.False(imageRes.IsInvalid);
+
+            List<int> intResources = new List<int>();
+
+            EnumResNameProc onResourceFound = (module, type, name, lparam) =>
+            {
+                if (IS_INTRESOURCE(name))
+                {
+                    intResources.Add((int)name);
+                }
+
+                return true;
+            };
+
+            Assert.True(EnumResourceNames(imageRes, RT_GROUP_ICON, onResourceFound, IntPtr.Zero));
+
+            // The icon for .bmp files
+            Assert.Contains(1, intResources);
+        }
     }
 
     private ArraySegment<byte> GetRandomSegment(int size)
