@@ -16,7 +16,15 @@ namespace PInvoke
         /// </summary>
         public class SafeObjectHandle : SafeHandle
         {
-            public static readonly SafeObjectHandle Null = new SafeObjectHandle();
+            /// <summary>
+            /// An invalid handle with the value of -1.
+            /// </summary>
+            public static readonly SafeObjectHandle Invalid = new SafeObjectHandle();
+
+            /// <summary>
+            /// An invalid handle with the value of 0 (null).
+            /// </summary>
+            public static readonly SafeObjectHandle Null = new SafeObjectHandle(IntPtr.Zero, false);
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeObjectHandle"/> class.
