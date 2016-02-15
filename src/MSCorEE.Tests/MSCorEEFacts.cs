@@ -35,9 +35,8 @@ public class MSCorEEFacts
         }
         else
         {
-            string buffer;
-            HResult result = GetVersionFromProcess(hProcess, out buffer);
-            if (result.Succeeded && result != HResult.Code.E_INVALIDARG)
+            string buffer = GetVersionFromProcess(hProcess);
+            if (buffer != null)
             {
                 return new[] { buffer };
             }
@@ -62,9 +61,7 @@ public class MSCorEEFacts
         }
         else
         {
-            string buffer;
-            GetFileVersion(filename, out buffer).ThrowOnFailure();
-            return buffer;
+            return GetFileVersion(filename);
         }
     }
 

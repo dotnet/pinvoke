@@ -67,14 +67,13 @@ namespace PInvoke
         /// Gets the version number of the common language runtime (CLR) that is associated with the specified process handle. This function has been deprecated in the .NET Framework version 4.
         /// </summary>
         /// <param name = "hProcess">A handle to a process.</param>
-        /// <param name = "version">Receives the version number string upon successful completion of the method.</param>
         /// <returns>
-        /// HRESULT
+        /// The version number.
         /// </returns>
         /// <remarks>
         /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0
         /// </remarks>
-        public static HResult GetVersionFromProcess(SafeHandle hProcess, out string version)
+        public static string GetVersionFromProcess(SafeHandle hProcess)
         {
             const int insaneSize = 256 * 1024;
             char[] versionChars = new char[32];
@@ -84,8 +83,7 @@ namespace PInvoke
                 HResult hr = GetVersionFromProcess(hProcess, versionChars, versionChars.Length, out dwLength);
                 if (hr.Succeeded)
                 {
-                    version = new string(versionChars, 0, dwLength);
-                    return hr;
+                    return new string(versionChars, 0, dwLength);
                 }
 
                 if (hr == (int)Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER && versionChars.Length < insaneSize)
@@ -93,11 +91,8 @@ namespace PInvoke
                     versionChars = new char[versionChars.Length * 2];
                     continue;
                 }
-                else
-                {
-                    version = null;
-                    return hr;
-                }
+
+                hr.ThrowOnFailure();
             }
         }
 
@@ -105,14 +100,14 @@ namespace PInvoke
         /// Gets the common language runtime (CLR) version information of the specified file, using the specified buffer. This function has been deprecated in the .NET Framework 4.
         /// </summary>
         /// <param name="fileName">The path of the file to be examined.</param>
-        /// <param name="version">Receives the version information for the file.</param>
         /// <returns>
-        /// HRESULT
+        /// The version information for the file; or <c>null</c> if the native function returns
+        /// <see cref="HResult.Code.E_INVALIDARG"/>.
         /// </returns>
         /// <remarks>
         /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1
         /// </remarks>
-        public static HResult GetFileVersion(string fileName, out string version)
+        public static string GetFileVersion(string fileName)
         {
             const int insaneSize = 256 * 1024;
             char[] versionChars = new char[32];
@@ -122,8 +117,7 @@ namespace PInvoke
                 HResult hr = GetFileVersion(fileName, versionChars, versionChars.Length, out dwLength);
                 if (hr.Succeeded)
                 {
-                    version = new string(versionChars, 0, dwLength);
-                    return hr;
+                    return new string(versionChars, 0, dwLength);
                 }
 
                 if (hr == (int)Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER && versionChars.Length < insaneSize)
@@ -131,11 +125,12 @@ namespace PInvoke
                     versionChars = new char[versionChars.Length * 2];
                     continue;
                 }
-                else
+                else if (hr == HResult.Code.E_INVALIDARG)
                 {
-                    version = null;
-                    return hr;
+                    return null;
                 }
+
+                hr.ThrowOnFailure();
             }
         }
 
