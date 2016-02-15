@@ -23,5 +23,25 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(NTDll))]
         public static extern Win32ErrorCode RtlNtStatusToDosError(NTSTATUS Status);
+
+        /// <summary>
+        /// The NtOpenSection routine opens a handle for an existing section object.
+        /// </summary>
+        /// <param name="sectionHandle">Pointer to a HANDLE variable that receives a handle to the section object.</param><param name="desiredAccess">Specifies an ACCESS_MASK value that determines the requested access to the object.</param><param name="objectAttributes">Pointer to an OBJECT_ATTRIBUTES structure that specifies the object name and other attributes. Use InitializeObjectAttributes to initialize this structure.</param>
+        /// <returns>
+        /// Returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/> on success, or the appropriate <see cref="NTSTATUS"/> error code on failure.
+        /// </returns>
+        [DllImport(nameof(NTDll), CharSet = CharSet.Unicode)]
+        public static extern NTSTATUS NtOpenSection([Out] out IntPtr sectionHandle, [In] uint desiredAccess, [In, Out] ref OBJECT_ATTRIBUTES objectAttributes);
+
+        /// <summary>
+        /// The NtClose routine closes an object handle.
+        /// </summary>
+        /// <param name="handle">Handle to an object of any type.</param>
+        /// <returns>
+        /// Returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/> on success, or the appropriate <see cref="NTSTATUS"/> error code on failure.
+        /// </returns>
+        [DllImport(nameof(NTDll))]
+        public static extern NTSTATUS NtClose(IntPtr handle);
     }
 }
