@@ -21,6 +21,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="User32+MessageBeepType.cs" />
     <Compile Include="User32+FlashWindowFlags.cs" />
     <Compile Include="User32+FLASHWINFO.cs" />
     <Compile Include="User32+LookupIconIdFromDirectoryExFlags.cs" />

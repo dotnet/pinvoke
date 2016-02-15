@@ -50,6 +50,18 @@ namespace PInvoke
 
         public delegate int WindowsHookDelegate(int code, IntPtr wParam, IntPtr lParam);
 
+        /// <summary>
+        /// Plays a waveform sound. The waveform sound for each sound type is identified by an entry in the registry.
+        /// </summary>
+        /// <param name="uType">The sound to be played. The sounds are set by the user through the Sound control panel application, and then stored in the registry.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool MessageBeep(MessageBeepType uType);
+
         [DllImport(nameof(User32))]
         public static extern int SetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
 
