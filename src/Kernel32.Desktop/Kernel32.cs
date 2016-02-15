@@ -533,9 +533,9 @@ namespace PInvoke
 
         /// <summary>
         /// Retrieves information about the first module associated with a process.
+        /// </summary>
         /// <param name="hSnapshot">A handle to the snapshot returned from a previous call to the <see cref="CreateToolhelp32Snapshot" /> function.</param>
         /// <param name="lpme">A <see cref="MODULEENTRY32"/> structure.</param>
-        /// </summary>
         /// <returns>
         /// Returns <see langword="true" /> if the first entry of the module list has been copied to the buffer or
         /// <see langword="false" /> otherwise. The <see cref="Win32ErrorCode.ERROR_NO_MORE_FILES" /> error value is returned by
