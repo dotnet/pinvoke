@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using static Kernel32;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -59,6 +60,82 @@ namespace PInvoke
                 int strongNameTokenLength;
                 Marshal.ThrowExceptionForHR(StrongNameTokenFromPublicKey(keyBlobPtr, publicKeyBlob.Length, out strongNameToken, out strongNameTokenLength));
                 return MarshalNativeBuffer(strongNameToken, strongNameTokenLength);
+            }
+        }
+
+        /// <summary>
+        /// Gets the version number of the common language runtime (CLR) that is associated with the specified process handle. This function has been deprecated in the .NET Framework version 4.
+        /// </summary>
+        /// <param name = "hProcess">A handle to a process.</param>
+        /// <param name = "version">Receives the version number string upon successful completion of the method.</param>
+        /// <returns>
+        /// HRESULT
+        /// </returns>
+        /// <remarks>
+        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0
+        /// </remarks>
+        public static HResult GetVersionFromProcess(SafeHandle hProcess, out string version)
+        {
+            const int insaneSize = 256 * 1024;
+            char[] versionChars = new char[32];
+            while (true)
+            {
+                int dwLength;
+                HResult hr = GetVersionFromProcess(hProcess, versionChars, versionChars.Length, out dwLength);
+                if (hr.Succeeded)
+                {
+                    version = new string(versionChars, 0, dwLength);
+                    return hr;
+                }
+
+                if (hr == (int)Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER && versionChars.Length < insaneSize)
+                {
+                    versionChars = new char[versionChars.Length * 2];
+                    continue;
+                }
+                else
+                {
+                    version = null;
+                    return hr;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the common language runtime (CLR) version information of the specified file, using the specified buffer. This function has been deprecated in the .NET Framework 4.
+        /// </summary>
+        /// <param name="fileName">The path of the file to be examined.</param>
+        /// <param name="version">Receives the version information for the file.</param>
+        /// <returns>
+        /// HRESULT
+        /// </returns>
+        /// <remarks>
+        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1
+        /// </remarks>
+        public static HResult GetFileVersion(string fileName, out string version)
+        {
+            const int insaneSize = 256 * 1024;
+            char[] versionChars = new char[32];
+            while (true)
+            {
+                int dwLength;
+                HResult hr = GetFileVersion(fileName, versionChars, versionChars.Length, out dwLength);
+                if (hr.Succeeded)
+                {
+                    version = new string(versionChars, 0, dwLength);
+                    return hr;
+                }
+
+                if (hr == (int)Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER && versionChars.Length < insaneSize)
+                {
+                    versionChars = new char[versionChars.Length * 2];
+                    continue;
+                }
+                else
+                {
+                    version = null;
+                    return hr;
+                }
             }
         }
 

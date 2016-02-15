@@ -5,7 +5,6 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
-    using System.Text;
     using CLRMetaHost;
 
     /// <summary>
@@ -18,7 +17,17 @@ namespace PInvoke
         /// <summary>
         /// The CLSID that may be passed to <see cref="CLRCreateInstance"/> to create an instance of <see cref="ICLRMetaHost"/>.
         /// </summary>
-        public static readonly Guid CLSID_CLRMetaHost = new Guid("{9280188d-0e8e-4867-b30c-7fa83884e8de}");
+        public static readonly Guid CLSID_CLRMetaHost = new Guid(0x9280188d, 0xe8e, 0x4867, 0xb3, 0xc, 0x7f, 0xa8, 0x38, 0x84, 0xe8, 0xde);
+
+        /// <summary>
+        /// The CLSID that may be passed to <see cref="CLRCreateInstance"/> to create an instance of <see cref="ICLRMetaHostPolicy"/>.
+        /// </summary>
+        public static readonly Guid CLSID_CLRMetaHostPolicy = new Guid(0x2ebcd49a, 0x1b47, 0x4a61, 0xb1, 0x3a, 0x4a, 0x3, 0x70, 0x1e, 0x59, 0x4b);
+
+        /// <summary>
+        /// The CLSID that may be passed to <see cref="CLRCreateInstance"/> to create an instance of <see cref="ICLRDebugging"/>.
+        /// </summary>
+        public static readonly Guid CLSID_CLRDebugging = new Guid(0xbacc578d, 0xfbdd, 0x48a4, 0x96, 0x9f, 0x2, 0xd9, 0x32, 0xb7, 0x46, 0x34);
 
         /// <summary>
         /// Gets the public key from a public/private key pair. The key pair can be supplied either as a key container name within a cryptographic service provider (CSP) or as a raw collection of bytes.
@@ -80,16 +89,28 @@ namespace PInvoke
         [DllImport(nameof(MSCorEE), PreserveSig = true)]
         public static extern unsafe int StrongNameFreeBuffer(byte* pbMemory);
 
+        /// <summary>
+        /// Provides one of three interfaces: <see cref="ICLRMetaHost"/>, <see cref="ICLRMetaHostPolicy"/>, or <see cref="ICLRDebugging"/>.
+        /// </summary>
+        /// <param name="clsid">
+        /// One of three class identifiers: <see cref="CLSID_CLRMetaHost"/>, <see cref="CLSID_CLRMetaHostPolicy"/>, or <see cref="CLSID_CLRDebugging"/>
+        /// </param>
+        /// <param name="riid">One of three interface identifiers (IIDs) accessible via <c>typeof(T)</c> where the type is <see cref="ICLRMetaHost"/>, <see cref="ICLRMetaHostPolicy"/>, or <see cref="ICLRDebugging"/>.</param>
+        /// <param name="ppInterface">One of three interfaces: <see cref="ICLRMetaHost"/>, <see cref="ICLRMetaHostPolicy"/>, or <see cref="ICLRDebugging"/>.</param>
+        /// <returns>This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.</returns>
         [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode, PreserveSig = true)]
         public static extern int CLRCreateInstance(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object pMetaHost);
+            [MarshalAs(UnmanagedType.LPStruct)] Guid clsid,
+            [MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+            [MarshalAs(UnmanagedType.Interface)] out object ppInterface);
 
         /// <summary>
         /// Gets the version number of the common language runtime (CLR) that is associated with the specified process handle. This function has been deprecated in the .NET Framework version 4.
         /// </summary>
-        /// <param name="hProcess">A handle to a process.</param><param name="buffer">A buffer that contains the version number string upon successful completion of the method.</param><param name="bufferSize">The length of the version buffer.</param><param name="bufferLength">A pointer to the length of the version number string.</param>
+        /// <param name="hProcess">A handle to a process.</param>
+        /// <param name="pVersion">A buffer that contains the version number string upon successful completion of the method.</param>
+        /// <param name="cchBuffer">The length of the version buffer.</param>
+        /// <param name="dwLength">A pointer to the length of the version number string.</param>
         /// <returns>
         /// HRESULT
         /// </returns>
@@ -97,12 +118,19 @@ namespace PInvoke
         /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0
         /// </remarks>
         [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode)]
-        public static extern HResult GetVersionFromProcess([In] IntPtr hProcess, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder buffer, [In] uint bufferSize, out uint bufferLength);
+        public static extern unsafe HResult GetVersionFromProcess(
+            SafeHandle hProcess,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* pVersion,
+            int cchBuffer,
+            out int dwLength);
 
         /// <summary>
         /// Gets the common language runtime (CLR) version information of the specified file, using the specified buffer. This function has been deprecated in the .NET Framework 4.
         /// </summary>
-        /// <param name="fileName">The path of the file to be examined.</param><param name="buffer">The buffer allocated for the version information that is returned.</param><param name="bufferSize">The size, in wide characters, of szBuffer.</param><param name="bufferLength">The size, in bytes, of the returned szBuffer.</param>
+        /// <param name="szFileName">The path of the file to be examined.</param>
+        /// <param name="szBuffer">The buffer allocated for the version information that is returned.</param>
+        /// <param name="cchBuffer">The size, in wide characters, of szBuffer.</param>
+        /// <param name="dwLength">The size, in bytes, of the returned szBuffer.</param>
         /// <returns>
         /// HRESULT
         /// </returns>
@@ -110,6 +138,10 @@ namespace PInvoke
         /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1
         /// </remarks>
         [DllImport("mscoree.dll", CharSet = CharSet.Unicode)]
-        public static extern HResult GetFileVersion([MarshalAs(UnmanagedType.LPWStr), In] string fileName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder buffer, [In] uint bufferSize, out uint bufferLength);
+        public static extern unsafe HResult GetFileVersion(
+            [MarshalAs(UnmanagedType.LPWStr)] string szFileName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* szBuffer,
+            int cchBuffer,
+            out int dwLength);
     }
 }

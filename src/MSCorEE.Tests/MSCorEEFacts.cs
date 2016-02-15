@@ -13,19 +13,19 @@ using System.Text;
 using CLRMetaHost;
 using PInvoke;
 using Xunit;
+using static PInvoke.Kernel32;
 using static PInvoke.MSCorEE;
 
 public class MSCorEEFacts
 {
     private static readonly ICLRMetaHost ClrMetaHost = CreateClrMetaHost();
 
-    public static IEnumerable<string> GetProcessRuntimes(ICLRMetaHost host, SafeHandle handle)
+    public static IEnumerable<string> GetProcessRuntimes(ICLRMetaHost host, SafeHandle hProcess)
     {
-        var buffer = new StringBuilder(1024);
-
         if (host != null)
         {
-            IEnumUnknown ppEnumerator = host.EnumerateLoadedRuntimes(handle.DangerousGetHandle());
+            var buffer = new StringBuilder(1024);
+            IEnumUnknown ppEnumerator = host.EnumerateLoadedRuntimes(hProcess.DangerousGetHandle());
             return ppEnumerator.Cast<ICLRRuntimeInfo>().Select(rti =>
             {
                 var bufferLength = (uint)buffer.Capacity;
@@ -35,11 +35,11 @@ public class MSCorEEFacts
         }
         else
         {
-            uint bufferLength = (uint)buffer.Capacity;
-            HResult result = GetVersionFromProcess(handle.DangerousGetHandle(), buffer, bufferLength, out bufferLength);
+            string buffer;
+            HResult result = GetVersionFromProcess(hProcess, out buffer);
             if (result.Succeeded && result != HResult.Code.E_INVALIDARG)
             {
-                return new[] { buffer.ToString(0, (int)bufferLength - 1) };
+                return new[] { buffer };
             }
         }
 
@@ -53,18 +53,19 @@ public class MSCorEEFacts
             throw new ArgumentNullException(nameof(filename));
         }
 
-        var buffer = new StringBuilder(1024);
-        uint valueLength = (uint)buffer.Capacity;
         if (host != null)
         {
+            var buffer = new StringBuilder(1024);
+            uint valueLength = (uint)buffer.Capacity;
             host.GetVersionFromFile(filename, buffer, ref valueLength);
+            return buffer.ToString(0, (int)valueLength - 1);
         }
         else
         {
-            GetFileVersion(filename, buffer, valueLength, out valueLength);
+            string buffer;
+            GetFileVersion(filename, out buffer).ThrowOnFailure();
+            return buffer;
         }
-
-        return buffer.ToString(0, (int)valueLength - 1);
     }
 
     [Fact]
