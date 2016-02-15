@@ -26,7 +26,7 @@ public class MSCorEEFacts
         if (host != null)
         {
             IEnumUnknown ppEnumerator = host.EnumerateLoadedRuntimes(handle.DangerousGetHandle());
-            return ppEnumerator.OfType<ICLRRuntimeInfo>().Select(rti =>
+            return ppEnumerator.Cast<ICLRRuntimeInfo>().Select(rti =>
             {
                 var bufferLength = (uint)buffer.Capacity;
                 rti.GetVersionString(buffer, ref bufferLength);

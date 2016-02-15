@@ -9,7 +9,7 @@ namespace PInvoke
 
     public static class IEnumUnknownExtensions
     {
-        public static IEnumerable<T> OfType<T>(this IEnumUnknown enumerator)
+        public static IEnumerator<object> GetEnumerator(this IEnumUnknown enumerator)
         {
             if (enumerator == null)
             {
@@ -23,10 +23,19 @@ namespace PInvoke
                 enumerator.RemoteNext(1, out element, out count);
                 if (count == 1)
                 {
-                    yield return (T)element;
+                    yield return element;
                 }
             }
             while (count > 0);
+        }
+
+        public static IEnumerable<T> Cast<T>(this IEnumUnknown enumerator)
+        {
+            var e = enumerator.GetEnumerator();
+            while (e.MoveNext())
+            {
+                yield return (T)e.Current;
+            }
         }
     }
 }
