@@ -2,14 +2,71 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
+using CLRMetaHost;
 using PInvoke;
 using Xunit;
 using static PInvoke.MSCorEE;
 
 public class MSCorEEFacts
 {
+    private static readonly ICLRMetaHost ClrMetaHost = CreateClrMetaHost();
+
+    public static IEnumerable<string> GetProcessRuntimes(ICLRMetaHost host, SafeHandle handle)
+    {
+        var buffer = new StringBuilder(1024);
+
+        if (host != null)
+        {
+            IEnumUnknown ppEnumerator = host.EnumerateLoadedRuntimes(handle.DangerousGetHandle());
+            return ppEnumerator.Cast<ICLRRuntimeInfo>().Select(rti =>
+            {
+                var bufferLength = (uint)buffer.Capacity;
+                rti.GetVersionString(buffer, ref bufferLength);
+                return buffer.ToString(0, (int)bufferLength - 1);
+            }).ToList();
+        }
+        else
+        {
+            uint bufferLength = (uint)buffer.Capacity;
+            HResult result = GetVersionFromProcess(handle.DangerousGetHandle(), buffer, bufferLength, out bufferLength);
+            if (result.Succeeded && result != HResult.Code.E_INVALIDARG)
+            {
+                return new[] { buffer.ToString(0, (int)bufferLength - 1) };
+            }
+        }
+
+        return Enumerable.Empty<string>();
+    }
+
+    public static string GetFileRuntime(ICLRMetaHost host, string filename)
+    {
+        if (filename == null)
+        {
+            throw new ArgumentNullException(nameof(filename));
+        }
+
+        var buffer = new StringBuilder(1024);
+        uint valueLength = (uint)buffer.Capacity;
+        if (host != null)
+        {
+            host.GetVersionFromFile(filename, buffer, ref valueLength);
+        }
+        else
+        {
+            GetFileVersion(filename, buffer, valueLength, out valueLength);
+        }
+
+        return buffer.ToString(0, (int)valueLength - 1);
+    }
+
     [Fact]
     public void StrongNameGetPublicKey_ReadSnkFile()
     {
@@ -28,6 +85,22 @@ public class MSCorEEFacts
         string actual = BitConverter.ToString(publicKeyToken).Replace("-", string.Empty).ToLowerInvariant();
         string expected = "ca2d1515679318f5";
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void ShouldGetRuntimesFromCurrentProcess()
+    {
+        Process process = Process.GetCurrentProcess();
+        IEnumerable<string> result = GetProcessRuntimes(ClrMetaHost, process.SafeHandle);
+        Assert.Contains("v4.0.30319", result);
+    }
+
+    [Fact]
+    public void ShouldGetRuntimeFromFile()
+    {
+        Process process = Process.GetCurrentProcess();
+        string result = GetFileRuntime(ClrMetaHost, process.MainModule.FileName);
+        Assert.Equal("v4.0.30319", result);
     }
 
     private static byte[] GetKeyFileBytes(string keyFileName)

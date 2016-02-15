@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using CLRMetaHost;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -12,6 +13,18 @@ namespace PInvoke
     /// </content>
     public static partial class MSCorEE
     {
+        /// <summary>
+        /// Creates an instance of <see cref="ICLRMetaHost"/>.
+        /// </summary>
+        /// <returns>The host.</returns>
+        public static ICLRMetaHost CreateClrMetaHost()
+        {
+            object pClrMetaHost;
+            HResult result = CLRCreateInstance(CLSID_CLRMetaHost, typeof(ICLRMetaHost).GUID, out pClrMetaHost);
+            result.ThrowOnFailure();
+            return (ICLRMetaHost)pClrMetaHost;
+        }
+
         /// <summary>
         /// Gets the public key from a public/private key pair.
         /// </summary>

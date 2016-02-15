@@ -5,6 +5,8 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Text;
+    using CLRMetaHost;
 
     /// <summary>
     /// Exported functions from the MSCorEE.dll Windows library
@@ -13,6 +15,11 @@ namespace PInvoke
     [OfferFriendlyOverloads]
     public static partial class MSCorEE
     {
+        /// <summary>
+        /// The CLSID that may be passed to <see cref="CLRCreateInstance"/> to create an instance of <see cref="ICLRMetaHost"/>.
+        /// </summary>
+        public static readonly Guid CLSID_CLRMetaHost = new Guid("{9280188d-0e8e-4867-b30c-7fa83884e8de}");
+
         /// <summary>
         /// Gets the public key from a public/private key pair. The key pair can be supplied either as a key container name within a cryptographic service provider (CSP) or as a raw collection of bytes.
         /// </summary>
@@ -72,5 +79,37 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(MSCorEE), PreserveSig = true)]
         public static extern unsafe int StrongNameFreeBuffer(byte* pbMemory);
+
+        [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode, PreserveSig = true)]
+        public static extern int CLRCreateInstance(
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pMetaHost);
+
+        /// <summary>
+        /// Gets the version number of the common language runtime (CLR) that is associated with the specified process handle. This function has been deprecated in the .NET Framework version 4.
+        /// </summary>
+        /// <param name="hProcess">A handle to a process.</param><param name="buffer">A buffer that contains the version number string upon successful completion of the method.</param><param name="bufferSize">The length of the version buffer.</param><param name="bufferLength">A pointer to the length of the version number string.</param>
+        /// <returns>
+        /// HRESULT
+        /// </returns>
+        /// <remarks>
+        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0
+        /// </remarks>
+        [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode)]
+        public static extern HResult GetVersionFromProcess([In] IntPtr hProcess, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder buffer, [In] uint bufferSize, out uint bufferLength);
+
+        /// <summary>
+        /// Gets the common language runtime (CLR) version information of the specified file, using the specified buffer. This function has been deprecated in the .NET Framework 4.
+        /// </summary>
+        /// <param name="fileName">The path of the file to be examined.</param><param name="buffer">The buffer allocated for the version information that is returned.</param><param name="bufferSize">The size, in wide characters, of szBuffer.</param><param name="bufferLength">The size, in bytes, of the returned szBuffer.</param>
+        /// <returns>
+        /// HRESULT
+        /// </returns>
+        /// <remarks>
+        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1
+        /// </remarks>
+        [DllImport("mscoree.dll", CharSet = CharSet.Unicode)]
+        public static extern HResult GetFileVersion([MarshalAs(UnmanagedType.LPWStr), In] string fileName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder buffer, [In] uint bufferSize, out uint bufferLength);
     }
 }
