@@ -116,7 +116,7 @@ namespace PInvoke
         /// </returns>
         /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
-        public static unsafe MODULEENTRY32? Module32First(SafeObjectHandle hSnapshot)
+        public static MODULEENTRY32? Module32First(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)
             {
@@ -124,7 +124,7 @@ namespace PInvoke
             }
 
             var entry = MODULEENTRY32.Create();
-            if (Module32First(hSnapshot, &entry))
+            if (Module32First(hSnapshot, ref entry))
             {
                 return entry;
             }
@@ -149,7 +149,7 @@ namespace PInvoke
         /// </returns>
         /// <exception cref="Win32Exception">Thrown if any error occurs.</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="hSnapshot" /> is <see langword="null" />.</exception>
-        public static unsafe MODULEENTRY32? Module32Next(SafeObjectHandle hSnapshot)
+        public static MODULEENTRY32? Module32Next(SafeObjectHandle hSnapshot)
         {
             if (hSnapshot == null)
             {
@@ -157,7 +157,7 @@ namespace PInvoke
             }
 
             var entry = MODULEENTRY32.Create();
-            if (Module32Next(hSnapshot, &entry))
+            if (Module32Next(hSnapshot, ref entry))
             {
                 return entry;
             }
