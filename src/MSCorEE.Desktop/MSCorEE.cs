@@ -6,6 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
+    using CLRMetaHost;
 
     /// <summary>
     /// Exported functions from the MSCorEE.dll Windows library
@@ -14,6 +15,11 @@ namespace PInvoke
     [OfferFriendlyOverloads]
     public static partial class MSCorEE
     {
+        /// <summary>
+        /// The CLSID that may be passed to <see cref="CLRCreateInstance"/> to create an instance of <see cref="ICLRMetaHost"/>.
+        /// </summary>
+        public static readonly Guid CLSID_CLRMetaHost = new Guid("{9280188d-0e8e-4867-b30c-7fa83884e8de}");
+
         /// <summary>
         /// Gets the public key from a public/private key pair. The key pair can be supplied either as a key container name within a cryptographic service provider (CSP) or as a raw collection of bytes.
         /// </summary>

@@ -3,32 +3,30 @@
 
 namespace PInvoke
 {
+    using System;
     using System.Collections.Generic;
+    using CLRMetaHost;
 
     public static class IEnumUnknownExtensions
     {
         public static IEnumerable<T> OfType<T>(this IEnumUnknown enumerator)
         {
-            if (enumerator != null)
+            if (enumerator == null)
             {
-                object[] elements = new object[1];
-                int hr;
-                while (true)
-                {
-                    uint count;
-                    hr = enumerator.Next(1, elements, out count);
-                    if (hr == 0 && (int)count == 1)
-                    {
-                        yield return (T)elements[0];
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                new HResult(hr).ThrowOnFailure();
+                throw new ArgumentNullException(nameof(enumerator));
             }
+
+            uint count;
+            do
+            {
+                object element;
+                enumerator.RemoteNext(1, out element, out count);
+                if (count == 1)
+                {
+                    yield return (T)element;
+                }
+            }
+            while (count > 0);
         }
     }
 }
