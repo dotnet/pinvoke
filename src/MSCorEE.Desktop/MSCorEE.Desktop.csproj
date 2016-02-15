@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\metahost.tlb">
+      <Visible>false</Visible>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMFileReference>
     <Reference Include="System" />
