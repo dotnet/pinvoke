@@ -417,7 +417,22 @@ public class BCryptFacts
     }
 
     [Fact]
-    public void ImportKey()
+    public void ImportKey_ECDHPublic()
+    {
+        const string ecdhPublicBase64 = "RUNLMSAAAAC4EtbkVuPCJQIzxjfb+NbYkxxN2FoMZnPxBdTp3GI4NiPQz3fdBaLtLBa95UuBWjnBnvF1q4vfKwdkSTe1ieIx";
+        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM))
+        {
+            // This throws, as using NCrypt is required to import ECDH keys.
+            Assert.Throws<NTStatusException>(() =>
+                BCryptImportKey(
+                    algorithm,
+                    AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB,
+                    Convert.FromBase64String(ecdhPublicBase64)));
+        }
+    }
+
+    [Fact]
+    public void ImportKey_AES()
     {
         using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
