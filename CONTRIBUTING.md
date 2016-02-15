@@ -97,6 +97,22 @@ anything else found in native header files for these reasons:
  * Prefer `enum` types over `int` or `uint` for flags. Generally, name flags enums as `METHODNAMEFlags`.
    For example: `CreateFileFlags` for the flags that are passed to `CreateFile`.
 
+### Struct field types
+
+When defining a struct, we should take care to make sure the struct is 'pinnable' (i.e. all fields must be
+value types rather than reference types.) Benefits of structs being pinnable include:
+
+1. Pointers are allowed (e.g. `YourStruct*`) and thus can be used as an optional parameter in methods.
+1. The original native pointers in fields are preserved (they are not marshaled) thus ensuring that if
+   native code allocated memory and will later free it, the same pointers will be observed when you pass
+   the struct back to native code to free it.
+1. No need `[MarshalAs]` attributes, and no marshaling *can* mean improved performance for some scenarios.
+1. It is consistent with the rest of the library's guidelines that the signatures closely match to their
+   native header file representations.
+
+Pinnable structs cannot have a `string` field, since `string` is a reference type. Instead, you can add a
+`string` *property* for convenience. See [PROCESSENTRY32][PROCESSENTRY32] for an example.
+
 ### Helper methods
 
 Helper methods should be kept at a minimum. The scope of this P/Invoke library is primarily
@@ -227,3 +243,5 @@ of the produced packages.
 [SigImp]: http://blogs.msdn.com/b/vbteam/archive/2008/03/14/making-pinvoke-easy.aspx
 [APISets]: https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx
 [APISets8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn505783(v=vs.85).aspx
+
+[PROCESSENTRY32]: https://github.com/AArnott/pinvoke/blob/master/src/Kernel32.Desktop/Kernel32%2BPROCESSENTRY32.cs
