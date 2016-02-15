@@ -202,6 +202,12 @@ namespace PInvoke
                                 SyntaxKind modifier = friendlyFlags.HasFlag(FriendlyFlags.Optional) || friendlyFlags.HasFlag(FriendlyFlags.In)
                                      ? SyntaxKind.RefKeyword
                                      : SyntaxKind.OutKeyword;
+                                if (!friendlyFlags.HasFlag(FriendlyFlags.Optional))
+                                {
+                                    alteredParameter = alteredParameter
+                                        .WithType(pointerType.ElementType);
+                                }
+
                                 alteredParameter = alteredParameter
                                     .AddModifiers(SyntaxFactory.Token(modifier));
                             }
@@ -314,9 +320,22 @@ namespace PInvoke
 
                             invocationArguments[parameter] = invocationArguments[parameter].WithExpression(
                                 SyntaxFactory.ConditionalExpression(
-                                hasValueExpression,
-                                SyntaxFactory.PrefixUnaryExpression(SyntaxKind.AddressOfExpression, localVarName),
-                                SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)));
+                                    hasValueExpression,
+                                    SyntaxFactory.PrefixUnaryExpression(SyntaxKind.AddressOfExpression, localVarName),
+                                    SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)));
+                        }
+                        else if (friendlyFlags.HasFlag(FriendlyFlags.Out))
+                        {
+                            var fixedDecl = SyntaxFactory.VariableDeclarator(localVarName.Identifier)
+                                .WithInitializer(SyntaxFactory.EqualsValueClause(
+                                    SyntaxFactory.PrefixUnaryExpression(
+                                        SyntaxKind.AddressOfExpression,
+                                        parameterName)));
+                            fixedStatements.Add(SyntaxFactory.FixedStatement(
+                                SyntaxFactory.VariableDeclaration(parameter.Type).AddVariables(fixedDecl),
+                                SyntaxFactory.Block()));
+
+                            invocationArguments[parameter] = invocationArguments[parameter].WithExpression(localVarName);
                         }
                     }
                 }
