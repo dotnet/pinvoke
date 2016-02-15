@@ -17,7 +17,8 @@ namespace PInvoke
         /// The UNICODE_STRING structure is used to define Unicode strings.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public struct UNICODE_STRING
+        [OfferIntPtrPropertyAccessors]
+        public partial struct UNICODE_STRING
         {
             /// <summary>
             /// The length, in bytes, of the string stored in <see cref="Buffer"/>.
@@ -32,7 +33,6 @@ namespace PInvoke
             /// <summary>
             /// Pointer to a buffer used to contain a string of wide characters.
             /// </summary>
-            [MarshalAs(UnmanagedType.LPWStr)]
             public string Buffer;
 
             /// <summary>
