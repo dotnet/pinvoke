@@ -22,4 +22,25 @@ public class NTDllFacts
         ////Assert.Equal(Win32ErrorCode.ERROR_FILE_NOT_FOUND, RtlNtStatusToDosError(NTStatus.STATUS_NDIS_FILE_NOT_FOUND));
         ////Assert.Equal(Win32ErrorCode.ERROR_MUI_FILE_NOT_FOUND, RtlNtStatusToDosError(NTStatus.STATUS_MUI_FILE_NOT_FOUND));
     }
+
+    [Fact]
+    public unsafe void NtOpenSection_Test()
+    {
+        string nameString = "\\Device\\PhysicalMemory";
+        fixed (char* name = nameString)
+        {
+            var objectNameUnicode = new UNICODE_STRING
+            {
+                Buffer = name,
+                Length = (ushort)(nameString.Length * sizeof(char)),
+                MaximumLength = (ushort)(nameString.Length * sizeof(char)),
+            };
+            var attrs = OBJECT_ATTRIBUTES.Create();
+            attrs.ObjectName = &objectNameUnicode;
+            attrs.Attributes = OBJECT_ATTRIBUTES.ObjectHandleAttributes.OBJ_CASE_INSENSITIVE;
+            SafeNTObjectHandle hObject;
+            NTSTATUS status = NtOpenSection(out hObject, ACCESS_MASK.STANDARD_RIGHTS_READ, attrs);
+            Assert.Equal<NTSTATUS>(NTSTATUS.Code.STATUS_ACCESS_DENIED, status);
+        }
+    }
 }
