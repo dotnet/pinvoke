@@ -67,18 +67,14 @@ namespace PInvoke
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="OBJECT_ATTRIBUTES"/>structure.
+            /// Initializes a new instance of the <see cref="OBJECT_ATTRIBUTES"/> structure.
             /// </summary>
-            /// <param name="name">A string that contains the name of the object for which a handle is to be opened.</param>
-            /// <param name="attributes">A bitmask of flags that specify object handle attributes.</param>
-            /// <returns>An <see cref="OBJECT_ATTRIBUTES"/> instance with all the fields set correctly.</returns>
-            public static OBJECT_ATTRIBUTES Create(string name, ObjectHandleAttributes attributes)
+            /// <returns>An <see cref="OBJECT_ATTRIBUTES"/> instance with <see cref="Length"/> initialized.</returns>
+            public static OBJECT_ATTRIBUTES Create()
             {
                 return new OBJECT_ATTRIBUTES
                 {
                     Length = Marshal.SizeOf(typeof(OBJECT_ATTRIBUTES)),
-                    ObjectName = UNICODE_STRING.Create(name),
-                    Attributes = attributes
                 };
             }
         }
