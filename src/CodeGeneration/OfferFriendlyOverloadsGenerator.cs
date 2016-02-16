@@ -212,6 +212,11 @@ namespace PInvoke
                                 alteredParameter = alteredParameter
                                     .AddModifiers(SyntaxFactory.Token(modifier));
                             }
+                            else if (!friendlyFlags.HasFlag(FriendlyFlags.Optional))
+                            {
+                                alteredParameter = alteredParameter
+                                    .WithType(pointerType.ElementType);
+                            }
                         }
 
                         return alteredParameter;
@@ -337,6 +342,11 @@ namespace PInvoke
                                 SyntaxFactory.Block()));
 
                             invocationArguments[parameter] = invocationArguments[parameter].WithExpression(localVarName);
+                        }
+                        else
+                        {
+                            invocationArguments[parameter] = invocationArguments[parameter]
+                                .WithExpression(SyntaxFactory.PrefixUnaryExpression(SyntaxKind.AddressOfExpression, parameterName));
                         }
                     }
                 }
