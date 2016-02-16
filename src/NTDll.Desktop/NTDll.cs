@@ -32,7 +32,10 @@ namespace PInvoke
         /// Returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/> on success, or the appropriate <see cref="NTSTATUS"/> error code on failure.
         /// </returns>
         [DllImport(nameof(NTDll), CharSet = CharSet.Unicode)]
-        public static extern NTSTATUS NtOpenSection([Out] out IntPtr sectionHandle, [In] uint desiredAccess, [In, Out] ref OBJECT_ATTRIBUTES objectAttributes);
+        public static extern NTSTATUS NtOpenSection(
+            out SafeNTObjectHandle sectionHandle,
+            uint desiredAccess,
+            ref OBJECT_ATTRIBUTES objectAttributes);
 
         /// <summary>
         /// The NtClose routine closes an object handle.
@@ -42,6 +45,6 @@ namespace PInvoke
         /// Returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/> on success, or the appropriate <see cref="NTSTATUS"/> error code on failure.
         /// </returns>
         [DllImport(nameof(NTDll))]
-        public static extern NTSTATUS NtClose(IntPtr handle);
+        private static extern NTSTATUS NtClose(IntPtr handle);
     }
 }
