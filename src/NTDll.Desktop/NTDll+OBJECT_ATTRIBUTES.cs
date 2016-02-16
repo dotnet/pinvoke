@@ -16,7 +16,7 @@ namespace PInvoke
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
-        public partial struct OBJECT_ATTRIBUTES
+        public unsafe partial struct OBJECT_ATTRIBUTES
         {
             /// <summary>
             /// The number of bytes of data contained in this structure. The <see cref="Create"/> method sets this member to <c>sizeof(OBJECT_ATTRIBUTES)</c>.
@@ -35,7 +35,7 @@ namespace PInvoke
             /// A <see cref="UNICODE_STRING"/> that contains the name of the object for which a handle is to be opened.
             /// This must either be a fully qualified object name, or a relative path name to the directory specified by the <see cref="RootDirectory"/> member.
             /// </summary>
-            public UNICODE_STRING ObjectName;
+            public UNICODE_STRING* ObjectName;
 
             /// <summary>
             /// Bitmask of flags that specify object handle attributes.
