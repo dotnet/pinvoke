@@ -18,7 +18,7 @@ namespace PInvoke
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
-        public partial struct UNICODE_STRING
+        public unsafe partial struct UNICODE_STRING
         {
             /// <summary>
             /// The length, in bytes, of the string stored in <see cref="Buffer"/>.
@@ -33,22 +33,7 @@ namespace PInvoke
             /// <summary>
             /// Pointer to a buffer used to contain a string of wide characters.
             /// </summary>
-            public string Buffer;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="UNICODE_STRING"/>structure.
-            /// </summary>
-            /// <param name="str">A string to represent as UNICODE_STRING</param>
-            /// <returns>An <see cref="UNICODE_STRING"/> instance with all the fields set correctly.</returns>
-            public static UNICODE_STRING Create(string str)
-            {
-                return new UNICODE_STRING
-                {
-                    Length = (ushort)(str.Length * sizeof(char)),
-                    MaximumLength = (ushort)(str.Length * sizeof(char)),
-                    Buffer = str
-                };
-            }
+            public char* Buffer;
         }
     }
 }
