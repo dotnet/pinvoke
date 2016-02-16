@@ -45,12 +45,12 @@ namespace PInvoke
             /// <summary>
             /// Specifies a security descriptor (SECURITY_DESCRIPTOR) for the object when the object is created. If this member is NULL, the object will receive default security settings.
             /// </summary>
-            public IntPtr SecurityDescriptor;
+            public Kernel32.SECURITY_DESCRIPTOR* SecurityDescriptor;
 
             /// <summary>
             /// Optional quality of service to be applied to the object when it is created. Used to indicate the security impersonation level and context tracking mode (dynamic or static). Currently, the InitializeObjectAttributes macro sets this member to <see langword="null"/>.
             /// </summary>
-            public IntPtr SecurityQualityOfService;
+            public void* SecurityQualityOfService;
 
             [Flags]
             public enum ObjectHandleAttributes
