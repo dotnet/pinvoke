@@ -34,6 +34,7 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kernel32.NuGet\Kernel32.NuGet.nuproj" />
     <ProjectReference Include="..\NTDll\NTDll.csproj" />
     <ProjectReference Include="..\NTDll.Desktop\NTDll.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />

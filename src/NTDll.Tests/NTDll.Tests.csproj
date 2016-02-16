@@ -35,6 +35,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
+      <Project>{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}</Project>
+      <Name>Kernel32.Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NTDll.Desktop\NTDll.Desktop.csproj">
       <Project>{62872B6B-BB44-4890-B308-3EEC6984B542}</Project>
       <Name>NTDll.Desktop</Name>
