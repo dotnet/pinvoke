@@ -14,7 +14,7 @@ namespace PInvoke
         /// Represents a group of icons as stored in a resource
         /// </summary>
         /// <remarks>
-        /// The structure is followed by <see cref="idCount"/> <see cref="ICONDIRENTRY"/> entries.
+        /// The structure is followed by <see cref="idCount"/> <see cref="GRPICONDIRENTRY"/> entries.
         /// </remarks>
         [StructLayout(LayoutKind.Sequential, Pack=1)]
         public struct GRPICONDIR
