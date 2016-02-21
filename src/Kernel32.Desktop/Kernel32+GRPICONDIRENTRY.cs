@@ -13,7 +13,7 @@ namespace PInvoke
         /// <summary>
         /// Represents an icon as stored in a resource
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack=1)]
         public struct GRPICONDIRENTRY
         {
             /// <summary>

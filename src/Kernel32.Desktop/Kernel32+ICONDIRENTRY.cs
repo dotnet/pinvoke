@@ -13,7 +13,7 @@ namespace PInvoke
         /// <summary>
         /// Represents an icon as stored in a '.ico' file
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack=1)]
         public struct ICONDIRENTRY
         {
             /// <summary>
@@ -54,7 +54,7 @@ namespace PInvoke
             /// <summary>
             /// Location (relative to the start of the ICO file) of the actual image data.
             /// </summary>
-            public ushort dwImageOffset;
+            public uint dwImageOffset;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace PInvoke
         /// <remarks>
         /// The structure is followed by <see cref="idCount"/> <see cref="ICONDIRENTRY"/> entries.
         /// </remarks>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack=1)]
         public struct GRPICONDIR
         {
             /// <summary>
