@@ -900,7 +900,7 @@ namespace PInvoke
         /// <returns>
         ///     If the function succeeds, the return value is a handle to the loaded module.
         ///     <para>
-        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         If the function fails, the return value is an invalid handle. To get extended error information, call
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
@@ -953,7 +953,7 @@ namespace PInvoke
         /// <returns>
         ///     If the function succeeds, the return value is a handle to the loaded module.
         ///     <para>
-        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         If the function fails, the return value is an invalid handle. To get extended error information, call
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>

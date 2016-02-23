@@ -13,7 +13,7 @@ namespace PInvoke
         /// <summary>
         /// Represents an icon as stored in a '.ico' file
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, Pack=1)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct ICONDIRENTRY
         {
             /// <summary>
