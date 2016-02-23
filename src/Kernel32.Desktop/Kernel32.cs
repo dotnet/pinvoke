@@ -898,14 +898,67 @@ namespace PInvoke
         ///     </para>
         /// </param>
         /// <returns>
-        ///     If the function succeeds, the return value is a nonzero value.
+        ///     If the function succeeds, the return value is a handle to the loaded module.
         ///     <para>
-        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         If the function fails, the return value is an invalid handle. To get extended error information, call
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeLibraryHandle LoadLibrary(string lpFileName);
+
+        /// <summary>
+        ///     Loads the specified module into the address space of the calling process. The specified module may cause other
+        ///     modules to be loaded.
+        /// </summary>
+        /// <param name="lpFileName">
+        ///     <para>
+        ///         A string that specifies the file name of the module to load. This name is not related to the name stored in a
+        ///         library module itself, as specified by the LIBRARY keyword in the module-definition (.def) file.
+        ///     </para>
+        ///     <para>
+        ///         The module can be a library module (a .dll file) or an executable module (an .exe file). If the specified
+        ///         module is an executable module, static imports are not loaded; instead, the module is loaded as if
+        ///         <see cref="LoadLibraryExFlags.DONT_RESOLVE_DLL_REFERENCES" /> was specified. See the
+        ///         <paramref name="dwFlags" /> parameter for more information.
+        ///     </para>
+        ///     <para>
+        ///         If the string specifies a module name without a path and the file name extension is omitted, the function
+        ///         appends the default library extension .dll to the module name. To prevent the function from appending .dll to
+        ///         the module name, include a trailing point character (.) in the module name string.
+        ///     </para>
+        ///     <para>
+        ///         If the string specifies a fully qualified path, the function searches only that path for the module. When
+        ///         specifying a path, be sure to use backslashes (\), not forward slashes (/). For more information about paths,
+        ///         see Naming Files, Paths, and Namespaces.
+        ///     </para>
+        ///     <para>
+        ///         If the string specifies a module name without a path and more than one loaded module has the same base name
+        ///         and extension, the function returns a handle to the module that was loaded first.
+        ///     </para>
+        ///     <para>
+        ///         If the string specifies a module name without a path and a module of the same name is not already loaded, or
+        ///         if the string specifies a module name with a relative path, the function searches for the specified module. The
+        ///         function also searches for modules if loading the specified module causes the system to load other associated
+        ///         modules (that is, if the module has dependencies). The directories that are searched and the order in which
+        ///         they are searched depend on the specified path and the dwFlags parameter.
+        ///     </para>
+        ///     <para>If the function cannot find the module or one of its dependencies, the function fails.</para>
+        /// </param>
+        /// <param name="hFile">This parameter is reserved for future use. It must be <see langword="null" />.</param>
+        /// <param name="dwFlags">
+        ///     The action to be taken when loading the module. If <see cref="LoadLibraryExFlags.None" /> is
+        ///     specified, the behavior of this function is identical to that of the LoadLibrary function.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a handle to the loaded module.
+        ///     <para>
+        ///         If the function fails, the return value is an invalid handle. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern SafeLibraryHandle LoadLibraryEx(string lpFileName, IntPtr hFile, LoadLibraryExFlags dwFlags);
 
         /// <summary>
         ///     Creates an instance of a named pipe and returns a handle for subsequent pipe operations. A named pipe server
