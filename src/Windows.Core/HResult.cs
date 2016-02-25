@@ -209,6 +209,27 @@ namespace PInvoke
             Marshal.ThrowExceptionForHR(this.AsInt32, errorInfo);
         }
 
+        /// <summary>
+        /// Gets an exception that represents this <see cref="HResult" />
+        /// if it represents a failure.
+        /// </summary>
+        /// <returns>
+        /// The exception, if applicable; otherwise null.
+        /// </returns>
+        public Exception GetException() => Marshal.GetExceptionForHR(this);
+
+        /// <summary>
+        /// Gets an exception that represents this <see cref="HResult" />
+        /// if it represents a failure.
+        /// </summary>
+        /// <param name="errorInfo">
+        /// A pointer to additional error information that may be used to populate the Exception.
+        /// </param>
+        /// <returns>
+        /// The exception, if applicable; otherwise null.
+        /// </returns>
+        public Exception GetException(IntPtr errorInfo) => Marshal.GetExceptionForHR(this, errorInfo);
+
         /// <inheritdoc />
         public override int GetHashCode() => this.AsInt32;
 
