@@ -182,4 +182,44 @@ public class HResultFacts
         ((HResult)HResult.Code.S_OK).ThrowOnFailure();
         ((HResult)HResult.Code.S_FALSE).ThrowOnFailure();
     }
+
+    [Theory]
+    [InlineData(HResult.Code.S_OK)]
+    [InlineData(HResult.Code.S_FALSE)]
+    [InlineData(HResult.Code.E_FAIL)]
+    public void GetException(HResult.Code hrCode)
+    {
+        HResult hr = hrCode;
+        Exception expected = Marshal.GetExceptionForHR(hr);
+        Exception actual = hr.GetException();
+        if (expected == null)
+        {
+            Assert.Null(actual);
+        }
+        else
+        {
+            Assert.IsType(expected.GetType(), actual);
+            Assert.Equal(expected.Message, actual.Message);
+        }
+    }
+
+    [Theory]
+    [InlineData(HResult.Code.S_OK)]
+    [InlineData(HResult.Code.S_FALSE)]
+    [InlineData(HResult.Code.E_FAIL)]
+    public void GetExceptionWithErrorInfo(HResult.Code hrCode)
+    {
+        HResult hr = hrCode;
+        Exception expected = Marshal.GetExceptionForHR(hr);
+        Exception actual = hr.GetException(IntPtr.Zero); // Consider actually initializing this.
+        if (expected == null)
+        {
+            Assert.Null(actual);
+        }
+        else
+        {
+            Assert.IsType(expected.GetType(), actual);
+            Assert.Equal(expected.Message, actual.Message);
+        }
+    }
 }
