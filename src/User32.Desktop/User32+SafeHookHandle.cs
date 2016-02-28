@@ -16,6 +16,9 @@ namespace PInvoke
         /// </summary>
         public class SafeHookHandle : SafeHandle
         {
+            /// <summary>
+            /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
+            /// </summary>
             public static readonly SafeHookHandle Null = new SafeHookHandle();
 
             /// <summary>

@@ -20,6 +20,11 @@ namespace PInvoke
         public class SafeDeviceInfoSetHandle : SafeHandle
         {
             /// <summary>
+            /// A handle that may be used in place of <see cref="INVALID_HANDLE_VALUE"/>.
+            /// </summary>
+            public static readonly SafeDeviceInfoSetHandle Invalid = new SafeDeviceInfoSetHandle();
+                        
+            /// <summary>
             /// Initializes a new instance of the <see cref="SafeDeviceInfoSetHandle"/> class.
             /// </summary>
             public SafeDeviceInfoSetHandle()

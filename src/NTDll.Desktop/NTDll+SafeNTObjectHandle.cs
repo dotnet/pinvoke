@@ -19,7 +19,10 @@ namespace PInvoke
         /// </summary>
         public class SafeNTObjectHandle : SafeHandle
         {
-            public static readonly SafeNTObjectHandle Null = new SafeNTObjectHandle(IntPtr.Zero, false);
+            /// <summary>
+            /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
+            /// </summary>            
+            public static readonly SafeNTObjectHandle Null = new SafeNTObjectHandle();
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeNTObjectHandle"/> class.

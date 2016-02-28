@@ -17,12 +17,12 @@ namespace PInvoke
         public class SafeObjectHandle : SafeHandle
         {
             /// <summary>
-            /// An invalid handle with the value of -1.
+            /// An invalid handle that may be used in place of <see cref="INVALID_HANDLE_VALUE"/>.
             /// </summary>
             public static readonly SafeObjectHandle Invalid = new SafeObjectHandle();
 
             /// <summary>
-            /// An invalid handle with the value of 0 (null).
+            /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
             /// </summary>
             public static readonly SafeObjectHandle Null = new SafeObjectHandle(IntPtr.Zero, false);
 

@@ -20,6 +20,11 @@ namespace PInvoke
         public class SafePreparsedDataHandle : SafeHandle
         {
             /// <summary>
+            /// An invalid handle that may be used in place of <see cref="INVALID_HANDLE_VALUE"/>.
+            /// </summary>
+            public static readonly SafePreparsedDataHandle Invalid = new SafePreparsedDataHandle();
+
+            /// <summary>
             /// Initializes a new instance of the <see cref="SafePreparsedDataHandle"/> class.
             /// </summary>
             public SafePreparsedDataHandle()

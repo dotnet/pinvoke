@@ -16,7 +16,15 @@ namespace PInvoke
         /// </summary>
         public class SafeLibraryHandle : SafeHandle
         {
-            public static readonly SafeLibraryHandle Null = new SafeLibraryHandle(IntPtr.Zero, false);
+            /// <summary>
+            /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
+            /// </summary>
+            public static readonly SafeLibraryHandle Null = new SafeLibraryHandle(IntPtr.Zero);
+
+            /// <summary>
+            /// An invalid handle that may be used in place of <see cref="INVALID_HANDLE_VALUE"/>.
+            /// </summary>
+            public static readonly SafeLibraryHandle Invalid = new SafeLibraryHandle();
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeLibraryHandle"/> class.
