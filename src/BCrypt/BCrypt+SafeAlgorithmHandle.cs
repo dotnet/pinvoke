@@ -42,7 +42,7 @@ namespace PInvoke
             {
                 this.SetHandle(preexistingHandle);
             }
-            
+
             /// <inheritdoc />
             public override bool IsInvalid => this.handle == IntPtr.Zero;
 

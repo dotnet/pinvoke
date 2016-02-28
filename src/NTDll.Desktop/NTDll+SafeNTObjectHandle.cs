@@ -21,7 +21,7 @@ namespace PInvoke
         {
             /// <summary>
             /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
-            /// </summary>            
+            /// </summary>
             public static readonly SafeNTObjectHandle Null = new SafeNTObjectHandle();
 
             /// <summary>
