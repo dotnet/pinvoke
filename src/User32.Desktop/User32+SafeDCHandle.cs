@@ -26,8 +26,10 @@ namespace PInvoke
             /// </summary>
             /// <param name="hWnd">The HWND this handle is associated with and must be released with.</param>
             /// <param name="hDC">The handle to the DC.</param>
-            /// <param name="ownsHandle"><see langword="true"/> to reliably release the handle during the finalization
-            /// phase; <see langword="false"/> to prevent reliable release.</param>
+            /// <param name="ownsHandle">
+            ///     <see langword="true" /> to have the native handle released when the
+            ///     <see cref="SafeDCHandle" /> is disposed or finalized; <see langword="false" /> otherwise.
+            /// </param>
             public SafeDCHandle(IntPtr hWnd, IntPtr hDC, bool ownsHandle = true)
                 : base(IntPtr.Zero, ownsHandle)
             {

@@ -30,8 +30,10 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="SafeThemeHandle"/> class.
             /// </summary>
             /// <param name="preexistingHandle">An object that represents the pre-existing handle to use.</param>
-            /// <param name="ownsHandle"><see langword="true"/> to reliably release the handle during the finalization
-            /// phase; <see langword="false"/> to prevent reliable release.</param>
+            /// <param name="ownsHandle">
+            ///     <see langword="true" /> to have the native handle released when the
+            ///     <see cref="SafeThemeHandle" /> is disposed or finalized; <see langword="false" /> otherwise.
+            /// </param>
             public SafeThemeHandle(IntPtr preexistingHandle, bool ownsHandle = true)
                 : base(IntPtr.Zero, ownsHandle)
             {
