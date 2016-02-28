@@ -31,8 +31,8 @@ namespace PInvoke
             /// </summary>
             /// <param name="preexistingHandle">An object that represents the pre-existing handle to use.</param>
             /// <param name="ownsHandle">
-            ///     <see langword="true" /> to have the native handle released when the
-            ///     <see cref="SafeThemeHandle" /> is disposed or finalized; <see langword="false" /> otherwise.
+            ///     <see langword="true" /> to have the native handle released when this safe handle is disposed or finalized;
+            ///     <see langword="false" /> otherwise.
             /// </param>
             public SafeThemeHandle(IntPtr preexistingHandle, bool ownsHandle = true)
                 : base(IntPtr.Zero, ownsHandle)
