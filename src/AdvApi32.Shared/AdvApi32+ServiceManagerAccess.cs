@@ -3,7 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
     using static Kernel32;
     using static Kernel32.ACCESS_MASK.StandardRight;
 
@@ -15,22 +14,21 @@ namespace PInvoke
         /// <summary>
         /// Enumerates the <see cref="ACCESS_MASK.SpecificRights"/> that may apply to service managers.
         /// </summary>
-        [Flags]
-        public enum ServiceManagerAccess : uint
+        public static class ServiceManagerAccess
         {
-            SC_MANAGER_CONNECT = 0x0001,
-            SC_MANAGER_CREATE_SERVICE = 0x0002,
-            SC_MANAGER_ENUMERATE_SERVICE = 0x0004,
-            SC_MANAGER_LOCK = 0x0008,
-            SC_MANAGER_QUERY_LOCK_STATUS = 0x0010,
-            SC_MANAGER_MODIFY_BOOT_CONFIG = 0x0020,
-            SC_MANAGER_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED |
-                                    SC_MANAGER_CONNECT |
-                                    SC_MANAGER_CREATE_SERVICE |
-                                    SC_MANAGER_ENUMERATE_SERVICE |
-                                    SC_MANAGER_LOCK |
-                                    SC_MANAGER_QUERY_LOCK_STATUS |
-                                    SC_MANAGER_MODIFY_BOOT_CONFIG
+            public const uint SC_MANAGER_CONNECT = 0x0001;
+            public const uint SC_MANAGER_CREATE_SERVICE = 0x0002;
+            public const uint SC_MANAGER_ENUMERATE_SERVICE = 0x0004;
+            public const uint SC_MANAGER_LOCK = 0x0008;
+            public const uint SC_MANAGER_QUERY_LOCK_STATUS = 0x0010;
+            public const uint SC_MANAGER_MODIFY_BOOT_CONFIG = 0x0020;
+            public const uint SC_MANAGER_ALL_ACCESS = (uint)STANDARD_RIGHTS_REQUIRED |
+                                                            SC_MANAGER_CONNECT |
+                                                            SC_MANAGER_CREATE_SERVICE |
+                                                            SC_MANAGER_ENUMERATE_SERVICE |
+                                                            SC_MANAGER_LOCK |
+                                                            SC_MANAGER_QUERY_LOCK_STATUS |
+                                                            SC_MANAGER_MODIFY_BOOT_CONFIG;
         }
     }
 }

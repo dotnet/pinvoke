@@ -62,7 +62,7 @@ namespace PInvoke
                 throw new ArgumentException("Service name must not be null nor empty", nameof(lpServiceName));
             }
 
-            using (SafeServiceHandle scmHandle = OpenSCManager(null, null, (uint)ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
+            using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_CREATE_SERVICE))
             {
                 if (scmHandle.IsInvalid)
                 {
@@ -73,7 +73,7 @@ namespace PInvoke
                     scmHandle,
                     lpServiceName,
                     lpDisplayName,
-                    (uint)ServiceAccess.SERVICE_ALL_ACCESS,
+                    ServiceAccess.SERVICE_ALL_ACCESS,
                     ServiceType.SERVICE_WIN32_OWN_PROCESS,
                     ServiceStartType.SERVICE_DEMAND_START,
                     ServiceErrorControl.SERVICE_ERROR_NORMAL,

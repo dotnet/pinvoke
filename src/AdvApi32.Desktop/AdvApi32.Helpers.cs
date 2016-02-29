@@ -26,7 +26,7 @@ namespace PInvoke
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
         public static unsafe IEnumerable<ENUM_SERVICE_STATUS> EnumServicesStatus()
         {
-            using (var scmHandle = OpenSCManager(null, null, (uint)ServiceManagerAccess.SC_MANAGER_ENUMERATE_SERVICE))
+            using (var scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_ENUMERATE_SERVICE))
             {
                 if (scmHandle.IsInvalid)
                 {

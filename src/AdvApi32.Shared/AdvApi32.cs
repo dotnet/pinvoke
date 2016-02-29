@@ -441,6 +441,7 @@ namespace PInvoke
         ///     Specifies an access mask that specifies the requested types of access to the access token.
         ///     These requested access types are compared with the discretionary access control list (DACL) of the token to
         ///     determine which accesses are granted or denied.
+        ///     Common specific rights are defined in <seealso cref="TokenAccessRights"/>.
         /// </param>
         /// <param name="tokenHandle">A handle that identifies the newly opened access token when the function returns.</param>
         /// <returns>
@@ -454,7 +455,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenProcessToken(
             IntPtr processHandle,
-            TokenAccessRights desiredAccess,
+            ACCESS_MASK desiredAccess,
             out SafeObjectHandle tokenHandle);
 
         /// <summary>
