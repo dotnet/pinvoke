@@ -1,6 +1,8 @@
 <#
 .Synopsis 
     Acquires dependencies, builds, and tests this project.
+.Description
+    If no actions are specified, the default is to run all actions.
 .Parameter Restore
     Restore NuGet packages.
 .Parameter Build
@@ -23,6 +25,12 @@ Param(
 )
 
 $NothingToDo = !($Restore -or $Build -or $Test)
+if ($NothingToDo) {
+    Write-Output "No actions specified. Applying default actions."
+    $Restore = $true
+    $Build = $true
+    $Test = $true    
+}
 
 # External dependencies
 $sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/v3.3.0/nuget.exe"
@@ -98,8 +106,4 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies', 'vstest.console.exe'))
     Write-Output "Testing..."
     # Add /Parallel switch when VS2015 Update 2 is more popular, as it's new in that version.
     & $VSTestConsoleCommand.Path /TestAdapterPath:$BinTestsFolder $TestAssemblies
-}
-
-if ($NothingToDo) {
-    Write-Warning "Nothing to do. Add switches."
 }
