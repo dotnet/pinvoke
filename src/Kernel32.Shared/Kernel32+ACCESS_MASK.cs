@@ -9,7 +9,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="ACCESS_MASK"/> nested type.
     /// </content>
-    public partial class NTDll
+    public partial class Kernel32
     {
         /// <summary>
         /// The ACCESS_MASK type is a bitmask that specifies a set of access rights in the access mask of an access control entry.
@@ -104,10 +104,19 @@ namespace PInvoke
 
                 STANDARD_RIGHTS_REQUIRED = 0x000F0000,
 
+                /// <summary>
+                /// See also <see cref="READ_CONTROL"/>
+                /// </summary>
                 STANDARD_RIGHTS_READ = READ_CONTROL,
 
+                /// <summary>
+                /// See also <see cref="READ_CONTROL"/>
+                /// </summary>
                 STANDARD_RIGHTS_WRITE = READ_CONTROL,
 
+                /// <summary>
+                /// See also <see cref="READ_CONTROL"/>
+                /// </summary>
                 STANDARD_RIGHTS_EXECUTE = READ_CONTROL,
 
                 STANDARD_RIGHTS_ALL = 0x001F0000,
@@ -191,6 +200,14 @@ namespace PInvoke
             /// </summary>
             /// <param name="value">The value for the <see cref="ACCESS_MASK"/></param>
             public static implicit operator ACCESS_MASK(GenericRight value) => new ACCESS_MASK((uint)value);
+
+#if DESKTOP
+            /// <summary>
+            /// Casts a <see cref="FileAccess"/> to an <see cref="ACCESS_MASK"/>.
+            /// </summary>
+            /// <param name="value">The value to cast.</param>
+            public static implicit operator ACCESS_MASK(FileAccess value) => new ACCESS_MASK((uint)value);
+#endif
 
             /// <inheritdoc />
             public override int GetHashCode() => this.AsInt32;

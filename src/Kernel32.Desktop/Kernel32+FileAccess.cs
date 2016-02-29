@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using static PInvoke.Kernel32.ACCESS_MASK.StandardRight;
 
     /// <content>
     /// Contains the <see cref="FileAccess"/> nested enum.
@@ -11,78 +12,14 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Describes file access flags that may be passed to <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/>.
+        /// Enumerates the <see cref="ACCESS_MASK.SpecificRights"/> that may apply to files.
         /// </summary>
+        /// <remarks>
+        /// These flags may be passed to <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/>.
+        /// </remarks>
         [Flags]
         public enum FileAccess : uint
         {
-            /// <summary>Read access</summary>
-            GENERIC_READ = 0x80000000,
-
-            /// <summary>Write access</summary>
-            GENERIC_WRITE = 0x40000000,
-
-            /// <summary>Execute access</summary>
-            GENERIC_EXECUTE = 0x20000000,
-
-            /// <summary>All possible access rights</summary>
-            GENERIC_ALL = 0x10000000,
-
-            /// <summary>
-            ///     used to indicate access to a system access control list (SACL). This type of access requires the calling
-            ///     process to have the SE_SECURITY_NAME (Manage auditing and security log) privilege. If this flag is set in the
-            ///     access mask of an audit access ACE (successful or unsuccessful access), the SACL access will be audited.
-            /// </summary>
-            ACCESS_SYSTEM_SECURITY = 0x1000000,
-
-            /// <summary>Maximum allowed</summary>
-            MAXIMUM_ALLOWED = 0x2000000,
-
-            /// <summary>The right to delete the object.</summary>
-            DELETE = 0x10000,
-
-            /// <summary>
-            ///     The right to read the information in the object's security descriptor, not including the information in the
-            ///     system access control list (SACL).
-            /// </summary>
-            READ_CONTROL = 0x20000,
-
-            /// <summary>The right to modify the discretionary access control list (DACL) in the object's security descriptor.</summary>
-            WRITE_DAC = 0x40000,
-
-            /// <summary>The right to change the owner in the object's security descriptor.</summary>
-            WRITE_OWNER = 0x80000,
-
-            /// <summary>
-            ///     The right to use the object for synchronization. This enables a thread to wait until the object is in the
-            ///     signaled state. Some object types do not support this access right.
-            /// </summary>
-            SYNCHRONIZE = 0x100000,
-
-            /// <summary>
-            ///     Combines <see cref="DELETE" />, <see cref="READ_CONTROL" />, <see cref="WRITE_DAC" />, and
-            ///     <see cref="WRITE_OWNER" /> access.
-            /// </summary>
-            STANDARD_RIGHTS_REQUIRED = 0xF0000,
-
-            /// <summary>
-            ///     Includes <see cref="READ_CONTROL" />, which is the right to read the information in the file or directory
-            ///     object's security descriptor. This does not include the information in the SACL.
-            /// </summary>
-            STANDARD_RIGHTS_READ = READ_CONTROL,
-
-            /// <summary>Currently defined to equal <see cref="READ_CONTROL" />.</summary>
-            STANDARD_RIGHTS_WRITE = READ_CONTROL,
-
-            /// <summary>Currently defined to equal <see cref="READ_CONTROL" />.</summary>
-            STANDARD_RIGHTS_EXECUTE = READ_CONTROL,
-
-            /// <summary>
-            ///     Combines <see cref="DELETE" />, <see cref="READ_CONTROL" />, <see cref="WRITE_DAC" />,
-            ///     <see cref="WRITE_OWNER" />, and <see cref="SYNCHRONIZE" /> access.
-            /// </summary>
-            STANDARD_RIGHTS_ALL = 0x1F0000,
-
             /// <summary>
             ///     For a file object, the right to read the corresponding file data. For a directory object, the right to read
             ///     the corresponding directory data.

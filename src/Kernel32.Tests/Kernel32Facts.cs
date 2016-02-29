@@ -105,7 +105,7 @@ public partial class Kernel32Facts
         string testPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         using (var tempFileHandle = CreateFile(
             testPath,
-            Kernel32.FileAccess.GENERIC_WRITE,
+            ACCESS_MASK.GenericRight.GENERIC_WRITE,
             Kernel32.FileShare.FILE_SHARE_READ,
             IntPtr.Zero,
             CreationDisposition.CREATE_ALWAYS,
@@ -269,7 +269,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_READ,
+                ACCESS_MASK.GenericRight.GENERIC_READ,
                 Kernel32.FileShare.None,
                 IntPtr.Zero,
                 CreationDisposition.OPEN_EXISTING,
@@ -301,7 +301,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_READ,
+                ACCESS_MASK.GenericRight.GENERIC_READ,
                 Kernel32.FileShare.None,
                 (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
@@ -350,7 +350,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_READ,
+                ACCESS_MASK.GenericRight.GENERIC_READ,
                 Kernel32.FileShare.None,
                 (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
@@ -400,7 +400,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_WRITE,
+                ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
                 IntPtr.Zero,
                 CreationDisposition.OPEN_EXISTING,
@@ -433,7 +433,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_WRITE,
+                ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
                 (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
@@ -481,7 +481,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_WRITE,
+                ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
                 (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
@@ -531,7 +531,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_WRITE,
+                ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
                 (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
@@ -579,7 +579,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_WRITE,
+                ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
                 (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
@@ -633,7 +633,7 @@ public partial class Kernel32Facts
 
             using (var file = CreateFile(
                 testPath,
-                Kernel32.FileAccess.GENERIC_WRITE,
+                ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
                 (SECURITY_ATTRIBUTES?)null,
                 CreationDisposition.OPEN_EXISTING,
@@ -753,7 +753,7 @@ public partial class Kernel32Facts
 
                 var client = CreateFile(
                     pipeName,
-                    Kernel32.FileAccess.GENERIC_READ | Kernel32.FileAccess.FILE_GENERIC_WRITE,
+                    (uint)ACCESS_MASK.GenericRight.GENERIC_READ | (uint)Kernel32.FileAccess.FILE_GENERIC_WRITE,
                     Kernel32.FileShare.None,
                     (SECURITY_ATTRIBUTES?)null,
                     CreationDisposition.OPEN_EXISTING,

@@ -8,6 +8,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
+    using static PInvoke.Kernel32.ACCESS_MASK.GenericRight;
 
     /// <summary>
     /// Exported functions from the Kernel32.dll Windows library.
@@ -378,15 +379,16 @@ namespace PInvoke
         /// </param>
         /// <param name="access">
         /// The requested access to the file or device, which can be summarized as read, write, both or neither zero).
-        /// The most commonly used values are <see cref="FileAccess.GENERIC_READ"/>, <see cref="FileAccess.GENERIC_WRITE"/>, or both(<see cref="FileAccess.GENERIC_READ"/> | <see cref="FileAccess.GENERIC_WRITE"/>). For more information, see Generic Access Rights, File Security and Access Rights, File Access Rights Constants, and ACCESS_MASK.
-        /// If this parameter is zero, the application can query certain metadata such as file, directory, or device attributes without accessing that file or device, even if <see cref="FileAccess.GENERIC_READ"/> access would have been denied.
+        /// The most commonly used values are <see cref="GENERIC_READ"/>, <see cref="GENERIC_WRITE"/>, or both(<see cref="GENERIC_READ"/> | <see cref="GENERIC_WRITE"/>). For more information, see Generic Access Rights, File Security and Access Rights, File Access Rights Constants, and ACCESS_MASK.
+        /// If this parameter is zero, the application can query certain metadata such as file, directory, or device attributes without accessing that file or device, even if <see cref="GENERIC_READ"/> access would have been denied.
         /// You cannot request an access mode that conflicts with the sharing mode that is specified by the dwShareMode parameter in an open request that already has an open handle.
         /// For more information, see the Remarks section of this topic and Creating and Opening Files.
+        /// Common specific rights are defined in <seealso cref="FileAccess"/>.
         /// </param>
         /// <param name="share">
         /// The requested sharing mode of the file or device, which can be read, write, both, delete, all of these, or none (refer to the following table). Access requests to attributes or extended attributes are not affected by this flag.
-        /// If this parameter is zero and <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> succeeds, the file or device cannot be shared and cannot be opened again until the handle to the file or device is closed. For more information, see the Remarks section.
-        /// You cannot request a sharing mode that conflicts with the access mode that is specified in an existing request that has an open handle. <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> would fail and the <see cref="GetLastError"/> function would return ERROR_SHARING_VIOLATION.
+        /// If this parameter is zero and <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> succeeds, the file or device cannot be shared and cannot be opened again until the handle to the file or device is closed. For more information, see the Remarks section.
+        /// You cannot request a sharing mode that conflicts with the access mode that is specified in an existing request that has an open handle. <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> would fail and the <see cref="GetLastError"/> function would return ERROR_SHARING_VIOLATION.
         /// To enable a process to share a file or device while another process has the file or device open, use a compatible combination of one or more of the following values. For more information about valid combinations of this parameter with the dwDesiredAccess parameter, see Creating and Opening Files.
         /// </param>
         /// <param name="securityAttributes">
@@ -411,7 +413,7 @@ namespace PInvoke
         /// For more advanced access to file attributes, see SetFileAttributes. For a complete list of all file attributes with their values and descriptions, see File Attribute Constants.
         /// </param>
         /// <param name="templateFile">
-        /// A valid handle to a template file with the <see cref="FileAccess.GENERIC_READ"/> access right. The template file supplies file attributes and extended attributes for the file that is being created.
+        /// A valid handle to a template file with the <see cref="GENERIC_READ"/> access right. The template file supplies file attributes and extended attributes for the file that is being created.
         /// This parameter can be NULL.
         /// When opening an existing file, CreateFile ignores this parameter.
         /// When opening a new encrypted file, the file inherits the discretionary access control list from its parent directory.For additional information, see File Encryption.
@@ -423,7 +425,7 @@ namespace PInvoke
         [DllImport(api_ms_win_core_file_l1_2_0, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern unsafe SafeObjectHandle CreateFile(
             string filename,
-            FileAccess access,
+            ACCESS_MASK access,
             FileShare share,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* securityAttributes,
             CreationDisposition creationDisposition,
@@ -1034,9 +1036,9 @@ namespace PInvoke
         ///         <see cref="Win32ErrorCode.ERROR_SEM_TIMEOUT" />.
         ///     </para>
         ///     <para>
-        ///         If the function succeeds, the process should use the <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function to open a handle to
+        ///         If the function succeeds, the process should use the <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function to open a handle to
         ///         the named pipe. A return value of TRUE indicates that there is at least one instance of the pipe available. A
-        ///         subsequent <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> call to the pipe can fail, because the instance was closed by the server
+        ///         subsequent <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> call to the pipe can fail, because the instance was closed by the server
         ///         or opened by another client.
         ///     </para>
         /// </returns>
@@ -1354,7 +1356,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hNamedPipe">
         ///     A handle to the pipe. This parameter can be a handle to a named pipe instance, as returned by
-        ///     the <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> or <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function, or it can be a handle to the read end of
+        ///     the <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> or <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function, or it can be a handle to the read end of
         ///     an anonymous pipe, as returned by the <see cref="CreatePipe(out SafeObjectHandle, out SafeObjectHandle, SECURITY_ATTRIBUTES*, int)" /> function. The handle must have GENERIC_READ access
         ///     to the pipe.
         /// </param>
@@ -1400,7 +1402,7 @@ namespace PInvoke
         /// <param name="hNamedPipe">
         ///     A handle to the named pipe instance. This parameter can be a handle to the server end of the
         ///     pipe, as returned by the <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function, or to the client end of the pipe, as returned by
-        ///     the <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function. The handle must have GENERIC_WRITE access to the named pipe for a
+        ///     the <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function. The handle must have GENERIC_WRITE access to the named pipe for a
         ///     write-only or read/write pipe, or it must have GENERIC_READ and FILE_WRITE_ATTRIBUTES access for a read-only pipe.
         ///     <para>
         ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe(out SafeObjectHandle, out SafeObjectHandle, SECURITY_ATTRIBUTES*, int)" />
@@ -1443,7 +1445,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hNamedPipe">
         ///     A handle to the named pipe returned by the <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> or
-        ///     <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function.
+        ///     <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> function.
         ///     <para>
         ///         This parameter can also be a handle to an anonymous pipe, as returned by the <see cref="CreatePipe(out SafeObjectHandle, out SafeObjectHandle, SECURITY_ATTRIBUTES*, int)" />
         ///         function.
