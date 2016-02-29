@@ -216,44 +216,7 @@ Safe handles should follow a few rules :
 * They should have a constructor allowing to reuse pre-existing handles.
 * They should have a static field for each invalid values for easy access.
 
-Example :
-```csharp
-public class MySafeHandle : SafeHandle
-{
-    /// <summary>
-    /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
-    /// </summary>
-    public static readonly MySafeHandle Null = new MySafeHandle();
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MySafeHandle"/> class.
-    /// </summary>
-    public MySafeHandle()
-        : base(IntPtr.Zero, true)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MySafeHandle"/> class.
-    /// </summary>
-    /// <param name="preexistingHandle">An object that represents the pre-existing handle to use.</param>
-    /// <param name="ownsHandle">
-    ///     <see langword="true" /> to have the native handle released when this safe handle is disposed or finalized;
-    ///     <see langword="false" /> otherwise.
-    /// </param>
-    public MySafeHandle(IntPtr preexistingHandle, bool ownsHandle = true)
-        : base(IntPtr.Zero, ownsHandle)
-    {
-        this.SetHandle(preexistingHandle);
-    }
-
-    /// <inheritdoc />
-    public override bool IsInvalid => this.handle == IntPtr.Zero;
-
-    /// <inheritdoc />
-    protected override bool ReleaseHandle() => FindClose(this.handle);
-}
-```
+A good example would be [`SafeHookHandle.cs`](src/User32.Desktop/User32+SafeHookHandle.cs).
 
 ## Self-service releases for contributors
 
