@@ -209,6 +209,15 @@ this can be suppressed by adding this near the top of your file:
 #pragma warning disable SA1401 // Fields must be private
 ```
 
+### SafeHandles
+
+Safe handles should follow a few rules :
+* They should have an empty constructor that does nothing. (The marshaller will use this one when it need to create a SafeHandle)
+* They should have a constructor allowing to reuse pre-existing handles.
+* They should have a static field for each invalid values for easy access.
+
+A good example would be [`SafeHookHandle.cs`](src/User32.Desktop/User32+SafeHookHandle.cs).
+
 ## Self-service releases for contributors
 
 As soon as you send a pull request, a build is executed and updated NuGet packages
