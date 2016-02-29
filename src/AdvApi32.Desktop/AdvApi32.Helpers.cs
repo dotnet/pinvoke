@@ -26,7 +26,7 @@ namespace PInvoke
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
         public static unsafe IEnumerable<ENUM_SERVICE_STATUS> EnumServicesStatus()
         {
-            using (var scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_ENUMERATE_SERVICE))
+            using (var scmHandle = OpenSCManager(null, null, (uint)ServiceManagerAccess.SC_MANAGER_ENUMERATE_SERVICE))
             {
                 if (scmHandle.IsInvalid)
                 {
@@ -91,7 +91,7 @@ namespace PInvoke
         /// <param name="hService">
         ///     A handle to the service control manager or the service. Handles to the service control manager
         ///     are returned by the <see cref="OpenSCManager" /> function, and handles to a service are returned by either the
-        ///     <see cref="OpenService" /> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The handle must have the READ_CONTROL access
+        ///     <see cref="OpenService" /> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The handle must have the READ_CONTROL access
         ///     right.
         /// </param>
         /// <param name="dwSecurityInformation">
@@ -136,7 +136,7 @@ namespace PInvoke
         /// <summary>The SetServiceObjectSecurity function sets the security descriptor of a service object.</summary>
         /// <param name="hService">
         ///     A handle to the service. This handle is returned by the <see cref="OpenService" /> or
-        ///     <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The access required for this handle depends on the security information
+        ///     <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The access required for this handle depends on the security information
         ///     specified in the <paramref name="dwSecurityInformation" /> parameter.
         /// </param>
         /// <param name="dwSecurityInformation">

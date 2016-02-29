@@ -4,6 +4,8 @@
 namespace PInvoke
 {
     using System;
+    using static Kernel32;
+    using static Kernel32.ACCESS_MASK.StandardRight;
 
     /// <content>
     /// Contains the <see cref="ServiceAccess"/> nested enum.
@@ -11,23 +13,11 @@ namespace PInvoke
     public partial class AdvApi32
     {
         /// <summary>
-        /// Describes service access flags.
+        /// Enumerates the <see cref="ACCESS_MASK.SpecificRights"/> that may apply to services.
         /// </summary>
         [Flags]
         public enum ServiceAccess : uint
         {
-            GenericRead = 0x80000000,
-            GenericWrite = 0x40000000,
-            GenericExecute = 0x20000000,
-
-            AccessSystemSecurity = 0x1000000,
-            Delete = 0x10000,
-            ReadControl = 0x20000,
-            WriteDAC = 0x40000,
-            WriteOwner = 0x80000,
-
-            STANDARD_RIGHTS_REQUIRED = 0xF0000,
-
             SERVICE_QUERY_CONFIG = 0x0001,
             SERVICE_CHANGE_CONFIG = 0x0002,
             SERVICE_QUERY_STATUS = 0x0004,
@@ -38,15 +28,15 @@ namespace PInvoke
             SERVICE_INTERROGATE = 0x0080,
             SERVICE_USER_DEFINED_CONTROL = 0x0100,
             SERVICE_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED |
-                                        SERVICE_QUERY_CONFIG |
-                                        SERVICE_CHANGE_CONFIG |
-                                        SERVICE_QUERY_STATUS |
-                                        SERVICE_ENUMERATE_DEPENDENTS |
-                                        SERVICE_START |
-                                        SERVICE_STOP |
-                                        SERVICE_PAUSE_CONTINUE |
-                                        SERVICE_INTERROGATE |
-                                        SERVICE_USER_DEFINED_CONTROL
+                                 SERVICE_QUERY_CONFIG |
+                                 SERVICE_CHANGE_CONFIG |
+                                 SERVICE_QUERY_STATUS |
+                                 SERVICE_ENUMERATE_DEPENDENTS |
+                                 SERVICE_START |
+                                 SERVICE_STOP |
+                                 SERVICE_PAUSE_CONTINUE |
+                                 SERVICE_INTERROGATE |
+                                 SERVICE_USER_DEFINED_CONTROL
         }
     }
 }
