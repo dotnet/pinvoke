@@ -4,6 +4,8 @@
 namespace PInvoke
 {
     using System;
+    using static Kernel32;
+    using static Kernel32.ACCESS_MASK.StandardRight;
 
     /// <content>
     /// Contains the <see cref="TokenAccessRights"/> nested type.
@@ -11,38 +13,11 @@ namespace PInvoke
     public partial class AdvApi32
     {
         /// <summary>
-        /// The different access rights allowed to access an access token.
+        /// Enumerates the <see cref="ACCESS_MASK.SpecificRights"/> that may apply to tokens.
         /// </summary>
         [Flags]
         public enum TokenAccessRights : uint
         {
-            /// <summary>The right to delete the object.</summary>
-            DELETE = 0x00010000,
-
-            /// <summary>
-            ///     The right to read the information in the object's security descriptor, not including the information in the
-            ///     system access control list (SACL).
-            /// </summary>
-            READ_CONTROL = 0x00020000,
-
-            /// <summary>The right to modify the discretionary access control list (DACL) in the object's security descriptor.</summary>
-            WRITE_DAC = 0x00040000,
-
-            /// <summary>The right to change the owner in the object's security descriptor.</summary>
-            WRITE_OWNER = 0x00080000,
-
-            /// <summary>Combines DELETE, READ_CONTROL, WRITE_DAC, and WRITE_OWNER access.</summary>
-            STANDARD_RIGHTS_REQUIRED = 0x000F0000,
-
-            /// <summary>Currently defined to equal READ_CONTROL.</summary>
-            STANDARD_RIGHTS_READ = READ_CONTROL,
-
-            /// <summary>Currently defined to equal READ_CONTROL.</summary>
-            STANDARD_RIGHTS_WRITE = READ_CONTROL,
-
-            /// <summary>Currently defined to equal READ_CONTROL.</summary>
-            STANDARD_RIGHTS_EXECUTE = READ_CONTROL,
-
             /// <summary>
             ///     Required to attach a primary token to a process. The SE_ASSIGNPRIMARYTOKEN_NAME privilege is also required to
             ///     accomplish this task.
@@ -78,9 +53,6 @@ namespace PInvoke
 
             /// <summary>Combines STANDARD_RIGHTS_WRITE, TOKEN_ADJUST_PRIVILEGES, TOKEN_ADJUST_GROUPS, and TOKEN_ADJUST_DEFAULT.</summary>
             TOKEN_WRITE = STANDARD_RIGHTS_WRITE | TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT,
-
-            /// <summary>Required to wait for the process to terminate using the wait functions.</summary>
-            ACCESS_SYSTEM_SECURITY = 0x01000000,
 
             /// <summary>Combines STANDARD_RIGHTS_EXECUTE and TOKEN_IMPERSONATE.</summary>
             TOKEN_EXECUTE = STANDARD_RIGHTS_EXECUTE | TOKEN_IMPERSONATE,
