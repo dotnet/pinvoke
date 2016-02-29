@@ -57,7 +57,7 @@ Function Get-ExternalTools {
             Invoke-WebRequest $sourceNugetExe -OutFile $NuGetPath
         }
         
-        $NuGetCommand = Get-Command $NuGetPath
+        $script:NuGetCommand = Get-Command $NuGetPath
     }
 
     if (!$MSBuildCommand) {
