@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     using System;
-    using static PInvoke.Kernel32.ACCESS_MASK.StandardRight;
+    using static Kernel32.ACCESS_MASK.StandardRight;
 
     /// <content>
     /// Contains the <see cref="FileAccess"/> nested enum.
