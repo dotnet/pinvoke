@@ -14,7 +14,7 @@ namespace PInvoke
         public enum FileShare : uint
         {
             /// <summary>
-            ///
+            /// Prevents other processes from opening a file or device if they request delete, read, or write access.
             /// </summary>
             None = 0x00000000,
 

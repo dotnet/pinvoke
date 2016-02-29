@@ -114,7 +114,7 @@ namespace PInvoke
         /// Marks the specified service for deletion from the service control manager database on the local computer.
         /// </summary>
         /// <param name="lpServiceName">
-        /// The name of the service to be opened. This is the name specified by the lpServiceName parameter of the <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function when the service object was created,
+        /// The name of the service to be opened. This is the name specified by the lpServiceName parameter of the <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function when the service object was created,
         /// not the service display name that is shown by user interface applications to identify the service.
         /// The maximum string length is 256 characters. The service control manager database preserves the case of the characters,
         /// but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\) are invalid service name characters.
@@ -128,14 +128,14 @@ namespace PInvoke
                 throw new ArgumentException("Service name must not be null nor empty", nameof(lpServiceName));
             }
 
-            using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.GenericWrite))
+            using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ACCESS_MASK.GenericRight.GENERIC_WRITE))
             {
                 if (scmHandle.IsInvalid)
                 {
                     throw new Win32Exception();
                 }
 
-                using (SafeServiceHandle svcHandle = OpenService(scmHandle, lpServiceName, ServiceAccess.Delete))
+                using (SafeServiceHandle svcHandle = OpenService(scmHandle, lpServiceName, ACCESS_MASK.StandardRight.DELETE))
                 {
                     if (svcHandle.IsInvalid)
                     {

@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// File attributes, flags, and security settings that are passed to the <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> method.
+        /// File attributes, flags, and security settings that are passed to the <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> method.
         /// </summary>
         [Flags]
         public enum CreateFileFlags : uint
@@ -78,7 +78,7 @@ namespace PInvoke
             /// <summary>
             ///     The file or device is being opened with no system caching for data reads and writes. This flag does not affect
             ///     hard disk caching or memory mapped files. There are strict requirements for successfully working with files opened
-            ///     with <see cref="CreateFile(string, FileAccess, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> using the <see cref="FILE_FLAG_NO_BUFFERING" /> flag, for details see File
+            ///     with <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> using the <see cref="FILE_FLAG_NO_BUFFERING" /> flag, for details see File
             ///     Buffering.
             /// </summary>
             FILE_FLAG_NO_BUFFERING = 0x20000000,

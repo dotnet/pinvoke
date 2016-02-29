@@ -9,7 +9,6 @@
     <Import_RootNamespace>PInvoke</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)NTDll+ACCESS_MASK.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NTDll.Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NTDll.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>

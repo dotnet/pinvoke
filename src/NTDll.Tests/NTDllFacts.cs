@@ -39,7 +39,7 @@ public class NTDllFacts
             attrs.ObjectName = &objectNameUnicode;
             attrs.Attributes = OBJECT_ATTRIBUTES.ObjectHandleAttributes.OBJ_CASE_INSENSITIVE;
             SafeNTObjectHandle hObject;
-            NTSTATUS status = NtOpenSection(out hObject, ACCESS_MASK.STANDARD_RIGHTS_READ, attrs);
+            NTSTATUS status = NtOpenSection(out hObject, Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_READ, attrs);
             Assert.Equal<NTSTATUS>(NTSTATUS.Code.STATUS_ACCESS_DENIED, status);
         }
     }

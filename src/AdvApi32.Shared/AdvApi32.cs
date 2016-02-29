@@ -45,7 +45,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hService">
         /// A handle to the service.
-        /// This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function and
+        /// This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function and
         /// must have the <see cref="ServiceAccess.SERVICE_CHANGE_CONFIG"/> access right.
         /// </param>
         /// <param name="dwServiceType">
@@ -199,7 +199,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hService">
         /// A handle to the service.
-        /// This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function and
+        /// This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function and
         /// must have the <see cref="ServiceAccess.SERVICE_CHANGE_CONFIG"/> access right.
         /// </param>
         /// <param name="dwInfoLevel">
@@ -224,7 +224,7 @@ namespace PInvoke
         /// To specify additional information when stopping a service, use the ControlServiceEx function.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function.
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function.
         /// The access rights required for this handle depend on the <paramref name="dwControl"/> code requested.
         /// </param>
         /// <param name="dwControl">
@@ -297,8 +297,8 @@ namespace PInvoke
         /// Display name comparisons are always case-insensitive.
         /// </param>
         /// <param name="dwDesiredAccess">
-        /// The access to the service (<see cref="ServiceAccess"/>).
         /// Before granting the requested access, the system checks the access token of the calling process.
+        /// Common specific rights are defined in <seealso cref="ServiceAccess"/>.
         /// </param>
         /// <param name="dwServiceType">
         /// The service type (<see cref="ServiceType"/>).
@@ -348,13 +348,13 @@ namespace PInvoke
         /// If the function fails, the return value is NULL
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandle CreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ServiceAccess dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
+        public static extern SafeServiceHandle CreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ACCESS_MASK dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
 
         /// <summary>
         /// Marks the specified service for deletion from the service control manager database.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.Delete"/> access right
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ACCESS_MASK.StandardRight.DELETE"/> access right
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
@@ -381,13 +381,14 @@ namespace PInvoke
         /// The access to the service control manager. For a list of access rights, see Service Security and Access Rights.
         /// Before granting the requested access rights, the system checks the access token of the calling process against the discretionary access-control list of the security descriptor associated with the service control manager.
         /// The <see cref="ServiceManagerAccess.SC_MANAGER_CONNECT"/> access right is implicitly specified by calling this function.
+        /// Common specific rights are defined in <seealso cref="ServiceManagerAccess"/>.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the specified service control manager database.
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandle OpenSCManager(string lpMachineName, string lpDatabaseName, ServiceManagerAccess dwDesiredAccess);
+        public static extern SafeServiceHandle OpenSCManager(string lpMachineName, string lpDatabaseName, ACCESS_MASK dwDesiredAccess);
 
         /// <summary>
         /// Opens an existing service.
@@ -400,21 +401,21 @@ namespace PInvoke
         /// The maximum string length is 256 characters.The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive.Forward-slash(/) and backslash(\) are invalid service name characters.
         /// </param>
         /// <param name="dwDesiredAccess">
-        /// The access to the service (<see cref="ServiceAccess"/>).
         /// Before granting the requested access, the system checks the access token of the calling process against the discretionary access-control list of the security descriptor associated with the service object.
+        /// Common specific rights are defined in <seealso cref="ServiceAccess"/>.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the service.
         /// If the function fails, the return value is NULL.
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeServiceHandle OpenService(SafeServiceHandle hSCManager, string lpServiceName, ServiceAccess dwDesiredAccess);
+        public static extern SafeServiceHandle OpenService(SafeServiceHandle hSCManager, string lpServiceName, ACCESS_MASK dwDesiredAccess);
 
         /// <summary>
         /// Starts a service.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.SERVICE_START"/> access right.
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.SERVICE_START"/> access right.
         /// </param>
         /// <param name="dwNumServiceArgs">
         /// The number of strings in the lpServiceArgVectors array. If lpServiceArgVectors is NULL, this parameter can be zero.
@@ -440,6 +441,7 @@ namespace PInvoke
         ///     Specifies an access mask that specifies the requested types of access to the access token.
         ///     These requested access types are compared with the discretionary access control list (DACL) of the token to
         ///     determine which accesses are granted or denied.
+        ///     Common specific rights are defined in <seealso cref="TokenAccessRights"/>.
         /// </param>
         /// <param name="tokenHandle">A handle that identifies the newly opened access token when the function returns.</param>
         /// <returns>
@@ -453,7 +455,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenProcessToken(
             IntPtr processHandle,
-            TokenAccessRights desiredAccess,
+            ACCESS_MASK desiredAccess,
             out SafeObjectHandle tokenHandle);
 
         /// <summary>
@@ -518,7 +520,7 @@ namespace PInvoke
         /// <param name="hService">
         ///     A handle to the service control manager or the service. Handles to the service control manager
         ///     are returned by the <see cref="OpenSCManager" /> function, and handles to a service are returned by either the
-        ///     <see cref="OpenService" /> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The handle must have the READ_CONTROL access
+        ///     <see cref="OpenService" /> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The handle must have the READ_CONTROL access
         ///     right.
         /// </param>
         /// <param name="dwSecurityInformation">
@@ -559,7 +561,7 @@ namespace PInvoke
         /// This function has been superseded by the QueryServiceStatusEx function. QueryServiceStatusEx returns the same information <see cref="QueryServiceStatus"/> returns, with the addition of the process identifier and additional information for the service.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or the <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.SERVICE_QUERY_STATUS"/> access right.
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or the <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.SERVICE_QUERY_STATUS"/> access right.
         /// </param>
         /// <param name="dwServiceStatus">
         /// A pointer to a <see cref="SERVICE_STATUS"/> structure that receives the status information.
@@ -575,7 +577,7 @@ namespace PInvoke
         /// <summary>The SetServiceObjectSecurity function sets the security descriptor of a service object.</summary>
         /// <param name="hService">
         ///     A handle to the service. This handle is returned by the <see cref="OpenService" /> or
-        ///     <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The access required for this handle depends on the security information
+        ///     <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)" /> function. The access required for this handle depends on the security information
         ///     specified in the <paramref name="dwSecurityInformation" /> parameter.
         /// </param>
         /// <param name="dwSecurityInformation">
@@ -639,7 +641,7 @@ namespace PInvoke
         /// <param name="hSCObject">
         /// A handle to the service control manager object or the service object to close.
         /// Handles to service control manager objects are returned by the <see cref="OpenSCManager"/> function,
-        /// and handles to service objects are returned by either the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ServiceAccess,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function.
+        /// and handles to service objects are returned by either the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
