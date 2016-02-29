@@ -8,29 +8,12 @@ namespace PInvoke
     /// <content>Contains the <see cref="ProcessAccess" /> nested struct.</content>
     public partial class Kernel32
     {
-        /// <summary>The valid access rights for process objects.</summary>
+        /// <summary>
+        /// Enumerates the <see cref="ACCESS_MASK.SpecificRights"/> that may apply to processes.
+        /// </summary>
         [Flags]
         public enum ProcessAccess : uint
         {
-            /// <summary>Required to delete the object.</summary>
-            DELETE,
-
-            /// <summary>
-            /// Required to read information in the security descriptor for the object, not including the information in the
-            /// SACL. To read or write the SACL, you must request the <see cref="ACCESS_SYSTEM_SECURITY" /> access right. For more
-            /// information, see SACL Access Right.
-            /// </summary>
-            READ_CONTROL = 0x00020000,
-
-            /// <summary>Required to wait for the process to terminate using the wait functions.</summary>
-            SYNCHRONIZE = 0x00100000,
-
-            /// <summary>Required to modify the DACL in the security descriptor for the object.</summary>
-            WRITE_DAC = 0x00040000,
-
-            /// <summary>Required to change the owner in the security descriptor for the object.</summary>
-            WRITE_OWNER = 0x00080000,
-
             /// <summary>Required to create a process.</summary>
             PROCESS_CREATE_PROCESS = 0x0080,
 
@@ -77,9 +60,6 @@ namespace PInvoke
 
             /// <summary>Required to write to memory in a process using WriteProcessMemory.</summary>
             PROCESS_VM_WRITE = 0x0020,
-
-            /// <summary>Required to wait for the process to terminate using the wait functions.</summary>
-            ACCESS_SYSTEM_SECURITY = 0x01000000
         }
     }
 }

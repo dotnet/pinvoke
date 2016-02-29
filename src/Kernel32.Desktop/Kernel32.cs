@@ -663,7 +663,7 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value is an open handle to the specified process.</returns>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         public static extern SafeObjectHandle OpenProcess(
-            ProcessAccess dwDesiredAccess,
+            ACCESS_MASK dwDesiredAccess,
             bool bInheritHandle,
             int dwProcessId);
 

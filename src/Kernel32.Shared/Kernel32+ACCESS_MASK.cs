@@ -207,6 +207,12 @@ namespace PInvoke
             /// </summary>
             /// <param name="value">The value to cast.</param>
             public static implicit operator ACCESS_MASK(FileAccess value) => new ACCESS_MASK((uint)value);
+
+            /// <summary>
+            /// Casts a <see cref="ProcessAccess"/> to an <see cref="ACCESS_MASK"/>.
+            /// </summary>
+            /// <param name="value">The value to cast.</param>
+            public static implicit operator ACCESS_MASK(ProcessAccess value) => new ACCESS_MASK((uint)value);
 #endif
 
             /// <inheritdoc />
