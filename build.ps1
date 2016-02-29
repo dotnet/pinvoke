@@ -19,7 +19,7 @@ Param(
     [switch]$Test,
     [Parameter()][ValidateSet('debug', 'release')]
     [string]$Configuration = 'debug',
-    [switch]$WarnAsError
+    [switch]$WarnAsError = $true
 )
 
 $NothingToDo = !($Restore -or $Build -or $Test)
@@ -72,11 +72,25 @@ if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "NuGet restore")) {
 
 if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
     Write-Output "Building..."
-    if ($WarnAsError) {
-        Write-WarnAsError "WarnAsError behavior is not yet implemented."
+    & $MSBuildCommand.Path $SolutionFile /nologo /nr:false /m /v:minimal /fl "/flp:verbosity=normal;logfile=msbuild.log" "/flp1:warningsonly;logfile=msbuild.wrn" "/flp2:errorsonly;logfile=msbuild.err"
+
+    $warnings = Get-Content msbuild.wrn
+    $errors = Get-Content msbuild.err
+    $WarningsPrompt = "$($warnings.length) warnings during build"
+    $ErrorsPrompt = "$($errors.length) errors during build"
+    if ($errors.length -gt 0) {
+        Write-Error $ErrorsPrompt
+    } else {
+        Write-Output $ErrorsPrompt
     }
     
-    & $MSBuildCommand.Path /nologo /nr:false /m /v:minimal /fl /flp:verbosity=normal $SolutionFile
+    if ($WarnAsError -and $warnings.length -gt 0) {
+        Write-Error $WarningsPrompt
+    } elseif ($warnings.length -gt 0) {
+        Write-Warning $WarningsPrompt
+    } else {
+        Write-Output $WarningsPrompt
+    }
 }
 
 if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies', 'vstest.console.exe')) {
