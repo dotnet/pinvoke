@@ -11,7 +11,13 @@ public class DwmApiFacts
     [Fact]
     public void Flush()
     {
-        DwmFlush().ThrowOnFailure();
+        HResult hr = DwmFlush();
+
+        // Accept success, or "Desktop composition is disabled".
+        if (hr.AsUInt32 != 0x80263001)
+        {
+            hr.ThrowOnFailure();
+        }
     }
 
     [Fact]
@@ -20,6 +26,5 @@ public class DwmApiFacts
         uint colorization;
         bool opaqueBlend;
         DwmGetColorizationColor(out colorization, out opaqueBlend).ThrowOnFailure();
-        Assert.NotEqual(colorization, 0u);
     }
 }
