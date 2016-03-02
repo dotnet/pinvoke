@@ -188,6 +188,30 @@ namespace PInvoke
         public static implicit operator Code(HResult hr) => hr.Value;
 
         /// <summary>
+        /// Checks equality between this HResult and a <see cref="uint"/> value.
+        /// </summary>
+        /// <param name="hr">An <see cref="HResult"/></param>
+        /// <param name="value">Some <see cref="uint"/> value</param>
+        /// <returns><c>true</c> if they equal; <c>false</c> otherwise.</returns>
+        /// <remarks>
+        /// This operator overload is useful because HResult-uint conversion must be explicit,
+        /// and without this overload, it makes comparing HResults to 0x8xxxxxxx values require casts.
+        /// </remarks>
+        public static bool operator ==(HResult hr, uint value) => hr.AsUInt32 == value;
+
+        /// <summary>
+        /// Checks inequality between this HResult and a <see cref="uint"/> value.
+        /// </summary>
+        /// <param name="hr">An <see cref="HResult"/></param>
+        /// <param name="value">Some <see cref="uint"/> value</param>
+        /// <returns><c>true</c> if they unequal; <c>false</c> otherwise.</returns>
+        /// <remarks>
+        /// This operator overload is useful because HResult-uint conversion must be explicit,
+        /// and without this overload, it makes comparing HResults to 0x8xxxxxxx values require casts.
+        /// </remarks>
+        public static bool operator !=(HResult hr, uint value) => hr.AsUInt32 != value;
+
+        /// <summary>
         /// Throws an exception if this HRESULT <see cref="Failed"/>, based on the failure value.
         /// </summary>
         public void ThrowOnFailure()
