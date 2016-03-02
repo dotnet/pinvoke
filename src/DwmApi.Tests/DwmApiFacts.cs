@@ -13,4 +13,13 @@ public class DwmApiFacts
     {
         DwmFlush().ThrowOnFailure();
     }
+
+    [Fact]
+    public void GetColorizationColor()
+    {
+        uint colorization;
+        bool opaqueBlend;
+        DwmGetColorizationColor(out colorization, out opaqueBlend).ThrowOnFailure();
+        Assert.NotEqual(colorization, 0u);
+    }
 }

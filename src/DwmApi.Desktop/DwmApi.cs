@@ -22,5 +22,16 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(DwmApi))]
         public static extern HResult DwmFlush();
+
+        /// <summary>
+        /// Retrieves the current color used for Desktop Window Manager (DWM) glass composition. This value is based on the current color scheme and can be modified by the user. Applications can listen for color changes by handling the WM_DWMCOLORIZATIONCOLORCHANGED notification.
+        /// </summary>
+        /// <param name="pcrColorization">A pointer to a value that, when this function returns successfully, receives the current color used for glass composition. The color format of the value is 0xAARRGGBB.</param>
+        /// <param name="pfOpaqueBlend">A pointer to a value that, when this function returns successfully, indicates whether the color is an opaque blend. TRUE if the color is an opaque blend; otherwise, FALSE.</param>
+        /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(DwmApi))]
+        public static extern HResult DwmGetColorizationColor(
+            out uint pcrColorization,
+            [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
     }
 }
