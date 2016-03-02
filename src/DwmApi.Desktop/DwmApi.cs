@@ -14,6 +14,50 @@ namespace PInvoke
     public static partial class DwmApi
     {
         /// <summary>
+        /// Enables the blur effect on a specified window.
+        /// </summary>
+        /// <param name="hWnd">The handle to the window on which the blur behind data is applied.</param>
+        /// <param name="pBlurBehind">A pointer to a <see cref="DWM_BLURBEHIND"/> structure that provides blur behind data.</param>
+        /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(DwmApi))]
+        public static extern unsafe HResult DwmEnableBlurBehindWindow(
+            IntPtr hWnd,
+            [Friendly(FriendlyFlags.In)] DWM_BLURBEHIND* pBlurBehind);
+
+        /// <summary>
+        /// Enables or disables Desktop Window Manager (DWM) composition.
+        /// </summary>
+        /// <param name="uCompositionAction">The flag to enable or disable composition.</param>
+        /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        /// <remarks>
+        /// As of Windows 8, calling this function with <see cref="DwmEnableCompositionFlags.DWM_EC_DISABLECOMPOSITION"/> has no effect.
+        /// However, the function will still return a success code.
+        /// </remarks>
+        [DllImport(nameof(DwmApi))]
+        public static extern unsafe HResult DwmEnableComposition(
+            DwmEnableCompositionFlags uCompositionAction);
+
+#pragma warning disable SA1625 // Element documentation must not be copied and pasted
+        /// <summary>
+        /// Default window procedure for Desktop Window Manager (DWM) hit testing within the non-client area.
+        /// </summary>
+        /// <param name="hwnd">A handle to the window procedure that received the message.</param>
+        /// <param name="msg">The message.</param>
+        /// <param name="wParam">Specifies additional message information. The content of this parameter depends on the value of the <paramref name="msg"/> parameter.</param>
+        /// <param name="lParam">Specifies additional message information. The content of this parameter depends on the value of the <paramref name="msg"/> parameter.</param>
+        /// <param name="plResult">A pointer to an LRESULT value that, when this method returns successfully,receives the result of the hit test.</param>
+        /// <returns>TRUE if DwmDefWindowProc handled the message; otherwise, FALSE.</returns>
+        [DllImport(nameof(DwmApi))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DwmDefWindowProc(
+            IntPtr hwnd,
+            uint msg,
+            IntPtr wParam,
+            IntPtr lParam,
+            out IntPtr plResult);
+#pragma warning restore SA1625 // Element documentation must not be copied and pasted
+
+        /// <summary>
         /// Issues a flush call that blocks the caller until the next present, when all of the Microsoft DirectX surface updates that are currently outstanding have been made. This compensates for very complex scenes or calling processes with very low priority.
         /// </summary>
         /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
