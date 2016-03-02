@@ -96,6 +96,22 @@ anything else found in native header files for these reasons:
    to the code generator producing `struct?`, `ref struct`, or `ref struct?` overloads for that parameter.
  * Prefer `enum` types over `int` or `uint` for flags. Generally, name flags enums as `METHODNAMEFlags`.
    For example: `CreateFileFlags` for the flags that are passed to `CreateFile`.
+ * Use `IntPtr` for integers that change size based on process architecture (32-bit vs. 64-bit).
+   Use `int` or `long` for integers that are always either 32-bit or 64-bit (respectively).
+   All PInvoke assemblies are architecture neutral, so we rely on `IntPtr` to accomodate the size of integer
+   types that vary with architecture.
+   Some helpful translations are included in the following table:
+
+| C/C++ type  | C# type  |
+| ----------- | -------- |
+| `int`       | `int`    |
+| `long`      | `int`    |
+| `long long` | `long`   |
+| `LONG_PTR`  | `IntPtr` |
+| `LPARAM`    | `IntPtr` |
+| `LRESULT`   | `IntPtr` |
+| `WPARAM`    | `IntPtr` |
+| `UINT_PTR`  | `IntPtr` |
 
 ### Struct field types
 
