@@ -29,7 +29,7 @@ public class DwmApiFacts
         HResult hr = DwmFlush();
 
         // Accept success, or "Desktop composition is disabled".
-        if (hr.AsUInt32 != 0x80263001)
+        if (hr != 0x80263001)
         {
             hr.ThrowOnFailure();
         }
