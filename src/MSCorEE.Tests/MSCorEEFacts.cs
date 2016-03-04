@@ -101,6 +101,24 @@ public class MSCorEEFacts
         Assert.Equal("v4.0.30319", result);
     }
 
+    [Fact]
+    public unsafe void CreateAssemblyCache_QueryAssemblyInfo()
+    {
+        IAssemblyCache cache;
+        CreateAssemblyCache(out cache, 0).ThrowOnFailure();
+        Assert.NotNull(cache);
+        ASSEMBLY_INFO info = ASSEMBLY_INFO.Create();
+        var assemblyPath = new char[500];
+        fixed (char* pAssemblyPath = assemblyPath)
+        {
+            info.pszCurrentAssemblyPathBuf = pAssemblyPath;
+            info.cchBuf = assemblyPath.Length;
+            HResult hr = cache.QueryAssemblyInfo(QueryAssemblyInfoFlags.QUERYASMINFO_FLAG_GETSIZE, "mscorlib", &info);
+            Assert.Equal<HResult>(HResult.Code.S_OK, hr);
+            Assert.NotEqual(0, info.uliAssemblySizeInKB);
+        }
+    }
+
     private static byte[] GetKeyFileBytes(string keyFileName)
     {
         using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Keys." + keyFileName))

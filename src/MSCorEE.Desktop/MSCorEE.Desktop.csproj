@@ -25,6 +25,14 @@
       <Visible>false</Visible>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMFileReference>
+    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\mscoree.tlb">
+      <Visible>false</Visible>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMFileReference>
+    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\cordebug.tlb">
+      <Visible>false</Visible>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMFileReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -56,11 +64,27 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MSCorEE+FusionInstallReferenceFlags.cs" />
+    <Compile Include="MSCorEE+AssemblyInfoFlags.cs" />
+    <Compile Include="MSCorEE+UninstallDisposition.cs" />
+    <Compile Include="MSCorEE+UninstallAssemblyFlags.cs" />
+    <Compile Include="MSCorEE+QueryAssemblyInfoFlags.cs" />
+    <Compile Include="MSCorEE+ASSEMBLY_INFO.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="MSCorEE+FUSION_INSTALL_REFERENCE.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="MSCorEE+IAssemblyCache.cs" />
+    <Compile Include="MSCorEE+IAssemblyCacheItem.cs" />
     <Compile Include="IEnumUnknownExtensions.cs" />
+    <Compile Include="MSCorEE+AssemblyCacheInstallFlags.cs" />
     <Compile Include="MSCorEE.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
-    <Compile Include="MSCorEE.Helpers.cs" />
+    <Compile Include="MSCorEE.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
