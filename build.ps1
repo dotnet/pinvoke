@@ -62,12 +62,12 @@ Function Get-ExternalTools {
 
     if (!$MSBuildCommand) {
         Write-Error "Unable to find MSBuild.exe. Make sure you're running in a VS Developer Prompt."
-        return 1;
+        exit 1;
     }
     
     if (!$VSTestConsoleCommand) {
         Write-Error "Unable to find vstest.console.exe. Make sure you're running in a VS Developer prompt."
-        return 2;
+        exit 2;
     }
 }
 
@@ -81,6 +81,7 @@ if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "NuGet restore")) {
 if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
     Write-Output "Building..."
     & $MSBuildCommand.Path $SolutionFile /nologo /nr:false /m /v:minimal /fl "/flp:verbosity=normal;logfile=msbuild.log" "/flp1:warningsonly;logfile=msbuild.wrn" "/flp2:errorsonly;logfile=msbuild.err"
+    $fail = $false
 
     $warnings = Get-Content msbuild.wrn
     $errors = Get-Content msbuild.err
@@ -88,16 +89,22 @@ if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
     $ErrorsPrompt = "$($errors.length) errors during build"
     if ($errors.length -gt 0) {
         Write-Error $ErrorsPrompt
+        $fail = $true
     } else {
         Write-Output $ErrorsPrompt
     }
     
     if ($WarnAsError -and $warnings.length -gt 0) {
         Write-Error $WarningsPrompt
+        $fail = $true
     } elseif ($warnings.length -gt 0) {
         Write-Warning $WarningsPrompt
     } else {
         Write-Output $WarningsPrompt
+    }
+
+    if ($fail) {
+        exit 3;
     }
 }
 
