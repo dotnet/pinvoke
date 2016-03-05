@@ -52,8 +52,17 @@ function Replace-Placeholders {
 $Src = Resolve-Path "$PSScriptRoot\..\src"
 
 $Directories = 'LIBNAME','LIBNAME.Desktop','LIBNAME.Shared','LIBNAME.Tests','LIBNAME.NuGet'
-$TemplateDirectories = $Directories |% { "$PSScriptRoot\$_" }
-$SrcDirectories = $Directories |% { "$Src\$_" }
+$TemplateDirectories = @()
+$SrcDirectories = @()
+foreach($dir in $Directories) {
+    $SrcDirectory = "$Src\$dir"
+    $TemplateDirectory = "$PSScriptRoot\$dir"
+    $SrcDirectory_Substituted = $SrcDirectory.Replace('LIBNAME', $LibraryName)
+    If (-not (Test-Path $SrcDirectory_Substituted)) {
+        $TemplateDirectories += $TemplateDirectory
+        $SrcDirectories += $SrcDirectory
+    }
+}
 
 $Replacements = @{
     '\$guid1\$' = [Guid]::NewGuid().ToString('b').ToUpper();
