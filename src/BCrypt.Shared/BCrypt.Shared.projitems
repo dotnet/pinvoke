@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>15a8ded1-0f36-4b35-9973-22851da77544</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>PInvoke</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+AlgorithmIdentifiers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+AlgorithmOperations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+AsymmetricKeyBlobTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+AuthModeFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptBuffer.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptBufferDesc.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptCloseAlgorithmProviderFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptCreateHashFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptDeriveKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptEncryptFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptEnumAlgorithmsFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptExportKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptFinalizeKeyPairFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptFinishHashFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptGenerateKeyPairFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptGenerateSymmetricKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptGenRandomFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptGetPropertyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptHashDataFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptImportKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptImportKeyPairFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptOpenAlgorithmProviderFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptSecretAgreementFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptSetPropertyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCryptSignHashFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_ALGORITHM_IDENTIFIER.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_AUTH_TAG_LENGTHS_STRUCT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_DH_KEY_BLOB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_DSA_KEY_BLOB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_DSA_KEY_BLOB_V2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_ECCKEY_BLOB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_KEY_BLOB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_KEY_DATA_BLOB_HEADER.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_KEY_LENGTHS_STRUCT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_OAEP_PADDING_INFO.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_PKCS1_PADDING_INFO.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_PSS_PADDING_INFO.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BCRYPT_RSAKEY_BLOB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+BufferType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+ChainingModes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+DSAFIPSVERSION_ENUM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+EccKeyBlob.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+EccKeyBlobMagicNumbers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+HASHALGORITHM_ENUM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+InterfaceIdentifiers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+KeyDerivationFunctions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+PaddingSchemes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+PropertyNames.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+SafeAlgorithmHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+SafeHashHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+SafeKeyHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+SafeSecretHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt+SymmetricKeyBlobTypes.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BCrypt.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+  </ItemGroup>
+</Project>

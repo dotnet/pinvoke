@@ -4,12 +4,11 @@
 namespace PInvoke
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Exported functions from the BCrypt.dll Windows library.
+    /// Exported functions from the BCrypt.dll Windows library
+    /// that are available to Desktop and Store apps.
     /// </summary>
     [OfferFriendlyOverloads]
     public static partial class BCrypt

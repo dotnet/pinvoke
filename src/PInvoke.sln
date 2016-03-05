@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25025.0
+VisualStudioVersion = 14.0.25104.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CD09C869-A027-4F21-B78F-22CF072B9C7F}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\templates\AddNewLibrary.ps1 = ..\templates\AddNewLibrary.ps1
+		..\build.ps1 = ..\build.ps1
 		..\CONTRIBUTING.md = ..\CONTRIBUTING.md
 		..\COPYRIGHT.md = ..\COPYRIGHT.md
 		..\templates\CreateExportsTxtFile.ps1 = ..\templates\CreateExportsTxtFile.ps1
@@ -171,15 +172,22 @@ Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "DwmApi.NuGet", "DwmApi.NuGe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DwmApi.Tests", "DwmApi.Tests\DwmApi.Tests.csproj", "{4B835D69-B10B-4F53-80DE-AC392CEFB896}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCrypt.Desktop", "BCrypt.Desktop\BCrypt.Desktop.csproj", "{FD0FF0EC-1EA9-40CB-B8E0-4491E43185F7}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BCrypt.Shared", "BCrypt.Shared\BCrypt.Shared.shproj", "{6B1E68D2-F4D9-440D-8D5E-1BA6F612789B}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		AdvApi32.Shared\AdvApi32.Shared.projitems*{3fcbf2e0-1330-454c-8a17-af14eba6b244}*SharedItemsImports = 4
+		BCrypt.Shared\BCrypt.Shared.projitems*{6b1e68d2-f4d9-440d-8d5e-1ba6f612789b}*SharedItemsImports = 13
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{6a77281b-c503-44ea-90c1-0e9868d06cd0}*SharedItemsImports = 4
+		BCrypt.Shared\BCrypt.Shared.projitems*{fd0ff0ec-1ea9-40cb-b8e0-4491e43185f7}*SharedItemsImports = 4
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{8e4f09c1-d236-4273-a6ea-f50a5cf0af62}*SharedItemsImports = 13
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{1387e009-7086-4572-ac8d-ce4242adec77}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{f37b9b20-0d43-49db-bf85-519a525c64d8}*SharedItemsImports = 13
 		Hid.Shared\Hid.Shared.projitems*{66c709c8-3ace-4e27-aee0-ec22d9f029d8}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{41dd8edd-d861-41c0-a496-2eea17c49180}*SharedItemsImports = 13
+		BCrypt.Shared\BCrypt.Shared.projitems*{9ce056e3-5d53-4092-97cc-78826a4d1c14}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
 		Hid.Shared\Hid.Shared.projitems*{26aba748-b311-4094-9231-7490894e1157}*SharedItemsImports = 4
 		Crypt32.Shared\Crypt32.Shared.projitems*{d9909f94-912e-41f1-bb8c-ac846d53218a}*SharedItemsImports = 13
@@ -456,6 +464,10 @@ Global
 		{4B835D69-B10B-4F53-80DE-AC392CEFB896}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B835D69-B10B-4F53-80DE-AC392CEFB896}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B835D69-B10B-4F53-80DE-AC392CEFB896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD0FF0EC-1EA9-40CB-B8E0-4491E43185F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD0FF0EC-1EA9-40CB-B8E0-4491E43185F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD0FF0EC-1EA9-40CB-B8E0-4491E43185F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD0FF0EC-1EA9-40CB-B8E0-4491E43185F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
