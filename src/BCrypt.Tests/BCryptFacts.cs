@@ -491,6 +491,18 @@ public class BCryptFacts
         BCryptFreeBuffer(algList);
     }
 
+    [Fact]
+    public void AddContextFunction()
+    {
+        NTSTATUS status = BCryptAddContextFunction(
+            ConfigurationTable.CRYPT_LOCAL,
+            null,
+            InterfaceIdentifiers.BCRYPT_CIPHER_INTERFACE,
+            null,
+            0);
+        Assert.Equal<NTSTATUS>(NTSTATUS.Code.STATUS_INVALID_PARAMETER, status);
+    }
+
     /// <summary>
     /// Gets the minimum length of a key (in bits).
     /// </summary>
