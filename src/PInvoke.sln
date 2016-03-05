@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25025.0
+VisualStudioVersion = 14.0.25104.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CD09C869-A027-4F21-B78F-22CF072B9C7F}"
 	ProjectSection(SolutionItems) = preProject
@@ -170,6 +170,12 @@ EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "DwmApi.NuGet", "DwmApi.NuGet\DwmApi.NuGet.nuproj", "{667CCC7D-4A34-427C-AA3F-23100E4CD195}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DwmApi.Tests", "DwmApi.Tests\DwmApi.Tests.csproj", "{4B835D69-B10B-4F53-80DE-AC392CEFB896}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.Desktop", "Fusion.Desktop\Fusion.Desktop.csproj", "{A41C96AD-3E4A-4744-AA3D-00FFE07954AD}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Fusion.NuGet", "Fusion.NuGet\Fusion.NuGet.nuproj", "{77B14C72-845B-4A67-98EA-73F8D9A7E5DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.Tests", "Fusion.Tests\Fusion.Tests.csproj", "{E2D45BD5-5657-48F6-AAD7-3694B46BED08}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -456,6 +462,18 @@ Global
 		{4B835D69-B10B-4F53-80DE-AC392CEFB896}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B835D69-B10B-4F53-80DE-AC392CEFB896}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B835D69-B10B-4F53-80DE-AC392CEFB896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A41C96AD-3E4A-4744-AA3D-00FFE07954AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41C96AD-3E4A-4744-AA3D-00FFE07954AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41C96AD-3E4A-4744-AA3D-00FFE07954AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41C96AD-3E4A-4744-AA3D-00FFE07954AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B14C72-845B-4A67-98EA-73F8D9A7E5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B14C72-845B-4A67-98EA-73F8D9A7E5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B14C72-845B-4A67-98EA-73F8D9A7E5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B14C72-845B-4A67-98EA-73F8D9A7E5DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2D45BD5-5657-48F6-AAD7-3694B46BED08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2D45BD5-5657-48F6-AAD7-3694B46BED08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2D45BD5-5657-48F6-AAD7-3694B46BED08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2D45BD5-5657-48F6-AAD7-3694B46BED08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,17 @@
+ClearDownloadCache
+CopyPDBs
+CreateApplicationContext
+CreateAssemblyCache
+CreateAssemblyEnum
+CreateAssemblyNameObject
+CreateHistoryReader
+CreateInstallReferenceEnum
+GetCachePath
+GetHistoryFileDirectory
+InitializeFusion
+InstallCustomModule
+LookupHistoryAssembly
+NukeDownloadedCache
+PreBindAssembly
+PreBindAssemblyEx
+SetMSIHandleForLogging
