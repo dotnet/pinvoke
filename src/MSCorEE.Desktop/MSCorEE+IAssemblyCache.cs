@@ -30,6 +30,7 @@ namespace PInvoke
             /// <param name="pRefData">A <see cref="FUSION_INSTALL_REFERENCE"/> structure that contains the installation data for the assembly.</param>
             /// <param name="pulDisposition">One of the disposition values defined in Fusion.idl.</param>
             /// <returns>An <see cref="HResult"/></returns>
+            [PreserveSig]
             unsafe HResult UninstallAssembly(
                 /* [in] */ UninstallAssemblyFlags dwFlags,
                 /* [in] */ string pszAssemblyName,
@@ -43,6 +44,7 @@ namespace PInvoke
             /// <param name="pszAssemblyName">The name of the assembly for which data will be retrieved.</param>
             /// <param name="pAsmInfo">An <see cref="ASSEMBLY_INFO"/> structure that contains data about the assembly.</param>
             /// <returns>An <see cref="HResult"/></returns>
+            [PreserveSig]
             unsafe HResult QueryAssemblyInfo(
                 /* [in] */ QueryAssemblyInfoFlags dwFlags,
                 /* [in] */ string pszAssemblyName,
@@ -56,6 +58,7 @@ namespace PInvoke
             /// <param name="ppAsmItem">The returned <see cref="IAssemblyCacheItem"/> pointer</param>
             /// <param name="pszAssemblyName">Uncanonicalized, comma-separated name=value pairs. Optional.</param>
             /// <returns>An <see cref="HResult"/></returns>
+            [PreserveSig]
             HResult CreateAssemblyCacheItem(
                 /* [in] */ AssemblyCacheInstallFlags dwFlags,
                 /* [in] */ object pvReserved,
@@ -67,6 +70,7 @@ namespace PInvoke
             /// </summary>
             /// <param name="ppUnkReserved">The returned IUnknown pointer</param>
             /// <returns>An <see cref="HResult"/></returns>
+            [PreserveSig]
             HResult CreateAssemblyScavenger(
                 /* [out] */ out object ppUnkReserved);
 
@@ -77,6 +81,7 @@ namespace PInvoke
             /// <param name="pszManifestFilePath">The path to the manifest for the assembly to install.</param>
             /// <param name="pRefData">A <see cref="FUSION_INSTALL_REFERENCE"/> structure that contains data for the installation.</param>
             /// <returns>An <see cref="HResult"/></returns>
+            [PreserveSig]
             unsafe HResult InstallAssembly(
                 /* [in] */ AssemblyCacheInstallFlags dwFlags,
                 /* [in] */ string pszManifestFilePath,

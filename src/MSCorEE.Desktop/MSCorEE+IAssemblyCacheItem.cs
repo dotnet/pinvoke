@@ -29,6 +29,7 @@ namespace PInvoke
             /// <param name="ppIStream">A pointer to the address of the returned <see cref="mscoree.IStream"/> instance.</param>
             /// <param name="puliMaxSize">The maximum size of the stream referenced by <paramref name="ppIStream"/>.</param>
             /// <returns>An <see cref="HResult"/>.</returns>
+            [PreserveSig]
             unsafe HResult CreateStream(
                 /* [in] */ uint dwFlags,
                 /* [in] */ string pszStreamName,
@@ -43,6 +44,7 @@ namespace PInvoke
             /// <param name="dwFlags">Flags defined in Fusion.idl.</param>
             /// <param name="pulDisposition">A value that indicates the result of the operation.</param>
             /// <returns>An <see cref="HResult"/>.</returns>
+            [PreserveSig]
             unsafe HResult Commit(
                 /* [in] */ uint dwFlags,
                 /* [optional][out] */ uint* pulDisposition);
@@ -51,6 +53,7 @@ namespace PInvoke
             /// Allows the assembly in the global assembly cache to perform cleanup operations before it is released.
             /// </summary>
             /// <returns>An <see cref="HResult"/>.</returns>
+            [PreserveSig]
             HResult AbortItem();
         }
     }

@@ -113,9 +113,15 @@ public class MSCorEEFacts
         {
             info.pszCurrentAssemblyPathBuf = pAssemblyPath;
             info.cchBuf = assemblyPath.Length;
+
+            // fusion.dll's implementation of this interface expects simple name 'mscorlib'
+            // sxs.dll's implementation seems to not like anything.
             HResult hr = cache.QueryAssemblyInfo(QueryAssemblyInfoFlags.QUERYASMINFO_FLAG_GETSIZE, "mscorlib", &info);
             Assert.Equal<HResult>(HResult.Code.S_OK, hr);
             Assert.NotEqual(0, info.uliAssemblySizeInKB);
+
+            hr = cache.QueryAssemblyInfo(QueryAssemblyInfoFlags.QUERYASMINFO_FLAG_GETSIZE, "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", &info);
+            Assert.Equal<HResult>(0x80070002, hr); // File not found
         }
     }
 
