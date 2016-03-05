@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="UninstallAssemblyFlags"/> nested type.
     /// </content>
-    public partial class MSCorEE
+    public partial class Fusion
     {
         [Flags]
         public enum UninstallAssemblyFlags

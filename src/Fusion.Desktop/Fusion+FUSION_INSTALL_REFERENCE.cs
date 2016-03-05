@@ -9,7 +9,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="FUSION_INSTALL_REFERENCE"/> nested type.
     /// </content>
-    public partial class MSCorEE
+    public partial class Fusion
     {
         /// <summary>
         /// Represents a reference that an application makes to an assembly that the application has installed in the global assembly cache.

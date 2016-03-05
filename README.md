@@ -67,6 +67,7 @@ gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://img.shields.io/nuget/dt/PInv
 hid.dll      |`PInvoke.Hid`     | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Hid.svg)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
 kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Kernel32.svg)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
 mscoree.dll  |`PInvoke.MSCorEE` | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.MSCorEE.svg)](https://www.nuget.org/packages/PInvoke.MSCorEE)|.NET Framework CLR host
+fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Fusion.svg)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
 ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.NCrypt.svg)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
 ntdll.dll    |`PInvoke.NTDll`   | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.NTDll.svg)](https://www.nuget.org/packages/PInvoke.NTDll)|Windows NTDll
 psapi.dll    |`PInvoke.Psapi`   | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Psapi.svg)](https://www.nuget.org/packages/PInvoke.Psapi)|[Windows Process Status API][Psapi]

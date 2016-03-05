@@ -6,20 +6,16 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="FusionInstallReferenceFlags"/> nested type.
+    /// Contains the <see cref="AssemblyCacheInstallFlags"/> nested type.
     /// </content>
-    public partial class MSCorEE
+    public partial class Fusion
     {
-        /// <summary>
-        /// Flags that may be specified by <see cref="FUSION_INSTALL_REFERENCE.dwFlags"/>.
-        /// </summary>
         [Flags]
-        public enum FusionInstallReferenceFlags
+        public enum AssemblyCacheInstallFlags
         {
-            /// <summary>
-            /// No flags.
-            /// </summary>
             None = 0x0,
+            IASSEMBLYCACHE_INSTALL_FLAG_REFRESH = 0x1,
+            IASSEMBLYCACHE_INSTALL_FLAG_FORCE_REFRESH = 0x2,
         }
     }
 }

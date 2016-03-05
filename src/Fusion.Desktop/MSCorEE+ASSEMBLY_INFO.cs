@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="ASSEMBLY_INFO"/> nested type.
     /// </content>
-    public partial class MSCorEE
+    public partial class Fusion
     {
         /// <summary>
         /// Contains information about an assembly that is registered in the global assembly cache.

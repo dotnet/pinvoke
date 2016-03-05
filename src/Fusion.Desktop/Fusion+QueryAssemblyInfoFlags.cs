@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="QueryAssemblyInfoFlags"/> nested type.
     /// </content>
-    public partial class MSCorEE
+    public partial class Fusion
     {
         /// <summary>
         /// The flags that may be passed to the <see cref="IAssemblyCache.QueryAssemblyInfo"/> method.

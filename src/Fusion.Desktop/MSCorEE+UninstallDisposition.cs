@@ -6,7 +6,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="UninstallDisposition"/> nested type.
     /// </content>
-    public partial class MSCorEE
+    public partial class Fusion
     {
         /// <summary>
         /// Enumerates values that may be returned by the <see cref="IAssemblyCache.UninstallAssembly"/> function.

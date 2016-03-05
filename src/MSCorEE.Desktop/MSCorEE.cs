@@ -143,16 +143,5 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* szBuffer,
             int cchBuffer,
             out int dwLength);
-
-        /// <summary>
-        /// Gets a pointer to a new <see cref="IAssemblyCache"/> instance that represents the global assembly cache.
-        /// </summary>
-        /// <param name="ppAsmCache">The returned <see cref="IAssemblyCache"/> pointer.</param>
-        /// <param name="dwReserved">Reserved for future extensibility. dwReserved must be 0 (zero).</param>
-        /// <returns>An <see cref="HResult"/>.</returns>
-        [DllImport("fusion.dll")]
-        public static extern HResult CreateAssemblyCache(
-            out IAssemblyCache ppAsmCache,
-            int dwReserved);
     }
 }

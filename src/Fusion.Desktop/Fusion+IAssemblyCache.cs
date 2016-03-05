@@ -12,7 +12,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="IAssemblyCache"/> nested type.
     /// </content>
-    public partial class MSCorEE
+    public partial class Fusion
     {
         /// <summary>
         /// Represents the global assembly cache for use by the fusion technology.

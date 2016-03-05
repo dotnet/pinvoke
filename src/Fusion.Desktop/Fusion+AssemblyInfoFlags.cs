@@ -8,7 +8,7 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="AssemblyInfoFlags"/> nested type.
     /// </content>
-    public partial class MSCorEE
+    public partial class Fusion
     {
         /// <summary>
         /// Flags that can be specified in <see cref="ASSEMBLY_INFO.dwAssemblyFlags"/>.
