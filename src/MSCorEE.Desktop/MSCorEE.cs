@@ -105,6 +105,28 @@ namespace PInvoke
             [MarshalAs(UnmanagedType.Interface)] out object ppInterface);
 
         /// <summary>
+        /// Loads a specified version of a DLL that is included in the .NET Framework redistributable package.
+        /// This function has been deprecated in the .NET Framework 4. Use the ICLRRuntimeInfo::LoadLibrary method instead.
+        /// </summary>
+        /// <param name="szDllName">A zero-terminated string that represents the name of the DLL to be loaded from the .NET Framework library.</param>
+        /// <param name="szVersion">A zero-terminated string that represents the version of the DLL to be loaded. If szVersion is null, the version selected for loading is the latest version of the specified DLL that is less than version 4. That is, all versions equal to or greater than version 4 are ignored if szVersion is null, and if no version less than version 4 is installed, the DLL fails to load. This is to ensure that installation of the .NET Framework 4 does not affect pre-existing applications or components. See the entry In-Proc SxS and Migration Quick Start in the CLR team blog.</param>
+        /// <param name="pvReserved">Reserved for future use.</param>
+        /// <param name="phModDll">A pointer to the handle of the module.</param>
+        /// <returns>This method returns standard Component Object Model (COM) error codes, as defined in WinError.h, in addition to the following values.
+        /// <see cref="HResult.Code.S_OK"/>, CLR_E_SHIM_RUNTIMELOAD
+        /// </returns>
+        /// <remarks>
+        /// This function is used to load DLLs that are included in the .NET Framework redistributable package. It does not load user-generated DLLs.
+        /// Beginning with the .NET Framework version 2.0, loading Fusion.dll causes the CLR to be loaded. This is because the functions in Fusion.dll are now wrappers whose implementations are provided by the runtime.
+        /// </remarks>
+        [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode)]
+        public static extern unsafe HResult LoadLibraryShim(
+            string szDllName,
+            string szVersion,
+            IntPtr pvReserved,
+            out IntPtr phModDll);
+
+        /// <summary>
         /// Gets the version number of the common language runtime (CLR) that is associated with the specified process handle. This function has been deprecated in the .NET Framework version 4.
         /// </summary>
         /// <param name="hProcess">A handle to a process.</param>
@@ -137,7 +159,7 @@ namespace PInvoke
         /// <remarks>
         /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1
         /// </remarks>
-        [DllImport("mscoree.dll", CharSet = CharSet.Unicode)]
+        [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode)]
         public static extern unsafe HResult GetFileVersion(
             [MarshalAs(UnmanagedType.LPWStr)] string szFileName,
             [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* szBuffer,

@@ -101,6 +101,16 @@ public class MSCorEEFacts
         Assert.Equal("v4.0.30319", result);
     }
 
+    [Fact]
+    public void LoadFusion()
+    {
+        // I'm not sure if there's a "right" way to use this function in .NET 4.0
+        // But at least this test verifies we don't AV.
+        IntPtr moduleDll;
+        HResult hr = LoadLibraryShim("fusion.dll", "2.0", IntPtr.Zero, out moduleDll);
+        Assert.Equal<HResult>(HResult.Code.E_HANDLE, hr);
+    }
+
     private static byte[] GetKeyFileBytes(string keyFileName)
     {
         using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Keys." + keyFileName))
