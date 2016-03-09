@@ -59,22 +59,22 @@ Packages:
 
 Library      | Package name     | NuGet       | Description
 -------------|------------------|-------------|-------------
-advapi32.dll |`PInvoke.AdvApi32`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.AdvApi32.svg)](https://www.nuget.org/packages/PInvoke.AdvApi32)|Windows Advanced Services
-bcrypt.dll   |`PInvoke.BCrypt`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.BCrypt.svg)](https://www.nuget.org/packages/PInvoke.BCrypt)|[Windows Cryptography API: Next Generation][CNG]
-crypt32.dll  |`PInvoke.Crypt32` | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Crypt32.svg)](https://www.nuget.org/packages/PInvoke.Crypt32)|[Windows Cryptography API][Crypt32]
-DwmApi.dll   |`PInvoke.DwmApi`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.DwmApi.svg)](https://www.nuget.org/packages/PInvoke.DwmApi)|[Desktop Window Manager][DwmApi]
-gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Gdi32.svg)](https://www.nuget.org/packages/PInvoke.Gdi32)|[Windows Graphics Device Interface][Gdi]
-hid.dll      |`PInvoke.Hid`     | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Hid.svg)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
-kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Kernel32.svg)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
-mscoree.dll  |`PInvoke.MSCorEE` | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.MSCorEE.svg)](https://www.nuget.org/packages/PInvoke.MSCorEE)|.NET Framework CLR host
-fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Fusion.svg)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
-ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.NCrypt.svg)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
-ntdll.dll    |`PInvoke.NTDll`   | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.NTDll.svg)](https://www.nuget.org/packages/PInvoke.NTDll)|Windows NTDll
-psapi.dll    |`PInvoke.Psapi`   | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Psapi.svg)](https://www.nuget.org/packages/PInvoke.Psapi)|[Windows Process Status API][Psapi]
-setupapi.dll |`PInvoke.SetupApi`| [![NuGet](https://img.shields.io/nuget/dt/PInvoke.SetupApi.svg)](https://www.nuget.org/packages/PInvoke.SetupApi)|[Windows setup API][SetupApi]
-user32.dll   |`PInvoke.User32`  | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.User32.svg)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
-userenv.dll   |`PInvoke.Userenv` | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.Userenv.svg)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
-uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://img.shields.io/nuget/dt/PInvoke.UxTheme.svg)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
+advapi32.dll |`PInvoke.AdvApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.AdvApi32)](https://www.nuget.org/packages/PInvoke.AdvApi32)|Windows Advanced Services
+bcrypt.dll   |`PInvoke.BCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.BCrypt)](https://www.nuget.org/packages/PInvoke.BCrypt)|[Windows Cryptography API: Next Generation][CNG]
+crypt32.dll  |`PInvoke.Crypt32` | [![NuGet](https://buildstats.info/nuget/PInvoke.Crypt32)](https://www.nuget.org/packages/PInvoke.Crypt32)|[Windows Cryptography API][Crypt32]
+DwmApi.dll   |`PInvoke.DwmApi`  | [![NuGet](https://buildstats.info/nuget/PInvoke.DwmApi)](https://www.nuget.org/packages/PInvoke.DwmApi)|[Desktop Window Manager][DwmApi]
+gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://buildstats.info/nuget/PInvoke.Gdi32)](https://www.nuget.org/packages/PInvoke.Gdi32)|[Windows Graphics Device Interface][Gdi]
+hid.dll      |`PInvoke.Hid`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Hid)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
+kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://buildstats.info/nuget/PInvoke.Kernel32)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
+mscoree.dll  |`PInvoke.MSCorEE` | [![NuGet](https://buildstats.info/nuget/PInvoke.MSCorEE)](https://www.nuget.org/packages/PInvoke.MSCorEE)|.NET Framework CLR host
+fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://buildstats.info/nuget/PInvoke.Fusion)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
+ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.NCrypt)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
+ntdll.dll    |`PInvoke.NTDll`   | [![NuGet](https://buildstats.info/nuget/PInvoke.NTDll)](https://www.nuget.org/packages/PInvoke.NTDll)|Windows NTDll
+psapi.dll    |`PInvoke.Psapi`   | [![NuGet](https://buildstats.info/nuget/PInvoke.Psapi)](https://www.nuget.org/packages/PInvoke.Psapi)|[Windows Process Status API][Psapi]
+setupapi.dll |`PInvoke.SetupApi`| [![NuGet](https://buildstats.info/nuget/PInvoke.SetupApi)](https://www.nuget.org/packages/PInvoke.SetupApi)|[Windows setup API][SetupApi]
+user32.dll   |`PInvoke.User32`  | [![NuGet](https://buildstats.info/nuget/PInvoke.User32)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
+userenv.dll   |`PInvoke.Userenv` | [![NuGet](https://buildstats.info/nuget/PInvoke.Userenv)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
+uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://buildstats.info/nuget/PInvoke.UxTheme)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
 
 Check out the [P/Invoke coverage](coverage.md) we have for each library.
 
