@@ -6,6 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Security.AccessControl;
+    using Microsoft.Win32.SafeHandles;
     using static Kernel32;
 
     /// <content>
@@ -114,5 +115,27 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(AdvApi32))]
         public static extern Win32ErrorCode LsaNtStatusToWinError(NTSTATUS Status);
+
+        [DllImport(nameof(AdvApi32))]
+        public static extern Win32ErrorCode RegOpenKeyEx(
+            SafeRegistryHandle hKey,
+            string lpSubKey,
+            RegOpenKeyOptions ulOptions,
+            ACCESS_MASK samDesired,
+            out SafeRegistryHandle phkResult);
+
+        [DllImport(nameof(AdvApi32))]
+        public static extern Win32ErrorCode RegFlushKey(SafeRegistryHandle hKey);
+
+        [DllImport(nameof(AdvApi32))]
+        public static extern Win32ErrorCode RegOpenKeyEx(SafeRegistryHandle hKey);
+
+        [DllImport(nameof(AdvApi32))]
+        public static extern Win32ErrorCode RegNotifyChangeKeyValue(
+            SafeRegistryHandle key,
+            bool watchSubtree,
+            RegNotifyFilter notifyFilter,
+            SafeWaitHandle eventHandle,
+            bool asynchronous);
     }
 }

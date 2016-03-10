@@ -201,6 +201,12 @@ namespace PInvoke
             /// <param name="value">The value for the <see cref="ACCESS_MASK"/></param>
             public static implicit operator ACCESS_MASK(GenericRight value) => new ACCESS_MASK((uint)value);
 
+            /// <summary>
+            /// Converts a <see cref="SpecificRight"/> to an <see cref="ACCESS_MASK"/>.
+            /// </summary>
+            /// <param name="value">The value for the <see cref="ACCESS_MASK"/></param>
+            public static implicit operator ACCESS_MASK(SpecificRight value) => new ACCESS_MASK((uint)value);
+
             /// <inheritdoc />
             public override int GetHashCode() => this.AsInt32;
 

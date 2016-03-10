@@ -49,6 +49,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvApi32+RegNotifyFilter.cs" />
+    <Compile Include="AdvApi32+RegOpenKeyOptions.cs" />
+    <Compile Include="AdvApi32.RegistryAccessRights.cs" />
     <Compile Include="AdvApi32+ServiceStateQuery.cs" />
     <Compile Include="AdvApi32+ENUM_SERVICE_STATUS.cs" />
     <Compile Include="AdvApi32+ServicePreferredNodeInfo.cs" />
@@ -62,6 +65,7 @@
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="AdvApi32.Helpers.cs" />
+    <Compile Include="AdvApi32.ReservedKeyHandles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdvApi32+ServiceTriggerDataType.cs" />
   </ItemGroup>
