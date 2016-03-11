@@ -116,7 +116,53 @@ namespace PInvoke
         [DllImport(nameof(AdvApi32))]
         public static extern Win32ErrorCode LsaNtStatusToWinError(NTSTATUS Status);
 
-        [DllImport(nameof(AdvApi32))]
+        /// <summary>
+        ///     Opens the specified registry key. Note that key names are not case sensitive.
+        ///     <para>To perform transacted registry operations on a key, call the RegOpenKeyTransacted function.</para>
+        /// </summary>
+        /// <param name="hKey">
+        ///     A handle to an open registry key.
+        ///     <para>
+        ///         This handle is returned by the RegCreateKeyEx, RegCreateKeyTransacted, <see cref="RegOpenKeyEx" />, or
+        ///         RegOpenKeyTransacted function. It can also be one of the following predefined keys:
+        ///         <see cref="HKEY_CLASSES_ROOT" />,
+        ///         <see cref="HKEY_CURRENT_CONFIG" />,
+        ///         <see cref="HKEY_CURRENT_USER" />,
+        ///         <see cref="HKEY_LOCAL_MACHINE" />,
+        ///         <see cref="HKEY_PERFORMANCE_DATA" /> and
+        ///         <see cref="HKEY_USERS" />
+        ///     </para>
+        /// </param>
+        /// <param name="lpSubKey">
+        ///     The name of the registry subkey to be opened.
+        ///     <para>Key names are not case sensitive.</para>
+        ///     <para>
+        ///         The lpSubKey parameter can be an empty string. If lpSubKey is a pointer to an empty string and
+        ///         <paramref name="hKey" /> is <see cref="HKEY_CLASSES_ROOT" />, <paramref name="phkResult" /> receives the same
+        ///         <paramref name="hKey" /> handle passed into the function. Otherwise, <paramref name="phkResult" /> receives a
+        ///         new handle to the key specified by <paramref name="hKey" />.
+        ///     </para>
+        ///     <para>
+        ///         The lpSubKey parameter can be <c>null</c> only if hKey is one of the predefined keys. If lpSubKey is
+        ///         <c>null</c> and hKey is <see cref="HKEY_CLASSES_ROOT" />, <paramref name="phkResult" /> receives a new handle
+        ///         to the key specified by <paramref name="hKey" />. Otherwise, <paramref name="phkResult" /> receives the same
+        ///         <paramref name="hKey" /> handle passed in to the function.
+        ///     </para>
+        /// </param>
+        /// <param name="ulOptions">Specifies the option to apply when opening the key.</param>
+        /// <param name="samDesired">
+        ///     A mask that specifies the desired access rights to the key to be opened. The function fails if
+        ///     the security descriptor of the key does not permit the requested access for the calling process.
+        /// </param>
+        /// <param name="phkResult">
+        ///     A variable that receives a handle to the opened key. If the key is not one of the predefined
+        ///     registry keys, it should be disposed after you have finished using the handle.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />. If the function
+        ///     fails the error code is returned.
+        /// </returns>
+        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode)]
         public static extern Win32ErrorCode RegOpenKeyEx(
             SafeRegistryHandle hKey,
             string lpSubKey,
@@ -124,18 +170,76 @@ namespace PInvoke
             ACCESS_MASK samDesired,
             out SafeRegistryHandle phkResult);
 
+        /// <summary>Writes all the attributes of the specified open registry key into the registry.</summary>
+        /// <param name="hKey">
+        ///     A handle to an open registry key. The key must have been opened with the <see cref="KEY_QUERY_VALUE" /> access
+        ///     right.
+        ///     <para>
+        ///         This handle is returned by the RegCreateKeyEx, RegCreateKeyTransacted, <see cref="RegOpenKeyEx" />, or
+        ///         RegOpenKeyTransacted function. It can also be one of the following predefined keys:
+        ///         <see cref="HKEY_CLASSES_ROOT" />,
+        ///         <see cref="HKEY_CURRENT_CONFIG" />,
+        ///         <see cref="HKEY_CURRENT_USER" />,
+        ///         <see cref="HKEY_LOCAL_MACHINE" />,
+        ///         <see cref="HKEY_PERFORMANCE_DATA" /> and
+        ///         <see cref="HKEY_USERS" />
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />. If the function
+        ///     fails the error code is returned.
+        /// </returns>
         [DllImport(nameof(AdvApi32))]
         public static extern Win32ErrorCode RegFlushKey(SafeRegistryHandle hKey);
 
-        [DllImport(nameof(AdvApi32))]
-        public static extern Win32ErrorCode RegOpenKeyEx(SafeRegistryHandle hKey);
-
+        /// <summary>Notifies the caller about changes to the attributes or contents of a specified registry key.</summary>
+        /// <param name="hKey">
+        ///     A handle to an open registry key.
+        ///     <para>
+        ///         This handle is returned by the RegCreateKeyEx, RegCreateKeyTransacted, <see cref="RegOpenKeyEx" />, or
+        ///         RegOpenKeyTransacted function. It can also be one of the following predefined keys:
+        ///         <see cref="HKEY_CLASSES_ROOT" />,
+        ///         <see cref="HKEY_CURRENT_CONFIG" />,
+        ///         <see cref="HKEY_CURRENT_USER" />,
+        ///         <see cref="HKEY_LOCAL_MACHINE" />,
+        ///         <see cref="HKEY_PERFORMANCE_DATA" /> and
+        ///         <see cref="HKEY_USERS" />
+        ///     </para>
+        ///     <para>
+        ///         This parameter must be a local handle. If <see cref="RegNotifyChangeKeyValue" /> is called with a remote
+        ///         handle, it returns <see cref="Win32ErrorCode.ERROR_INVALID_HANDLE" />.
+        ///     </para>
+        ///     <para>The key must have been opened with the <see cref="KEY_NOTIFY" /> access right.</para>
+        /// </param>
+        /// <param name="bWatchSubtree">
+        ///     If this parameter is <c>true</c>, the function reports changes in the specified key and its
+        ///     subkeys. If the parameter is <c>false</c>, the function reports changes only in the specified key.
+        /// </param>
+        /// <param name="dwNotifyFilter">A value that indicates the changes that should be reported.</param>
+        /// <param name="hEvent">
+        ///     A handle to an event. If the <paramref name="fAsynchronous" /> parameter is <c>true</c>, the
+        ///     function returns immediately and changes are reported by signaling this event. If <paramref name="fAsynchronous" />
+        ///     is <c>false</c>, hEvent is ignored.
+        /// </param>
+        /// <param name="fAsynchronous">
+        ///     If this parameter is <c>true</c>, the function returns immediately and reports changes by
+        ///     signaling the specified event. If this parameter is <c>false</c>, the function does not return until a change has
+        ///     occurred.
+        ///     <para>
+        ///         If <paramref name="hEvent" /> does not specify a valid event, the fAsynchronous parameter cannot be
+        ///         <c>true</c>.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />. If the function
+        ///     fails the error code is returned.
+        /// </returns>
         [DllImport(nameof(AdvApi32))]
         public static extern Win32ErrorCode RegNotifyChangeKeyValue(
-            SafeRegistryHandle key,
-            bool watchSubtree,
-            RegNotifyFilter notifyFilter,
-            SafeWaitHandle eventHandle,
-            bool asynchronous);
+            SafeRegistryHandle hKey,
+            bool bWatchSubtree,
+            RegNotifyFilter dwNotifyFilter,
+            SafeWaitHandle hEvent,
+            bool fAsynchronous);
     }
 }
