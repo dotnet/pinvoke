@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System;
+
     /// <content>
     /// Contains the <see cref="RegNotifyFilter"/> nested type.
     /// </content>
@@ -11,6 +13,7 @@ namespace PInvoke
         /// <summary>
         /// A value that indicates the changes that should be reported when using <see cref="RegNotifyChangeKeyValue "/>.
         /// </summary>
+        [Flags]
         public enum RegNotifyFilter
         {
             /// <summary>Notify the caller if a subkey is added or deleted.</summary>

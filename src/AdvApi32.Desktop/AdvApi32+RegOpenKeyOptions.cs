@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System;
+
     /// <content>
     /// Contains the <see cref="RegOpenKeyOptions"/> nested type.
     /// </content>
@@ -11,6 +13,7 @@ namespace PInvoke
         /// <summary>
         /// Specifies the option to apply when opening the key in <see cref="RegOpenKeyEx"/>.
         /// </summary>
+        [Flags]
         public enum RegOpenKeyOptions
         {
             /// <summary>
