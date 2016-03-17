@@ -67,6 +67,7 @@ gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://buildstats.info/nuget/PInvok
 hid.dll      |`PInvoke.Hid`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Hid)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
 kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://buildstats.info/nuget/PInvoke.Kernel32)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
 mscoree.dll  |`PInvoke.MSCorEE` | [![NuGet](https://buildstats.info/nuget/PInvoke.MSCorEE)](https://www.nuget.org/packages/PInvoke.MSCorEE)|.NET Framework CLR host
+msi.dll      |`PInvoke.Msi`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Msi)](https://www.nuget.org/packages/PInvoke.Msi)|Microsoft Installer
 fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://buildstats.info/nuget/PInvoke.Fusion)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
 ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.NCrypt)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
 ntdll.dll    |`PInvoke.NTDll`   | [![NuGet](https://buildstats.info/nuget/PInvoke.NTDll)](https://www.nuget.org/packages/PInvoke.NTDll)|Windows NTDll
