@@ -8,8 +8,10 @@ using static PInvoke.Msi;
 
 public class MsiFacts
 {
-    [Fact(Skip = "No tests yet")]
-    public void NoTests()
+    [Fact]
+    public void InstallProduct_BadArgs()
     {
+        Win32ErrorCode result = MsiInstallProduct(null, null);
+        Assert.Equal(Win32ErrorCode.ERROR_INVALID_PARAMETER, result);
     }
 }
