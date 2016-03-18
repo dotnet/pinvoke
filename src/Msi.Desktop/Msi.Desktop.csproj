@@ -45,7 +45,11 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Msi+MSIINSTALLCONTEXT.cs" />
     <Compile Include="Msi.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="Msi.Helpers.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
