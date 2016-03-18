@@ -39,6 +39,10 @@
       <Project>$guid5$</Project>
       <Name>LIBNAME.Desktop</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
+      <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
+      <Name>Windows.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
