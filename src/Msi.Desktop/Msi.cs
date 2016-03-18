@@ -25,5 +25,26 @@ namespace PInvoke
         /// <returns><see cref="Win32ErrorCode.ERROR_SUCCESS"/> when the function completes successfully. Otherwise an error code.</returns>
         [DllImport(nameof(Msi), CharSet = CharSet.Unicode)]
         public static extern Win32ErrorCode MsiInstallProduct(string szPackagePath, string szCommandLine);
+
+        /// <summary>
+        /// The MsiIsProductElevated function returns whether or not the product is managed. Only applications that require elevated privileges for installation and being installed through advertisement are considered managed, which means that an application installed per-machine is always considered managed.
+        /// An application that is installed per-user is only considered managed if it is advertised by a local system process that is impersonating the user. For more information, see Advertising a Per-User Application to be Installed with Elevated Privileges.
+        /// MsiIsProductElevated verifies that the local system owns the product registry data. The function does not refer to account policies such as AlwaysInstallElevated.
+        /// </summary>
+        /// <param name="szProductCode">
+        /// The full product code GUID of the product.
+        /// This parameter is required and cannot be NULL or empty.
+        /// </param>
+        /// <param name="pfElevated">
+        /// A pointer to a BOOL for the result.
+        /// This parameter cannot be NULL.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is ERROR_SUCCESS, and pfElevated is set to TRUE if the product is a managed application.
+        /// </returns>
+        [DllImport(nameof(Msi), CharSet = CharSet.Unicode)]
+        public static extern Win32ErrorCode MsiIsProductElevated(
+            string szProductCode,
+            [MarshalAs(UnmanagedType.Bool)] out bool pfElevated);
     }
 }

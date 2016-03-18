@@ -14,4 +14,13 @@ public class MsiFacts
         Win32ErrorCode result = MsiInstallProduct(null, null);
         Assert.Equal(Win32ErrorCode.ERROR_INVALID_PARAMETER, result);
     }
+
+    [Fact]
+    public void IsProductElevated_BadArgs()
+    {
+        string productCode = null;
+        bool elevated;
+        Win32ErrorCode result = MsiIsProductElevated(productCode, out elevated);
+        Assert.Equal(Win32ErrorCode.ERROR_INVALID_PARAMETER, result);
+    }
 }
