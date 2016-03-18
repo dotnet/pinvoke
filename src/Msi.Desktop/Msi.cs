@@ -23,7 +23,7 @@ namespace PInvoke
         /// To perform an administrative installation, include ACTION=ADMIN in szCommandLine. For more information, see the ACTION property.
         /// </param>
         /// <returns><see cref="Win32ErrorCode.ERROR_SUCCESS"/> when the function completes successfully. Otherwise an error code.</returns>
-        [DllImport(nameof(Msi))]
+        [DllImport(nameof(Msi), CharSet = CharSet.Unicode)]
         public static extern Win32ErrorCode MsiInstallProduct(string szPackagePath, string szCommandLine);
     }
 }
