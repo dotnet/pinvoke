@@ -14,4 +14,30 @@ public class MsiFacts
         Win32ErrorCode result = MsiInstallProduct(null, null);
         Assert.Equal(Win32ErrorCode.ERROR_INVALID_PARAMETER, result);
     }
+
+    [Fact]
+    public void IsProductElevated_BadArgs()
+    {
+        Guid productCode = Guid.Empty;
+        bool elevated;
+        Win32ErrorCode result = MsiIsProductElevated(productCode, out elevated);
+        Assert.Equal(Win32ErrorCode.ERROR_UNKNOWN_PRODUCT, result);
+    }
+
+    [Fact]
+    public unsafe void EnumProductsEx()
+    {
+        Guid installedProductCode;
+        string sid;
+        MSIINSTALLCONTEXT installedContext;
+        Win32ErrorCode result = MsiEnumProductsEx(
+            null,
+            null,
+            MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_ALL,
+            0,
+            out installedProductCode,
+            out installedContext,
+            out sid);
+        Assert.Equal(Win32ErrorCode.ERROR_SUCCESS, result);
+    }
 }
