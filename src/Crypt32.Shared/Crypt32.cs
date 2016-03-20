@@ -51,5 +51,12 @@ namespace PInvoke
         [DllImport(nameof(Crypt32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool CertCloseStore(IntPtr hCertStore, CertCloseStoreFlags dwFlags = CertCloseStoreFlags.None);
+
+        [DllImport(nameof(Crypt32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern bool CertGetCertificateContextProperty(
+                IntPtr pCertContext,
+                CertPropId dwPropId,
+                IntPtr pvData,
+                ref uint pcbData);
     }
 }
