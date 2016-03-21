@@ -131,6 +131,21 @@ Pinnable structs cannot have a `string` field, since `string` is a reference typ
 fixed-size character array, or [BCRYPT_ALGORITHM_IDENTIFIER][BCRYPT_ALGORITHM_IDENTIFIER] for an example
 of this for a variable length, null-terminated string.
 
+When a struct has pointer types for fields, add an `[OfferIntPtrPropertyAccessors]` attribute to the struct
+and set the file's `Custom Tool` property to `MSBuild:GenerateCodeFromAttributes`. This causes `IntPtr`
+property accessors to these pointer fields to be automatically generated, making the struct accessible to
+languages that do not support pointers (e.g. VB.NET) or simply more convenient to callers with an `IntPtr`.
+If this file belongs to a Shared Project, the `Custom Tool` property is not available in the IDE and you
+will need to manually edit the .projitems file to add the item metadata, like this:
+
+```xml
+<Compile Include="$(MSBuildThisFileDirectory)YourLib+YourStruct.cs">
+  <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+</Compile>
+```
+
+Note that while the IDE exposes the property as `Custom Tool`, MSBuild represents it as `Generator`.
+
 ### Helper methods
 
 Helper methods should be kept at a minimum. The scope of this P/Invoke library is primarily
