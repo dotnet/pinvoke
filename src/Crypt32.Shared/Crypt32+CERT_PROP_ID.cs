@@ -1,8 +1,11 @@
-﻿namespace PInvoke
+﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+
+namespace PInvoke
 {
     public partial class Crypt32
     {
-        public enum CertPropId : uint
+        public enum CERT_PROP_ID : uint
         {
             CERT_KEY_PROV_HANDLE_PROP_ID = 1,
             CERT_KEY_PROV_INFO_PROP_ID = 2,
