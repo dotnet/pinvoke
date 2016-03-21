@@ -3,6 +3,9 @@
 
 namespace PInvoke
 {
+    /// <content>
+    /// Contains the <see cref="CERT_PROP_ID"/> nested type.
+    /// </content>
     public partial class Crypt32
     {
         public enum CERT_PROP_ID : uint

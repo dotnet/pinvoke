@@ -3,6 +3,9 @@
 
 namespace PInvoke
 {
+    /// <content>
+    /// Contains the <see cref="CRYPT_PROV_TYPE"/> nested type.
+    /// </content>
     public partial class Crypt32
     {
         public enum CRYPT_PROV_TYPE : uint

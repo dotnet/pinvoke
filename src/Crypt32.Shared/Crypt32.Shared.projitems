@@ -14,7 +14,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CRYPT_DATA_BLOB.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CRYPT_KEY_PROV_INFO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CRYPT_KEY_PROV_INFO.cs">
+	  <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+	</Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CRYPT_PROV_TYPE.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+PFXImportCertStoreFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32.Helpers.cs" />

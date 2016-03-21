@@ -6,13 +6,17 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
 
+    /// <content>
+    /// Contains the <see cref="CRYPT_KEY_PROV_INFO"/> nested type.
+    /// </content>
     public partial class Crypt32
     {
         /// <summary>
         /// The CRYPT_KEY_PROV_INFO structure contains information about a key container within a cryptographic service provider (CSP).
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public unsafe struct CRYPT_KEY_PROV_INFO
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct CRYPT_KEY_PROV_INFO
         {
             /// <summary>
             /// A pointer to a null-terminated Unicode string that contains the name of the key container.
