@@ -127,7 +127,9 @@ value types rather than reference types.) Benefits of structs being pinnable inc
    native header file representations.
 
 Pinnable structs cannot have a `string` field, since `string` is a reference type. Instead, you can add a
-`string` *property* for convenience. See [PROCESSENTRY32][PROCESSENTRY32] for an example.
+`string` *property* for convenience. See [PROCESSENTRY32][PROCESSENTRY32] for an example of this for a
+fixed-size character array, or [BCRYPT_ALGORITHM_IDENTIFIER][BCRYPT_ALGORITHM_IDENTIFIER] for an example
+of this for a variable length, null-terminated string.
 
 ### Helper methods
 
@@ -270,3 +272,4 @@ of the produced packages.
 [APISets8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn505783(v=vs.85).aspx
 
 [PROCESSENTRY32]: https://github.com/AArnott/pinvoke/blob/master/src/Kernel32.Desktop/Kernel32%2BPROCESSENTRY32.cs
+[BCRYPT_ALGORITHM_IDENTIFIER]: https://github.com/AArnott/pinvoke/blob/master/src/BCrypt.Shared/BCrypt%2BBCRYPT_ALGORITHM_IDENTIFIER.cs
