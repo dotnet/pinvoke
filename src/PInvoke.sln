@@ -108,10 +108,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psapi.Tests", "Psapi.Tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psapi", "Psapi\Psapi.csproj", "{6AB26806-6A22-456D-AD87-CD8B3FAFA216}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AdvApi32.Shared", "AdvApi32.Shared\AdvApi32.Shared.shproj", "{5C640905-72D0-4254-96B6-1FE31C8D7A66}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvApi32", "AdvApi32\AdvApi32.csproj", "{46ECA0BD-F083-481B-A519-C4C910432F65}"
-EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "PInvoke.Win32", "PInvoke.Win32\PInvoke.Win32.nuproj", "{65008241-13FE-4DA1-A197-28795195B6C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGeneration", "CodeGeneration\CodeGeneration.csproj", "{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}"
@@ -198,7 +194,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NCrypt.Shared", "NCrypt.Sha
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		AdvApi32.Shared\AdvApi32.Shared.projitems*{3fcbf2e0-1330-454c-8a17-af14eba6b244}*SharedItemsImports = 4
 		BCrypt.Shared\BCrypt.Shared.projitems*{6b1e68d2-f4d9-440d-8d5e-1ba6f612789b}*SharedItemsImports = 13
 		Msi.Shared\Msi.Shared.projitems*{01174e89-de65-47dc-bf53-4e2cf34ad843}*SharedItemsImports = 4
 		NCrypt.Shared\NCrypt.Shared.projitems*{6aaa088f-2adc-4ffd-8d11-d8b67d5ec88c}*SharedItemsImports = 4
@@ -219,13 +214,11 @@ Global
 		Crypt32.Shared\Crypt32.Shared.projitems*{2355a580-2257-4a41-b7ec-f987993ce0c9}*SharedItemsImports = 4
 		NCrypt.Shared\NCrypt.Shared.projitems*{093be65b-820a-470c-9a47-82592400059f}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{3c02f98c-e145-4517-9cf0-d12c2c648e70}*SharedItemsImports = 4
-		AdvApi32.Shared\AdvApi32.Shared.projitems*{5c640905-72d0-4254-96b6-1fe31c8d7a66}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
 		Msi.Shared\Msi.Shared.projitems*{23a37549-45b1-4db6-8cd0-5b4bd8ccf2c6}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{d7224f5b-1aee-4624-a71f-f0bb10c63555}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}*SharedItemsImports = 4
 		NTDll.Shared\NTDll.Shared.projitems*{f64c8b26-5e30-4a7a-8643-f58e4602c64a}*SharedItemsImports = 4
-		AdvApi32.Shared\AdvApi32.Shared.projitems*{46eca0bd-f083-481b-a519-c4c910432f65}*SharedItemsImports = 4
 		Msi.Shared\Msi.Shared.projitems*{3bb697ea-3ed3-4d01-b260-71edee697d3a}*SharedItemsImports = 13
 		Crypt32.Shared\Crypt32.Shared.projitems*{58e5cccf-5486-4aa9-9069-7ba0c3f6deef}*SharedItemsImports = 4
 	EndGlobalSection
@@ -382,10 +375,6 @@ Global
 		{6AB26806-6A22-456D-AD87-CD8B3FAFA216}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AB26806-6A22-456D-AD87-CD8B3FAFA216}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AB26806-6A22-456D-AD87-CD8B3FAFA216}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46ECA0BD-F083-481B-A519-C4C910432F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46ECA0BD-F083-481B-A519-C4C910432F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46ECA0BD-F083-481B-A519-C4C910432F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46ECA0BD-F083-481B-A519-C4C910432F65}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65008241-13FE-4DA1-A197-28795195B6C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65008241-13FE-4DA1-A197-28795195B6C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65008241-13FE-4DA1-A197-28795195B6C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
