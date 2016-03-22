@@ -53,6 +53,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NCrypt+NCryptEnumStorageProvidersFlags.cs" />
+    <Compile Include="NCrypt+NCryptProviderName.cs" />
     <Compile Include="NCrypt.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>

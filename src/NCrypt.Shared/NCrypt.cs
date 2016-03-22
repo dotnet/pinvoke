@@ -168,22 +168,6 @@ namespace PInvoke
             NCryptEnumAlgorithmsFlags dwFlags = NCryptEnumAlgorithmsFlags.None);
 
         /// <summary>
-        /// Obtains the names of the registered key storage providers.
-        /// </summary>
-        /// <param name="pdwProviderCount">The address of a DWORD to receive the number of elements in the <paramref name="ppProviderList"/> array.</param>
-        /// <param name="ppProviderList">
-        /// The address of an <see cref="NCryptProviderName"/> structure pointer to receive an array of the registered key storage provider names. The variable pointed to by the <paramref name="pdwProviderCount"/> parameter receives the number of elements in this array.
-        /// When this memory is no longer needed, free it by passing this pointer to the <see cref="NCryptFreeBuffer(void*)"/> function.
-        /// </param>
-        /// <param name="dwFlags">Flags that modify function behavior.</param>
-        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
-        [DllImport(nameof(NCrypt))]
-        public static extern unsafe SECURITY_STATUS NCryptEnumStorageProviders(
-            out int pdwProviderCount,
-            out NCryptProviderName* ppProviderList,
-            NCryptEnumStorageProvidersFlags dwFlags = NCryptEnumStorageProvidersFlags.None);
-
-        /// <summary>
         /// Obtains the names of the keys that are stored by the provider.
         /// </summary>
         /// <param name="hProvider">The handle of the key storage provider to enumerate the keys for. This handle is obtained with the <see cref="NCryptOpenStorageProvider(out SafeProviderHandle, string, NCryptOpenStorageProviderFlags)"/> function.</param>
