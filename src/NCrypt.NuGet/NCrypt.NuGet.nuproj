@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\BCrypt.NuGet\BCrypt.NuGet.nuproj" />
+    <ProjectReference Include="..\NCrypt.Desktop\NCrypt.Desktop.csproj" />
     <ProjectReference Include="..\NCrypt\NCrypt.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>
