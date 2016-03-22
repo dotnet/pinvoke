@@ -31,10 +31,14 @@
     <ProjectReference Include="..\UxTheme.NuGet\UxTheme.NuGet.nuproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="PInvoke.Win32.nuspec" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>65008241-13fe-4da1-a197-28795195b6c2</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
+    <NuSpecTemplate>PInvoke.Win32.nuspec</NuSpecTemplate>
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
