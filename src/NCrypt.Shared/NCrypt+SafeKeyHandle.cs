@@ -44,7 +44,7 @@ namespace PInvoke
             }
 
             /// <inheritdoc />
-            public override bool IsInvalid => this.handle == IntPtr.Zero || !NCryptIsKeyHandle(this.handle);
+            public override bool IsInvalid => this.handle == IntPtr.Zero/*Desktop only: || !NCryptIsKeyHandle(this.handle)*/;
 
             /// <inheritdoc />
             protected override bool ReleaseHandle()

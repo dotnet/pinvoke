@@ -570,14 +570,5 @@ namespace PInvoke
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(NCrypt))]
         private static extern SECURITY_STATUS NCryptFreeObject(IntPtr hObject);
-
-        /// <summary>
-        /// Determines if the specified handle is a CNG key handle.
-        /// </summary>
-        /// <param name="hKey">The handle of the key to test.</param>
-        /// <returns>Returns a nonzero value if the handle is a key handle or zero otherwise.</returns>
-        [DllImport(nameof(NCrypt))]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool NCryptIsKeyHandle(IntPtr hKey);
     }
 }
