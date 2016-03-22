@@ -35,7 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdvApi32.Desktop\AdvApi32.Desktop.csproj" />
-    <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" />
     <ProjectReference Include="..\Kernel32.NuGet\Kernel32.NuGet.nuproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>

@@ -44,9 +44,9 @@
       <Project>{9ce056e3-5d53-4092-97cc-78826a4d1c14}</Project>
       <Name>BCrypt</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NCrypt\NCrypt.csproj">
-      <Project>{6aaa088f-2adc-4ffd-8d11-d8b67d5ec88c}</Project>
-      <Name>NCrypt</Name>
+    <ProjectReference Include="..\NCrypt.Desktop\NCrypt.Desktop.csproj">
+      <Project>{093be65b-820a-470c-9a47-82592400059f}</Project>
+      <Name>NCrypt.Desktop</Name>
     </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>

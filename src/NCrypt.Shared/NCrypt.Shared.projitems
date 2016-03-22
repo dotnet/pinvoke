@@ -20,7 +20,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptKeyDerivationFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptOpenKeyFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptEnumKeysFlags.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptEnumStorageProvidersFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptIsAlgSupportedFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+AlgorithmOperations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+AsymmetricKeyBlobTypes.cs" />
@@ -30,9 +29,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptDeriveKeyFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptEnumAlgorithmsFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptKeyName.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptProviderName.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptSecretAgreementFlags.cs" />

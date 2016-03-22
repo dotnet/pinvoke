@@ -360,7 +360,7 @@ namespace PInvoke
 
         /// <summary>
         /// Suspends the specified thread.
-        /// A 64-bit application can suspend a WOW64 thread using the <see cref="Wow64SuspendThread"/> function.
+        /// A 64-bit application can suspend a WOW64 thread using the Wow64SuspendThread function (desktop only).
         /// </summary>
         /// <param name="hThread">
         /// A handle to the thread that is to be suspended.
@@ -371,19 +371,6 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         public static extern int SuspendThread(SafeObjectHandle hThread);
-
-        /// <summary>
-        /// Suspends the specified WOW64 thread.
-        /// </summary>
-        /// <param name="hThread">
-        /// A handle to the thread that is to be suspended.
-        /// The handle must have the THREAD_SUSPEND_RESUME access right. For more information, see Thread Security and Access Rights.
-        /// </param>
-        /// <returns>
-        /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
-        /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern int Wow64SuspendThread(SafeObjectHandle hThread);
 
         /// <summary>
         /// Decrements a thread's suspend count. When the suspend count is decremented to zero, the execution of the thread is resumed.
