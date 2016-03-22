@@ -54,15 +54,11 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Kernel32.Shared", "Kernel32
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel32.Desktop", "Kernel32.Desktop\Kernel32.Desktop.csproj", "{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hid", "Hid\Hid.csproj", "{66C709C8-3ACE-4E27-AEE0-EC22D9F029D8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hid.Desktop", "Hid.Desktop\Hid.Desktop.csproj", "{26ABA748-B311-4094-9231-7490894E1157}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Hid.NuGet", "Hid.NuGet\Hid.NuGet.nuproj", "{8CE08342-D878-444E-84BA-F42A4141EA48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hid.Tests", "Hid.Tests\Hid.Tests.csproj", "{6C21E31E-6E71-4CB8-8495-CC841B19947F}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Hid.Shared", "Hid.Shared\Hid.Shared.shproj", "{41DD8EDD-D861-41C0-A496-2EEA17C49180}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupApi.Desktop", "SetupApi.Desktop\SetupApi.Desktop.csproj", "{A530587B-C0CD-408C-9FE1-AA3D36B760A0}"
 EndProject
@@ -202,11 +198,8 @@ Global
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{8e4f09c1-d236-4273-a6ea-f50a5cf0af62}*SharedItemsImports = 13
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{1387e009-7086-4572-ac8d-ce4242adec77}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{f37b9b20-0d43-49db-bf85-519a525c64d8}*SharedItemsImports = 13
-		Hid.Shared\Hid.Shared.projitems*{66c709c8-3ace-4e27-aee0-ec22d9f029d8}*SharedItemsImports = 4
-		Hid.Shared\Hid.Shared.projitems*{41dd8edd-d861-41c0-a496-2eea17c49180}*SharedItemsImports = 13
 		BCrypt.Shared\BCrypt.Shared.projitems*{9ce056e3-5d53-4092-97cc-78826a4d1c14}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
-		Hid.Shared\Hid.Shared.projitems*{26aba748-b311-4094-9231-7490894e1157}*SharedItemsImports = 4
 		Crypt32.Shared\Crypt32.Shared.projitems*{d9909f94-912e-41f1-bb8c-ac846d53218a}*SharedItemsImports = 13
 		NTDll.Shared\NTDll.Shared.projitems*{62872b6b-bb44-4890-b308-3eec6984b542}*SharedItemsImports = 4
 		NTDll.Shared\NTDll.Shared.projitems*{66a2d58c-0c60-44e7-908b-82705f84a09a}*SharedItemsImports = 13
@@ -275,10 +268,6 @@ Global
 		{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66C709C8-3ACE-4E27-AEE0-EC22D9F029D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66C709C8-3ACE-4E27-AEE0-EC22D9F029D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66C709C8-3ACE-4E27-AEE0-EC22D9F029D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66C709C8-3ACE-4E27-AEE0-EC22D9F029D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{26ABA748-B311-4094-9231-7490894E1157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26ABA748-B311-4094-9231-7490894E1157}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26ABA748-B311-4094-9231-7490894E1157}.Release|Any CPU.ActiveCfg = Release|Any CPU
