@@ -81,6 +81,11 @@ namespace PInvoke
         private const int FacilityStatusShift = 0;
 
         /// <summary>
+        /// The full NT_STATUS value, as a <see cref="Code"/> enum.
+        /// </summary>
+        private readonly Code value;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NTSTATUS"/> struct.
         /// </summary>
         /// <param name="status">The value of the NTStatus.</param>
@@ -104,13 +109,13 @@ namespace PInvoke
         /// <param name="status">The value of the NTStatus.</param>
         public NTSTATUS(Code status)
         {
-            this.Value = status;
+            this.value = status;
         }
 
         /// <summary>
         /// Gets the full NT_STATUS value, as a <see cref="Code"/> enum.
         /// </summary>
-        public Code Value { get; }
+        public Code Value => this.value;
 
         /// <summary>
         /// Gets the NT_STATUS as a 32-bit signed integer.
