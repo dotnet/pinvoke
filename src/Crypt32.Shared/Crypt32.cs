@@ -34,6 +34,30 @@ namespace PInvoke
             PFXImportCertStoreFlags dwFlags);
 
         /// <summary>
+        /// The CertGetCertificateContextProperty function retrieves the information contained in an extended property of a certificate context.
+        /// </summary>
+        /// <param name="pCertContext">A pointer to the CERT_CONTEXT structure of the certificate that contains the property to be retrieved.</param>
+        /// <param name="dwPropId">The property to be retrieved.</param>
+        /// <param name="pvData">
+        /// A pointer to a buffer to receive the data as determined by dwPropId
+        /// Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in pcbData often exceeds the size of the base structure.
+        /// </param>
+        /// <param name="pcbData">
+        /// A pointer to a DWORD value that specifies the size, in bytes, of the buffer pointed to by the pvData parameter.
+        /// When the function returns, the DWORD value contains the number of bytes to be stored in the buffer.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the function returns TRUE.
+        /// If the function fails, it returns FALSE.
+        /// </returns>
+        [DllImport(nameof(Crypt32), SetLastError = true)]
+        public static extern unsafe bool CertGetCertificateContextProperty(
+            IntPtr pCertContext,
+            CERT_PROP_ID dwPropId,
+            void* pvData,
+            ref int pcbData);
+
+        /// <summary>
         /// The CertCloseStore function closes a certificate store handle and reduces the reference count on the store. There needs to be a corresponding call to CertCloseStore for each successful call to the CertOpenStore or CertDuplicateStore functions.
         /// </summary>
         /// <param name="hCertStore">Handle of the certificate store to be closed.</param>
@@ -51,29 +75,5 @@ namespace PInvoke
         [DllImport(nameof(Crypt32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool CertCloseStore(IntPtr hCertStore, CertCloseStoreFlags dwFlags = CertCloseStoreFlags.None);
-
-        /// <summary>
-        /// The CertGetCertificateContextProperty function retrieves the information contained in an extended property of a certificate context.
-        /// </summary>
-        /// <param name="pCertContext">A pointer to the CERT_CONTEXT structure of the certificate that contains the property to be retrieved.</param>
-        /// <param name="dwPropId">The property to be retrieved.</param>
-        /// <param name="pvData">
-        /// A pointer to a buffer to receive the data as determined by dwPropId
-        /// Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <see cref="pcbData"/> often exceeds the size of the base structure.
-        /// </param>
-        /// <param name="pcbData">
-        /// A pointer to a DWORD value that specifies the size, in bytes, of the buffer pointed to by the pvData parameter.
-        /// When the function returns, the DWORD value contains the number of bytes to be stored in the buffer.
-        /// </param>
-        /// <returns>
-        /// If the function succeeds, the function returns TRUE.
-        /// If the function fails, it returns FALSE.
-        /// </returns>
-        [DllImport(nameof(Crypt32), SetLastError = true)]
-        public static extern unsafe bool CertGetCertificateContextProperty(
-                IntPtr pCertContext,
-                CERT_PROP_ID dwPropId,
-                void* pvData,
-                ref int pcbData);
     }
 }
