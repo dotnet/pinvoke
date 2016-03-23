@@ -8,6 +8,9 @@ namespace PInvoke
     /// </content>
     public partial class Crypt32
     {
+        /// <summary>
+        /// Certificate property identifiers.
+        /// </summary>
         public enum CERT_PROP_ID : uint
         {
             CERT_KEY_PROV_HANDLE_PROP_ID = 1,

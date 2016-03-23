@@ -52,6 +52,16 @@ namespace PInvoke
             /// The specification of the private key to retrieve.
             /// </summary>
             public uint dwKeySpec;
+
+            /// <summary>
+            /// Gets the name of the key container.
+            /// </summary>
+            public string ContainerName => new string(this.pwszContainerName);
+
+            /// <summary>
+            /// Gets the name of the CSP.
+            /// </summary>
+            public string ProvName => new string(this.pwszProvName);
         }
     }
 }
