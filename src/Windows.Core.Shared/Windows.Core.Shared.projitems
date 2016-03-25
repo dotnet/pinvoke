@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>41f91f44-4f45-4f8f-9d24-3dc0d22e2986</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Windows.Core.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApiSets.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HResult+Code.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HResult+FacilityCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HResult+SeverityCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_DATA_DIRECTORY.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_FILE_HEADER+CharacteristicsType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_FILE_HEADER+MachineType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_FILE_HEADER.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_NT_HEADERS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_OPTIONAL_HEADER+DllCharacteristicsType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_OPTIONAL_HEADER.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_OPTIONAL_HEADER_DIRECTORIES.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_OPTIONAL_HEADER+MagicType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_OPTIONAL_HEADER+SubsystemType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_SECTION_HEADER+CharacteristicsType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMAGE_SECTION_HEADER.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LIST_ENTRY.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)NTSTATUS+Code.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NTSTATUS+SeverityCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NTSTATUS+FacilityCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NTSTATUS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PInvokeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RECT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Win32ErrorCode.cs" />
+  </ItemGroup>
+</Project>
