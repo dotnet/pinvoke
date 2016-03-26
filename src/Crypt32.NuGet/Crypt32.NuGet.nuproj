@@ -34,6 +34,7 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crypt32.Profile111\Crypt32.Profile111.csproj" />
     <ProjectReference Include="..\Crypt32\Crypt32.csproj" />
     <ProjectReference Include="..\Crypt32.Desktop\Crypt32.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />

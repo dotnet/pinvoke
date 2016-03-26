@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <PropertyGroup>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile92</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))\EnlistmentInfo.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))' != '' " />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{26A6F480-5ED3-48B8-9BBA-243115672098}</ProjectGuid>
+    <ProjectGuid>{C09E62B0-D478-4F06-82C0-ABA2BB674AC6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PInvoke</RootNamespace>
@@ -29,9 +29,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj">
-      <Project>{1387e009-7086-4572-ac8d-ce4242adec77}</Project>
-      <Name>CodeGenerationAttributes</Name>
+    <ProjectReference Include="..\CodeGenerationAttributes.Profile111\CodeGenerationAttributes.Profile111.csproj">
+      <Project>{05FBA24A-B0F6-4B04-B00F-9AA5ACD191A9}</Project>
+      <Name>CodeGenerationAttributes.Profile111</Name>
       <Private>False</Private>
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
     </ProjectReference>
@@ -45,11 +45,6 @@
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DbgHelp.exports.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="..\DbgHelp.Shared\DbgHelp.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
