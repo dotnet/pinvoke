@@ -196,14 +196,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel32.Profile111", "Kern
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerationAttributes.Profile111", "CodeGenerationAttributes.Profile111\CodeGenerationAttributes.Profile111.csproj", "{05FBA24A-B0F6-4B04-B00F-9AA5ACD191A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCrypt.Profile111", "BCrypt.Profile111\BCrypt.Profile111.csproj", "{DCDC8E36-B213-40DB-9C04-805A884A9AD5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		BCrypt.Shared\BCrypt.Shared.projitems*{6b1e68d2-f4d9-440d-8d5e-1ba6f612789b}*SharedItemsImports = 13
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{6a77281b-c503-44ea-90c1-0e9868d06cd0}*SharedItemsImports = 4
+		BCrypt.Shared\BCrypt.Shared.projitems*{fd0ff0ec-1ea9-40cb-b8e0-4491e43185f7}*SharedItemsImports = 4
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{8e4f09c1-d236-4273-a6ea-f50a5cf0af62}*SharedItemsImports = 13
+		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{1387e009-7086-4572-ac8d-ce4242adec77}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{f37b9b20-0d43-49db-bf85-519a525c64d8}*SharedItemsImports = 13
+		BCrypt.Shared\BCrypt.Shared.projitems*{9ce056e3-5d53-4092-97cc-78826a4d1c14}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{1fdc092a-d3e8-4cc4-b896-17e0a213f723}*SharedItemsImports = 4
+		BCrypt.Shared\BCrypt.Shared.projitems*{dcdc8e36-b213-40db-9c04-805a884a9ad5}*SharedItemsImports = 4
 		Windows.Core.Shared\Windows.Core.Shared.projitems*{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{3c02f98c-e145-4517-9cf0-d12c2c648e70}*SharedItemsImports = 4
+		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{05fba24a-b0f6-4b04-b00f-9aa5acd191a9}*SharedItemsImports = 4
 		Windows.Core.Shared\Windows.Core.Shared.projitems*{41f91f44-4f45-4f8f-9d24-3dc0d22e2986}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{d7224f5b-1aee-4624-a71f-f0bb10c63555}*SharedItemsImports = 4
@@ -512,6 +520,10 @@ Global
 		{05FBA24A-B0F6-4B04-B00F-9AA5ACD191A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05FBA24A-B0F6-4B04-B00F-9AA5ACD191A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05FBA24A-B0F6-4B04-B00F-9AA5ACD191A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCDC8E36-B213-40DB-9C04-805A884A9AD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCDC8E36-B213-40DB-9C04-805A884A9AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCDC8E36-B213-40DB-9C04-805A884A9AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCDC8E36-B213-40DB-9C04-805A884A9AD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
