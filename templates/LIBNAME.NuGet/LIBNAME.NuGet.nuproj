@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LIBNAME\LIBNAME.csproj" />
+    <ProjectReference Include="..\LIBNAME.Profile111\LIBNAME.Profile111.csproj" />
     <ProjectReference Include="..\LIBNAME.Desktop\LIBNAME.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>
