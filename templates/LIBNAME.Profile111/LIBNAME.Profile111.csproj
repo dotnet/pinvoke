@@ -29,9 +29,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj">
-      <Project>{1387e009-7086-4572-ac8d-ce4242adec77}</Project>
-      <Name>CodeGenerationAttributes</Name>
+    <ProjectReference Include="..\CodeGenerationAttributes.Profile111\CodeGenerationAttributes.Profile111.csproj">
+      <Project>{05FBA24A-B0F6-4B04-B00F-9AA5ACD191A9}</Project>
+      <Name>CodeGenerationAttributes.Profile111</Name>
       <Private>False</Private>
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
     </ProjectReference>

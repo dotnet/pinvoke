@@ -51,7 +51,7 @@ function Replace-Placeholders {
 
 $Src = Resolve-Path "$PSScriptRoot\..\src"
 
-$Directories = 'LIBNAME','LIBNAME.Desktop','LIBNAME.Shared','LIBNAME.Tests','LIBNAME.NuGet'
+$Directories = 'LIBNAME','LIBNAME.Profile111','LIBNAME.Desktop','LIBNAME.Shared','LIBNAME.Tests','LIBNAME.NuGet'
 $TemplateDirectories = @()
 $SrcDirectories = @()
 foreach($dir in $Directories) {
@@ -77,7 +77,7 @@ $Replacements = @{
 Copy-Item -Recurse -Path $TemplateDirectories -Destination $Src
 $SrcDirectories |% { Replace-Placeholders -LibraryName $LibraryName -Replacements $Replacements -Path $_ }
 
-& "$PSScriptRoot\CreateExportsTxtFile.ps1" -AssemblyPath "$env:windir\System32\$LibraryName.dll" -OutputDir "$Src\$LibraryName.Desktop\"
+& "$PSScriptRoot\CreateExportsTxtFile.ps1" -AssemblyPath "$env:windir\System32\$LibraryName.dll" -OutputDir "$Src\$LibraryNamey\"
 
 Write-Output "Great. Your new projects have been created. Please also perform a few more manual steps:"
 Write-Output "1. Add these new projects to your solution file:"
