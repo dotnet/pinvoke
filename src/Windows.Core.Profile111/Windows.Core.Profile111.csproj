@@ -33,6 +33,8 @@
     <ProjectReference Include="..\CodeGenerationAttributes.Profile111\CodeGenerationAttributes.Profile111.csproj">
       <Project>{05fba24a-b0f6-4b04-b00f-9aa5acd191a9}</Project>
       <Name>CodeGenerationAttributes.Profile111</Name>
+      <Private>False</Private>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
     </ProjectReference>
     <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
       <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
