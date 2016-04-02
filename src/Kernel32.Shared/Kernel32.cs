@@ -6,7 +6,6 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-    using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 
     /// <summary>
     /// Exported functions from the Kernel32.dll Windows library.
