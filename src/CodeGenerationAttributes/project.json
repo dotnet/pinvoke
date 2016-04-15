@@ -18,7 +18,6 @@
     ".NETPortable,Version=v4.0,Profile=Profile92": { }
   },
   "runtimes": {
-    "win-anycpu": { },
     "win": { }
   }
 }
