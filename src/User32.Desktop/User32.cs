@@ -93,7 +93,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = false)]
         public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindowEx(
             IntPtr parentHandle,
             IntPtr childAfter,
@@ -107,7 +107,7 @@ namespace PInvoke
         public static extern IntPtr GetForegroundWindow();
 
         [DllImport(nameof(User32))]
-        public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
