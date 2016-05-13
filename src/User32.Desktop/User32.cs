@@ -128,6 +128,12 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
+        [DllImport(nameof(User32))]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, StringBuilder lParam);
+
+        [DllImport(nameof(User32))]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, uint wParam, int lParam);
+
         /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
         ///     input is directed to the window, and various visual cues are changed for the user. The system assigns a slightly
