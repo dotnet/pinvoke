@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Text;
 
     /// <summary>
     /// Exported functions from the User32.dll Windows library.
@@ -68,6 +69,16 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
 
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern bool SetWindowPos(
             IntPtr hWnd,
@@ -77,6 +88,14 @@ namespace PInvoke
             int cx,
             int cy,
             SetWindowPosFlags uFlags);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool MoveWindow(IntPtr hWnd,
+            int X, 
+            int Y, 
+            int nWidth, 
+            int nHeight, 
+            bool bRepaint);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
@@ -263,6 +282,10 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern bool ReleaseCapture();
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, PrintWindowFlags nFlags);
 
         /// <summary>Flashes the specified window. It does not change the active state of the window.</summary>
         /// <param name="pwfi">A pointer to a <see cref="FLASHWINFO" /> structure.</param>
@@ -476,5 +499,8 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int RegisterWindowMessage(string lpString);
     }
 }
