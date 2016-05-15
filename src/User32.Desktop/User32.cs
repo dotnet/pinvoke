@@ -69,11 +69,26 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
 
+        /// <summary>
+        /// Retrieves the name of the class to which the specified window belongs.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
+        /// <param name="lpClassName">The class name string.</param>
+        /// <param name="nMaxCount">
+        /// The length of the <paramref name="lpClassName"/> buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the class name string is truncated to <paramref name="nMaxCount"/>-1 characters.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the number of characters copied to the buffer, not including the terminating null character.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+        public static extern unsafe int GetClassName(
+            IntPtr hWnd,
+            [Friendly(FriendlyFlags.Array)] char* lpClassName,
+            int nMaxCount);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -90,11 +105,12 @@ namespace PInvoke
             SetWindowPosFlags uFlags);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern bool MoveWindow(IntPtr hWnd,
-            int X, 
-            int Y, 
-            int nWidth, 
-            int nHeight, 
+        public static extern bool MoveWindow(
+            IntPtr hWnd,
+            int X,
+            int Y,
+            int nWidth,
+            int nHeight,
             bool bRepaint);
 
         [DllImport(nameof(User32), SetLastError = true)]
@@ -126,13 +142,7 @@ namespace PInvoke
         public static extern IntPtr GetForegroundWindow();
 
         [DllImport(nameof(User32))]
-        public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
-
-        [DllImport(nameof(User32))]
-        public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, StringBuilder lParam);
-
-        [DllImport(nameof(User32))]
-        public static extern int SendMessage(IntPtr hWnd, int wMsg, uint wParam, int lParam);
+        public static extern unsafe int SendMessage(IntPtr hWnd, int wMsg, void* wParam, void* lParam);
 
         /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
@@ -479,6 +489,9 @@ namespace PInvoke
             int cyDesired,
             LookupIconIdFromDirectoryExFlags Flags);
 
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern int RegisterWindowMessage(string lpString);
+
         /// <summary>
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
@@ -505,8 +518,5 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         private static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern int RegisterWindowMessage(string lpString);
     }
 }
