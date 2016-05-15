@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="HiddAttributes"/> nested class.
+    /// Contains the <see cref="HiddAttributes"/> nested type.
     /// </content>
     public static partial class Hid
     {

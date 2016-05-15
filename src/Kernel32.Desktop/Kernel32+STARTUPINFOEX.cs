@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="STARTUPINFOEX"/> nested struct.
+    /// Contains the <see cref="STARTUPINFOEX"/> nested type.
     /// </content>
     public partial class Kernel32
     {

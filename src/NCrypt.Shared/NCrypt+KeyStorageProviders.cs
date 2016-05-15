@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="KeyStorageProviders"/> nested class.
+    /// Contains the <see cref="KeyStorageProviders"/> nested type.
     /// </content>
     public partial class NCrypt
     {

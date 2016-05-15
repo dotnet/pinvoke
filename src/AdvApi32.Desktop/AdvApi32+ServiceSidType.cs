@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="ServiceSidType"/> nested enum.
+    /// Contains the <see cref="ServiceSidType"/> nested type.
     /// </content>
     public static partial class AdvApi32
     {

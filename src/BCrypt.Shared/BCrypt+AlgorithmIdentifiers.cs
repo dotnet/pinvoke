@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="AlgorithmIdentifiers"/> nested class.
+    /// Contains the <see cref="AlgorithmIdentifiers"/> nested type.
     /// </content>
     public static partial class BCrypt
     {

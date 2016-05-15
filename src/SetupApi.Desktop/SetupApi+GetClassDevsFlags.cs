@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Diagnostics.CodeAnalysis;
 
     /// <content>
-    /// Contains the <see cref="GetClassDevsFlags"/> nested enum.
+    /// Contains the <see cref="GetClassDevsFlags"/> nested type.
     /// </content>
     public partial class SetupApi
     {

@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="KeyDerivationFunctions"/> nested class.
+    /// Contains the <see cref="KeyDerivationFunctions"/> nested type.
     /// </content>
     public partial class BCrypt
     {

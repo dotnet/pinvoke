@@ -9,7 +9,7 @@ namespace PInvoke
 #pragma warning disable SA1401 // Fields must be private
 
     /// <content>
-    /// Contains the <see cref="UNICODE_STRING"/> nested struct.
+    /// Contains the <see cref="UNICODE_STRING"/> nested type.
     /// </content>
     public static partial class NTDll
     {

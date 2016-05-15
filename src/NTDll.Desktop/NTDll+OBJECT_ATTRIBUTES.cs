@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="OBJECT_ATTRIBUTES"/> nested struct.
+    /// Contains the <see cref="OBJECT_ATTRIBUTES"/> nested type.
     /// </content>
     public static partial class NTDll
     {

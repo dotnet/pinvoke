@@ -8,7 +8,7 @@ namespace PInvoke
     using static Kernel32;
 
     /// <content>
-    /// Contains the <see cref="SafeObjectHandle"/> nested class.
+    /// Contains the <see cref="SafeObjectHandle"/> nested type.
     /// </content>
     public static partial class Hid
     {

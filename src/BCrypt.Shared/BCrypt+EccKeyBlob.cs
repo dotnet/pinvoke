@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="EccKeyBlob"/> nested struct.
+    /// Contains the <see cref="EccKeyBlob"/> nested type.
     /// </content>
     public partial class BCrypt
     {

@@ -7,7 +7,7 @@ namespace PInvoke
     using static Kernel32.ACCESS_MASK.StandardRight;
 
     /// <content>
-    /// Contains the <see cref="ServiceAccess"/> nested enum.
+    /// Contains the <see cref="ServiceAccess"/> nested type.
     /// </content>
     public partial class AdvApi32
     {

@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SafeProviderHandle"/> nested class.
+    /// Contains the <see cref="SafeProviderHandle"/> nested type.
     /// </content>
     public static partial class NCrypt
     {

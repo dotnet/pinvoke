@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="SECURITY_STATUS"/> nested enum.
+    /// Contains the <see cref="SECURITY_STATUS"/> nested type.
     /// </content>
     public partial class NCrypt
     {

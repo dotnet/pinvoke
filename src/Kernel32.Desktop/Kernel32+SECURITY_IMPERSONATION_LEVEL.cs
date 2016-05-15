@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="SECURITY_IMPERSONATION_LEVEL"/> nested enum.
+    /// Contains the <see cref="SECURITY_IMPERSONATION_LEVEL"/> nested type.
     /// </content>
     public partial class Kernel32
     {

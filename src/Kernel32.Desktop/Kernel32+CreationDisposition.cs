@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="CreationDisposition"/> nested enum.
+    /// Contains the <see cref="CreationDisposition"/> nested type.
     /// </content>
     public partial class Kernel32
     {

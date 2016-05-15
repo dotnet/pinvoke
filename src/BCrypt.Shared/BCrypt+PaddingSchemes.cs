@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="PaddingSchemes"/> nested enum.
+    /// Contains the <see cref="PaddingSchemes"/> nested type.
     /// </content>
     public partial class BCrypt
     {

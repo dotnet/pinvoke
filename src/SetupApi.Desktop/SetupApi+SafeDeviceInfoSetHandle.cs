@@ -8,7 +8,7 @@ namespace PInvoke
     using static Kernel32;
 
     /// <content>
-    /// Contains the <see cref="SafeDeviceInfoSetHandle"/> nested class.
+    /// Contains the <see cref="SafeDeviceInfoSetHandle"/> nested type.
     /// </content>
     public partial class SetupApi
     {

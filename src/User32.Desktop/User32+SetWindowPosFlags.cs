@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Diagnostics.CodeAnalysis;
 
     /// <content>
-    /// Contains the <see cref="SetWindowPosFlags"/> nested enum.
+    /// Contains the <see cref="SetWindowPosFlags"/> nested type.
     /// </content>
     public partial class User32
     {

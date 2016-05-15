@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// The <see cref="BCryptBuffer"/> nested class.
+    /// The <see cref="BCryptBuffer"/> nested type.
     /// </content>
     public static partial class BCrypt
     {

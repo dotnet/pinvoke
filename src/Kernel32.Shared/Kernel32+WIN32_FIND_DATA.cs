@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="WIN32_FIND_DATA"/> nested struct.
+    /// Contains the <see cref="WIN32_FIND_DATA"/> nested type.
     /// </content>
     public partial class Kernel32
     {

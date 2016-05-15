@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="SetWindowLongFlags"/> nested enum.
+    /// Contains the <see cref="SetWindowLongFlags"/> nested type.
     /// </content>
     public partial class User32
     {

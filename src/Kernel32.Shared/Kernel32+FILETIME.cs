@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="FILETIME"/> nested struct.
+    /// Contains the <see cref="FILETIME"/> nested type.
     /// </content>
     public partial class Kernel32
     {

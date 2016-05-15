@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="BCRYPT_KEY_LENGTHS_STRUCT"/> nested struct.
+    /// Contains the <see cref="BCRYPT_KEY_LENGTHS_STRUCT"/> nested type.
     /// </content>
     public partial class BCrypt
     {
