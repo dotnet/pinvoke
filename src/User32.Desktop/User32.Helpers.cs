@@ -4,9 +4,7 @@
 namespace PInvoke
 {
     using System;
-    using System.ComponentModel;
     using System.Runtime.InteropServices;
-    using PInvoke;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -27,25 +25,6 @@ namespace PInvoke
         {
             var hdc = GetDC_IntPtr(hWnd);
             return hdc != IntPtr.Zero ? new SafeDCHandle(hWnd, hdc) : null;
-        }
-
-        /// <summary>
-        /// Retrieves the name of the class to which the specified window belongs.
-        /// </summary>
-        /// <param name = "hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
-        /// <returns>The class name string.</returns>
-        /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
-        public static unsafe string GetClassName(IntPtr hWnd)
-        {
-            const int bufferSize = 256;
-            char* className = stackalloc char[bufferSize]; // max class name length
-            int count = GetClassName(hWnd, className, bufferSize);
-            if (count == 0)
-            {
-                throw new Win32Exception();
-            }
-
-            return new string(className, 0, count);
         }
     }
 }
