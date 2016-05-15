@@ -21,6 +21,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="User32+WindowMessage.cs" />
     <Compile Include="User32+MessageBeepType.cs" />
     <Compile Include="User32+FlashWindowFlags.cs" />
     <Compile Include="User32+FLASHWINFO.cs" />
@@ -35,6 +36,7 @@
     <Compile Include="User32+SafeHookHandle.cs" />
     <Compile Include="User32+GetAncestorFlags.cs" />
     <Compile Include="User32+SetWindowLongFlags.cs" />
+    <Compile Include="User32+PrintWindowFlags.cs" />
     <Compile Include="User32+SetWindowPosFlags.cs" />
     <Compile Include="User32+WindowLongIndexFlags.cs" />
     <Compile Include="User32+WindowsHookType.cs" />
@@ -61,6 +63,10 @@
       <Name>CodeGeneration</Name>
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Kernel32\Kernel32.csproj">
+      <Project>{1FDC092A-D3E8-4CC4-B896-17E0A213F723}</Project>
+      <Name>Kernel32</Name>
     </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
