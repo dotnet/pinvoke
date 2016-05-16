@@ -24,27 +24,27 @@ namespace PInvoke
             Level_1 = 1,
 
             /// <summary>
-            /// Return detailed information about user accounts, including authorization levels and logon information. The bufptr parameter points to an array of <see cref="USER_INFO_2"/> structures.
+            /// Return detailed information about user accounts, including authorization levels and logon information. The bufptr parameter points to an array of USER_INFO_2 structures.
             /// </summary>
             Level_2 = 2,
 
             /// <summary>
-            /// Return detailed information about user accounts, including authorization levels, logon information, RIDs for the user and the primary group, and profile information. The bufptr parameter points to an array of <see cref="USER_INFO_3"/> structures.
+            /// Return detailed information about user accounts, including authorization levels, logon information, RIDs for the user and the primary group, and profile information. The bufptr parameter points to an array of USER_INFO_3 structures.
             /// </summary>
             Level_3 = 3,
 
             /// <summary>
-            /// Return user and account names and comments. The bufptr parameter points to an array of <see cref="USER_INFO_10"/> structures.
+            /// Return user and account names and comments. The bufptr parameter points to an array of USER_INFO_10 structures.
             /// </summary>
             Level_10 = 10,
 
             /// <summary>
-            /// Return detailed information about user accounts. The bufptr parameter points to an array of <see cref="USER_INFO_11"/> structures.
+            /// Return detailed information about user accounts. The bufptr parameter points to an array of USER_INFO_11 structures.
             /// </summary>
             Level_11 = 11,
 
             /// <summary>
-            /// Return the user's name and identifier and various account attributes. The bufptr parameter points to an array of <see cref="USER_INFO_20"/> structures. Note that on Windows XP and later, it is recommended that you use <see cref="USER_INFO_23"/> instead.
+            /// Return the user's name and identifier and various account attributes. The bufptr parameter points to an array of USER_INFO_20 structures. Note that on Windows XP and later, it is recommended that you use USER_INFO_23 instead.
             /// </summary>
             Level_20 = 20,
         }
