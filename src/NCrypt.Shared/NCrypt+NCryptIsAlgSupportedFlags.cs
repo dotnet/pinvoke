@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="NCryptIsAlgSupportedFlags"/> nested enum.
+    /// Contains the <see cref="NCryptIsAlgSupportedFlags"/> nested type.
     /// </content>
     public partial class NCrypt
     {

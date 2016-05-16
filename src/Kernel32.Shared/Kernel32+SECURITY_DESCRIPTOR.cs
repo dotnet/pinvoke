@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SECURITY_DESCRIPTOR"/> nested struct.
+    /// Contains the <see cref="SECURITY_DESCRIPTOR"/> nested type.
     /// </content>
     public partial class Kernel32
     {

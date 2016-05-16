@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="FINDEX_SEARCH_OPS"/> nested enum.
+    /// Contains the <see cref="FINDEX_SEARCH_OPS"/> nested type.
     /// </content>
     public partial class Kernel32
     {

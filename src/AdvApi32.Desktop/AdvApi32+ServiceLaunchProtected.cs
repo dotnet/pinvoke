@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="ServiceLaunchProtected"/> nested enum.
+    /// Contains the <see cref="ServiceLaunchProtected"/> nested type.
     /// </content>
     public static partial class AdvApi32
     {

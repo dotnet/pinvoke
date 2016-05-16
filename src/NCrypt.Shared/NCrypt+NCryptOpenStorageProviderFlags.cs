@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="NCryptOpenStorageProviderFlags"/> nested enum.
+    /// Contains the <see cref="NCryptOpenStorageProviderFlags"/> nested type.
     /// </content>
     public partial class NCrypt
     {

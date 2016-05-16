@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="EccKeyBlobMagicNumbers"/> nested enum.
+    /// Contains the <see cref="EccKeyBlobMagicNumbers"/> nested type.
     /// </content>
     public partial class BCrypt
     {

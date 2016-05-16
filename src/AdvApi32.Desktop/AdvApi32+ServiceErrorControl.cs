@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="ServiceErrorControl"/> nested enum.
+    /// Contains the <see cref="ServiceErrorControl"/> nested type.
     /// </content>
     public partial class AdvApi32
     {

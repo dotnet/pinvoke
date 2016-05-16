@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="NCRYPT_SUPPORTED_LENGTHS"/> nested struct.
+    /// Contains the <see cref="NCRYPT_SUPPORTED_LENGTHS"/> nested type.
     /// </content>
     public partial class NCrypt
     {

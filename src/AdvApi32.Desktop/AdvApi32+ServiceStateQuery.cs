@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="ServiceStateQuery"/> nested enum.
+    /// Contains the <see cref="ServiceStateQuery"/> nested type.
     /// </content>
     public partial class AdvApi32
     {

@@ -9,7 +9,7 @@ namespace PInvoke
 #pragma warning disable SA1401 // Fields must be private
 
     /// <content>
-    /// Contains the <see cref="SECURITY_ATTRIBUTES"/> nested struct.
+    /// Contains the <see cref="SECURITY_ATTRIBUTES"/> nested type.
     /// </content>
     public partial class Kernel32
     {

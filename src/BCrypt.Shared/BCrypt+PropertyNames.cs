@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="PropertyNames"/> nested class.
+    /// Contains the <see cref="PropertyNames"/> nested type.
     /// </content>
     public partial class BCrypt
     {

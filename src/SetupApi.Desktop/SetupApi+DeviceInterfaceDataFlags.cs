@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Diagnostics.CodeAnalysis;
 
     /// <content>
-    /// Contains the <see cref="DeviceInterfaceDataFlags"/> nested enum.
+    /// Contains the <see cref="DeviceInterfaceDataFlags"/> nested type.
     /// </content>
     public partial class SetupApi
     {

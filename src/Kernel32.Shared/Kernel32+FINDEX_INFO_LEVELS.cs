@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="FINDEX_INFO_LEVELS"/> nested enum.
+    /// Contains the <see cref="FINDEX_INFO_LEVELS"/> nested type.
     /// </content>
     public partial class Kernel32
     {

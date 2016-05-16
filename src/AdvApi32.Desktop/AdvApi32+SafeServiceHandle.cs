@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SafeServiceHandle"/> nested class.
+    /// Contains the <see cref="SafeServiceHandle"/> nested type.
     /// </content>
     public partial class AdvApi32
     {

@@ -8,7 +8,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SP_DEVINFO_DATA" /> nested struct.
+    /// Contains the <see cref="SP_DEVINFO_DATA" /> nested type.
     /// </content>
     public partial class SetupApi
     {

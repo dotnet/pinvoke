@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SafeFindFilesHandle"/> nested class.
+    /// Contains the <see cref="SafeFindFilesHandle"/> nested type.
     /// </content>
     public static partial class Kernel32
     {

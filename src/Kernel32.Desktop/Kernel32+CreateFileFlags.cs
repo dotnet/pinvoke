@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="CreateFileFlags"/> nested enum.
+    /// Contains the <see cref="CreateFileFlags"/> nested type.
     /// </content>
     public partial class Kernel32
     {

@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="BCryptDeriveKeyFlags"/> nested enum.
+    /// Contains the <see cref="BCryptDeriveKeyFlags"/> nested type.
     /// </content>
     public partial class BCrypt
     {

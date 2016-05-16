@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="ServiceTriggerAction"/> nested enum.
+    /// Contains the <see cref="ServiceTriggerAction"/> nested type.
     /// </content>
     public static partial class AdvApi32
     {

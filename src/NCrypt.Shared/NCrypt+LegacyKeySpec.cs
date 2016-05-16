@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="LegacyKeySpec"/> nested class.
+    /// Contains the <see cref="LegacyKeySpec"/> nested type.
     /// </content>
     public partial class NCrypt
     {

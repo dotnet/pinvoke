@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="WindowShowStyle"/> nested enum.
+    /// Contains the <see cref="WindowShowStyle"/> nested type.
     /// </content>
     public partial class User32
     {

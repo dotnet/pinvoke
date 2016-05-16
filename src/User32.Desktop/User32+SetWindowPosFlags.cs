@@ -4,17 +4,17 @@
 namespace PInvoke
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <content>
-    /// Contains the <see cref="SetWindowPosFlags"/> nested enum.
+    /// Contains the <see cref="SetWindowPosFlags"/> nested type.
     /// </content>
     public partial class User32
     {
         [Flags]
+        [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Original API names are used for consistency")]
         public enum SetWindowPosFlags : uint
         {
-            // ReSharper disable InconsistentNaming
-
             /// <summary>
             ///     If the calling thread and the thread that owns the window are attached to different input queues, the system posts the request to the thread that owns the window. This prevents the calling thread from blocking its execution while other threads process the request.
             /// </summary>
@@ -89,8 +89,6 @@ namespace PInvoke
             ///     Displays the window.
             /// </summary>
             SWP_SHOWWINDOW = 0x0040,
-
-            // ReSharper restore InconsistentNaming
         }
     }
 }
