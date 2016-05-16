@@ -23,6 +23,7 @@
     <ProjectReference Include="..\Kernel32.NuGet\Kernel32.NuGet.nuproj" />
     <ProjectReference Include="..\Msi.NuGet\Msi.NuGet.nuproj" />
     <ProjectReference Include="..\NCrypt.NuGet\NCrypt.NuGet.nuproj" />
+    <ProjectReference Include="..\NetApi32.NuGet\NetApi32.NuGet.nuproj" />
     <ProjectReference Include="..\NTDll.NuGet\NTDll.NuGet.nuproj" />
     <ProjectReference Include="..\Psapi.NuGet\Psapi.NuGet.nuproj" />
     <ProjectReference Include="..\SetupApi.NuGet\SetupApi.NuGet.nuproj" />
