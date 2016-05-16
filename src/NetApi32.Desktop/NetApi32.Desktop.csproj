@@ -45,6 +45,12 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetApi32+USER_INFO_1.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="NetApi32+USER_INFO_0.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="NetApi32+NetUserEnumFilter.cs" />
     <Compile Include="NetApi32+NetUserEnumLevel.cs" />
     <Compile Include="NetApi32.cs">

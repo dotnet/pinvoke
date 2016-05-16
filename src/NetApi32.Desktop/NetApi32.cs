@@ -30,7 +30,7 @@ namespace PInvoke
         /// </param>
         /// <param name="bufptr">
         /// A pointer to the buffer that receives the data. The format of this data depends on the value of the <paramref name="level"/> parameter.
-        /// The buffer for this data is allocated by the system and the application must call the <see cref="NetApiBufferFree"/> function to free the allocated memory when the data returned is no longer needed. Note that you must free the buffer even if the NetUserEnum function fails with <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>.
+        /// The buffer for this data is allocated by the system and the application must call the <see cref="NetApiBufferFree(void*)"/> function to free the allocated memory when the data returned is no longer needed. Note that you must free the buffer even if the NetUserEnum function fails with <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>.
         /// </param>
         /// <param name="prefmaxlen">
         /// The preferred maximum length, in bytes, of the returned data. If you specify <see cref="MAX_PREFERRED_LENGTH"/>, the NetUserEnum function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>. For more information, see Network Management Function Buffers and Network Management Function Buffer Lengths.
@@ -63,5 +63,30 @@ namespace PInvoke
             out uint entriesread,
             out uint totalentries,
             ref uint resume_handle);
+
+        /// <summary>
+        /// The NetApiBufferFree function frees the memory that the NetApiBufferAllocate function allocates. Applications should also call NetApiBufferFree to free the memory that other network management functions use internally to return information.
+        /// </summary>
+        /// <param name="Buffer">A pointer to a buffer returned previously by another network management function or memory allocated by calling the <see cref="NetApiBufferAllocate(int, out void*)"/> function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is NERR_Success.
+        /// If the function fails, the return value is a system error code. For a list of error codes, see System Error Codes.
+        /// </returns>
+        [DllImport(nameof(NetApi32))]
+        public static extern unsafe Win32ErrorCode NetApiBufferFree(void* Buffer);
+
+        /// <summary>
+        /// The NetApiBufferAllocate function allocates memory from the heap. Use this function only when compatibility with the <see cref="NetApiBufferFree(void*)"/> function is required. Otherwise, use the memory management functions.
+        /// </summary>
+        /// <param name="ByteCount">Number of bytes to be allocated.</param>
+        /// <param name="Buffer">Receives a pointer to the allocated buffer.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is NERR_Success.
+        /// If the function fails, the return value is a system error code. For a list of error codes, see System Error Codes.
+        /// </returns>
+        [DllImport(nameof(NetApi32))]
+        public static extern unsafe Win32ErrorCode NetApiBufferAllocate(
+            int ByteCount,
+            out void* Buffer);
     }
 }
