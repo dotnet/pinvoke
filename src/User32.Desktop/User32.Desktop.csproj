@@ -64,10 +64,6 @@
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
-      <Project>{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}</Project>
-      <Name>Kernel32.Desktop</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>
