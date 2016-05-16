@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class NetApi32
     {
         /// <summary>
-        /// The USER_INFO_0 structure contains a user account name.
+        /// The USER_INFO_1 structure contains information about a user account, including account name, password data, privilege level, and the path to the user's home directory.
         /// </summary>
         [OfferIntPtrPropertyAccessors]
         [StructLayout(LayoutKind.Sequential)]
