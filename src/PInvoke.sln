@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25114.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CD09C869-A027-4F21-B78F-22CF072B9C7F}"
 	ProjectSection(SolutionItems) = preProject
@@ -211,6 +211,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		BCrypt.Shared\BCrypt.Shared.projitems*{6b1e68d2-f4d9-440d-8d5e-1ba6f612789b}*SharedItemsImports = 13
+		Msi.Shared\Msi.Shared.projitems*{01174e89-de65-47dc-bf53-4e2cf34ad843}*SharedItemsImports = 4
 		NCrypt.Shared\NCrypt.Shared.projitems*{6aaa088f-2adc-4ffd-8d11-d8b67d5ec88c}*SharedItemsImports = 4
 		Crypt32.Shared\Crypt32.Shared.projitems*{52e2938c-8a5d-4cf2-99bd-412ffa4e42d4}*SharedItemsImports = 4
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{6a77281b-c503-44ea-90c1-0e9868d06cd0}*SharedItemsImports = 4
@@ -234,6 +235,7 @@ Global
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{05fba24a-b0f6-4b04-b00f-9aa5acd191a9}*SharedItemsImports = 4
 		Windows.Core.Shared\Windows.Core.Shared.projitems*{41f91f44-4f45-4f8f-9d24-3dc0d22e2986}*SharedItemsImports = 13
 		Kernel32.Shared\Kernel32.Shared.projitems*{15a8ded1-0f36-4b35-9973-22851da77544}*SharedItemsImports = 13
+		Msi.Shared\Msi.Shared.projitems*{23a37549-45b1-4db6-8cd0-5b4bd8ccf2c6}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{d7224f5b-1aee-4624-a71f-f0bb10c63555}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{18ba8c60-9a63-4eea-bb5c-c9899d86f5b8}*SharedItemsImports = 4
 		Windows.Core.Shared\Windows.Core.Shared.projitems*{1386982c-4731-46cd-9444-18e891aecde0}*SharedItemsImports = 4
@@ -241,6 +243,7 @@ Global
 		DbgHelp.Shared\DbgHelp.Shared.projitems*{26a6f480-5ed3-48b8-9bba-243115672098}*SharedItemsImports = 4
 		NTDll.Shared\NTDll.Shared.projitems*{f64c8b26-5e30-4a7a-8643-f58e4602c64a}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{70a292c0-8f92-4639-bbd9-9e353fa0cd43}*SharedItemsImports = 4
+		Msi.Shared\Msi.Shared.projitems*{3bb697ea-3ed3-4d01-b260-71edee697d3a}*SharedItemsImports = 13
 		Crypt32.Shared\Crypt32.Shared.projitems*{58e5cccf-5486-4aa9-9069-7ba0c3f6deef}*SharedItemsImports = 4
 		DbgHelp.Shared\DbgHelp.Shared.projitems*{9e993e23-3da3-4824-afd1-d8c9db1d9c8a}*SharedItemsImports = 13
 	EndGlobalSection
