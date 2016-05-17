@@ -541,6 +541,31 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Array), In] INPUT* pInputs,
             int cbSize);
 
+        /// <summary>
+        /// Waits until the specified process has finished processing its initial input and is waiting for user input with no input pending, or until the time-out interval has elapsed.
+        /// </summary>
+        /// <param name="hProcess">A handle to the process. If this process is a console application or does not have a message queue, WaitForInputIdle returns immediately.</param>
+        /// <param name="dwMilliseconds">The time-out interval, in milliseconds. If dwMilliseconds is INFINITE, the function does not return until the process is idle.</param>
+        /// <returns>0 if the wait was satisfied successfully., WAIT_TIMEOUT if the wait was terminated because the time-out interval elapsed, and WAIT_FAILED if an error occurred.</returns>
+        /// <remarks>Raymond Chen has a series of articles that give a bit more depth to how this function was intended to be used.
+        /// <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/03/25/9984720.aspx">Here</a> and <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/03/26/9985422.aspx">here</a>.
+        /// The jist of it is that this function should have been really called WaitForProcessStartupComplete, as this is all it does.</remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern uint WaitForInputIdle(IntPtr hProcess, uint dwMilliseconds);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern short GetAsyncKeyState(int vKey);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern short GetAsyncKeyState(VirtualKey vKey);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern short GetKeyState(int vKey);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern short GetKeyState(VirtualKey vKey);
+
+        /// <summary>
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
         /// </summary>
