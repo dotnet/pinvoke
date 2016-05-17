@@ -47,5 +47,24 @@ namespace PInvoke
 
             return new string(className, 0, count);
         }
+
+        /// <summary>
+        /// Retrieves from the clipboard the name of the specified registered format.
+        /// </summary>
+        /// <param name = "format">The type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.</param>
+        /// <returns>The format name string.</returns>
+        /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
+        public static unsafe string GetClipboardFormatName(int format)
+        {
+            const int bufferSize = 256;
+            char* formatName = stackalloc char[bufferSize]; // max class name length
+            int count = GetClipboardFormatName(format, formatName, bufferSize);
+            if (count == 0)
+            {
+                throw new Win32Exception();
+            }
+
+            return new string(formatName, 0, count);
+        }
     }
 }

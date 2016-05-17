@@ -504,6 +504,22 @@ namespace PInvoke
         public static extern int RegisterWindowMessage(string lpString);
 
         /// <summary>
+        /// Retrieves the name of the format from the clipboard.
+        /// </summary>
+        /// <param name="format">The type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.</param>
+        /// <param name="lpszFormatName">The format name string.</param>
+        /// <param name="nMaxCount">
+        /// The length of the <paramref name="lpszFormatName"/> buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the format name string is truncated to <paramref name="nMaxCount"/>-1 characters.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the number of characters copied to the buffer.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern unsafe int GetClipboardFormatName(
+            int format,
+            [Friendly(FriendlyFlags.Array)] char* lpszFormatName,
+            int nMaxCount);
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
         /// </summary>
