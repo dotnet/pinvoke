@@ -520,6 +520,27 @@ namespace PInvoke
             int format,
             [Friendly(FriendlyFlags.Array)] char* lpszFormatName,
             int nMaxCount);
+
+        /// <summary>
+        /// Synthesizes keystrokes, mouse motions, and button clicks.
+        /// </summary>
+        /// <param name="nInputs">The number of structures in the <paramref name="pInputs" /> array.</param>
+        /// <param name="pInputs">An array of  structures. Each structure represents an event to be inserted into the keyboard or mouse input stream.</param>
+        /// <param name="cbSize">The size, in bytes, of an <see cref="INPUT" /> structure. If cbSize is not the size of an <see cref="INPUT" /> structure, the function fails.</param>
+        /// <returns>
+        /// The function returns the number of events that it successfully inserted into the keyboard or mouse input stream.
+        /// If the function returns zero, the input was already blocked by another thread. To get extended error information, call GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// This function is subject to UIPI. Applications are permitted to inject input only into applications that are at an equal or lesser integrity level.
+        /// This function fails when it is blocked by UIPI. Note that neither GetLastError nor the return value will indicate the failure was caused by UIPI blocking.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe uint SendInput(
+            uint nInputs,
+            [Friendly(FriendlyFlags.Array), In] INPUT* pInputs,
+            int cbSize);
+
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
         /// </summary>
