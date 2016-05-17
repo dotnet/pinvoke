@@ -88,7 +88,7 @@ namespace PInvoke
             int nMaxCount);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+        public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
