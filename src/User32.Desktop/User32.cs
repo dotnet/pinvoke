@@ -144,6 +144,17 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern unsafe IntPtr SendMessage(IntPtr hWnd, int wMsg, void* wParam, void* lParam);
 
+        [DllImport(nameof(User32))]
+        public static extern unsafe IntPtr SendMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool PostMessage(IntPtr hWnd, int Msg, void* wParam, void* lParam);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool PostMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
+
         /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
         ///     input is directed to the window, and various visual cues are changed for the user. The system assigns a slightly
