@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="BCryptCloseAlgorithmProviderFlags"/> nested enum.
+    /// Contains the <see cref="BCryptCloseAlgorithmProviderFlags"/> nested type.
     /// </content>
     public partial class BCrypt
     {

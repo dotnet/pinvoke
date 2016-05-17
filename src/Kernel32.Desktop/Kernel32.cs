@@ -1671,6 +1671,19 @@ namespace PInvoke
         public static extern int SizeofResource(SafeLibraryHandle hModule, IntPtr hResInfo);
 
         /// <summary>
+        /// Suspends the specified WOW64 thread.
+        /// </summary>
+        /// <param name="hThread">
+        /// A handle to the thread that is to be suspended.
+        /// The handle must have the THREAD_SUSPEND_RESUME access right. For more information, see Thread Security and Access Rights.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern int Wow64SuspendThread(SafeObjectHandle hThread);
+
+        /// <summary>
         ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the
         ///     reference count reaches zero, the module is unloaded from the address space of the calling process and the handle
         ///     is no longer valid.

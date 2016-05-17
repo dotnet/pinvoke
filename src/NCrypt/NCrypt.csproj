@@ -23,62 +23,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="NCrypt+InterfaceIdentifiers.cs" />
-    <Compile Include="NCrypt+KeyStoragePropertyValues.cs" />
-    <Compile Include="NCrypt+NCryptKeyDerivationFlags.cs" />
-    <Compile Include="NCrypt+NCryptOpenKeyFlags.cs" />
-    <Compile Include="NCrypt+NCryptEnumKeysFlags.cs" />
-    <Compile Include="NCrypt+NCryptEnumStorageProvidersFlags.cs" />
-    <Compile Include="NCrypt+NCryptIsAlgSupportedFlags.cs" />
-    <Compile Include="NCrypt+AlgorithmOperations.cs" />
-    <Compile Include="NCrypt+AsymmetricKeyBlobTypes.cs" />
-    <Compile Include="NCrypt+NCryptAlgorithmName.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="NCrypt+NCryptDeriveKeyFlags.cs" />
-    <Compile Include="NCrypt+NCryptEnumAlgorithmsFlags.cs" />
-    <Compile Include="NCrypt+NCryptKeyName.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="NCrypt+NCryptProviderName.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="NCrypt+NCryptSecretAgreementFlags.cs" />
-    <Compile Include="NCrypt+NCryptDeleteKeyFlags.cs" />
-    <Compile Include="NCrypt+NCryptSignHashFlags.cs" />
-    <Compile Include="NCrypt+BufferType.cs" />
-    <Compile Include="NCrypt+LegacyKeySpec.cs" />
-    <Compile Include="NCrypt+KeyStorageProviders.cs" />
-    <Compile Include="NCrypt+NCryptBuffer.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="NCrypt+NCryptBufferDesc.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="NCrypt+NCryptCreatePersistedKeyFlags.cs" />
-    <Compile Include="NCrypt+NCryptEncryptFlags.cs" />
-    <Compile Include="NCrypt+NCryptExportKeyFlags.cs" />
-    <Compile Include="NCrypt+NCryptFinalizeKeyFlags.cs" />
-    <Compile Include="NCrypt+NCryptSetPropertyFlags.cs" />
-    <Compile Include="NCrypt+NCryptGetPropertyFlags.cs" />
-    <Compile Include="NCrypt+NCryptOpenStorageProviderFlags.cs" />
-    <Compile Include="NCrypt+KeyStoragePropertyIdentifiers.cs" />
-    <Compile Include="NCrypt+NCRYPT_KEY_BLOB_HEADER.cs" />
-    <Compile Include="NCrypt+NCRYPT_SUPPORTED_LENGTHS.cs" />
-    <Compile Include="NCrypt+SafeKeyHandle.cs" />
-    <Compile Include="NCrypt+SafeProviderHandle.cs" />
-    <Compile Include="NCrypt+SafeSecretHandle.cs" />
-    <Compile Include="NCrypt+SECURITY_STATUS.cs" />
-    <Compile Include="NCrypt+SymmetricKeyBlobTypes.cs" />
-    <Compile Include="NCrypt.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="NCrypt.Helpers.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="NCryptExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecurityStatusException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
@@ -109,11 +54,7 @@
       <Name>Windows.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="NCrypt.exports.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+  <Import Project="..\NCrypt.Shared\NCrypt.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
 </Project>

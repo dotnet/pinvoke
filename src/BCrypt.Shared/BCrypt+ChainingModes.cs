@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="ChainingModes"/> nested class.
+    /// Contains the <see cref="ChainingModes"/> nested type.
     /// </content>
     public partial class BCrypt
     {

@@ -6,7 +6,6 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-    using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 
     /// <summary>
     /// Exported functions from the Kernel32.dll Windows library.
@@ -89,7 +88,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.
         /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0)]
+        [DllImport(api_ms_win_core_file_l1_2_0, CharSet = CharSet.Unicode)]
         public static unsafe extern SafeFindFilesHandle FindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, void* lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags);
 
         /// <summary>
@@ -360,7 +359,7 @@ namespace PInvoke
 
         /// <summary>
         /// Suspends the specified thread.
-        /// A 64-bit application can suspend a WOW64 thread using the <see cref="Wow64SuspendThread"/> function.
+        /// A 64-bit application can suspend a WOW64 thread using the Wow64SuspendThread function (desktop only).
         /// </summary>
         /// <param name="hThread">
         /// A handle to the thread that is to be suspended.
@@ -371,19 +370,6 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         public static extern int SuspendThread(SafeObjectHandle hThread);
-
-        /// <summary>
-        /// Suspends the specified WOW64 thread.
-        /// </summary>
-        /// <param name="hThread">
-        /// A handle to the thread that is to be suspended.
-        /// The handle must have the THREAD_SUSPEND_RESUME access right. For more information, see Thread Security and Access Rights.
-        /// </param>
-        /// <returns>
-        /// If the function succeeds, the return value is the thread's previous suspend count; otherwise, it is (DWORD) -1. To get extended error information, use the <see cref="GetLastError"/> function.
-        /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern int Wow64SuspendThread(SafeObjectHandle hThread);
 
         /// <summary>
         /// Decrements a thread's suspend count. When the suspend count is decremented to zero, the execution of the thread is resumed.
@@ -459,6 +445,35 @@ namespace PInvoke
         [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlushFileBuffers(SafeObjectHandle hFile);
+
+        /// <summary>
+        /// Creates or opens a named or unnamed mutex object.
+        /// </summary>
+        /// <param name="lpMutexAttributes">
+        /// A pointer to a <see cref="SECURITY_ATTRIBUTES"/> structure. If this parameter is NULL, the handle cannot be inherited by child processes.
+        /// The <see cref="SECURITY_ATTRIBUTES.lpSecurityDescriptor"/> member of the structure specifies a security descriptor for the new mutex. If <paramref name="lpMutexAttributes"/> is NULL, the mutex gets a default security descriptor. The ACLs in the default security descriptor for a mutex come from the primary or impersonation token of the creator. For more information, see Synchronization Object Security and Access Rights.
+        /// </param>
+        /// <param name="bInitialOwner">
+        /// If this value is TRUE and the caller created the mutex, the calling thread obtains initial ownership of the mutex object. Otherwise, the calling thread does not obtain ownership of the mutex. To determine if the caller created the mutex, see the Return Values section.
+        /// </param>
+        /// <param name="lpName">
+        /// The name of the mutex object. The name is limited to MAX_PATH characters. Name comparison is case sensitive.
+        /// If lpName matches the name of an existing named mutex object, this function requests the MUTEX_ALL_ACCESS access right. In this case, the bInitialOwner parameter is ignored because it has already been set by the creating process. If the lpMutexAttributes parameter is not NULL, it determines whether the handle can be inherited, but its security-descriptor member is ignored.
+        /// If lpName is NULL, the mutex object is created without a name.
+        /// If lpName matches the name of an existing event, semaphore, waitable timer, job, or file-mapping object, the function fails and the GetLastError function returns ERROR_INVALID_HANDLE. This occurs because these objects share the same namespace.
+        /// The name can have a "Global\" or "Local\" prefix to explicitly create the object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\). For more information, see Kernel Object Namespaces. Fast user switching is implemented using Terminal Services sessions. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
+        /// The object can be created in a private namespace. For more information, see Object Namespaces.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the newly created mutex object.
+        /// If the function fails, the return value is NULL. To get extended error information, call GetLastError.
+        /// If the mutex is a named mutex and the object existed before this function call, the return value is a handle to the existing object, GetLastError returns ERROR_ALREADY_EXISTS, bInitialOwner is ignored, and the calling thread is not granted ownership. However, if the caller has limited access rights, the function will fail with ERROR_ACCESS_DENIED and the caller should use the OpenMutex function.
+        /// </returns>
+        [DllImport(api_ms_win_core_synch_l1_2_0, CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern unsafe SafeObjectHandle CreateMutex(
+            [Friendly(FriendlyFlags.Optional | FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpMutexAttributes,
+            [MarshalAs(UnmanagedType.Bool)] bool bInitialOwner,
+            string lpName);
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+  </PropertyGroup>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))\EnlistmentInfo.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))' != '' " />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A9B393CA-9F5F-41A7-832C-26B92091B2F7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PInvoke</RootNamespace>
+    <AssemblyName>PInvoke.NCrypt</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BCrypt.Profile111\BCrypt.Profile111.csproj">
+      <Project>{dcdc8e36-b213-40db-9c04-805a884a9ad5}</Project>
+      <Name>BCrypt.Profile111</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGenerationAttributes.Profile111\CodeGenerationAttributes.Profile111.csproj">
+      <Project>{05FBA24A-B0F6-4B04-B00F-9AA5ACD191A9}</Project>
+      <Name>CodeGenerationAttributes.Profile111</Name>
+      <Private>False</Private>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <Project>{C1815471-02AF-4BB9-8D83-652ADBAFF5B6}</Project>
+      <Name>CodeGeneration</Name>
+      <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Kernel32.Profile111\Kernel32.Profile111.csproj">
+      <Project>{70a292c0-8f92-4639-bbd9-9e353fa0cd43}</Project>
+      <Name>Kernel32.Profile111</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
+      <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
+      <Name>Windows.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\NCrypt.Shared\NCrypt.Shared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
+</Project>

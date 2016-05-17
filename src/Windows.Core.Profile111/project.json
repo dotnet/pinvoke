@@ -1,0 +1,18 @@
+{
+  "supports": { },
+  "dependencies": {
+    "Nerdbank.GitVersioning": {
+      "version": "1.4.6",
+      "suppressParent": "none"
+    },
+    "Nuproj": "0.10.48-beta-gea4a31bbc5",
+    "Nuproj.Common": {
+      "version": "0.10.48-beta-gea4a31bbc5",
+      "suppressParent": "none"
+    },
+    "StyleCop.Analyzers": "1.0.0-rc2"
+  },
+  "frameworks": {
+    ".NETPortable,Version=v4.5,Profile=Profile111": { }
+  }
+}

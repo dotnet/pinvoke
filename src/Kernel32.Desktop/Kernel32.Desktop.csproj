@@ -55,8 +55,6 @@
     <Compile Include="Kernel32+ResourceTypes.cs" />
     <Compile Include="Kernel32+SafeLibraryHandle.cs" />
     <Compile Include="Kernel32+SECURITY_IMPERSONATION_LEVEL.cs" />
-    <Compile Include="Kernel32+SECURITY_ATTRIBUTES.cs" />
-    <Compile Include="Kernel32+SECURITY_DESCRIPTOR.cs" />
     <Compile Include="Kernel32+StartupInfoFlags.cs" />
     <Compile Include="Kernel32+STARTUPINFOEX.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>

@@ -3,7 +3,7 @@
 
 namespace PInvoke
 {
-    /// <content>Contains the <see cref="ProcessAccess" /> nested struct.</content>
+    /// <content>Contains the <see cref="ProcessAccess" /> nested type.</content>
     public partial class Kernel32
     {
         /// <summary>

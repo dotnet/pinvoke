@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>15a8ded1-0f36-4b35-9973-22851da77544</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>PInvoke</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt.Helpers.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+InterfaceIdentifiers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+KeyStoragePropertyValues.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptKeyDerivationFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptOpenKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptEnumKeysFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptIsAlgSupportedFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+AlgorithmOperations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+AsymmetricKeyBlobTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptAlgorithmName.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptDeriveKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptEnumAlgorithmsFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptKeyName.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptSecretAgreementFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptDeleteKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptSignHashFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+BufferType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+LegacyKeySpec.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+KeyStorageProviders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptBuffer.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptBufferDesc.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptCreatePersistedKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptEncryptFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptExportKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptFinalizeKeyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptSetPropertyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptGetPropertyFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCryptOpenStorageProviderFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+KeyStoragePropertyIdentifiers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCRYPT_KEY_BLOB_HEADER.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+NCRYPT_SUPPORTED_LENGTHS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+SafeKeyHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+SafeProviderHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+SafeSecretHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+SECURITY_STATUS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCrypt+SymmetricKeyBlobTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NCryptExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SecurityStatusException.cs" />
+  </ItemGroup>
+</Project>

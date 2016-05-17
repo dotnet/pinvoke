@@ -6,7 +6,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="AsymmetricKeyBlobTypes"/> nested class.
+    /// Contains the <see cref="AsymmetricKeyBlobTypes"/> nested type.
     /// </content>
     public partial class BCrypt
     {

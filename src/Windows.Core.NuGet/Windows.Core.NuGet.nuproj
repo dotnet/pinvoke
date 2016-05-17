@@ -37,6 +37,7 @@
     <None Include="PInvoke.Windows.Core.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Windows.Core.Profile111\Windows.Core.Profile111.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />

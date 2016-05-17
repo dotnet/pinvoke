@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="FileShare"/> nested enum.
+    /// Contains the <see cref="FileShare"/> nested type.
     /// </content>
     public partial class Kernel32
     {

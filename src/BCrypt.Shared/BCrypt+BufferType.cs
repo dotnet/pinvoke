@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="BufferType"/> nested enum.
+    /// Contains the <see cref="BufferType"/> nested type.
     /// </content>
     public partial class BCrypt
     {

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FileAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FILETIME.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FINDEX_INFO_LEVELS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FINDEX_SEARCH_OPS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FindFirstFileExFlags.cs" />
@@ -17,6 +18,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+OVERLAPPED.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeFindFilesHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeObjectHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SECURITY_ATTRIBUTES.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SECURITY_DESCRIPTOR.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+WaitForSingleObjectResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+WIN32_FIND_DATA.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs">

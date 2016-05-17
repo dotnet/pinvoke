@@ -9,7 +9,7 @@ namespace PInvoke
     using System.Text;
 
     /// <content>
-    /// Contains the <see cref="PROCESSENTRY32" /> nested struct.
+    /// Contains the <see cref="PROCESSENTRY32" /> nested type.
     /// </content>
     public partial class Kernel32
     {

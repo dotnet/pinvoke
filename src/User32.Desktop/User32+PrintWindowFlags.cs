@@ -4,16 +4,16 @@
 namespace PInvoke
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <content>
-    /// Contains the <see cref="PrintWindow"/> nested enum.
+    /// Contains the <see cref="PrintWindow"/> nested type.
     /// </content>
     public partial class User32
     {
+        [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Original API names are used for consistency")]
         public enum PrintWindowFlags : uint
         {
-            // ReSharper disable InconsistentNaming
-
             /// <summary>
             ///     Default option. The entire window is copied to hdcBlt.
             /// </summary>
@@ -24,8 +24,6 @@ namespace PInvoke
             /// </summary>
             /// <remarks>By default, the entire window is copied.</remarks>
             PW_CLIENTONLY = 0x0001,
-
-            // ReSharper restore InconsistentNaming
         }
     }
 }

@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="FormatMessageFlags"/> nested enum.
+    /// Contains the <see cref="FormatMessageFlags"/> nested type.
     /// </content>
     public partial class Kernel32
     {

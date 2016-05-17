@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// The <see cref="SafeHashHandle"/> nested class.
+    /// The <see cref="SafeHashHandle"/> nested type.
     /// </content>
     public static partial class BCrypt
     {

@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="BCryptEncryptFlags"/> nested enum.
+    /// Contains the <see cref="BCryptEncryptFlags"/> nested type.
     /// </content>
     public partial class BCrypt
     {

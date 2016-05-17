@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj" />
+    <ProjectReference Include="..\Kernel32.Profile111\Kernel32.Profile111.csproj" />
     <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>

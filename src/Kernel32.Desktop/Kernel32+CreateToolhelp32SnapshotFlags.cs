@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="CreateToolhelp32SnapshotFlags"/> nested class.
+    /// Contains the <see cref="CreateToolhelp32SnapshotFlags"/> nested type.
     /// </content>
     public partial class Kernel32
     {

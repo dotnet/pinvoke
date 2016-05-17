@@ -24,35 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApiSets.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="HResult+Code.cs" />
-    <Compile Include="HResult+FacilityCode.cs" />
-    <Compile Include="HResult+SeverityCode.cs" />
-    <Compile Include="HResult.cs" />
-    <Compile Include="IMAGE_DATA_DIRECTORY.cs" />
-    <Compile Include="IMAGE_FILE_HEADER+CharacteristicsType.cs" />
-    <Compile Include="IMAGE_FILE_HEADER+MachineType.cs" />
-    <Compile Include="IMAGE_FILE_HEADER.cs" />
-    <Compile Include="IMAGE_NT_HEADERS.cs" />
-    <Compile Include="IMAGE_OPTIONAL_HEADER+DllCharacteristicsType.cs" />
-    <Compile Include="IMAGE_OPTIONAL_HEADER.cs" />
-    <Compile Include="IMAGE_OPTIONAL_HEADER_DIRECTORIES.cs" />
-    <Compile Include="IMAGE_OPTIONAL_HEADER+MagicType.cs" />
-    <Compile Include="IMAGE_OPTIONAL_HEADER+SubsystemType.cs" />
-    <Compile Include="IMAGE_SECTION_HEADER+CharacteristicsType.cs" />
-    <Compile Include="IMAGE_SECTION_HEADER.cs" />
-    <Compile Include="LIST_ENTRY.cs">
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
-    <Compile Include="NTSTATUS+Code.cs" />
-    <Compile Include="NTSTATUS+SeverityCode.cs" />
-    <Compile Include="NTSTATUS+FacilityCode.cs" />
-    <Compile Include="NTSTATUS.cs" />
-    <Compile Include="PInvokeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RECT.cs" />
-    <Compile Include="Win32ErrorCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
@@ -71,6 +43,7 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\Windows.Core.Shared\Windows.Core.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
 </Project>
