@@ -54,7 +54,7 @@ namespace PInvoke
             }
 
             const int bufferSize = 260;
-            char* szPath = stackalloc char[bufferSize]; // max class name length
+            char* szPath = stackalloc char[bufferSize]; // max path length
 
             if (!SHGetPathFromIDList(pidl, szPath))
             {
@@ -74,7 +74,7 @@ namespace PInvoke
             }
 
             const int bufferSize = 260;
-            char* szPath = stackalloc char[bufferSize]; // max class name length
+            char* szPath = stackalloc char[bufferSize]; // max path length
 
             if (!SHGetPathFromIDList(pidl, szPath))
             {
