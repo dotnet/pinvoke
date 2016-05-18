@@ -144,14 +144,7 @@ namespace PInvoke
         public static extern IntPtr GetForegroundWindow();
 
         [DllImport(nameof(User32))]
-        public static extern unsafe IntPtr SendMessage(IntPtr hWnd, int wMsg, void* wParam, void* lParam);
-
-        [DllImport(nameof(User32))]
         public static extern unsafe IntPtr SendMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
-
-        [DllImport(nameof(User32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool PostMessage(IntPtr hWnd, int Msg, void* wParam, void* lParam);
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -556,13 +549,7 @@ namespace PInvoke
         public static extern uint WaitForInputIdle(IntPtr hProcess, uint dwMilliseconds);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern short GetAsyncKeyState(int vKey);
-
-        [DllImport(nameof(User32), SetLastError = true)]
         public static extern short GetAsyncKeyState(VirtualKey vKey);
-
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern short GetKeyState(int vKey);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern short GetKeyState(VirtualKey vKey);
