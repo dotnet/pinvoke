@@ -10,11 +10,8 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        /// <summary>
-        /// Virtual-key codes
-        /// Defined in winuser.h from Windows SDK v6.1
-        /// Documentation pulled from MSDN.
-        /// </summary>
+        /// <summary>Virtual-key codes</summary>
+        /// <remarks>Defined in winuser.h from Windows SDK v6.1</remarks>
         public enum VirtualKey : int
         {
             /// <summary>

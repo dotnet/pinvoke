@@ -13,6 +13,8 @@ namespace PInvoke
     [OfferFriendlyOverloads]
     public static partial class User32
     {
+        public const int WHEEL_DELTA = 120;
+
         /// <summary>
         ///     A bitmap that is drawn by the window that owns the menu. The application must process the WM_MEASUREITEM and
         ///     WM_DRAWITEM messages.
