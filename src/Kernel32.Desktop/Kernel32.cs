@@ -938,6 +938,29 @@ namespace PInvoke
         public static extern SafeLibraryHandle LoadLibraryEx(string lpFileName, IntPtr hFile, LoadLibraryExFlags dwFlags);
 
         /// <summary>
+        /// Retrieves a module handle for the specified module and increments the module's reference count unless <see cref="GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT"/> is specified.
+        /// The module must have been loaded by the calling process.
+        /// </summary>
+        /// <param name="dwFlags">
+        /// This parameter can be zero or one or more of the following values.
+        /// If the module's reference count is incremented, the caller must use the <see cref="FreeLibrary"/> function to decrement the reference count when the module handle is no longer needed.</param>
+        /// <param name="lpModuleName">The name of the loaded module (either a .dll or .exe file), or an address in the module (if <paramref name="dwFlags"/> is <see cref="GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS"/>).</param>
+        /// <param name="phModule">
+        /// A handle to the specified module. If the function fails, this parameter is NULL.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, returns true. If the function fails, the returns false.
+        /// To get extended error information, see <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>
+        /// The handle returned is not global or inheritable. It cannot be duplicated or used by another process.
+        /// This function does not retrieve handles for modules that were loaded using the <see cref="LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE"/> flag.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Auto)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetModuleHandleEx(GetModuleHandleExFlags dwFlags, string lpModuleName, out SafeLibraryHandle phModule);
+
+        /// <summary>
         ///     Creates an instance of a named pipe and returns a handle for subsequent pipe operations. A named pipe server
         ///     process uses this function either to create the first instance of a specific named pipe and establish its basic
         ///     attributes or to create a new instance of an existing named pipe.

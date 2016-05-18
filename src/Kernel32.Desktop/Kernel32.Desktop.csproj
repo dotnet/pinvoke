@@ -38,6 +38,7 @@
     <Compile Include="Kernel32+GRPICONDIR.cs" />
     <Compile Include="Kernel32+ICONDIR.cs" />
     <Compile Include="Kernel32+ICONDIRENTRY.cs" />
+    <Compile Include="Kernel32+GetModuleHandleExFlags.cs" />
     <Compile Include="Kernel32+LoadLibraryExFlags.cs" />
     <Compile Include="Kernel32+LocalReAllocFlags.cs" />
     <Compile Include="Kernel32+LocalAllocFlags.cs" />
