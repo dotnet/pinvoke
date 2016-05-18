@@ -37,9 +37,20 @@ namespace PInvoke
         /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
         public static unsafe string GetClassName(IntPtr hWnd)
         {
-            const int bufferSize = 256;
-            char* className = stackalloc char[bufferSize]; // max class name length
-            int count = GetClassName(hWnd, className, bufferSize);
+            return GetClassName(hWnd, 256);
+        }
+
+        /// <summary>
+        /// Retrieves the name of the class to which the specified window belongs.
+        /// </summary>
+        /// <param name = "hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
+        /// <param name="stringSize">The size of the string to return</param>
+        /// <returns>The class name string.</returns>
+        /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
+        public static unsafe string GetClassName(IntPtr hWnd, int stringSize)
+        {
+            char* className = stackalloc char[stringSize]; // max class name length
+            int count = GetClassName(hWnd, className, stringSize);
             if (count == 0)
             {
                 throw new Win32Exception();
@@ -57,7 +68,7 @@ namespace PInvoke
         public static unsafe string GetClipboardFormatName(int format)
         {
             const int bufferSize = 256;
-            char* formatName = stackalloc char[bufferSize]; // max class name length
+            char* formatName = stackalloc char[bufferSize]; // max name length
             int count = GetClipboardFormatName(format, formatName, bufferSize);
             if (count == 0)
             {
