@@ -16,7 +16,6 @@ namespace PInvoke
         [Flags]
         public enum GetModuleHandleExFlags
         {
-
             /// <summary>
             /// Define no flags.
             /// </summary>
