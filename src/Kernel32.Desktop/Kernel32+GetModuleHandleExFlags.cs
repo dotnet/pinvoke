@@ -19,7 +19,7 @@ namespace PInvoke
             /// <summary>
             /// Define no flags.
             /// </summary>
-            GET_MODULE_HANDLE_EX_FLAG_NONE = 0,
+            None = 0,
 
             /// <summary>
             /// The lpModuleName parameter is an address in the module.
