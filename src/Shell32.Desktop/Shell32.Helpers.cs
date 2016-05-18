@@ -56,12 +56,18 @@ namespace PInvoke
             const int bufferSize = 260;
             char* szPath = stackalloc char[bufferSize]; // max path length
 
-            if (!SHGetPathFromIDList(pidl, szPath))
+            try
             {
-                throw new Win32Exception();
+                if (!SHGetPathFromIDList(pidl, szPath))
+                {
+                    throw new Win32Exception();
+                }
+            }
+            finally
+            {
+                Marshal.FreeCoTaskMem(pidl);
             }
 
-            Marshal.FreeCoTaskMem(pidl);
             return new string(szPath, 0, bufferSize);
         }
 
@@ -76,12 +82,18 @@ namespace PInvoke
             const int bufferSize = 260;
             char* szPath = stackalloc char[bufferSize]; // max path length
 
-            if (!SHGetPathFromIDList(pidl, szPath))
+            try
             {
-                throw new Win32Exception();
+                if (!SHGetPathFromIDList(pidl, szPath))
+                {
+                    throw new Win32Exception();
+                }
+            }
+            finally
+            {
+                Marshal.FreeCoTaskMem(pidl);
             }
 
-            Marshal.FreeCoTaskMem(pidl);
             return new string(szPath, 0, bufferSize);
         }
     }
