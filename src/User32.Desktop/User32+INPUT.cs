@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="INPUT"/> nested type and its companion types <see cref="InputType"/> and <see cref="InputUnion"/>.
+    /// Contains the <see cref="INPUT"/> nested type.
     /// </content>
     public partial class User32
     {

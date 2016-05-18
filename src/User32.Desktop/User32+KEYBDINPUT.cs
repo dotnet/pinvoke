@@ -16,7 +16,7 @@ namespace PInvoke
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
-        public unsafe struct KEYBDINPUT
+        public unsafe partial struct KEYBDINPUT
         {
             public VirtualKey wVk;
             public ScanCode wScan;

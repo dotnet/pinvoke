@@ -16,7 +16,7 @@ namespace PInvoke
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
-        public unsafe struct MOUSEINPUT
+        public unsafe partial struct MOUSEINPUT
         {
             public int dx;
             public int dy;
