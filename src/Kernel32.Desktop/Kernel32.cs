@@ -980,7 +980,7 @@ namespace PInvoke
         /// The handle returned is not global or inheritable. It cannot be duplicated or used by another process.
         /// This function does not retrieve handles for modules that were loaded using the <see cref="LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE"/> flag.
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetModuleHandleEx(GetModuleHandleExFlags dwFlags, string lpModuleName, out SafeLibraryHandle phModule);
 
