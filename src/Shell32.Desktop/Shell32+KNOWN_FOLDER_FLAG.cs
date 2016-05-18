@@ -18,7 +18,7 @@ namespace PInvoke
             /// <summary>
             /// Define no flags.
             /// </summary>
-            KF_FLAG_NONE = 0x00000000,
+            None = 0x00000000,
 
             /// <summary>
             /// Build a simple IDList (PIDL) This value can be used when you want to retrieve the file system path
