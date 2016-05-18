@@ -25,7 +25,6 @@ namespace PInvoke
         /// An access token that can be used to represent a particular user. The calling process is responsible for correct impersonation when hToken is non-NULL.
         /// The calling process must have appropriate security privileges for the particular user, including TOKEN_QUERY and TOKEN_IMPERSONATE, and the user's registry hive must be currently mounted.
         /// Assigning the hToken parameter a value of -1 indicates the Default User.
-        /// 
         /// Microsoft Windows 2000 and earlier: Always set this parameter to NULL.
         /// Windows XP and later: This parameter is usually set to NULL, but you might need to assign a non-NULL value to hToken for those folders
         ///     that can have multiple users but are treated as belonging to a single user.The most commonly used folder of this type is Documents.
@@ -66,7 +65,6 @@ namespace PInvoke
         /// <param name="hToken">
         /// An access token that represents a particular user. If this parameter is NULL, which is the most common usage, the function requests the known folder for the current user.
         /// Assigning the hToken parameter a value of -1 indicates the Default User.
-        /// 
         /// Microsoft Windows 2000 and earlier: Always set this parameter to NULL.
         /// Windows XP and later: This parameter is usually set to NULL, but you might need to assign a non-NULL value to hToken for those folders that can have multiple users but are treated as belonging to a single user.The most commonly used folder of this type is Documents.
         /// </param>

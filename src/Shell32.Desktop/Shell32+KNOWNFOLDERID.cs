@@ -447,7 +447,7 @@ namespace PInvoke
             public static readonly Guid FOLDERID_SkyDriveDocuments = new Guid("24D89E24-2F19-4534-9DDE-6A6671FBB8FE");
 
             /// <summary>Pictures</summary>
-            /// <remarks>Maps to 	%USERPROFILE%\OneDrive\Pictures</remarks>
+            /// <remarks>Maps to %USERPROFILE%\OneDrive\Pictures</remarks>
             public static readonly Guid FOLDERID_SkyDrivePictures = new Guid("339719B5-8C47-4894-94C2-D8F77ADD44A6");
 
             /// <summary>Start Menu</summary>
@@ -515,7 +515,7 @@ namespace PInvoke
             public static readonly Guid FOLDERID_Videos = new Guid("18989B1D-99B5-455B-841C-AB7C74E4DDFC");
 
             /// <summary>Videos</summary>
-            /// <remarks>Maps to 	%APPDATA%\Microsoft\Windows\Libraries\Videos.library-ms</remarks>
+            /// <remarks>Maps to %APPDATA%\Microsoft\Windows\Libraries\Videos.library-ms</remarks>
             public static readonly Guid FOLDERID_VideosLibrary = new Guid("491E922F-5643-4AF4-A7EB-4E7A138D8174");
 
             /// <summary>Windows</summary>

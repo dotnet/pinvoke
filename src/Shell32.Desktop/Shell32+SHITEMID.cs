@@ -1,7 +1,6 @@
 ﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
-
 namespace PInvoke
 {
     using System.Runtime.InteropServices;
@@ -21,7 +20,7 @@ namespace PInvoke
             /// <summary>
             /// The size of identifier, in bytes, including cb itself.
             /// </summary>
-            ushort cb;
+            public ushort cb;
 
             /// <summary>
             /// A variable-length item identifier.

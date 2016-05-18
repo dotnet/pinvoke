@@ -67,7 +67,7 @@ namespace PInvoke
 
             /// <summary>
             /// Forces the creation of the specified folder if that folder does not already exist. The security provisions predefined for that folder are applied.
-            /// If the folder does not exist and cannot be created, the function returns a failure code and no path is returned.      
+            /// If the folder does not exist and cannot be created, the function returns a failure code and no path is returned.
             /// </summary>
             /// <remarks>This value can be used only with the following functions and methods: <see cref="SHGetKnownFolderPath"/>, SHGetKnownFolderIDList, IKnownFolder::GetIDList, IKnownFolder::GetPath, IKnownFolder::GetShellItem</remarks>
             KF_FLAG_CREATE = 0x00008000,
