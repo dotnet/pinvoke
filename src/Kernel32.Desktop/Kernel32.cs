@@ -938,6 +938,30 @@ namespace PInvoke
         public static extern SafeLibraryHandle LoadLibraryEx(string lpFileName, IntPtr hFile, LoadLibraryExFlags dwFlags);
 
         /// <summary>
+        /// Retrieves a module handle for the specified module. The module must have been loaded by the calling process.
+        /// </summary>
+        /// <param name="lpModuleName">
+        /// The name of the loaded module (either a .dll or .exe file).
+        /// If the file name extension is omitted, the default library extension .dll is appended.
+        /// The file name string can include a trailing point character (.) to indicate that the module name has no extension.
+        /// The string does not have to specify a path. When specifying a path, be sure to use backslashes (\), not forward slashes (/).
+        /// The name is compared (case independently) to the names of modules currently mapped into the address space of the calling process.
+        /// If this parameter is NULL, it returns a handle to the file used to create the calling process (.exe file).
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the specified module.
+        /// If the function fails, the return value is NULL.To get extended error information, call GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// This function does not retrieve handles for modules that were loaded using the <see cref="LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE"/> flag.
+        /// This function returns a handle to a mapped module without incrementing its reference count.
+        /// However, if this handle is passed to the <see cref="FreeLibrary"/> function, the reference count of the mapped module will be decremented.
+        /// Therefore, do not pass a handle returned by this function to the <see cref="FreeLibrary"/> function. Doing so can cause a DLL module to be unmapped prematurely.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern SafeLibraryHandle GetModuleHandle(string lpModuleName);
+
+        /// <summary>
         /// Retrieves a module handle for the specified module and increments the module's reference count unless <see cref="GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT"/> is specified.
         /// The module must have been loaded by the calling process.
         /// </summary>
@@ -959,6 +983,19 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Auto)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetModuleHandleEx(GetModuleHandleExFlags dwFlags, string lpModuleName, out SafeLibraryHandle phModule);
+
+        /// <summary>
+        /// Retrieves the address of an exported function or variable from the specified dynamic-link library (DLL).
+        /// </summary>
+        /// <param name="hModule">A handle to the DLL module that contains the function or variable. The <see cref="LoadLibrary"/>, <see cref="LoadLibraryEx"/>, or <see cref="GetModuleHandle"/> function returns this handle.</param>
+        /// <param name="procName">The function or variable name, or the function's ordinal value. If this parameter is an ordinal value, it must be in the low-order word; the high-order word must be zero.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the address of the exported function or variable.
+        /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>This function does not retrieve handles for modules that were loaded using the <see cref="LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE"/> flag.</remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling =true)]
+        public static extern IntPtr GetProcAddress(SafeObjectHandle hModule, string procName);
 
         /// <summary>
         ///     Creates an instance of a named pipe and returns a handle for subsequent pipe operations. A named pipe server
