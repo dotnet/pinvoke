@@ -220,6 +220,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetApi32.Tests", "NetApi32.
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NetApi32.Shared", "NetApi32.Shared\NetApi32.Shared.shproj", "{67CBF4E7-56B8-4A5B-BD21-F39171ED363A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell32", "Shell32\Shell32.csproj", "{F187990F-4B3F-4F08-8179-A39A8708D2B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell32.Profile111", "Shell32.Profile111\Shell32.Profile111.csproj", "{2ACA2883-2812-4473-8631-0897332918F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell32.Desktop", "Shell32.Desktop\Shell32.Desktop.csproj", "{CF88F30D-56E8-4DF2-8A34-28488EDBA721}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shell32.Shared", "Shell32.Shared\Shell32.Shared.shproj", "{E3A89294-74D8-4FDA-9052-F69A5ED8F586}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell32.Tests", "Shell32.Tests\Shell32.Tests.csproj", "{FDEFD0A0-2E13-4CB7-92F1-74DD216785E5}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Shell32.NuGet", "Shell32.NuGet\Shell32.NuGet.nuproj", "{7C4534B7-01D4-4D60-AAEB-6132F867816A}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		BCrypt.Shared\BCrypt.Shared.projitems*{6b1e68d2-f4d9-440d-8d5e-1ba6f612789b}*SharedItemsImports = 13
@@ -231,6 +243,7 @@ Global
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{8e4f09c1-d236-4273-a6ea-f50a5cf0af62}*SharedItemsImports = 13
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{1387e009-7086-4572-ac8d-ce4242adec77}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{f37b9b20-0d43-49db-bf85-519a525c64d8}*SharedItemsImports = 13
+		Shell32.Shared\Shell32.Shared.projitems*{cf88f30d-56e8-4df2-8a34-28488edba721}*SharedItemsImports = 4
 		BCrypt.Shared\BCrypt.Shared.projitems*{9ce056e3-5d53-4092-97cc-78826a4d1c14}*SharedItemsImports = 4
 		DbgHelp.Shared\DbgHelp.Shared.projitems*{c09e62b0-d478-4f06-82c0-aba2bb674ac6}*SharedItemsImports = 4
 		NetApi32.Shared\NetApi32.Shared.projitems*{67cbf4e7-56b8-4a5b-bd21-f39171ed363a}*SharedItemsImports = 13
@@ -243,9 +256,11 @@ Global
 		Crypt32.Shared\Crypt32.Shared.projitems*{2355a580-2257-4a41-b7ec-f987993ce0c9}*SharedItemsImports = 4
 		Windows.Core.Shared\Windows.Core.Shared.projitems*{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}*SharedItemsImports = 4
 		NCrypt.Shared\NCrypt.Shared.projitems*{093be65b-820a-470c-9a47-82592400059f}*SharedItemsImports = 4
+		Shell32.Shared\Shell32.Shared.projitems*{2aca2883-2812-4473-8631-0897332918f3}*SharedItemsImports = 4
 		NetApi32.Shared\NetApi32.Shared.projitems*{4c71c535-6885-4802-93cd-2f4c29d0ccd9}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{3c02f98c-e145-4517-9cf0-d12c2c648e70}*SharedItemsImports = 4
 		NCrypt.Shared\NCrypt.Shared.projitems*{a9b393ca-9f5f-41a7-832c-26b92091b2f7}*SharedItemsImports = 4
+		Shell32.Shared\Shell32.Shared.projitems*{f187990f-4b3f-4f08-8179-a39a8708d2b5}*SharedItemsImports = 4
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{05fba24a-b0f6-4b04-b00f-9aa5acd191a9}*SharedItemsImports = 4
 		Windows.Core.Shared\Windows.Core.Shared.projitems*{41f91f44-4f45-4f8f-9d24-3dc0d22e2986}*SharedItemsImports = 13
 		NetApi32.Shared\NetApi32.Shared.projitems*{9c5ae8e9-330a-47d9-84d8-9883880ebe9e}*SharedItemsImports = 4
@@ -259,6 +274,7 @@ Global
 		DbgHelp.Shared\DbgHelp.Shared.projitems*{26a6f480-5ed3-48b8-9bba-243115672098}*SharedItemsImports = 4
 		NTDll.Shared\NTDll.Shared.projitems*{f64c8b26-5e30-4a7a-8643-f58e4602c64a}*SharedItemsImports = 4
 		Kernel32.Shared\Kernel32.Shared.projitems*{70a292c0-8f92-4639-bbd9-9e353fa0cd43}*SharedItemsImports = 4
+		Shell32.Shared\Shell32.Shared.projitems*{e3a89294-74d8-4fda-9052-f69a5ed8f586}*SharedItemsImports = 13
 		Msi.Shared\Msi.Shared.projitems*{3bb697ea-3ed3-4d01-b260-71edee697d3a}*SharedItemsImports = 13
 		Crypt32.Shared\Crypt32.Shared.projitems*{58e5cccf-5486-4aa9-9069-7ba0c3f6deef}*SharedItemsImports = 4
 		DbgHelp.Shared\DbgHelp.Shared.projitems*{9e993e23-3da3-4824-afd1-d8c9db1d9c8a}*SharedItemsImports = 13
@@ -604,6 +620,26 @@ Global
 		{DF7FD89E-5352-4674-8FC3-5BA3605E9154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF7FD89E-5352-4674-8FC3-5BA3605E9154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF7FD89E-5352-4674-8FC3-5BA3605E9154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F187990F-4B3F-4F08-8179-A39A8708D2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F187990F-4B3F-4F08-8179-A39A8708D2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F187990F-4B3F-4F08-8179-A39A8708D2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F187990F-4B3F-4F08-8179-A39A8708D2B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ACA2883-2812-4473-8631-0897332918F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ACA2883-2812-4473-8631-0897332918F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ACA2883-2812-4473-8631-0897332918F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ACA2883-2812-4473-8631-0897332918F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF88F30D-56E8-4DF2-8A34-28488EDBA721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF88F30D-56E8-4DF2-8A34-28488EDBA721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF88F30D-56E8-4DF2-8A34-28488EDBA721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF88F30D-56E8-4DF2-8A34-28488EDBA721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDEFD0A0-2E13-4CB7-92F1-74DD216785E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDEFD0A0-2E13-4CB7-92F1-74DD216785E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDEFD0A0-2E13-4CB7-92F1-74DD216785E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDEFD0A0-2E13-4CB7-92F1-74DD216785E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C4534B7-01D4-4D60-AAEB-6132F867816A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C4534B7-01D4-4D60-AAEB-6132F867816A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C4534B7-01D4-4D60-AAEB-6132F867816A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C4534B7-01D4-4D60-AAEB-6132F867816A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
