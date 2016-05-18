@@ -936,7 +936,7 @@ namespace PInvoke
             /// <summary>
             /// Used to pass Unicode characters as if they were keystrokes. The VK_PACKET key is the low word of a 32-bit Virtual Key value used for non-keyboard input methods.
             /// </summary>
-            /// <remarks>For more information, see Remark in <see cref="KEYBDINPUT"/>, <see cref="SendInput"/>, <see cref="WindowMessage.WM_KEYDOWN"/>, and <see cref="WindowMessage.WM_KEYUP"/></remarks>
+            /// <remarks>For more information, see Remark in <see cref="KEYBDINPUT"/>, <see cref="SendInput(int, INPUT*, int)"/>, <see cref="WindowMessage.WM_KEYDOWN"/>, and <see cref="WindowMessage.WM_KEYUP"/></remarks>
             VK_PACKET = 0xE7,
 
             /* 0xE8 : unassigned */

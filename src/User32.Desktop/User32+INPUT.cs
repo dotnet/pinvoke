@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Used by <see cref="SendInput"/> to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.
+        /// Used by <see cref="SendInput(int, INPUT*, int)"/> to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct INPUT
