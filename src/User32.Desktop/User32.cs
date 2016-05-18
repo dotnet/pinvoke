@@ -537,8 +537,8 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe uint SendInput(
-            uint nInputs,
-            [Friendly(FriendlyFlags.Array), In] INPUT* pInputs,
+            int nInputs,
+            [Friendly(FriendlyFlags.Array)] INPUT* pInputs,
             int cbSize);
 
         /// <summary>

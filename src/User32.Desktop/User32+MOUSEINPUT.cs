@@ -15,14 +15,15 @@ namespace PInvoke
         /// Contains information about a simulated mouse event.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct MOUSEINPUT
+        [OfferIntPtrPropertyAccessors]
+        public unsafe struct MOUSEINPUT
         {
             public int dx;
             public int dy;
             public int mouseData;
             public MOUSEEVENTF dwFlags;
             public int time;
-            public IntPtr dwExtraInfo;
+            public void* dwExtraInfo;
         }
     }
 }

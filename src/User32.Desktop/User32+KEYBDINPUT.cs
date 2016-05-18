@@ -15,13 +15,14 @@ namespace PInvoke
         /// Contains information about a simulated keyboard event.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct KEYBDINPUT
+        [OfferIntPtrPropertyAccessors]
+        public unsafe struct KEYBDINPUT
         {
             public VirtualKey wVk;
             public ScanCode wScan;
             public KEYEVENTF dwFlags;
             public int time;
-            public UIntPtr dwExtraInfo;
+            public void* dwExtraInfo;
         }
     }
 }

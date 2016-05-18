@@ -21,6 +21,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="User32+InputUnion.cs" />
     <Compile Include="User32+InputType.cs" />
     <Compile Include="User32+KEYEVENTF.cs" />
     <Compile Include="User32+MOUSEEVENTF.cs" />
