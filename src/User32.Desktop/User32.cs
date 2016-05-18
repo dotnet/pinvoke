@@ -546,7 +546,7 @@ namespace PInvoke
         /// <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/03/25/9984720.aspx">Here</a> and <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/03/26/9985422.aspx">here</a>.
         /// The jist of it is that this function should have been really called WaitForProcessStartupComplete, as this is all it does.</remarks>
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern uint WaitForInputIdle(IntPtr hProcess, uint dwMilliseconds);
+        public static extern int WaitForInputIdle(IntPtr hProcess, int dwMilliseconds);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern short GetAsyncKeyState(VirtualKey vKey);
