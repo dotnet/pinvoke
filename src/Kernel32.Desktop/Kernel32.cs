@@ -985,19 +985,6 @@ namespace PInvoke
         public static extern bool GetModuleHandleEx(GetModuleHandleExFlags dwFlags, string lpModuleName, out SafeLibraryHandle phModule);
 
         /// <summary>
-        /// Retrieves the address of an exported function or variable from the specified dynamic-link library (DLL).
-        /// </summary>
-        /// <param name="hModule">A handle to the DLL module that contains the function or variable. The <see cref="LoadLibrary"/>, <see cref="LoadLibraryEx"/>, or <see cref="GetModuleHandle"/> function returns this handle.</param>
-        /// <param name="procName">The function or variable name, or the function's ordinal value. If this parameter is an ordinal value, it must be in the low-order word; the high-order word must be zero.</param>
-        /// <returns>
-        /// If the function succeeds, the return value is the address of the exported function or variable.
-        /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
-        /// </returns>
-        /// <remarks>This function does not retrieve handles for modules that were loaded using the <see cref="LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE"/> flag.</remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling =true)]
-        public static extern IntPtr GetProcAddress(SafeObjectHandle hModule, string procName);
-
-        /// <summary>
         ///     Creates an instance of a named pipe and returns a handle for subsequent pipe operations. A named pipe server
         ///     process uses this function either to create the first instance of a specific named pipe and establish its basic
         ///     attributes or to create a new instance of an existing named pipe.
