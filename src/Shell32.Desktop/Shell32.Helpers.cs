@@ -18,7 +18,7 @@ namespace PInvoke
         {
             IntPtr pszPath;
 #pragma warning disable CS0618 // Type or member is obsolete
-            if (SHGetFolderPath(IntPtr.Zero, csidl, IntPtr.Zero, SHGetFolderPathFlags.SHGFP_TYPE_CURRENT, out pszPath) != HResult.Code.S_OK)
+            if (SHGetFolderPath(IntPtr.Zero, csidl, IntPtr.Zero, SHGetFolderPathFlags.SHGFP_TYPE_CURRENT, out pszPath).Failed)
 #pragma warning restore CS0618 // Type or member is obsolete
             {
                 throw new Win32Exception();
@@ -32,7 +32,7 @@ namespace PInvoke
         public static string GetKnownFolderPath(Guid rfid)
         {
             IntPtr pszPath;
-            if (SHGetKnownFolderPath(rfid, 0, IntPtr.Zero, out pszPath) != HResult.Code.S_OK)
+            if (SHGetKnownFolderPath(rfid, 0, IntPtr.Zero, out pszPath).Failed)
             {
                 throw new Win32Exception();
             }
@@ -47,7 +47,7 @@ namespace PInvoke
         {
             IntPtr pidl;
 #pragma warning disable CS0618 // Type or member is obsolete
-            if (SHGetFolderLocation(IntPtr.Zero, csidl, IntPtr.Zero, 0, out pidl) != HResult.Code.S_OK)
+            if (SHGetFolderLocation(IntPtr.Zero, csidl, IntPtr.Zero, 0, out pidl).Failed)
 #pragma warning restore CS0618 // Type or member is obsolete
             {
                 throw new Win32Exception();
@@ -68,7 +68,7 @@ namespace PInvoke
         public static unsafe string GetKnownFolderID(Guid rfid)
         {
             IntPtr pidl;
-             if (SHGetKnownFolderIDList(rfid, 0, IntPtr.Zero, out pidl) != HResult.Code.S_OK)
+            if (SHGetKnownFolderIDList(rfid, 0, IntPtr.Zero, out pidl).Failed)
             {
                 throw new Win32Exception();
             }
