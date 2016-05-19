@@ -38,6 +38,7 @@
     <ProjectReference Include="..\Shell32.Profile111\Shell32.Profile111.csproj" />
     <ProjectReference Include="..\Shell32.Desktop\Shell32.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
+    <ProjectReference Include="..\Kernel32.NuGet\Kernel32.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PInvoke.Shell32.nuspec" />
