@@ -24,9 +24,14 @@ namespace PInvoke
                 throw new Win32Exception();
             }
 
-            string path = Marshal.PtrToStringUni(pszPath);
-            Marshal.FreeCoTaskMem(pszPath);
-            return path;
+            try
+            {
+                return Marshal.PtrToStringUni(pszPath);
+            }
+            finally
+            {
+                Marshal.FreeCoTaskMem(pszPath);
+            }
         }
 
         public static string GetKnownFolderPath(Guid rfid)
@@ -37,9 +42,14 @@ namespace PInvoke
                 throw new Win32Exception();
             }
 
-            string path = Marshal.PtrToStringUni(pszPath);
-            Marshal.FreeCoTaskMem(pszPath);
-            return path;
+            try
+            {
+                return Marshal.PtrToStringUni(pszPath);
+            }
+            finally
+            {
+                Marshal.FreeCoTaskMem(pszPath);
+            }
         }
 
         [Obsolete("As of Windows Vista, this function is merely a wrapper for GetKnownFolderID")]
@@ -53,22 +63,22 @@ namespace PInvoke
                 throw new Win32Exception();
             }
 
-            const int bufferSize = 260;
-            char* szPath = stackalloc char[bufferSize]; // max path length
-
             try
             {
+                const int bufferSize = 260;
+                char* szPath = stackalloc char[bufferSize]; // max path length
+
                 if (!SHGetPathFromIDList(pidl, szPath))
                 {
                     throw new Win32Exception();
                 }
+
+                return new string(szPath, 0, bufferSize);
             }
             finally
             {
                 Marshal.FreeCoTaskMem(pidl);
             }
-
-            return new string(szPath, 0, bufferSize);
         }
 
         public static unsafe string GetKnownFolderID(Guid rfid)
@@ -79,22 +89,22 @@ namespace PInvoke
                 throw new Win32Exception();
             }
 
-            const int bufferSize = 260;
-            char* szPath = stackalloc char[bufferSize]; // max path length
-
             try
             {
+                const int bufferSize = 260;
+                char* szPath = stackalloc char[bufferSize]; // max path length
+
                 if (!SHGetPathFromIDList(pidl, szPath))
                 {
                     throw new Win32Exception();
                 }
+
+                return new string(szPath, 0, bufferSize);
             }
             finally
             {
                 Marshal.FreeCoTaskMem(pidl);
             }
-
-            return new string(szPath, 0, bufferSize);
         }
     }
 }
