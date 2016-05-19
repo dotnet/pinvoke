@@ -15,7 +15,7 @@ namespace PInvoke
         /// These folders are installed with Windows Vista and later operating systems, and a computer will have only folders appropriate to it installed.
         /// For more information see the <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dd378457.aspx">MSDN</a> value table.
         /// </summary>
-        /// <remarks>Used by <see cref="SHGetKnownFolderPath"/></remarks>
+        /// <remarks>Used by <see cref="SHGetKnownFolderPath(Guid, KNOWN_FOLDER_FLAG, IntPtr, out char*)"/></remarks>
         public static class KNOWNFOLDERID
         {
             /// <summary>Account Pictures</summary>

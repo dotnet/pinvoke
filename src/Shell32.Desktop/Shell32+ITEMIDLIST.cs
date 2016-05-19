@@ -13,14 +13,13 @@ namespace PInvoke
         /// <summary>
         /// Contains a list of item identifiers.
         /// </summary>
-        /// <remarks>Used by <see cref="SHGetKnownFolderIDList"/> and <see cref="SHGetFolderLocation"/></remarks>
+        /// <remarks>Used by <see cref="SHGetKnownFolderIDList(System.Guid, KNOWN_FOLDER_FLAG, System.IntPtr, out ITEMIDLIST*)"/> and <see cref="SHGetFolderLocation(System.IntPtr, CSIDL, System.IntPtr, int, out ITEMIDLIST*)"/></remarks>
         [StructLayout(LayoutKind.Sequential)]
         public struct ITEMIDLIST
         {
             /// <summary>
             /// A list of item identifiers.
             /// </summary>
-            [MarshalAs(UnmanagedType.Struct)]
             public SHITEMID mkid;
         }
     }

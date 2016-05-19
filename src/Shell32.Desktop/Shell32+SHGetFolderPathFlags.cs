@@ -13,7 +13,7 @@ namespace PInvoke
         {
             /// <summary>Retrieve the folder's current path.</summary>
             /// <remarks>
-            /// The known folder system that underlies <see cref="SHGetFolderPath"/> allows users or administrators to redirect a known folder to a location that suits their needs.
+            /// The known folder system that underlies <see cref="SHGetFolderPath(System.IntPtr, CSIDL, System.IntPtr, SHGetFolderPathFlags, char*)"/> allows users or administrators to redirect a known folder to a location that suits their needs.
             /// This is achieved by calling IKnownFolderManager::Redirect, which sets the "current" value of the folder associated with the SHGFP_TYPE_CURRENT flag
             /// </remarks>
             SHGFP_TYPE_CURRENT = 0,

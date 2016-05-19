@@ -46,7 +46,7 @@ namespace PInvoke
 
             /// <summary>
             /// Gets the true system path for the folder, free of any aliased placeholders such as %USERPROFILE%, returned by SHGetKnownFolderIDList and IKnownFolder::GetIDList.
-            /// This flag has no effect on paths returned by <see cref="SHGetKnownFolderPath"/> and IKnownFolder::GetPath.
+            /// This flag has no effect on paths returned by <see cref="SHGetKnownFolderPath(Guid, KNOWN_FOLDER_FLAG, IntPtr, out char*)"/> and IKnownFolder::GetPath.
             /// By default, known folder retrieval functions and methods return the aliased path if an alias exists.
             /// </summary>
             KF_FLAG_NO_ALIAS = 0x00001000,
@@ -69,7 +69,7 @@ namespace PInvoke
             /// Forces the creation of the specified folder if that folder does not already exist. The security provisions predefined for that folder are applied.
             /// If the folder does not exist and cannot be created, the function returns a failure code and no path is returned.
             /// </summary>
-            /// <remarks>This value can be used only with the following functions and methods: <see cref="SHGetKnownFolderPath"/>, SHGetKnownFolderIDList, IKnownFolder::GetIDList, IKnownFolder::GetPath, IKnownFolder::GetShellItem</remarks>
+            /// <remarks>This value can be used only with the following functions and methods: <see cref="SHGetKnownFolderPath(Guid, KNOWN_FOLDER_FLAG, IntPtr, out char*)"/>, SHGetKnownFolderIDList, IKnownFolder::GetIDList, IKnownFolder::GetPath, IKnownFolder::GetShellItem</remarks>
             KF_FLAG_CREATE = 0x00008000,
 
             /// <summary>

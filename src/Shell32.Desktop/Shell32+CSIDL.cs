@@ -15,7 +15,7 @@ namespace PInvoke
         /// but which may not have the same name or location on any given system. For example, the system folder may be "C:\Windows" on one system and "C:\Winnt" on another.
         /// These constants are defined in Shlobj.h.
         /// </summary>
-        /// <remarks>Used by <see cref="SHGetFolderPath"/></remarks>
+        /// <remarks>Used by <see cref="SHGetFolderPath(IntPtr, CSIDL, IntPtr, SHGetFolderPathFlags, char*)"/></remarks>
         [Flags]
         public enum CSIDL
         {
@@ -264,7 +264,7 @@ namespace PInvoke
 
             /// <summary>
             /// Combine with another CSIDL constant to ensure the retrieval of the true system path for the folder, free of any aliased placeholders such as %USERPROFILE%,
-            /// returned by <see cref="SHGetFolderLocation"/>. This flag has no effect on paths returned by <see cref="SHGetFolderPath"/>.
+            /// returned by <see cref="SHGetFolderLocation(IntPtr, CSIDL, IntPtr, int, out ITEMIDLIST*)"/>. This flag has no effect on paths returned by <see cref="SHGetFolderPath(IntPtr, CSIDL, IntPtr, SHGetFolderPathFlags, char*)"/>.
             /// </summary>
             CSIDL_FLAG_NO_ALIAS = 0x1000,
 
