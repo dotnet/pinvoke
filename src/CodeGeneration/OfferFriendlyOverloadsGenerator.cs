@@ -104,7 +104,7 @@ namespace PInvoke
                     .WithReturnType(TransformReturnType(method.ReturnType))
                     .WithIdentifier(TransformMethodName(method))
                     .WithModifiers(RemoveModifier(method.Modifiers, SyntaxKind.ExternKeyword))
-                    .WithAttributeLists(SyntaxFactory.List<AttributeListSyntax>())
+                    .WithAttributeLists(FilterAttributes(method.AttributeLists))
                     .WithLeadingTrivia(method.GetLeadingTrivia().Where(t => !t.IsDirective))
                     .WithTrailingTrivia(method.GetTrailingTrivia().Where(t => !t.IsDirective))
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None))
@@ -138,6 +138,30 @@ namespace PInvoke
             }
 
             return SyntaxFactory.SingletonList<MemberDeclarationSyntax>(generatedType);
+        }
+
+        private static SyntaxList<AttributeListSyntax> FilterAttributes(SyntaxList<AttributeListSyntax> attributeLists)
+        {
+            var result = SyntaxFactory.List<AttributeListSyntax>();
+            foreach (var list in attributeLists)
+            {
+                var filteredList = FilterAttributes(list);
+                if (filteredList.Attributes.Count > 0)
+                {
+                    result = result.Add(filteredList);
+                }
+            }
+
+            return result;
+        }
+
+        private static AttributeListSyntax FilterAttributes(AttributeListSyntax list)
+        {
+            return SyntaxFactory.AttributeList().AddAttributes((
+                from attribute in list.Attributes
+                let name = attribute.Name as SimpleNameSyntax
+                where name?.Identifier.ValueText == "Obsolete"
+                select attribute).ToArray());
         }
 
         private static bool IsByteStarInParameter(ParameterSyntax parameter)
