@@ -14,6 +14,14 @@ namespace PInvoke
     public static partial class User32
     {
         /// <summary>
+        /// The multiplicative constant 120 for calculating mouse wheel movement.
+        /// </summary>
+        /// <remarks>
+        /// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms646254(v=vs.85).aspx
+        /// </remarks>
+        public const int WHEEL_DELTA = 120;
+
+        /// <summary>
         ///     A bitmap that is drawn by the window that owns the menu. The application must process the WM_MEASUREITEM and
         ///     WM_DRAWITEM messages.
         /// </summary>
@@ -81,14 +89,14 @@ namespace PInvoke
         /// If the function succeeds, the return value is the number of characters copied to the buffer, not including the terminating null character.
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int GetClassName(
             IntPtr hWnd,
             [Friendly(FriendlyFlags.Array)] char* lpClassName,
             int nMaxCount);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+        public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -141,8 +149,46 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern IntPtr GetForegroundWindow();
 
-        [DllImport(nameof(User32))]
-        public static extern unsafe IntPtr SendMessage(IntPtr hWnd, int wMsg, void* wParam, void* lParam);
+#pragma warning disable SA1625 // Element documentation must not be copied and pasted
+        /// <summary>
+        /// Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
+        /// To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function.
+        /// </summary>
+        /// <param name="hWnd">
+        /// A handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+        /// Message sending is subject to UIPI. The thread of a process can send messages only to message queues of threads in processes of lesser or equal integrity level.
+        /// </param>
+        /// <param name="wMsg">
+        /// The message to be sent.
+        /// For lists of the system-provided messages, see <see cref="WindowMessage"/>.
+        /// </param>
+        /// <param name="wParam">Additional message-specific information.</param>
+        /// <param name="lParam">Additional message-specific information.</param>
+        /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe IntPtr SendMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
+
+        /// <summary>
+        /// Places (posts) a message in the message queue associated with the thread that created the specified window and returns without waiting for the thread to process the message.
+        /// To post a message in the message queue associated with a thread, use the PostThreadMessage function.
+        /// </summary>
+        /// <param name="hWnd">
+        /// A handle to the window whose window procedure is to receive the message.
+        /// </param>
+        /// <param name="wMsg">
+        /// The message to be posted.
+        /// For lists of the system-provided messages, see <see cref="WindowMessage"/>.
+        /// </param>
+        /// <param name="wParam">Additional message-specific information.</param>
+        /// <param name="lParam">Additional message-specific information.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError. GetLastError returns ERROR_NOT_ENOUGH_QUOTA when the limit is hit.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool PostMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
+#pragma warning restore SA1625 // Element documentation must not be copied and pasted
 
         /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
@@ -491,6 +537,62 @@ namespace PInvoke
 
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int RegisterWindowMessage(string lpString);
+
+        /// <summary>
+        /// Retrieves the name of the format from the clipboard.
+        /// </summary>
+        /// <param name="format">The type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.</param>
+        /// <param name="lpszFormatName">The format name string.</param>
+        /// <param name="nMaxCount">
+        /// The length of the <paramref name="lpszFormatName"/> buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the format name string is truncated to <paramref name="nMaxCount"/>-1 characters.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the number of characters copied to the buffer.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe int GetClipboardFormatName(
+            int format,
+            [Friendly(FriendlyFlags.Array)] char* lpszFormatName,
+            int nMaxCount);
+
+        /// <summary>
+        /// Synthesizes keystrokes, mouse motions, and button clicks.
+        /// </summary>
+        /// <param name="nInputs">The number of structures in the <paramref name="pInputs" /> array.</param>
+        /// <param name="pInputs">An array of  structures. Each structure represents an event to be inserted into the keyboard or mouse input stream.</param>
+        /// <param name="cbSize">The size, in bytes, of an <see cref="INPUT" /> structure. If cbSize is not the size of an <see cref="INPUT" /> structure, the function fails.</param>
+        /// <returns>
+        /// The function returns the number of events that it successfully inserted into the keyboard or mouse input stream.
+        /// If the function returns zero, the input was already blocked by another thread. To get extended error information, call GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// This function is subject to UIPI. Applications are permitted to inject input only into applications that are at an equal or lesser integrity level.
+        /// This function fails when it is blocked by UIPI. Note that neither GetLastError nor the return value will indicate the failure was caused by UIPI blocking.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe uint SendInput(
+            int nInputs,
+            [Friendly(FriendlyFlags.Array)] INPUT* pInputs,
+            int cbSize);
+
+        /// <summary>
+        /// Waits until the specified process has finished processing its initial input and is waiting for user input with no input pending, or until the time-out interval has elapsed.
+        /// </summary>
+        /// <param name="hProcess">A handle to the process. If this process is a console application or does not have a message queue, WaitForInputIdle returns immediately.</param>
+        /// <param name="dwMilliseconds">The time-out interval, in milliseconds. If dwMilliseconds is INFINITE, the function does not return until the process is idle.</param>
+        /// <returns>0 if the wait was satisfied successfully., WAIT_TIMEOUT if the wait was terminated because the time-out interval elapsed, and WAIT_FAILED if an error occurred.</returns>
+        /// <remarks>Raymond Chen has a series of articles that give a bit more depth to how this function was intended to be used.
+        /// <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/03/25/9984720.aspx">Here</a> and <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/03/26/9985422.aspx">here</a>.
+        /// The jist of it is that this function should have been really called WaitForProcessStartupComplete, as this is all it does.</remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int WaitForInputIdle(IntPtr hProcess, int dwMilliseconds);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern short GetAsyncKeyState(VirtualKey vKey);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern short GetKeyState(VirtualKey vKey);
 
         /// <summary>
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.

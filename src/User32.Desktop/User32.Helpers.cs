@@ -33,19 +33,52 @@ namespace PInvoke
         /// Retrieves the name of the class to which the specified window belongs.
         /// </summary>
         /// <param name = "hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
+        /// <param name="maxLength">The size of the string to return</param>
         /// <returns>The class name string.</returns>
         /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
-        public static unsafe string GetClassName(IntPtr hWnd)
+        /// <remarks>The suggested class name length is 256 as we didn't find any reference of class name length limits</remarks>
+        public static unsafe string GetClassName(IntPtr hWnd, int maxLength = 256)
         {
-            const int bufferSize = 256;
-            char* className = stackalloc char[bufferSize]; // max class name length
-            int count = GetClassName(hWnd, className, bufferSize);
+            char* className = stackalloc char[maxLength];
+            int count = GetClassName(hWnd, className, maxLength);
             if (count == 0)
             {
                 throw new Win32Exception();
             }
 
             return new string(className, 0, count);
+        }
+
+        /// <summary>
+        /// Retrieves from the clipboard the name of the specified registered format.
+        /// </summary>
+        /// <param name = "format">The type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.</param>
+        /// <returns>The format name string.</returns>
+        /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
+        public static unsafe string GetClipboardFormatName(int format)
+        {
+            // From MSDN: About Atom Tables - https://msdn.microsoft.com/en-us/library/windows/desktop/ms649053(v=vs.85).aspx
+            // The system uses atom tables that are not directly accessible to applications.
+            // However, the application uses these atoms when calling a variety of functions.
+            // For example, registered clipboard formats are stored in an internal atom table
+            // used by the system. An application adds atoms to this atom table using the
+            // RegisterClipboardFormat function. Also, registered classes are stored in an
+            // internal atom table used by the system. An application adds atoms to this atom table
+            // using the RegisterClass or RegisterClassEx function.
+
+            // If we add this knowledge of the internals of this function to the limits we get
+            // from registering an Atom with GolbalAddAtom function we see that the limit of
+            // the null-terminated string is 255 characters. I placed an extra for the terminating null.
+            const int bufferSize = 256;
+
+            char* formatName = stackalloc char[bufferSize]; // max name length
+            int count = GetClipboardFormatName(format, formatName, bufferSize);
+            if (count == 0)
+            {
+                throw new Win32Exception();
+            }
+
+            return new string(formatName, 0, count);
         }
     }
 }
