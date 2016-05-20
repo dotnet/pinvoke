@@ -85,8 +85,8 @@ if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
 
     $warnings = Get-Content msbuild.wrn
     $errors = Get-Content msbuild.err
-    $WarningsPrompt = "$($warnings.length) warnings during build"
-    $ErrorsPrompt = "$($errors.length) errors during build"
+    $WarningsPrompt = "$(($warnings | Measure-Object -Line).Lines) warnings during build"
+    $ErrorsPrompt = "$(($errors | Measure-Object -Line).Lines) errors during build"
     if ($errors.length -gt 0) {
         Write-Error $ErrorsPrompt
         $fail = $true
