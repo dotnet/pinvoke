@@ -4,6 +4,7 @@ configuration: Release
 environment:
   VisualStudioVersion: 14.0
   GeneratePInvokesTxt: true
+  TreatWarningsAsErrors: true
   NuGetApiKey:
     secure: Ql19CstT9GvFNeSIAjXvgHXZg+/pNaYJ2jVkzde4LT2vwSyjiQgQ+M332wVYtu+r
 cache:

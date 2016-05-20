@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <VersionDependsOn>$(VersionDependsOn);GetNuPkgVersion</VersionDependsOn>
-    <licenseUrl>https://raw.githubusercontent.com/AArnott/PInvoke/$CommitId$/LICENSE.txt</licenseUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/AArnott/PInvoke/$GitCommitIdShort$/LICENSE.txt</LicenseUrl>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -11,12 +10,6 @@
     <Error Condition="!Exists('$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets'))" />
   </Target>
   <Import Project="$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets" Condition="Exists('$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets')" />
-  <Target Name="GetNuPkgVersion" DependsOnTargets="GetBuildVersion">
-    <PropertyGroup>
-      <Version>$(NuGetPackageVersion)</Version>
-      <NuSpecProperties>$(NuGetProperties);CommitId=$(GitCommitIdShort)</NuSpecProperties>
-    </PropertyGroup>
-  </Target>
   <Target Name="CopyAssemblyToLibDotNetFolder" DependsOnTargets="ConvertItems" AfterTargets="ConvertItems" Condition="false">
     <ItemGroup>
       <File Include="@(File)"
