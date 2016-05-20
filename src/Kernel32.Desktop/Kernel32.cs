@@ -938,6 +938,53 @@ namespace PInvoke
         public static extern SafeLibraryHandle LoadLibraryEx(string lpFileName, IntPtr hFile, LoadLibraryExFlags dwFlags);
 
         /// <summary>
+        /// Retrieves a module handle for the specified module. The module must have been loaded by the calling process.
+        /// </summary>
+        /// <param name="lpModuleName">
+        /// The name of the loaded module (either a .dll or .exe file).
+        /// If the file name extension is omitted, the default library extension .dll is appended.
+        /// The file name string can include a trailing point character (.) to indicate that the module name has no extension.
+        /// The string does not have to specify a path. When specifying a path, be sure to use backslashes (\), not forward slashes (/).
+        /// The name is compared (case independently) to the names of modules currently mapped into the address space of the calling process.
+        /// If this parameter is NULL, it returns a handle to the file used to create the calling process (.exe file).
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the specified module.
+        /// If the function fails, the return value is NULL.To get extended error information, call GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// This function does not retrieve handles for modules that were loaded using the <see cref="LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE"/> flag.
+        /// This function returns a handle to a mapped module without incrementing its reference count.
+        /// However, if this handle is passed to the <see cref="FreeLibrary"/> function, the reference count of the mapped module will be decremented.
+        /// Therefore, do not pass a handle returned by this function to the <see cref="FreeLibrary"/> function. Doing so can cause a DLL module to be unmapped prematurely.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern SafeLibraryHandle GetModuleHandle(string lpModuleName);
+
+        /// <summary>
+        /// Retrieves a module handle for the specified module and increments the module's reference count unless <see cref="GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT"/> is specified.
+        /// The module must have been loaded by the calling process.
+        /// </summary>
+        /// <param name="dwFlags">
+        /// This parameter can be zero or one or more of the following values.
+        /// If the module's reference count is incremented, the caller must use the <see cref="FreeLibrary"/> function to decrement the reference count when the module handle is no longer needed.</param>
+        /// <param name="lpModuleName">The name of the loaded module (either a .dll or .exe file), or an address in the module (if <paramref name="dwFlags"/> is <see cref="GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS"/>).</param>
+        /// <param name="phModule">
+        /// A handle to the specified module. If the function fails, this parameter is NULL.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, returns true. If the function fails, the returns false.
+        /// To get extended error information, see <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>
+        /// The handle returned is not global or inheritable. It cannot be duplicated or used by another process.
+        /// This function does not retrieve handles for modules that were loaded using the <see cref="LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE"/> flag.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetModuleHandleEx(GetModuleHandleExFlags dwFlags, string lpModuleName, out SafeLibraryHandle phModule);
+
+        /// <summary>
         ///     Creates an instance of a named pipe and returns a handle for subsequent pipe operations. A named pipe server
         ///     process uses this function either to create the first instance of a specific named pipe and establish its basic
         ///     attributes or to create a new instance of an existing named pipe.
@@ -1682,25 +1729,5 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern int Wow64SuspendThread(SafeObjectHandle hThread);
-
-        /// <summary>
-        ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the
-        ///     reference count reaches zero, the module is unloaded from the address space of the calling process and the handle
-        ///     is no longer valid.
-        /// </summary>
-        /// <param name="hModule">
-        ///     A handle to the loaded library module. The LoadLibrary, LoadLibraryEx, GetModuleHandle, or
-        ///     GetModuleHandleEx function returns this handle.
-        /// </param>
-        /// <returns>
-        ///     If the function succeeds, the return value is a nonzero value.
-        ///     <para>
-        ///         If the function fails, the return value is zero. To get extended error information, call
-        ///         <see cref="GetLastError" />.
-        ///     </para>
-        /// </returns>
-        [DllImport(api_ms_win_core_libraryloader_l1_1_1, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool FreeLibrary(IntPtr hModule);
     }
 }

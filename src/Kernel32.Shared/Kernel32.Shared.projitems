@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FormatMessageFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+OVERLAPPED.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeFindFilesHandle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeLibraryHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SafeObjectHandle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SECURITY_ATTRIBUTES.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+SECURITY_DESCRIPTOR.cs" />

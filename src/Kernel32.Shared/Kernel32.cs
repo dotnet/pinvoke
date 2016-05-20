@@ -476,6 +476,19 @@ namespace PInvoke
             string lpName);
 
         /// <summary>
+        /// Retrieves the address of an exported function or variable from the specified dynamic-link library (DLL).
+        /// </summary>
+        /// <param name="hModule">A handle to the DLL module that contains the function or variable. The LoadLibrary, LoadLibraryEx, or GetModuleHandle function returns this handle.</param>
+        /// <param name="procName">The function or variable name, or the function's ordinal value. If this parameter is an ordinal value, it must be in the low-order word; the high-order word must be zero.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the address of the exported function or variable.
+        /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>This function does not retrieve handles for modules that were loaded using the LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE flag.</remarks>
+        [DllImport(nameof(api_ms_win_core_libraryloader_l1_1_1), SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true)]
+        public static extern IntPtr GetProcAddress(SafeLibraryHandle hModule, string procName);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>
@@ -489,5 +502,25 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
         private static extern bool FindClose(IntPtr hFindFile);
+
+        /// <summary>
+        ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the
+        ///     reference count reaches zero, the module is unloaded from the address space of the calling process and the handle
+        ///     is no longer valid.
+        /// </summary>
+        /// <param name="hModule">
+        ///     A handle to the loaded library module. The LoadLibrary, LoadLibraryEx, GetModuleHandle, or
+        ///     GetModuleHandleEx function returns this handle.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_libraryloader_l1_1_1, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool FreeLibrary(IntPtr hModule);
     }
 }
