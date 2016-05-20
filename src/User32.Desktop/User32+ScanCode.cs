@@ -14,7 +14,7 @@ namespace PInvoke
         /// General keyboard scan code constants on the same order that it can be found on <see cref="VirtualKey" /> constants
         /// </summary>
         /// <remarks>Scan codes are device-dependant values, these are general values used by most keyboards.</remarks>
-        public enum ScanCode : short
+        public enum ScanCode : ushort
         {
             NONAME = 0,
             ESCAPE = 1,

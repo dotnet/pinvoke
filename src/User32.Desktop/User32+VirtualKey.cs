@@ -12,7 +12,7 @@ namespace PInvoke
     {
         /// <summary>Virtual-key codes</summary>
         /// <remarks>Defined in winuser.h from Windows SDK v6.1</remarks>
-        public enum VirtualKey : int
+        public enum VirtualKey : ushort
         {
             /// <summary>
             /// This is an addendum to use on functions in which you have to pass a zero value to represent no key code

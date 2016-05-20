@@ -33,14 +33,14 @@ namespace PInvoke
         /// Retrieves the name of the class to which the specified window belongs.
         /// </summary>
         /// <param name = "hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
-        /// <param name="stringSize">The size of the string to return</param>
+        /// <param name="maxLength">The size of the string to return</param>
         /// <returns>The class name string.</returns>
         /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
         /// <remarks>The suggested class name length is 256 as we didn't find any reference of class name length limits</remarks>
-        public static unsafe string GetClassName(IntPtr hWnd, int stringSize = 256)
+        public static unsafe string GetClassName(IntPtr hWnd, int maxLength = 256)
         {
-            char* className = stackalloc char[stringSize];
-            int count = GetClassName(hWnd, className, stringSize);
+            char* className = stackalloc char[maxLength];
+            int count = GetClassName(hWnd, className, maxLength);
             if (count == 0)
             {
                 throw new Win32Exception();

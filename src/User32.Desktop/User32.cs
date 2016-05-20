@@ -13,6 +13,12 @@ namespace PInvoke
     [OfferFriendlyOverloads]
     public static partial class User32
     {
+        /// <summary>
+        /// The multiplicative constant 120 for calculating mouse wheel movement.
+        /// </summary>
+        /// <remarks>
+        /// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms646254(v=vs.85).aspx
+        /// </remarks>
         public const int WHEEL_DELTA = 120;
 
         /// <summary>
@@ -83,7 +89,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is the number of characters copied to the buffer, not including the terminating null character.
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int GetClassName(
             IntPtr hWnd,
             [Friendly(FriendlyFlags.Array)] char* lpClassName,
@@ -143,12 +149,46 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern IntPtr GetForegroundWindow();
 
-        [DllImport(nameof(User32))]
+#pragma warning disable SA1625 // Element documentation must not be copied and pasted
+        /// <summary>
+        /// Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
+        /// To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function.
+        /// </summary>
+        /// <param name="hWnd">
+        /// A handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+        /// Message sending is subject to UIPI. The thread of a process can send messages only to message queues of threads in processes of lesser or equal integrity level.
+        /// </param>
+        /// <param name="wMsg">
+        /// The message to be sent.
+        /// For lists of the system-provided messages, see <see cref="WindowMessage"/>.
+        /// </param>
+        /// <param name="wParam">Additional message-specific information.</param>
+        /// <param name="lParam">Additional message-specific information.</param>
+        /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe IntPtr SendMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
 
+        /// <summary>
+        /// Places (posts) a message in the message queue associated with the thread that created the specified window and returns without waiting for the thread to process the message.
+        /// To post a message in the message queue associated with a thread, use the PostThreadMessage function.
+        /// </summary>
+        /// <param name="hWnd">
+        /// A handle to the window whose window procedure is to receive the message.
+        /// </param>
+        /// <param name="wMsg">
+        /// The message to be posted.
+        /// For lists of the system-provided messages, see <see cref="WindowMessage"/>.
+        /// </param>
+        /// <param name="wParam">Additional message-specific information.</param>
+        /// <param name="lParam">Additional message-specific information.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError. GetLastError returns ERROR_NOT_ENOUGH_QUOTA when the limit is hit.
+        /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool PostMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
+#pragma warning restore SA1625 // Element documentation must not be copied and pasted
 
         /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
@@ -510,7 +550,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is the number of characters copied to the buffer.
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int GetClipboardFormatName(
             int format,
             [Friendly(FriendlyFlags.Array)] char* lpszFormatName,

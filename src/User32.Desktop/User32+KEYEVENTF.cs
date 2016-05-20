@@ -17,10 +17,27 @@ namespace PInvoke
         [Flags]
         public enum KEYEVENTF : uint
         {
-            KEYEVENTF_KEY_DOWN = 0x0000,
+            /// <summary>
+            /// If specified, the scan code was preceded by a prefix byte that has the value 0xE0 (224).
+            /// </summary>
             KEYEVENTF_EXTENDED_KEY = 0x0001,
-            KEYEVENTF_KEY_UP = 0x0002,
+
+            /// <summary>
+            /// If specified, the key is being released. If not specified, the key is being pressed.
+            /// </summary>
+            KEYEVENTF_KEYUP = 0x0002,
+
+            /// <summary>
+            /// If specified, <see cref="KEYBDINPUT.wScan"/> identifies the key and <see cref="KEYBDINPUT.wVk"/> is ignored.
+            /// </summary>
             KEYEVENTF_SCANCODE = 0x0008,
+
+            /// <summary>
+            /// If specified, the system synthesizes a <see cref="VirtualKey.VK_PACKET"/> keystroke.
+            /// The <see cref="KEYBDINPUT.wVk"/> parameter must be zero.
+            /// This flag can only be combined with the <see cref="KEYEVENTF_KEYUP"/> flag.
+            /// For more information, see the Remarks section.
+            /// </summary>
             KEYEVENTF_UNICODE = 0x0004
         }
     }

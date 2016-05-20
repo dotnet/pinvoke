@@ -16,10 +16,21 @@ namespace PInvoke
         [StructLayout(LayoutKind.Explicit)]
         public struct InputUnion
         {
+            /// <summary>
+            /// The information about a simulated mouse event.
+            /// </summary>
             [FieldOffset(0)]
             public MOUSEINPUT mi;
+
+            /// <summary>
+            /// The information about a simulated keyboard event.
+            /// </summary>
             [FieldOffset(0)]
             public KEYBDINPUT ki;
+
+            /// <summary>
+            /// The information about a simulated hardware event.
+            /// </summary>
             [FieldOffset(0)]
             public HARDWAREINPUT hi;
         }

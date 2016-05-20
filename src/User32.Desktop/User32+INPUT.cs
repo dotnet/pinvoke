@@ -1,6 +1,8 @@
 ﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
+#pragma warning disable SA1300 // Element must begin with upper-case letter
+
 namespace PInvoke
 {
     using System.Runtime.InteropServices;
@@ -16,13 +18,41 @@ namespace PInvoke
         [StructLayout(LayoutKind.Sequential)]
         public struct INPUT
         {
+            /// <summary>
+            /// The type of the input event.
+            /// </summary>
             public InputType type;
 
-            public InputUnion U;
+            /// <summary>
+            /// The union of three fields.
+            /// </summary>
+            private InputUnion union;
 
-            public static int Size
+            /// <summary>
+            /// Gets or sets the information about a simulated mouse event.
+            /// </summary>
+            public MOUSEINPUT mi
             {
-                get { return Marshal.SizeOf(typeof(INPUT)); }
+                get { return this.union.mi; }
+                set { this.union.mi = value; }
+            }
+
+            /// <summary>
+            /// Gets or sets the information about a simulated keyboard event.
+            /// </summary>
+            public KEYBDINPUT ki
+            {
+                get { return this.union.ki; }
+                set { this.union.ki = value; }
+            }
+
+            /// <summary>
+            /// Gets or sets the information about a simulated hardware event.
+            /// </summary>
+            public HARDWAREINPUT hi
+            {
+                get { return this.union.hi; }
+                set { this.union.hi = value; }
             }
         }
     }

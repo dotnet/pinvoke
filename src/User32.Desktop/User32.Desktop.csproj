@@ -25,8 +25,12 @@
     <Compile Include="User32+InputType.cs" />
     <Compile Include="User32+KEYEVENTF.cs" />
     <Compile Include="User32+MOUSEEVENTF.cs" />
-    <Compile Include="User32+MOUSEINPUT.cs" />
-    <Compile Include="User32+KEYBDINPUT.cs" />
+    <Compile Include="User32+MOUSEINPUT.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="User32+KEYBDINPUT.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="User32+HARDWAREINPUT.cs" />
     <Compile Include="User32+INPUT.cs" />
     <Compile Include="User32+QueueStatusFlags.cs" />
