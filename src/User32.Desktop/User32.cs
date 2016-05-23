@@ -103,6 +103,7 @@ namespace PInvoke
         public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(
             IntPtr hWnd,
             IntPtr hWndInsertAfter,
@@ -113,13 +114,14 @@ namespace PInvoke
             SetWindowPosFlags uFlags);
 
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MoveWindow(
             IntPtr hWnd,
             int X,
             int Y,
             int nWidth,
             int nHeight,
-            bool bRepaint);
+            [MarshalAs(UnmanagedType.Bool)] bool bRepaint);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
@@ -136,6 +138,16 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = false)]
         public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
+        /// <summary>
+        /// Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search. To search child windows, beginning with a specified child window, use the FindWindowEx function.
+        /// </summary>
+        /// <param name="lpClassName">The window class name. If lpClassName is NULL, it finds any window whose title matches the lpWindowName parameter. </param>
+        /// <param name="lpWindowName">The window name (the window's title). If this parameter is NULL, all window names match.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the window that has the specified
+        ///  class name and window name. If the function fails, the return value is NULL.</returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindowEx(
             IntPtr parentHandle,
@@ -144,7 +156,15 @@ namespace PInvoke
             string windowTitle);
 
         [DllImport(nameof(User32))]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
+
+        /// <summary>
+        /// Retrieves a handle to the desktop window. The desktop window covers the entire screen. The desktop window is the area on top of which other windows are painted.
+        /// </summary>
+        /// <returns>The return value is a handle to the desktop window.</returns>
+        [DllImport(nameof(User32))]
+        public static extern IntPtr GetDesktopWindow();
 
         [DllImport(nameof(User32))]
         public static extern IntPtr GetForegroundWindow();
@@ -201,6 +221,7 @@ namespace PInvoke
         ///     <para>If the window was not brought to the foreground, the return value is false.</para>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         /// <summary>Retrieves the handle to the ancestor of the specified window.</summary>
@@ -343,6 +364,7 @@ namespace PInvoke
         ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ReleaseCapture();
 
         [DllImport(nameof(User32), SetLastError = true)]
@@ -356,6 +378,7 @@ namespace PInvoke
         ///     caption was drawn as active before the call, the return value is nonzero. Otherwise, the return value is zero.
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
 
         /// <summary>
@@ -374,7 +397,7 @@ namespace PInvoke
         ///     parameter is TRUE, the return value is NULL.
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+        public static extern IntPtr GetSystemMenu(IntPtr hWnd, [MarshalAs(UnmanagedType.Bool)] bool bRevert);
 
         /// <summary>
         ///     Appends a new item to the end of the specified menu bar, drop-down menu, submenu, or shortcut menu. You can
@@ -403,6 +426,7 @@ namespace PInvoke
         ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool AppendMenu(
             IntPtr hMenu,
             MenuItemFlags uFlags,
@@ -428,10 +452,11 @@ namespace PInvoke
         ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetMenuItemInfo(
             IntPtr hMenu,
             uint uItem,
-            bool fByPosition,
+            [MarshalAs(UnmanagedType.Bool)] bool fByPosition,
             [In] ref MENUITEMINFO lpmii);
 
         /// <summary>Retrieves information about a menu item.</summary>
@@ -454,10 +479,11 @@ namespace PInvoke
         ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetMenuItemInfo(
             IntPtr hMenu,
             uint uItem,
-            bool fByPosition,
+            [MarshalAs(UnmanagedType.Bool)] bool fByPosition,
             ref MENUITEMINFO lpmii);
 
         /// <summary>
@@ -619,6 +645,7 @@ namespace PInvoke
         ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool UnhookWindowsHookEx(IntPtr hhk);
     }
 }
