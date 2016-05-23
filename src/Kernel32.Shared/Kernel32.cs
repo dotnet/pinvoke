@@ -485,7 +485,7 @@ namespace PInvoke
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         /// <remarks>This function does not retrieve handles for modules that were loaded using the LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE flag.</remarks>
-        [DllImport(nameof(api_ms_win_core_libraryloader_l1_1_1), SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true)]
+        [DllImport(api_ms_win_core_libraryloader_l1_1_1, SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true)]
         public static extern IntPtr GetProcAddress(SafeLibraryHandle hModule, string procName);
 
         /// <summary>
