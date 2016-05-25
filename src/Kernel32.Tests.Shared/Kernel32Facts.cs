@@ -9,4 +9,17 @@ using static PInvoke.Kernel32;
 
 public partial class Kernel32Facts
 {
+    [Fact]
+    public void GetTickCount_Nonzero()
+    {
+        uint result = GetTickCount();
+        Assert.NotEqual(0u, result);
+    }
+
+    [Fact]
+    public void GetTickCount64_Nonzero()
+    {
+        ulong result = GetTickCount64();
+        Assert.NotEqual(0ul, result);
+    }
 }

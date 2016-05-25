@@ -41,6 +41,7 @@ namespace PInvoke
         private const string api_ms_win_core_psapi_l1_1_0 = ApiSets.api_ms_win_core_psapi_l1_1_0;
         private const string api_ms_win_core_namedpipe_l1_2_0 = ApiSets.api_ms_win_core_namedpipe_l1_2_0;
         private const string api_ms_win_core_libraryloader_l1_1_1 = ApiSets.api_ms_win_core_libraryloader_l1_1_1;
+        private const string api_ms_win_core_sysinfo_l1_2_1 = ApiSets.api_ms_win_core_sysinfo_l1_2_1;
 #else
         private const string api_ms_win_core_localization_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_processthreads_l1_1_1 = nameof(Kernel32);
@@ -53,6 +54,7 @@ namespace PInvoke
         private const string api_ms_win_core_psapi_l1_1_0 = nameof(Kernel32);
         private const string api_ms_win_core_namedpipe_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_libraryloader_l1_1_1 = nameof(Kernel32);
+        private const string api_ms_win_core_sysinfo_l1_2_1 = nameof(Kernel32);
 #endif
 #pragma warning restore SA1303 // Const field names must begin with upper-case letter
 
@@ -485,8 +487,22 @@ namespace PInvoke
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         /// <remarks>This function does not retrieve handles for modules that were loaded using the LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE flag.</remarks>
-        [DllImport(nameof(api_ms_win_core_libraryloader_l1_1_1), SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true)]
+        [DllImport(api_ms_win_core_libraryloader_l1_1_1, SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true)]
         public static extern IntPtr GetProcAddress(SafeLibraryHandle hModule, string procName);
+
+        /// <summary>
+        /// Retrieves the number of milliseconds that have elapsed since the system was started, up to 49.7 days.
+        /// </summary>
+        /// <returns>The return value is the number of milliseconds that have elapsed since the system was started.</returns>
+        [DllImport(api_ms_win_core_sysinfo_l1_2_1)]
+        public static extern uint GetTickCount();
+
+        /// <summary>
+        /// Retrieves the number of milliseconds that have elapsed since the system was started.
+        /// </summary>
+        /// <returns>The number of milliseconds.</returns>
+        [DllImport(api_ms_win_core_sysinfo_l1_2_1)]
+        public static extern ulong GetTickCount64();
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,

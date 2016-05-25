@@ -55,6 +55,11 @@ namespace PInvoke
         public const string api_ms_win_core_synch_l1_2_0 = "api-ms-win-core-synch-l1-2-0.dll";
 
         /// <summary>
+        /// The "api-ms-win-core-sysinfo-l1-2-1.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_sysinfo_l1_2_1 = "api-ms-win-core-sysinfo-l1-2-1.dll";
+
+        /// <summary>
         /// The "api-ms-win-core-handle-l1-1-0.dll" constant.
         /// </summary>
         public const string api_ms_win_core_handle_l1_1_0 = "api-ms-win-core-handle-l1-1-0.dll";
