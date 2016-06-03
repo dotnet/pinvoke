@@ -469,6 +469,7 @@ namespace PInvoke
 
             /// <summary>
             /// A window receives this message when the user chooses a command from the Window menu, clicks the maximize button, minimize button, restore button, close button, or moves the form. You can stop the form from moving by filtering this out.
+            /// <remarks>See <see cref="SysCommands"/> for wParam.</remarks>
             /// </summary>            WM_SYSCOMMAND = 0x0112,
 
             /// <summary>

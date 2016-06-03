@@ -35,6 +35,7 @@
     <Compile Include="User32+INPUT.cs" />
     <Compile Include="User32+QueueStatusFlags.cs" />
     <Compile Include="User32+PeekMessageParams.cs" />
+    <Compile Include="User32+SysCommands.cs" />
     <Compile Include="User32+VirtualKey.cs" />
     <Compile Include="User32+ScanCode.cs" />
     <Compile Include="User32+WindowMessage.cs" />
