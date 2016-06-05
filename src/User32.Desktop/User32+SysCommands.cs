@@ -1,3 +1,6 @@
+// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+
 namespace PInvoke
 {
     /// <content>
@@ -6,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// wParam options for <see cref="WM_SYSCOMMAND"/>
+        /// wParam options for <see cref="WindowMessage.WM_SYSCOMMAND"/>
         /// </summary>
         public enum SysCommands : int
         {
