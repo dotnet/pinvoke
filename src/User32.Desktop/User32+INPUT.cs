@@ -15,45 +15,35 @@ namespace PInvoke
         /// <summary>
         /// Used by <see cref="SendInput(int, INPUT*, int)"/> to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Explicit)]
         public struct INPUT
         {
             /// <summary>
             /// The type of the input event.
             /// </summary>
+            [FieldOffset(0)]
             public InputType type;
 
             /// <summary>
-            /// The union of three fields.
+            /// The information about a simulated mouse event.
+            /// This field shares memory with the <see cref="ki"/> and <see cref="hi"/> fields.
             /// </summary>
-            private InputUnion union;
+            [FieldOffset(4)]
+            public MOUSEINPUT mi;
 
             /// <summary>
-            /// Gets or sets the information about a simulated mouse event.
+            /// The information about a simulated keyboard event.
+            /// This field shares memory with the <see cref="mi"/> and <see cref="hi"/> fields.
             /// </summary>
-            public MOUSEINPUT mi
-            {
-                get { return this.union.mi; }
-                set { this.union.mi = value; }
-            }
+            [FieldOffset(4)]
+            public KEYBDINPUT ki;
 
             /// <summary>
-            /// Gets or sets the information about a simulated keyboard event.
+            /// The information about a simulated hardware event.
+            /// This field shares memory with the <see cref="mi"/> and <see cref="ki"/> fields.
             /// </summary>
-            public KEYBDINPUT ki
-            {
-                get { return this.union.ki; }
-                set { this.union.ki = value; }
-            }
-
-            /// <summary>
-            /// Gets or sets the information about a simulated hardware event.
-            /// </summary>
-            public HARDWAREINPUT hi
-            {
-                get { return this.union.hi; }
-                set { this.union.hi = value; }
-            }
+            [FieldOffset(4)]
+            public HARDWAREINPUT hi;
         }
     }
 }
