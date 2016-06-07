@@ -18,4 +18,21 @@ public partial class User32Facts
     {
         Assert.True(MessageBeep(MessageBeepType.MB_ICONASTERISK));
     }
+
+    [Fact]
+    public void INPUT_Union()
+    {
+        INPUT i = default(INPUT);
+        i.type = InputType.INPUT_HARDWARE;
+
+        // Assert that the first field (type) has its own memory space.
+        Assert.Equal(0u, i.hi.uMsg);
+        Assert.Equal(0, (int)i.ki.wScan);
+        Assert.Equal(0, i.mi.dx);
+
+        // Assert that these three fields (hi, ki, mi) share memory space.
+        i.hi.uMsg = 1;
+        Assert.Equal(1, (int)i.ki.wVk);
+        Assert.Equal(1, i.mi.dx);
+    }
 }
