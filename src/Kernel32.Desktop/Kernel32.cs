@@ -1729,5 +1729,27 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern int Wow64SuspendThread(SafeObjectHandle hThread);
+
+        /// <summary>
+        /// Assigns a process to an existing job object.
+        /// </summary>
+        /// <param name="hJob">
+        /// A handle to the job object to which the process will be associated.
+        /// The CreateJobObject or OpenJobObject function returns this handle.
+        /// The handle must have the JOB_OBJECT_ASSIGN_PROCESS access right. For more information, see Job Object Security and Access Rights.
+        /// </param>
+        /// <param name="hProcess">
+        /// A handle to the process to associate with the job object. The handle must have the PROCESS_SET_QUOTA and PROCESS_TERMINATE access rights. For more information, see Process Security and Access Rights.
+        /// If the process is already associated with a job, the job specified by hJob must be empty or it must be in the hierarchy of nested jobs to which the process already belongs, and it cannot have UI limits set(SetInformationJobObject with JobObjectBasicUIRestrictions).
+        /// For more information, see Remarks.
+        /// Windows 7, Windows Server 2008 R2, Windows XP with SP3, Windows Server 2008, Windows Vista, and Windows Server 2003:  The process must not already be assigned to a job; if it is, the function fails with ERROR_ACCESS_DENIED.This behavior changed starting in Windows 8 and Windows Server 2012.
+        /// Terminal Services:  All processes within a job must run within the same session as the job.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool AssignProcessToJobObject(SafeObjectHandle hJob, SafeObjectHandle hProcess);
     }
 }
