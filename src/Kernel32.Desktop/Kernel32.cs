@@ -1751,5 +1751,25 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool AssignProcessToJobObject(SafeObjectHandle hJob, SafeObjectHandle hProcess);
+
+        /// <summary>
+        /// Creates or opens a job object.
+        /// </summary>
+        /// <param name="lpJobAttributes">A pointer to a <see cref="SECURITY_ATTRIBUTES"/> structure that specifies the security descriptor for the job object and determines whether child processes can inherit the returned handle.
+        /// If lpJobAttributes is NULL, the job object gets a default security descriptor and the handle cannot be inherited.
+        /// The ACLs in the default security descriptor for a job object come from the primary or impersonation token of the creator.
+        /// </param>
+        /// <param name="lpName">The name of the job. The name is limited to MAX_PATH characters. Name comparison is case-sensitive.
+        /// If lpName is NULL, the job is created without a name.
+        /// If lpName matches the name of an existing event, semaphore, mutex, waitable timer, or file-mapping object, the function fails and the GetLastError function returns ERROR_INVALID_HANDLE.
+        /// This occurs because these objects share the same namespace.The object can be created in a private namespace.For more information, see Object Namespaces.
+        /// Terminal Services:  The name can have a "Global\" or "Local\" prefix to explicitly create the object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\). For more information, see Kernel Object Namespaces.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the job object. The handle has the JOB_OBJECT_ALL_ACCESS access right. If the object existed before the function call, the function returns a handle to the existing job object and GetLastError returns ERROR_ALREADY_EXISTS.
+        /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe IntPtr CreateJobObject(SECURITY_ATTRIBUTES* lpJobAttributes, string lpName);
     }
 }
