@@ -41,6 +41,8 @@
     <Compile Include="Kernel32+GetModuleHandleExFlags.cs" />
     <Compile Include="Kernel32+IoCounters.cs" />
     <Compile Include="Kernel32+JobObjectBasicLimitInformation.cs" />
+    <Compile Include="Kernel32+JobObjectCpuRateControlFlags.cs" />
+    <Compile Include="Kernel32+JobObjectCpuRateControlInformation.cs" />
     <Compile Include="Kernel32+JobObjectExtendedLimitInformation.cs" />
     <Compile Include="Kernel32+JobObjectLimitFlags.cs" />
     <Compile Include="Kernel32+LoadLibraryExFlags.cs" />
