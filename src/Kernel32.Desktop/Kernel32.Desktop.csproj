@@ -44,6 +44,7 @@
     <Compile Include="Kernel32+JobObjectCpuRateControlFlags.cs" />
     <Compile Include="Kernel32+JobObjectCpuRateControlInformation.cs" />
     <Compile Include="Kernel32+JobObjectExtendedLimitInformation.cs" />
+    <Compile Include="Kernel32+JobObjectInfoClass.cs" />
     <Compile Include="Kernel32+JobObjectLimitFlags.cs" />
     <Compile Include="Kernel32+LoadLibraryExFlags.cs" />
     <Compile Include="Kernel32+LocalReAllocFlags.cs" />
