@@ -1775,19 +1775,44 @@ namespace PInvoke
         /// <summary>
         /// Determines whether the process is running in the specified job.
         /// </summary>
-        /// <param name="processHandle">A handle to the process to be tested. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights.
+        /// <param name="hProcess">
+        /// A handle to the process to be tested. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights.
         /// Windows Server 2003 and Windows XP:  The handle must have the PROCESS_QUERY_INFORMATION access right.
         /// </param>
-        /// <param name="jobHandle">A handle to the job. If this parameter is NULL, the function tests if the process is running under any job.
+        /// <param name="hJob">
+        /// A handle to the job. If this parameter is NULL, the function tests if the process is running under any job.
         /// If this parameter is not NULL, the handle must have the JOB_OBJECT_QUERY access right. For more information, see Job Object Security and Access Rights.
         /// </param>
-        /// <param name="result">A pointer to a value that receives TRUE if the process is running in the job, and FALSE otherwise.
+        /// <param name="result">
+        /// A pointer to a value that receives TRUE if the process is running in the job, and FALSE otherwise.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern bool IsProcessInJob(SafeObjectHandle processHandle, SafeObjectHandle jobHandle, out bool result);
+        public static extern bool IsProcessInJob(SafeObjectHandle hProcess, SafeObjectHandle hJob, out bool result);
+
+        /// <summary>
+        /// Sets limits for a job object.
+        /// </summary>
+        /// <param name="hJob">
+        /// A handle to the job whose limits are being set. The CreateJobObject or OpenJobObject function returns this handle. The handle must have the JOB_OBJECT_SET_ATTRIBUTES access right. For more information, see Job Object Security and Access Rights.
+        /// </param>
+        /// <param name="jobObjectInfoClass">
+        /// The information class for the limits to be set.
+        /// </param>
+        /// <param name="lpJobObjectInfo">T
+        /// he limits or job state to be set for the job. The format of this data depends on the value of JobObjectInfoClass.
+        /// </param>
+        /// <param name="cbJobObjectInfoLength">
+        /// The size of the job information being set, in bytes.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool SetInformationJobObject(SafeObjectHandle hJob, JOBOBJECT_INFO_CLASS jobObjectInfoClass, IntPtr lpJobObjectInfo, uint cbJobObjectInfoLength);
     }
 }
