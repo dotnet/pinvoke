@@ -32,7 +32,7 @@ namespace PInvoke
             JOB_OBJECT_LIMIT_JOB_TIME = 0x4,
 
             /// <summary>
-            /// Establishes a maximum number of simultaneously active processes associated with the job. 
+            /// Establishes a maximum number of simultaneously active processes associated with the job.
             /// </summary>
             JOB_OBJECT_LIMIT_ACTIVE_PROCESS = 0x8,
 
@@ -42,7 +42,7 @@ namespace PInvoke
             JOB_OBJECT_LIMIT_AFFINITY = 0x10,
 
             /// <summary>
-            /// Causes all processes associated with the job to use the same priority class. 
+            /// Causes all processes associated with the job to use the same priority class.
             /// </summary>
             JOB_OBJECT_LIMIT_PRIORITY_CLASS = 0x20,
 
@@ -52,7 +52,7 @@ namespace PInvoke
             JOB_OBJECT_LIMIT_PRESERVE_JOB_TIME = 0x40,
 
             /// <summary>
-            /// Causes all processes in the job to use the same scheduling class. 
+            /// Causes all processes in the job to use the same scheduling class.
             /// </summary>
             JOB_OBJECT_LIMIT_SCHEDULING_CLASS = 0x80,
 
@@ -67,12 +67,12 @@ namespace PInvoke
             JOB_OBJECT_LIMIT_JOB_MEMORY = 0x200,
 
             /// <summary>
-            /// Forces a call to the SetErrorMode function with the SEM_NOGPFAULTERRORBOX flag for each process associated with the job. 
+            /// Forces a call to the SetErrorMode function with the SEM_NOGPFAULTERRORBOX flag for each process associated with the job.
             /// </summary>
             JOB_OBJECT_LIMIT_DIE_ON_UNHANDLED_EXCEPTION = 0x400,
 
             /// <summary>
-            /// If any process associated with the job creates a child process using the CREATE_BREAKAWAY_FROM_JOB flag while this limit is in effect, the child process is not associated with the job. 
+            /// If any process associated with the job creates a child process using the CREATE_BREAKAWAY_FROM_JOB flag while this limit is in effect, the child process is not associated with the job.
             /// </summary>
             JOB_OBJECT_LIMIT_BREAKAWAY_OK = 0x800,
 

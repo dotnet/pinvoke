@@ -27,7 +27,7 @@ namespace PInvoke
             JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED = 0x2,
 
             /// <summary>
-            /// The job's CPU rate is a hard limit. After the job reaches its CPU cycle limit for the current scheduling interval, no threads associated with the job will run until the next interval. 
+            /// The job's CPU rate is a hard limit. After the job reaches its CPU cycle limit for the current scheduling interval, no threads associated with the job will run until the next interval.
             /// </summary>
             JOB_OBJECT_CPU_RATE_CONTROL_HARD_CAP = 0x4,
 

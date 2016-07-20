@@ -81,7 +81,7 @@ namespace PInvoke
             /// <summary>
             /// The lpJobObjectInfo parameter is a pointer to a JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 structure.
             /// </summary>
-            ViolationInJobObjectLimitViolationInformation2formation2 = 35,
+            ViolationInJobObjectLimitViolationInformation2formation2 = 35
         }
     }
 }

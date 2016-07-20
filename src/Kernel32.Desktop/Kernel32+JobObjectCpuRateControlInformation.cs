@@ -29,7 +29,7 @@ namespace PInvoke
             public uint CpuRate;
 
             /// <summary>
-            /// If the ControlFlags member specifies JOB_OBJECT_CPU_RATE_WEIGHT_BASED, this member specifies the scheduling weight of the job object, which determines the share of processor time given to the job relative to other workloads on the processor. 
+            /// If the ControlFlags member specifies JOB_OBJECT_CPU_RATE_WEIGHT_BASED, this member specifies the scheduling weight of the job object, which determines the share of processor time given to the job relative to other workloads on the processor.
             /// </summary>
             [FieldOffset(4)]
             public uint Weight;

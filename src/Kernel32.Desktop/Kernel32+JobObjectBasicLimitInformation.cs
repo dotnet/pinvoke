@@ -21,7 +21,7 @@ namespace PInvoke
             public long PerProcessUserTimeLimit;
 
             /// <summary>
-            /// If LimitFlags specifies JOB_OBJECT_LIMIT_JOB_TIME, this member is the per-job user-mode execution time limit, in 100-nanosecond ticks. Otherwise, this member is ignored. 
+            /// If LimitFlags specifies JOB_OBJECT_LIMIT_JOB_TIME, this member is the per-job user-mode execution time limit, in 100-nanosecond ticks. Otherwise, this member is ignored.
             /// </summary>
             public long PerJobUserTimeLimit;
 
