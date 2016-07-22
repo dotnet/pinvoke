@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.Runtime.InteropServices;
 
     /// <content>
     /// Contains the <see cref="JOB_OBJECT_EXTENDED_LIMIT_INFORMATION"/> nested type.
@@ -13,6 +14,7 @@ namespace PInvoke
         /// <summary>
         /// Contains basic and extended limit information for a job object.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct JOB_OBJECT_EXTENDED_LIMIT_INFORMATION
         {
             /// <summary>
