@@ -3,8 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
-
     /// <content>
     /// Contains the <see cref="JOBOBJECT_INFO_CLASS"/> nested type.
     /// </content>
@@ -13,7 +11,6 @@ namespace PInvoke
         /// <summary>
         /// The information class for the limits to be set.
         /// </summary>
-        [Flags]
         public enum JOBOBJECT_INFO_CLASS
         {
             /// <summary>
