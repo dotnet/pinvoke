@@ -1770,7 +1770,7 @@ namespace PInvoke
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern unsafe IntPtr CreateJobObject(SECURITY_ATTRIBUTES* lpJobAttributes, string lpName);
+        public static extern unsafe SafeObjectHandle CreateJobObject(SECURITY_ATTRIBUTES* lpJobAttributes, string lpName);
 
         /// <summary>
         /// Determines whether the process is running in the specified job.
