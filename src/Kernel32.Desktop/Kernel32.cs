@@ -1751,5 +1751,68 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern bool AssignProcessToJobObject(SafeObjectHandle hJob, SafeObjectHandle hProcess);
+
+        /// <summary>
+        /// Creates or opens a job object.
+        /// </summary>
+        /// <param name="lpJobAttributes">A pointer to a <see cref="SECURITY_ATTRIBUTES"/> structure that specifies the security descriptor for the job object and determines whether child processes can inherit the returned handle.
+        /// If lpJobAttributes is NULL, the job object gets a default security descriptor and the handle cannot be inherited.
+        /// The ACLs in the default security descriptor for a job object come from the primary or impersonation token of the creator.
+        /// </param>
+        /// <param name="lpName">The name of the job. The name is limited to MAX_PATH characters. Name comparison is case-sensitive.
+        /// If lpName is NULL, the job is created without a name.
+        /// If lpName matches the name of an existing event, semaphore, mutex, waitable timer, or file-mapping object, the function fails and the GetLastError function returns ERROR_INVALID_HANDLE.
+        /// This occurs because these objects share the same namespace.The object can be created in a private namespace.For more information, see Object Namespaces.
+        /// Terminal Services:  The name can have a "Global\" or "Local\" prefix to explicitly create the object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\). For more information, see Kernel Object Namespaces.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the job object. The handle has the JOB_OBJECT_ALL_ACCESS access right. If the object existed before the function call, the function returns a handle to the existing job object and GetLastError returns ERROR_ALREADY_EXISTS.
+        /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe SafeObjectHandle CreateJobObject(SECURITY_ATTRIBUTES* lpJobAttributes, string lpName);
+
+        /// <summary>
+        /// Determines whether the process is running in the specified job.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process to be tested. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights.
+        /// Windows Server 2003 and Windows XP:  The handle must have the PROCESS_QUERY_INFORMATION access right.
+        /// </param>
+        /// <param name="hJob">
+        /// A handle to the job. If this parameter is NULL, the function tests if the process is running under any job.
+        /// If this parameter is not NULL, the handle must have the JOB_OBJECT_QUERY access right. For more information, see Job Object Security and Access Rights.
+        /// </param>
+        /// <param name="result">
+        /// A pointer to a value that receives TRUE if the process is running in the job, and FALSE otherwise.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool IsProcessInJob(SafeObjectHandle hProcess, SafeObjectHandle hJob, out bool result);
+
+        /// <summary>
+        /// Sets limits for a job object.
+        /// </summary>
+        /// <param name="hJob">
+        /// A handle to the job whose limits are being set. The CreateJobObject or OpenJobObject function returns this handle. The handle must have the JOB_OBJECT_SET_ATTRIBUTES access right. For more information, see Job Object Security and Access Rights.
+        /// </param>
+        /// <param name="jobObjectInfoClass">
+        /// The information class for the limits to be set.
+        /// </param>
+        /// <param name="lpJobObjectInfo">T
+        /// he limits or job state to be set for the job. The format of this data depends on the value of JobObjectInfoClass.
+        /// </param>
+        /// <param name="cbJobObjectInfoLength">
+        /// The size of the job information being set, in bytes.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe bool SetInformationJobObject(SafeObjectHandle hJob, JOBOBJECT_INFO_CLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength);
     }
 }
