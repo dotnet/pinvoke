@@ -5,7 +5,6 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
-    using System.Security.AccessControl;
     using Microsoft.Win32.SafeHandles;
     using static Kernel32;
 
@@ -560,7 +559,7 @@ namespace PInvoke
 
         /// <summary>
         /// Retrieves the current status of the specified service.
-        /// This function has been superseded by the QueryServiceStatusEx function. QueryServiceStatusEx returns the same information <see cref="QueryServiceStatus"/> returns, with the addition of the process identifier and additional information for the service.
+        /// This function has been superseded by the <see cref="QueryServiceStatusEx(SafeServiceHandle, SC_STATUS_TYPE, void*, int, out int)"/> function. <see cref="QueryServiceStatusEx(SafeServiceHandle, SC_STATUS_TYPE, void*, int, out int)"/> returns the same information <see cref="QueryServiceStatus"/> returns, with the addition of the process identifier and additional information for the service.
         /// </summary>
         /// <param name="hService">
         /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or the <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.SERVICE_QUERY_STATUS"/> access right.
@@ -863,6 +862,38 @@ namespace PInvoke
             RegNotifyFilter dwNotifyFilter,
             SafeWaitHandle hEvent,
             bool fAsynchronous);
+
+        /// <summary>
+        /// Retrieves the current status of the specified service based on the specified information level.
+        /// </summary>
+        /// <param name="hService">
+        /// A handle to the service. This handle is returned by the <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> or <see cref="OpenService"/> function, and it must have the <see cref="ServiceAccess.SERVICE_QUERY_STATUS"/> access right. For more information, see Service Security and Access Rights.
+        /// </param>
+        /// <param name="InfoLevel">
+        /// The service attributes to be returned. Use <see cref="SC_STATUS_TYPE.SC_STATUS_PROCESS_INFO"/> to retrieve the service status information.
+        /// The <paramref name="lpBuffer"/> parameter is a pointer to a <see cref="SERVICE_STATUS_PROCESS"/> structure.</param>
+        /// <param name="lpBuffer">
+        /// A pointer to the buffer that receives the status information. The format of this data depends on the value of the <paramref name="InfoLevel"/> parameter.
+        /// The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <paramref name="cbBufSize" /> parameter.The function will fail and <see cref="GetLastError "/> will return ERROR_INSUFFICIENT_BUFFER.The <paramref name="pcbBytesNeeded" /> parameter will receive the required size.
+        /// </param>
+        /// <param name="cbBufSize">
+        /// The size of the buffer pointed to by the <paramref name="lpBuffer"/> parameter, in bytes.
+        /// </param>
+        /// <param name="pcbBytesNeeded">
+        /// A pointer to a variable that receives the number of bytes needed to store all status information, if the function fails with <see cref="Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER"/>.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool QueryServiceStatusEx(
+            SafeServiceHandle hService,
+            SC_STATUS_TYPE InfoLevel,
+            void* lpBuffer,
+            int cbBufSize,
+            out int pcbBytesNeeded);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.
