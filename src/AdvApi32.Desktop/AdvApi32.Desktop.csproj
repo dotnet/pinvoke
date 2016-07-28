@@ -51,6 +51,9 @@
   <ItemGroup>
     <Compile Include="AdvApi32+RegNotifyFilter.cs" />
     <Compile Include="AdvApi32+RegOpenKeyOptions.cs" />
+    <Compile Include="AdvApi32+SC_STATUS_TYPE.cs" />
+    <Compile Include="AdvApi32+SERVICE_STATUS_PROCESS.cs" />
+    <Compile Include="AdvApi32+SERVICE_STATUS_PROCESS_Flags.cs" />
     <Compile Include="AdvApi32.RegistryAccessRights.cs" />
     <Compile Include="AdvApi32+ServiceStateQuery.cs" />
     <Compile Include="AdvApi32+ENUM_SERVICE_STATUS.cs" />
