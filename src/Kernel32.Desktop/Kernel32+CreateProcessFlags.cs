@@ -114,6 +114,18 @@ namespace PInvoke
             /// Windows Server 2008, Windows Vista, Windows Server 2003, and Windows XP:  This value is not supported.
             /// </summary>
             INHERIT_PARENT_AFFINITY = 0x00010000,
+            NORMAL_PRIORITY_CLASS = 0x00000020,
+            IDLE_PRIORITY_CLASS = 0x00000040,
+            HIGH_PRIORITY_CLASS = 0x00000080,
+            REALTIME_PRIORITY_CLASS = 0x00000100,
+            CREATE_FORCEDOS = 0x00002000,
+            BELOW_NORMAL_PRIORITY_CLASS = 0x00004000,
+            ABOVE_NORMAL_PRIORITY_CLASS = 0x00008000,
+            PROCESS_MODE_BACKGROUND_BEGIN = 0x00100000,
+            PROCESS_MODE_BACKGROUND_END = 0x00200000,
+            PROFILE_USER = 0x10000000,
+            PROFILE_KERNEL = 0x20000000,
+            PROFILE_SERVER = 0x40000000
         }
     }
 }
