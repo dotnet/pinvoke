@@ -10,6 +10,9 @@
     <Error Condition="!Exists('$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets'))" />
   </Target>
   <Import Project="$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets" Condition="Exists('$(NerdbankGitVersioningPath)build\NerdBank.GitVersioning.targets')" />
+  <!-- The following target is disabled (with a false condition). Enabling it
+       would require that we have a good story for maintaining package dependencies
+       in nuspec files for the created target framework(s). -->
   <Target Name="CopyAssemblyToLibDotNetFolder" DependsOnTargets="ConvertItems" AfterTargets="ConvertItems" Condition="false">
     <ItemGroup>
       <File Include="@(File)"
