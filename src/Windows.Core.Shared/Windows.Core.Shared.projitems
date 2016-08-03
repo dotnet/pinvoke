@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)NTSTATUS+FacilityCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NTSTATUS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PInvokeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)POINT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RECT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Win32ErrorCode.cs" />
   </ItemGroup>
