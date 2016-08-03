@@ -28,6 +28,7 @@
     <ProjectReference Include="..\Psapi.NuGet\Psapi.NuGet.nuproj" />
     <ProjectReference Include="..\SetupApi.NuGet\SetupApi.NuGet.nuproj" />
     <ProjectReference Include="..\Shell32.NuGet\Shell32.NuGet.nuproj" />
+    <ProjectReference Include="..\SHCore.NuGet\SHCore.NuGet.nuproj" />
     <ProjectReference Include="..\User32.NuGet\User32.NuGet.nuproj" />
     <ProjectReference Include="..\Userenv.NuGet\Userenv.NuGet.nuproj" />
     <ProjectReference Include="..\UxTheme.NuGet\UxTheme.NuGet.nuproj" />
