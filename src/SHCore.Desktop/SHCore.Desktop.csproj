@@ -44,17 +44,19 @@
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Windows.ShellScalingApi.Desktop\Windows.ShellScalingApi.Desktop.csproj">
+      <Project>{0500e681-818f-4366-b2a5-0bb73d7864c6}</Project>
+      <Name>Windows.ShellScalingApi.Desktop</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SHCore+MONITOR_DPI_TYPE.cs" />
     <Compile Include="SHCore.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SHCore+SHELL_UI_COMPONENT.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SHCore.exports.txt">

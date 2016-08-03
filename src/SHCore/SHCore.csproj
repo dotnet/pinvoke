@@ -45,6 +45,10 @@
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Windows.ShellScalingApi\Windows.ShellScalingApi.csproj">
+      <Project>{a8669e42-8247-448d-80a8-5575ed7c63e6}</Project>
+      <Name>Windows.ShellScalingApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\SHCore.Shared\SHCore.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

@@ -12,19 +12,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F1AC7AB2-ED09-4CB7-916F-2B7C386881B7}</ProjectGuid>
+    <ProjectGuid>{CB9CFE56-EA10-412C-BEF9-1FA7C38AA76E}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
-    <NuSpecTemplate>PInvoke.SHCore.nuspec</NuSpecTemplate>
+    <NuSpecTemplate>PInvoke.Windows.ShellScalingApi.nuspec</NuSpecTemplate>
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
-    <Id>PInvoke.SHCore</Id>
-    <Title>PInvoke.SHCore</Title>
+    <Id>PInvoke.Windows.ShellScalingApi</Id>
+    <Title>PInvoke.Windows.ShellScalingApi</Title>
     <Authors>Andrew Arnott</Authors>
     <Owners>aarnott</Owners>
-    <Summary>P/Invoke methods for the Windows SHCore.dll.</Summary>
-    <Description>P/Invoke methods for the Windows SHCore.dll.</Description>
+    <Summary>P/Invoke methods for the Windows Windows.ShellScalingApi.dll.</Summary>
+    <Description>P/Invoke methods for the Windows Windows.ShellScalingApi.dll.</Description>
     <ReleaseNotes>
     </ReleaseNotes>
     <ProjectUrl>https://github.com/AArnott/pinvoke</ProjectUrl>
@@ -34,14 +34,13 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SHCore\SHCore.csproj" />
-    <ProjectReference Include="..\SHCore.Profile111\SHCore.Profile111.csproj" />
-    <ProjectReference Include="..\SHCore.Desktop\SHCore.Desktop.csproj" />
+    <ProjectReference Include="..\Windows.ShellScalingApi\Windows.ShellScalingApi.csproj" />
+    <ProjectReference Include="..\Windows.ShellScalingApi.Profile111\Windows.ShellScalingApi.Profile111.csproj" />
+    <ProjectReference Include="..\Windows.ShellScalingApi.Desktop\Windows.ShellScalingApi.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
-    <ProjectReference Include="..\Windows.ShellScalingApi.NuGet\Windows.ShellScalingApi.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PInvoke.SHCore.nuspec" />
+    <None Include="PInvoke.Windows.ShellScalingApi.nuspec" />
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />

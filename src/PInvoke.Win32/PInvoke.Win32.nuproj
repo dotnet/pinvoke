@@ -33,6 +33,7 @@
     <ProjectReference Include="..\Userenv.NuGet\Userenv.NuGet.nuproj" />
     <ProjectReference Include="..\UxTheme.NuGet\UxTheme.NuGet.nuproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
+    <ProjectReference Include="..\Windows.ShellScalingApi.NuGet\Windows.ShellScalingApi.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PInvoke.Win32.nuspec" />
