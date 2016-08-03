@@ -45,6 +45,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ShellScalingApi.cs" />
     <Compile Include="ShellScallingApi+MONITOR_DPI_TYPE.cs" />
     <Compile Include="ShellScallingApi+SHELL_UI_COMPONENT.cs" />
     <Compile Include="ShellScallingApi+PROCESS_DPI_AWARENESS.cs" />

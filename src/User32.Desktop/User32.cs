@@ -667,7 +667,7 @@ namespace PInvoke
         /// This will return points based on the other app's awareness that can be used to create a <see cref="RECT"/>.
         /// </para>
         /// </remarks>
-        [DllImport("User32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool PhysicalToLogicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
 
@@ -709,7 +709,7 @@ namespace PInvoke
         /// In those cases, use <see cref="PhysicalToLogicalPointForPerMonitorDPI"/> and <see cref="LogicalToPhysicalPointForPerMonitorDPI"/>.
         /// </para>
         /// </remarks>
-        [DllImport("User32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool PhysicalToLogicalPoint(IntPtr hwnd, ref POINT lpPoint);
 
@@ -758,7 +758,7 @@ namespace PInvoke
         /// This will return points based on the other app's awareness that can be used to create a <see cref="RECT"/>.
         /// </para>
         /// </remarks>
-        [DllImport("User32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool LogicalToPhysicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
 
@@ -798,7 +798,7 @@ namespace PInvoke
         /// In those cases, use <see cref="PhysicalToLogicalPointForPerMonitorDPI"/> and <see cref="LogicalToPhysicalPointForPerMonitorDPI"/>.
         /// </para>
         /// </remarks>
-        [DllImport("User32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool LogicalToPhysicalPoint(IntPtr hwnd, ref POINT lpPoint);
 
@@ -811,7 +811,7 @@ namespace PInvoke
         /// It may be altered or unavailable in subsequent versions.
         /// For Windows 8.1 or superior operating systems, use GetProcessDPIAwareness/>.
         /// </remarks>
-        [DllImport("user32.dll")]
+        [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsProcessDPIAware();
 
@@ -833,7 +833,7 @@ namespace PInvoke
         /// IMPORTANT: dpiAware defined in an embedded DLL manifest has no affect.
         /// </para>
         /// </remarks>
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         public static extern bool SetProcessDPIAware();
 
         /// <summary>

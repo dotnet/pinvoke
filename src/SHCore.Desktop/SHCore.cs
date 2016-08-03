@@ -44,7 +44,7 @@ namespace PInvoke
         /// <item><see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/>: The actual DPI value set by the user for that display</item>
         /// </list>
         /// </remarks>
-        [DllImport("SHCore.dll")]
+        [DllImport(nameof(SHCore), SetLastError = true)]
         public static extern HResult GetDpiForMonitor(IntPtr hmonitor, MONITOR_DPI_TYPE dpiType, out int dpiX, out int dpiY);
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace PInvoke
         /// <item><see cref="HResult.Code.E_ACCESSDENIED"/>: The application does not have sufficient privileges</item>
         /// </list>
         /// </returns>
-        [DllImport("SHCore.dll")]
+        [DllImport(nameof(SHCore), SetLastError = true)]
         public static extern HResult GetProcessDpiAwareness(IntPtr hprocess, out PROCESS_DPI_AWARENESS value);
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace PInvoke
         /// If the DPI awareness level is not set, the default value is <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/>.
         /// </para>
         /// </remarks>
-        [DllImport("SHCore.dll")]
+        [DllImport(nameof(SHCore), SetLastError = true)]
         public static extern HResult SetProcessDpiAwareness(PROCESS_DPI_AWARENESS value);
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="component">The type of shell component</param>
         /// <returns>The DPI required for an icon of this type</returns>
-        [DllImport("SHCore.dll")]
+        [DllImport(nameof(SHCore), SetLastError = true)]
         public static extern int GetDpiForShellUiComponent(SHELL_UI_COMPONENT component);
     }
 }

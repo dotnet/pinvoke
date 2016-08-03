@@ -31,7 +31,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Windows.ShellScalingApiFacts.cs" />
+    <Compile Include="ShellScalingApiFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

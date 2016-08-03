@@ -4,9 +4,8 @@
 using System;
 using PInvoke;
 using Xunit;
-using static PInvoke.Windows.ShellScalingApi;
 
-public class Windows.ShellScalingApiFacts
+public class ShellScalingApiFacts
 {
     [Fact(Skip = "No tests yet")]
     public void NoTests()
