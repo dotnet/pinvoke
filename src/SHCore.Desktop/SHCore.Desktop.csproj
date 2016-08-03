@@ -36,6 +36,10 @@
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\User32.Desktop\User32.Desktop.csproj">
+      <Project>{774a91d6-10c2-459c-a482-50d655bb4680}</Project>
+      <Name>User32.Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>
@@ -45,10 +49,12 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SHCore+MONITOR_DPI_TYPE.cs" />
     <Compile Include="SHCore.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SHCore+SHELL_UI_COMPONENT.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SHCore.exports.txt">
