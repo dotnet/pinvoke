@@ -806,9 +806,35 @@ namespace PInvoke
         /// Determines whether the current process is dots per inch (dpi) aware such that it adjusts the sizes of UI elements to compensate for the dpi setting.
         /// </summary>
         /// <returns>TRUE if the process is dpi aware; otherwise, FALSE</returns>
+        /// <remarks>
+        /// IsProcessDPIAware is available for use in Windows Vista or superior the operating systems.
+        /// It may be altered or unavailable in subsequent versions.
+        /// For Windows 8.1 or superior operating systems, use GetProcessDPIAwareness/>.
+        /// </remarks>
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsProcessDPIAware();
+
+        /// <summary>
+        /// Sets the current process as dots per inch (dpi) aware.
+        /// </summary>
+        /// <returns>If the function succeeds, the return value is true. Otherwise, the return value is false.</returns>
+        /// <remarks>
+        /// <para>
+        /// SetProcessDPIAware is available for use in Windows Vista or superior the operating systems.
+        /// It may be altered or unavailable in subsequent versions.
+        /// For Windows 8.1 or superior operating systems, use SetProcessDpiAwareness/>.
+        /// </para>
+        /// <para>
+        /// SetProcessDPIAware is subject to a possible race condition if a DLL caches dpi settings during initialization.
+        /// For this reason, it is recommended that dpi-aware be set through the application (.exe) manifest rather than by calling SetProcessDPIAware.
+        /// DLLs should accept the dpi setting of the host process rather than call SetProcessDPIAware themselves.
+        /// To be set properly, dpiAware should be specified as part of the application (.exe) manifest.
+        /// IMPORTANT: dpiAware defined in an embedded DLL manifest has no affect.
+        /// </para>
+        /// </remarks>
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool SetProcessDPIAware();
 
         /// <summary>
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
