@@ -4,6 +4,17 @@ Contributing
 There are many thousands of Win32 APIs and this library is not complete.
 Please send pull requests to add what you've come up with.
 
+## Prerequisites
+
+### Required
+
+* [Microsoft Build Tools 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48159) (automatically installed with Visual Studio 2015)
+
+### Better with
+
+* [Visual Studio 2015](https://www.visualstudio.com/en-us)
+* [NuProj](http://nuproj.net) extension for Visual Studio
+
 ## Guidelines
 
 ### Learn how to write P/Invoke signatures
