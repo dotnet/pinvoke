@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Controls the behaviour of <see cref="CreateWindowStation" /> when a window station with the desired name already exists/>
+        /// Controls the behaviour of <see cref="CreateWindowStation(string, WindowStationCreationFlags, WINDOW_STATION_ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES?)" /> when a window station with the desired name already exists/>
         /// </summary>
         public enum WindowStationCreationFlags : uint
         {
