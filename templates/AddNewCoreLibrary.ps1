@@ -7,7 +7,7 @@
 	no functions, classes or methods. These kind of projects are meant to be used when types and
 	structures must be shared among other high level projects, like SHCore and User32 share Windows.ShellScalingApi.
 
-	Core Libraries should be named after their C/C++m header file names like ShellScalingApi.h
+	Core Libraries should be named after their C/C++ header file names like ShellScalingApi.h
 
     .PARAMETER CoreLibraryName
     The name of the core library you are introducing support for, without the .dll extension.

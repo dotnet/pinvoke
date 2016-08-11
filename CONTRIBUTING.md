@@ -39,13 +39,14 @@ When introducing support for a new native DLL to this project, use the `template
 Powershell cmdlet to create the projects necessary to support it and follow the instructions from that script.
 
 Sometimes it might be needed to add libraries to share types and structures among high-level API sets.
-When that happens you should use the `templates\AddNewLibrary.ps1` Powershell cmdlet to create a core library.
+When that happens you should use the `templates\AddNewCoreLibrary.ps1` Powershell cmdlet to create a core library.
 
 A Core Library on PInvoke project wording is a library that only contains types and structures, no functions, classes or methods.
-These kind of projects are meant to be used when types and structures must be shared among other high level projects,
-like PInvoke.SHCore and PInvoke.User32 share types using Windows.ShellScalingApi.
+This libraries are not backed by DLLs, instead they are based on C/C++ header files (.h files). They are meant to be used
+when types and structures must be shared among other high level projects, like PInvoke.SHCore and PInvoke.User32
+share types using Windows.ShellScalingApi.
 
-Core Libraries should be named after their C/C++m header file names like ShellScalingApi.h
+Core Libraries should be named after their C/C++ header file names like ShellScalingApi.h
 
 The high-level libraries should also be added to the list on the [readme](README.md).
 
