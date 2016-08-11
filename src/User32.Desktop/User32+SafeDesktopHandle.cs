@@ -45,22 +45,7 @@ namespace PInvoke
 
             public override bool IsInvalid => this.handle == IntPtr.Zero;
 
-            protected override bool ReleaseHandle()
-            {
-                if (this.IsInvalid)
-                {
-                    return false;
-                }
-
-                bool closed = CloseDesktop(this.handle);
-
-                if (closed)
-                {
-                    this.SetHandle(IntPtr.Zero);
-                }
-
-                return closed;
-            }
+            protected override bool ReleaseHandle() => CloseDesktop(this.handle);
         }
     }
 }

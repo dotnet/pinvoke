@@ -13,7 +13,7 @@ namespace PInvoke
     {
         /// <summary>
         /// The <see cref="Kernel32.ACCESS_MASK"/> type is a bitmask that specifies a set of access rights in the access mask of an access control entry.
-        /// /// This is a set of Specific Rights bitmask that defines access rights and security for desktop objects
+        /// This is a set of Specific Rights bitmask that defines access rights and security for desktop objects
         /// </summary>
         /// <remarks>
         /// <see cref="Kernel32.ACCESS_MASK"/> is quite well described here: http://blogs.msdn.com/b/openspecification/archive/2010/04/01/about-the-access-mask-structure.aspx
@@ -68,6 +68,7 @@ namespace PInvoke
                 GENERIC_READ = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_READ |
                     SpecificRight.DESKTOP_ENUMERATE |
                     SpecificRight.DESKTOP_READOBJECTS,
+
                 GENERIC_WRITE = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_WRITE |
                     SpecificRight.DESKTOP_CREATEMENU |
                     SpecificRight.DESKTOP_CREATEWINDOW |
@@ -75,8 +76,10 @@ namespace PInvoke
                     SpecificRight.DESKTOP_JOURNALPLAYBACK |
                     SpecificRight.DESKTOP_JOURNALRECORD |
                     SpecificRight.DESKTOP_WRITEOBJECTS,
+
                 GENERIC_EXECUTE = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_EXECUTE |
                     SpecificRight.DESKTOP_SWITCHDESKTOP,
+
                 GENERIC_ALL = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_REQUIRED |
                     SpecificRight.DESKTOP_CREATEMENU |
                     SpecificRight.DESKTOP_CREATEWINDOW |

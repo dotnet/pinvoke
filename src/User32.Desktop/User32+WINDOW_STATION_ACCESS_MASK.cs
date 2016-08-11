@@ -70,13 +70,16 @@ namespace PInvoke
                     SpecificRight.WINSTA_ENUMERATE |
                     SpecificRight.WINSTA_READATTRIBUTES |
                     SpecificRight.WINSTA_READSCREEN,
+
                 GENERIC_WRITE = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_WRITE |
                     SpecificRight.WINSTA_ACCESSCLIPBOARD |
                     SpecificRight.WINSTA_CREATEDESKTOP |
                     SpecificRight.WINSTA_WRITEATTRIBUTES,
+
                 GENERIC_EXECUTE = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_EXECUTE |
                     SpecificRight.WINSTA_ACCESSGLOBALATOMS |
                     SpecificRight.WINSTA_EXITWINDOWS,
+
                 GENERIC_ALL = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_REQUIRED |
                     SpecificRight.WINSTA_ACCESSCLIPBOARD |
                     SpecificRight.WINSTA_ACCESSGLOBALATOMS |
@@ -100,12 +103,15 @@ namespace PInvoke
                     SpecificRight.WINSTA_ENUMDESKTOPS |
                     SpecificRight.WINSTA_ENUMERATE |
                     SpecificRight.WINSTA_READATTRIBUTES,
+
                 GENERIC_WRITE = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_WRITE |
                     SpecificRight.WINSTA_ACCESSCLIPBOARD |
                     SpecificRight.WINSTA_CREATEDESKTOP,
+
                 GENERIC_EXECUTE = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_EXECUTE |
                     SpecificRight.WINSTA_ACCESSGLOBALATOMS |
                     SpecificRight.WINSTA_EXITWINDOWS,
+
                 GENERIC_ALL = Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_REQUIRED |
                     SpecificRight.WINSTA_ACCESSCLIPBOARD |
                     SpecificRight.WINSTA_ACCESSGLOBALATOMS |

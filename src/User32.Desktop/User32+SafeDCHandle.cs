@@ -46,11 +46,7 @@ namespace PInvoke
             public override bool IsInvalid => this.handle == IntPtr.Zero;
 
             /// <inheritdoc />
-            protected override bool ReleaseHandle()
-            {
-                ReleaseDC(this.HWnd, this.handle);
-                return true;
-            }
+            protected override bool ReleaseHandle() => ReleaseDC(this.HWnd, this.handle) == 1;
         }
     }
 }
