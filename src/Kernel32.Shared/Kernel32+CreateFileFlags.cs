@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// File attributes, flags, and security settings that are passed to the <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> method.
+        /// File attributes, flags, and security settings that are passed to the CreateFile method.
         /// </summary>
         [Flags]
         public enum CreateFileFlags : uint
@@ -78,8 +78,7 @@ namespace PInvoke
             /// <summary>
             ///     The file or device is being opened with no system caching for data reads and writes. This flag does not affect
             ///     hard disk caching or memory mapped files. There are strict requirements for successfully working with files opened
-            ///     with <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)" /> using the <see cref="FILE_FLAG_NO_BUFFERING" /> flag, for details see File
-            ///     Buffering.
+            ///     with CreateFile using the <see cref="FILE_FLAG_NO_BUFFERING" /> flag.
             /// </summary>
             FILE_FLAG_NO_BUFFERING = 0x20000000,
 
@@ -146,13 +145,13 @@ namespace PInvoke
             SECURITY_SQOS_PRESENT = 0x00100000,
 
             /// <summary>Impersonates a client at the Anonymous impersonation level.</summary>
-            SECURITY_ANONYMOUS = SECURITY_IMPERSONATION_LEVEL.SecurityAnonymous << 16,
+            SECURITY_ANONYMOUS = 0 << 16,
 
             /// <summary>The security tracking mode is dynamic. If this flag is not specified, the security tracking mode is static.</summary>
             SECURITY_CONTEXT_TRACKING = 0x00040000,
 
             /// <summary>Impersonates a client at the Delegation impersonation level.</summary>
-            SECURITY_DELEGATION = SECURITY_IMPERSONATION_LEVEL.SecurityDelegation << 16,
+            SECURITY_DELEGATION = 3 << 16,
 
             /// <summary>
             ///     Only the enabled aspects of the client's security context are available to the server. If you do not specify
@@ -162,13 +161,13 @@ namespace PInvoke
             SECURITY_EFFECTIVE_ONLY = 0x00080000,
 
             /// <summary>Impersonates a client at the Identification impersonation level.</summary>
-            SECURITY_IDENTIFICATION = SECURITY_IMPERSONATION_LEVEL.SecurityIdentification << 16,
+            SECURITY_IDENTIFICATION = 1 << 16,
 
             /// <summary>
             ///     Impersonate a client at the impersonation level. This is the default behavior if no other flags are specified
             ///     along with the <see cref="SECURITY_SQOS_PRESENT" /> flag.
             /// </summary>
-            SECURITY_IMPERSONATION = SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation << 16
+            SECURITY_IMPERSONATION = 2 << 16
         }
     }
 }

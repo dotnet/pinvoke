@@ -9,7 +9,11 @@
     <Import_RootNamespace>PInvoke</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+CreateFileFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+CreationDisposition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FileAccess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FileAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FileShare.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FILETIME.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FINDEX_INFO_LEVELS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32+FINDEX_SEARCH_OPS.cs" />

@@ -12,7 +12,7 @@ namespace PInvoke
         /// Describes an action to take on a file or device that exists or does not exist.
         /// </summary>
         /// <remarks>
-        /// These are flags to pass to the <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/> method's dwCreationDisposition parameter.
+        /// These are flags to pass to the CreateFile method's dwCreationDisposition parameter.
         /// </remarks>
         public enum CreationDisposition : uint
         {
