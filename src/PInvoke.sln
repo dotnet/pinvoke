@@ -253,8 +253,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.ShellScalingApi.Pro
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Windows.ShellScalingApi.Shared", "Windows.ShellScalingApi.Shared\Windows.ShellScalingApi.Shared.shproj", "{076AE6A9-D318-47C7-A1E6-9F8022EEC7E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.ShellScalingApi.Tests", "Windows.ShellScalingApi.Tests\Windows.ShellScalingApi.Tests.csproj", "{B095EF1F-BE56-47BC-91AF-510F0531EC1E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.ShellScalingApi", "Windows.ShellScalingApi\Windows.ShellScalingApi.csproj", "{A8669E42-8247-448D-80A8-5575ED7C63E6}"
 EndProject
 Global
@@ -705,10 +703,6 @@ Global
 		{1878E4AC-CD1A-4A5B-817A-AF6FA9C0020D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1878E4AC-CD1A-4A5B-817A-AF6FA9C0020D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1878E4AC-CD1A-4A5B-817A-AF6FA9C0020D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B095EF1F-BE56-47BC-91AF-510F0531EC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B095EF1F-BE56-47BC-91AF-510F0531EC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B095EF1F-BE56-47BC-91AF-510F0531EC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B095EF1F-BE56-47BC-91AF-510F0531EC1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8669E42-8247-448D-80A8-5575ED7C63E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A8669E42-8247-448D-80A8-5575ED7C63E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8669E42-8247-448D-80A8-5575ED7C63E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
