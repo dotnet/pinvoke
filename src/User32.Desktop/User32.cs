@@ -1044,7 +1044,7 @@ namespace PInvoke
         /// If lpwinsta is NULL or an empty string, the system forms a window station name using the logon session identifier for the calling process.
         /// To get this name, call the <see cref="GetUserObjectInformation(IntPtr, ObjectInformationType, void*, uint, uint*)"/> function.</param>
         /// <param name="dwFlags">
-        /// If this parameter is CWF_CREATE_ONLY and the window station already exists, the call fails.
+        /// If this parameter is <see cref="WindowStationCreationFlags.CWF_CREATE_ONLY"/> and the window station already exists, the call fails.
         /// If this flag is not specified and the window station already exists, the function succeeds and returns a new handle to the existing window station.
         /// Windows XP/2000:  This parameter is reserved and must be zero.
         /// </param>
@@ -1066,7 +1066,7 @@ namespace PInvoke
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
         public static unsafe extern SafeWindowStationHandle CreateWindowStation(
             string lpwinsta,
-            WindowStationCreationFlags dwFlags,      // must be zero.
+            WindowStationCreationFlags dwFlags,
             WINDOW_STATION_ACCESS_MASK dwDesiredAccess,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Kernel32.SECURITY_ATTRIBUTES* lpsa);
 
