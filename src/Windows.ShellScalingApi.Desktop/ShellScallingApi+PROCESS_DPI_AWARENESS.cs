@@ -39,9 +39,28 @@ namespace PInvoke
     /// it will appear to grow or shrink by the relative DPI changes as the window is moved from one display
     /// to the another with a different DPI setting.
     /// <para>
+    /// In previous versions of Windows, there was no setting for PROCESS_PER_MONITOR_DPI_AWARE. Apps were either DPI unaware or DPI aware.
+    /// Legacy applications that were classified as DPI aware before Windows 8.1 are considered to have a PROCESS_DPI_AWARENESS setting of PROCESS_SYSTEM_DPI_AWARE in current versions of Windows.
     /// </para>
     /// <para>
+    /// Unlike the other awareness values, PROCESS_PER_MONITOR_DPI_AWARE should adapt to the display that it is on.
+    /// This means that it is always rendered natively and is never scaled by the system.
+    /// The responsibility is on the app to adjust the scale factor when receiving the WM_DPICHANGED message.
+    /// Part of this message includes a suggested rect for the window.
+    /// This suggestion is the current window scaled from the old DPI value to the new DPI value.
     /// </para>
+    /// <para>
+    /// Because of DPI virtualization, if one application queries another with a different awareness level for DPI-dependent information,
+    /// the system will automatically scale values to match the awareness level of the caller.
+    /// One example of this is if you call GetWindowRect and pass in a window created by another application. Using the situation described above,
+    /// assume that a PROCESS_DPI_UNAWARE app created a 500 by 500 window on display C.
+    /// If you query for the window rect from a different application, the size of the rect will vary based upon the DPI awareness of your app:
+    /// </para>
+    /// <list>
+    /// <item>PROCESS_DPI_UNAWARE: You will get a 500 by 500 rect because the system will assume a DPI of 96 and automatically scale the actual rect down by a factor of 3.</item>
+    /// <item>PROCESS_SYSTEM_DPI_AWARE: You will get a 1000 by 1000 rect because the system will assume a DPI of 192 and automatically scale the actual rect down by a factor of 3/2.</item>
+    /// <item>PROCESS_PER_MONITOR_DPI_AWARE: You will get a 1500 by 1500 rect because the system will use the actual DPI of the display and not do any scaling behind the scenes.</item>
+    /// </list>
     /// </remarks>
     public enum PROCESS_DPI_AWARENESS
     {

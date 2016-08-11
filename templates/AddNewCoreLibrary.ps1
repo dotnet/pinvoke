@@ -3,6 +3,12 @@
     Adds the class library and NuGet projects necessary to support a new core library
     to the solution.
 
+	A Core Library on PInvoke project wording is a library that only contains types and structures,
+	no functions, classes or methods. These kind of projects are meant to be used when types and
+	structures must be shared among other high level projects, like SHCore and User32 share Windows.ShellScalingApi.
+
+	Core Libraries should be named after their C/C++m header file names like ShellScalingApi.h
+
     .PARAMETER CoreLibraryName
     The name of the core library you are introducing support for, without the .dll extension.
 
@@ -51,7 +57,7 @@ function Replace-Placeholders {
 
 $Src = Resolve-Path "$PSScriptRoot\..\src"
 
-$Directories = 'LIBNAME','LIBNAME.Profile111','LIBNAME.Desktop','LIBNAME.Shared','LIBNAME.Tests','LIBNAME.NuGet'
+$Directories = 'LIBNAME','LIBNAME.Profile111','LIBNAME.Desktop','LIBNAME.Shared','LIBNAME.NuGet'
 $TemplateDirectories = @()
 $SrcDirectories = @()
 foreach($dir in $Directories) {
@@ -83,7 +89,6 @@ Write-Output "    $Src\$CoreLibraryName\$CoreLibraryName.csproj"
 Write-Output "    $Src\$CoreLibraryName.Profile111\$CoreLibraryName.Profile111.csproj"
 Write-Output "    $Src\$CoreLibraryName.Desktop\$CoreLibraryName.Desktop.csproj"
 Write-Output "    $Src\$CoreLibraryName.Shared\$CoreLibraryName.Shared.shproj"
-Write-Output "    $Src\$CoreLibraryName.Tests\$CoreLibraryName.Tests.csproj"
 Write-Output "    $Src\$CoreLibraryName.NuGet\$CoreLibraryName.NuGet.nuproj"
 Write-Output "2. Add your library to the README.md file."
 Write-Output "3. Add a project reference to $Src\$CoreLibraryName.NuGet\$CoreLibraryName.NuGet.nuproj"
