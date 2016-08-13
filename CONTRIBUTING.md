@@ -35,7 +35,7 @@ execute that on this project as that will corrupt the result of `build.ps1 -rest
 
 Before developing this project in Visual Studio, or after making project or project.json changes,
 or to recover after Visual Studio executes a package restore, run this command, which is defined
-at the root of the repo:
+at the root of the repo, from the Visual Studio Developer Command Prompt:
 
 ```
 .\build -Restore
