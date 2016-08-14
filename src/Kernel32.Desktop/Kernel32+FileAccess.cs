@@ -3,7 +3,7 @@
 
 namespace PInvoke
 {
-    using static Kernel32.ACCESS_MASK.StandardRight;
+    using static ACCESS_MASK.StandardRight;
 
     /// <content>
     /// Contains the <see cref="FileAccess"/> nested type.

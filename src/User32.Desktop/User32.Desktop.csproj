@@ -21,7 +21,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="User32+DESKTOP_ACCESS_MASK.cs" />
     <Compile Include="User32+DesktopCreationFlags.cs" />
     <Compile Include="User32+InputType.cs" />
     <Compile Include="User32+KEYEVENTF.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="User32+WindowsHookType.cs" />
     <Compile Include="User32+WindowShowStyle.cs" />
     <Compile Include="User32+WindowStationCreationFlags.cs" />
-    <Compile Include="User32+WINDOW_STATION_ACCESS_MASK.cs" />
     <Compile Include="User32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>

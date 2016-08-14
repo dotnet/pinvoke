@@ -38,5 +38,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)POINT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RECT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Win32ErrorCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ACCESS_MASK.cs" />
   </ItemGroup>
 </Project>
