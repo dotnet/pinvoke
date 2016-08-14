@@ -41,6 +41,18 @@ at the root of the repo, from the Visual Studio Developer Command Prompt:
 .\build -Restore
 ```
 
+### Frequently Asked Questions
+
+#### Can p/invoke signatures and docs found on pinvoke.net be copied into this project?
+
+[The license found on pinvoke.net](http://www.pinvoke.net/termsofuse.htm#3.4) for its code grants users:
+
+> a licence to copy, use, adapt, modify or distribute that source code as they see fit, provided that the source code may not be used in any unlawful, defamatory, obscene, offensive or discriminatory way.
+
+I'm not a lawyer, but I read that to mean contributing the code to an MIT licensed project such as
+this one would be permissible. In addition, folks on pinvoke.net did not invent the method signatures
+in the first place, as they are a work of the author of the original library being P/Invoked into.
+
 ### Learn how to write P/Invoke signatures
 
 The [sigimp tool][SigImp] will automatically generate P/Invoke signatures for most Win32 functions
