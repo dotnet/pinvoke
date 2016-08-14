@@ -58,9 +58,7 @@ namespace PInvoke
 
         /// <summary>
         /// An application-defined or library-defined callback function used with the <see cref="SetWindowsHookEx(WindowsHookType, IntPtr, IntPtr, int)"/> function.
-        /// This is a generic function to Hook callbacks. For specific callback functions see CallWndDelegate, CallWndRetDelegate, CBTDelegate, DebugDelegate, ForegroundIdleDelegate,
-        /// GetMsgDelegate, JournalPlaybackDelegate, JournalRecordDelegate, KeyboardDelegate, LowLevelKeyboardDelegate, MessageDelegate, MouseDelegate, LowLevelMouseDelegate,
-        /// ShellDelegate and SysMsgDelegate.
+        /// This is a generic function to Hook callbacks. For specific callback functions see this <see href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632589(v=vs.85).aspx" >API documentation on MSDN</see>.
         /// </summary>
         /// <param name="nCode">An action code for the callback. Can be used to indicate if the hook procedure must process the message or not.</param>
         /// <param name="wParam">First message parameter</param>
@@ -952,7 +950,7 @@ namespace PInvoke
         /// If the <paramref name="dwDesiredAccess"/> parameter specifies the READ_CONTROL, WRITE_DAC, or WRITE_OWNER standard access rights, you must also request the DESKTOP_READOBJECTS and DESKTOP_WRITEOBJECTS access rights.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern SafeDesktopHandle OpenDesktop(
             string lpszDesktop,
             DesktopCreationFlags dwFlags,
@@ -1120,7 +1118,7 @@ namespace PInvoke
         /// The default size of the desktop heap depends on factors such as hardware architecture. To retrieve the size of the desktop heap, call the <see cref="GetUserObjectInformation(IntPtr, ObjectInformationType, void*, uint, uint*)"/> function with UOI_HEAPSIZE.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(User32), CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static unsafe extern SafeDesktopHandle CreateDesktopEx(
            string lpszDesktop,
            IntPtr lpszDevice,
@@ -1159,7 +1157,7 @@ namespace PInvoke
         /// The number of desktops that can be created is limited by the size of the system desktop heap, which is 48 MB. Desktop objects use the heap to store resources. You can increase the number of desktops that can be created by reducing the default heap reserved for each desktop in the interactive window station. This value is specified in the SharedSection substring of the following registry value: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\SubSystems\Windows.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(User32), CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static unsafe extern SafeDesktopHandle CreateDesktop(
             string lpszDesktop,
             string lpszDevice,
@@ -1281,7 +1279,7 @@ namespace PInvoke
         /// If the function fails, the return value is an invalid handle.
         /// </returns>
         /// <remarks>After you are done with the handle, you must call <see cref="CloseWindowStation"/> to free the handle.</remarks>
-        [DllImport(nameof(User32), CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static unsafe extern SafeWindowStationHandle CreateWindowStation(
             string lpwinsta,
             WindowStationCreationFlags dwFlags,
@@ -1353,7 +1351,7 @@ namespace PInvoke
         /// <param name="dwDesiredAccess">The access to the window station. For a list of access rights</param>
         /// <returns>If the function succeeds, the return value is the handle to the specified window station. If the function fails, the return value is NULL. </returns>
         /// <remarks>After you are done with the handle, you must call <see cref="CloseWindowStation"/> to free the handle.</remarks>
-        [DllImport(nameof(User32), CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern SafeWindowStationHandle OpenWindowStation(
             string lpszWinSta,
             [MarshalAs(UnmanagedType.Bool)] bool fInherit,

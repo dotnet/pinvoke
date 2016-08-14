@@ -161,14 +161,14 @@ namespace PInvoke
             public int AsInt32 => (int)this.Value;
 
             /// <summary>
-            /// Gets the basic generic rights of this value, the ones that Windows can set and read for any object
+            /// Gets the generic rights of this value, the ones that Windows can set and read for any object
             /// </summary>
             public Kernel32.ACCESS_MASK.GenericRight BasicGenericRights => (Kernel32.ACCESS_MASK.GenericRight)(this.Value & GenericRightsMask);
 
             /// <summary>
-            /// Gets the generic rights of this value for interactive desktops.
+            /// Gets the generic rights of this value for desktops.
             /// </summary>
-            public GenericRight InteractiveWindowStationGenericRights => (GenericRight)(this.Value & GenericRightsMask);
+            public GenericRight DesktopGenericRights => (GenericRight)(this.Value & GenericRightsMask);
 
             /// <summary>
             /// Gets the special rights of this value.
