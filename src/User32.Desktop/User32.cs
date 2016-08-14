@@ -979,27 +979,6 @@ namespace PInvoke
         public static extern bool EnumDesktopWindows(SafeDesktopHandle hDesktop, WNDENUMPROC lpfn, IntPtr lParam);
 
         /// <summary>
-        /// Enumerates all top-level windows associated with the specified desktop. It passes the handle to each window, in turn, to an application-defined callback function.
-        /// </summary>
-        /// <param name="hDesktop">
-        /// A handle to the desktop whose top-level windows are to be enumerated. This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, DESKTOP_ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetThreadDesktop"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> function,
-        /// and must have the <see cref="DESKTOP_ACCESS_MASK.SpecificRight.DESKTOP_READOBJECTS"/> access right.
-        /// If this parameter is NULL, the current desktop is used.
-        /// </param>
-        /// <param name="lpfn">An application-defined <see cref="WNDENUMPROC"/> callback function.</param>
-        /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
-        /// <returns>
-        /// If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.
-        /// If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by <paramref name="lpfn"/>.
-        /// If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
-        /// Windows Server 2003 and Windows XP/2000:  If there are no windows on the desktop, GetLastError returns ERROR_INVALID_HANDLE.
-        /// </returns>
-        /// <remarks>The EnumDesktopWindows function repeatedly invokes the <paramref name="lpfn"/> callback function until the last top-level window is enumerated or the callback function returns FALSE.</remarks>
-        [DllImport(nameof(User32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool EnumDesktopWindows(SafeDesktopHandle hDesktop, IntPtr lpfn, IntPtr lParam);
-
-        /// <summary>
         /// Enumerates all top-level windows on the screen by passing the handle to each window, in turn, to an application-defined callback function. EnumWindows continues until the last top-level window is enumerated or the callback function returns FALSE.
         /// </summary>
         /// <param name="lpEnumFunc">An application-defined <see cref="WNDENUMPROC"/> callback function.</param>
@@ -1017,25 +996,6 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EnumWindows(WNDENUMPROC lpEnumFunc, IntPtr lParam);
-
-        /// <summary>
-        /// Enumerates all desktops associated with the specified window station of the calling process. The function passes the name of each desktop, in turn, to an application-defined callback function.
-        /// </summary>
-        /// <param name="hWinsta">A handle to the window station whose desktops are to be enumerated. This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, WINDOW_STATION_ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetProcessWindowStation"/>, or <see cref="OpenWindowStation"/> function, and must have the WINSTA_ENUMDESKTOPS access right.</param>
-        /// <param name="lpEnumFunc">A pointer to an application-defined EnumDesktopProc callback function.</param>
-        /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
-        /// <returns>
-        /// If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by <paramref name="lpEnumFunc"/>.
-        /// If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.
-        /// If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
-        /// </returns>
-        /// <remarks>
-        /// The EnumDesktops function enumerates only those desktops for which the calling process has the DESKTOP_ENUMERATE access right.
-        /// The EnumDesktops function repeatedly invokes the lpEnumFunc callback function until the last desktop is enumerated or the callback function returns zero.
-        /// </remarks>
-        [DllImport(nameof(User32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern int EnumDesktops(SafeWindowStationHandle hWinsta, IntPtr lpEnumFunc, IntPtr lParam);
 
         /// <summary>
         /// Enumerates all desktops associated with the specified window station of the calling process. The function passes the name of each desktop, in turn, to an application-defined callback function.
@@ -1324,24 +1284,6 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EnumWindowStations(WINSTAENUMPROC lpEnumFunc, IntPtr lParam);
-
-        /// <summary>
-        /// Enumerates all window stations in the current session. The function passes the name of each window station, in turn, to an application-defined callback function.
-        /// </summary>
-        /// <param name="lpEnumFunc">An application-defined <see cref="WINSTAENUMPROC"/> callback function.</param>
-        /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
-        /// <returns>
-        /// If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.
-        /// If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by <paramref name="lpEnumFunc"/>.
-        /// If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
-        /// </returns>
-        /// <remarks>
-        /// The EnumWindowStations function enumerates only those window stations for which the calling process has the <see cref="WINDOW_STATION_ACCESS_MASK.SpecificRight.WINSTA_ENUMERATE"/> access right.
-        ///  EnumWindowStations repeatedly invokes the <paramref name="lpEnumFunc"/> callback function until the last window station is enumerated or the callback function returns FALSE.
-        /// </remarks>
-        [DllImport(nameof(User32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool EnumWindowStations(IntPtr lpEnumFunc, IntPtr lParam);
 
         /// <summary>
         /// Opens the specified window station.
