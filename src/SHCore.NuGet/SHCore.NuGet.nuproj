@@ -12,19 +12,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>c103475c-0de0-43ad-abae-f38c4efce55d</ProjectGuid>
+    <ProjectGuid>{F1AC7AB2-ED09-4CB7-916F-2B7C386881B7}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
-    <NuSpecTemplate>PInvoke.User32.nuspec</NuSpecTemplate>
+    <NuSpecTemplate>PInvoke.SHCore.nuspec</NuSpecTemplate>
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
-    <Id>PInvoke.User32</Id>
-    <Title>PInvoke.User32</Title>
+    <Id>PInvoke.SHCore</Id>
+    <Title>PInvoke.SHCore</Title>
     <Authors>Andrew Arnott</Authors>
     <Owners>aarnott</Owners>
-    <Summary>P/Invoke methods for the Windows User32.dll.</Summary>
-    <Description>P/Invoke methods for the Windows User32.dll.</Description>
+    <Summary>P/Invoke methods for the Windows SHCore.dll.</Summary>
+    <Description>P/Invoke methods for the Windows SHCore.dll.</Description>
     <ReleaseNotes>
     </ReleaseNotes>
     <ProjectUrl>https://github.com/AArnott/pinvoke</ProjectUrl>
@@ -34,13 +34,14 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\User32.Desktop\User32.Desktop.csproj" />
+    <ProjectReference Include="..\SHCore\SHCore.csproj" />
+    <ProjectReference Include="..\SHCore.Profile111\SHCore.Profile111.csproj" />
+    <ProjectReference Include="..\SHCore.Desktop\SHCore.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
-    <ProjectReference Include="..\Kernel32.NuGet\Kernel32.NuGet.nuproj" />
     <ProjectReference Include="..\Windows.ShellScalingApi.NuGet\Windows.ShellScalingApi.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PInvoke.User32.nuspec" />
+    <None Include="PInvoke.SHCore.nuspec" />
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />

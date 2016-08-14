@@ -978,6 +978,11 @@ namespace PInvoke
             WM_TABLET_LAST = 0x02df,
 
             /// <summary>
+            /// The WM_DISPLAYCHANGE message is sent when the effective dots per inch (dpi) for a window has changed. The DPI is the scale factor for a window.
+            /// </summary>
+            WM_DPICHANGED = 0x02E0,
+
+            /// <summary>
             /// An application sends a WM_CUT message to an edit control or combo box to delete (cut) the current selection, if any, in the edit control and copy the deleted text to the clipboard in CF_TEXT format.
             /// </summary>
             WM_CUT = 0x0300,

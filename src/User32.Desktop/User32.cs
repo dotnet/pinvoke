@@ -674,6 +674,224 @@ namespace PInvoke
         public static extern short GetKeyState(VirtualKey vKey);
 
         /// <summary>
+        /// <para>
+        /// Converts a point in a window from logical coordinates into physical coordinates, regardless of the dots per inch (dpi) awareness of the caller.
+        /// For more information about DPI awareness levels, see <see cref="PROCESS_DPI_AWARENESS"/>
+        /// </para>
+        /// <para>
+        /// Tip: Since an application with a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> uses the actual DPI of the monitor,
+        /// physical and logical coordinates are the same for this app.
+        /// </para>
+        /// </summary>
+        /// <param name="hwnd">A handle to the window whose transform is used for the conversion</param>
+        /// <param name="lpPoint">
+        /// A pointer to a <see cref="POINT"/> structure that specifies the physical/screen coordinates to be converted.
+        /// The new logical coordinates are copied into this structure if the function succeeds
+        /// </param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <remarks>
+        /// <para>
+        /// In Windows 8, system–DPI aware applications translated between physical and logical space using
+        /// <see cref="PhysicalToLogicalPoint"/> and <see cref="LogicalToPhysicalPoint"/>.
+        /// In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs.
+        /// As a result, in Windows 8.1, these APIs no longer transform points.
+        /// The system returns all points to an application in its own coordinate space.
+        /// This behavior preserves functionality for the majority of applications,
+        /// but there are some exceptions in which you must make changes to ensure that the application works as expected.
+        /// </para>
+        /// <para>
+        /// For example, an application might need to walk the entire window tree of another process and ask the system for DPI-dependent information about the window.
+        /// By default, the system will return the information based on the DPI awareness of the caller. This is ideal for most applications.
+        /// However, the caller might need the information based on the DPI awareness of the application associated with the window.
+        /// This might be necessary because the two applications send DPI-dependent information between each other directly.
+        /// In this case, the application can use <see cref="LogicalToPhysicalPointForPerMonitorDPI"/> to get physical coordinates and
+        /// then use PhysicalToLogicalPointForPerMonitorDPI to convert the physical coordinates
+        /// into logical coordinates based on the DPI-awareness of the provided <paramref name="hwnd"/>.
+        /// </para>
+        /// <para>
+        /// Consider two applications, one has value of  and the other has a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/>.
+        /// The <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app creates a window on a single monitor where the scale factor is 200% (192 DPI).
+        /// If both apps call <see cref="GetWindowRect"/> on this window, they will receive different values.
+        /// The <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> app will receive a rect based on 96 DPI coordinates,
+        /// while the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app will receive coordinates matching the actual DPI of the monitor.
+        /// If the <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> needs the <see cref="RECT"/> that the system returned
+        /// to the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app, it could call <see cref="LogicalToPhysicalPointForPerMonitorDPI"/>
+        /// for the corners of its <see cref="RECT"/> and pass in the handle to the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app's window.
+        /// This will return points based on the other app's awareness that can be used to create a <see cref="RECT"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PhysicalToLogicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Converts the physical coordinates of a point in a window to logical coordinates
+        /// </summary>
+        /// <param name="hwnd">
+        /// A handle to the window whose transform is used for the conversion. Top level windows are fully supported.
+        /// In the case of child windows, only the area of overlap between the parent and the child window is converted
+        /// </param>
+        /// <param name="lpPoint">
+        /// A pointer to a <see cref="POINT"/> structure that specifies the physical/screen coordinates to be converted.
+        /// The new logical coordinates are copied into this structure if the function succeeds
+        /// </param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <remarks>
+        /// <para>
+        /// The function uses the window identified by the <paramref name="hwnd"/> parameter and the physical coordinates
+        /// given in the <see cref="POINT"/> structure to compute the logical coordinates.
+        /// The logical coordinates are the unscaled coordinates that appear to the application in a programmatic way.
+        /// In other words, the logical coordinates are the coordinates the application recognizes, which can be different from the physical coordinates.
+        /// The API then replaces the physical coordinates with the logical coordinates.
+        /// The new coordinates are in the world coordinates whose origin is (0, 0) on the desktop.
+        /// The coordinates passed to the API have to be on the <paramref name="hwnd"/>.
+        /// </para>
+        /// <para>
+        /// On all platforms, PhysicalToLogicalPoint will fail on a window that has either 0 width or height;
+        /// an application must first establish a non-0 width and height by calling, for example, <see cref="MoveWindow"/>.
+        /// On some versions of Windows (including Windows 7), PhysicalToLogicalPointwill still fail if <see cref="MoveWindow"/> has been called
+        /// after a call to <see cref="ShowWindow"/> with <see cref="WindowShowStyle.SW_HIDE"/> has hidden the window.
+        /// </para>
+        /// <para>
+        /// In Windows 8, system–DPI aware applications translate between physical and logical space using PhysicalToLogicalPoint and <see cref="LogicalToPhysicalPoint"/>.
+        /// In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications,
+        /// you do not need these APIs. As a result, in Windows 8.1, PhysicalToLogicalPoint and <see cref="LogicalToPhysicalPoint"/> no longer transform points.
+        /// The system returns all points to an application in its own coordinate space.
+        /// This behavior preserves functionality for the majority of applications,
+        /// but there are some exceptions in which you must make changes to ensure that the application works as expected.
+        /// In those cases, use <see cref="PhysicalToLogicalPointForPerMonitorDPI"/> and <see cref="LogicalToPhysicalPointForPerMonitorDPI"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PhysicalToLogicalPoint(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Converts a point in a window from logical coordinates into physical coordinates, regardless of the dots per inch (dpi) awareness of the caller.
+        /// For more information about DPI awareness levels, see <see cref="PROCESS_DPI_AWARENESS"/>.
+        /// <para>
+        /// Tip: Since an application with a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> uses the actual DPI of the monitor,
+        /// physical and logical coordinates are the same for this app.
+        /// </para>
+        /// </summary>
+        /// <param name="hwnd">A handle to the window whose transform is used for the conversion</param>
+        /// <param name="lpPoint">
+        /// A pointer to a <see cref="POINT"/> structure that specifies the logical coordinates to be converted.
+        /// The new physical coordinates are copied into this structure if the function succeeds
+        /// </param>
+        /// <returns>Returns true if successful, or false otherwise</returns>
+        /// <remarks>
+        /// <para>
+        /// In Windows 8, system–DPI aware applications translated between physical and logical space using
+        /// <see cref="PhysicalToLogicalPoint"/> and <see cref="LogicalToPhysicalPoint"/>.
+        /// In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs.
+        /// As a result, in Windows 8.1, these APIs no longer transform points.
+        /// The system returns all points to an application in its own coordinate space.
+        /// This behavior preserves functionality for the majority of applications,
+        /// but there are some exceptions in which you must make changes to ensure that the application works as expected.
+        /// </para>
+        /// <para>
+        /// For example, an application might need to walk the entire window tree of another process and ask the system for DPI-dependent information about the window.
+        /// By default, the system will return the information based on the DPI awareness of the caller. This is ideal for most applications.
+        /// However, the caller might need the information based on the DPI awareness of the application associated with the window.
+        /// This might be necessary because the two applications send DPI-dependent information between each other directly.
+        /// In this case, the application can use LogicalToPhysicalPointForPerMonitorDPI to get physical coordinates and
+        /// then use <see cref="PhysicalToLogicalPointForPerMonitorDPI"/> to convert the physical coordinates
+        /// into logical coordinates based on the DPI-awareness of the provided <paramref name="hwnd"/>.
+        /// </para>
+        /// <para>
+        /// Consider two applications, one has value of  and the other has a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/>.
+        /// The <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app creates a window on a single monitor where the scale factor is 200% (192 DPI).
+        /// If both apps call <see cref="GetWindowRect"/> on this window, they will receive different values.
+        /// The <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> app will receive a rect based on 96 DPI coordinates,
+        /// while the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app will receive coordinates matching the actual DPI of the monitor.
+        /// If the <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> needs the <see cref="RECT"/> that the system returned
+        /// to the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app, it could call LogicalToPhysicalPointForPerMonitorDPI
+        /// for the corners of its <see cref="RECT"/> and pass in the handle to the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app's window.
+        /// This will return points based on the other app's awareness that can be used to create a <see cref="RECT"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool LogicalToPhysicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Converts the logical coordinates of a point in a window to physical coordinates
+        /// </summary>
+        /// <param name="hwnd">
+        /// A handle to the window whose transform is used for the conversion. Top level windows are fully supported.
+        /// In the case of child windows, only the area of overlap between the parent and the child window is converted
+        /// </param>
+        /// <param name="lpPoint">
+        /// A pointer to a <see cref="POINT"/> structure that specifies the logical coordinates to be converted.
+        /// The new physical coordinates are copied into this structure if the function succeeds
+        /// </param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <remarks>
+        /// <para>
+        /// LogicalToPhysicalPoint is a transformation API that can be called by a process that declares itself as dpi aware.
+        /// The function uses the window identified by the hWnd parameter and the logical coordinates given in the <see cref="POINT"/> structure to compute the physical coordinates.
+        /// The LogicalToPhysicalPoint function replaces the logical coordinates in the <see cref="POINT"/> structure with the physical coordinates.
+        /// The physical coordinates are relative to the upper-left corner of the screen.
+        /// The coordinates have to be inside the client area of <paramref name="hwnd"/>.
+        /// </para>
+        /// <para>
+        /// On all platforms, LogicalToPhysicalPoint will fail on a window that has either 0 width or height;
+        /// an application must first establish a non-0 width and height by calling, for example, <see cref="MoveWindow"/>.
+        /// On some versions of Windows (including Windows 7), LogicalToPhysicalPoint will still fail if <see cref="MoveWindow"/> has been called
+        /// after a call to <see cref="ShowWindow"/> with <see cref="WindowShowStyle.SW_HIDE"/> has hidden the window.
+        /// </para>
+        /// <para>
+        /// In Windows 8, system–DPI aware applications translate between physical and logical space using <see cref="PhysicalToLogicalPoint"/> and LogicalToPhysicalPoint.
+        /// In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications,
+        /// you do not need these APIs. As a result, in Windows 8.1, <see cref="PhysicalToLogicalPoint"/> and LogicalToPhysicalPoint no longer transform points.
+        /// The system returns all points to an application in its own coordinate space.
+        /// This behavior preserves functionality for the majority of applications,
+        /// but there are some exceptions in which you must make changes to ensure that the application works as expected.
+        /// In those cases, use <see cref="PhysicalToLogicalPointForPerMonitorDPI"/> and <see cref="LogicalToPhysicalPointForPerMonitorDPI"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool LogicalToPhysicalPoint(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Determines whether the current process is dots per inch (dpi) aware such that it adjusts the sizes of UI elements to compensate for the dpi setting.
+        /// </summary>
+        /// <returns>TRUE if the process is dpi aware; otherwise, FALSE</returns>
+        /// <remarks>
+        /// IsProcessDPIAware is available for use in Windows Vista or superior the operating systems.
+        /// It may be altered or unavailable in subsequent versions.
+        /// For Windows 8.1 or superior operating systems, use GetProcessDPIAwareness/>.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsProcessDPIAware();
+
+        /// <summary>
+        /// Sets the current process as dots per inch (dpi) awareness.
+        /// </summary>
+        /// <returns>If the function succeeds, the return value is true. Otherwise, the return value is false.</returns>
+        /// <remarks>
+        /// <para>
+        /// SetProcessDPIAware is available for use in Windows Vista or superior the operating systems.
+        /// It may be altered or unavailable in subsequent versions.
+        /// For Windows 8.1 or superior operating systems, use SetProcessDpiAwareness/>.
+        /// </para>
+        /// <para>
+        /// SetProcessDPIAware is subject to a possible race condition if a DLL caches dpi settings during initialization.
+        /// For this reason, it is recommended that dpi-aware be set through the application (.exe) manifest rather than by calling SetProcessDPIAware.
+        /// DLLs should accept the dpi setting of the host process rather than call SetProcessDPIAware themselves.
+        /// To be set properly, dpiAware should be specified as part of the application (.exe) manifest.
+        /// IMPORTANT: dpiAware defined in an embedded DLL manifest has no affect.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool SetProcessDPIAware();
+
+        /// <summary>
+        /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
+        /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
         /// Makes the specified desktop visible and activates it. This enables the desktop to receive input from the user.
         /// The calling process must have DESKTOP_SWITCHDESKTOP access to the desktop for the SwitchDesktop function to succeed.
         /// </summary>
