@@ -1815,6 +1815,185 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe bool SetInformationJobObject(SafeObjectHandle hJob, JOBOBJECT_INFO_CLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength);
 
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool SetConsoleCtrlHandler(ConsoleEventDelegate callback, bool add);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GenerateConsoleCtrlEvent(uint dwCtrlEvent, uint dwProcessGroupId);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool AddConsoleAlias([MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder Source, [MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder Target, [MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder ExeName);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        private static extern IntPtr CreateConsoleScreenBuffer(uint dwDesiredAccess, uint dwShareMode, ref SECURITY_ATTRIBUTES lpSecurityAttributes, uint dwFlags, IntPtr lpScreenBufferData);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool AttachConsole(uint dwProcessId);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool FlushConsoleInputBuffer(IntPtr hConsoleInput);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode,  SetLastError = true)]
+        private static extern uint GetConsoleAliases([MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder AliasBuffer, uint AliasBufferLength, [MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder ExeName);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern uint GetConsoleAliasExes([MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder ExeNameBuffer, uint ExeNameBufferLength);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern uint GetConsoleAlias([MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder Source, [MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder TargetBuffer, uint TargetBufferLength, [MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder ExeName);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        private static extern uint GetConsoleCP();
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetConsoleDisplayMode(ref uint lpModeFlags);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        private static extern COORD GetConsoleFontSize(IntPtr hConsoleOutput, uint nFont);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetConsoleMode(IntPtr hConsoleHandle, ref uint lpMode);
+
+        [DllImport("kernel32.dll", EntryPoint = "SetConsoleMode")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        private static extern uint GetConsoleOutputCP();
+
+        [DllImport("kernel32.dll", EntryPoint = "SetConsoleOutputCP")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetConsoleOutputCP(uint wCodePageID);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetConsoleCP(uint wCodePageID);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        private static extern uint GetConsoleProcessList(ref uint lpdwProcessList, uint dwProcessCount);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetConsoleScreenBufferInfo(IntPtr hConsoleOutput, ref CONSOLE_SCREEN_BUFFER_INFO lpConsoleScreenBufferInfo);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetConsoleSelectionInfo(ref CONSOLE_SELECTION_INFO lpConsoleSelectionInfo);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern uint GetConsoleTitle([MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder lpConsoleTitle, uint nSize);
+
+        [DllImport("kernel32.dll", EntryPoint = "SetConsoleTitleW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetConsoleTitleW([MarshalAs(UnmanagedType.LPWStr)] string lpConsoleTitle);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        private static extern COORD GetLargestConsoleWindowSize(IntPtr hConsoleOutput);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetNumberOfConsoleInputEvents(IntPtr hConsoleInput, ref uint lpNumberOfEvents);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool PeekConsoleInput(IntPtr hConsoleInput, ref INPUT_RECORD lpBuffer, uint nLength, ref uint lpNumberOfEventsRead);
+
+        [DllImport("kernel32.dll", EntryPoint = "ReadConsoleOutputW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ReadConsoleOutputW(IntPtr hConsoleOutput, ref CHAR_INFO lpBuffer, COORD dwBufferSize, COORD dwBufferCoord, ref SMALL_RECT lpReadRegion);
+
+        [DllImport("kernel32.dll", EntryPoint = "ReadConsoleW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ReadConsoleW(IntPtr hConsoleInput, IntPtr lpBuffer, uint nNumberOfCharsToRead, ref uint lpNumberOfCharsRead, IntPtr lpReserved);
+
+        [DllImport("kernel32.dll", EntryPoint = "ReadConsoleInputW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ReadConsoleInputW(IntPtr hConsoleInput, ref INPUT_RECORD lpBuffer, uint nLength, ref uint lpNumberOfEventsRead);
+
+        [DllImport("kernel32.dll", EntryPoint = "ScrollConsoleScreenBufferW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ScrollConsoleScreenBufferW(IntPtr hConsoleOutput, ref SMALL_RECT lpScrollRectangle, ref SMALL_RECT lpClipRectangle, COORD dwDestinationOrigin, ref CHAR_INFO lpFill);
+
+        [DllImport("kernel32.dll", EntryPoint = "SetConsoleActiveScreenBuffer")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetConsoleActiveScreenBuffer(IntPtr hConsoleOutput);
+
+        [DllImport("kernel32.dll", EntryPoint = "WTSGetActiveConsoleSessionId")]
+        private static extern uint WTSGetActiveConsoleSessionId();
+
+        [DllImport("kernel32.dll", EntryPoint = "WriteConsoleW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool WriteConsoleW(IntPtr hConsoleOutput, IntPtr lpBuffer, uint nNumberOfCharsToWrite, ref uint lpNumberOfCharsWritten, IntPtr lpReserved);
+
+        [DllImport("kernel32.dll", EntryPoint = "WriteConsoleOutputW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool WriteConsoleOutputW(IntPtr hConsoleOutput, ref CHAR_INFO lpBuffer, COORD dwBufferSize, COORD dwBufferCoord, ref SMALL_RECT lpWriteRegion);
+
+        [DllImport("kernel32.dll", EntryPoint = "WriteConsoleInputW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool WriteConsoleInputW(IntPtr hConsoleInput, ref INPUT_RECORD lpBuffer, uint nLength, ref uint lpNumberOfEventsWritten);
+
+        [DllImport("kernel32.dll", EntryPoint = "SetConsoleTextAttribute")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetConsoleTextAttribute(IntPtr hConsoleOutput, ushort wAttributes);
+
+        [DllImport("kernel32.dll", EntryPoint = "SetConsoleCursorPosition")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetConsoleCursorPosition(IntPtr hConsoleOutput, COORD dwCursorPosition);
+
+        /// <summary>
+        /// Adds or removes an application-defined HandlerRoutine function from the list of handler
+        /// functions for the calling process. If no handler function is specified, the function sets
+        /// an inheritable attribute that determines whether the calling process ignores CTRL+C signals.
+        /// </summary>
+        /// <param name="handlerRoutine">
+        /// A pointer to the application-defined HandlerRoutine function to be added or removed. This
+        /// parameter can be NULL.
+        /// </param>
+        /// <param name="add">
+        /// <para>
+        /// If this parameter is TRUE, the handler is added; if it is FALSE, the handler is removed.
+        /// </para>
+        /// <para>
+        /// If the HandlerRoutine parameter is NULL, a TRUE value causes the calling process to
+        /// ignore CTRL+C input, and a FALSE value restores normal processing of CTRL+C input. This
+        /// attribute of ignoring or processing CTRL+C is inherited by child processes.
+        /// </para>
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero. If the function fails, the return
+        /// value is zero.To get extended error information, call GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This function provides a similar notification for console application and services that
+        /// WM_QUERYENDSESSION provides for graphical applications with a message pump. You could
+        /// also use this function from a graphical application, but there is no guarantee it would
+        /// arrive before the notification from WM_QUERYENDSESSION.
+        /// </para>
+        /// <para>
+        /// Each console process has its own list of application-defined HandlerRoutine functions
+        /// that handle CTRL+C and CTRL+BREAK signals. The handler functions also handle signals
+        /// generated by the system when the user closes the console, logs off, or shuts down the
+        /// system. Initially, the handler list for each process contains only a default handler
+        /// function that calls the ExitProcess function. A console process adds or removes
+        /// additional handler functions by calling the SetConsoleCtrlHandler function, which does
+        /// not affect the list of handler functions for other processes. When a console process
+        /// receives any of the control signals, its handler functions are called on a
+        /// last-registered, first-called basis until one of the handlers returns TRUE. If none of
+        /// the handlers returns TRUE, the default handler is called.
+        /// </para>
+        /// </remarks>
+        [DllImport("Kernel32", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetConsoleCtrlHandler(PHANDLER_ROUTINE handlerRoutine, [MarshalAs(UnmanagedType.Bool)] bool add);
+
         /// <summary>
         /// Enables an application to inform the system that it is in use, thereby preventing the system from entering sleep or turning off the display while the application is running.
         /// </summary>
