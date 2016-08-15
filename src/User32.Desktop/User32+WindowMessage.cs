@@ -1119,7 +1119,7 @@ namespace PInvoke
             WM_DWMCOLORIZATIONCOLORCHANGED = 0x0320,
 
             /// <summary>
-            /// WM_DWMWINDOWMAXIMIZEDCHANGE will let you know when a DWM composed window is maximized. You also have to register for this message as well. You'd have other windowd go opaque when this message is sent.
+            /// WM_DWMWINDOWMAXIMIZEDCHANGE will let you know when a DWM composed window is maximized. You also have to register for this message as well. You'd have other window go opaque when this message is sent.
             /// </summary>
             WM_DWMWINDOWMAXIMIZEDCHANGE = 0x0321,
 

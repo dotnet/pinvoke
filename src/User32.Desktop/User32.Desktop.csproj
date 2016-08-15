@@ -21,6 +21,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="User32+DesktopCreationFlags.cs" />
     <Compile Include="User32+InputType.cs" />
     <Compile Include="User32+KEYEVENTF.cs" />
     <Compile Include="User32+MOUSEEVENTF.cs" />
@@ -32,9 +33,14 @@
     </Compile>
     <Compile Include="User32+HARDWAREINPUT.cs" />
     <Compile Include="User32+INPUT.cs" />
+    <Compile Include="User32+ObjectIinformationFlag.cs" />
     <Compile Include="User32+QueueStatusFlags.cs" />
     <Compile Include="User32+PeekMessageParams.cs" />
+    <Compile Include="User32+SafeDesktopHandle.cs" />
+    <Compile Include="User32+SafeWindowStationHandle.cs" />
     <Compile Include="User32+SysCommands.cs" />
+    <Compile Include="User32+USEROBJECTFLAGS.cs" />
+    <Compile Include="User32+UserObjectFlagsEnum.cs" />
     <Compile Include="User32+VirtualKey.cs" />
     <Compile Include="User32+ScanCode.cs" />
     <Compile Include="User32+WindowMessage.cs" />
@@ -57,6 +63,7 @@
     <Compile Include="User32+WindowLongIndexFlags.cs" />
     <Compile Include="User32+WindowsHookType.cs" />
     <Compile Include="User32+WindowShowStyle.cs" />
+    <Compile Include="User32+WindowStationCreationFlags.cs" />
     <Compile Include="User32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
@@ -79,6 +86,10 @@
       <Name>CodeGeneration</Name>
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Kernel32\Kernel32.csproj">
+      <Project>{1fdc092a-d3e8-4cc4-b896-17e0a213f723}</Project>
+      <Name>Kernel32</Name>
     </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
