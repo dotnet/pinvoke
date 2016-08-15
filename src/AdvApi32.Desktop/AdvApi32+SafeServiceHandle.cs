@@ -13,7 +13,7 @@ namespace PInvoke
     {
         /// <summary>
         /// Represents a preparsed data handle created by
-        /// <see cref="OpenSCManager(string,string,ACCESS_MASK)"/> or <see cref="OpenService(SafeServiceHandle,string,ACCESS_MASK)"/>
+        /// <see cref="OpenSCManager(string,string,Kernel32.ACCESS_MASK)"/> or <see cref="OpenService(SafeServiceHandle,string,Kernel32.ACCESS_MASK)"/>
         /// that can be closed with <see cref="CloseServiceHandle"/>.
         /// </summary>
         public class SafeServiceHandle : SafeHandle

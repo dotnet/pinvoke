@@ -894,7 +894,7 @@ namespace PInvoke
         /// The calling process must have DESKTOP_SWITCHDESKTOP access to the desktop for the SwitchDesktop function to succeed.
         /// </summary>
         /// <param name="hDesktop">
-        /// A handle to the desktop. This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> and <see cref="OpenDesktop"/> functions.
+        /// A handle to the desktop. This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> and <see cref="OpenDesktop"/> functions.
         /// This desktop must be associated with the current window station for the process.</param>
         /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
         /// <remarks>
@@ -920,7 +920,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hDesktop">
         /// A handle to the desktop to be assigned to the calling thread.
-        /// This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetThreadDesktop"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> function.
+        /// This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetThreadDesktop"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> function.
         /// This desktop must be associated with the current window station for the process.
         /// </param>
         /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
@@ -937,7 +937,7 @@ namespace PInvoke
         /// <param name="lpszDesktop">The name of the desktop to be opened. Desktop names are case-insensitive. This desktop must belong to the current window station.</param>
         /// <param name="dwFlags">Access control flags</param>
         /// <param name="fInherit">If this value is true, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.</param>
-        /// <param name="dwDesiredAccess">The access to the desktop. For a list of access rights, see <see cref="ACCESS_MASK"/>.</param>
+        /// <param name="dwDesiredAccess">The access to the desktop. For a list of access rights, see <see cref="Kernel32.ACCESS_MASK"/>.</param>
         /// <returns>If the function succeeds, the return value is a handle to the opened desktop, if the function fails, the return value is an invalid handle.</returns>
         /// <remarks>
         /// <para>
@@ -955,14 +955,14 @@ namespace PInvoke
             string lpszDesktop,
             DesktopCreationFlags dwFlags,
             [MarshalAs(UnmanagedType.Bool)] bool fInherit,
-            ACCESS_MASK dwDesiredAccess);
+            Kernel32.ACCESS_MASK dwDesiredAccess);
 
         /// <summary>
         /// Enumerates all top-level windows associated with the specified desktop. It passes the handle to each window, in turn, to an application-defined callback function.
         /// </summary>
         /// <param name="hDesktop">
-        /// A handle to the desktop whose top-level windows are to be enumerated. This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetThreadDesktop"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> function,
-        /// and must have the <see cref="ACCESS_MASK.DesktopSpecificRight.DESKTOP_READOBJECTS"/> access right.
+        /// A handle to the desktop whose top-level windows are to be enumerated. This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetThreadDesktop"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> function,
+        /// and must have the <see cref="Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_READOBJECTS"/> access right.
         /// If this parameter is NULL, the current desktop is used.
         /// </param>
         /// <param name="lpfn">An application-defined <see cref="WNDENUMPROC"/> callback function.</param>
@@ -1000,7 +1000,7 @@ namespace PInvoke
         /// <summary>
         /// Enumerates all desktops associated with the specified window station of the calling process. The function passes the name of each desktop, in turn, to an application-defined callback function.
         /// </summary>
-        /// <param name="hWinsta">A handle to the window station whose desktops are to be enumerated. This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetProcessWindowStation"/>, or <see cref="OpenWindowStation"/> function, and must have the WINSTA_ENUMDESKTOPS access right.</param>
+        /// <param name="hWinsta">A handle to the window station whose desktops are to be enumerated. This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetProcessWindowStation"/>, or <see cref="OpenWindowStation"/> function, and must have the WINSTA_ENUMDESKTOPS access right.</param>
         /// <param name="lpEnumFunc">An application-defined <see cref="DESKTOPENUMPROC"/> callback function.</param>
         /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
         /// <returns>
@@ -1009,7 +1009,7 @@ namespace PInvoke
         /// If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
         /// </returns>
         /// <remarks>
-        /// The EnumDesktops function enumerates only those desktops for which the calling process has the <see cref="ACCESS_MASK.DesktopSpecificRight.DESKTOP_ENUMERATE"/> access right.
+        /// The EnumDesktops function enumerates only those desktops for which the calling process has the <see cref="Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_ENUMERATE"/> access right.
         /// The EnumDesktops function repeatedly invokes the lpEnumFunc callback function until the last desktop is enumerated or the callback function returns zero.
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
@@ -1021,7 +1021,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="dwFlags">Access control flags</param>
         /// <param name="fInherit">If this value is true, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.</param>
-        /// <param name="dwDesiredAccess">The requested access to the desktop. For a list of values, see <see cref="ACCESS_MASK"/>.</param>
+        /// <param name="dwDesiredAccess">The requested access to the desktop. For a list of values, see <see cref="Kernel32.ACCESS_MASK"/>.</param>
         /// <returns>If the function succeeds, the return value is a handle to the opened desktop, if the function fails, the return value is an invalid handle.</returns>
         /// <remarks>
         /// <para>
@@ -1042,7 +1042,7 @@ namespace PInvoke
         public static extern SafeDesktopHandle OpenInputDesktop(
             DesktopCreationFlags dwFlags,
             [MarshalAs(UnmanagedType.Bool)] bool fInherit,
-            ACCESS_MASK dwDesiredAccess);
+            Kernel32.ACCESS_MASK dwDesiredAccess);
 
         /// <summary>
         /// Creates a new desktop with the specified heap, associates it with the current window station of the calling process, and assigns it to the calling thread.
@@ -1053,8 +1053,8 @@ namespace PInvoke
         /// <param name="pDevmode">This parameter is reserved and must be <see cref="IntPtr.Zero"/>.</param>
         /// <param name="dwFlags">Access control flags</param>
         /// <param name="dwDesiredAccess">
-        /// The requested access to the desktop. For a list of values, see <see cref="ACCESS_MASK"/>.
-        /// This parameter must include the <see cref="ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW"/> access right, because internally <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> uses the handle to create a window.
+        /// The requested access to the desktop. For a list of values, see <see cref="Kernel32.ACCESS_MASK"/>.
+        /// This parameter must include the <see cref="Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW"/> access right, because internally <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> uses the handle to create a window.
         /// </param>
         /// <param name="lpsa">
         /// A pointer to a <see cref="Kernel32.SECURITY_ATTRIBUTES"/> structure that determines whether the returned handle can be inherited by child processes. If lpsa is NULL, the handle cannot be inherited.
@@ -1084,7 +1084,7 @@ namespace PInvoke
            IntPtr lpszDevice,
            IntPtr pDevmode,
            DesktopCreationFlags dwFlags,
-           ACCESS_MASK dwDesiredAccess,
+           Kernel32.ACCESS_MASK dwDesiredAccess,
            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Kernel32.SECURITY_ATTRIBUTES* lpsa,
            uint ulHeapSize,
            IntPtr pvoid = default(IntPtr));
@@ -1097,8 +1097,8 @@ namespace PInvoke
         /// <param name="pDevmode">This parameter is reserved and must be <see cref="IntPtr.Zero"/>.</param>
         /// <param name="dwFlags">Access control flags</param>
         /// <param name="dwDesiredAccess">
-        /// The requested access to the desktop. For a list of values, see <see cref="ACCESS_MASK"/>.
-        /// This parameter must include the <see cref="ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW"/> access right, because internally <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> uses the handle to create a window.
+        /// The requested access to the desktop. For a list of values, see <see cref="Kernel32.ACCESS_MASK"/>.
+        /// This parameter must include the <see cref="Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW"/> access right, because internally <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> uses the handle to create a window.
         /// </param>
         /// <param name="lpsa">
         /// A pointer to a <see cref="Kernel32.SECURITY_ATTRIBUTES"/> structure that determines whether the returned handle can be inherited by child processes. If lpsa is NULL, the handle cannot be inherited.
@@ -1123,7 +1123,7 @@ namespace PInvoke
             string lpszDevice,
             IntPtr pDevmode,
             DesktopCreationFlags dwFlags,
-            ACCESS_MASK dwDesiredAccess,
+            Kernel32.ACCESS_MASK dwDesiredAccess,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Kernel32.SECURITY_ATTRIBUTES* lpsa);
 
         /// <summary>
@@ -1152,7 +1152,7 @@ namespace PInvoke
         /// Closes an open handle to a desktop object.
         /// </summary>
         /// <param name="hDesktop">
-        /// A handle to the desktop to be closed. This can be a handle returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> functions.
+        /// A handle to the desktop to be closed. This can be a handle returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> functions.
         /// Do not specify the handle returned by the <see cref="GetThreadDesktop"/> function.
         /// </param>
         /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
@@ -1164,7 +1164,7 @@ namespace PInvoke
         /// <summary>
         /// Retrieves information about the specified window station or desktop object.
         /// </summary>
-        /// <param name="hObj">A handle to the window station or desktop object. This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenWindowStation"/>, <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, or <see cref="OpenDesktop"/> function.</param>
+        /// <param name="hObj">A handle to the window station or desktop object. This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenWindowStation"/>, <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, or <see cref="OpenDesktop"/> function.</param>
         /// <param name="nIndex">The information to be retrieved.</param>
         /// <param name="pvInfo">A pointer to a buffer to receive the object information.</param>
         /// <param name="nLength">The size of the buffer pointed to by the <paramref name="pvInfo"/> parameter, in bytes.</param>
@@ -1182,7 +1182,7 @@ namespace PInvoke
         /// This enables the process to access objects in the window station such as desktops, the clipboard, and global atoms. All subsequent operations on the window station use the access rights granted to <paramref name="hWinSta"/>.
         /// </summary>
         /// <param name="hWinSta">
-        /// A handle to the window station. This can be a handle returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenWindowStation"/>, or <see cref="GetProcessWindowStation"/> function.
+        /// A handle to the window station. This can be a handle returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenWindowStation"/>, or <see cref="GetProcessWindowStation"/> function.
         /// This window station must be associated with the current session.
         /// </param>
         /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
@@ -1195,7 +1195,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hWinsta">
         /// A handle to the window station to be closed.
-        /// This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> or <see cref="OpenWindowStation"/> function.
+        /// This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> or <see cref="OpenWindowStation"/> function.
         /// Do not specify the handle returned by the <see cref="GetProcessWindowStation"/> function.
         /// </param>
         /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
@@ -1225,13 +1225,13 @@ namespace PInvoke
         /// Windows XP/2000:  This parameter is reserved and must be zero.
         /// </param>
         /// <param name="dwDesiredAccess">
-        /// The requested access to the window station. For a list of values, see <see cref="ACCESS_MASK"/>.
-        /// In addition, you can specify any of the standard access rights, such as <see cref="ACCESS_MASK.StandardRight.READ_CONTROL"/> or <see cref="ACCESS_MASK.StandardRight.WRITE_DAC"/>, and a combination of the window station-specific access rights.
+        /// The requested access to the window station. For a list of values, see <see cref="Kernel32.ACCESS_MASK"/>.
+        /// In addition, you can specify any of the standard access rights, such as <see cref="Kernel32.ACCESS_MASK.StandardRight.READ_CONTROL"/> or <see cref="Kernel32.ACCESS_MASK.StandardRight.WRITE_DAC"/>, and a combination of the window station-specific access rights.
         /// </param>
         /// <param name="lpsa">
         /// A pointer to a <see cref="Kernel32.SECURITY_ATTRIBUTES"/> structure that determines whether the returned handle can be inherited by child processes. If lpsa is NULL, the handle cannot be inherited.
         /// The <see cref="Kernel32.SECURITY_ATTRIBUTES.lpSecurityDescriptor"/> member of the structure specifies a security descriptor for the new window station.
-        /// If lpsa is NULL, the window station (and any desktops created within the window) gets a security descriptor that grants <see cref="ACCESS_MASK.GenericRight.GENERIC_ALL"/> access to all users.
+        /// If lpsa is NULL, the window station (and any desktops created within the window) gets a security descriptor that grants <see cref="Kernel32.ACCESS_MASK.GenericRight.GENERIC_ALL"/> access to all users.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the newly created window station.
@@ -1243,7 +1243,7 @@ namespace PInvoke
         public static unsafe extern SafeWindowStationHandle CreateWindowStation(
             string lpwinsta,
             WindowStationCreationFlags dwFlags,
-            ACCESS_MASK dwDesiredAccess,
+            Kernel32.ACCESS_MASK dwDesiredAccess,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Kernel32.SECURITY_ATTRIBUTES* lpsa);
 
         /// <summary>
@@ -1278,7 +1278,7 @@ namespace PInvoke
         /// If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
         /// </returns>
         /// <remarks>
-        /// The EnumWindowStations function enumerates only those window stations for which the calling process has the <see cref="ACCESS_MASK.WindowStationSpecificRight.WINSTA_ENUMERATE"/> access right.
+        /// The EnumWindowStations function enumerates only those window stations for which the calling process has the <see cref="Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ENUMERATE"/> access right.
         ///  EnumWindowStations repeatedly invokes the <paramref name="lpEnumFunc"/> callback function until the last window station is enumerated or the callback function returns FALSE.
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
@@ -1297,7 +1297,7 @@ namespace PInvoke
         public static extern SafeWindowStationHandle OpenWindowStation(
             string lpszWinSta,
             [MarshalAs(UnmanagedType.Bool)] bool fInherit,
-            ACCESS_MASK dwDesiredAccess);
+            Kernel32.ACCESS_MASK dwDesiredAccess);
 
         /// <summary>
         /// The <see cref="GetDC"/> function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.

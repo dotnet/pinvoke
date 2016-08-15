@@ -3,8 +3,8 @@
 
 namespace PInvoke
 {
-    using static ACCESS_MASK.StandardRight;
     using static Kernel32;
+    using static Kernel32.ACCESS_MASK.StandardRight;
 
     /// <content>
     /// Contains the <see cref="ServiceManagerAccess"/> nested type.

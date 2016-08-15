@@ -34,7 +34,7 @@ namespace PInvoke
         [DllImport(nameof(NTDll), CharSet = CharSet.Unicode)]
         public static extern unsafe NTSTATUS NtOpenSection(
             out SafeNTObjectHandle sectionHandle,
-            ACCESS_MASK desiredAccess,
+            Kernel32.ACCESS_MASK desiredAccess,
             [Friendly(FriendlyFlags.In)] OBJECT_ATTRIBUTES* objectAttributes);
 
         /// <summary>

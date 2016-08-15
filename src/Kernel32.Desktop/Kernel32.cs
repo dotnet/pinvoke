@@ -8,7 +8,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-    using static ACCESS_MASK.GenericRight;
+    using static PInvoke.Kernel32.ACCESS_MASK.GenericRight;
 
     /// <summary>
     /// Exported functions from the Kernel32.dll Windows library.
