@@ -17,6 +17,42 @@ Please send pull requests to add what you've come up with.
 
 ## Guidelines
 
+### Important notice when developing with Visual Studio
+
+The NuGet package restore functionality in Visual Studio does not work for this project, which relies
+on newer functionality than comes with Visual Studio 2015 Update 3. You should disable automatic
+package restore on build in Visual Studio in order to build successfully and have a useful Error List
+while developing.
+
+Follow these steps to disable automatic package restore in Visual Studio:
+
+1. Tools -> Options -> NuGet Package Manager -> General
+2. *Clear* the checkbox for "Automatically check for missing packages during build in Visual Studio
+
+With this setting, you can still execute a package restore within Visual Studio by right-clicking
+on the _solution_ node in Solution Explorer and clicking "Restore NuGet Packages". But do not ever
+execute that on this project as that will corrupt the result of `build.ps1 -restore`.
+
+Before developing this project in Visual Studio, or after making project or project.json changes,
+or to recover after Visual Studio executes a package restore, run this command, which is defined
+at the root of the repo, from the Visual Studio Developer Command Prompt:
+
+```
+.\build -Restore
+```
+
+### Frequently Asked Questions
+
+#### Can p/invoke signatures and docs found on pinvoke.net be copied into this project?
+
+[The license found on pinvoke.net](http://www.pinvoke.net/termsofuse.htm#3.4) for its code grants users:
+
+> a licence to copy, use, adapt, modify or distribute that source code as they see fit, provided that the source code may not be used in any unlawful, defamatory, obscene, offensive or discriminatory way.
+
+I'm not a lawyer, but I read that to mean contributing the code to an MIT licensed project such as
+this one would be permissible. In addition, folks on pinvoke.net did not invent the method signatures
+in the first place, as they are a work of the author of the original library being P/Invoked into.
+
 ### Learn how to write P/Invoke signatures
 
 The [sigimp tool][SigImp] will automatically generate P/Invoke signatures for most Win32 functions
@@ -35,9 +71,20 @@ in this document.
  * Types, enums, and constants defined in common Windows header files should be defined
    in the PInvoke.Windows.Core project.
 
-When introducing support for a new native DLL to this project, use the templates\AddNewLibrary.ps1
+When introducing support for a new native DLL to this project, use the `templates\AddNewLibrary.ps1`
 Powershell cmdlet to create the projects necessary to support it and follow the instructions from that script.
-The library should also be added to the list on the [readme](README.md).
+
+Sometimes it might be needed to add libraries to share types and structures among high-level API sets.
+When that happens you should use the `templates\AddNewCoreLibrary.ps1` Powershell cmdlet to create a core library.
+
+A Core Library in PInvoke project wording is a library that only contains enums and structures, no functions, classes or methods.
+These libraries are not backed by DLLs, instead they are based on C/C++ header files (.h files). They are meant to be used
+when enums and structures must be shared among other high level projects, like PInvoke.SHCore and PInvoke.User32
+share types using Windows.ShellScalingApi.
+
+Core Libraries should be named after their C/C++ header file names like ShellScalingApi.h
+
+The high-level libraries should also be added to the list on the [readme](README.md).
 
 ### Win32 API Sets
 

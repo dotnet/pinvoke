@@ -13,7 +13,10 @@ cache:
 install:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/install-nuget-3-3-0.ps1'))
 before_build:
-- ps: nuget restore src -Verbosity quiet
+- ps: >-
+    nuget restore src -Verbosity quiet
+
+    #$blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 build:
   project: src\pinvoke.sln
   parallel: true
