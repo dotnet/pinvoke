@@ -87,9 +87,9 @@
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\Kernel32\Kernel32.csproj">
-      <Project>{1fdc092a-d3e8-4cc4-b896-17e0a213f723}</Project>
-      <Name>Kernel32</Name>
+    <ProjectReference Include="..\Kernel32.Desktop\Kernel32.Desktop.csproj">
+      <Project>{18BA8C60-9A63-4EEA-BB5C-C9899D86F5B8}</Project>
+      <Name>Kernel32.Desktop</Name>
     </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
