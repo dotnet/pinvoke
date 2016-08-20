@@ -1814,5 +1814,16 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe bool SetInformationJobObject(SafeObjectHandle hJob, JOBOBJECT_INFO_CLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength);
+
+        /// <summary>
+        /// Enables an application to inform the system that it is in use, thereby preventing the system from entering sleep or turning off the display while the application is running.
+        /// </summary>
+        /// <param name="esFlags">The thread's execution requirements.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the previous thread execution state.
+        /// If the function fails, the return value is <see cref="EXECUTION_STATE.None"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32))]
+        public static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
     }
 }

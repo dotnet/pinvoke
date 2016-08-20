@@ -33,6 +33,7 @@
     <Compile Include="Kernel32+CreateProcessFlags.cs" />
     <Compile Include="Kernel32+CreateToolhelp32SnapshotFlags.cs" />
     <Compile Include="Kernel32+CreationDisposition.cs" />
+    <Compile Include="Kernel32+ExecutionState.cs" />
     <Compile Include="Kernel32+FileAccess.cs" />
     <Compile Include="Kernel32+FileShare.cs" />
     <Compile Include="Kernel32+GRPICONDIR.cs" />
