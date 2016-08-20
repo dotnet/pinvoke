@@ -854,6 +854,12 @@ public partial class Kernel32Facts
         }
     }
 
+    [Fact]
+    public void SetThreadExectionState_Simple()
+    {
+        Assert.NotEqual(EXECUTION_STATE.None, SetThreadExecutionState(EXECUTION_STATE.ES_SYSTEM_REQUIRED));
+    }
+
     private ArraySegment<byte> GetRandomSegment(int size)
     {
         var result = new ArraySegment<byte>(new byte[size]);
