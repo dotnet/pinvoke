@@ -170,3 +170,4 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+*.userprefs

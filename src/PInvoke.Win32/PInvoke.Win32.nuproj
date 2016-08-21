@@ -28,10 +28,12 @@
     <ProjectReference Include="..\Psapi.NuGet\Psapi.NuGet.nuproj" />
     <ProjectReference Include="..\SetupApi.NuGet\SetupApi.NuGet.nuproj" />
     <ProjectReference Include="..\Shell32.NuGet\Shell32.NuGet.nuproj" />
+    <ProjectReference Include="..\SHCore.NuGet\SHCore.NuGet.nuproj" />
     <ProjectReference Include="..\User32.NuGet\User32.NuGet.nuproj" />
     <ProjectReference Include="..\Userenv.NuGet\Userenv.NuGet.nuproj" />
     <ProjectReference Include="..\UxTheme.NuGet\UxTheme.NuGet.nuproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
+    <ProjectReference Include="..\Windows.ShellScalingApi.NuGet\Windows.ShellScalingApi.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PInvoke.Win32.nuspec" />

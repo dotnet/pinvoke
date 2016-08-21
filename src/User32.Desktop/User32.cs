@@ -5,7 +5,6 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
-    using System.Text;
 
     /// <summary>
     /// Exported functions from the User32.dll Windows library.
@@ -57,7 +56,59 @@ namespace PInvoke
         /// <summary>Windows icon or the icon of the window specified in <see cref="MENUITEMINFO.dwItemData" />.</summary>
         public static readonly IntPtr HBMMENU_SYSTEM = new IntPtr(1);
 
-        public delegate int WindowsHookDelegate(int code, IntPtr wParam, IntPtr lParam);
+        /// <summary>
+        /// An application-defined or library-defined callback function used with the <see cref="SetWindowsHookEx(WindowsHookType, IntPtr, IntPtr, int)"/> function.
+        /// This is a generic function to Hook callbacks. For specific callback functions see this <see href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632589(v=vs.85).aspx" >API documentation on MSDN</see>.
+        /// </summary>
+        /// <param name="nCode">An action code for the callback. Can be used to indicate if the hook procedure must process the message or not.</param>
+        /// <param name="wParam">First message parameter</param>
+        /// <param name="lParam">Second message parameter</param>
+        /// <returns>
+        /// An LRESULT. Usually if nCode is less than zero, the hook procedure must return the value returned by CallNextHookEx.
+        /// If nCode is greater than or equal to zero, it is highly recommended that you call CallNextHookEx and return the value it returns;
+        /// otherwise, other applications that have installed hooks will not receive hook notifications and may behave incorrectly as a result.
+        /// If the hook procedure does not call CallNextHookEx, the return value should be zero.
+        /// </returns>
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int WindowsHookDelegate(int nCode, IntPtr wParam, IntPtr lParam);
+
+        /// <summary>
+        /// An application-defined callback function used with the <see cref="EnumWindowStations(WINSTAENUMPROC, IntPtr)"/> function.
+        /// </summary>
+        /// <param name="lpszWindowStation">The name of the window station.</param>
+        /// <param name="lParam">An application-defined value specified in the <see cref="EnumWindowStations(WINSTAENUMPROC, IntPtr)"/> function.</param>
+        /// <returns>To continue enumeration, the callback function must return TRUE (non-zero value). To stop enumeration, it must return FALSE (0).</returns>
+        /// <remarks>
+        /// An application must register this callback function by passing its address to <see cref="EnumWindowStations(WINSTAENUMPROC, IntPtr)"/>.
+        /// The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
+        /// </remarks>
+        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+        public delegate int WINSTAENUMPROC(string lpszWindowStation, IntPtr lParam);
+
+        /// <summary>
+        /// An application-defined callback function used with the <see cref="EnumDesktops(SafeWindowStationHandle, DESKTOPENUMPROC, IntPtr)"/> function.
+        /// </summary>
+        /// <param name="lpwstrDesktopName">The name of the desktop.</param>
+        /// <param name="lParam">An application-defined value specified in the <see cref="EnumDesktops(SafeWindowStationHandle, DESKTOPENUMPROC, IntPtr)"/> function.</param>
+        /// <returns>To continue enumeration, the callback function must return TRUE (non-zero value). To stop enumeration, it must return FALSE (0).</returns>
+        /// <remarks>
+        /// An application must register this callback function by passing its address to <see cref="EnumDesktops(SafeWindowStationHandle, DESKTOPENUMPROC, IntPtr)"/>.
+        /// The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
+        /// </remarks>
+        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+        public delegate int DESKTOPENUMPROC(string lpwstrDesktopName, IntPtr lParam);
+
+        /// <summary> An application-defined callback function used with the <see cref="EnumWindows"/> or <see cref="EnumDesktopWindows(SafeDesktopHandle, WNDENUMPROC, IntPtr)"/> function.</summary>
+        /// <param name="hwnd">A handle to a top-level window.</param>
+        /// <param name="lParam">The application-defined value given in <see cref="EnumWindows"/> or <see cref="EnumDesktopWindows(SafeDesktopHandle, WNDENUMPROC, IntPtr)"/>.</param>
+        /// <returns>To continue enumeration, the callback function must return TRUE; to stop enumeration, it must return FALSE.</returns>
+        /// <remarks>
+        /// An application must register this callback function by passing its address to <see cref="EnumWindows"/> or <see cref="EnumDesktopWindows(SafeDesktopHandle, WNDENUMPROC, IntPtr)"/>.
+        /// The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
+        /// </remarks>
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public delegate bool WNDENUMPROC(IntPtr hwnd, IntPtr lParam);
 
         /// <summary>
         /// Plays a waveform sound. The waveform sound for each sound type is identified by an entry in the registry.
@@ -621,10 +672,638 @@ namespace PInvoke
         public static extern short GetKeyState(VirtualKey vKey);
 
         /// <summary>
+        /// <para>
+        /// Converts a point in a window from logical coordinates into physical coordinates, regardless of the dots per inch (dpi) awareness of the caller.
+        /// For more information about DPI awareness levels, see <see cref="PROCESS_DPI_AWARENESS"/>
+        /// </para>
+        /// <para>
+        /// Tip: Since an application with a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> uses the actual DPI of the monitor,
+        /// physical and logical coordinates are the same for this app.
+        /// </para>
+        /// </summary>
+        /// <param name="hwnd">A handle to the window whose transform is used for the conversion</param>
+        /// <param name="lpPoint">
+        /// A pointer to a <see cref="POINT"/> structure that specifies the physical/screen coordinates to be converted.
+        /// The new logical coordinates are copied into this structure if the function succeeds
+        /// </param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <remarks>
+        /// <para>
+        /// In Windows 8, system–DPI aware applications translated between physical and logical space using
+        /// <see cref="PhysicalToLogicalPoint"/> and <see cref="LogicalToPhysicalPoint"/>.
+        /// In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs.
+        /// As a result, in Windows 8.1, these APIs no longer transform points.
+        /// The system returns all points to an application in its own coordinate space.
+        /// This behavior preserves functionality for the majority of applications,
+        /// but there are some exceptions in which you must make changes to ensure that the application works as expected.
+        /// </para>
+        /// <para>
+        /// For example, an application might need to walk the entire window tree of another process and ask the system for DPI-dependent information about the window.
+        /// By default, the system will return the information based on the DPI awareness of the caller. This is ideal for most applications.
+        /// However, the caller might need the information based on the DPI awareness of the application associated with the window.
+        /// This might be necessary because the two applications send DPI-dependent information between each other directly.
+        /// In this case, the application can use <see cref="LogicalToPhysicalPointForPerMonitorDPI"/> to get physical coordinates and
+        /// then use PhysicalToLogicalPointForPerMonitorDPI to convert the physical coordinates
+        /// into logical coordinates based on the DPI-awareness of the provided <paramref name="hwnd"/>.
+        /// </para>
+        /// <para>
+        /// Consider two applications, one has value of  and the other has a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/>.
+        /// The <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app creates a window on a single monitor where the scale factor is 200% (192 DPI).
+        /// If both apps call <see cref="GetWindowRect"/> on this window, they will receive different values.
+        /// The <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> app will receive a rect based on 96 DPI coordinates,
+        /// while the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app will receive coordinates matching the actual DPI of the monitor.
+        /// If the <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> needs the <see cref="RECT"/> that the system returned
+        /// to the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app, it could call <see cref="LogicalToPhysicalPointForPerMonitorDPI"/>
+        /// for the corners of its <see cref="RECT"/> and pass in the handle to the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app's window.
+        /// This will return points based on the other app's awareness that can be used to create a <see cref="RECT"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PhysicalToLogicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Converts the physical coordinates of a point in a window to logical coordinates
+        /// </summary>
+        /// <param name="hwnd">
+        /// A handle to the window whose transform is used for the conversion. Top level windows are fully supported.
+        /// In the case of child windows, only the area of overlap between the parent and the child window is converted
+        /// </param>
+        /// <param name="lpPoint">
+        /// A pointer to a <see cref="POINT"/> structure that specifies the physical/screen coordinates to be converted.
+        /// The new logical coordinates are copied into this structure if the function succeeds
+        /// </param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <remarks>
+        /// <para>
+        /// The function uses the window identified by the <paramref name="hwnd"/> parameter and the physical coordinates
+        /// given in the <see cref="POINT"/> structure to compute the logical coordinates.
+        /// The logical coordinates are the unscaled coordinates that appear to the application in a programmatic way.
+        /// In other words, the logical coordinates are the coordinates the application recognizes, which can be different from the physical coordinates.
+        /// The API then replaces the physical coordinates with the logical coordinates.
+        /// The new coordinates are in the world coordinates whose origin is (0, 0) on the desktop.
+        /// The coordinates passed to the API have to be on the <paramref name="hwnd"/>.
+        /// </para>
+        /// <para>
+        /// On all platforms, PhysicalToLogicalPoint will fail on a window that has either 0 width or height;
+        /// an application must first establish a non-0 width and height by calling, for example, <see cref="MoveWindow"/>.
+        /// On some versions of Windows (including Windows 7), PhysicalToLogicalPointwill still fail if <see cref="MoveWindow"/> has been called
+        /// after a call to <see cref="ShowWindow"/> with <see cref="WindowShowStyle.SW_HIDE"/> has hidden the window.
+        /// </para>
+        /// <para>
+        /// In Windows 8, system–DPI aware applications translate between physical and logical space using PhysicalToLogicalPoint and <see cref="LogicalToPhysicalPoint"/>.
+        /// In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications,
+        /// you do not need these APIs. As a result, in Windows 8.1, PhysicalToLogicalPoint and <see cref="LogicalToPhysicalPoint"/> no longer transform points.
+        /// The system returns all points to an application in its own coordinate space.
+        /// This behavior preserves functionality for the majority of applications,
+        /// but there are some exceptions in which you must make changes to ensure that the application works as expected.
+        /// In those cases, use <see cref="PhysicalToLogicalPointForPerMonitorDPI"/> and <see cref="LogicalToPhysicalPointForPerMonitorDPI"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PhysicalToLogicalPoint(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Converts a point in a window from logical coordinates into physical coordinates, regardless of the dots per inch (dpi) awareness of the caller.
+        /// For more information about DPI awareness levels, see <see cref="PROCESS_DPI_AWARENESS"/>.
+        /// <para>
+        /// Tip: Since an application with a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> uses the actual DPI of the monitor,
+        /// physical and logical coordinates are the same for this app.
+        /// </para>
+        /// </summary>
+        /// <param name="hwnd">A handle to the window whose transform is used for the conversion</param>
+        /// <param name="lpPoint">
+        /// A pointer to a <see cref="POINT"/> structure that specifies the logical coordinates to be converted.
+        /// The new physical coordinates are copied into this structure if the function succeeds
+        /// </param>
+        /// <returns>Returns true if successful, or false otherwise</returns>
+        /// <remarks>
+        /// <para>
+        /// In Windows 8, system–DPI aware applications translated between physical and logical space using
+        /// <see cref="PhysicalToLogicalPoint"/> and <see cref="LogicalToPhysicalPoint"/>.
+        /// In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications, you do not need these APIs.
+        /// As a result, in Windows 8.1, these APIs no longer transform points.
+        /// The system returns all points to an application in its own coordinate space.
+        /// This behavior preserves functionality for the majority of applications,
+        /// but there are some exceptions in which you must make changes to ensure that the application works as expected.
+        /// </para>
+        /// <para>
+        /// For example, an application might need to walk the entire window tree of another process and ask the system for DPI-dependent information about the window.
+        /// By default, the system will return the information based on the DPI awareness of the caller. This is ideal for most applications.
+        /// However, the caller might need the information based on the DPI awareness of the application associated with the window.
+        /// This might be necessary because the two applications send DPI-dependent information between each other directly.
+        /// In this case, the application can use LogicalToPhysicalPointForPerMonitorDPI to get physical coordinates and
+        /// then use <see cref="PhysicalToLogicalPointForPerMonitorDPI"/> to convert the physical coordinates
+        /// into logical coordinates based on the DPI-awareness of the provided <paramref name="hwnd"/>.
+        /// </para>
+        /// <para>
+        /// Consider two applications, one has value of  and the other has a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/>.
+        /// The <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app creates a window on a single monitor where the scale factor is 200% (192 DPI).
+        /// If both apps call <see cref="GetWindowRect"/> on this window, they will receive different values.
+        /// The <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> app will receive a rect based on 96 DPI coordinates,
+        /// while the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app will receive coordinates matching the actual DPI of the monitor.
+        /// If the <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> needs the <see cref="RECT"/> that the system returned
+        /// to the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app, it could call LogicalToPhysicalPointForPerMonitorDPI
+        /// for the corners of its <see cref="RECT"/> and pass in the handle to the <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/> app's window.
+        /// This will return points based on the other app's awareness that can be used to create a <see cref="RECT"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool LogicalToPhysicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Converts the logical coordinates of a point in a window to physical coordinates
+        /// </summary>
+        /// <param name="hwnd">
+        /// A handle to the window whose transform is used for the conversion. Top level windows are fully supported.
+        /// In the case of child windows, only the area of overlap between the parent and the child window is converted
+        /// </param>
+        /// <param name="lpPoint">
+        /// A pointer to a <see cref="POINT"/> structure that specifies the logical coordinates to be converted.
+        /// The new physical coordinates are copied into this structure if the function succeeds
+        /// </param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <remarks>
+        /// <para>
+        /// LogicalToPhysicalPoint is a transformation API that can be called by a process that declares itself as dpi aware.
+        /// The function uses the window identified by the hWnd parameter and the logical coordinates given in the <see cref="POINT"/> structure to compute the physical coordinates.
+        /// The LogicalToPhysicalPoint function replaces the logical coordinates in the <see cref="POINT"/> structure with the physical coordinates.
+        /// The physical coordinates are relative to the upper-left corner of the screen.
+        /// The coordinates have to be inside the client area of <paramref name="hwnd"/>.
+        /// </para>
+        /// <para>
+        /// On all platforms, LogicalToPhysicalPoint will fail on a window that has either 0 width or height;
+        /// an application must first establish a non-0 width and height by calling, for example, <see cref="MoveWindow"/>.
+        /// On some versions of Windows (including Windows 7), LogicalToPhysicalPoint will still fail if <see cref="MoveWindow"/> has been called
+        /// after a call to <see cref="ShowWindow"/> with <see cref="WindowShowStyle.SW_HIDE"/> has hidden the window.
+        /// </para>
+        /// <para>
+        /// In Windows 8, system–DPI aware applications translate between physical and logical space using <see cref="PhysicalToLogicalPoint"/> and LogicalToPhysicalPoint.
+        /// In Windows 8.1, the additional virtualization of the system and inter-process communications means that for the majority of applications,
+        /// you do not need these APIs. As a result, in Windows 8.1, <see cref="PhysicalToLogicalPoint"/> and LogicalToPhysicalPoint no longer transform points.
+        /// The system returns all points to an application in its own coordinate space.
+        /// This behavior preserves functionality for the majority of applications,
+        /// but there are some exceptions in which you must make changes to ensure that the application works as expected.
+        /// In those cases, use <see cref="PhysicalToLogicalPointForPerMonitorDPI"/> and <see cref="LogicalToPhysicalPointForPerMonitorDPI"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool LogicalToPhysicalPoint(IntPtr hwnd, ref POINT lpPoint);
+
+        /// <summary>
+        /// Determines whether the current process is dots per inch (dpi) aware such that it adjusts the sizes of UI elements to compensate for the dpi setting.
+        /// </summary>
+        /// <returns>TRUE if the process is dpi aware; otherwise, FALSE</returns>
+        /// <remarks>
+        /// IsProcessDPIAware is available for use in Windows Vista or superior the operating systems.
+        /// It may be altered or unavailable in subsequent versions.
+        /// For Windows 8.1 or superior operating systems, use GetProcessDPIAwareness/>.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsProcessDPIAware();
+
+        /// <summary>
+        /// Sets the current process as dots per inch (dpi) awareness.
+        /// </summary>
+        /// <returns>If the function succeeds, the return value is true. Otherwise, the return value is false.</returns>
+        /// <remarks>
+        /// <para>
+        /// SetProcessDPIAware is available for use in Windows Vista or superior the operating systems.
+        /// It may be altered or unavailable in subsequent versions.
+        /// For Windows 8.1 or superior operating systems, use SetProcessDpiAwareness/>.
+        /// </para>
+        /// <para>
+        /// SetProcessDPIAware is subject to a possible race condition if a DLL caches dpi settings during initialization.
+        /// For this reason, it is recommended that dpi-aware be set through the application (.exe) manifest rather than by calling SetProcessDPIAware.
+        /// DLLs should accept the dpi setting of the host process rather than call SetProcessDPIAware themselves.
+        /// To be set properly, dpiAware should be specified as part of the application (.exe) manifest.
+        /// IMPORTANT: dpiAware defined in an embedded DLL manifest has no affect.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool SetProcessDPIAware();
+
+        /// <summary>
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
+        /// Makes the specified desktop visible and activates it. This enables the desktop to receive input from the user.
+        /// The calling process must have DESKTOP_SWITCHDESKTOP access to the desktop for the SwitchDesktop function to succeed.
         /// </summary>
-        /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC for the entire screen.</param>
+        /// <param name="hDesktop">
+        /// A handle to the desktop. This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> and <see cref="OpenDesktop"/> functions.
+        /// This desktop must be associated with the current window station for the process.</param>
+        /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
+        /// <remarks>
+        /// <para>
+        /// SwitchDesktop only sets the last error for the following cases:
+        /// <list>
+        /// <item>When the desktop belongs to an invisible window station</item>
+        /// <item>When hDesktop is an invalid handle, refers to a destroyed desktop, or belongs to a different session than that of the calling process</item>
+        /// </list>
+        /// </para>
+        /// <para>
+        /// The SwitchDesktop function fails if the desktop belongs to an invisible window station.
+        /// SwitchDesktop also fails when called from a process that is associated with a secured desktop such as the WinLogon and ScreenSaver desktops.
+        /// Processes that are associated with a secured desktop include custom UserInit processes. Such calls typically fail with an "access denied" error.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SwitchDesktop(SafeDesktopHandle hDesktop);
+
+        /// <summary>
+        /// Assigns the specified desktop to the calling thread. All subsequent operations on the desktop use the access rights granted to the desktop.
+        /// </summary>
+        /// <param name="hDesktop">
+        /// A handle to the desktop to be assigned to the calling thread.
+        /// This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetThreadDesktop"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> function.
+        /// This desktop must be associated with the current window station for the process.
+        /// </param>
+        /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
+        /// <remarks>
+        /// The function will fail if the calling thread has any windows or hooks on its current desktop (unless the <paramref name="hDesktop"/> parameter is a handle to the current desktop).
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetThreadDesktop(SafeDesktopHandle hDesktop);
+
+        /// <summary>
+        /// Opens the specified desktop object.
+        /// </summary>
+        /// <param name="lpszDesktop">The name of the desktop to be opened. Desktop names are case-insensitive. This desktop must belong to the current window station.</param>
+        /// <param name="dwFlags">Access control flags</param>
+        /// <param name="fInherit">If this value is true, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.</param>
+        /// <param name="dwDesiredAccess">The access to the desktop. For a list of access rights, see <see cref="Kernel32.ACCESS_MASK"/>.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the opened desktop, if the function fails, the return value is an invalid handle.</returns>
+        /// <remarks>
+        /// <para>
+        /// When you are finished using the handle, call the <see cref="CloseDesktop"/> function to close it.
+        /// </para>
+        /// <para>
+        /// The calling process must have an associated window station, either assigned by the system at process creation time or set by the <see cref="SetProcessWindowStation"/> function.
+        /// </para>
+        /// <para>
+        /// If the <paramref name="dwDesiredAccess"/> parameter specifies the READ_CONTROL, WRITE_DAC, or WRITE_OWNER standard access rights, you must also request the DESKTOP_READOBJECTS and DESKTOP_WRITEOBJECTS access rights.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern SafeDesktopHandle OpenDesktop(
+            string lpszDesktop,
+            DesktopCreationFlags dwFlags,
+            [MarshalAs(UnmanagedType.Bool)] bool fInherit,
+            Kernel32.ACCESS_MASK dwDesiredAccess);
+
+        /// <summary>
+        /// Enumerates all top-level windows associated with the specified desktop. It passes the handle to each window, in turn, to an application-defined callback function.
+        /// </summary>
+        /// <param name="hDesktop">
+        /// A handle to the desktop whose top-level windows are to be enumerated. This handle is returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetThreadDesktop"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> function,
+        /// and must have the <see cref="Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_READOBJECTS"/> access right.
+        /// If this parameter is NULL, the current desktop is used.
+        /// </param>
+        /// <param name="lpfn">An application-defined <see cref="WNDENUMPROC"/> callback function.</param>
+        /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
+        /// <returns>
+        /// If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.
+        /// If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by <paramref name="lpfn"/>.
+        /// If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
+        /// Windows Server 2003 and Windows XP/2000:  If there are no windows on the desktop, GetLastError returns ERROR_INVALID_HANDLE.
+        /// </returns>
+        /// <remarks>The EnumDesktopWindows function repeatedly invokes the <paramref name="lpfn"/> callback function until the last top-level window is enumerated or the callback function returns FALSE.</remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumDesktopWindows(SafeDesktopHandle hDesktop, WNDENUMPROC lpfn, IntPtr lParam);
+
+        /// <summary>
+        /// Enumerates all top-level windows on the screen by passing the handle to each window, in turn, to an application-defined callback function. EnumWindows continues until the last top-level window is enumerated or the callback function returns FALSE.
+        /// </summary>
+        /// <param name="lpEnumFunc">An application-defined <see cref="WNDENUMPROC"/> callback function.</param>
+        /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call GetLastError.
+        /// If <see cref="WNDENUMPROC"/> returns zero, the return value is also zero. In this case, the callback function should call SetLastError to obtain a meaningful error code to be returned to the caller of EnumWindows.
+        /// </returns>
+        /// <remarks>
+        /// The EnumWindows function does not enumerate child windows, with the exception of a few top-level windows owned by the system that have the WS_CHILD style.
+        /// This function is more reliable than calling the GetWindow function in a loop. An application that calls GetWindow to perform this task risks being caught in an infinite loop or referencing a handle to a window that has been destroyed.
+        /// Note that for Windows 8 and later, EnumWindows enumerates only top-level windows of desktop apps.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumWindows(WNDENUMPROC lpEnumFunc, IntPtr lParam);
+
+        /// <summary>
+        /// Enumerates all desktops associated with the specified window station of the calling process. The function passes the name of each desktop, in turn, to an application-defined callback function.
+        /// </summary>
+        /// <param name="hWinsta">A handle to the window station whose desktops are to be enumerated. This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="GetProcessWindowStation"/>, or <see cref="OpenWindowStation"/> function, and must have the WINSTA_ENUMDESKTOPS access right.</param>
+        /// <param name="lpEnumFunc">An application-defined <see cref="DESKTOPENUMPROC"/> callback function.</param>
+        /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
+        /// <returns>
+        /// If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by <paramref name="lpEnumFunc"/>.
+        /// If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.
+        /// If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// The EnumDesktops function enumerates only those desktops for which the calling process has the <see cref="Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_ENUMERATE"/> access right.
+        /// The EnumDesktops function repeatedly invokes the lpEnumFunc callback function until the last desktop is enumerated or the callback function returns zero.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern int EnumDesktops(SafeWindowStationHandle hWinsta, DESKTOPENUMPROC lpEnumFunc, IntPtr lParam);
+
+        /// <summary>
+        /// Opens the desktop that receives user input.
+        /// </summary>
+        /// <param name="dwFlags">Access control flags</param>
+        /// <param name="fInherit">If this value is true, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.</param>
+        /// <param name="dwDesiredAccess">The requested access to the desktop. For a list of values, see <see cref="Kernel32.ACCESS_MASK"/>.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the opened desktop, if the function fails, the return value is an invalid handle.</returns>
+        /// <remarks>
+        /// <para>
+        /// When you are finished using the handle, call the <see cref="CloseDesktop"/> function to close it.
+        /// </para>
+        /// <para>
+        /// The calling process must have an associated window station, either assigned by the system at process creation time or set by the <see cref="SetProcessWindowStation"/> function. The window station associated with the calling process must be capable of receiving input.
+        /// If the calling process is running in a disconnected session, the function returns a handle to the desktop that becomes active when the user restores the connection.
+        /// </para>
+        /// <para>
+        /// An application can use the <see cref="SwitchDesktop"/> function to change the input desktop.
+        /// </para>
+        /// <para>
+        /// If the <paramref name="dwDesiredAccess"/> parameter specifies the READ_CONTROL, WRITE_DAC, or WRITE_OWNER standard access rights, you must also request the DESKTOP_READOBJECTS and DESKTOP_WRITEOBJECTS access rights.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern SafeDesktopHandle OpenInputDesktop(
+            DesktopCreationFlags dwFlags,
+            [MarshalAs(UnmanagedType.Bool)] bool fInherit,
+            Kernel32.ACCESS_MASK dwDesiredAccess);
+
+        /// <summary>
+        /// Creates a new desktop with the specified heap, associates it with the current window station of the calling process, and assigns it to the calling thread.
+        /// The calling process must have an associated window station, either assigned by the system at process creation time or set by the <see cref="SetProcessWindowStation"/> function.
+        /// </summary>
+        /// <param name="lpszDesktop">The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\).</param>
+        /// <param name="lpszDevice">This parameter is reserved and must be <see cref="IntPtr.Zero"/></param>
+        /// <param name="pDevmode">This parameter is reserved and must be <see cref="IntPtr.Zero"/>.</param>
+        /// <param name="dwFlags">Access control flags</param>
+        /// <param name="dwDesiredAccess">
+        /// The requested access to the desktop. For a list of values, see <see cref="Kernel32.ACCESS_MASK"/>.
+        /// This parameter must include the <see cref="Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW"/> access right, because internally <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> uses the handle to create a window.
+        /// </param>
+        /// <param name="lpsa">
+        /// A pointer to a <see cref="Kernel32.SECURITY_ATTRIBUTES"/> structure that determines whether the returned handle can be inherited by child processes. If lpsa is NULL, the handle cannot be inherited.
+        /// The <see cref="Kernel32.SECURITY_ATTRIBUTES.lpSecurityDescriptor"/> member of the structure specifies a security descriptor for the new desktop. If this parameter is NULL, the desktop inherits its security descriptor from the parent window station.
+        /// </param>
+        /// <param name="ulHeapSize">The size of the desktop heap, in kilobytes.</param>
+        /// <param name="pvoid">This parameter is also reserved and must be <see cref="IntPtr.Zero"/>.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the newly created desktop.
+        /// If the specified desktop already exists, the function succeeds and returns a handle to the existing desktop.
+        /// If the function fails, the return value is an invalid handle.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// If the dwDesiredAccess parameter specifies the READ_CONTROL, WRITE_DAC, or WRITE_OWNER standard access rights, you must also request the DESKTOP_READOBJECTS and DESKTOP_WRITEOBJECTS access rights.
+        /// </para>
+        /// <para>
+        /// The number of desktops that can be created is limited by the size of the system desktop heap, which is 48 MB. Desktop objects use the heap to store resources. You can increase the number of desktops that can be created by reducing the default heap reserved for each desktop in the interactive window station. This value is specified in the SharedSection substring of the following registry value: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\SubSystems\Windows.
+        /// </para>
+        /// <para>
+        /// The default size of the desktop heap depends on factors such as hardware architecture. To retrieve the size of the desktop heap, call the <see cref="GetUserObjectInformation(IntPtr, ObjectInformationType, void*, uint, uint*)"/> function with UOI_HEAPSIZE.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static unsafe extern SafeDesktopHandle CreateDesktopEx(
+           string lpszDesktop,
+           IntPtr lpszDevice,
+           IntPtr pDevmode,
+           DesktopCreationFlags dwFlags,
+           Kernel32.ACCESS_MASK dwDesiredAccess,
+           [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Kernel32.SECURITY_ATTRIBUTES* lpsa,
+           uint ulHeapSize,
+           IntPtr pvoid = default(IntPtr));
+
+        /// <summary>
+        /// Creates a new desktop, associates it with the current window station of the calling process, and assigns it to the calling thread. The calling process must have an associated window station, either assigned by the system at process creation time or set by the <see cref="SetProcessWindowStation"/> function.
+        /// </summary>
+        /// <param name="lpszDesktop">The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\).</param>
+        /// <param name="lpszDevice">This parameter is reserved and must be <see cref="IntPtr.Zero"/></param>
+        /// <param name="pDevmode">This parameter is reserved and must be <see cref="IntPtr.Zero"/>.</param>
+        /// <param name="dwFlags">Access control flags</param>
+        /// <param name="dwDesiredAccess">
+        /// The requested access to the desktop. For a list of values, see <see cref="Kernel32.ACCESS_MASK"/>.
+        /// This parameter must include the <see cref="Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW"/> access right, because internally <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> uses the handle to create a window.
+        /// </param>
+        /// <param name="lpsa">
+        /// A pointer to a <see cref="Kernel32.SECURITY_ATTRIBUTES"/> structure that determines whether the returned handle can be inherited by child processes. If lpsa is NULL, the handle cannot be inherited.
+        /// The <see cref="Kernel32.SECURITY_ATTRIBUTES.lpSecurityDescriptor"/> member of the structure specifies a security descriptor for the new desktop. If this parameter is NULL, the desktop inherits its security descriptor from the parent window station.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the newly created desktop.
+        /// If the specified desktop already exists, the function succeeds and returns a handle to the existing desktop.
+        /// If the function fails, the return value is an invalid handle.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// If the dwDesiredAccess parameter specifies the READ_CONTROL, WRITE_DAC, or WRITE_OWNER standard access rights, you must also request the DESKTOP_READOBJECTS and DESKTOP_WRITEOBJECTS access rights.
+        /// </para>
+        /// <para>
+        /// The number of desktops that can be created is limited by the size of the system desktop heap, which is 48 MB. Desktop objects use the heap to store resources. You can increase the number of desktops that can be created by reducing the default heap reserved for each desktop in the interactive window station. This value is specified in the SharedSection substring of the following registry value: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\SubSystems\Windows.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static unsafe extern SafeDesktopHandle CreateDesktop(
+            string lpszDesktop,
+            string lpszDevice,
+            IntPtr pDevmode,
+            DesktopCreationFlags dwFlags,
+            Kernel32.ACCESS_MASK dwDesiredAccess,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Kernel32.SECURITY_ATTRIBUTES* lpsa);
+
+        /// <summary>
+        /// Retrieves a handle to the desktop assigned to the specified thread.
+        /// </summary>
+        /// <param name="dwThreadId">The thread identifier. The <see cref="Kernel32.GetCurrentThreadId"/> and CreateProcess functions return thread identifiers.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the desktop associated with the specified thread.
+        /// You do not need to call the <see cref="CloseDesktop"/> function to close the returned handle.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// The system associates a desktop with a thread when that thread is created. A thread can use the SetThreadDesktop function to change its desktop. The desktop associated with a thread must be on the window station associated with the thread's process.
+        /// </para>
+        /// <para>
+        /// The calling process can use the returned handle in calls to the <see cref="GetUserObjectInformation(IntPtr, ObjectInformationType, void*, uint, uint*)"/>, GetUserObjectSecurity, SetUserObjectInformation, and SetUserObjectSecurity functions.
+        /// </para>
+        /// <para>
+        /// A service application is created with an associated window station and desktop, so there is no need to call a USER or GDI function to connect the service to a window station and desktop.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern SafeDesktopHandle GetThreadDesktop(uint dwThreadId);
+
+        /// <summary>
+        /// Closes an open handle to a desktop object.
+        /// </summary>
+        /// <param name="hDesktop">
+        /// A handle to the desktop to be closed. This can be a handle returned by the <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenDesktop"/>, or <see cref="OpenInputDesktop"/> functions.
+        /// Do not specify the handle returned by the <see cref="GetThreadDesktop"/> function.
+        /// </param>
+        /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
+        /// <remarks>The CloseDesktop function will fail if any thread in the calling process is using the specified desktop handle or if the handle refers to the initial desktop of the calling process.</remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CloseDesktop(IntPtr hDesktop);
+
+        /// <summary>
+        /// Retrieves information about the specified window station or desktop object.
+        /// </summary>
+        /// <param name="hObj">A handle to the window station or desktop object. This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenWindowStation"/>, <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, or <see cref="OpenDesktop"/> function.</param>
+        /// <param name="nIndex">The information to be retrieved.</param>
+        /// <param name="pvInfo">A pointer to a buffer to receive the object information.</param>
+        /// <param name="nLength">The size of the buffer pointed to by the <paramref name="pvInfo"/> parameter, in bytes.</param>
+        /// <param name="lpnLengthNeeded">
+        /// A pointer to a variable receiving the number of bytes required to store the requested information.
+        /// If this variable's value is greater than the value of the <paramref name="nLength"/> parameter when the function returns, the function returns false, and none of the information is copied to the <paramref name="pvInfo"/> buffer.
+        /// If the value of the variable pointed to by lpnLengthNeeded is less than or equal to the value of <paramref name="nLength"/>, the entire information block is copied.</param>
+        /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetUserObjectInformation(IntPtr hObj, ObjectInformationType nIndex, void* pvInfo, uint nLength, uint* lpnLengthNeeded);
+
+        /// <summary>
+        /// Assigns the specified window station to the calling process.
+        /// This enables the process to access objects in the window station such as desktops, the clipboard, and global atoms. All subsequent operations on the window station use the access rights granted to <paramref name="hWinSta"/>.
+        /// </summary>
+        /// <param name="hWinSta">
+        /// A handle to the window station. This can be a handle returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/>, <see cref="OpenWindowStation"/>, or <see cref="GetProcessWindowStation"/> function.
+        /// This window station must be associated with the current session.
+        /// </param>
+        /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProcessWindowStation(SafeWindowStationHandle hWinSta);
+
+        /// <summary>
+        /// Closes an open window station handle.
+        /// </summary>
+        /// <param name="hWinsta">
+        /// A handle to the window station to be closed.
+        /// This handle is returned by the <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> or <see cref="OpenWindowStation"/> function.
+        /// Do not specify the handle returned by the <see cref="GetProcessWindowStation"/> function.
+        /// </param>
+        /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
+        /// <remarks>
+        /// <para>
+        /// Windows Server 2003 and Windows XP/2000:  This function does not set the last error code on failure.
+        /// </para>
+        /// <para>
+        /// The CloseWindowStation function will fail if the handle being closed is for the window station assigned to the calling process.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CloseWindowStation(IntPtr hWinsta);
+
+        /// <summary>
+        /// Creates a window station object, associates it with the calling process, and assigns it to the current session.
+        /// </summary>
+        /// <param name="lpwinsta">
+        /// The name of the window station to be created. Window station names are case-insensitive and cannot contain backslash characters (\).
+        /// Only members of the Administrators group are allowed to specify a name.
+        /// If lpwinsta is NULL or an empty string, the system forms a window station name using the logon session identifier for the calling process.
+        /// To get this name, call the <see cref="GetUserObjectInformation(IntPtr, ObjectInformationType, void*, uint, uint*)"/> function.</param>
+        /// <param name="dwFlags">
+        /// If this parameter is <see cref="WindowStationCreationFlags.CWF_CREATE_ONLY"/> and the window station already exists, the call fails.
+        /// If this flag is not specified and the window station already exists, the function succeeds and returns a new handle to the existing window station.
+        /// Windows XP/2000:  This parameter is reserved and must be zero.
+        /// </param>
+        /// <param name="dwDesiredAccess">
+        /// The requested access to the window station. For a list of values, see <see cref="Kernel32.ACCESS_MASK"/>.
+        /// In addition, you can specify any of the standard access rights, such as <see cref="Kernel32.ACCESS_MASK.StandardRight.READ_CONTROL"/> or <see cref="Kernel32.ACCESS_MASK.StandardRight.WRITE_DAC"/>, and a combination of the window station-specific access rights.
+        /// </param>
+        /// <param name="lpsa">
+        /// A pointer to a <see cref="Kernel32.SECURITY_ATTRIBUTES"/> structure that determines whether the returned handle can be inherited by child processes. If lpsa is NULL, the handle cannot be inherited.
+        /// The <see cref="Kernel32.SECURITY_ATTRIBUTES.lpSecurityDescriptor"/> member of the structure specifies a security descriptor for the new window station.
+        /// If lpsa is NULL, the window station (and any desktops created within the window) gets a security descriptor that grants <see cref="Kernel32.ACCESS_MASK.GenericRight.GENERIC_ALL"/> access to all users.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the newly created window station.
+        /// If the specified window station already exists, the function succeeds and returns a handle to the existing window station.
+        /// If the function fails, the return value is an invalid handle.
+        /// </returns>
+        /// <remarks>After you are done with the handle, you must call <see cref="CloseWindowStation"/> to free the handle.</remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static unsafe extern SafeWindowStationHandle CreateWindowStation(
+            string lpwinsta,
+            WindowStationCreationFlags dwFlags,
+            Kernel32.ACCESS_MASK dwDesiredAccess,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Kernel32.SECURITY_ATTRIBUTES* lpsa);
+
+        /// <summary>
+        /// Retrieves a handle to the current window station for the calling process.
+        /// </summary>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the window station. If the function fails, the return value is an invalid handle.
+        /// Do not close the handle returned by this function.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// The system associates a window station with a process when the process is created. A process can use the <see cref="SetProcessWindowStation"/> function to change its window station.
+        /// </para>
+        /// <para>
+        /// The calling process can use the returned handle in calls to the <see cref="GetUserObjectInformation(IntPtr, ObjectInformationType, void*, uint, uint*)"/>, GetUserObjectSecurity, SetUserObjectInformation, and SetUserObjectSecurity functions.
+        /// </para>
+        /// <para>
+        /// A service application is created with an associated window station and desktop, so there is no need to call a USER or GDI function to connect the service to a window station and desktop.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern SafeWindowStationHandle GetProcessWindowStation();
+
+        /// <summary>
+        /// Enumerates all window stations in the current session. The function passes the name of each window station, in turn, to an application-defined callback function.
+        /// </summary>
+        /// <param name="lpEnumFunc">An application-defined <see cref="WINSTAENUMPROC"/> callback function.</param>
+        /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
+        /// <returns>
+        /// If the function is unable to perform the enumeration, the return value is zero. Call GetLastError to get extended error information.
+        /// If the function succeeds, it returns the nonzero value returned by the callback function that was pointed to by <paramref name="lpEnumFunc"/>.
+        /// If the callback function fails, the return value is zero. The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// The EnumWindowStations function enumerates only those window stations for which the calling process has the <see cref="Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ENUMERATE"/> access right.
+        ///  EnumWindowStations repeatedly invokes the <paramref name="lpEnumFunc"/> callback function until the last window station is enumerated or the callback function returns FALSE.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumWindowStations(WINSTAENUMPROC lpEnumFunc, IntPtr lParam);
+
+        /// <summary>
+        /// Opens the specified window station.
+        /// </summary>
+        /// <param name="lpszWinSta">The name of the window station to be opened. Window station names are case-insensitive. This window station must belong to the current session.</param>
+        /// <param name="fInherit">If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.</param>
+        /// <param name="dwDesiredAccess">The access to the window station. For a list of access rights</param>
+        /// <returns>If the function succeeds, the return value is the handle to the specified window station. If the function fails, the return value is NULL. </returns>
+        /// <remarks>After you are done with the handle, you must call <see cref="CloseWindowStation"/> to free the handle.</remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern SafeWindowStationHandle OpenWindowStation(
+            string lpszWinSta,
+            [MarshalAs(UnmanagedType.Bool)] bool fInherit,
+            Kernel32.ACCESS_MASK dwDesiredAccess);
+
+        /// <summary>
+        /// The <see cref="GetDC"/> function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
+        /// The GetDCEx function is an extension to <see cref="GetDC"/>, which gives an application more control over how and whether clipping occurs in the client area.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is NULL, <see cref="GetDC"/> retrieves the DC for the entire screen.</param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the DC for the specified window's client area.
         /// If the function fails, the return value is NULL.

@@ -31,6 +31,7 @@
     <Compile Include="Kernel32+ACL.cs" />
     <Compile Include="Kernel32+CreateProcessFlags.cs" />
     <Compile Include="Kernel32+CreateToolhelp32SnapshotFlags.cs" />
+    <Compile Include="Kernel32+ExecutionState.cs" />
     <Compile Include="Kernel32+GRPICONDIR.cs" />
     <Compile Include="Kernel32+ICONDIR.cs" />
     <Compile Include="Kernel32+ICONDIRENTRY.cs" />

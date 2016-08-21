@@ -135,6 +135,218 @@ namespace PInvoke
             }
 
             /// <summary>
+            /// The following are the generic access rights for a desktop object contained in the interactive window station of the user's logon session
+            /// </summary>
+            [Flags]
+            public enum DesktopGenericRight : uint
+            {
+                GENERIC_READ = StandardRight.STANDARD_RIGHTS_READ |
+                    DesktopSpecificRight.DESKTOP_ENUMERATE |
+                    DesktopSpecificRight.DESKTOP_READOBJECTS,
+
+                GENERIC_WRITE = StandardRight.STANDARD_RIGHTS_WRITE |
+                    DesktopSpecificRight.DESKTOP_CREATEMENU |
+                    DesktopSpecificRight.DESKTOP_CREATEWINDOW |
+                    DesktopSpecificRight.DESKTOP_HOOKCONTROL |
+                    DesktopSpecificRight.DESKTOP_JOURNALPLAYBACK |
+                    DesktopSpecificRight.DESKTOP_JOURNALRECORD |
+                    DesktopSpecificRight.DESKTOP_WRITEOBJECTS,
+
+                GENERIC_EXECUTE = StandardRight.STANDARD_RIGHTS_EXECUTE |
+                    DesktopSpecificRight.DESKTOP_SWITCHDESKTOP,
+
+                GENERIC_ALL = StandardRight.STANDARD_RIGHTS_REQUIRED |
+                    DesktopSpecificRight.DESKTOP_CREATEMENU |
+                    DesktopSpecificRight.DESKTOP_CREATEWINDOW |
+                    DesktopSpecificRight.DESKTOP_ENUMERATE |
+                    DesktopSpecificRight.DESKTOP_HOOKCONTROL |
+                    DesktopSpecificRight.DESKTOP_JOURNALPLAYBACK |
+                    DesktopSpecificRight.DESKTOP_JOURNALRECORD |
+                    DesktopSpecificRight.DESKTOP_READOBJECTS |
+                    DesktopSpecificRight.DESKTOP_SWITCHDESKTOP |
+                    DesktopSpecificRight.DESKTOP_WRITEOBJECTS
+            }
+
+            /// <summary>
+            /// Contains the access mask specific to the Desktop associated with the mask.
+            /// </summary>
+            [Flags]
+            public enum DesktopSpecificRight : uint
+            {
+                /// <summary>
+                /// The bit mask that covers all possible access rights for the desktop.
+                /// </summary>
+                DESKTOP_ALL_ACCESS = 0x000001FF,
+
+                /// <summary>
+                /// Required to create a menu on the desktop.
+                /// </summary>
+                DESKTOP_CREATEMENU = 0x00000004,
+
+                /// <summary>
+                /// Required for the desktop to be enumerated.
+                /// </summary>
+                DESKTOP_ENUMERATE = 0x00000040,
+
+                /// <summary>
+                /// Required to establish any of the window hooks.
+                /// </summary>
+                DESKTOP_HOOKCONTROL = 0x00000008,
+
+                /// <summary>
+                /// Required to perform journal playback on a desktop.
+                /// </summary>
+                DESKTOP_JOURNALPLAYBACK = 0x00000020,
+
+                /// <summary>
+                /// Required to perform journal recording on a desktop.
+                /// </summary>
+                DESKTOP_JOURNALRECORD = 0x00000010,
+
+                /// <summary>
+                /// Required to read objects on the desktop.
+                /// </summary>
+                DESKTOP_READOBJECTS = 0x00000001,
+
+                /// <summary>
+                /// Required to create a window on the desktop.
+                /// </summary>
+                DESKTOP_CREATEWINDOW = 0x00000002,
+
+                /// <summary>
+                /// Required to activate the desktop using the SwitchDesktop function.
+                /// </summary>
+                DESKTOP_SWITCHDESKTOP = 0x00000100,
+
+                /// <summary>
+                /// Required to write objects on the desktop.
+                /// </summary>
+                DESKTOP_WRITEOBJECTS = 0x00000080
+            }
+
+            /// <summary>
+            /// Generic access rights for the interactive window station object, which is the window station assigned to the logon session of the interactive user.
+            /// </summary>
+            [Flags]
+            public enum InteractiveWindowStationGenericRight : uint
+            {
+                GENERIC_READ = StandardRight.STANDARD_RIGHTS_READ |
+                    WindowStationSpecificRight.WINSTA_ENUMDESKTOPS |
+                    WindowStationSpecificRight.WINSTA_ENUMERATE |
+                    WindowStationSpecificRight.WINSTA_READATTRIBUTES |
+                    WindowStationSpecificRight.WINSTA_READSCREEN,
+
+                GENERIC_WRITE = StandardRight.STANDARD_RIGHTS_WRITE |
+                    WindowStationSpecificRight.WINSTA_ACCESSCLIPBOARD |
+                    WindowStationSpecificRight.WINSTA_CREATEDESKTOP |
+                    WindowStationSpecificRight.WINSTA_WRITEATTRIBUTES,
+
+                GENERIC_EXECUTE = StandardRight.STANDARD_RIGHTS_EXECUTE |
+                    WindowStationSpecificRight.WINSTA_ACCESSGLOBALATOMS |
+                    WindowStationSpecificRight.WINSTA_EXITWINDOWS,
+
+                GENERIC_ALL = StandardRight.STANDARD_RIGHTS_REQUIRED |
+                    WindowStationSpecificRight.WINSTA_ACCESSCLIPBOARD |
+                    WindowStationSpecificRight.WINSTA_ACCESSGLOBALATOMS |
+                    WindowStationSpecificRight.WINSTA_CREATEDESKTOP |
+                    WindowStationSpecificRight.WINSTA_ENUMDESKTOPS |
+                    WindowStationSpecificRight.WINSTA_ENUMERATE |
+                    WindowStationSpecificRight.WINSTA_EXITWINDOWS |
+                    WindowStationSpecificRight.WINSTA_READATTRIBUTES |
+                    WindowStationSpecificRight.WINSTA_READSCREEN |
+                    WindowStationSpecificRight.WINSTA_WRITEATTRIBUTES
+            }
+
+            /// <summary>
+            /// Generic access rights for a noninteractive window station object.
+            /// The system assigns noninteractive window stations to all logon sessions other than that of the interactive user.
+            /// </summary>
+            [Flags]
+            public enum NonInteractiveWindowStationGenericRight : uint
+            {
+                GENERIC_READ = StandardRight.STANDARD_RIGHTS_READ |
+                    WindowStationSpecificRight.WINSTA_ENUMDESKTOPS |
+                    WindowStationSpecificRight.WINSTA_ENUMERATE |
+                    WindowStationSpecificRight.WINSTA_READATTRIBUTES,
+
+                GENERIC_WRITE = StandardRight.STANDARD_RIGHTS_WRITE |
+                    WindowStationSpecificRight.WINSTA_ACCESSCLIPBOARD |
+                    WindowStationSpecificRight.WINSTA_CREATEDESKTOP,
+
+                GENERIC_EXECUTE = StandardRight.STANDARD_RIGHTS_EXECUTE |
+                    WindowStationSpecificRight.WINSTA_ACCESSGLOBALATOMS |
+                    WindowStationSpecificRight.WINSTA_EXITWINDOWS,
+
+                GENERIC_ALL = StandardRight.STANDARD_RIGHTS_REQUIRED |
+                    WindowStationSpecificRight.WINSTA_ACCESSCLIPBOARD |
+                    WindowStationSpecificRight.WINSTA_ACCESSGLOBALATOMS |
+                    WindowStationSpecificRight.WINSTA_CREATEDESKTOP |
+                    WindowStationSpecificRight.WINSTA_ENUMDESKTOPS |
+                    WindowStationSpecificRight.WINSTA_ENUMERATE |
+                    WindowStationSpecificRight.WINSTA_EXITWINDOWS |
+                    WindowStationSpecificRight.WINSTA_READATTRIBUTES |
+                    WindowStationSpecificRight.WINSTA_READSCREEN
+            }
+
+            /// <summary>
+            /// Contains the access mask specific to the Window Station associated with the mask.
+            /// </summary>
+            [Flags]
+            public enum WindowStationSpecificRight : uint
+            {
+                /// <summary>
+                /// The bit mask that covers all possible access rights for the window station.
+                /// </summary>
+                WINSTA_ALL_ACCESS = 0x0000037F,
+
+                /// <summary>
+                /// Required to use the clipboard.
+                /// </summary>
+                WINSTA_ACCESSCLIPBOARD = 0x00000004,
+
+                /// <summary>
+                /// Required to manipulate global atoms.
+                /// </summary>
+                WINSTA_ACCESSGLOBALATOMS = 0x00000020,
+
+                /// <summary>
+                /// Required to create new desktop objects on the window station.
+                /// </summary>
+                WINSTA_CREATEDESKTOP = 0x00000008,
+
+                /// <summary>
+                /// Required to enumerate existing desktop objects.
+                /// </summary>
+                WINSTA_ENUMDESKTOPS = 0x00000001,
+
+                /// <summary>
+                /// Required for the window station to be enumerated.
+                /// </summary>
+                WINSTA_ENUMERATE = 0x00000100,
+
+                /// <summary>
+                /// Required to successfully call the ExitWindows or ExitWindowsEx function
+                /// Window stations can be shared by users and this access type can prevent other users of a window station from logging off the window station owner.
+                /// </summary>
+                WINSTA_EXITWINDOWS = 0x00000040,
+
+                /// <summary>
+                /// Required to read the attributes of a window station object. This attribute includes color settings and other global window station properties.
+                /// </summary>
+                WINSTA_READATTRIBUTES = 0x00000002,
+
+                /// <summary>
+                /// Required to access screen contents.
+                /// </summary>
+                WINSTA_READSCREEN = 0x00000200,
+
+                /// <summary>
+                /// Required to modify the attributes of a window station object. The attributes include color settings and other global window station properties.
+                /// </summary>
+                WINSTA_WRITEATTRIBUTES = 0x00000010
+            }
+
+            /// <summary>
             /// Gets the ACCESS_MASK as a 32-bit unsigned integer.
             /// </summary>
             public uint Value { get; }
@@ -164,6 +376,26 @@ namespace PInvoke
             /// Gets the specific rights of this value.
             /// </summary>
             public SpecificRight SpecificRights => (SpecificRight)(this.Value & SpecificRightsMask);
+
+            /// <summary>
+            /// Gets the specific rights of this value for desktops.
+            /// </summary>
+            public DesktopSpecificRight DesktopSpecificRights => (DesktopSpecificRight)this.SpecificRights;
+
+            /// <summary>
+            /// Gets the generic rights of this value for interactive window stations.
+            /// </summary>
+            public InteractiveWindowStationGenericRight InteractiveWindowStationGenericRights => (InteractiveWindowStationGenericRight)this.GenericRights;
+
+            /// <summary>
+            /// Gets the generic rights of this value for noninteractive window stations.
+            /// </summary>
+            public NonInteractiveWindowStationGenericRight NonInteractiveWindowStationGenericRights => (NonInteractiveWindowStationGenericRight)this.GenericRights;
+
+            /// <summary>
+            /// Gets the specific rights of this value for window stations.
+            /// </summary>
+            public WindowStationSpecificRight WindowStationSpecificRights => (WindowStationSpecificRight)this.SpecificRights;
 
             /// <summary>
             /// Converts an <see cref="int"/> into an <see cref="ACCESS_MASK"/>.

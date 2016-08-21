@@ -978,6 +978,11 @@ namespace PInvoke
             WM_TABLET_LAST = 0x02df,
 
             /// <summary>
+            /// The WM_DISPLAYCHANGE message is sent when the effective dots per inch (dpi) for a window has changed. The DPI is the scale factor for a window.
+            /// </summary>
+            WM_DPICHANGED = 0x02E0,
+
+            /// <summary>
             /// An application sends a WM_CUT message to an edit control or combo box to delete (cut) the current selection, if any, in the edit control and copy the deleted text to the clipboard in CF_TEXT format.
             /// </summary>
             WM_CUT = 0x0300,
@@ -1114,7 +1119,7 @@ namespace PInvoke
             WM_DWMCOLORIZATIONCOLORCHANGED = 0x0320,
 
             /// <summary>
-            /// WM_DWMWINDOWMAXIMIZEDCHANGE will let you know when a DWM composed window is maximized. You also have to register for this message as well. You'd have other windowd go opaque when this message is sent.
+            /// WM_DWMWINDOWMAXIMIZEDCHANGE will let you know when a DWM composed window is maximized. You also have to register for this message as well. You'd have other window go opaque when this message is sent.
             /// </summary>
             WM_DWMWINDOWMAXIMIZEDCHANGE = 0x0321,
 

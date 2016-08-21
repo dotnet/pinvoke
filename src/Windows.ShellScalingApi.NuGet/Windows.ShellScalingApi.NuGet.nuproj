@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))\EnlistmentInfo.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))' != '' " />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CB9CFE56-EA10-412C-BEF9-1FA7C38AA76E}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuSpecTemplate>PInvoke.Windows.ShellScalingApi.nuspec</NuSpecTemplate>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
+  <PropertyGroup Label="Configuration">
+    <Id>PInvoke.Windows.ShellScalingApi</Id>
+    <Title>PInvoke.Windows.ShellScalingApi</Title>
+    <Authors>Andrew Arnott</Authors>
+    <Owners>aarnott</Owners>
+    <Summary>P/Invoke methods for the Windows Windows.ShellScalingApi.dll.</Summary>
+    <Description>P/Invoke methods for the Windows Windows.ShellScalingApi.dll.</Description>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <ProjectUrl>https://github.com/AArnott/pinvoke</ProjectUrl>
+    <LicenseUrl>https://github.com/AArnott/pinvoke/blob/master/LICENSE.txt</LicenseUrl>
+    <Copyright>Copyright © Andrew Arnott</Copyright>
+    <Tags>pinvoke .net pcl</Tags>
+    <EmbedSourceFiles>true</EmbedSourceFiles>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Windows.ShellScalingApi\Windows.ShellScalingApi.csproj" />
+    <ProjectReference Include="..\Windows.ShellScalingApi.Profile111\Windows.ShellScalingApi.Profile111.csproj" />
+    <ProjectReference Include="..\Windows.ShellScalingApi.Desktop\Windows.ShellScalingApi.Desktop.csproj" />
+    <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PInvoke.Windows.ShellScalingApi.nuspec" />
+  </ItemGroup>
+  <Import Project="$(NuProjPath)\NuProj.targets" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
+</Project>
