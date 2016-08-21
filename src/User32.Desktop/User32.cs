@@ -1342,6 +1342,27 @@ namespace PInvoke
             int nMaxCount);
 
         /// <summary>
+        /// Moves the cursor to the specified screen coordinates. If the new coordinates are not within the screen
+        /// rectangle set by the most recent ClipCursor function call, the system automatically adjusts the coordinates so that the
+        /// cursor stays within the rectangle.
+        /// </summary>
+        /// <param name="X">The new x-coordinate of the cursor, in screen coordinates.</param>
+        /// <param name="Y">The new y-coordinate of the cursor, in screen coordinates.</param>
+        /// <returns>Returns nonzero if successful or zero otherwise. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetCursorPos(int X, int Y);
+
+        /// <summary>
+        /// Retrieves the position of the mouse cursor, in screen coordinates.
+        /// </summary>
+        /// <param name="lpPoint">A pointer to a POINT structure that receives the screen coordinates of the cursor.</param>
+        /// <returns>Returns nonzero if successful or zero otherwise. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetCursorPos(POINT* lpPoint);
+
+        /// <summary>
         /// The <see cref="GetDC"/> function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to <see cref="GetDC"/>, which gives an application more control over how and whether clipping occurs in the client area.
         /// </summary>

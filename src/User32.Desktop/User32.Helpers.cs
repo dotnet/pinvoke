@@ -121,5 +121,20 @@ namespace PInvoke
 
             return new string(text, 0, finalLength);
         }
+
+        /// <summary>
+        /// Retrieves the position of the mouse cursor, in screen coordinates.
+        /// </summary>
+        /// <returns>The screen coordinates of the cursor</returns>
+        public static unsafe POINT GetCursorPos()
+        {
+            var result = default(POINT);
+            if (!GetCursorPos(&result))
+            {
+                throw new Win32Exception();
+            }
+
+            return result;
+        }
     }
 }
