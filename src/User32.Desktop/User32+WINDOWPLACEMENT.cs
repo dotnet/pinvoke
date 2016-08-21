@@ -37,6 +37,18 @@ namespace PInvoke
 
             /// <summary>The window's coordinates when the window is in the restored position.</summary>
             public RECT rcNormalPosition;
+
+            /// <summary>
+            /// Create a new instance of <see cref="WINDOWPLACEMENT"/> with <see cref="length"/> set to the correct value.
+            /// </summary>
+            /// <returns>A new instance of <see cref="WINDOWPLACEMENT"/> with <see cref="length"/> set to the correct value.</returns>
+            public static WINDOWPLACEMENT Create()
+            {
+                return new WINDOWPLACEMENT
+                {
+                    length = Marshal.SizeOf(typeof(WINDOWPLACEMENT))
+                };
+            }
         }
     }
 }
