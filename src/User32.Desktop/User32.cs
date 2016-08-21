@@ -1363,6 +1363,14 @@ namespace PInvoke
         public static extern unsafe bool GetCursorPos(POINT* lpPoint);
 
         /// <summary>
+        /// Retrieves a handle to the window that contains the specified point.
+        /// </summary>
+        /// <param name="Point">The point to be checked.</param>
+        /// <returns>The return value is a handle to the window that contains the point. If no window exists at the given point, the return value is <see cref="IntPtr.Zero"/>. If the point is over a static text control, the return value is a handle to the window under the static text control.</returns>
+        [DllImport(nameof(User32))]
+        public static extern IntPtr WindowFromPoint(POINT Point);
+
+        /// <summary>
         /// The <see cref="GetDC"/> function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to <see cref="GetDC"/>, which gives an application more control over how and whether clipping occurs in the client area.
         /// </summary>
