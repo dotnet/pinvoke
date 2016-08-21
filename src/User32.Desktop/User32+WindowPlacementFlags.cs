@@ -12,6 +12,8 @@ namespace PInvoke
         [Flags]
         public enum WindowPlacementFlags
         {
+            None = 0x0000,
+
             /// <summary>
             /// The coordinates of the minimized window may be specified.
             /// <para>
