@@ -74,7 +74,34 @@ namespace PInvoke
             ///     Does not place a check mark next to the item (default). If the application supplies check-mark bitmaps (see
             ///     SetMenuItemBitmaps), this flag displays the clear bitmap next to the menu item.
             /// </summary>
-            MF_UNCHECKED = 0x00000000
+            MF_UNCHECKED = 0x00000000,
+
+            /// <summary>Indicates that the menu item is identified by it's command.</summary>
+            MF_BYCOMMAND = 0x00000000,
+
+            /// <summary>Indicates that the menu item is identified by it's zero-based relative position.</summary>
+            MF_BYPOSITION = 0x00000400,
+
+            /// <summary>Removes highlighting from the menu item.</summary>
+            MF_UNHILITE = 0x00000000,
+
+            /// <summary>Highlights the menu item</summary>
+            MF_HILITE = 0x00000080,
+
+            /// <summary>Obsolete -- only used by old RES files</summary>
+            MF_END = 0x00000080,
+
+            MF_USECHECKBITMAPS = 0x00000200,
+            MF_INSERT = 0x00000000,
+            MF_CHANGE = 0x00000080,
+            MF_APPEND = 0x00000100,
+            MF_DELETE = 0x00000200,
+            MF_REMOVE = 0x00001000,
+            MF_DEFAULT = 0x00001000,
+            MF_SYSMENU = 0x00002000,
+            MF_HELP = 0x00004000,
+            MF_RIGHTJUSTIFY = 0x00004000,
+            MF_MOUSESELECT = 0x00008000
         }
     }
 }
