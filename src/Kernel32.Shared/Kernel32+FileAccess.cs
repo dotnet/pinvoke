@@ -14,7 +14,7 @@ namespace PInvoke
         /// Enumerates the <see cref="ACCESS_MASK.SpecificRights"/> that may apply to files.
         /// </summary>
         /// <remarks>
-        /// These flags may be passed to <see cref="CreateFile(string, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/>.
+        /// These flags may be passed to CreateFile.
         /// </remarks>
         public static class FileAccess
         {

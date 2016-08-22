@@ -29,13 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Kernel32+ACL.cs" />
-    <Compile Include="Kernel32+CreateFileFlags.cs" />
     <Compile Include="Kernel32+CreateProcessFlags.cs" />
     <Compile Include="Kernel32+CreateToolhelp32SnapshotFlags.cs" />
-    <Compile Include="Kernel32+CreationDisposition.cs" />
     <Compile Include="Kernel32+ExecutionState.cs" />
-    <Compile Include="Kernel32+FileAccess.cs" />
-    <Compile Include="Kernel32+FileShare.cs" />
     <Compile Include="Kernel32+GRPICONDIR.cs" />
     <Compile Include="Kernel32+ICONDIR.cs" />
     <Compile Include="Kernel32+ICONDIRENTRY.cs" />
@@ -62,7 +58,6 @@
     <Compile Include="Kernel32+PROC_THREAD_ATTRIBUTE_LIST.cs" />
     <Compile Include="Kernel32+QueryFullProcessImageNameFlags.cs" />
     <Compile Include="Kernel32+ResourceTypes.cs" />
-    <Compile Include="Kernel32+SECURITY_IMPERSONATION_LEVEL.cs" />
     <Compile Include="Kernel32+StartupInfoFlags.cs" />
     <Compile Include="Kernel32+STARTUPINFOEX.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
