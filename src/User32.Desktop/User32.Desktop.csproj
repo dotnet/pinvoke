@@ -22,6 +22,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="User32+DesktopCreationFlags.cs" />
+    <Compile Include="User32+DLGITEMTEMPLATE.cs" />
+    <Compile Include="User32+DLGTEMPLATE.cs" />
     <Compile Include="User32+InputType.cs" />
     <Compile Include="User32+KEYEVENTF.cs" />
     <Compile Include="User32+MOUSEEVENTF.cs" />
@@ -33,7 +35,9 @@
     </Compile>
     <Compile Include="User32+HARDWAREINPUT.cs" />
     <Compile Include="User32+INPUT.cs" />
+    <Compile Include="User32+MSG.cs" />
     <Compile Include="User32+ObjectIinformationFlag.cs" />
+    <Compile Include="User32+PeekMessageRemoveFlags.cs" />
     <Compile Include="User32+QueueStatusFlags.cs" />
     <Compile Include="User32+PeekMessageParams.cs" />
     <Compile Include="User32+SafeDesktopHandle.cs" />
