@@ -92,7 +92,7 @@ namespace PInvoke
         /// The text of the specified window's title bar. If the specified window is a control, the text of the control is
         /// returned.
         /// </returns>
-        public static unsafe string GetWindowText(IntPtr hWnd)
+        public static string GetWindowText(IntPtr hWnd)
         {
             var maxLength = GetWindowTextLength(hWnd);
             if (maxLength == 0)
