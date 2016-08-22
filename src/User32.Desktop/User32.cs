@@ -1312,7 +1312,7 @@ namespace PInvoke
         /// Remarks section.
         /// <para>If the window has no text, the return value is zero. To get extended error information, call GetLastError.</para>
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int GetWindowTextLength(IntPtr hWnd);
 
         /// <summary>
