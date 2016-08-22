@@ -106,7 +106,7 @@ namespace PInvoke
                 return string.Empty;
             }
 
-            var text = stackalloc char[maxLength + 1];
+            var text = new char[maxLength + 1];
             var finalLength = GetWindowText(hWnd, text, maxLength + 1);
             if (finalLength == 0)
             {
