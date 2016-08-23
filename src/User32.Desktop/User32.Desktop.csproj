@@ -65,6 +65,8 @@
     <Compile Include="User32+PrintWindowFlags.cs" />
     <Compile Include="User32+SetWindowPosFlags.cs" />
     <Compile Include="User32+WindowLongIndexFlags.cs" />
+    <Compile Include="User32+WINDOWPLACEMENT.cs" />
+    <Compile Include="User32+WindowPlacementFlags.cs" />
     <Compile Include="User32+WindowsHookType.cs" />
     <Compile Include="User32+WindowShowStyle.cs" />
     <Compile Include="User32+WindowStationCreationFlags.cs" />

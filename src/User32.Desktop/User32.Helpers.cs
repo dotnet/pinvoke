@@ -6,7 +6,9 @@ namespace PInvoke
     using System;
     using System.ComponentModel;
     using System.Runtime.InteropServices;
+    using System.Text;
     using PInvoke;
+    using static Kernel32;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -79,6 +81,76 @@ namespace PInvoke
             }
 
             return new string(formatName, 0, count);
+        }
+
+        /// <summary>
+        /// Get the text of the specified window's title bar (if it has one). If the specified window is a control, the
+        /// text of the control is returned. However, GetWindowText cannot retrieve the text of a control in another application.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window or control containing the text.</param>
+        /// <returns>
+        /// The text of the specified window's title bar. If the specified window is a control, the text of the control is
+        /// returned.
+        /// </returns>
+        public static string GetWindowText(IntPtr hWnd)
+        {
+            var maxLength = GetWindowTextLength(hWnd);
+            if (maxLength == 0)
+            {
+                var lastError = GetLastError();
+                if (lastError != Win32ErrorCode.ERROR_SUCCESS)
+                {
+                    throw new Win32Exception(lastError);
+                }
+
+                return string.Empty;
+            }
+
+            var text = new char[maxLength + 1];
+            var finalLength = GetWindowText(hWnd, text, maxLength + 1);
+            if (finalLength == 0)
+            {
+                var lastError = GetLastError();
+                if (lastError != Win32ErrorCode.ERROR_SUCCESS)
+                {
+                    throw new Win32Exception(lastError);
+                }
+
+                return string.Empty;
+            }
+
+            return new string(text, 0, finalLength);
+        }
+
+        /// <summary>
+        /// Retrieves the position of the mouse cursor, in screen coordinates.
+        /// </summary>
+        /// <returns>The screen coordinates of the cursor</returns>
+        public static unsafe POINT GetCursorPos()
+        {
+            var result = default(POINT);
+            if (!GetCursorPos(&result))
+            {
+                throw new Win32Exception();
+            }
+
+            return result;
+        }
+
+        /// <summary>Retrieves the show state and the restored, minimized, and maximized positions of the specified window.</summary>
+        /// <param name="hWnd">A handle to the window.</param>
+        /// <returns>
+        /// A WINDOWPLACEMENT structure with the show state and position information.
+        /// </returns>
+        public static unsafe WINDOWPLACEMENT GetWindowPlacement(IntPtr hWnd)
+        {
+            var result = WINDOWPLACEMENT.Create();
+            if (!GetWindowPlacement(hWnd, &result))
+            {
+                throw new Win32Exception();
+            }
+
+            return result;
         }
     }
 }

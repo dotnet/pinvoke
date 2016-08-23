@@ -7,6 +7,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Text;
 
     using static PInvoke.Kernel32;
 
@@ -1637,6 +1638,91 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool IsDialogMessage(IntPtr hDlg, MSG* lpMsg);
+
+        /// <summary>
+        /// Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar).
+        /// If the specified window is a control, the function retrieves the length of the text within the control. However,
+        /// GetWindowTextLength cannot retrieve the length of the text of an edit control in another application.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window or control.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the length, in characters, of the text. Under certain
+        /// conditions, this value may actually be greater than the length of the text. For more information, see the following
+        /// Remarks section.
+        /// <para>If the window has no text, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern int GetWindowTextLength(IntPtr hWnd);
+
+        /// <summary>
+        /// Copies the text of the specified window's title bar (if it has one) into a buffer. If the specified window is
+        /// a control, the text of the control is copied. However, GetWindowText cannot retrieve the text of a control in another
+        /// application.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window or control containing the text.</param>
+        /// <param name="lpString">
+        /// The buffer that will receive the text. If the string is as long or longer than the buffer, the
+        /// string is truncated and terminated with a null character.
+        /// </param>
+        /// <param name="nMaxCount">
+        /// The maximum number of characters to copy to the buffer, including the null character. If the
+        /// text exceeds this limit, it is truncated.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the length, in characters, of the copied string, not including
+        /// the terminating null character. If the window has no title bar or text, if the title bar is empty, or if the window or
+        /// control handle is invalid, the return value is zero. To get extended error information, call GetLastError.
+        /// <para>This function cannot retrieve the text of an edit control in another application.</para>
+        /// </returns>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern unsafe int GetWindowText(
+            IntPtr hWnd,
+            [Friendly(FriendlyFlags.Array)] char* lpString,
+            int nMaxCount);
+
+        /// <summary>
+        /// Moves the cursor to the specified screen coordinates. If the new coordinates are not within the screen
+        /// rectangle set by the most recent ClipCursor function call, the system automatically adjusts the coordinates so that the
+        /// cursor stays within the rectangle.
+        /// </summary>
+        /// <param name="X">The new x-coordinate of the cursor, in screen coordinates.</param>
+        /// <param name="Y">The new y-coordinate of the cursor, in screen coordinates.</param>
+        /// <returns>Returns nonzero if successful or zero otherwise. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetCursorPos(int X, int Y);
+
+        /// <summary>
+        /// Retrieves the position of the mouse cursor, in screen coordinates.
+        /// </summary>
+        /// <param name="lpPoint">A pointer to a POINT structure that receives the screen coordinates of the cursor.</param>
+        /// <returns>Returns nonzero if successful or zero otherwise. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetCursorPos(POINT* lpPoint);
+
+        /// <summary>
+        /// Retrieves a handle to the window that contains the specified point.
+        /// </summary>
+        /// <param name="Point">The point to be checked.</param>
+        /// <returns>The return value is a handle to the window that contains the point. If no window exists at the given point, the return value is <see cref="IntPtr.Zero"/>. If the point is over a static text control, the return value is a handle to the window under the static text control.</returns>
+        [DllImport(nameof(User32))]
+        public static extern IntPtr WindowFromPoint(POINT Point);
+
+        /// <summary>Retrieves the show state and the restored, minimized, and maximized positions of the specified window.</summary>
+        /// <param name="hWnd">A handle to the window.</param>
+        /// <param name="lpwndpl">
+        /// A pointer to the WINDOWPLACEMENT structure that receives the show state and position information.
+        /// Before calling GetWindowPlacement, set the length member to sizeof(WINDOWPLACEMENT). GetWindowPlacement fails if
+        /// lpwndpl-> length is not set correctly.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetWindowPlacement(IntPtr hWnd, WINDOWPLACEMENT* lpwndpl);
 
         /// <summary>
         /// The <see cref="GetDC"/> function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
