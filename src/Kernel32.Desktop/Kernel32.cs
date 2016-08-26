@@ -937,6 +937,19 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeLibraryHandle LoadLibraryEx(string lpFileName, IntPtr hFile, LoadLibraryExFlags dwFlags);
 
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern IntPtr AddDllDirectory(string NewDirectory);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static unsafe extern bool GetDllDirectory(
+            int nBufferLength,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpBuffer);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool SetDllDirectory(string lpPathName);
+
         /// <summary>
         /// Retrieves a module handle for the specified module. The module must have been loaded by the calling process.
         /// </summary>
@@ -1555,9 +1568,13 @@ namespace PInvoke
         /// Allocates the specified number of bytes from the heap.
         /// </summary>
         /// <param name="uFlags">
-        /// The memory allocation attributes. The default is the <see cref="LocalAllocFlags.LMEM_FIXED"/> value. This parameter can be one or more of the following values, except for the incompatible combinations that are specifically noted.
+        /// The memory allocation attributes. The default is the <see cref="LocalAllocFlags.LMEM_FIXED"/> value.
+        /// This parameter can be one or more of the following values, except for the incompatible combinations that are specifically noted.
         /// </param>
-        /// <param name="uBytes">The number of bytes to allocate. If this parameter is zero and the <paramref name="uFlags"/> parameter specifies <see cref="LocalAllocFlags.LMEM_MOVEABLE"/>, the function returns a handle to a memory object that is marked as discarded.</param>
+        /// <param name="uBytes">
+        /// The number of bytes to allocate. If this parameter is zero and the <paramref name="uFlags"/> parameter specifies <see cref="LocalAllocFlags.LMEM_MOVEABLE"/>,
+        /// the function returns a handle to a memory object that is marked as discarded.
+        /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the newly allocated memory object.
         /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
@@ -1568,10 +1585,14 @@ namespace PInvoke
         /// <summary>
         /// Changes the size or the attributes of a specified local memory object. The size can increase or decrease.
         /// </summary>
-        /// <param name="hMem">A handle to the local memory object to be reallocated. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function.</param>
+        /// <param name="hMem">
+        /// A handle to the local memory object to be reallocated.
+        /// This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function.
+        /// </param>
         /// <param name="uBytes">The new size of the memory block, in bytes. If uFlags specifies <see cref="LocalReAllocFlags.LMEM_MODIFY"/>, this parameter is ignored.</param>
         /// <param name="uFlags">
-        /// The reallocation options. If <see cref="LocalReAllocFlags.LMEM_MODIFY"/> is specified, the function modifies the attributes of the memory object only (the uBytes parameter is ignored.) Otherwise, the function reallocates the memory object.
+        /// The reallocation options. If <see cref="LocalReAllocFlags.LMEM_MODIFY"/> is specified, the function modifies the attributes of the memory object only
+        /// (the uBytes parameter is ignored.) Otherwise, the function reallocates the memory object.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the reallocated memory object.
@@ -1579,7 +1600,8 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// If LocalReAlloc fails, the original memory is not freed, and the original handle and pointer are still valid.
-        /// If LocalReAlloc reallocates a fixed object, the value of the handle returned is the address of the first byte of the memory block. To access the memory, a process can simply cast the return value to a pointer.
+        /// If LocalReAlloc reallocates a fixed object, the value of the handle returned is the address of the first byte of the memory block.
+        /// To access the memory, a process can simply cast the return value to a pointer.
         /// </remarks>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe void* LocalReAlloc(void* hMem, IntPtr uBytes, LocalReAllocFlags uFlags);
@@ -1588,7 +1610,8 @@ namespace PInvoke
         /// Frees the specified local memory object and invalidates its handle.
         /// </summary>
         /// <param name="hMem">
-        /// A handle to the local memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function. It is not safe to free memory allocated with GlobalAlloc.
+        /// A handle to the local memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or
+        /// <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function. It is not safe to free memory allocated with <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/>.
         /// If the hMem parameter is NULL, LocalFree ignores the parameter and returns NULL.
         /// </param>
         /// <returns>
@@ -1597,6 +1620,251 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe void* LocalFree(void* hMem);
+
+        /// <summary>
+        /// Locks a local memory object and returns a pointer to the first byte of the object's memory block.
+        /// </summary>
+        /// <param name="hMem">A handle to the local memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, int, LocalReAllocFlags)"/> function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a pointer to the first byte of the memory block.
+        /// If the function fails, the return value is <see cref="IntPtr.Zero"/>. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static unsafe extern void* LocalLock(void* hMem);
+
+        /// <summary>
+        /// Decrements the lock count associated with a memory object that was allocated with <see cref="LocalAllocFlags.LMEM_MOVEABLE"/>.
+        /// This function has no effect on memory objects allocated with <see cref="LocalAllocFlags.LMEM_FIXED"/>.
+        /// </summary>
+        /// <param name="hMem">A handle to the local  memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, int, LocalReAllocFlags)"/> function.</param>
+        /// <returns>
+        /// If the memory object is still locked after decrementing the lock count, the return value is true.
+        /// If the memory object is unlocked after decrementing the lock count, the function returns false and <see cref="GetLastError"/> returns <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
+        /// If the function fails, the return value is false and <see cref="GetLastError"/> returns a value other than <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool LocalUnlock(void* hMem);
+
+        /// <summary>
+        /// Allocates the specified number of bytes from the heap.
+        /// </summary>
+        /// <param name="uFlags">
+        /// The memory allocation attributes. The default is the <see cref="GlobalAllocFlags.GMEM_FIXED"/> value.
+        /// This parameter can be one or more of the following values, except for the incompatible combinations that are specifically noted.
+        /// </param>
+        /// <param name="uBytes">
+        /// The number of bytes to allocate. If this parameter is zero and the uFlags parameter specifies <see cref="GlobalAllocFlags.GMEM_MOVEABLE"/>,
+        /// the function returns a handle to a memory object that is marked as discarded.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the newly allocated memory object.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* GlobalAlloc(GlobalAllocFlags uFlags, IntPtr uBytes);
+
+        /// <summary>
+        /// Changes the size or attributes of a specified global memory object. The size can increase or decrease.
+        /// </summary>
+        /// <param name="hMem">
+        /// A handle to the global memory object to be reallocated.
+        /// This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, IntPtr, GlobalReAllocFlags)"/> function.
+        /// </param>
+        /// <param name="uBytes">The new size of the memory block, in bytes. If uFlags specifies <see cref="GlobalAllocFlags.GMEM_MODIFY"/>, this parameter is ignored.</param>
+        /// <param name="uFlags">
+        /// The reallocation options. If <see cref="LocalReAllocFlags.LMEM_MODIFY"/> is specified, the function modifies the attributes of the memory object only
+        /// (the uBytes parameter is ignored.) Otherwise, the function reallocates the memory object.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the reallocated memory object.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>
+        /// If GlobalReAlloc fails, the original memory is not freed, and the original handle and pointer are still valid.
+        /// If GlobalReAlloc reallocates a fixed object, the value of the handle returned is the address of the first byte of the memory block.
+        /// To access the memory, a process can simply cast the return value to a pointer.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* GlobalReAlloc(void* hMem, IntPtr uBytes, GlobalReAllocFlags uFlags);
+
+        /// <summary>
+        /// Frees the specified global memory object and invalidates its handle.
+        /// </summary>
+        /// <param name="hMem">
+        /// A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or
+        /// <see cref="GlobalReAlloc(void*, IntPtr, GlobalReAllocFlags)"/> function. It is not safe to free memory allocated with <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/>.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is NULL.
+        /// If the function fails, the return value is equal to a handle to <paramref name="hMem"/>. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* GlobalFree(void* hMem);
+
+        /// <summary>
+        /// Locks a global memory object and returns a pointer to the first byte of the object's memory block.
+        /// </summary>
+        /// <param name="hMem">A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, int, GlobalReAllocFlags)"/> function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a pointer to the first byte of the memory block.
+        ///  If the function fails, the return value is <see cref="IntPtr.Zero"/>. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static unsafe extern void* GlobalLock(void* hMem);
+
+        /// <summary>
+        /// Decrements the lock count associated with a memory object that was allocated with <see cref="GlobalAllocFlags.GMEM_MOVEABLE"/>.
+        /// This function has no effect on memory objects allocated with <see cref="GlobalAllocFlags.GMEM_FIXED"/>.
+        /// </summary>
+        /// <param name="hMem">A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, int, GlobalReAllocFlags)"/> function.</param>
+        /// <returns>
+        /// If the memory object is still locked after decrementing the lock count, the return value is true.
+        /// If the memory object is unlocked after decrementing the lock count, the function returns false and <see cref="GetLastError"/> returns <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
+        /// If the function fails, the return value is false and <see cref="GetLastError"/> returns a value other than <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GlobalUnlock(void* hMem);
+
+        /// <summary>
+        /// Allocates a block of memory from a heap. The allocated memory is not movable.
+        /// </summary>
+        /// <param name="hHeap">A handle to the heap from which the memory will be allocated. This handle is returned by the <see cref="HeapCreate"/> or <see cref="GetProcessHeap"/> function.</param>
+        /// <param name="uFlags">The heap allocation options. Specifying any of these values will override the corresponding value specified when the heap was created with <see cref="HeapCreate"/>.</param>
+        /// <param name="uBytes">
+        /// The number of bytes to be allocated. If the heap specified by the hHeap parameter is a "non-growable" heap,
+        /// dwBytes must be less than 0x7FFF8. 
+        /// You create a non-growable heap by calling the <see cref="HeapCreate"/> function with a nonzero value.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a pointer to the allocated memory block.
+        /// If the function fails and you have not specified <see cref="HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS"/>, the return value is NULL.
+        /// If the function fails and you have specified <see cref="HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS"/>,
+        /// the function may generate either of the exceptions listed in the following table:
+        /// <list>
+        /// <item>STATUS_NO_MEMORY: The allocation attempt failed because of a lack of available memory or heap corruption.</item>
+        /// <item>STATUS_ACCESS_VIOLATION: The allocation attempt failed because of heap corruption or improper function parameters.</item>
+        /// </list>
+        /// The particular exception depends upon the nature of the heap corruption. For more information, see <see cref="GetExceptionCode"/>.
+        /// </returns>
+        /// <remarks>If the function fails, it does not call SetLastError. An application cannot call <see cref="GetLastError"/> for extended error information.</remarks>
+        [DllImport(nameof(Kernel32), SetLastError = false)]
+        public static extern unsafe void* HeapAlloc(IntPtr hHeap, HeapAllocFlags uFlags, IntPtr uBytes);
+
+        /// <summary>
+        /// Reallocates a block of memory from a heap. This function enables you to resize a memory block and change other memory block properties.
+        /// The allocated memory is not movable.
+        /// </summary>
+        /// <param name="hHeap">A handle to the heap from which the memory is to be reallocated. This handle is a returned by either the <see cref="HeapCreate"/> or <see cref="GetProcessHeap"/> function.</param>
+        /// <param name="uFlags">
+        /// The heap reallocation options. Specifying a value overrides the corresponding value specified in the flOptions parameter
+        /// when the heap was created by using the <see cref="HeapCreate"/> function.
+        /// </param>
+        /// <param name="hMem">
+        /// A pointer to the block of memory that the function reallocates.
+        /// This pointer is returned by an earlier call to the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, int)"/> function.
+        /// </param>
+        /// <param name="uBytes">
+        /// The new size of the memory block, in bytes. A memory block's size can be increased or decreased by using this function.
+        /// If the heap specified by the hHeap parameter is a "non-growable" heap, dwBytes must be less than 0x7FFF8.
+        /// You create a non-growable heap by calling the <see cref="HeapCreate"/> function with a nonzero value.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a pointer to the reallocated memory block.
+        /// If the function fails and you have not specified <see cref="HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS"/>, the return value is NULL.
+        /// If the function fails and you have specified <see cref="HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS"/>,
+        /// the function may generate either of the exceptions listed in the following table:
+        /// <list>
+        /// <item>STATUS_NO_MEMORY: The allocation attempt failed because of a lack of available memory or heap corruption.</item>
+        /// <item>STATUS_ACCESS_VIOLATION: The allocation attempt failed because of heap corruption or improper function parameters.</item>
+        /// </list>
+        /// The particular exception depends upon the nature of the heap corruption. For more information, see <see cref="GetExceptionCode"/>.
+        /// </returns>
+        /// <remarks>If the function fails, it does not call SetLastError. An application cannot call <see cref="GetLastError"/> for extended error information.</remarks>
+        [DllImport(nameof(Kernel32), SetLastError = false)]
+        public static extern unsafe void* HeapReAlloc(IntPtr hHeap, HeapReAllocFlags uFlags, void* hMem, IntPtr uBytes);
+
+        /// <summary>
+        /// Frees a memory block allocated from a heap by the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, int)"/> function.
+        /// </summary>
+        /// <param name="hHeap">
+        /// A handle to the heap whose memory block is to be freed. This handle is returned by either the <see cref="HeapCreate"/> or
+        /// <see cref="GetProcessHeap"/> function.
+        /// </param>
+        /// <param name="dwFlags">The heap free options. Specifying the following value overrides the corresponding value specified in the flOptions parameter
+        /// when the heap was created by using the <see cref="HeapCreate"/> function.</param>
+        /// <param name="hMem">
+        /// A pointer to the memory block to be freed. This pointer is returned by the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, int)"/> function.
+        /// If this pointer is NULL, the behavior is undefined.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is true. If the function fails, the return value false. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool HeapFree(IntPtr hHeap, HeapFreeFlags dwFlags, void* hMem);
+
+        /// <summary>
+        /// Attempts to acquire the critical section object, or lock, that is associated with a specified heap.
+        /// </summary>
+        /// <param name="hMem">A handle to the heap to be locked. This handle is returned by either the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, int)"/> function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true. If the function fails, the return value is zero.
+        /// To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool HeapLock(IntPtr hMem);
+
+        /// <summary>
+        /// Releases ownership of the critical section object, or lock, that is associated with a specified heap. It reverses the action of the <see cref="HeapLock"/> function.
+        /// </summary>
+        /// <param name="hHeap">A handle to the heap to be unlocked. This handle is returned by either the <see cref="HeapCreate"/> or <see cref="GetProcessHeap"/> function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true. If the function fails, the return value is zero.
+        /// To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool HeapUnlock(IntPtr hHeap);
+
+        /// <summary>
+        /// Copies a block of memory from one location to another.
+        /// </summary>
+        /// <param name="Destination">A pointer to the starting address of the copied block's destination.</param>
+        /// <param name="Source">A pointer to the starting address of the block of memory to copy.</param>
+        /// <param name="Length">The size of the block of memory to copy, in bytes.</param>
+        /// <remarks>
+        /// This function is defined as the RtlCopyMemory function.
+        /// If the source and destination blocks overlap, the results are undefined.
+        /// For overlapped blocks, use the <see cref="MoveMemory(void*, void*, IntPtr)"/> function.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = false)]
+        public static unsafe extern void CopyMemory(void* Destination, void* Source, IntPtr Length);
+
+        /// <summary>
+        /// Moves a block of memory from one location to another.
+        /// </summary>
+        /// <param name="Destination">A pointer to the starting address of the move destination.</param>
+        /// <param name="Source">A pointer to the starting address of the block of memory to be moved.</param>
+        /// <param name="Length">The size of the block of memory to move, in bytes.</param>
+        /// <remarks>
+        /// <para>
+        /// This function is defined as the RtlMoveMemory function.
+        /// The source and destination blocks may overlap.
+        /// </para>
+        /// <para>
+        /// The first parameter, <paramref name="Destination"/>, must be large enough to hold <paramref name="Length"/> bytes of <paramref name="Source"/>;
+        /// otherwise, a buffer overrun may occur.
+        /// This may lead to a denial of service attack against the application if an access violation occurs or, in the worst case,
+        /// allow an attacker to inject executable code into your process.
+        /// This is especially true if <paramref name="Destination"/> is a stack-based buffer.
+        /// Be aware that the last parameter, <paramref name="Length"/>, is the number of bytes to copy into <paramref name="Destination"/>, not the size of the <paramref name="Destination"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = false)]
+        public static unsafe extern void MoveMemory(void* Destination, void* Source, IntPtr Length);
 
         /// <summary>
         ///     Enumerates resources of a specified type within a binary module. For Windows Vista and later, this is
@@ -1993,7 +2261,5 @@ namespace PInvoke
         [DllImport("Kernel32", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetConsoleCtrlHandler(PHANDLER_ROUTINE handlerRoutine, [MarshalAs(UnmanagedType.Bool)] bool add);
-
-
     }
 }

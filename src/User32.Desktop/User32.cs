@@ -569,6 +569,124 @@ namespace PInvoke
         public static extern IntPtr GetActiveWindow();
 
         /// <summary>
+        /// Determines whether the specified window handle identifies an existing window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window handle identifies an existing window, the return value is true, otherwise it is false.</returns>
+        /// <remarks>
+        /// A thread should not use IsWindow for a window that it did not create because the window could be destroyed after this function was called.
+        /// Further, because window handles are recycled the handle could even point to a different window.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindow(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether the calling thread is already a GUI thread. It can also optionally convert the thread to a GUI thread.
+        /// </summary>
+        /// <param name="bConvert">If TRUE and the thread is not a GUI thread, convert the thread to a GUI thread.</param>
+        /// <returns>The function returns a nonzero value (different from <see cref="HResult.Code.S_OK"/> but not specified on MSDN documentation) in the following situations:
+        /// <list>
+        /// <item>If the calling thread is already a GUI thread.</item>
+        /// <item>If <paramref name="bConvert"/> is TRUE and the function successfully converts the thread to a GUI thread.</item>
+        /// </list>
+        /// Otherwise, the function returns <see cref="HResult.Code.S_OK"/>.
+        /// If <paramref name="bConvert"/> is TRUE and the function cannot successfully convert the thread to a GUI thread,
+        /// IsGUIThread returns <see cref="Win32ErrorCode.ERROR_NOT_ENOUGH_MEMORY"/>.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern HResult IsGUIThread([MarshalAs(UnmanagedType.Bool)] bool bConvert);
+
+        /// <summary>
+        /// Determines whether a window is a child window or descendant window of a specified parent window.
+        /// A child window is the direct descendant of a specified parent window if that parent window is in the chain of parent windows;
+        /// the chain of parent windows leads from the original overlapped or pop-up window to the child window.
+        /// </summary>
+        /// <param name="hWndParent">A handle to the parent window.</param>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window is a child or descendant window of the specified parent window, the return value is true, otherwise it is false.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsChild(IntPtr hWndParent, IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether the system considers that a specified application is not responding.
+        /// An application is considered to be not responding if it is not waiting for input, is not in startup processing,
+        /// and has not called <see cref="PeekMessage"/> within the internal timeout period of 5 seconds.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>
+        /// If the window handle identifies an existing window, the return value is true, otherwise it is false.
+        /// Ghost windows always return true.
+        /// </returns>
+        /// <remarks>
+        /// The Windows timeout criteria of 5 seconds is subject to change.
+        /// This function was not included in the SDK headers and libraries until Windows XP Service Pack 1 (SP1) and Windows Server 2003.
+        /// If you do not have a header file and import library for this function, you can call the function using <see cref="Kernel32.LoadLibrary"/> and <see cref="Kernel32.GetProcAddress"/>.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsHungAppWindow(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether the specified window is minimized (iconic).
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window is iconic, the return value is true, otherwise it is false.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsIconic(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether the specified window is a native Unicode window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window is a native Unicode window, the return value is true, otherwise it is false (the window is a native ANSI window).</returns>
+        /// <remarks>
+        /// <para>
+        /// The character set of a window is determined by the use of the <see cref="RegisterClass"/> function.
+        /// If the window class was registered with the ANSI version of <see cref="RegisterClass"/> (RegisterClassA), the character set of the window is ANSI.
+        /// If the window class was registered with the Unicode version of <see cref="RegisterClass"/> (RegisterClassW), the character set of the window is Unicode.
+        /// </para>
+        /// <para>
+        /// The system does automatic two-way translation (Unicode to ANSI) for window messages. For example,
+        /// if an ANSI window message is sent to a window that uses the Unicode character set,
+        /// the system translates that message into a Unicode message before calling the window procedure.
+        /// The system calls IsWindowUnicode to determine whether to translate the message or not.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindowUnicode(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines the visibility state of the specified window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>
+        /// If the specified window, its parent window, its parent's parent window, and so forth, have the WS_VISIBLE style, the return value is true, otherwise it is false.
+        /// Because the return value specifies whether the window has the WS_VISIBLE style, it may be nonzero even if the window is totally obscured by other windows.
+        /// </returns>
+        /// <remarks>
+        /// The visibility state of a window is indicated by the WS_VISIBLE style bit.
+        /// When WS_VISIBLE is set, the window is displayed and subsequent drawing into it is displayed as long as the window has the WS_VISIBLE style.
+        /// Any drawing to a window with the WS_VISIBLE style will not be displayed if the window is obscured by other windows or is clipped by its parent window.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindowVisible(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether a window is maximized.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window is zoomed, the return value is true, otherwise it is false.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsZoomed(IntPtr hWnd);
+
+        /// <summary>
         /// Searches through icon or cursor data for the icon or cursor that best fits the current display device.
         /// To specify a desired height or width, use the LookupIconIdFromDirectoryEx function.
         /// </summary>
@@ -620,8 +738,8 @@ namespace PInvoke
         /// </summary>
         /// <param name="format">The type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.</param>
         /// <param name="lpszFormatName">The format name string.</param>
-        /// <param name="nMaxCount">
-        /// The length of the <paramref name="lpszFormatName"/> buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the format name string is truncated to <paramref name="nMaxCount"/>-1 characters.
+        /// <param name="cchMaxCount">
+        /// The length of the <paramref name="lpszFormatName"/> buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the format name string is truncated to <paramref name="cchMaxCount"/>-1 characters.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is the number of characters copied to the buffer.
@@ -631,7 +749,25 @@ namespace PInvoke
         public static extern unsafe int GetClipboardFormatName(
             int format,
             [Friendly(FriendlyFlags.Array)] char* lpszFormatName,
-            int nMaxCount);
+            int cchMaxCount);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static unsafe extern void* GetClipboardData(int uFormat);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static unsafe extern void* SetClipboardData(int uFormat, void* hMem);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool OpenClipboard(IntPtr hWndNewOwner);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CloseClipboard();
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EmptyClipboard();
 
         /// <summary>
         /// Synthesizes keystrokes, mouse motions, and button clicks.
