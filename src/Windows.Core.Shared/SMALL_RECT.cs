@@ -9,32 +9,30 @@ namespace PInvoke
     /// The RECT structure defines the coordinates of the upper-left and lower-right corners of a rectangle.
     /// </summary>
     /// <remarks>
-    /// By convention, the right and bottom edges of the rectangle are normally considered exclusive.
-    /// In other words, the pixel whose coordinates are ( right, bottom ) lies immediately outside of the rectangle.
-    /// For example, when RECT is passed to the FillRect function, the rectangle is filled up to, but not including,
-    /// the right column and bottom row of pixels. This structure is identical to the RECTL structure.
+    /// This structure is used by console functions to specify rectangular areas of console screen buffers,
+    /// where the coordinates specify the rows and columns of screen-buffer character cells.
     /// </remarks>
     [StructLayout(LayoutKind.Sequential)]
-    public struct RECT
+    public struct SMALL_RECT
     {
         /// <summary>
         /// The x-coordinate of the upper-left corner of the rectangle.
         /// </summary>
-        public int left;
+        public short Left;
 
         /// <summary>
         /// The y-coordinate of the upper-left corner of the rectangle.
         /// </summary>
-        public int top;
+        public short Top;
 
         /// <summary>
         /// The x-coordinate of the lower-right corner of the rectangle.
         /// </summary>
-        public int right;
+        public short Right;
 
         /// <summary>
         /// The y-coordinate of the lower-right corner of the rectangle.
         /// </summary>
-        public int bottom;
+        public short Bottom;
     }
 }
