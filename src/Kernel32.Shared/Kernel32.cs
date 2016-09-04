@@ -42,6 +42,7 @@ namespace PInvoke
         private const string api_ms_win_core_namedpipe_l1_2_0 = ApiSets.api_ms_win_core_namedpipe_l1_2_0;
         private const string api_ms_win_core_libraryloader_l1_1_1 = ApiSets.api_ms_win_core_libraryloader_l1_1_1;
         private const string api_ms_win_core_sysinfo_l1_2_1 = ApiSets.api_ms_win_core_sysinfo_l1_2_1;
+        private const string api_ms_win_core_sysinfo_l1_2_0 = ApiSets.api_ms_win_core_sysinfo_l1_2_0;
 #else
         private const string api_ms_win_core_localization_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_processthreads_l1_1_1 = nameof(Kernel32);
@@ -55,6 +56,7 @@ namespace PInvoke
         private const string api_ms_win_core_namedpipe_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_libraryloader_l1_1_1 = nameof(Kernel32);
         private const string api_ms_win_core_sysinfo_l1_2_1 = nameof(Kernel32);
+        private const string api_ms_win_core_sysinfo_l1_2_0 = nameof(Kernel32);
 #endif
 #pragma warning restore SA1303 // Const field names must begin with upper-case letter
 
@@ -598,6 +600,34 @@ namespace PInvoke
             int nOutBufferSize,
             out int pBytesReturned,
             OVERLAPPED* lpOverlapped);
+
+        /// <summary>
+        /// Retrieves the current system date and time. The system time is expressed in Coordinated Universal Time (UTC).
+        /// To retrieve the current system date and time in local time, use the GetLocalTime function.
+        /// </summary>
+        /// <param name="lpSystemTime">
+        /// A pointer to a SYSTEMTIME structure to receive the current system date and time.
+        /// The lpSystemTime parameter must not be NULL. Using NULL will result in an access violation.
+        /// </param>
+        [DllImport(api_ms_win_core_sysinfo_l1_2_0)]
+        public static extern unsafe void GetSystemTime([Friendly(FriendlyFlags.Out)] SYSTEMTIME* lpSystemTime);
+
+        /// <summary>
+        /// Sets the current system time and date. The system time is expressed in Coordinated Universal Time (UTC).
+        /// </summary>
+        /// <param name="lpSystemTime">
+        /// A pointer to a <see cref="SYSTEMTIME"/> structure that contains the new system date and time.
+        /// The wDayOfWeek member of the <see cref="SYSTEMTIME"/> structure is ignored.</param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_sysinfo_l1_2_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool SetSystemTime([Friendly(FriendlyFlags.In)] SYSTEMTIME* lpSystemTime);
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
