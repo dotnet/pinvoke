@@ -55,7 +55,7 @@ namespace PInvoke
         {
             string errorMsg;
 
-            StringBuilder sb = new StringBuilder(256);
+            var sb = new StringBuilder(256);
             do
             {
                 if (TryGetErrorMessage(dwFlags, lpSource, dwMessageId, dwLanguageId, sb, Arguments, out errorMsg))
@@ -293,7 +293,7 @@ namespace PInvoke
         private static unsafe bool TryGetErrorMessage(FormatMessageFlags flags, void* source, int messageId, int languageId, StringBuilder sb, IntPtr[] arguments, out string errorMsg)
         {
             errorMsg = string.Empty;
-            int result = FormatMessage(
+            var result = FormatMessage(
                 flags | FormatMessageFlags.FORMAT_MESSAGE_ARGUMENT_ARRAY & ~FormatMessageFlags.FORMAT_MESSAGE_ALLOCATE_BUFFER,
                 source,
                 messageId,

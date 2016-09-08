@@ -8,7 +8,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-
+    using PInvoke;
     using static PInvoke.Kernel32;
 
     /// <summary>
@@ -24,6 +24,21 @@ namespace PInvoke
         /// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms646254(v=vs.85).aspx
         /// </remarks>
         public const int WHEEL_DELTA = 120;
+
+        /// <summary>
+        /// Size of a device name string
+        /// </summary>
+        public const int CCHDEVICENAME = 32;
+
+        /// <summary>
+        /// Default parameters for <see cref="CreateWindowEx(WindowStylesEx, string, string, WindowStyles, int, int, int, int, IntPtr, IntPtr, IntPtr, IntPtr)"/>
+        /// </summary>
+        public const int CW_USEDEFAULT = unchecked((int)0x80000000);
+
+        /// <summary>
+        /// Size of a font name or a font family name
+        /// </summary>
+        public const int LF_FACESIZE = 32;
 
         /// <summary>
         ///     A bitmap that is drawn by the window that owns the menu. The application must process the WM_MEASUREITEM and
@@ -144,6 +159,12 @@ namespace PInvoke
         /// </returns>
         public delegate IntPtr DialogProc(IntPtr hwndDlg, WindowMessage uMsg, IntPtr wParam, IntPtr lParam);
 
+        public delegate void MsgBoxCallback(HELPINFO lpHelpInfo);
+
+        public delegate bool MonitorEnumDelegate(IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData);
+
+        public delegate IntPtr WndProc(IntPtr hWnd, WindowMessage msg, IntPtr wParam, IntPtr lParam);
+
         /// <summary>
         /// Plays a waveform sound. The waveform sound for each sound type is identified by an entry in the registry.
         /// </summary>
@@ -155,6 +176,12 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MessageBeep(MessageBeepType uType);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern MessageBoxResult MessageBox(IntPtr hWnd, string text, string caption, MessageBoxOptions options);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int MessageBoxIndirect(ref MSGBOXPARAMS lpMsgBoxParams);
 
         [DllImport(nameof(User32))]
         public static extern int SetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
@@ -187,6 +214,240 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool GetCursorPos(out POINT lpPoint);
+
+        /// <summary>
+        /// Retrieves a handle to the foreground window (the window with which the user is currently
+        /// working). The system assigns a slightly higher priority to the thread that creates the
+        /// foreground window than it does to other threads.
+        /// <para>
+        /// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms633505%28v=vs.85%29.aspx
+        /// for more information.
+        /// </para>
+        /// </summary>
+        /// <returns>
+        /// C++ ( Type: Type: HWND ) <br/> The return value is a handle to the foreground window. The
+        /// foreground window can be NULL in certain circumstances, such as when a window is losing activation.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetForegroundWindow();
+
+        /// <summary>
+        /// Changes the size, position, and Z order of a child, pop-up, or top-level window. These
+        /// windows are ordered according to their appearance on the screen. The topmost window
+        /// receives the highest rank and is the first window in the Z order.
+        /// <para>
+        /// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms633545%28v=vs.85%29.aspx
+        /// for more information.
+        /// </para>
+        /// </summary>
+        /// <param name="hWnd">C++ ( hWnd Type: HWND ) <br/> A handle to the window.</param>
+        /// <param name="hWndInsertAfter">
+        /// C++ ( hWndInsertAfter Type: HWND ) <br/> A handle to the window to
+        /// precede the positioned window in the Z order. This parameter must be a window handle or
+        /// one of the following values.
+        /// <list type="table">
+        /// <itemheader>
+        /// <term>HWND placement</term>
+        /// <description>Window to precede placement</description>
+        /// </itemheader>
+        /// <item>
+        /// <term>HWND_BOTTOM ((HWND)1)</term>
+        /// <description>
+        /// Places the window at the bottom of the Z order. If the hWnd parameter identifies a
+        /// topmost window, the window loses its topmost status and is placed at the bottom of all
+        /// other windows.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>HWND_NOTOPMOST ((HWND)-2)</term>
+        /// <description>
+        /// Places the window above all non-topmost windows (that is, behind all topmost windows).
+        /// This flag has no effect if the window is already a non-topmost window.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>HWND_TOP ((HWND)0)</term>
+        /// <description>Places the window at the top of the Z order.</description>
+        /// </item>
+        /// <item>
+        /// <term>HWND_TOPMOST ((HWND)-1)</term>
+        /// <description>
+        /// Places the window above all non-topmost windows. The window maintains its topmost
+        /// position even when it is deactivated.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// <para>
+        /// For more information about how this parameter is used, see the following Remarks section.
+        /// </para>
+        /// </param>
+        /// <param name="X">
+        /// C++ ( X Type: int ) <br/> The new position of the left side of the window, in
+        /// client coordinates.
+        /// </param>
+        /// <param name="Y">
+        /// C++ ( Y Type: int ) <br/> The new position of the top of the window, in client coordinates.
+        /// </param>
+        /// <param name="cx">C++ ( cx Type: int ) <br/> The new width of the window, in pixels.</param>
+        /// <param name="cy">
+        /// C++ ( cy Type: int ) <br/> The new height of the window, in pixels.
+        /// </param>
+        /// <param name="uFlags">
+        /// C++ ( uFlags Type: UINT ) <br/> The window sizing and positioning flags. This
+        /// parameter can be a combination of the following values.
+        /// <list type="table">
+        /// <itemheader>
+        /// <term>HWND sizing and positioning flags</term>
+        /// <description>Where to place and size window. Can be a combination of any</description>
+        /// </itemheader>
+        /// <item>
+        /// <term>SWP_ASYNCWINDOWPOS (0x4000)</term>
+        /// <description>
+        /// If the calling thread and the thread that owns the window are attached to different input
+        /// queues, the system posts the request to the thread that owns the window. This prevents
+        /// the calling thread from blocking its execution while other threads process the request.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_DEFERERASE (0x2000)</term>
+        /// <description>Prevents generation of the WM_SYNCPAINT message.</description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_DRAWFRAME (0x0020)</term>
+        /// <description>
+        /// Draws a frame (defined in the window's class description) around the window.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_FRAMECHANGED (0x0020)</term>
+        /// <description>
+        /// Applies new frame styles set using the SetWindowLong function. Sends a WM_NCCALCSIZE
+        /// message to the window, even if the window's size is not being changed. If this flag is
+        /// not specified, WM_NCCALCSIZE is sent only when the window's size is being changed
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_HIDEWINDOW (0x0080)</term>
+        /// <description>Hides the window.</description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOACTIVATE (0x0010)</term>
+        /// <description>
+        /// Does not activate the window. If this flag is not set, the window is activated and moved
+        /// to the top of either the topmost or non-topmost group (depending on the setting of the
+        /// hWndInsertAfter parameter).
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOCOPYBITS (0x0100)</term>
+        /// <description>
+        /// Discards the entire contents of the client area. If this flag is not specified, the valid
+        /// contents of the client area are saved and copied back into the client area after the
+        /// window is sized or repositioned.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOMOVE (0x0002)</term>
+        /// <description>Retains the current position (ignores X and Y parameters).</description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOOWNERZORDER (0x0200)</term>
+        /// <description>Does not change the owner window's position in the Z order.</description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOREDRAW (0x0008)</term>
+        /// <description>
+        /// Does not redraw changes. If this flag is set, no repainting of any kind occurs. This
+        /// applies to the client area, the nonclient area (including the title bar and scroll bars),
+        /// and any part of the parent window uncovered as a result of the window being moved. When
+        /// this flag is set, the application must explicitly invalidate or redraw any parts of the
+        /// window and parent window that need redrawing.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOREPOSITION (0x0200)</term>
+        /// <description>Same as the SWP_NOOWNERZORDER flag.</description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOSENDCHANGING (0x0400)</term>
+        /// <description>Prevents the window from receiving the WM_WINDOWPOSCHANGING message.</description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOSIZE (0x0001)</term>
+        /// <description>Retains the current size (ignores the cx and cy parameters).</description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_NOZORDER (0x0004)</term>
+        /// <description>Retains the current Z order (ignores the hWndInsertAfter parameter).</description>
+        /// </item>
+        /// <item>
+        /// <term>SWP_SHOWWINDOW (0x0040)</term>
+        /// <description>Displays the window.</description>
+        /// </item>
+        /// </list>
+        /// </param>
+        /// <returns>
+        /// <c>true</c> or nonzero if the function succeeds, <c>false</c> or zero otherwise or if
+        /// function fails.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// As part of the Vista re-architecture, all services were moved off the interactive desktop
+        /// into Session 0. hwnd and window manager operations are only effective inside a session
+        /// and cross-session attempts to manipulate the hwnd will fail. For more information, see
+        /// The Windows Vista Developer Story: Application Compatibility Cookbook.
+        /// </para>
+        /// <para>
+        /// If you have changed certain window data using SetWindowLong, you must call SetWindowPos
+        /// for the changes to take effect. Use the following combination for uFlags: SWP_NOMOVE |
+        /// SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED.
+        /// </para>
+        /// <para>
+        /// A window can be made a topmost window either by setting the hWndInsertAfter parameter to
+        /// HWND_TOPMOST and ensuring that the SWP_NOZORDER flag is not set, or by setting a window's
+        /// position in the Z order so that it is above any existing topmost windows. When a
+        /// non-topmost window is made topmost, its owned windows are also made topmost. Its owners,
+        /// however, are not changed.
+        /// </para>
+        /// <para>
+        /// If neither the SWP_NOACTIVATE nor SWP_NOZORDER flag is specified (that is, when the
+        /// application requests that a window be simultaneously activated and its position in the Z
+        /// order changed), the value specified in hWndInsertAfter is used only in the following circumstances.
+        /// </para>
+        /// <list type="bullet">
+        /// <item>Neither the HWND_TOPMOST nor HWND_NOTOPMOST flag is specified in hWndInsertAfter.</item>
+        /// <item>The window identified by hWnd is not the active window.</item>
+        /// </list>
+        /// <para>
+        /// An application cannot activate an inactive window without also bringing it to the top of
+        /// the Z order. Applications can change an activated window's position in the Z order
+        /// without restrictions, or it can activate a window and then move it to the top of the
+        /// topmost or non-topmost windows.
+        /// </para>
+        /// <para>
+        /// If a topmost window is repositioned to the bottom (HWND_BOTTOM) of the Z order or after
+        /// any non-topmost window, it is no longer topmost. When a topmost window is made
+        /// non-topmost, its owners and its owned windows are also made non-topmost windows.
+        /// </para>
+        /// <para>
+        /// A non-topmost window can own a topmost window, but the reverse cannot occur. Any window
+        /// (for example, a dialog box) owned by a topmost window is itself made a topmost window, to
+        /// ensure that all owned windows stay above their owner.
+        /// </para>
+        /// <para>
+        /// If an application is not in the foreground, and should be in the foreground, it must call
+        /// the SetForegroundWindow function.
+        /// </para>
+        /// <para>
+        /// To use SetWindowPos to bring a window to the top, the process that owns the window must
+        /// have SetForegroundWindow permission.
+        /// </para>
+        /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(
@@ -240,6 +501,48 @@ namespace PInvoke
             string className,
             string windowTitle);
 
+        /// <summary>
+        /// Shows a Window
+        /// </summary>
+        /// <remarks>
+        /// <para>To perform certain special effects when showing or hiding a window, use AnimateWindow.</para>
+        /// <para>
+        /// The first time an application calls ShowWindow, it should use the WinMain function's
+        /// nCmdShow parameter as its nCmdShow parameter. Subsequent calls to ShowWindow must use one
+        /// of the values in the given list, instead of the one specified by the WinMain function's
+        /// nCmdShow parameter.
+        /// </para>
+        /// <para>
+        /// As noted in the discussion of the nCmdShow parameter, the nCmdShow value is ignored in
+        /// the first call to ShowWindow if the program that launched the application specifies
+        /// startup information in the structure. In this case, ShowWindow uses the information
+        /// specified in the STARTUPINFO structure to show the window. On subsequent calls, the
+        /// application must call ShowWindow with nCmdShow set to SW_SHOWDEFAULT to use the startup
+        /// information provided by the program that launched the application. This behavior is
+        /// designed for the following situations:
+        /// </para>
+        /// <list type="">
+        /// <item>
+        /// Applications create their main window by calling CreateWindow with the WS_VISIBLE flag set.
+        /// </item>
+        /// <item>
+        /// Applications create their main window by calling CreateWindow with the WS_VISIBLE flag
+        /// cleared, and later call ShowWindow with the SW_SHOW flag set to make it visible.
+        /// </item>
+        /// </list>
+        /// </remarks>
+        /// <param name="hWnd">Handle to the window.</param>
+        /// <param name="nCmdShow">
+        /// Specifies how the window is to be shown. This parameter is ignored the first time an
+        /// application calls ShowWindow, if the program that launched the application provides a
+        /// STARTUPINFO structure. Otherwise, the first time ShowWindow is called, the value should
+        /// be the value obtained by the WinMain function in its nCmdShow parameter. In subsequent
+        /// calls, this parameter can be one of the WindowShowStyle members.
+        /// </param>
+        /// <returns>
+        /// If the window was previously visible, the return value is nonzero. If the window was
+        /// previously hidden, the return value is zero.
+        /// </returns>
         [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
@@ -254,6 +557,7 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern IntPtr GetForegroundWindow();
 
+#pragma warning disable SA1625 // Element documentation must not be copied and pasted
         /// <summary>
         /// Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
         /// To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function.
@@ -292,6 +596,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool PostMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
+#pragma warning restore SA1625 // Element documentation must not be copied and pasted
 
         /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
@@ -483,6 +788,44 @@ namespace PInvoke
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, [MarshalAs(UnmanagedType.Bool)] bool bRevert);
 
         /// <summary>
+        /// Retrieves a handle to the Shell's desktop window.
+        /// <para>
+        /// Go to https://msdn.microsoft.com/en-us/library/windows/desktop/ms633512%28v=vs.85%29.aspx
+        /// for more information
+        /// </para>
+        /// </summary>
+        /// <returns>
+        /// C++ ( Type: HWND ) <br/> The return value is the handle of the Shell's desktop window. If
+        /// no Shell process is present, the return value is NULL.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetShellWindow();
+
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr LoadCursor(IntPtr hInstance, IntPtr lpCursorName);
+
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr LoadIcon(IntPtr hInstance, string lpIconName);
+
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr LoadIcon(IntPtr hInstance, IntPtr lpIconName);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr RealChildWindowFromPoint(IntPtr hwndParent, POINT ptParentClientCoords);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool ScreenToClient(IntPtr hWnd, ref POINT lpPoint);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool SetWindowDisplayAffinity(IntPtr hWnd, int dwAffinity);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe uint RealGetWindowClass(
+            IntPtr hwnd,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] StringBuilder pszType,
+            uint cchType);
+
+        /// <summary>
         ///     Appends a new item to the end of the specified menu bar, drop-down menu, submenu, or shortcut menu. You can
         ///     use this function to specify the content, appearance, and behavior of the menu item.
         /// </summary>
@@ -601,6 +944,124 @@ namespace PInvoke
         public static extern IntPtr GetActiveWindow();
 
         /// <summary>
+        /// Determines whether the specified window handle identifies an existing window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window handle identifies an existing window, the return value is true, otherwise it is false.</returns>
+        /// <remarks>
+        /// A thread should not use IsWindow for a window that it did not create because the window could be destroyed after this function was called.
+        /// Further, because window handles are recycled the handle could even point to a different window.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindow(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether the calling thread is already a GUI thread. It can also optionally convert the thread to a GUI thread.
+        /// </summary>
+        /// <param name="bConvert">If TRUE and the thread is not a GUI thread, convert the thread to a GUI thread.</param>
+        /// <returns>The function returns a nonzero value (different from <see cref="HResult.Code.S_OK"/> but not specified on MSDN documentation) in the following situations:
+        /// <list>
+        /// <item>If the calling thread is already a GUI thread.</item>
+        /// <item>If <paramref name="bConvert"/> is TRUE and the function successfully converts the thread to a GUI thread.</item>
+        /// </list>
+        /// Otherwise, the function returns <see cref="HResult.Code.S_OK"/>.
+        /// If <paramref name="bConvert"/> is TRUE and the function cannot successfully convert the thread to a GUI thread,
+        /// IsGUIThread returns <see cref="Win32ErrorCode.ERROR_NOT_ENOUGH_MEMORY"/>.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern HResult IsGUIThread([MarshalAs(UnmanagedType.Bool)] bool bConvert);
+
+        /// <summary>
+        /// Determines whether a window is a child window or descendant window of a specified parent window.
+        /// A child window is the direct descendant of a specified parent window if that parent window is in the chain of parent windows;
+        /// the chain of parent windows leads from the original overlapped or pop-up window to the child window.
+        /// </summary>
+        /// <param name="hWndParent">A handle to the parent window.</param>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window is a child or descendant window of the specified parent window, the return value is true, otherwise it is false.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsChild(IntPtr hWndParent, IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether the system considers that a specified application is not responding.
+        /// An application is considered to be not responding if it is not waiting for input, is not in startup processing,
+        /// and has not called PeekMessage within the internal timeout period of 5 seconds.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>
+        /// If the window handle identifies an existing window, the return value is true, otherwise it is false.
+        /// Ghost windows always return true.
+        /// </returns>
+        /// <remarks>
+        /// The Windows timeout criteria of 5 seconds is subject to change.
+        /// This function was not included in the SDK headers and libraries until Windows XP Service Pack 1 (SP1) and Windows Server 2003.
+        /// If you do not have a header file and import library for this function, you can call the function using <see cref="Kernel32.LoadLibrary"/> and <see cref="Kernel32.GetProcAddress"/>.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsHungAppWindow(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether the specified window is minimized (iconic).
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window is iconic, the return value is true, otherwise it is false.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsIconic(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether the specified window is a native Unicode window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window is a native Unicode window, the return value is true, otherwise it is false (the window is a native ANSI window).</returns>
+        /// <remarks>
+        /// <para>
+        /// The character set of a window is determined by the use of the <see cref="RegisterClass"/> function.
+        /// If the window class was registered with the ANSI version of <see cref="RegisterClass"/> (RegisterClassA), the character set of the window is ANSI.
+        /// If the window class was registered with the Unicode version of <see cref="RegisterClass"/> (RegisterClassW), the character set of the window is Unicode.
+        /// </para>
+        /// <para>
+        /// The system does automatic two-way translation (Unicode to ANSI) for window messages. For example,
+        /// if an ANSI window message is sent to a window that uses the Unicode character set,
+        /// the system translates that message into a Unicode message before calling the window procedure.
+        /// The system calls IsWindowUnicode to determine whether to translate the message or not.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindowUnicode(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines the visibility state of the specified window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>
+        /// If the specified window, its parent window, its parent's parent window, and so forth, have the WS_VISIBLE style, the return value is true, otherwise it is false.
+        /// Because the return value specifies whether the window has the WS_VISIBLE style, it may be nonzero even if the window is totally obscured by other windows.
+        /// </returns>
+        /// <remarks>
+        /// The visibility state of a window is indicated by the WS_VISIBLE style bit.
+        /// When WS_VISIBLE is set, the window is displayed and subsequent drawing into it is displayed as long as the window has the WS_VISIBLE style.
+        /// Any drawing to a window with the WS_VISIBLE style will not be displayed if the window is obscured by other windows or is clipped by its parent window.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindowVisible(IntPtr hWnd);
+
+        /// <summary>
+        /// Determines whether a window is maximized.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be tested.</param>
+        /// <returns>If the window is zoomed, the return value is true, otherwise it is false.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsZoomed(IntPtr hWnd);
+
+        /// <summary>
         /// Searches through icon or cursor data for the icon or cursor that best fits the current display device.
         /// To specify a desired height or width, use the LookupIconIdFromDirectoryEx function.
         /// </summary>
@@ -647,13 +1108,71 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int RegisterWindowMessage(string lpString);
 
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool GetWindowDisplayAffinity(IntPtr hWnd, out int dwAffinity);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr lprcClip, MonitorEnumDelegate lpfnEnum, IntPtr dwData);
+
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern bool GetClassInfoEx(IntPtr hInstance, string lpClassName, ref WNDCLASSEX lpWndClass);
+
+        [DllImport(nameof(User32), EntryPoint = "GetMonitorInfo", SetLastError = true)]
+        public static extern unsafe bool GetMonitorInfo(
+            IntPtr hMonitor,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] MONITORINFO* lpmi);
+
+        [DllImport(nameof(User32), EntryPoint = "GetMonitorInfo", SetLastError = true)]
+        public static extern unsafe bool GetMonitorInfoEx(
+            IntPtr hMonitor,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] MONITORINFOEX* lpmi);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int GetSystemMetrics(SystemMetric smIndex);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowInfo(IntPtr hwnd, ref WINDOWINFO pwi);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, ref RECT rect, [MarshalAs(UnmanagedType.U4)] int cPoints);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr MonitorFromPoint(POINT point, int flags);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr MonitorFromRect(ref RECT lprc, MonitorOptions dwFlags);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, MonitorOptions dwFlags);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SystemParametersInfo(SPI uiAction, uint uiParam, IntPtr pvParam, SPIF fWinIni);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int QueryDisplayConfig(uint Flags, ref uint pNumPathArrayElements, ref DISPLAYCONFIG_PATH_INFO pPathInfoArray, ref uint pNumModeInfoArrayElements, ref DISPLAYCONFIG_MODE_INFO pModeInfoArray, ref DISPLAYCONFIG_TOPOLOGY_ID pCurrentTopologyId);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern ushort RegisterClass(ref WNDCLASS lpWndClass);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.U2)]
+        public static extern short RegisterClassEx(ref WNDCLASSEX lpwcx);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+
         /// <summary>
         /// Retrieves the name of the format from the clipboard.
         /// </summary>
         /// <param name="format">The type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.</param>
         /// <param name="lpszFormatName">The format name string.</param>
-        /// <param name="nMaxCount">
-        /// The length of the <paramref name="lpszFormatName"/> buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the format name string is truncated to <paramref name="nMaxCount"/>-1 characters.
+        /// <param name="cchMaxCount">
+        /// The length of the <paramref name="lpszFormatName"/> buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the format name string is truncated to <paramref name="cchMaxCount"/>-1 characters.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is the number of characters copied to the buffer.
@@ -663,7 +1182,25 @@ namespace PInvoke
         public static extern unsafe int GetClipboardFormatName(
             int format,
             [Friendly(FriendlyFlags.Array)] char* lpszFormatName,
-            int nMaxCount);
+            int cchMaxCount);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static unsafe extern void* GetClipboardData(int uFormat);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static unsafe extern void* SetClipboardData(int uFormat, void* hMem);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool OpenClipboard(IntPtr hWndNewOwner);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CloseClipboard();
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EmptyClipboard();
 
         /// <summary>
         /// Synthesizes keystrokes, mouse motions, and button clicks.
@@ -1374,7 +1911,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe IntPtr CreateDialogIndirectParam(
-            Kernel32.SafeLibraryHandle hInstance,
+            SafeLibraryHandle hInstance,
             DLGTEMPLATE* lpTemplate,
             IntPtr hWndParent,
             DialogProc lpDialogFunc,
@@ -1400,7 +1937,7 @@ namespace PInvoke
         ///     <para>
         ///         If hWnd is -1, PeekMessage retrieves only messages on the current thread's message queue whose hwnd value is
         ///         NULL, that is, thread messages as posted by <see cref="PostMessage(IntPtr, WindowMessage, void*, void*)" />
-        ///         (when the hWnd parameter is <see cref="IntPtr.Zero" />) or <see cref="PostThreadMessage" />.
+        ///         (when the hWnd parameter is <see cref="IntPtr.Zero" />) or PostThreadMessage.
         ///     </para>
         /// </param>
         /// <param name="wMsgFilterMin">
@@ -1457,8 +1994,7 @@ namespace PInvoke
         ///     <para>
         ///         If hWnd is -1, PeekMessage retrieves only messages on the current thread's message queue whose hwnd value is
         ///         NULL, that is, thread messages as posted by <see cref="PostMessage(IntPtr, WindowMessage, void*, void*)" /> (when the hWnd parameter is
-        ///         <see cref="IntPtr.Zero" />) or
-        ///         <see cref="PostThreadMessage" />.
+        ///         <see cref="IntPtr.Zero" />) or PostThreadMessage.
         ///     </para>
         /// </param>
         /// <param name="wMsgFilterMin">
@@ -1626,6 +2162,14 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern void PostQuitMessage(int nExitCode);
 
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PostThreadMessage(uint threadId, PInvoke.User32.WindowMessage msg, UIntPtr wParam, IntPtr lParam);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TranslateMessage(ref MSG lpMsg);
+
         /// <summary>
         ///     Determines whether a message is intended for the specified dialog box and, if it is, processes the message.
         /// </summary>
@@ -1724,6 +2268,174 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool GetWindowPlacement(IntPtr hWnd, WINDOWPLACEMENT* lpwndpl);
 
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, POINT Point);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr ChildWindowFromPointEx(IntPtr hWndParent, POINT pt, WindowFromPointFlags uFlags);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ClientToScreen(IntPtr hWnd, ref POINT lpPoint);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool UpdateWindow(IntPtr hWnd);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr WindowFromPhysicalPoint(POINT pt);
+
+        /// <summary>
+        /// The CreateWindowEx function creates an overlapped, pop-up, or child window with an
+        /// extended window style; otherwise, this function is identical to the CreateWindow function.
+        /// </summary>
+        /// <param name="dwExStyle">Specifies the extended window style of the window being created.</param>
+        /// <param name="lpClassName">
+        /// Pointer to a null-terminated string or a class atom created by a previous call to the
+        /// RegisterClass or RegisterClassEx function. The atom must be in the low-order word of
+        /// lpClassName; the high-order word must be zero. If lpClassName is a string, it specifies
+        /// the window class name. The class name can be any name registered with RegisterClass or
+        /// RegisterClassEx, provided that the module that registers the class is also the module
+        /// that creates the window. The class name can also be any of the predefined system class names.
+        /// </param>
+        /// <param name="lpWindowName">
+        /// Pointer to a null-terminated string that specifies the window name. If the window style
+        /// specifies a title bar, the window title pointed to by lpWindowName is displayed in the
+        /// title bar. When using CreateWindow to create controls, such as buttons, check boxes, and
+        /// static controls, use lpWindowName to specify the text of the control. When creating a
+        /// static control with the SS_ICON style, use lpWindowName to specify the icon name or
+        /// identifier. To specify an identifier, use the syntax "#num".
+        /// </param>
+        /// <param name="dwStyle">
+        /// Specifies the style of the window being created. This parameter can be a combination of
+        /// window styles, plus the control styles indicated in the Remarks section.
+        /// </param>
+        /// <param name="x">
+        /// Specifies the initial horizontal position of the window. For an overlapped or pop-up
+        /// window, the x parameter is the initial x-coordinate of the window's upper-left corner, in
+        /// screen coordinates. For a child window, x is the x-coordinate of the upper-left corner of
+        /// the window relative to the upper-left corner of the parent window's client area. If x is
+        /// set to CW_USEDEFAULT, the system selects the default position for the window's upper-left
+        /// corner and ignores the y parameter. CW_USEDEFAULT is valid only for overlapped windows;
+        /// if it is specified for a pop-up or child window, the x and y parameters are set to zero.
+        /// </param>
+        /// <param name="y">
+        /// Specifies the initial vertical position of the window. For an overlapped or pop-up
+        /// window, the y parameter is the initial y-coordinate of the window's upper-left corner, in
+        /// screen coordinates. For a child window, y is the initial y-coordinate of the upper-left
+        /// corner of the child window relative to the upper-left corner of the parent window's
+        /// client area. For a list box y is the initial y-coordinate of the upper-left corner of the
+        /// list box's client area relative to the upper-left corner of the parent window's client area.
+        /// <para>
+        /// If an overlapped window is created with the WS_VISIBLE style bit set and the x parameter
+        /// is set to CW_USEDEFAULT, then the y parameter determines how the window is shown. If the
+        /// y parameter is CW_USEDEFAULT, then the window manager calls ShowWindow with the SW_SHOW
+        /// flag after the window has been created. If the y parameter is some other value, then the
+        /// window manager calls ShowWindow with that value as the nCmdShow parameter.
+        /// </para>
+        /// </param>
+        /// <param name="nWidth">
+        /// Specifies the width, in device units, of the window. For overlapped windows, nWidth is
+        /// the window's width, in screen coordinates, or CW_USEDEFAULT. If nWidth is CW_USEDEFAULT,
+        /// the system selects a default width and height for the window; the default width extends
+        /// from the initial x-coordinates to the right edge of the screen; the default height
+        /// extends from the initial y-coordinate to the top of the icon area. CW_USEDEFAULT is valid
+        /// only for overlapped windows; if CW_USEDEFAULT is specified for a pop-up or child window,
+        /// the nWidth and nHeight parameter are set to zero.
+        /// </param>
+        /// <param name="nHeight">
+        /// Specifies the height, in device units, of the window. For overlapped windows, nHeight is
+        /// the window's height, in screen coordinates. If the nWidth parameter is set to
+        /// CW_USEDEFAULT, the system ignores nHeight.
+        /// </param>
+        /// <param name="hWndParent">
+        /// Handle to the parent or owner window of the window being created. To create a child
+        /// window or an owned window, supply a valid window handle. This parameter is optional for
+        /// pop-up windows.
+        /// <para>
+        /// Windows 2000/XP: To create a message-only window, supply HWND_MESSAGE or a handle to an
+        /// existing message-only window.
+        /// </para>
+        /// </param>
+        /// <param name="hMenu">
+        /// Handle to a menu, or specifies a child-window identifier, depending on the window style.
+        /// For an overlapped or pop-up window, hMenu identifies the menu to be used with the window;
+        /// it can be NULL if the class menu is to be used. For a child window, hMenu specifies the
+        /// child-window identifier, an integer value used by a dialog box control to notify its
+        /// parent about events. The application determines the child-window identifier; it must be
+        /// unique for all child windows with the same parent window.
+        /// </param>
+        /// <param name="hInstance">
+        /// Handle to the instance of the module to be associated with the window.
+        /// </param>
+        /// <param name="lpParam">
+        /// Pointer to a value to be passed to the window through the CREATESTRUCT structure
+        /// (lpCreateParams member) pointed to by the lParam param of the WM_CREATE message. This
+        /// message is sent to the created window by this function before it returns.
+        /// <para>
+        /// If an application calls CreateWindow to create a MDI client window, lpParam should point
+        /// to a CLIENTCREATESTRUCT structure. If an MDI client window calls CreateWindow to create
+        /// an MDI child window, lpParam should point to a MDICREATESTRUCT structure. lpParam may be
+        /// NULL if no additional data is needed.
+        /// </para>
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the new window.
+        /// <para>
+        /// If the function fails, the return value is NULL. To get extended error information, call GetLastError.
+        /// </para>
+        /// <para>This function typically fails for one of the following reasons:</para>
+        /// <list type="">
+        /// <item>an invalid parameter value</item>
+        /// <item>the system class was registered by a different module</item>
+        /// <item>The WH_CBT hook is installed and returns a failure code</item>
+        /// <item>
+        /// if one of the controls in the dialog template is not registered, or its window window
+        /// procedure fails WM_CREATE or WM_NCCREATE
+        /// </item>
+        /// </list>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern IntPtr CreateWindowEx(
+           WindowStylesEx dwExStyle,
+           string lpClassName,
+           string lpWindowName,
+           WindowStyles dwStyle,
+           int x,
+           int y,
+           int nWidth,
+           int nHeight,
+           IntPtr hWndParent,
+           IntPtr hMenu,
+           IntPtr hInstance,
+           IntPtr lpParam);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr DispatchMessage(ref MSG lpmsg);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr BeginPaint(IntPtr hwnd, out PAINTSTRUCT lpPaint);
+
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe int DrawText(
+            IntPtr hDC,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* lpString,
+            int nCount,
+            ref RECT lpRect,
+            TextFormats uFormat);
+
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe int DrawTextEx(
+            IntPtr hdc,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* lpchText,
+            int cchText,
+            ref RECT lprc,
+            uint dwDTFormat,
+            ref DRAWTEXTPARAMS lpDTParams);
+
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern bool EndPaint(IntPtr hWnd, ref PAINTSTRUCT lpPaint);
+
         /// <summary>
         /// The <see cref="GetDC"/> function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to <see cref="GetDC"/>, which gives an application more control over how and whether clipping occurs in the client area.
@@ -1735,6 +2447,12 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), EntryPoint = "GetDC", SetLastError = false)]
         private static extern IntPtr GetDC_IntPtr(IntPtr hWnd);
+
+        [DllImport(nameof(User32), EntryPoint = "GetDCEx", SetLastError = false)]
+        private static extern IntPtr GetDCEx_IntPtr(IntPtr hWnd, IntPtr hrgnClip, DeviceContextValues flags);
+
+        [DllImport(nameof(User32), EntryPoint = "GetWindowDC", SetLastError = true)]
+        private static extern IntPtr GetWindowDC_IntPtr(IntPtr hWnd);
 
         /// <summary>
         ///     Removes a hook procedure installed in a hook chain by the
