@@ -68,6 +68,45 @@ namespace PInvoke
         public unsafe delegate bool EnumResNameProc(IntPtr hModule, char* lpszType, char* lpszName, IntPtr lParam);
 
         /// <summary>
+        ///     An application-defined callback function used with the EnumResourceLanguages and EnumResourceLanguagesEx
+        ///     functions. It receives the type, name, and language of a resource item. The ENUMRESLANGPROC type defines
+        ///     a pointer to this callback function. EnumResLangProc is a placeholder for the application-defined
+        ///     function name.
+        /// </summary>
+        /// <param name="hModule">
+        ///     A handle to the module whose executable file contains the resources for which the languages are being
+        ///     enumerated.
+        ///     <para>
+        ///         If this parameter is NULL, the function enumerates the resource languages in the module used to
+        ///         create the current process.
+        ///     </para>
+        /// </param>
+        /// <param name="lpType">
+        ///     The type of resource for which the language is being enumerated. Alternately, rather than a pointer,
+        ///     this parameter can be <see cref="MAKEINTRESOURCE" />(ID), where ID is an integer value representing a predefined
+        ///     resource type. For standard resource types, see Resource Types. For more information, see the Remarks
+        ///     section below.
+        /// </param>
+        /// <param name="lpName">
+        ///     The name of the resource for which the language is being enumerated. Alternately, rather than a
+        ///     pointer, this parameter can be <see cref="MAKEINTRESOURCE" />(ID), where ID is the integer identifier
+        ///     of the resource. For more information, see the Remarks section below.
+        /// </param>
+        /// <param name="wLanguage">
+        ///     The language identifier for the resource for which the language is being enumerated. The
+        ///     EnumResourceLanguages or EnumResourceLanguagesEx function provides this value. For a list of the primary
+        ///     language identifiers and sublanguage identifiers that constitute a language identifier, see
+        ///     <see cref="MAKELANGID" />.
+        /// </param>
+        /// <param name="lParam">
+        ///     The application-defined parameter passed to the <see cref="EnumResourceLanguages(SafeLibraryHandle, char*, char*, EnumResLangProc, IntPtr)"/> EnumResourceLanguages
+        ///     or EnumResourceLanguagesEx function. This parameter can be used in error checking.
+        /// </param>
+        /// <returns>Returns TRUE to continue enumeration or FALSE to stop enumeration.</returns>
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public unsafe delegate bool EnumResLangProc([In] IntPtr hModule, [In] char* lpType, [In] char* lpName, ushort wLanguage, [In] IntPtr lParam);
+
+        /// <summary>
         /// Generates simple tones on the speaker. The function is synchronous; it performs an alertable wait and does not return control to its caller until the sound finishes.
         /// </summary>
         /// <param name="frequency">The frequency of the sound, in hertz. This parameter must be in the range 37 through 32,767 (0x25 through 0x7FFF).</param>
@@ -1631,6 +1670,37 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EnumResourceNames(SafeLibraryHandle hModule, char* lpszType, EnumResNameProc lpEnumFunc, IntPtr lParam);
 
+        /// <summary>
+        ///     Enumerates language-specific resources, of the specified type and name, associated with a binary module.
+        /// </summary>
+        /// <param name="hModule">
+        ///     The handle to a module to be searched. Starting with Windows Vista, if this is a language-neutral Portable
+        ///     Executable (LN file), then appropriate .mui files (if any exist) are included in the search. If this is a
+        ///     specific .mui file, only that file is searched for resources.
+        ///     <para>
+        ///         If this parameter is NULL, that is equivalent to passing in a handle to the module used to create the current process.
+        ///     </para>
+        /// </param>
+        /// <param name="lpType">
+        ///     The type of resource for which the language is being enumerated. Alternately, rather than a pointer, this
+        ///     parameter can be <see cref="MAKEINTRESOURCE(int)"/>(ID), where ID is an integer value representing a predefined resource type.
+        /// </param>
+        /// <param name="lpName">
+        ///     The name of the resource for which the language is being enumerated. Alternately, rather than a pointer,
+        ///     this parameter can be <see cref="MAKEINTRESOURCE(int)"/>(ID), where ID is the integer identifier of the resource.
+        /// </param>
+        /// <param name="lpEnumFunc">
+        ///     A pointer to the callback function to be called for each enumerated resource language. For more information,
+        ///     see <see cref="EnumResLangProc"/>.
+        /// </param>
+        /// <param name="lParam">
+        ///     An application-defined value passed to the callback function. This parameter can be used in error checking.
+        /// </param>
+        /// <returns>Returns TRUE if successful or FALSE otherwise. To get extended error information, call <see cref="GetLastError"/>.</returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, EntryPoint = "EnumResourceLanguagesW", CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool EnumResourceLanguages([In] SafeLibraryHandle hModule, [In] char* lpType, [In] char* lpName, EnumResLangProc lpEnumFunc, IntPtr lParam);
+
         /// <summary>Determines whether a value is an integer identifier for a resource.</summary>
         /// <param name="p">The pointer to be tested whether it contains an integer resource identifier.</param>
         /// <returns>If the value is a resource identifier, the return value is TRUE. Otherwise, the return value is FALSE.</returns>
@@ -1669,40 +1739,8 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Auto, CallingConvention = CallingConvention.Winapi, SetLastError = true)]
         public static extern unsafe IntPtr FindResource(SafeLibraryHandle hModule, char* lpName, char* lpType);
-
-        /// <summary>Retrieves a handle that can be used to obtain a pointer to the first byte of the specified resource in memory.</summary>
-        /// <param name="hModule">
-        ///     A handle to the module whose executable file contains the resource. If hModule is
-        ///     <see cref="SafeLibraryHandle.Null" />, the system loads the resource from the module that was used to create the
-        ///     current process.
-        /// </param>
-        /// <param name="hResInfo">
-        ///     A handle to the resource to be loaded. This handle is returned by the
-        ///     <see cref="FindResource(SafeLibraryHandle, char*, char*)" /> or FindResourceEx function.
-        /// </param>
-        /// <returns>
-        ///     If the function succeeds, the return value is a handle to the data associated with the resource.
-        ///     <para>
-        ///         If the function fails, the return value is NULL. To get extended error information, call
-        ///         <see cref="GetLastError" />.
-        ///     </para>
-        /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern IntPtr LoadResource(SafeLibraryHandle hModule, IntPtr hResInfo);
-
-        /// <summary>Retrieves a pointer to the specified resource in memory.</summary>
-        /// <param name="hResData">
-        ///     A handle to the resource to be accessed. The <see cref="LoadResource" /> function returns this
-        ///     handle.
-        /// </param>
-        /// <returns>
-        ///     If the loaded resource is available, the return value is a pointer to the first byte of the resource;
-        ///     otherwise, it is NULL.
-        /// </returns>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static unsafe extern void* LockResource(IntPtr hResData);
 
         /// <summary>Retrieves the size, in bytes, of the specified resource.</summary>
         /// <param name="hModule">A handle to the module whose executable file contains the resource.</param>

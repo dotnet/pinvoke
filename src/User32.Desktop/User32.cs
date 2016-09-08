@@ -1640,6 +1640,33 @@ namespace PInvoke
         public static extern unsafe bool IsDialogMessage(IntPtr hDlg, MSG* lpMsg);
 
         /// <summary>
+        ///     Loads a string resource from the executable file associated with a specified module, copies the string into
+        ///     a buffer, and appends a terminating null character.
+        /// </summary>
+        /// <param name="hInstance">
+        ///     A handle to an instance of the module whose executable file contains the string resource. To get the handle
+        ///     to the application itself, call the <see cref="Kernel32.GetModuleHandle(string)"/> function with NULL.
+        /// </param>
+        /// <param name="uID">
+        ///     The identifier of the string to be loaded.
+        /// </param>
+        /// <param name="lpBuffer">
+        ///     The buffer is to receive the string. Must be of sufficient length to hold a pointer (8 bytes).
+        /// </param>
+        /// <param name="cchBufferMax">
+        ///     The size of the buffer, in characters. The string is truncated and null-terminated if it is longer than the
+        ///     number of characters specified. If this parameter is 0, then lpBuffer receives a read-only pointer to the
+        ///     resource itself.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is the number of characters copied into the buffer, not
+        ///     including the terminating null character, or zero if the string resource does not exist. To get extended
+        ///     error information, call <see cref="Kernel32.GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(User32), CharSet = CharSet.Auto, SetLastError = true, EntryPoint = "LoadString")]
+        public static unsafe extern int LoadString([In] IntPtr hInstance, uint uID, [Out] out char* lpBuffer, int cchBufferMax);
+
+        /// <summary>
         /// Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar).
         /// If the specified window is a control, the function retrieves the length of the text within the control. However,
         /// GetWindowTextLength cannot retrieve the length of the text of an edit control in another application.

@@ -855,6 +855,45 @@ public partial class Kernel32Facts
     }
 
     [Fact]
+    public unsafe void Enumerate_Resource_Languages()
+    {
+        using (var imageRes = LoadLibrary("shell32.dll"))
+        {
+            Assert.False(imageRes.IsInvalid);
+
+            // Get bitmap resource IDs.
+            List<int> intResources = new List<int>();
+            EnumResNameProc onResourceFound = (module, type, name, lparam) =>
+            {
+                if (IS_INTRESOURCE(name))
+                {
+                    intResources.Add((int)name);
+                }
+
+                return true;
+            };
+
+            Assert.True(EnumResourceNames(imageRes, RT_BITMAP, onResourceFound, IntPtr.Zero));
+            Assert.NotEmpty(intResources);
+
+            // Get resource languages for bitmap resources.
+            List<ushort> resourceLanguages = new List<ushort>();
+            EnumResLangProc onResourceLanguageFound = (module, type, name, language, lParam) =>
+            {
+                if (IS_INTRESOURCE(name))
+                {
+                    resourceLanguages.Add(language);
+                }
+
+                return true;
+            };
+
+            Assert.True(EnumResourceLanguages(imageRes, RT_BITMAP, MAKEINTRESOURCE(intResources.First()), onResourceLanguageFound, IntPtr.Zero), GetLastError().ToString());
+            Assert.NotEmpty(resourceLanguages);
+        }
+    }
+
+    [Fact]
     public void SetThreadExectionState_Simple()
     {
         Assert.NotEqual(EXECUTION_STATE.None, SetThreadExecutionState(EXECUTION_STATE.ES_SYSTEM_REQUIRED));

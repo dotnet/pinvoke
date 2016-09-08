@@ -629,6 +629,38 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool SetSystemTime([Friendly(FriendlyFlags.In)] SYSTEMTIME* lpSystemTime);
 
+        /// <summary>Retrieves a handle that can be used to obtain a pointer to the first byte of the specified resource in memory.</summary>
+        /// <param name="hModule">
+        ///     A handle to the module whose executable file contains the resource. If hModule is
+        ///     <see cref="SafeLibraryHandle.Null" />, the system loads the resource from the module that was used to create the
+        ///     current process.
+        /// </param>
+        /// <param name="hResInfo">
+        ///     A handle to the resource to be loaded. This handle is returned by the
+        ///     FindResource or FindResourceEx function.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a handle to the data associated with the resource.
+        ///     <para>
+        ///         If the function fails, the return value is NULL. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_libraryloader_l1_1_1, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        public static extern IntPtr LoadResource(SafeLibraryHandle hModule, IntPtr hResInfo);
+
+        /// <summary>Retrieves a pointer to the specified resource in memory.</summary>
+        /// <param name="hResData">
+        ///     A handle to the resource to be accessed. The <see cref="LoadResource" /> function returns this
+        ///     handle.
+        /// </param>
+        /// <returns>
+        ///     If the loaded resource is available, the return value is a pointer to the first byte of the resource;
+        ///     otherwise, it is NULL.
+        /// </returns>
+        [DllImport(api_ms_win_core_libraryloader_l1_1_1, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        public static unsafe extern void* LockResource(IntPtr hResData);
+
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.

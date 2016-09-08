@@ -43,6 +43,7 @@
     <Compile Include="Kernel32+JobObjectExtendedLimitInformation.cs" />
     <Compile Include="Kernel32+JobObjectInfoClass.cs" />
     <Compile Include="Kernel32+JobObjectLimitFlags.cs" />
+    <Compile Include="Kernel32+LANGID.cs" />
     <Compile Include="Kernel32+LoadLibraryExFlags.cs" />
     <Compile Include="Kernel32+LocalReAllocFlags.cs" />
     <Compile Include="Kernel32+LocalAllocFlags.cs" />
