@@ -554,6 +554,10 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern IntPtr GetDesktopWindow();
 
+        [DllImport(nameof(User32))]
+        public static extern IntPtr GetForegroundWindow();
+
+#pragma warning disable SA1625 // Element documentation must not be copied and pasted
         /// <summary>
         /// Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
         /// To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function.
@@ -592,6 +596,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool PostMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
+#pragma warning restore SA1625 // Element documentation must not be copied and pasted
 
         /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
@@ -993,7 +998,7 @@ namespace PInvoke
         /// <remarks>
         /// The Windows timeout criteria of 5 seconds is subject to change.
         /// This function was not included in the SDK headers and libraries until Windows XP Service Pack 1 (SP1) and Windows Server 2003.
-        /// If you do not have a header file and import library for this function, you can call the function using LoadLibrary and <see cref="GetProcAddress"/>.
+        /// If you do not have a header file and import library for this function, you can call the function using <see cref="Kernel32.LoadLibrary"/> and <see cref="Kernel32.GetProcAddress"/>.
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -1015,9 +1020,9 @@ namespace PInvoke
         /// <returns>If the window is a native Unicode window, the return value is true, otherwise it is false (the window is a native ANSI window).</returns>
         /// <remarks>
         /// <para>
-        /// The character set of a window is determined by the use of the RegisterClass function.
-        /// If the window class was registered with the ANSI version of RegisterClass (RegisterClassA), the character set of the window is ANSI.
-        /// If the window class was registered with the Unicode version of RegisterClass (RegisterClassW), the character set of the window is Unicode.
+        /// The character set of a window is determined by the use of the <see cref="RegisterClass"/> function.
+        /// If the window class was registered with the ANSI version of <see cref="RegisterClass"/> (RegisterClassA), the character set of the window is ANSI.
+        /// If the window class was registered with the Unicode version of <see cref="RegisterClass"/> (RegisterClassW), the character set of the window is Unicode.
         /// </para>
         /// <para>
         /// The system does automatic two-way translation (Unicode to ANSI) for window messages. For example,

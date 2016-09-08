@@ -1202,6 +1202,19 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeLibraryHandle LoadLibraryEx(string lpFileName, IntPtr hFile, LoadLibraryExFlags dwFlags);
 
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern IntPtr AddDllDirectory(string NewDirectory);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static unsafe extern bool GetDllDirectory(
+            int nBufferLength,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpBuffer);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool SetDllDirectory(string lpPathName);
+
         /// <summary>
         /// Retrieves a module handle for the specified module. The module must have been loaded by the calling process.
         /// </summary>
@@ -2349,6 +2362,9 @@ namespace PInvoke
         public static extern unsafe bool SetInformationJobObject(SafeObjectHandle hJob, JOBOBJECT_INFO_CLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool SetConsoleCtrlHandler(ConsoleEventDelegate callback, bool add);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GenerateConsoleCtrlEvent(uint dwCtrlEvent, uint dwProcessGroupId);
 
@@ -2376,7 +2392,7 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         private static extern uint GetConsoleAliasesLength(string lpExeName);
 
-        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+       [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         private static extern unsafe uint GetConsoleAliasExes(
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpExeNameBuffer,
             uint ExeNameBufferLength);
@@ -2391,12 +2407,7 @@ namespace PInvoke
             uint TargetBufferLength,
             string lpExeName);
 
-        [DllImport(nameof(Kernel32), SetLastError = true)]
-        private static extern uint GetConsoleCP();
 
-        [DllImport(nameof(Kernel32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool GetConsoleDisplayMode(ref uint lpModeFlags);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         private static extern COORD GetConsoleFontSize(IntPtr hConsoleOutput, uint nFont);
