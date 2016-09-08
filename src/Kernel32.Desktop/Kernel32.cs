@@ -103,7 +103,7 @@ namespace PInvoke
         ///     or EnumResourceLanguagesEx function. This parameter can be used in error checking.
         /// </param>
         /// <returns>Returns TRUE to continue enumeration or FALSE to stop enumeration.</returns>
-        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         public unsafe delegate bool EnumResLangProc([In] IntPtr hModule, [In] char* lpType, [In] char* lpName, ushort wLanguage, [In] IntPtr lParam);
 
         /// <summary>
@@ -1697,7 +1697,7 @@ namespace PInvoke
         ///     An application-defined value passed to the callback function. This parameter can be used in error checking.
         /// </param>
         /// <returns>Returns TRUE if successful or FALSE otherwise. To get extended error information, call <see cref="GetLastError"/>.</returns>
-        [DllImport(nameof(Kernel32), SetLastError = true, EntryPoint = "EnumResourceLanguagesW", CharSet = CharSet.Unicode)]
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EnumResourceLanguages([In] SafeLibraryHandle hModule, [In] char* lpType, [In] char* lpName, EnumResLangProc lpEnumFunc, IntPtr lParam);
 
@@ -1739,7 +1739,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), CharSet = CharSet.Auto, CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Auto, SetLastError = true)]
         public static extern unsafe IntPtr FindResource(SafeLibraryHandle hModule, char* lpName, char* lpType);
 
         /// <summary>Retrieves the size, in bytes, of the specified resource.</summary>

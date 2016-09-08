@@ -1663,7 +1663,7 @@ namespace PInvoke
         ///     including the terminating null character, or zero if the string resource does not exist. To get extended
         ///     error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(User32), CharSet = CharSet.Auto, SetLastError = true, EntryPoint = "LoadString")]
+        [DllImport(nameof(User32), CharSet = CharSet.Auto, SetLastError = true)]
         public static unsafe extern int LoadString([In] IntPtr hInstance, uint uID, [Out] out char* lpBuffer, int cchBufferMax);
 
         /// <summary>

@@ -646,7 +646,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(api_ms_win_core_libraryloader_l1_1_1, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        [DllImport(api_ms_win_core_libraryloader_l1_1_1, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr LoadResource(SafeLibraryHandle hModule, IntPtr hResInfo);
 
         /// <summary>Retrieves a pointer to the specified resource in memory.</summary>
@@ -658,7 +658,7 @@ namespace PInvoke
         ///     If the loaded resource is available, the return value is a pointer to the first byte of the resource;
         ///     otherwise, it is NULL.
         /// </returns>
-        [DllImport(api_ms_win_core_libraryloader_l1_1_1, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        [DllImport(api_ms_win_core_libraryloader_l1_1_1, CharSet = CharSet.Unicode, SetLastError = true)]
         public static unsafe extern void* LockResource(IntPtr hResData);
 
         /// <summary>
