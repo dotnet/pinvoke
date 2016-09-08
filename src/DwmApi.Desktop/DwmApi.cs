@@ -77,5 +77,11 @@ namespace PInvoke
         public static extern HResult DwmGetColorizationColor(
             out uint pcrColorization,
             [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
+
+        [DllImport(nameof(DwmApi))]
+        public static extern int DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, out bool pvAttribute, int cbAttribute);
+
+        [DllImport(nameof(DwmApi))]
+        public static extern int DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, out RECT pvAttribute, int cbAttribute);
     }
 }
