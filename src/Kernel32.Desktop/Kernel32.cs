@@ -21,6 +21,11 @@ namespace PInvoke
         /// </summary>
         public const int PIPE_UNLIMITED_INSTANCES = 255;
 
+        /// <summary>
+        /// All processes start at this shutdown level
+        /// </summary>
+        public const int DEFAULT_SHUTDOWN_LEVEL = 0x280;
+
         /// <summary>The time-out interval is the default value specified by the server process in the
         ///     <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function.
         ///     <para>This constant is a special value for named pipes timeouts.</para>
@@ -68,6 +73,52 @@ namespace PInvoke
         public unsafe delegate bool EnumResNameProc(IntPtr hModule, char* lpszType, char* lpszName, IntPtr lParam);
 
         /// <summary>
+        /// Callback function used with the <see cref="SetConsoleCtrlHandler"/> function.
+        /// A console process uses this function to handle control signals received by the process.
+        /// When the signal is received, the system creates a new thread in the process to execute the function.
+        /// </summary>
+        /// <param name="dwCtrlType">The type of control signal received by the handler. This parameter can be one of the following values.</param>
+        /// <returns>If the function handles the control signal, it should return TRUE. If it returns FALSE, the next handler function in the list of handlers for this process is used.</returns>
+        /// <remarks>
+        /// <para>
+        /// Because the system creates a new thread in the process to execute the handler function,
+        /// it is possible that the handler function will be terminated by another thread in the process.
+        /// Be sure to synchronize threads in the process with the thread for the handler function.
+        /// Each console process has its own list of <see cref="PHANDLER_ROUTINE"/> callbacks.
+        /// Initially, this list contains only a default handler function that calls <see cref="ExitProcess"/>.
+        /// A console process adds or removes additional handler functions by calling the <see cref="SetConsoleCtrlHandler"/> function,
+        /// which does not affect the list of handler functions for other processes. When a console process receives any of the control signals,
+        /// its handler functions are called on a last-registered, first-called basis until one of the handlers returns TRUE.
+        /// If none of the handlers returns TRUE, the default handler is called.
+        /// </para>
+        /// <para>
+        /// The <see cref="ControlType.CTRL_CLOSE_EVENT"/>, <see cref="ControlType.CTRL_LOGOFF_EVENT"/>, and <see cref="ControlType.CTRL_SHUTDOWN_EVENT"/> signals give the process
+        /// an opportunity to clean up before termination. A <see cref="PHANDLER_ROUTINE"/> can perform any necessary cleanup, then take one of the following actions:
+        /// </para>
+        /// <list>
+        /// <item>Call the <see cref="ExitProcess"/> function to terminate the process.</item>
+        /// <item>Return FALSE. If none of the registered handler functions returns TRUE, the default handler terminates the process.</item>
+        /// <item>Return TRUE. In this case, no other handler functions are called and the system terminates the process.</item>
+        /// </list>
+        /// <para>
+        /// A process can use the <see cref="SetProcessShutdownParameters"/> function to prevent the system from displaying a dialog box to the user during logoff or shutdown.
+        /// In this case, the system terminates the process when <see cref="PHANDLER_ROUTINE"/> returns TRUE or when the time-out period elapses.
+        /// When a console application is run as a service, it receives a modified default console control handler.
+        /// This modified handler does not call <see cref="ExitProcess"/> when processing the <see cref="ControlType.CTRL_LOGOFF_EVENT"/> and <see cref="ControlType.CTRL_SHUTDOWN_EVENT"/> signals.
+        /// This allows the service to continue running after the user logs off.
+        /// If the service installs its own console control handler, this handler is called before the default handler.
+        /// If the installed handler calls <see cref="ExitProcess"/> when processing the <see cref="ControlType.CTRL_LOGOFF_EVENT"/> signal, the service exits when the user logs off.
+        /// </para>
+        /// <para>
+        /// Note that a third-party library or DLL can install a console control handler for your application.
+        /// If it does, this handler overrides the default handler, and can cause the application to exit when the user logs off.
+        /// </para>
+        /// </remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public unsafe delegate bool PHANDLER_ROUTINE(ControlType dwCtrlType);
+
+        /// <summary>
         /// Generates simple tones on the speaker. The function is synchronous; it performs an alertable wait and does not return control to its caller until the sound finishes.
         /// </summary>
         /// <param name="frequency">The frequency of the sound, in hertz. This parameter must be in the range 37 through 32,767 (0x25 through 0x7FFF).</param>
@@ -79,6 +130,219 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool Beep(int frequency, int duration);
+
+        /// <summary>
+        /// Terminates the specified process and all of its threads.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process to be terminated.
+        /// The handle must have the PROCESS_TERMINATE access right
+        /// </param>
+        /// <param name="uExitCode">
+        /// The exit code to be used by the process and threads terminated as a result of this call.
+        /// Use the <see cref="GetExitCodeProcess"/> function to retrieve a process's exit value.
+        /// Use the <see cref="GetExitCodeThread"/> function to retrieve a thread's exit value.
+        /// </param>
+        /// <returns>If the function succeeds, the return value is true, else the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// The TerminateProcess function is used to unconditionally cause a process to exit.
+        /// The state of global data maintained by dynamic-link libraries (DLLs) may be compromised if TerminateProcess is used rather than <see cref="ExitProcess"/>.
+        /// </para>
+        /// <para>
+        /// This function stops execution of all threads within the process and requests cancellation of all pending I/O.
+        /// The terminated process cannot exit until all pending I/O has been completed or canceled.When a process terminates,
+        /// its kernel object is not destroyed until all processes that have open handles to the process have released those handles.
+        /// TerminateProcess is asynchronous; it initiates termination and returns immediately.
+        /// If you need to be sure the process has terminated, call the <see cref="WaitForSingleObject"/> function with a handle to the process.
+        /// A process cannot prevent itself from being terminated.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TerminateProcess(IntPtr hProcess, int uExitCode);
+
+        /// <summary>
+        /// Terminates a thread.
+        /// </summary>
+        /// <param name="hThread">A handle to the thread to be terminated. The handle must have the THREAD_TERMINATE access right.</param>
+        /// <param name="dwExitCode">The exit code for the thread. Use the <see cref="GetExitCodeThread"/> function to retrieve a thread's exit value.</param>
+        /// <returns>If the function succeeds, the return value is true, else the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// TerminateThread is used to cause a thread to exit.
+        /// When this occurs, the target thread has no chance to execute any user-mode code.
+        /// DLLs attached to the thread are not notified that the thread is terminating.
+        /// The system frees the thread's initial stack.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TerminateThread(IntPtr hThread, int dwExitCode);
+
+        /// <summary>
+        /// Ends the calling process and all its threads.
+        /// </summary>
+        /// <param name="uExitCode">The exit code for the process and all threads.</param>
+        /// <remarks>
+        /// <para>
+        /// Use the <see cref="GetExitCodeProcess"/> function to retrieve the process's exit value. Use the <see cref="GetExitCodeThread"/> function to retrieve a thread's exit value.
+        /// Exiting a process causes the following:
+        /// </para>
+        /// <list>
+        /// <item>All of the threads in the process, except the calling thread, terminate their execution without receiving a DLL_THREAD_DETACH notification.</item>
+        /// <item>The states of all of the threads terminated in step 1 become signaled.</item>
+        /// <item>The entry-point functions of all loaded dynamic-link libraries (DLLs) are called with DLL_PROCESS_DETACH.</item>
+        /// <item>After all attached DLLs have executed any process termination code, the ExitProcess function terminates the current process, including the calling thread.</item>
+        /// <item>The state of the calling thread becomes signaled.</item>
+        /// <item>All of the object handles opened by the process are closed.</item>
+        /// <item>The termination status of the process changes from STILL_ACTIVE to the exit value of the process.</item>
+        /// <item>The state of the process object becomes signaled, satisfying any threads that had been waiting for the process to terminate.</item>
+        /// </list>
+        /// <para>
+        /// If one of the terminated threads in the process holds a lock and the DLL detach code in one of the loaded DLLs attempts to acquire the same lock,
+        /// then calling ExitProcess results in a deadlock. In contrast, if a process terminates by calling <see cref="TerminateProcess"/>,
+        /// the DLLs that the process is attached to are not notified of the process termination.
+        /// Therefore, if you do not know the state of all threads in your process, it is better to call <see cref="TerminateProcess"/> than <see cref="ExitProcess"/>.
+        /// Note that returning from the main function of an application results in a call to <see cref="ExitProcess"/>.
+        /// </para>
+        /// <para>
+        /// Calling ExitProcess in a DLL can lead to unexpected application or system errors.
+        /// Be sure to call <see cref="ExitProcess"/> from a DLL only if you know which applications or system components
+        /// will load the DLL and that it is safe to call <see cref="ExitProcess"/> in this context.
+        /// Exiting a process does not cause child processes to be terminated.
+        /// Exiting a process does not necessarily remove the process object from the operating system.
+        /// A process object is deleted when the last handle to the process is closed.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern void ExitProcess(int uExitCode);
+
+        /// <summary>
+        /// Ends the calling thread.
+        /// </summary>
+        /// <param name="dwExitCode">The exit code for the thread.</param>
+        /// <remarks>
+        /// <para>
+        /// ExitThread is the preferred method of exiting a thread in C code.
+        /// However, in C++ code, the thread is exited before any destructors can be called or any other automatic cleanup can be performed.
+        /// Therefore, in C++ code, you should return from your thread function.
+        /// When this function is called (either explicitly or by returning from a thread procedure), the current thread's stack is deallocated,
+        /// all pending I/O initiated by the thread is canceled, and the thread terminates.
+        /// The entry-point function of all attached dynamic-link libraries (DLLs) is invoked with a value indicating that the thread is detaching from the DLL.
+        /// If the thread is the last thread in the process when this function is called, the thread's process is also terminated.
+        /// The state of the thread object becomes signaled, releasing any other threads that had been waiting for the thread to terminate.
+        /// The thread's termination status changes from STILL_ACTIVE to the value of the dwExitCode parameter.
+        /// </para>
+        /// <para>
+        /// Terminating a thread does not necessarily remove the thread object from the operating system.
+        /// A thread object is deleted when the last handle to the thread is closed.
+        /// The <see cref="ExitProcess"/>, ExitThread, CreateThread"/>, CreateRemoteThread functions,
+        /// and a process that is starting (as the result of a CreateProcess call) are serialized between each other within a process.
+        /// Only one of these events can happen in an address space at a time.
+        /// This means the following restrictions hold:
+        /// </para>
+        /// <list>
+        /// <item>During process startup and DLL initialization routines, new threads can be created, but they do not begin execution until DLL initialization is done for the process.</item>
+        /// <item>Only one thread in a process can be in a DLL initialization or detach routine at a time.</item>
+        /// <item>ExitProcess does not return until no threads are in their DLL initialization or detach routines.</item>
+        /// </list>
+        /// <para>
+        /// A thread in an executable that is linked to the static C run-time library(CRT) should use _beginthread and _endthread for thread management
+        /// rather than CreateThread and ExitThread.
+        /// Failure to do so results in small memory leaks when the thread calls ExitThread.
+        /// Another work around is to link the executable to the CRT in a DLL instead of the static CRT.
+        /// Note that this memory leak only occurs from a DLL if the DLL is linked to the static CRT and a thread calls the DisableThreadLibraryCalls function.
+        /// Otherwise, it is safe to call CreateThread and ExitThread from a thread in a DLL that links to the static CRT.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern void ExitThread(int dwExitCode);
+
+        /// <summary>
+        /// Retrieves the termination status of the specified thread.
+        /// </summary>
+        /// <param name="hThread">
+        /// A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or THREAD_QUERY_LIMITED_INFORMATION access right.
+        /// Windows Server 2003 and Windows XP:  The handle must have the THREAD_QUERY_INFORMATION access right.
+        /// </param>
+        /// <param name="lpExitCode">A pointer to a variable to receive the thread termination status. For more information, see Remarks.</param>
+        /// <returns>If the function is succeeds, the return value is true, else the return value is zero.  To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// This function returns immediately. If the specified thread has not terminated and the function succeeds, the status returned is STILL_ACTIVE.
+        /// If the thread has terminated and the function succeeds, the status returned is one of the following values:
+        /// </para>
+        /// <list>
+        /// <item>The exit value specified in the <see cref="ExitThread"/> or <see cref="TerminateThread"/> function.</item>
+        /// <item>The return value from the thread function.</item>
+        /// <item>he exit value of the thread's process.</item>
+        /// </list>
+        /// <para>
+        /// Important: The GetExitCodeThread function returns a valid error code defined by the application only after the thread terminates.
+        /// Therefore, an application should not use STILL_ACTIVE (259) as an error code.
+        /// If a thread returns STILL_ACTIVE (259) as an error code, applications that test for this value could interpret it to mean that the thread is still running
+        /// and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetExitCodeThread(IntPtr hThread, out int lpExitCode);
+
+        /// <summary>
+        /// Retrieves the termination status of the specified process.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right.
+        /// Windows Server 2003 and Windows XP:  The handle must have the PROCESS_QUERY_INFORMATION access right.
+        /// </param>
+        /// <param name="lpExitCode">A pointer to a variable to receive the process termination status. For more information, see Remarks.</param>
+        /// <returns>If the function is succeeds, the return value is true, else the return value is zero.  To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// This function returns immediately.
+        /// If the process has not terminated and the function succeeds, the status returned is STILL_ACTIVE.
+        /// If the process has terminated and the function succeeds, the status returned is one of the following values:
+        /// </para>
+        /// <list>
+        /// <item>The exit value specified in the <see cref="ExitProcess"/> or <see cref="TerminateProcess"/> function.</item>
+        /// <item>The return value from the main or WinMain function of the process.</item>
+        /// <item>The exception value for an unhandled exception that caused the process to terminate.</item>
+        /// </list>
+        /// <para>
+        /// Important: The GetExitCodeProcess function returns a valid error code defined by the application only after the thread terminates.
+        /// Therefore, an application should not use STILL_ACTIVE (259) as an error code.
+        /// If a thread returns STILL_ACTIVE (259) as an error code, applications that test for this value could interpret it to mean that the thread is still running
+        /// and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetExitCodeProcess(IntPtr hProcess, out int lpExitCode);
+
+        /// <summary>
+        /// Sets shutdown parameters for the currently calling process. This function sets a shutdown order for a process relative to the other processes in the system.
+        /// </summary>
+        /// <param name="dwLevel">
+        /// The shutdown priority for a process relative to other processes in the system. The system shuts down processes from high dwLevel values to low.
+        /// The highest and lowest shutdown priorities are reserved for system components.
+        /// This parameter must be in the following range of values:
+        /// <list>
+        /// <item>0x000-0x0FF: System reserved last shutdown range.</item>
+        /// <item>100-1FF: Application reserved last shutdown range.</item>
+        /// <item>200-2FF: Application reserved "in between" shutdown range.</item>
+        /// <item>0x280: All processes start at this shutdown level.</item>         /// <item>300-3FF: Application reserved first shutdown range.</item>
+        /// <item>400-4FF: System reserved first shutdown range.</item>
+        /// </list>
+        /// </param>
+        /// <param name="dwFlags">Flag to indicate if a retry box should appear for the user when the process terminate.</param>
+        /// <returns>If the function is succeeds, the return value is true, else the return value is zero.  To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// Applications running in the system security context do not get shut down by the operating system.
+        /// They get notified of shutdown or logoff through the callback function installable via <see cref="SetConsoleCtrlHandler"/>.
+        /// They also get notified in the order specified by the dwLevel parameter.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProcessShutdownParameters(int dwLevel, ProcessShutdownFlags dwFlags);
 
         /// <summary>
         /// Creates a new process and its primary thread. The new process runs in the security context of the calling process.

@@ -44,6 +44,8 @@
     <Compile Include="Kernel32+MouseButtonState.cs" />
     <Compile Include="Kernel32+MouseEventFlags.cs" />
     <Compile Include="Kernel32+MOUSE_EVENT_RECORD.cs" />
+    <Compile Include="Kernel32+ProcessShutdownFlags.cs" />
+    <Compile Include="Kernel32+ControlType.cs" />
     <Compile Include="Kernel32+HeapFreeFlags.cs" />
     <Compile Include="Kernel32+HeapReAllocFlags.cs" />
     <Compile Include="Kernel32+ACL.cs" />
