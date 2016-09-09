@@ -1950,7 +1950,7 @@ namespace PInvoke
 
         /// <summary>
         /// {Image Relocated}
-        /// An image file could not be mapped at the address specified in the image file. Local fixups must be performed on this image.
+        /// An image file could not be mapped at the address specified in the image file. Local fixes must be performed on this image.
         /// </summary>
         ERROR_IMAGE_NOT_AT_BASE = 0x000002BC,
 
@@ -2418,7 +2418,7 @@ namespace PInvoke
 
         /// <summary>
         /// {Image Relocated}
-        /// An image file was mapped at a different address from the one specified in the image file but fixups will still be automatically performed on the image.
+        /// An image file was mapped at a different address from the one specified in the image file but fixes will still be automatically performed on the image.
         /// </summary>
         ERROR_IMAGE_AT_DIFFERENT_BASE = 0x00000327,
 
@@ -6956,7 +6956,7 @@ namespace PInvoke
         ERROR_FLOATED_SECTION = 0x00001ABE,
 
         /// <summary>
-        /// The transactional resource manager had too many tranactions outstanding that could not be aborted. The transactional resource manger has been shut down.
+        /// The transactional resource manager had too many transactions outstanding that could not be aborted. The transactional resource manger has been shut down.
         /// </summary>
         ERROR_CANNOT_ABORT_TRANSACTIONS = 0x00001AC0,
 
@@ -10470,7 +10470,7 @@ namespace PInvoke
         ERROR_EVT_FILTER_INVARG = 0x00003AA8,
 
         /// <summary>
-        /// A step operation must involve either a node test or, in the case of a predicate, an algebraic expression against which to test each node in the node set identified by the preceeding node set can be evaluated.
+        /// A step operation must involve either a node test or, in the case of a predicate, an algebraic expression against which to test each node in the node set identified by the preceding node set can be evaluated.
         /// </summary>
         ERROR_EVT_FILTER_INVTEST = 0x00003AA9,
 
@@ -10490,7 +10490,7 @@ namespace PInvoke
         ERROR_EVT_FILTER_UNSUPPORTEDOP = 0x00003AAC,
 
         /// <summary>
-        /// The xpath expression exceeded supported complexity. Please symplify it or split it into two or more simple expressions.
+        /// The xpath expression exceeded supported complexity. Please simplify it or split it into two or more simple expressions.
         /// </summary>
         ERROR_EVT_FILTER_TOO_COMPLEX = 0x00003AB2,
 
@@ -10675,7 +10675,7 @@ namespace PInvoke
         ERROR_HASH_NOT_PRESENT = 0x00003BC5,
 
         /// <summary>
-        /// The requested operation is not suppported for the specified handle.
+        /// The requested operation is not supported for the specified handle.
         /// </summary>
         ERROR_GPIO_OPERATION_DENIED = 0x00003BDD,
 

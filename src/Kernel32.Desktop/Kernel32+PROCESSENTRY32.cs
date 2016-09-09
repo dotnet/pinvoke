@@ -74,7 +74,7 @@ namespace PInvoke
             /// <para>
             /// To retrieve the full path to the executable file, call the Module32First function and check the szExePath member
             /// of the MODULEENTRY32 structure that is returned. However, if the calling process is a 32-bit process, you must call the
-            /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref int)" />
+            /// <see cref="QueryFullProcessImageName(SafeObjectHandle, QueryFullProcessImageNameFlags, char*, ref int)" />
             /// function to retrieve the full path of the executable file for a 64-bit process.
             /// </para>
             /// </summary>
@@ -85,7 +85,7 @@ namespace PInvoke
             /// <para>
             /// To retrieve the full path to the executable file, call the <see cref="Kernel32.Module32First(SafeObjectHandle,MODULEENTRY32*)"/> function and check the <see cref="MODULEENTRY32.szExePath"/> member
             /// of the <see cref="MODULEENTRY32"/> structure that is returned. However, if the calling process is a 32-bit process, you must call the
-            /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref int)" />
+            /// <see cref="QueryFullProcessImageName(SafeObjectHandle, QueryFullProcessImageNameFlags, char*, ref int)" />
             /// function to retrieve the full path of the executable file for a 64-bit process.
             /// </para>
             /// </summary>
@@ -109,7 +109,7 @@ namespace PInvoke
             {
                 return new PROCESSENTRY32
                 {
-                    dwSize = Marshal.SizeOf(typeof(PROCESSENTRY32)),
+                    dwSize = Marshal.SizeOf(typeof(PROCESSENTRY32))
                 };
             }
         }

@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="LocalAllocFlags"/> nested type.
+    /// Contains the <see cref="LocalReAllocFlags"/> nested type.
     /// </content>
     public partial class Kernel32
     {
@@ -23,13 +23,15 @@ namespace PInvoke
 
             /// <summary>
             /// Allocates fixed or movable memory.
-            /// If the memory is a locked <see cref="LocalAllocFlags.LMEM_MOVEABLE"/> memory block or a <see cref="LocalAllocFlags.LMEM_FIXED"/> memory block and this flag is not specified, the memory can only be reallocated in place.
+            /// If the memory is a locked <see cref="LocalAllocFlags.LMEM_MOVEABLE"/> memory block or
+            /// a <see cref="LocalAllocFlags.LMEM_FIXED"/> memory block and this flag is not specified, the memory can only be reallocated in place.
             /// </summary>
             LMEM_MOVEABLE = 0x0002,
 
             /// <summary>
             /// Causes the additional memory contents to be initialized to zero if the memory object is growing in size.
             /// </summary>
+            /// <remarks>If the parameter does not specify <see cref="LMEM_MODIFY"/>, you can use this value.</remarks>
             LMEM_ZEROINIT = 0x0040,
         }
     }

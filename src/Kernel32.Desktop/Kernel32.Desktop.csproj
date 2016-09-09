@@ -28,6 +28,26 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kernel32+CHAR_INFO_ENCODING.cs" />
+    <Compile Include="Kernel32+CHAR_INFO.cs" />
+    <Compile Include="Kernel32+CharacterAttributesFlag.cs" />
+    <Compile Include="Kernel32+ConsoleSelectionFlags.cs" />
+    <Compile Include="Kernel32+CONSOLE_SCREEN_BUFFER_INFO.cs" />
+    <Compile Include="Kernel32+CONSOLE_SELECTION_INFO.cs" />
+    <Compile Include="Kernel32+ControlKeyState.cs" />
+    <Compile Include="Kernel32+FOCUS_EVENT_RECORD.cs" />
+    <Compile Include="Kernel32+InputEventTypeFlag.cs" />
+    <Compile Include="Kernel32+INPUT_EVENT_RECORD.cs" />
+    <Compile Include="Kernel32+INPUT_RECORD.cs" />
+    <Compile Include="Kernel32+KEY_EVENT_RECORD.cs" />
+    <Compile Include="Kernel32+MENU_EVENT_RECORD.cs" />
+    <Compile Include="Kernel32+MouseButtonState.cs" />
+    <Compile Include="Kernel32+MouseEventFlags.cs" />
+    <Compile Include="Kernel32+MOUSE_EVENT_RECORD.cs" />
+    <Compile Include="Kernel32+ProcessShutdownFlags.cs" />
+    <Compile Include="Kernel32+ControlType.cs" />
+    <Compile Include="Kernel32+HeapFreeFlags.cs" />
+    <Compile Include="Kernel32+HeapReAllocFlags.cs" />
     <Compile Include="Kernel32+ACL.cs" />
     <Compile Include="Kernel32+CreateProcessFlags.cs" />
     <Compile Include="Kernel32+CreateToolhelp32SnapshotFlags.cs" />
@@ -35,6 +55,9 @@
     <Compile Include="Kernel32+GRPICONDIR.cs" />
     <Compile Include="Kernel32+ICONDIR.cs" />
     <Compile Include="Kernel32+ICONDIRENTRY.cs" />
+    <Compile Include="Kernel32+GlobalAllocFlags.cs" />
+    <Compile Include="Kernel32+GlobalReAllocFlags.cs" />
+    <Compile Include="Kernel32+HeapAllocFlags.cs" />
     <Compile Include="Kernel32+GetModuleHandleExFlags.cs" />
     <Compile Include="Kernel32+IoCounters.cs" />
     <Compile Include="Kernel32+JobObjectBasicLimitInformation.cs" />
@@ -63,6 +86,7 @@
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="Kernel32+STARTUPINFO.cs" />
+    <Compile Include="Kernel32+WINDOW_BUFFER_SIZE_RECORD.cs" />
     <Compile Include="Kernel32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>

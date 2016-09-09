@@ -23,10 +23,30 @@ namespace PInvoke
         [DllImport(nameof(Gdi32), SetLastError = false)]
         public static extern int GetDeviceCaps(
             User32.SafeDCHandle hdc,
-            int nIndex);
+            DeviceCap nIndex);
+
+        [DllImport(nameof(Gdi32))]
+        public static extern IntPtr GetStockObject(StockObjects fnObject);
 
         [DllImport(nameof(Gdi32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject(IntPtr hObject);
+
+        [DllImport(nameof(Gdi32))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteDC(User32.SafeDCHandle hDC);
+
+        [DllImport(nameof(Gdi32))]
+        public static extern IntPtr SelectObject(User32.SafeDCHandle hDC, IntPtr hObject);
+
+        [DllImport(nameof(Gdi32))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool BitBlt(IntPtr hObject, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hObjectSource, int nXSrc, int nYSrc, int dwRop);
+
+        [DllImport(nameof(Gdi32))]
+        public static extern IntPtr CreateCompatibleBitmap(User32.SafeDCHandle hDC, int nWidth, int nHeight);
+
+        [DllImport(nameof(Gdi32))]
+        public static extern User32.SafeDCHandle CreateCompatibleDC(User32.SafeDCHandle hDC);
     }
 }
