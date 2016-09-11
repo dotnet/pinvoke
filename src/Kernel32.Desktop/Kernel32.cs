@@ -1739,7 +1739,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(Kernel32), CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe IntPtr FindResource(SafeLibraryHandle hModule, char* lpName, char* lpType);
 
         /// <summary>Retrieves the size, in bytes, of the specified resource.</summary>
