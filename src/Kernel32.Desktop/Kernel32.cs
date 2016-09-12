@@ -96,15 +96,15 @@ namespace PInvoke
         ///     The language identifier for the resource for which the language is being enumerated. The
         ///     EnumResourceLanguages or EnumResourceLanguagesEx function provides this value. For a list of the primary
         ///     language identifiers and sublanguage identifiers that constitute a language identifier, see
-        ///     <see cref="MAKELANGID" />.
+        ///     <see cref="MAKELANGID(ushort, ushort)" />.
         /// </param>
         /// <param name="lParam">
-        ///     The application-defined parameter passed to the <see cref="EnumResourceLanguages(SafeLibraryHandle, char*, char*, EnumResLangProc, IntPtr)"/> EnumResourceLanguages
+        ///     The application-defined parameter passed to the <see cref="EnumResourceLanguages(SafeLibraryHandle, char*, char*, EnumResLangProc, void*)"/> EnumResourceLanguages
         ///     or EnumResourceLanguagesEx function. This parameter can be used in error checking.
         /// </param>
         /// <returns>Returns TRUE to continue enumeration or FALSE to stop enumeration.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-        public unsafe delegate bool EnumResLangProc([In] IntPtr hModule, [In] char* lpType, [In] char* lpName, ushort wLanguage, [In] IntPtr lParam);
+        public unsafe delegate bool EnumResLangProc(IntPtr hModule, char* lpType, char* lpName, LANGID wLanguage, IntPtr lParam);
 
         /// <summary>
         /// Generates simple tones on the speaker. The function is synchronous; it performs an alertable wait and does not return control to its caller until the sound finishes.
@@ -1699,7 +1699,7 @@ namespace PInvoke
         /// <returns>Returns TRUE if successful or FALSE otherwise. To get extended error information, call <see cref="GetLastError"/>.</returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool EnumResourceLanguages([In] SafeLibraryHandle hModule, [In] char* lpType, [In] char* lpName, EnumResLangProc lpEnumFunc, IntPtr lParam);
+        public static extern unsafe bool EnumResourceLanguages(SafeLibraryHandle hModule, char* lpType, char* lpName, EnumResLangProc lpEnumFunc, void* lParam);
 
         /// <summary>Determines whether a value is an integer identifier for a resource.</summary>
         /// <param name="p">The pointer to be tested whether it contains an integer resource identifier.</param>

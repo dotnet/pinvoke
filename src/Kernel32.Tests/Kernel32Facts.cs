@@ -877,7 +877,7 @@ public partial class Kernel32Facts
             Assert.NotEmpty(intResources);
 
             // Get resource languages for bitmap resources.
-            List<ushort> resourceLanguages = new List<ushort>();
+            List<LANGID> resourceLanguages = new List<LANGID>();
             EnumResLangProc onResourceLanguageFound = (module, type, name, language, lParam) =>
             {
                 if (IS_INTRESOURCE(name))
@@ -888,7 +888,7 @@ public partial class Kernel32Facts
                 return true;
             };
 
-            Assert.True(EnumResourceLanguages(imageRes, RT_BITMAP, MAKEINTRESOURCE(intResources.First()), onResourceLanguageFound, IntPtr.Zero), GetLastError().ToString());
+            Assert.True(EnumResourceLanguages(imageRes, RT_BITMAP, MAKEINTRESOURCE(intResources.First()), onResourceLanguageFound, (void*)IntPtr.Zero), GetLastError().ToString());
             Assert.NotEmpty(resourceLanguages);
         }
     }
@@ -897,6 +897,12 @@ public partial class Kernel32Facts
     public void SetThreadExectionState_Simple()
     {
         Assert.NotEqual(EXECUTION_STATE.None, SetThreadExecutionState(EXECUTION_STATE.ES_SYSTEM_REQUIRED));
+    }
+
+    [Fact]
+    public void MAKELANGID_Simple()
+    {
+        Assert.Equal(0x0409, MAKELANGID(LANGID.PrimaryLanguage.LANG_ENGLISH, LANGID.SubLanguage.SUBLANG_ENGLISH_US).Data);
     }
 
     private ArraySegment<byte> GetRandomSegment(int size)

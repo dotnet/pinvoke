@@ -1664,7 +1664,7 @@ namespace PInvoke
         ///     error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static unsafe extern int LoadString([In] IntPtr hInstance, uint uID, [Out] out char* lpBuffer, int cchBufferMax);
+        public static unsafe extern int LoadString(IntPtr hInstance, uint uID, out char* lpBuffer, int cchBufferMax);
 
         /// <summary>
         /// Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar).

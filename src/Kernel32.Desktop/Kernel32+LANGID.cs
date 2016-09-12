@@ -30,8 +30,33 @@ namespace PInvoke
         {
             return new LANGID
             {
-                PrimaryLanguage = (LANGID.PrimaryLanguageType)usPrimaryLanguage,
-                SubLanguage = (LANGID.SubLanguageType)usSubLanguage
+                Primary = (LANGID.PrimaryLanguage)usPrimaryLanguage,
+                Sub = (LANGID.SubLanguage)usSubLanguage
+            };
+        }
+
+        /// <summary>
+        ///     Creates a language identifier from a primary language identifier and a sublanguage identifier.
+        /// </summary>
+        /// <param name="ePrimaryLanguage">
+        ///     Primary language identifier. This identifier can be a predefined value or a value for a user-defined primary
+        ///     language. For a user-defined language, the identifier is a value in the range 0x0200 to 0x03FF. All other
+        ///     values are reserved for operating system use. For more information, see Language Identifier Constants and
+        ///     Strings.
+        /// </param>
+        /// <param name="eSubLanguage">
+        ///     Sublanguage identifier. This parameter can be a predefined sublanguage identifier or a user-defined
+        ///     sublanguage. For a user-defined sublanguage, the identifier is a value in the range 0x20 to 0x3F. All other
+        ///     values are reserved for operating system use. For more information, see Language Identifier Constants and
+        ///     Strings.
+        /// </param>
+        /// <returns>Returns the language identifier.</returns>
+        public static LANGID MAKELANGID(LANGID.PrimaryLanguage ePrimaryLanguage, LANGID.SubLanguage eSubLanguage)
+        {
+            return new LANGID
+            {
+                Primary = ePrimaryLanguage,
+                Sub = eSubLanguage
             };
         }
 
@@ -41,9 +66,9 @@ namespace PInvoke
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct LANGID
         {
-            internal const ushort PrimaryLanguageMask = 0x1FF;
-            internal const ushort SubLanguageMask = 0xFE00;
-            internal const int SubLanguageShift = 9;
+            internal const ushort PrimaryLanguageMask = 0x3FF;
+            internal const ushort SubLanguageMask = 0xFC00;
+            internal const int SubLanguageShift = 10;
 
             internal ushort data;
 
@@ -52,7 +77,7 @@ namespace PInvoke
                 this.data = usLanguages;
             }
 
-            public enum PrimaryLanguageType : ushort
+            public enum PrimaryLanguage : ushort
             {
                 LANG_NEUTRAL = 0x0,
                 LANG_INVARIANT = 0x7F,
@@ -189,7 +214,7 @@ namespace PInvoke
                 LANG_YORUBA = 0x6A
             }
 
-            public enum SubLanguageType : ushort
+            public enum SubLanguage : ushort
             {
                 SUBLANG_CUSTOM_DEFAULT = 0x03,
                 SUBLANG_UI_CUSTOM_DEFAULT = 0x05,
@@ -426,15 +451,15 @@ namespace PInvoke
                 SUBLANG_YORUBA_NIGERIA = 0x01
             }
 
-            public PrimaryLanguageType PrimaryLanguage
+            public PrimaryLanguage Primary
             {
-                get { return (PrimaryLanguageType)(this.data & PrimaryLanguageMask); }
-                set { this.data = (ushort)((PrimaryLanguageType)((this.data & SubLanguageMask) | ((ushort)value & PrimaryLanguageMask)));  }
+                get { return (PrimaryLanguage)(this.data & PrimaryLanguageMask); }
+                set { this.data = (ushort)((PrimaryLanguage)((this.data & SubLanguageMask) | ((ushort)value & PrimaryLanguageMask)));  }
             }
 
-            public SubLanguageType SubLanguage
+            public SubLanguage Sub
             {
-                get { return (SubLanguageType)((this.data & SubLanguageMask) >> SubLanguageShift); }
+                get { return (SubLanguage)((this.data & SubLanguageMask) >> SubLanguageShift); }
                 set { this.data = (ushort)((this.data & PrimaryLanguageMask) | (((ushort)value << SubLanguageShift) & SubLanguageMask)); }
             }
 
