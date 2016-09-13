@@ -104,7 +104,7 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns TRUE to continue enumeration or FALSE to stop enumeration.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-        public unsafe delegate bool EnumResLangProc(IntPtr hModule, char* lpType, char* lpName, LANGID wLanguage, IntPtr lParam);
+        public unsafe delegate bool EnumResLangProc(IntPtr hModule, char* lpType, char* lpName, LANGID wLanguage, void* lParam);
 
         /// <summary>
         /// Generates simple tones on the speaker. The function is synchronous; it performs an alertable wait and does not return control to its caller until the sound finishes.
