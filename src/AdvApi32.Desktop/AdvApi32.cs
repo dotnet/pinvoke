@@ -87,7 +87,7 @@ namespace PInvoke
 
         /// <summary>
         /// Changes the configuration parameters of a service.
-        /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2(SafeServiceHandle, ServiceInfoLevel, IntPtr)"/> function.
+        /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2(SafeServiceHandle, ServiceInfoLevel, void*)"/> function.
         /// </summary>
         /// <param name="hService">
         /// A handle to the service.
@@ -263,7 +263,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_service_management_l2_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool ChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, void* lpInfo);
+        public static unsafe extern bool ChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, void* lpInfo);
 
         /// <summary>
         /// Sends a control code to a service.
@@ -552,10 +552,10 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_security_base_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetTokenInformation(
+        public static extern unsafe bool GetTokenInformation(
             SafeObjectHandle TokenHandle,
             TOKEN_INFORMATION_CLASS TokenInformationClass,
-            IntPtr TokenInformation,
+            void* TokenInformation,
             int TokenInformationLength,
             out int ReturnLength);
 
@@ -604,7 +604,7 @@ namespace PInvoke
 
         /// <summary>
         /// Retrieves the current status of the specified service.
-        /// This function has been superseded by the <see cref="QueryServiceStatusEx(SafeServiceHandle, SC_STATUS_TYPE, IntPtr, int, out int)"/> function. <see cref="QueryServiceStatusEx(SafeServiceHandle, SC_STATUS_TYPE, IntPtr, int, out int)"/> returns the same information <see cref="QueryServiceStatus"/> returns, with the addition of the process identifier and additional information for the service.
+        /// This function has been superseded by the <see cref="QueryServiceStatusEx(SafeServiceHandle, SC_STATUS_TYPE, void*, int, out int)"/> function. <see cref="QueryServiceStatusEx(SafeServiceHandle, SC_STATUS_TYPE, void*, int, out int)"/> returns the same information <see cref="QueryServiceStatus"/> returns, with the addition of the process identifier and additional information for the service.
         /// </summary>
         /// <param name="hService">
         /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or the <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ServiceAccess.SERVICE_QUERY_STATUS"/> access right.
@@ -933,10 +933,10 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(AdvApi32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool QueryServiceStatusEx(
+        public static unsafe extern bool QueryServiceStatusEx(
             SafeServiceHandle hService,
             SC_STATUS_TYPE InfoLevel,
-            IntPtr lpBuffer,
+            void* lpBuffer,
             int cbBufSize,
             out int pcbBytesNeeded);
 
@@ -995,8 +995,8 @@ namespace PInvoke
             IntPtr handle,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            IntPtr ppsidOwner,
-            IntPtr ppsidGroup,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* ppsidOwner,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* ppsidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
@@ -1021,8 +1021,8 @@ namespace PInvoke
             string pObjectName,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            IntPtr ppsidOwner,
-            IntPtr ppsidGroup,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* ppsidOwner,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* ppsidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
@@ -1044,8 +1044,8 @@ namespace PInvoke
             IntPtr handle,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            IntPtr psidOwner,
-            IntPtr psidGroup,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* psidOwner,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* psidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pSacl);
 
@@ -1065,8 +1065,8 @@ namespace PInvoke
             string pObjectName,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            IntPtr psidOwner,
-            IntPtr psidGroup,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* psidOwner,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* psidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pSacl);
 

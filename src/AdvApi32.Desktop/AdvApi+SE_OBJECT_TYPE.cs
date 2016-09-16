@@ -10,7 +10,7 @@ namespace PInvoke
     {
         /// <summary>
         /// The SE_OBJECT_TYPE enumeration contains values that correspond to the types of Windows objects that support security.
-        /// The functions, such as <see cref="GetSecurityInfo(System.IntPtr, SE_OBJECT_TYPE, SECURITY_INFORMATION, System.IntPtr, System.IntPtr, Kernel32.ACL*, Kernel32.ACL*, Kernel32.SECURITY_DESCRIPTOR*)"/> and <see cref="SetSecurityInfo(System.IntPtr, SE_OBJECT_TYPE, SECURITY_INFORMATION, System.IntPtr, System.IntPtr, Kernel32.ACL*, Kernel32.ACL*)"/>, that set and retrieve the security information of an object,
+        /// The functions, such as <see cref="GetSecurityInfo"/> and <see cref="SetSecurityInfo"/>, that set and retrieve the security information of an object,
         /// use these values to indicate the type of object.
         /// </summary>
         public enum SE_OBJECT_TYPE
@@ -53,8 +53,8 @@ namespace PInvoke
 
             /// <summary>
             /// Indicates a local kernel object.
-            /// The <see cref="GetSecurityInfo(System.IntPtr, SE_OBJECT_TYPE, SECURITY_INFORMATION, System.IntPtr, System.IntPtr, Kernel32.ACL*, Kernel32.ACL*, Kernel32.SECURITY_DESCRIPTOR*)"/> and <see cref="SetSecurityInfo(System.IntPtr, SE_OBJECT_TYPE, SECURITY_INFORMATION, System.IntPtr, System.IntPtr, Kernel32.ACL*, Kernel32.ACL*)"/> functions support all types of kernel objects.
-            /// The <see cref="GetNamedSecurityInfo(string, SE_OBJECT_TYPE, SECURITY_INFORMATION, System.IntPtr, System.IntPtr, Kernel32.ACL*, Kernel32.ACL*, Kernel32.SECURITY_DESCRIPTOR*)"/> and <see cref="SetNamedSecurityInfo(string, SE_OBJECT_TYPE, SECURITY_INFORMATION, System.IntPtr, System.IntPtr, Kernel32.ACL*, Kernel32.ACL*)"/> functions work only with the following kernel objects:
+            /// The <see cref="GetSecurityInfo"/> and <see cref="SetSecurityInfo"/> functions support all types of kernel objects.
+            /// The <see cref="GetNamedSecurityInfo"/> and <see cref="SetNamedSecurityInfo"/> functions work only with the following kernel objects:
             /// <list>
             /// <item>semaphore</item>
             /// <item>event</item>
@@ -66,8 +66,8 @@ namespace PInvoke
             SE_KERNEL_OBJECT,
 
             /// <summary>
-            /// Indicates a window station or desktop object on the local computer.
-            /// You cannot use <see cref="GetNamedSecurityInfo(string, SE_OBJECT_TYPE, SECURITY_INFORMATION, System.IntPtr, System.IntPtr, Kernel32.ACL*, Kernel32.ACL*, Kernel32.SECURITY_DESCRIPTOR*)"/> and <see cref="SetNamedSecurityInfo(string, SE_OBJECT_TYPE, SECURITY_INFORMATION, System.IntPtr, System.IntPtr, Kernel32.ACL*, Kernel32.ACL*)"/> with these objects because the names of window stations or desktops are not unique.
+            /// Indicates a window station or desktop object on the local computer. 
+            /// You cannot use <see cref="GetNamedSecurityInfo"/> and <see cref="SetNamedSecurityInfo"/> with these objects because the names of window stations or desktops are not unique.
             /// </summary>
             SE_WINDOW_OBJECT,
 
