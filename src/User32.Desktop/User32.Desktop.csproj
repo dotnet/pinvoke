@@ -23,7 +23,7 @@
   <ItemGroup>
     <Compile Include="User32+ClassStyles.cs" />
     <Compile Include="User32+DesktopCreationFlags.cs" />
-    <Compile Include="User32+DeviceCotextValues.cs" />
+    <Compile Include="User32+DeviceContextValues.cs" />
     <Compile Include="User32+DISPLAYCONFIG_2DREGION.cs" />
     <Compile Include="User32+DISPLAYCONFIG_ADDITIONAL_SINAL_INFO.cs" />
     <Compile Include="User32+DISPLAYCONFIG_DESKTOP_IMAGE_INFO.cs" />
@@ -78,7 +78,7 @@
     <Compile Include="User32+SafeDesktopHandle.cs" />
     <Compile Include="User32+SafeWindowStationHandle.cs" />
     <Compile Include="User32+SpecialWindowHandles.cs" />
-    <Compile Include="User32+SPI.cs" />
+    <Compile Include="User32+SystemParametersInfoAction.cs" />
     <Compile Include="User32+SPIF.cs" />
     <Compile Include="User32+SysCommands.cs" />
     <Compile Include="User32+SystemMetric.cs" />

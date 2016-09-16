@@ -1146,7 +1146,7 @@ namespace PInvoke
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SystemParametersInfo(SPI uiAction, uint uiParam, IntPtr pvParam, SPIF fWinIni);
+        public static extern bool SystemParametersInfo(SystemParametersInfoAction uiAction, uint uiParam, IntPtr pvParam, SPIF fWinIni);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int QueryDisplayConfig(uint Flags, ref uint pNumPathArrayElements, ref DISPLAYCONFIG_PATH_INFO pPathInfoArray, ref uint pNumModeInfoArrayElements, ref DISPLAYCONFIG_MODE_INFO pModeInfoArray, ref DISPLAYCONFIG_TOPOLOGY_ID pCurrentTopologyId);
@@ -2402,44 +2402,184 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr DispatchMessage(ref MSG lpmsg);
 
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern IntPtr BeginPaint(IntPtr hwnd, out PAINTSTRUCT lpPaint);
-
+        /// <summary>
+        /// The DrawText function draws formatted text in the specified rectangle.
+        /// It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth).
+        /// To specify additional formatting options, use the <see cref="DrawTextEx(SafeDCHandle, char*, int, RECT*, uint, DRAWTEXTPARAMS*)"/> function.
+        /// </summary>
+        /// <param name="hDC">A handle to the device context.</param>
+        /// <param name="lpString">
+        /// A pointer to the string that specifies the text to be drawn.
+        /// If the <paramref name="nCount"/> parameter is -1, the string must be null-terminated.
+        /// If <paramref name="uFormat"/> includes <see cref="TextFormats.DT_MODIFYSTRING"/>, the function could add up to four additional characters to this string.
+        /// The buffer containing the string should be large enough to accommodate these extra characters.
+        /// </param>
+        /// <param name="nCount">The length, in characters, of the string. If nCount is -1, then the lpchText parameter is assumed to be a pointer to a null-terminated string and DrawText computes the character count automatically.</param>
+        /// <param name="lpRect">A pointer to a RECT structure that contains the rectangle (in logical coordinates) in which the text is to be formatted.</param>
+        /// <param name="uFormat">The method of formatting the text.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the height of the text in logical units.
+        /// If <see cref="TextFormats.DT_VCENTER"/> or <see cref="TextFormats.DT_BOTTOM"/> is specified, the return value is the offset from <see cref="RECT.top"/> (<paramref name="lpRect"/>) to the bottom of the drawn text.
+        /// If the function fails, the return value is zero.</returns>
+        /// <remarks>
+        /// <para>
+        /// The DrawText function uses the device context's selected font, text color, and background color to draw the text.
+        /// Unless the <see cref="TextFormats.DT_NOCLIP"/> format is used, DrawText clips the text so that it does not appear outside the specified rectangle.
+        /// Note that text with significant overhang may be clipped, for example, an initial "W" in the text string or text that is in italics.
+        /// All formatting is assumed to have multiple lines unless the <see cref="TextFormats.DT_SINGLELINE"/> format is specified.
+        /// </para>
+        /// <para>
+        /// If the selected font is too large for the specified rectangle, the DrawText function does not attempt to substitute a smaller font.
+        /// The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.
+        /// </para>
+        /// </remarks>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int DrawText(
-            IntPtr hDC,
+            SafeDCHandle hDC,
             [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* lpString,
             int nCount,
-            ref RECT lpRect,
+            [Friendly(FriendlyFlags.Bidirectional)] RECT* lpRect,
             TextFormats uFormat);
 
+        /// <summary>
+        /// The DrawTextEx function draws formatted text in the specified rectangle.
+        /// </summary>
+        /// <param name="hdc">A handle to the device context in which to draw.</param>
+        /// <param name="lpchText">
+        /// A pointer to the string that contains the text to draw. If the <paramref name="cchText"/> parameter is -1, the string must be null-terminated.
+        /// If <paramref name="dwDTFormat"/> includes <see cref="TextFormats.DT_MODIFYSTRING"/>, the function could add up to four additional characters to this string.
+        /// The buffer containing the string should be large enough to accommodate these extra characters.
+        /// </param>
+        /// <param name="cchText">
+        /// The length of the string pointed to by <paramref name="lpchText"/>.
+        /// If cchText is -1, then the lpchText parameter is assumed to be a pointer to a null-terminated string and DrawTextEx computes the character count automatically.
+        /// </param>
+        /// <param name="lprc">A pointer to a <see cref="RECT"/> structure that contains the rectangle, in logical coordinates, in which the text is to be formatted.</param>
+        /// <param name="dwDTFormat">The formatting options.</param>
+        /// <param name="lpDTParams">A pointer to a <see cref="DRAWTEXTPARAMS"/> structure that specifies additional formatting options. This parameter can be NULL.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the text height in logical units.
+        /// If <see cref="TextFormats.DT_VCENTER"/> or <see cref="TextFormats.DT_BOTTOM"/> is specified, the return value is the offset from  <see cref="RECT.top"/> (<paramref name="lprc"/>) to the bottom of the drawn text
+        /// If the function fails, the return value is zero.
+        /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int DrawTextEx(
-            IntPtr hdc,
+            SafeDCHandle hdc,
             [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* lpchText,
             int cchText,
-            ref RECT lprc,
+            [Friendly(FriendlyFlags.Bidirectional)] RECT* lprc,
             uint dwDTFormat,
-            ref DRAWTEXTPARAMS lpDTParams);
-
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern bool EndPaint(IntPtr hWnd, ref PAINTSTRUCT lpPaint);
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] DRAWTEXTPARAMS* lpDTParams);
 
         /// <summary>
-        /// The <see cref="GetDC"/> function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
+        /// The EndPaint function marks the end of painting in the specified window. This function is required for each call to the <see cref="BeginPaint(IntPtr, PAINTSTRUCT*)"/> function, but only after painting is complete.
+        /// </summary>
+        /// <param name="hWnd">Handle to the window that has been repainted.</param>
+        /// <param name="lpPaint">Pointer to a <see cref="PAINTSTRUCT"/> structure that contains the painting information retrieved by <see cref="BeginPaint(IntPtr, PAINTSTRUCT*)"/>.</param>
+        /// <returns>The return value is always nonzero.</returns>
+        /// <remarks>
+        /// If the caret was hidden by <see cref="BeginPaint(IntPtr, PAINTSTRUCT*)"/>, EndPaint restores the caret to the screen.
+        /// EndPaint releases the display device context that <see cref="BeginPaint(IntPtr, PAINTSTRUCT*)"/> retrieved.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool EndPaint(
+            IntPtr hWnd,
+            [Friendly(FriendlyFlags.In)] PAINTSTRUCT* lpPaint);
+
+        /// <summary>
+        /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
+        /// </summary>
+        /// <param name="hwnd">Handle to the window to be repainted.</param>
+        /// <param name="lpPaint">Pointer to the <see cref="PAINTSTRUCT"/> structure that will receive painting information.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the handle to a display device context for the specified window.
+        /// If the function fails, the return value is <see cref="IntPtr.Zero"/>, indicating that no display device context is available..</returns>
+        /// <remarks>
+        /// <para>
+        /// The BeginPaint function automatically sets the clipping region of the device context to exclude any area outside the update region.
+        /// The update region is set by the InvalidateRect or InvalidateRgn function and by the system after sizing, moving, creating, scrolling,
+        /// or any other operation that affects the client area. If the update region is marked for erasing, BeginPaint sends a <see cref="WindowMessage.WM_ERASEBKGND"/> message to the window.
+        /// </para>
+        /// <para>
+        /// An application should not call BeginPaint except in response to a <see cref="WindowMessage.WM_PAINT"/> message.
+        /// Each call to BeginPaint must have a corresponding call to the <see cref="EndPaint(IntPtr, PAINTSTRUCT*)"/> function.
+        /// </para>
+        /// <para>
+        /// If the caret is in the area to be painted, BeginPaint automatically hides the caret to prevent it from being erased.
+        /// If the window's class has a background brush, BeginPaint uses that brush to erase the background of the update region before returning.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), EntryPoint = "BeginPaint", SetLastError = true)]
+        private static extern unsafe IntPtr BeginPaint_IntPtr(
+            IntPtr hwnd,
+            [Friendly(FriendlyFlags.Out)] PAINTSTRUCT* lpPaint);
+
+        /// <summary>
+        /// The <see cref="GetDC"/> function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
+        /// You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to <see cref="GetDC"/>, which gives an application more control over how and whether clipping occurs in the client area.
         /// </summary>
         /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is NULL, <see cref="GetDC"/> retrieves the DC for the entire screen.</param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the DC for the specified window's client area.
-        /// If the function fails, the return value is NULL.
+        /// If the function fails, the return value is <see cref="IntPtr.Zero"/>.
         /// </returns>
         [DllImport(nameof(User32), EntryPoint = "GetDC", SetLastError = false)]
         private static extern IntPtr GetDC_IntPtr(IntPtr hWnd);
 
+        /// <summary>
+        /// The GetDCEx function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
+        /// You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
+        /// This function is an extension to the <see cref="GetDC"/> function, which gives an application more control over how and whether clipping occurs in the client area.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is <see cref="IntPtr.Zero"/>, GetDCEx retrieves the DC for the entire screen.</param>
+        /// <param name="hrgnClip">
+        /// A clipping region that may be combined with the visible region of the DC.
+        /// If the value of flags is <see cref="DeviceContextValues.DCX_INTERSECTRGN"/> or <see cref="DeviceContextValues.DCX_EXCLUDERGN"/>,
+        /// then the operating system assumes ownership of the region and will automatically delete it when it is no longer needed.
+        /// In this case, the application should not use or delete the region after a successful call to GetDCEx.</param>
+        /// <param name="flags">Specifies how the DC is created.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the handle to the DC for the specified window. If the function fails, the return value is <see cref="IntPtr.Zero"/>.
+        /// An invalid value for the hWnd parameter will cause the function to fail.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// Unless the display DC belongs to a window class, the <see cref="ReleaseDC"/> function must be called to release the DC after painting.
+        /// Also, <see cref="ReleaseDC"/> must be called from the same thread that called GetDCEx. The number of DCs is limited only by available memory.
+        /// </para>
+        /// <para>
+        /// The function returns a handle to a DC that belongs to the window's class if CS_CLASSDC, CS_OWNDC or CS_PARENTDC was specified as a style in the WNDCLASS structure when the class was registered.
+        /// </para>
+        /// </remarks>
         [DllImport(nameof(User32), EntryPoint = "GetDCEx", SetLastError = false)]
         private static extern IntPtr GetDCEx_IntPtr(IntPtr hWnd, IntPtr hrgnClip, DeviceContextValues flags);
 
+        /// <summary>
+        /// The GetWindowDC function retrieves the device context (DC) for the entire window, including title bar, menus, and scroll bars.
+        /// A window device context permits painting anywhere in a window, because the origin of the device context is the upper-left corner of the window instead of the client area.
+        /// GetWindowDC assigns default attributes to the window device context each time it retrieves the device context. Previous attributes are lost.
+        /// </summary>
+        /// <param name="hWnd">
+        /// A handle to the window with a device context that is to be retrieved. If this value is <see cref="IntPtr.Zero"/>, GetWindowDC retrieves the device context for the entire screen.
+        /// If this parameter is <see cref="IntPtr.Zero"/>, GetWindowDC retrieves the device context for the primary display monitor.
+        /// To get the device context for other display monitors, use the <see cref="EnumDisplayMonitors"/> and CreateDC functions.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to a device context for the specified window.
+        /// If the function fails, the return value is <see cref="IntPtr.Zero"/>, indicating an error or an invalid hWnd parameter.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// GetWindowDC is intended for special painting effects within a window's nonclient area. Painting in nonclient areas of any window is not recommended.
+        /// </para>
+        /// <para>
+        /// The <see cref="GetSystemMetrics"/> function can be used to retrieve the dimensions of various parts of the nonclient area, such as the title bar, menu, and scroll bars.
+        /// The <see cref="GetDC"/> function can be used to retrieve a device context for the entire screen.
+        /// After painting is complete, the <see cref="ReleaseDC"/> function must be called to release the device context.
+        /// Not releasing the window device context has serious effects on painting requested by applications.
+        /// </para>
+        /// </remarks>
         [DllImport(nameof(User32), EntryPoint = "GetWindowDC", SetLastError = true)]
         private static extern IntPtr GetWindowDC_IntPtr(IntPtr hWnd);
 

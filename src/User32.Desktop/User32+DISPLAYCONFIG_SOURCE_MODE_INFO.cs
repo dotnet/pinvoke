@@ -13,7 +13,7 @@ namespace PInvoke
         [StructLayout(LayoutKind.Sequential)]
         public struct DISPLAYCONFIG_SOURCE_MODE_INFO
         {
-            public uint bitvector1;
+            private uint bitvector1;
 
             public uint CloneGroupId
             {

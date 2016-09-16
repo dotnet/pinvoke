@@ -11,17 +11,47 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
+        /// <summary>
+        ///  Contains information for an application. This information can be used to paint the client area of a window owned by that application.
+        /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct PAINTSTRUCT
+        public unsafe struct PAINTSTRUCT
         {
-            public bool fErase;
-            public bool fIncUpdate;
-            public bool fRestore;
+            /// <summary>
+            /// A handle to the display DC to be used for painting.
+            /// </summary>
             public IntPtr hdc;
+
+            /// <summary>
+            /// Indicates whether the background must be erased. This value is nonzero if the application should erase the background.
+            /// The application is responsible for erasing the background if a window class is created without a background brush.
+            /// For more information, see the description of the <see cref="WNDCLASS.hbrBackground"/> member.
+            /// </summary>
+            [MarshalAs(UnmanagedType.Bool)]
+            public bool fErase;
+
+            /// <summary>
+            /// A <see cref="RECT"/> structure that specifies the upper left and lower right corners of the rectangle in which the painting is requested,
+            /// in device units relative to the upper-left corner of the client area.
+            /// </summary>
             public RECT rcPaint;
 
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-            public byte[] rgbReserved;
+            /// <summary>
+            /// Reserved; used internally by the system.
+            /// </summary>
+            [MarshalAs(UnmanagedType.Bool)]
+            public bool fRestore;
+
+            /// <summary>
+            /// Reserved; used internally by the system.
+            /// </summary>
+            [MarshalAs(UnmanagedType.Bool)]
+            public bool fIncUpdate;
+
+            /// <summary>
+            /// Reserved; used internally by the system.
+            /// </summary>
+            public fixed byte rgbReserved[32];
         }
     }
 }

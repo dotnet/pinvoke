@@ -16,18 +16,111 @@ namespace PInvoke
     /// </content>
     public static partial class User32
     {
+         /// <summary>
+        /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
+        /// </summary>
+        /// <param name="hwnd">Handle to the window to be repainted.</param>
+        /// <param name="lpPaint">Pointer to the <see cref="PAINTSTRUCT"/> structure that will receive painting information.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the handle to a display device context for the specified window.
+        /// If the function fails, the return value is <see cref="SafeDCHandle.Null"/>, indicating that no display device context is available..</returns>
+        /// <remarks>
+        /// <para>
+        /// The BeginPaint function automatically sets the clipping region of the device context to exclude any area outside the update region.
+        /// The update region is set by the InvalidateRect or InvalidateRgn function and by the system after sizing, moving, creating, scrolling,
+        /// or any other operation that affects the client area. If the update region is marked for erasing, BeginPaint sends a <see cref="WindowMessage.WM_ERASEBKGND"/> message to the window.
+        /// </para>
+        /// <para>
+        /// An application should not call BeginPaint except in response to a <see cref="WindowMessage.WM_PAINT"/> message.
+        /// Each call to BeginPaint must have a corresponding call to the <see cref="EndPaint(IntPtr, PAINTSTRUCT*)"/> function.
+        /// </para>
+        /// <para>
+        /// If the caret is in the area to be painted, BeginPaint automatically hides the caret to prevent it from being erased.
+        /// If the window's class has a background brush, BeginPaint uses that brush to erase the background of the update region before returning.
+        /// </para>
+        /// </remarks>
+        public static unsafe SafeDCHandle BeginPaint(
+            IntPtr hwnd,
+            [Friendly(FriendlyFlags.Out)] PAINTSTRUCT* lpPaint)
+        {
+            var hdc = BeginPaint_IntPtr(hwnd, lpPaint);
+            return hdc != IntPtr.Zero ? new SafeDCHandle(hwnd, hdc) : null;
+        }
+
         /// <summary>
-        /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
+        /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
+        /// You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
         /// The GetDCEx function is an extension to GetDC, which gives an application more control over how and whether clipping occurs in the client area.
         /// </summary>
         /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC for the entire screen.</param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the DC for the specified window's client area.
-        /// If the function fails, the return value is NULL.
+        /// If the function fails, the return value is <see cref="SafeDCHandle.Null"/>.
         /// </returns>
         public static SafeDCHandle GetDC(IntPtr hWnd)
         {
             var hdc = GetDC_IntPtr(hWnd);
+            return hdc != IntPtr.Zero ? new SafeDCHandle(hWnd, hdc) : null;
+        }
+
+        /// <summary>
+        /// The GetDCEx function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
+        /// You can use the returned handle in subsequent GDI functions to draw in the DC. The device context is an opaque data structure, whose values are used internally by GDI.
+        /// This function is an extension to the <see cref="GetDC"/> function, which gives an application more control over how and whether clipping occurs in the client area.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose DC is to be retrieved. If this value is <see cref="IntPtr.Zero"/>, GetDCEx retrieves the DC for the entire screen.</param>
+        /// <param name="hrgnClip">
+        /// A clipping region that may be combined with the visible region of the DC.
+        /// If the value of flags is <see cref="DeviceContextValues.DCX_INTERSECTRGN"/> or <see cref="DeviceContextValues.DCX_EXCLUDERGN"/>,
+        /// then the operating system assumes ownership of the region and will automatically delete it when it is no longer needed.
+        /// In this case, the application should not use or delete the region after a successful call to GetDCEx.</param>
+        /// <param name="flags">Specifies how the DC is created.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the handle to the DC for the specified window. If the function fails, the return value is <see cref="SafeDCHandle.Null"/>.
+        /// An invalid value for the hWnd parameter will cause the function to fail.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// Unless the display DC belongs to a window class, the <see cref="ReleaseDC"/> function must be called to release the DC after painting.
+        /// Also, <see cref="ReleaseDC"/> must be called from the same thread that called GetDCEx. The number of DCs is limited only by available memory.
+        /// </para>
+        /// <para>
+        /// The function returns a handle to a DC that belongs to the window's class if CS_CLASSDC, CS_OWNDC or CS_PARENTDC was specified as a style in the WNDCLASS structure when the class was registered.
+        /// </para>
+        /// </remarks>
+        public static SafeDCHandle GetDCEx(IntPtr hWnd, IntPtr hrgnClip, DeviceContextValues flags)
+        {
+            var hdc = GetDCEx_IntPtr(hWnd, hrgnClip, flags);
+            return hdc != IntPtr.Zero ? new SafeDCHandle(hWnd, hdc) : null;
+        }
+
+        /// <summary>
+        /// The GetWindowDC function retrieves the device context (DC) for the entire window, including title bar, menus, and scroll bars.
+        /// A window device context permits painting anywhere in a window, because the origin of the device context is the upper-left corner of the window instead of the client area.
+        /// GetWindowDC assigns default attributes to the window device context each time it retrieves the device context. Previous attributes are lost.
+        /// </summary>
+        /// <param name="hWnd">
+        /// A handle to the window with a device context that is to be retrieved. If this value is <see cref="IntPtr.Zero"/>, GetWindowDC retrieves the device context for the entire screen.
+        /// If this parameter is <see cref="IntPtr.Zero"/>, GetWindowDC retrieves the device context for the primary display monitor.
+        /// To get the device context for other display monitors, use the <see cref="EnumDisplayMonitors"/> and CreateDC functions.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to a device context for the specified window.
+        /// If the function fails, the return value is <see cref="SafeDCHandle.Null"/>, indicating an error or an invalid hWnd parameter.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// GetWindowDC is intended for special painting effects within a window's nonclient area. Painting in nonclient areas of any window is not recommended.
+        /// </para>
+        /// <para>
+        /// The <see cref="GetSystemMetrics"/> function can be used to retrieve the dimensions of various parts of the nonclient area, such as the title bar, menu, and scroll bars.
+        /// The <see cref="GetDC"/> function can be used to retrieve a device context for the entire screen.
+        /// After painting is complete, the <see cref="ReleaseDC"/> function must be called to release the device context.
+        /// Not releasing the window device context has serious effects on painting requested by applications.
+        /// </para>
+        /// </remarks>
+        public static SafeDCHandle GetWindowDC(IntPtr hWnd)
+        {
+            var hdc = GetWindowDC_IntPtr(hWnd);
             return hdc != IntPtr.Zero ? new SafeDCHandle(hWnd, hdc) : null;
         }
 

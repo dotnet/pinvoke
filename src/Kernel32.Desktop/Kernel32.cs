@@ -899,6 +899,31 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpExeName,
             ref int lpdwSize);
 
+        /// <summary>Retrieves the full name of the executable image for the specified process.</summary>
+        /// <param name="hProcess">
+        /// A handle to the process. This handle must be created with the
+        /// <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION" /> or
+        /// <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION" /> access right.
+        /// </param>
+        /// <param name="dwFlags">One of the <see cref="QueryFullProcessImageNameFlags" /> values.</param>
+        /// <param name="lpExeName">The path to the executable image. If the function succeeds, this string is null-terminated.</param>
+        /// <param name="lpdwSize">
+        /// On input, specifies the size of the lpExeName buffer, in characters. On success, receives the
+        /// number of characters written to the buffer, not including the null-terminating character.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// <para>If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        /// <remarks>Minimum OS: Windows Vista / Windows Server 2008.</remarks>
+        [DllImport(api_ms_win_core_psapi_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool QueryFullProcessImageName(
+            SafeObjectHandle hProcess,
+            QueryFullProcessImageNameFlags dwFlags,
+            StringBuilder lpExeName,
+            ref int lpdwSize);
+
         /// <summary>Opens an existing local process object.</summary>
         /// <param name="dwDesiredAccess">
         /// The access to the process object. This access right is checked against the security descriptor for the process. This

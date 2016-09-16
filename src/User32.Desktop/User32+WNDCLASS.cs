@@ -31,10 +31,6 @@ namespace PInvoke
             public string lpszMenuName;
 
             public ClassStyles style;
-
-            public void Dispose()
-            {
-            }
         }
     }
 }

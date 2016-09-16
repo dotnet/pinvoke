@@ -7,14 +7,14 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SPI"/> nested type.
+    /// Contains the <see cref="SystemParametersInfoAction"/> nested type.
     /// </content>
     public partial class User32
     {
         /// <summary>
-        /// SPI_ System-wide parameter : Used in SystemParametersInfo function
+        /// Used to inform the <see cref="SystemParametersInfo"/> function of the action to be executed
         /// </summary>
-        public enum SPI : uint
+        public enum SystemParametersInfoAction : uint
         {
             /// <summary>
             /// Determines whether the warning beeper is on. The pvParam parameter must point to a BOOL
