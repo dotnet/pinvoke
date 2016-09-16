@@ -995,8 +995,8 @@ namespace PInvoke
             IntPtr handle,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* ppsidOwner,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* ppsidGroup,
+            void* ppsidOwner,
+            void* ppsidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
@@ -1021,8 +1021,8 @@ namespace PInvoke
             string pObjectName,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* ppsidOwner,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* ppsidGroup,
+            void* ppsidOwner,
+            void* ppsidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
@@ -1044,8 +1044,8 @@ namespace PInvoke
             IntPtr handle,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* psidOwner,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* psidGroup,
+            void* psidOwner,
+            void* psidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pSacl);
 
@@ -1065,8 +1065,8 @@ namespace PInvoke
             string pObjectName,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* psidOwner,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] void* psidGroup,
+            void* psidOwner,
+            void* psidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pSacl);
 
