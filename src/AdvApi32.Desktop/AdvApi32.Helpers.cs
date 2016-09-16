@@ -72,7 +72,7 @@ namespace PInvoke
 
                     var result = new ENUM_SERVICE_STATUS[numServicesReturned];
                     byte* position = buffer;
-                    int structSize = Marshal.SizeOf(typeof(ENUM_SERVICE_STATUS));
+                    var structSize = Marshal.SizeOf(typeof(ENUM_SERVICE_STATUS));
                     for (int i = 0; i < numServicesReturned; i++)
                     {
                         result[i] = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure(new IntPtr(position), typeof(ENUM_SERVICE_STATUS));
@@ -217,7 +217,7 @@ namespace PInvoke
                     throw new Win32Exception();
                 }
 
-                SafeServiceHandle svcHandle = CreateService(
+                var svcHandle = CreateService(
                     scmHandle,
                     lpServiceName,
                     lpDisplayName,
@@ -239,7 +239,7 @@ namespace PInvoke
                         throw new Win32Exception();
                     }
 
-                    ServiceDescription descriptionStruct = new ServiceDescription
+                    var descriptionStruct = new ServiceDescription
                     {
                         lpDescription = lpDescription
                     };

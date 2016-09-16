@@ -161,7 +161,7 @@ namespace PInvoke
 
         public delegate void MsgBoxCallback(HELPINFO lpHelpInfo);
 
-        public delegate bool MonitorEnumDelegate(IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData);
+        public delegate bool MONITORENUMPROC(IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData);
 
         public delegate IntPtr WndProc(IntPtr hWnd, WindowMessage msg, IntPtr wParam, IntPtr lParam);
 
@@ -177,7 +177,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MessageBeep(MessageBeepType uType);
 
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32))]
         public static extern MessageBoxResult MessageBox(IntPtr hWnd, string text, string caption, MessageBoxOptions options);
 
         [DllImport(nameof(User32), SetLastError = true)]
@@ -809,15 +809,17 @@ namespace PInvoke
         public static extern IntPtr RealChildWindowFromPoint(IntPtr hwndParent, POINT ptParentClientCoords);
 
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ScreenToClient(IntPtr hWnd, ref POINT lpPoint);
 
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowDisplayAffinity(IntPtr hWnd, int dwAffinity);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe uint RealGetWindowClass(
             IntPtr hwnd,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] StringBuilder pszType,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* pszType,
             uint cchType);
 
         /// <summary>
@@ -1104,10 +1106,12 @@ namespace PInvoke
         public static extern int RegisterWindowMessage(string lpString);
 
         [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowDisplayAffinity(IntPtr hWnd, out int dwAffinity);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr lprcClip, MonitorEnumDelegate lpfnEnum, IntPtr dwData);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool EnumDisplayMonitors(IntPtr hdc, RECT* lprcClip, MONITORENUMPROC lpfnEnum, void* dwData);
 
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool GetClassInfoEx(IntPtr hInstance, string lpClassName, ref WNDCLASSEX lpWndClass);

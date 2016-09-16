@@ -259,7 +259,7 @@ namespace PInvoke
         public static unsafe string GetClassName(IntPtr hWnd, int maxLength = 256)
         {
             char* className = stackalloc char[maxLength];
-            int count = GetClassName(hWnd, className, maxLength);
+            var count = GetClassName(hWnd, className, maxLength);
             if (count == 0)
             {
                 throw new Win32Exception();
@@ -291,7 +291,7 @@ namespace PInvoke
             const int bufferSize = 256;
 
             char* formatName = stackalloc char[bufferSize]; // max name length
-            int count = GetClipboardFormatName(format, formatName, bufferSize);
+            var count = GetClipboardFormatName(format, formatName, bufferSize);
             if (count == 0)
             {
                 throw new Win32Exception();
