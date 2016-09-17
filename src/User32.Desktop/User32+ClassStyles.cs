@@ -18,13 +18,13 @@ namespace PInvoke
             /// Aligns the window's client area on a byte boundary (in the x direction). This style
             /// affects the width of the window and its horizontal placement on the display.
             /// </summary>
-            ByteAlignClient = 0x1000,
+            CS_BYTEALIGNCLIENT = 0x1000,
 
             /// <summary>
             /// Aligns the window on a byte boundary (in the x direction). This style affects the width
             /// of the window and its horizontal placement on the display.
             /// </summary>
-            ByteAlignWindow = 0x2000,
+            CS_BYTEALIGNWINDOW = 0x2000,
 
             /// <summary>
             /// Allocates one device context to be shared by all windows in the class. Because window
@@ -33,42 +33,41 @@ namespace PInvoke
             /// the device context simultaneously. When this happens, the system allows only one thread
             /// to successfully finish its drawing operation.
             /// </summary>
-            ClassDC = 0x40,
+            CS_CLASSDC = 0x0040,
 
             /// <summary>
             /// Sends a double-click message to the window procedure when the user double-clicks the
             /// mouse while the cursor is within a window belonging to the class.
             /// </summary>
-            DoubleClicks = 0x8,
+            CS_DBLCLKS = 0x0008,
 
             /// <summary>
             /// Enables the drop shadow effect on a window. The effect is turned on and off through
             /// SPI_SETDROPSHADOW. Typically, this is enabled for small, short-lived windows such as
             /// menus to emphasize their Z order relationship to other windows.
             /// </summary>
-            DropShadow = 0x20000,
+            CS_DROPSHADOW = 0x00020000,
 
             /// <summary>
-            /// Indicates that the window class is an application global class. For more information, see
-            /// the "Application Global Classes" section of About Window Classes.
+            /// Indicates that the window class is an application global class.
             /// </summary>
-            GlobalClass = 0x4000,
+            CS_GLOBALCLASS = 0x4000,
 
             /// <summary>
             /// Redraws the entire window if a movement or size adjustment changes the width of the
             /// client area.
             /// </summary>
-            HorizontalRedraw = 0x2,
+            CS_HREDRAW = 0x0002,
 
             /// <summary>
             /// Disables Close on the window menu.
             /// </summary>
-            NoClose = 0x200,
+            CS_NOCLOSE = 0x0200,
 
             /// <summary>
             /// Allocates a unique device context for each window in the class.
             /// </summary>
-            OwnDC = 0x20,
+            CS_OWNDC = 0x0020,
 
             /// <summary>
             /// Sets the clipping rectangle of the child window to that of the parent window so that the
@@ -77,7 +76,7 @@ namespace PInvoke
             /// parent's device context or device context settings. Specifying CS_PARENTDC enhances an
             /// application's performance.
             /// </summary>
-            ParentDC = 0x80,
+            CS_PARENTDC = 0x0080,
 
             /// <summary>
             /// Saves, as a bitmap, the portion of the screen image obscured by a window of this class.
@@ -90,13 +89,13 @@ namespace PInvoke
             /// place. This style increases the time required to display the window, because the system
             /// must first allocate memory to store the bitmap.
             /// </summary>
-            SaveBits = 0x800,
+            CS_SAVEBITS = 0x0800,
 
             /// <summary>
             /// Redraws the entire window if a movement or size adjustment changes the height of the
             /// client area.
             /// </summary>
-            VerticalRedraw = 0x1
+            CS_VREDRAW = 0x0001
         }
     }
 }

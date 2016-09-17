@@ -15,7 +15,7 @@ namespace PInvoke
         public struct DISPLAYCONFIG_VIDEO_SIGNAL_INFO_UNION
         {
             [FieldOffset(0)]
-            public DISPLAYCONFIG_ADDITIONAL_SINGAL_INFO AdditionalSignalInfo;
+            public DISPLAYCONFIG_ADDITIONAL_SIGNAL_INFO AdditionalSignalInfo;
 
             [FieldOffset(0)]
             public uint videoStandard;

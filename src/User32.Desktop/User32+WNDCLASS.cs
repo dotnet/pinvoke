@@ -11,26 +11,29 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
-        public struct WNDCLASS
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public unsafe struct WNDCLASS
         {
-            public int cbClsExtra;
-            public int cbWndExtra;
-            public IntPtr hbrBackground;
-            public IntPtr hCursor;
-            public IntPtr hIcon;
-            public IntPtr hInstance;
+            public ClassStyles style;
 
             [MarshalAs(UnmanagedType.FunctionPtr)]
             public WndProc lpfnWndProc;
 
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpszClassName;
+            public int cbClsExtra;
 
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpszMenuName;
+            public int cbWndExtra;
 
-            public ClassStyles style;
+            public IntPtr hInstance;
+
+            public IntPtr hIcon;
+
+            public IntPtr hCursor;
+
+            public IntPtr hbrBackground;
+
+            public char* lpszMenuName;
+
+            public char* lpszClassName;
         }
     }
 }

@@ -11,36 +11,35 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        public struct WNDCLASSEX
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public unsafe struct WNDCLASSEX
         {
-            public int cbClsExtra;
-
-            [MarshalAs(UnmanagedType.U4)]
             public int cbSize;
+
+            public ClassStyles style;
+
+            [MarshalAs(UnmanagedType.FunctionPtr)]
+            public WndProc lpfnWndProc;
+
+            public int cbClsExtra;
 
             public int cbWndExtra;
 
-            public IntPtr hbrBackground;
-
-            public IntPtr hCursor;
+            public IntPtr hInstance;
 
             public IntPtr hIcon;
 
+            public IntPtr hCursor;
+
+            public IntPtr hbrBackground;
+
+            public char* lpszClassName;
+
+            public char* lpszMenuName;
+
             public IntPtr hIconSm;
 
-            public IntPtr hInstance;
-
-            public IntPtr lpfnWndProc;
-
-            public string lpszClassName;
-
-            public string lpszMenuName;
-
-            [MarshalAs(UnmanagedType.U4)]
-            public int style;
-
-            public static WNDCLASSEX Build()
+            public static WNDCLASSEX Create()
             {
                 var nw = default(WNDCLASSEX);
                 nw.cbSize = Marshal.SizeOf(typeof(WNDCLASSEX));

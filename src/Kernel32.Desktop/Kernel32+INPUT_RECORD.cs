@@ -14,7 +14,7 @@ namespace PInvoke
         /// <summary>
         /// Describes an input event in the console input buffer.
         /// These records can be read from the input buffer by using the <see cref="ReadConsoleInput"/> or <see cref="PeekConsoleInput"/> function,
-        /// or written to the input buffer by using the <see cref="WriteConsoleInput"/> function.
+        /// or written to the input buffer by using the <see cref="WriteConsoleInput(IntPtr, INPUT_RECORD*, int, int*)"/> function.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct INPUT_RECORD

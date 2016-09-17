@@ -2456,45 +2456,46 @@ namespace PInvoke
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GenerateConsoleCtrlEvent(uint dwCtrlEvent, uint dwProcessGroupId);
+        public static extern bool GenerateConsoleCtrlEvent(ControlType dwCtrlEvent, uint dwProcessGroupId);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool AddConsoleAlias(string Source, string Target, string ExeName);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern IntPtr CreateConsoleScreenBuffer(uint dwDesiredAccess, uint dwShareMode, ref SECURITY_ATTRIBUTES lpSecurityAttributes, uint dwFlags, IntPtr lpScreenBufferData);
-
-        [DllImport(nameof(Kernel32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool AttachConsole(uint dwProcessId);
+        public static unsafe extern IntPtr CreateConsoleScreenBuffer(
+            ACCESS_MASK dwDesiredAccess,
+            FileShare dwShareMode,
+            [Friendly(FriendlyFlags.Optional | FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpSecurityAttributes,
+            ConsoleScreenBufferFlag dwFlags,
+            void* lpScreenBufferData);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlushConsoleInputBuffer(IntPtr hConsoleInput);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern unsafe uint GetConsoleAliases(
+        public static extern unsafe int GetConsoleAliases(
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpAliasBuffer,
             int AliasBufferLength,
             string lpExeName);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern uint GetConsoleAliasesLength(string lpExeName);
+        public static extern int GetConsoleAliasesLength(string lpExeName);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern unsafe uint GetConsoleAliasExes(
+        public static extern unsafe int GetConsoleAliasExes(
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpExeNameBuffer,
-            uint ExeNameBufferLength);
+            int ExeNameBufferLength);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern uint GetConsoleAliasExesLength();
+        public static extern int GetConsoleAliasExesLength();
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern unsafe uint GetConsoleAlias(
+        public static extern unsafe int GetConsoleAlias(
             string lpSource,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpTargetBuffer,
-            uint TargetBufferLength,
+            int TargetBufferLength,
             string lpExeName);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
@@ -2502,18 +2503,18 @@ namespace PInvoke
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetConsoleDisplayMode(ref uint lpModeFlags);
+        public static extern bool GetConsoleDisplayMode(out ConsoleDisplayMode lpModeFlags);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern COORD GetConsoleFontSize(IntPtr hConsoleOutput, uint nFont);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetConsoleMode(IntPtr hConsoleHandle, ref uint lpMode);
+        public static extern bool GetConsoleMode(IntPtr hConsoleHandle, out ConsoleBufferModes lpMode);
 
-        [DllImport("kernel32.dll", EntryPoint = "SetConsoleMode")]
+        [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, ConsoleBufferModes dwMode);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern uint GetConsoleOutputCP();
@@ -2527,20 +2528,25 @@ namespace PInvoke
         public static extern bool SetConsoleCP(uint wCodePageID);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern uint GetConsoleProcessList(ref uint lpdwProcessList, uint dwProcessCount);
+        public static unsafe extern int GetConsoleProcessList(
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] uint* lpdwProcessList,
+            int dwProcessCount);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetConsoleScreenBufferInfo(IntPtr hConsoleOutput, ref CONSOLE_SCREEN_BUFFER_INFO lpConsoleScreenBufferInfo);
+        public static unsafe extern bool GetConsoleScreenBufferInfo(
+            IntPtr hConsoleOutput,
+            [Friendly(FriendlyFlags.Out)] CONSOLE_SCREEN_BUFFER_INFO* lpConsoleScreenBufferInfo);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetConsoleSelectionInfo(ref CONSOLE_SELECTION_INFO lpConsoleSelectionInfo);
+        public static unsafe extern bool GetConsoleSelectionInfo(
+            [Friendly(FriendlyFlags.Out)] CONSOLE_SELECTION_INFO* lpConsoleSelectionInfo);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern unsafe uint GetConsoleTitle(
+        public static extern unsafe int GetConsoleTitle(
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpConsoleTitle,
-            uint nSize);
+            int nSize);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -2551,27 +2557,37 @@ namespace PInvoke
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetNumberOfConsoleInputEvents(IntPtr hConsoleInput, ref uint lpNumberOfEvents);
+        public static extern bool GetNumberOfConsoleInputEvents(IntPtr hConsoleInput, out int lpNumberOfEvents);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool PeekConsoleInput(IntPtr hConsoleInput, ref INPUT_RECORD lpBuffer, uint nLength, ref uint lpNumberOfEventsRead);
+        public static extern bool PeekConsoleInput(IntPtr hConsoleInput, out INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsRead);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool ReadConsoleOutput(IntPtr hConsoleOutput, ref CHAR_INFO lpBuffer, COORD dwBufferSize, COORD dwBufferCoord, ref SMALL_RECT lpReadRegion);
+        public static extern bool ReadConsoleOutput(IntPtr hConsoleOutput, out CHAR_INFO lpBuffer, COORD dwBufferSize, COORD dwBufferCoord, ref SMALL_RECT lpReadRegion);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool ReadConsole(IntPtr hConsoleInput, IntPtr lpBuffer, uint nNumberOfCharsToRead, ref uint lpNumberOfCharsRead, IntPtr lpReserved);
+        public static unsafe extern bool ReadConsole(
+            IntPtr hConsoleInput,
+            void* lpBuffer,
+            int nNumberOfCharsToRead,
+            [Friendly(FriendlyFlags.Out)] int lpNumberOfCharsRead,
+            IntPtr lpReserved);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool ReadConsoleInput(IntPtr hConsoleInput, ref INPUT_RECORD lpBuffer, uint nLength, ref uint lpNumberOfEventsRead);
+        public static extern bool ReadConsoleInput(IntPtr hConsoleInput, out INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsRead);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool ScrollConsoleScreenBuffer(IntPtr hConsoleOutput, ref SMALL_RECT lpScrollRectangle, ref SMALL_RECT lpClipRectangle, COORD dwDestinationOrigin, ref CHAR_INFO lpFill);
+        public static unsafe extern bool ScrollConsoleScreenBuffer(
+            IntPtr hConsoleOutput,
+            [Friendly(FriendlyFlags.In)] SMALL_RECT* lpScrollRectangle,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SMALL_RECT* lpClipRectangle,
+            COORD dwDestinationOrigin,
+            [Friendly(FriendlyFlags.In)] CHAR_INFO* lpFill);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -2582,19 +2598,33 @@ namespace PInvoke
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool WriteConsole(IntPtr hConsoleOutput, IntPtr lpBuffer, uint nNumberOfCharsToWrite, ref uint lpNumberOfCharsWritten, IntPtr lpReserved);
+        public static unsafe extern bool WriteConsole(
+            IntPtr hConsoleOutput,
+            void* lpBuffer,
+            int nNumberOfCharsToWrite,
+            [Friendly(FriendlyFlags.Out)] int* lpNumberOfCharsWritten,
+            IntPtr lpReserved);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool WriteConsoleOutput(IntPtr hConsoleOutput, ref CHAR_INFO lpBuffer, COORD dwBufferSize, COORD dwBufferCoord, ref SMALL_RECT lpWriteRegion);
+        public static unsafe extern bool WriteConsoleOutput(
+            IntPtr hConsoleOutput,
+            [Friendly(FriendlyFlags.In)] CHAR_INFO* lpBuffer,
+            COORD dwBufferSize,
+            COORD dwBufferCoord,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Out)] SMALL_RECT* lpWriteRegion);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool WriteConsoleInput(IntPtr hConsoleInput, ref INPUT_RECORD lpBuffer, uint nLength, ref uint lpNumberOfEventsWritten);
+        public static unsafe extern bool WriteConsoleInput(
+            IntPtr hConsoleInput,
+            [Friendly(FriendlyFlags.In)] INPUT_RECORD* lpBuffer,
+            int nLength,
+            [Friendly(FriendlyFlags.Out)] int* lpNumberOfEventsWritten);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetConsoleTextAttribute(IntPtr hConsoleOutput, ushort wAttributes);
+        public static extern bool SetConsoleTextAttribute(IntPtr hConsoleOutput, CharacterAttributesFlags wAttributes);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

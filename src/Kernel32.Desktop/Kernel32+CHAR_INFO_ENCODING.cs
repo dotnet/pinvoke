@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="CHAR_INFO"/> nested type.
+    /// Contains the <see cref="CHAR_INFO_ENCODING"/> nested type.
     /// </content>
     public partial class Kernel32
     {

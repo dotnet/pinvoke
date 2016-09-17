@@ -14,12 +14,14 @@ namespace PInvoke
         [StructLayout(LayoutKind.Sequential)]
         public struct HELPINFO
         {
-            public uint cbSize;
+            public int cbSize;
             public int iContextType;
             public int iCtrlId;
             public IntPtr hItemHandle;
-            public IntPtr dwContextId;
+            public uint dwContextId;
             public POINT MousePos;
+
+            public static HELPINFO Create() => new HELPINFO { cbSize = Marshal.SizeOf(typeof(HELPINFO)) };
         }
     }
 }

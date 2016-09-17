@@ -14,18 +14,18 @@ namespace PInvoke
         [StructLayout(LayoutKind.Sequential)]
         public struct DISPLAYCONFIG_TARGET_MODE_INFO
         {
-            public uint bitvector1;
+            private uint bitvector;
 
             public uint DesktopModeInfoIdx
             {
                 get
                 {
-                    return this.bitvector1 & 65535u;
+                    return this.bitvector & 0xFFFF;
                 }
 
                 set
                 {
-                    this.bitvector1 = value | this.bitvector1;
+                    this.bitvector = value | this.bitvector;
                 }
             }
 
@@ -33,12 +33,12 @@ namespace PInvoke
             {
                 get
                 {
-                    return (this.bitvector1 & 4294901760u) / 65536;
+                    return (this.bitvector & 0xFFFF0000) / 0x10000;
                 }
 
                 set
                 {
-                    this.bitvector1 = (value * 65536) | this.bitvector1;
+                    this.bitvector = (value * 0x10000) | this.bitvector;
                 }
             }
         }

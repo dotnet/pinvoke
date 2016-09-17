@@ -12,18 +12,28 @@ namespace PInvoke
     public partial class User32
     {
         [StructLayout(LayoutKind.Sequential)]
-        public struct MSGBOXPARAMS
+        public unsafe struct MSGBOXPARAMS
         {
-            public uint cbSize;
+            public int cbSize;
             public IntPtr hwndOwner;
             public IntPtr hInstance;
-            public string lpszText;
-            public string lpszCaption;
+            public char* lpszText;
+            public char* lpszCaption;
             public uint dwStyle;
             public IntPtr lpszIcon;
             public IntPtr dwContextHelpId;
-            public MsgBoxCallback lpfnMsgBoxCallback;
+
+            [MarshalAs(UnmanagedType.FunctionPtr)]
+            public MSGBOXCALLBACK lpfnMsgBoxCallback;
+
             public uint dwLanguageId;
+
+            public static MSGBOXPARAMS Create()
+            {
+                var nw = default(MSGBOXPARAMS);
+                nw.cbSize = Marshal.SizeOf(typeof(MSGBOXPARAMS));
+                return nw;
+            }
         }
     }
 }

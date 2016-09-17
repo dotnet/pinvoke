@@ -25,7 +25,7 @@ namespace PInvoke
             public RECT rcWindow;
             public ushort wCreatorVersion;
 
-            public static WINDOWINFO Build()
+            public static WINDOWINFO Create()
             {
                 var nw = default(WINDOWINFO);
                 nw.cbSize = (uint)Marshal.SizeOf(typeof(WINDOWINFO));

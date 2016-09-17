@@ -159,11 +159,13 @@ namespace PInvoke
         /// </returns>
         public delegate IntPtr DialogProc(IntPtr hwndDlg, WindowMessage uMsg, IntPtr wParam, IntPtr lParam);
 
-        public delegate void MsgBoxCallback(HELPINFO lpHelpInfo);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate void MSGBOXCALLBACK(HELPINFO lpHelpInfo);
 
-        public delegate bool MONITORENUMPROC(IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData);
+        public unsafe delegate bool MONITORENUMPROC(IntPtr hMonitor, IntPtr hdcMonitor, RECT* lprcMonitor, void* dwData);
 
-        public delegate IntPtr WndProc(IntPtr hWnd, WindowMessage msg, IntPtr wParam, IntPtr lParam);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public unsafe delegate IntPtr WndProc(IntPtr hWnd, WindowMessage msg, void* wParam, void* lParam);
 
         /// <summary>
         /// Plays a waveform sound. The waveform sound for each sound type is identified by an entry in the registry.
@@ -1120,15 +1122,15 @@ namespace PInvoke
             string lpClassName,
             ref WNDCLASSEX lpWndClass);
 
-        [DllImport(nameof(User32), EntryPoint = "GetMonitorInfo", SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe bool GetMonitorInfo(
             IntPtr hMonitor,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] MONITORINFO* lpmi);
+            [Friendly(FriendlyFlags.Out)] MONITORINFO* lpmi);
 
         [DllImport(nameof(User32), EntryPoint = "GetMonitorInfo", SetLastError = true)]
         public static extern unsafe bool GetMonitorInfoEx(
             IntPtr hMonitor,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] MONITORINFOEX* lpmi);
+            [Friendly(FriendlyFlags.Out)] MONITORINFOEX* lpmi);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetSystemMetrics(SystemMetric smIndex);
@@ -1154,10 +1156,20 @@ namespace PInvoke
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SystemParametersInfo(SystemParametersInfoAction uiAction, uint uiParam, IntPtr pvParam, SPIF fWinIni);
+        public static unsafe extern bool SystemParametersInfo(
+            SystemParametersInfoAction uiAction,
+            uint uiParam,
+            void* pvParam,
+            SPIF fWinIni);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern int QueryDisplayConfig(uint Flags, ref uint pNumPathArrayElements, ref DISPLAYCONFIG_PATH_INFO pPathInfoArray, ref uint pNumModeInfoArrayElements, ref DISPLAYCONFIG_MODE_INFO pModeInfoArray, ref DISPLAYCONFIG_TOPOLOGY_ID pCurrentTopologyId);
+        public static unsafe extern int QueryDisplayConfig(
+            uint Flags,
+            ref int pNumPathArrayElements,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] DISPLAYCONFIG_PATH_INFO* pPathInfoArray,
+            ref int pNumModeInfoArrayElements,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] DISPLAYCONFIG_MODE_INFO* pModeInfoArray,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] DISPLAYCONFIG_TOPOLOGY_ID pCurrentTopologyId);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern ushort RegisterClass(ref WNDCLASS lpWndClass);
@@ -1165,9 +1177,6 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.U2)]
         public static extern short RegisterClassEx(ref WNDCLASSEX lpwcx);
-
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern int GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
         /// <summary>
         /// Retrieves the name of the format from the clipboard.
@@ -1940,7 +1949,7 @@ namespace PInvoke
         ///     <para>
         ///         If hWnd is -1, PeekMessage retrieves only messages on the current thread's message queue whose hwnd value is
         ///         NULL, that is, thread messages as posted by <see cref="PostMessage(IntPtr, WindowMessage, void*, void*)" />
-        ///         (when the hWnd parameter is <see cref="IntPtr.Zero" />) or PostThreadMessage.
+        ///         (when the hWnd parameter is <see cref="IntPtr.Zero" />) or <see cref="PostThreadMessage(int, WindowMessage, IntPtr, IntPtr)"/>.
         ///     </para>
         /// </param>
         /// <param name="wMsgFilterMin">
@@ -1997,7 +2006,7 @@ namespace PInvoke
         ///     <para>
         ///         If hWnd is -1, PeekMessage retrieves only messages on the current thread's message queue whose hwnd value is
         ///         NULL, that is, thread messages as posted by <see cref="PostMessage(IntPtr, WindowMessage, void*, void*)" /> (when the hWnd parameter is
-        ///         <see cref="IntPtr.Zero" />) or PostThreadMessage.
+        ///         <see cref="IntPtr.Zero" />) or <see cref="PostThreadMessage(int, WindowMessage, IntPtr, IntPtr)"/>.
         ///     </para>
         /// </param>
         /// <param name="wMsgFilterMin">
@@ -2161,10 +2170,6 @@ namespace PInvoke
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool PostThreadMessage(uint threadId, PInvoke.User32.WindowMessage msg, UIntPtr wParam, IntPtr lParam);
-
-        [DllImport(nameof(User32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool TranslateMessage(ref MSG lpMsg);
 
         /// <summary>
@@ -2269,7 +2274,7 @@ namespace PInvoke
         public static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, POINT Point);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern IntPtr ChildWindowFromPointEx(IntPtr hWndParent, POINT pt, WindowFromPointFlags uFlags);
+        public static extern IntPtr ChildWindowFromPointEx(IntPtr hWndParent, POINT pt, ChildWindowFromPointExFlags uFlags);
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

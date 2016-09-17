@@ -12,20 +12,20 @@ namespace PInvoke
     public partial class User32
     {
         [StructLayout(LayoutKind.Sequential)]
-        public struct DISPLAYCONFIG_ADDITIONAL_SINGAL_INFO
+        public struct DISPLAYCONFIG_ADDITIONAL_SIGNAL_INFO
         {
-            public uint bitvector1;
+            private uint bitvector;
 
             public uint VideoStandard
             {
                 get
                 {
-                    return this.bitvector1 & 65535u;
+                    return this.bitvector & 0xFFFF;
                 }
 
                 set
                 {
-                    this.bitvector1 = value | this.bitvector1;
+                    this.bitvector = value | this.bitvector;
                 }
             }
 
@@ -33,12 +33,12 @@ namespace PInvoke
             {
                 get
                 {
-                    return (this.bitvector1 & 4128768u) / 65536;
+                    return (this.bitvector & 0x3F0000) / 0x10000;
                 }
 
                 set
                 {
-                    this.bitvector1 = (value * 65536) | this.bitvector1;
+                    this.bitvector = (value * 0x10000) | this.bitvector;
                 }
             }
 
@@ -46,12 +46,12 @@ namespace PInvoke
             {
                 get
                 {
-                    return (this.bitvector1 & 4290772992u) / 4194304;
+                    return (this.bitvector & 0xFFC00000) / 0x400000;
                 }
 
                 set
                 {
-                    this.bitvector1 = (value * 4194304) | this.bitvector1;
+                    this.bitvector = (value * 0x400000) | this.bitvector;
                 }
             }
         }

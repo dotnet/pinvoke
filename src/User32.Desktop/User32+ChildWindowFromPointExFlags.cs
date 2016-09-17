@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="WindowFromPointFlags"/> nested type.
+    /// Contains the <see cref="ChildWindowFromPointExFlags"/> nested type.
     /// </content>
     public partial class User32
     {
@@ -15,7 +15,7 @@ namespace PInvoke
         /// For use with <see cref="ChildWindowFromPointEx"/>
         /// </summary>
         [Flags]
-        public enum WindowFromPointFlags
+        public enum ChildWindowFromPointExFlags
         {
             /// <summary>
             /// Does not skip any child windows

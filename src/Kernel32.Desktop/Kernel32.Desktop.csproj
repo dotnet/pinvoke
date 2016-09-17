@@ -31,6 +31,9 @@
     <Compile Include="Kernel32+CHAR_INFO_ENCODING.cs" />
     <Compile Include="Kernel32+CHAR_INFO.cs" />
     <Compile Include="Kernel32+CharacterAttributesFlags.cs" />
+    <Compile Include="Kernel32+ConsoleDisplayMode.cs" />
+    <Compile Include="Kernel32+ConsoleBufferModes.cs" />
+    <Compile Include="Kernel32+ConsoleScreenBufferFlag.cs" />
     <Compile Include="Kernel32+ConsoleSelectionFlags.cs" />
     <Compile Include="Kernel32+CONSOLE_SCREEN_BUFFER_INFO.cs" />
     <Compile Include="Kernel32+CONSOLE_SELECTION_INFO.cs" />

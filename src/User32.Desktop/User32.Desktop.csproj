@@ -25,7 +25,7 @@
     <Compile Include="User32+DesktopCreationFlags.cs" />
     <Compile Include="User32+DeviceContextValues.cs" />
     <Compile Include="User32+DISPLAYCONFIG_2DREGION.cs" />
-    <Compile Include="User32+DISPLAYCONFIG_ADDITIONAL_SINAL_INFO.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_ADDITIONAL_SIGNAL_INFO.cs" />
     <Compile Include="User32+DISPLAYCONFIG_DESKTOP_IMAGE_INFO.cs" />
     <Compile Include="User32+DISPLAYCONFIG_INFO_UNION.cs" />
     <Compile Include="User32+DISPLAYCONFIG_MODE_INFO.cs" />
@@ -57,7 +57,9 @@
     <Compile Include="User32+MesageBoxOptions.cs" />
     <Compile Include="User32+MessageBoxResult.cs" />
     <Compile Include="User32+MONITORINFO.cs" />
-    <Compile Include="User32+MONITORINFOEX.cs" />
+    <Compile Include="User32+MONITORINFOEX.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="User32+MonitorOptions.cs" />
     <Compile Include="User32+MOUSEEVENTF.cs" />
     <Compile Include="User32+MOUSEINPUT.cs">
@@ -71,7 +73,9 @@
     <Compile Include="User32+MSG.cs" />
     <Compile Include="User32+MSGBOXPARAMS.cs" />
     <Compile Include="User32+ObjectIinformationFlag.cs" />
-    <Compile Include="User32+PAINTSTRUCT.cs" />
+    <Compile Include="User32+PAINTSTRUCT.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="User32+PeekMessageRemoveFlags.cs" />
     <Compile Include="User32+QueueStatusFlags.cs" />
     <Compile Include="User32+PeekMessageParams.cs" />
@@ -87,7 +91,7 @@
     <Compile Include="User32+UserObjectFlagsEnum.cs" />
     <Compile Include="User32+VirtualKey.cs" />
     <Compile Include="User32+ScanCode.cs" />
-    <Compile Include="User32+WindowFromPointFlags.cs" />
+    <Compile Include="User32+ChildWindowFromPointExFlags.cs" />
     <Compile Include="User32+WINDOWINFO.cs" />
     <Compile Include="User32+WindowMessage.cs" />
     <Compile Include="User32+MessageBeepType.cs" />
@@ -115,8 +119,12 @@
     <Compile Include="User32+WindowStyles.cs" />
     <Compile Include="User32+WindowStylesEx.cs" />
     <Compile Include="User32+WINMAXINFO.cs" />
-    <Compile Include="User32+WNDCLASSEX.cs" />
-    <Compile Include="User32+WNDCLASS.cs" />
+    <Compile Include="User32+WNDCLASSEX.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="User32+WNDCLASS.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="User32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>

@@ -1085,7 +1085,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         private static unsafe extern bool ConvertSidToStringSid(
             IntPtr sid,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] ref char* sidString);
+            ref char* sidString);
 
         /// <summary>
         /// The ConvertStringSidToSid function converts a string-format security identifier (SID) into a valid, functional SID.
