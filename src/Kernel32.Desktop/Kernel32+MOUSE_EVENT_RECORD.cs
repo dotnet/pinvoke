@@ -25,17 +25,17 @@ namespace PInvoke
             /// <summary>
             /// The status of the mouse buttons.
             /// </summary>
-            public MouseButtonState dwButtonState;
+            public MouseButtonStates dwButtonState;
 
             /// <summary>
             /// The state of the control keys.
             /// </summary>
-            public ControlKeyState dwControlKeyState;
+            public ControlKeyStates dwControlKeyState;
 
             /// <summary>
-            /// The type of mouse event. If this value is <see cref="MouseEventFlags.None"/>, it indicates a mouse button being pressed or released.
+            /// The type of mouse event. If this value is <see cref="MouseEvents.None"/>, it indicates a mouse button being pressed or released.
             /// </summary>
-            public MouseEventFlags dwEventFlags;
+            public MouseEvents dwEventFlags;
         }
     }
 }

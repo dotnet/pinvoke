@@ -6,7 +6,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="CHAR_INFO_ENCODING"/> nested type.
+    /// Contains the <see cref="CHAR_INFO"/> nested type.
     /// </content>
     public partial class Kernel32
     {
@@ -23,9 +23,9 @@ namespace PInvoke
             public CHAR_INFO_ENCODING Char;
 
             /// <summary>
-            /// The character attributes. This member can be zero or any combination of the <see cref="CharacterAttributesFlag"/> values
+            /// The character attributes. This member can be zero or any combination of the <see cref="CharacterAttributesFlags"/> values
             /// </summary>
-            public CharacterAttributesFlag Attributes;
+            public CharacterAttributesFlags Attributes;
         }
     }
 }

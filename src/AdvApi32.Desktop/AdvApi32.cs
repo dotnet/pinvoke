@@ -47,7 +47,7 @@ namespace PInvoke
         /// <param name="dwControl">The control code.</param>
         /// <remarks>
         /// <para>
-        /// This function has been superseded by the HandlerEx control handler function used with the <see cref="RegisterServiceCtrlHandlerEx"/> function.
+        /// This function has been superseded by the HandlerEx control handler function used with the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
         /// A service can use either control handler, but the new control handler supports user-defined context data and additional extended control codes.
         /// </para>
         /// <para>
@@ -59,13 +59,13 @@ namespace PInvoke
         public delegate void LPHANDLER_FUNCTION(ServiceControl dwControl);
 
         /// <summary>
-        /// An application-defined callback function used with the <see cref="RegisterServiceCtrlHandlerEx"/> function.
+        /// An application-defined callback function used with the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
         /// A service program can use it as the control handler function of a particular service.
         /// </summary>
         /// <param name="dwControl">The control code.</param>
         /// <param name="dwEventType">The type of event that has occurred. It should be a Window Message code.</param>
         /// <param name="lpEventData">Additional device information, if required. The format of this data depends on the value of the <paramref name="dwControl"/> and <paramref name="dwEventType"/> parameters.</param>
-        /// <param name="lpContext">User-defined data passed from <see cref="RegisterServiceCtrlHandlerEx"/>. When multiple services share a process, the lpContext parameter can help identify the service.</param>
+        /// <param name="lpContext">User-defined data passed from <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/>. When multiple services share a process, the lpContext parameter can help identify the service.</param>
         /// <returns>
         /// The return value for this function depends on the control code received:
         /// <list>
@@ -950,7 +950,7 @@ namespace PInvoke
         /// <param name="lpHandlerProc">A reference to the handler function to be registered.</param>
         /// <returns>If the function succeeds, the return value is a service status handle If the function fails, the return value is zero. </returns>
         /// <remarks>
-        /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx"/> function.
+        /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
         /// A service can use either function, but the new function supports user-defined context data, and the new handler function supports additional extended control codes.
         /// </remarks>
         [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode)]
@@ -969,11 +969,14 @@ namespace PInvoke
         /// <param name="lpContext">Any user-defined data. This parameter, which is passed to the handler function, can help identify the service when multiple services share a process.</param>
         /// <returns>If the function succeeds, the return value is a service status handle If the function fails, the return value is zero. </returns>
         /// <remarks>
-        /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx"/> function.
+        /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
         /// A service can use either function, but the new function supports user-defined context data, and the new handler function supports additional extended control codes.
         /// </remarks>
         [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode)]
-        public static extern System.IntPtr RegisterServiceCtrlHandlerEx(string lpServiceName, LPHANDLER_FUNCTION_EX lpHandlerProc, IntPtr lpContext);
+        public static unsafe extern IntPtr RegisterServiceCtrlHandlerEx(
+            string lpServiceName,
+            LPHANDLER_FUNCTION_EX lpHandlerProc,
+            void* lpContext);
 
         /// <summary>
         /// The GetSecurityInfo function retrieves a copy of the security descriptor for an object specified by a handle.
@@ -995,8 +998,8 @@ namespace PInvoke
             IntPtr handle,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            void* ppsidOwner,
-            void* ppsidGroup,
+            ref void* ppsidOwner,
+            ref void* ppsidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
@@ -1021,8 +1024,8 @@ namespace PInvoke
             string pObjectName,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            void* ppsidOwner,
-            void* ppsidGroup,
+            ref void* ppsidOwner,
+            ref void* ppsidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
@@ -1072,7 +1075,7 @@ namespace PInvoke
 
         /// <summary>
         /// The ConvertSidToStringSid function converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
-        /// To convert the string-format SID back to a valid, functional SID, call the <see cref="ConvertStringSidToSid"/> function.
+        /// To convert the string-format SID back to a valid, functional SID, call the <see cref="ConvertStringSidToSid(string, ref void*)"/> function.
         /// </summary>
         /// <param name="sid">A pointer to the SID structure to be converted.</param>
         /// <param name="sidString">A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the <see cref="LocalFree(void*)"/> function.</param>
@@ -1082,18 +1085,18 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         private static unsafe extern bool ConvertSidToStringSid(
             IntPtr sid,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* sidString);
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] ref char* sidString);
 
         /// <summary>
         /// The ConvertStringSidToSid function converts a string-format security identifier (SID) into a valid, functional SID.
-        /// You can use this function to retrieve a SID that the <see cref="ConvertSidToStringSid(IntPtr, char*)"/> function converted to string format.
+        /// You can use this function to retrieve a SID that the <see cref="ConvertSidToStringSid(IntPtr, ref char*)"/> function converted to string format.
         /// </summary>
         /// <param name="StringSid">The string-format SID to convert. The SID string can use either the standard S-R-I-S-S… format for SID strings, or the SID string constant format, such as "BA" for built-in administrators.</param>
         /// <param name="sid">A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the <see cref="LocalFree(void*)"/> function.</param>
         /// <returns>If the function succeeds, the return value is true, otherwise the return value is false.</returns>
         [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool ConvertStringSidToSid(string StringSid, IntPtr sid);
+        private static unsafe extern bool ConvertStringSidToSid(string StringSid, ref void* sid);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.

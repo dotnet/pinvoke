@@ -7,11 +7,11 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="StockObjects"/> nested type.
+    /// Contains the <see cref="StockObject"/> nested type.
     /// </content>
     public static partial class Gdi32
     {
-        public enum StockObjects
+        public enum StockObject
         {
             WHITE_BRUSH = 0,
             LTGRAY_BRUSH = 1,

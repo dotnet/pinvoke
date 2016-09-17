@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="MouseEventFlags"/> nested type.
+    /// Contains the <see cref="MouseEvents"/> nested type.
     /// </content>
     public partial class Kernel32
     {
@@ -14,7 +14,7 @@ namespace PInvoke
         /// Describes the type of the mouse event.
         /// </summary>
         [Flags]
-        public enum MouseEventFlags
+        public enum MouseEvents
         {
             /// <summary>
             /// If this is the value, it indicates a mouse button being pressed or released. Otherwise, it takes one of the other values.

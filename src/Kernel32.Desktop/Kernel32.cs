@@ -84,7 +84,7 @@ namespace PInvoke
         /// Because the system creates a new thread in the process to execute the handler function,
         /// it is possible that the handler function will be terminated by another thread in the process.
         /// Be sure to synchronize threads in the process with the thread for the handler function.
-        /// Each console process has its own list of <see cref="PHANDLER_ROUTINE"/> callbacks.
+        /// Each console process has its own list of <see cref="HandlerRoutine"/> callbacks.
         /// Initially, this list contains only a default handler function that calls <see cref="ExitProcess"/>.
         /// A console process adds or removes additional handler functions by calling the <see cref="SetConsoleCtrlHandler"/> function,
         /// which does not affect the list of handler functions for other processes. When a console process receives any of the control signals,
@@ -93,7 +93,7 @@ namespace PInvoke
         /// </para>
         /// <para>
         /// The <see cref="ControlType.CTRL_CLOSE_EVENT"/>, <see cref="ControlType.CTRL_LOGOFF_EVENT"/>, and <see cref="ControlType.CTRL_SHUTDOWN_EVENT"/> signals give the process
-        /// an opportunity to clean up before termination. A <see cref="PHANDLER_ROUTINE"/> can perform any necessary cleanup, then take one of the following actions:
+        /// an opportunity to clean up before termination. A <see cref="HandlerRoutine"/> can perform any necessary cleanup, then take one of the following actions:
         /// </para>
         /// <list>
         /// <item>Call the <see cref="ExitProcess"/> function to terminate the process.</item>
@@ -102,7 +102,7 @@ namespace PInvoke
         /// </list>
         /// <para>
         /// A process can use the <see cref="SetProcessShutdownParameters"/> function to prevent the system from displaying a dialog box to the user during logoff or shutdown.
-        /// In this case, the system terminates the process when <see cref="PHANDLER_ROUTINE"/> returns TRUE or when the time-out period elapses.
+        /// In this case, the system terminates the process when <see cref="HandlerRoutine"/> returns TRUE or when the time-out period elapses.
         /// When a console application is run as a service, it receives a modified default console control handler.
         /// This modified handler does not call <see cref="ExitProcess"/> when processing the <see cref="ControlType.CTRL_LOGOFF_EVENT"/> and <see cref="ControlType.CTRL_SHUTDOWN_EVENT"/> signals.
         /// This allows the service to continue running after the user logs off.
@@ -116,7 +116,7 @@ namespace PInvoke
         /// </remarks>
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public unsafe delegate bool PHANDLER_ROUTINE(ControlType dwCtrlType);
+        public unsafe delegate bool HandlerRoutine(ControlType dwCtrlType);
 
         /// <summary>
         /// Generates simple tones on the speaker. The function is synchronous; it performs an alertable wait and does not return control to its caller until the sound finishes.
@@ -213,7 +213,7 @@ namespace PInvoke
         /// A process object is deleted when the last handle to the process is closed.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(nameof(Kernel32))]
         public static extern void ExitProcess(int uExitCode);
 
         /// <summary>
@@ -254,7 +254,7 @@ namespace PInvoke
         /// Otherwise, it is safe to call CreateThread and ExitThread from a thread in a DLL that links to the static CRT.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(nameof(Kernel32))]
         public static extern void ExitThread(int dwExitCode);
 
         /// <summary>
@@ -1482,6 +1482,27 @@ namespace PInvoke
             out int lpBytesRead,
             int nTimeOut);
 
+        /// <summary>Retrieves the client computer name for the specified named pipe.</summary>
+        /// <param name="Pipe">
+        ///     A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe
+        ///     function.
+        /// </param>
+        /// <param name="ClientComputerName">The computer name.</param>
+        /// <param name="ClientComputerNameLength">The size of the ClientComputerName buffer, in bytes.</param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetNamedPipeClientComputerName(
+            SafeObjectHandle Pipe,
+            StringBuilder ClientComputerName,
+            int ClientComputerNameLength);
+
         /// <summary>Disconnects the server end of a named pipe instance from a client process.</summary>
         /// <param name="hNamedPipe">
         ///     A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe
@@ -1559,6 +1580,66 @@ namespace PInvoke
         public static extern bool GetNamedPipeClientSessionId(
             SafeObjectHandle Pipe,
             out int ClientSessionId);
+
+        /// <summary>
+        ///     Retrieves information about a specified named pipe. The information returned can vary during the lifetime of
+        ///     an instance of the named pipe.
+        /// </summary>
+        /// <param name="hNamedPipe">
+        ///     A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ
+        ///     access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a
+        ///     write-only pipe.
+        ///     <para>This parameter can also be a handle to an anonymous pipe, as returned by the CreatePipe function.</para>
+        /// </param>
+        /// <param name="lpState">
+        ///     A pointer to a variable that indicates the current state of the handle. Either or both of
+        ///     <see cref="PipeMode.PIPE_NOWAIT" /> and <see cref="PipeMode.PIPE_READMODE_MESSAGE" /> can be specified.
+        /// </param>
+        /// <param name="lpCurInstances">
+        ///     A pointer to a variable that receives the number of current pipe instances. This parameter
+        ///     can be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpMaxCollectionCount">
+        ///     A pointer to a variable that receives the maximum number of bytes to be collected on
+        ///     the client's computer before transmission to the server. This parameter must be NULL if the specified pipe handle
+        ///     is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can
+        ///     be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpCollectDataTimeout">
+        ///     A pointer to a variable that receives the maximum time, in milliseconds, that can
+        ///     pass before a remote named pipe transfers information over the network. This parameter must be NULL if the
+        ///     specified pipe handle is to the server end of a named pipe or if client and server processes are on the same
+        ///     computer. This parameter can be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpUserName">
+        ///     A pointer to a buffer that receives the user name string associated with the client application. The server can
+        ///     only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access.
+        ///     <para>
+        ///         This parameter must be NULL if the specified pipe handle is to the client end of a named pipe. This parameter
+        ///         can be NULL if this information is not required.
+        ///     </para>
+        /// </param>
+        /// <param name="nMaxUserNameSize">
+        ///     The size of the buffer specified by the lpUserName parameter, in chars. This parameter
+        ///     is ignored if lpUserName is NULL.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetNamedPipeHandleState(
+            SafeObjectHandle hNamedPipe,
+            out PipeMode lpState,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCurInstances,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpMaxCollectionCount,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCollectDataTimeout,
+            StringBuilder lpUserName,
+            int nMaxUserNameSize);
 
         /// <summary>
         ///     Retrieves information about a specified named pipe. The information returned can vary during the lifetime of
@@ -1995,7 +2076,7 @@ namespace PInvoke
         /// <summary>
         /// Locks a global memory object and returns a pointer to the first byte of the object's memory block.
         /// </summary>
-        /// <param name="hMem">A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, int, GlobalReAllocFlags)"/> function.</param>
+        /// <param name="hMem">A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, IntPtr, GlobalReAllocFlags)"/> function.</param>
         /// <returns>
         /// If the function succeeds, the return value is a pointer to the first byte of the memory block.
         ///  If the function fails, the return value is <see cref="IntPtr.Zero"/>. To get extended error information, call <see cref="GetLastError"/>.
@@ -2007,7 +2088,7 @@ namespace PInvoke
         /// Decrements the lock count associated with a memory object that was allocated with <see cref="GlobalAllocFlags.GMEM_MOVEABLE"/>.
         /// This function has no effect on memory objects allocated with <see cref="GlobalAllocFlags.GMEM_FIXED"/>.
         /// </summary>
-        /// <param name="hMem">A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, int, GlobalReAllocFlags)"/> function.</param>
+        /// <param name="hMem">A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, IntPtr, GlobalReAllocFlags)"/> function.</param>
         /// <returns>
         /// If the memory object is still locked after decrementing the lock count, the return value is true.
         /// If the memory object is unlocked after decrementing the lock count, the function returns false and <see cref="GetLastError"/> returns <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
@@ -2053,7 +2134,7 @@ namespace PInvoke
         /// </param>
         /// <param name="hMem">
         /// A pointer to the block of memory that the function reallocates.
-        /// This pointer is returned by an earlier call to the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, int)"/> function.
+        /// This pointer is returned by an earlier call to the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, IntPtr)"/> function.
         /// </param>
         /// <param name="uBytes">
         /// The new size of the memory block, in bytes. A memory block's size can be increased or decreased by using this function.
@@ -2076,7 +2157,7 @@ namespace PInvoke
         public static extern unsafe void* HeapReAlloc(IntPtr hHeap, HeapReAllocFlags uFlags, void* hMem, IntPtr uBytes);
 
         /// <summary>
-        /// Frees a memory block allocated from a heap by the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, int)"/> function.
+        /// Frees a memory block allocated from a heap by the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, IntPtr)"/> function.
         /// </summary>
         /// <param name="hHeap">
         /// A handle to the heap whose memory block is to be freed. This handle is returned by either the HeapCreate or
@@ -2085,7 +2166,7 @@ namespace PInvoke
         /// <param name="dwFlags">The heap free options. Specifying the following value overrides the corresponding value specified in the flOptions parameter
         /// when the heap was created by using the HeapCreate function.</param>
         /// <param name="hMem">
-        /// A pointer to the memory block to be freed. This pointer is returned by the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, int)"/> function.
+        /// A pointer to the memory block to be freed. This pointer is returned by the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, IntPtr)"/> function.
         /// If this pointer is NULL, the behavior is undefined.
         /// </param>
         /// <returns>
@@ -2098,7 +2179,7 @@ namespace PInvoke
         /// <summary>
         /// Attempts to acquire the critical section object, or lock, that is associated with a specified heap.
         /// </summary>
-        /// <param name="hMem">A handle to the heap to be locked. This handle is returned by either the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, int)"/> function.</param>
+        /// <param name="hMem">A handle to the heap to be locked. This handle is returned by either the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, IntPtr)"/> function.</param>
         /// <returns>
         /// If the function succeeds, the return value is true. If the function fails, the return value is zero.
         /// To get extended error information, call <see cref="GetLastError"/>.
@@ -2564,7 +2645,7 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetConsoleCtrlHandler(PHANDLER_ROUTINE handlerRoutine, [MarshalAs(UnmanagedType.Bool)] bool add);
+        public static extern bool SetConsoleCtrlHandler(HandlerRoutine handlerRoutine, [MarshalAs(UnmanagedType.Bool)] bool add);
 
         /// <summary>
         /// Enables an application to inform the system that it is in use, thereby preventing the system from entering sleep or turning off the display while the application is running.

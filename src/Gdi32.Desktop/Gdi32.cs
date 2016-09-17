@@ -40,7 +40,7 @@ namespace PInvoke
             int nIndex);
 
         [DllImport(nameof(Gdi32))]
-        public static extern IntPtr GetStockObject(StockObjects fnObject);
+        public static extern IntPtr GetStockObject(StockObject fnObject);
 
         [DllImport(nameof(Gdi32))]
         [return: MarshalAs(UnmanagedType.Bool)]

@@ -30,7 +30,7 @@ namespace PInvoke
             /// The attributes of the characters written to a screen buffer by the WriteFile and WriteConsole functions,
             /// or echoed to a screen buffer by the ReadFile and ReadConsole functions.
             /// </summary>
-            public CharacterAttributesFlag wAttributes;
+            public CharacterAttributesFlags wAttributes;
 
             /// <summary>
             /// A <see cref="SMALL_RECT"/> structure that contains the console screen buffer coordinates of the upper-left and lower-right corners of the display window.

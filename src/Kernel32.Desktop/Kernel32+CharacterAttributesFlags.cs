@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="CharacterAttributesFlag"/> nested type.
+    /// Contains the <see cref="CharacterAttributesFlags"/> nested type.
     /// </content>
     public partial class Kernel32
     {
@@ -14,7 +14,7 @@ namespace PInvoke
         /// The character attributes for console input/output.
         /// </summary>
         [Flags]
-        public enum CharacterAttributesFlag
+        public enum CharacterAttributesFlags
         {
             None = 0,
 
@@ -27,6 +27,11 @@ namespace PInvoke
             /// Text color contains green.
             /// </summary>
             FOREGROUND_GREEN = 0x0002,
+
+            /// <summary>
+            /// Text color contains red.
+            /// </summary>
+            FOREGROUND_RED = 0x0004,
 
             /// <summary>
             /// Text color contains red.

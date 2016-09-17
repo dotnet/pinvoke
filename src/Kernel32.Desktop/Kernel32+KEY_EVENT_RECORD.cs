@@ -48,7 +48,7 @@ namespace PInvoke
             /// <summary>
             /// The state of the control keys.
             /// </summary>
-            public ControlKeyState dwControlKeyState;
+            public ControlKeyStates dwControlKeyState;
         }
     }
 }

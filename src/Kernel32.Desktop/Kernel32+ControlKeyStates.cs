@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="ControlKeyState"/> nested type.
+    /// Contains the <see cref="ControlKeyStates"/> nested type.
     /// </content>
     public partial class Kernel32
     {
@@ -14,7 +14,7 @@ namespace PInvoke
         /// Describes the state of the control keys.
         /// </summary>
         [Flags]
-        public enum ControlKeyState
+        public enum ControlKeyStates
         {
             /// <summary>
             /// The CAPS LOCK light is on.

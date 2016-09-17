@@ -58,7 +58,7 @@ namespace PInvoke
             public static MONITORINFOEX Create()
             {
                 var monitorIfo = default(MONITORINFOEX);
-                monitorIfo.cbSize = 40 + (2 * CCHDEVICENAME);
+                monitorIfo.cbSize = Marshal.SizeOf(typeof(MONITORINFOEX));
 
                 return monitorIfo;
             }

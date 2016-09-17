@@ -85,7 +85,7 @@ namespace PInvoke
 
             /// <summary>
             /// When specified with <see cref="DCX_INTERSECTUPDATE"/>, causes the DC to be completely validated.
-            /// Using this function with both <see cref="DCX_INTERSECTUPDATE"/> and <see cref="DCX_VALIDATE"/> is identical to using the <see cref="BeginPaint"/> function.
+            /// Using this function with both <see cref="DCX_INTERSECTUPDATE"/> and <see cref="DCX_VALIDATE"/> is identical to using the <see cref="BeginPaint(IntPtr, PAINTSTRUCT*)"/> function.
             /// </summary>
             /// <remarks>Reserved; do not use (it is documented on Windows CE GetDCEx function on MSDN).</remarks>
             DCX_VALIDATE = 0x00200000,

@@ -1114,7 +1114,11 @@ namespace PInvoke
         public static unsafe extern bool EnumDisplayMonitors(IntPtr hdc, RECT* lprcClip, MONITORENUMPROC lpfnEnum, void* dwData);
 
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool GetClassInfoEx(IntPtr hInstance, string lpClassName, ref WNDCLASSEX lpWndClass);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetClassInfoEx(
+            IntPtr hInstance,
+            string lpClassName,
+            ref WNDCLASSEX lpWndClass);
 
         [DllImport(nameof(User32), EntryPoint = "GetMonitorInfo", SetLastError = true)]
         public static extern unsafe bool GetMonitorInfo(
@@ -2568,7 +2572,7 @@ namespace PInvoke
         /// <param name="hWnd">
         /// A handle to the window with a device context that is to be retrieved. If this value is <see cref="IntPtr.Zero"/>, GetWindowDC retrieves the device context for the entire screen.
         /// If this parameter is <see cref="IntPtr.Zero"/>, GetWindowDC retrieves the device context for the primary display monitor.
-        /// To get the device context for other display monitors, use the <see cref="EnumDisplayMonitors"/> and CreateDC functions.</param>
+        /// To get the device context for other display monitors, use the <see cref="EnumDisplayMonitors(IntPtr, RECT*, MONITORENUMPROC, void*)"/> and CreateDC functions.</param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to a device context for the specified window.
         /// If the function fails, the return value is <see cref="IntPtr.Zero"/>, indicating an error or an invalid hWnd parameter.

@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="MouseButtonState"/> nested type.
+    /// Contains the <see cref="MouseButtonStates"/> nested type.
     /// </content>
     public partial class Kernel32
     {
@@ -14,7 +14,7 @@ namespace PInvoke
         /// Describes the state of the mouse buttons.
         /// </summary>
         [Flags]
-        public enum MouseButtonState
+        public enum MouseButtonStates
         {
             /// <summary>
             /// The leftmost mouse button.
