@@ -10,6 +10,7 @@ using static PInvoke.Kernel32;
 public partial class NTStatusExceptionFacts
 {
     [Fact]
+    [UseCulture("en-US")]
     public void NTStatusException_NativeErrorCode()
     {
         NTSTATUS error = NTSTATUS.Code.EPT_NT_INVALID_ENTRY;
@@ -18,6 +19,7 @@ public partial class NTStatusExceptionFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void NTStatusException_Error_Message()
     {
         NTSTATUS error = NTSTATUS.Code.EPT_NT_INVALID_ENTRY;
@@ -30,6 +32,7 @@ public partial class NTStatusExceptionFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void NTStatusException_Warning_Message()
     {
         NTSTATUS error = NTSTATUS.Code.STATUS_BUFFER_OVERFLOW;
@@ -42,6 +45,7 @@ public partial class NTStatusExceptionFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void NTStatusException_Informational_Message()
     {
         NTSTATUS error = NTSTATUS.Code.STATUS_WAKE_SYSTEM;
@@ -54,6 +58,7 @@ public partial class NTStatusExceptionFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void NTStatusException_Success_Message()
     {
         NTSTATUS error = NTSTATUS.Code.STATUS_PENDING;

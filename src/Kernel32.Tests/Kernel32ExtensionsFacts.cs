@@ -10,6 +10,7 @@ using Xunit;
 public partial class Kernel32ExtensionsFacts
 {
     [Fact]
+    [UseCulture("en-US")]
     public void GetMessage_NTStatus()
     {
         NTSTATUS error = NTSTATUS.Code.EPT_NT_INVALID_ENTRY;

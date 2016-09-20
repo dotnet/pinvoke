@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.Globalization;
     using static Kernel32;
     using static NCrypt;
 
@@ -39,11 +40,17 @@ namespace PInvoke
         /// <returns>The error message. Or <c>null</c> if no message could be found.</returns>
         public static unsafe string GetMessage(this SECURITY_STATUS error)
         {
+            int dwLanguageId = 0;
+
+#if DESKTOP
+            dwLanguageId = CultureInfo.CurrentCulture.LCID;
+#endif
+
             return FormatMessage(
                 FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM,
                 null,
                 (int)error,
-                0,
+                dwLanguageId,
                 null,
                 MaxAllowedBufferSize);
         }

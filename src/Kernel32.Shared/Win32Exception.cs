@@ -104,5 +104,27 @@ namespace PInvoke
 #else
         public Win32ErrorCode NativeErrorCode => this.nativeErrorCode;
 #endif
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="Win32Exception"/> class with localized message.
+        /// </summary>
+        /// <param name="error">The Win32 error code associated with this exception.</param>
+        /// <param name="localize">Indicates if the message should be localized to match the current thread CultureInfo</param>
+        /// <returns>The exception with localized message</returns>
+        public static Win32Exception Create(Win32ErrorCode error, bool localize)
+        {
+            Win32Exception result;
+
+            if (localize)
+            {
+                result = new Win32Exception(error, error.GetMessage() ?? $"Unknown error (0x{(int)error:x8})");
+            }
+            else
+            {
+                result = new Win32Exception(error);
+            }
+
+            return result;
+        }
     }
 }

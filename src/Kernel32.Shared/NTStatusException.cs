@@ -65,6 +65,32 @@ namespace PInvoke
         /// </summary>
         public NTSTATUS NativeErrorCode { get; }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="NTStatusException"/> class with localized message.
+        /// </summary>
+        /// <param name="statusCode">The status code identifying the error.</param>
+        /// <param name="localize">Indicates wether the message should be localized</param>
+        /// <returns>The localized NTStatusException</returns>
+        public static NTStatusException Create(NTSTATUS statusCode, bool localize)
+        {
+            NTStatusException result;
+
+            if (localize)
+            {
+#if DESKTOP
+                result = new NTStatusException(statusCode, $"{statusCode.GetMessage()} (NT_STATUS error: {statusCode.Value:G} (0x{statusCode.AsInt32:X8}))");
+#else
+                result = new NTStatusException(statusCode);
+#endif
+            }
+            else
+            {
+                result = new NTStatusException(statusCode);
+            }
+
+            return result;
+        }
+
 #if DESKTOP
         /// <inheritdoc />
         public override void GetObjectData(SerializationInfo info, StreamingContext context)

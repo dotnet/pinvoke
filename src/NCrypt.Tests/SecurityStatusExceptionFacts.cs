@@ -21,6 +21,7 @@ public class SecurityStatusExceptionFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void SecurityStatusException_Error_Message()
     {
         SECURITY_STATUS error = SECURITY_STATUS.NTE_BAD_DATA;
@@ -33,6 +34,7 @@ public class SecurityStatusExceptionFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void SecurityStatusException_Success_Message()
     {
         SECURITY_STATUS error = SECURITY_STATUS.ERROR_SUCCESS;

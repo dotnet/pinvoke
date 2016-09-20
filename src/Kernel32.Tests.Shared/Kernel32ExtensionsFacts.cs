@@ -7,16 +7,17 @@ using Xunit;
 public partial class Kernel32ExtensionsFacts
 {
     [Fact]
+    [UseCulture("en-US")]
     public void ThrowOnError_Win32ErrorCode()
     {
         Win32ErrorCode success = Win32ErrorCode.ERROR_SUCCESS;
         success.ThrowOnError();
         Win32ErrorCode failure = Win32ErrorCode.ERROR_FAIL_NOACTION_REBOOT;
-        Assert.Throws<Win32Exception>(() => failure.ThrowOnError());
+        Assert.Throws<Win32Exception>(() => failure.ThrowOnLocalizedError());
 
         try
         {
-            failure.ThrowOnError();
+            failure.ThrowOnLocalizedError();
             Assert.False(true, "Expected exception not thrown.");
         }
         catch (Win32Exception ex)
@@ -26,6 +27,7 @@ public partial class Kernel32ExtensionsFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void ThrowOnError_NTStatus()
     {
         NTSTATUS success = NTSTATUS.Code.STATUS_SUCCESS;
@@ -35,7 +37,7 @@ public partial class Kernel32ExtensionsFacts
 
         try
         {
-            failure.ThrowOnError();
+            failure.ThrowOnLocalizedError();
             Assert.False(true, "Expected exception not thrown.");
         }
         catch (NTStatusException ex)
@@ -49,6 +51,7 @@ public partial class Kernel32ExtensionsFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void GetMessage_Win32ErrorCode()
     {
         string message = Win32ErrorCode.ERROR_INVALID_LABEL.GetMessage();

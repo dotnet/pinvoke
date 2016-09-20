@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System.Globalization;
+    using System.Threading;
     using static PInvoke.Kernel32;
 
     /// <summary>
@@ -22,11 +24,17 @@ namespace PInvoke
         /// <returns>The error message. Or <c>null</c> if no message could be found.</returns>
         public static unsafe string GetMessage(this Win32ErrorCode error)
         {
+            int dwLanguageId = 0;
+
+#if DESKTOP
+            dwLanguageId = CultureInfo.CurrentCulture.LCID;
+#endif
+
             return FormatMessage(
                 FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM,
                 null,
                 (int)error,
-                0,
+                dwLanguageId,
                 null,
                 MaxAllowedBufferSize);
         }
@@ -53,6 +61,31 @@ namespace PInvoke
             if (status.Severity == NTSTATUS.SeverityCode.STATUS_SEVERITY_ERROR)
             {
                 throw new NTStatusException(status);
+            }
+        }
+
+        /// <summary>
+        /// Throws an exception with localized message when an error occurs.
+        /// </summary>
+        /// <param name="errorCode">The result of the P/Invoke call.</param>
+        /// <exception cref="Win32Exception">If <paramref name="errorCode"/> is not <see cref="Win32ErrorCode.ERROR_SUCCESS"/></exception>
+        public static void ThrowOnLocalizedError(this Win32ErrorCode errorCode)
+        {
+            if (errorCode != Win32ErrorCode.ERROR_SUCCESS)
+            {
+                throw Win32Exception.Create(errorCode, true);
+            }
+        }
+
+        /// <summary>
+        /// Throws an exception with localized message if a P/Invoke failed.
+        /// </summary>
+        /// <param name="status">The result of the P/Invoke call.</param>
+        public static void ThrowOnLocalizedError(this NTSTATUS status)
+        {
+            if (status.Severity == NTSTATUS.SeverityCode.STATUS_SEVERITY_ERROR)
+            {
+                throw NTStatusException.Create(status, true);
             }
         }
     }

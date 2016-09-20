@@ -3,6 +3,7 @@
 
 namespace PInvoke
 {
+    using System.Globalization;
     using static PInvoke.Kernel32;
 
     /// <content>
@@ -19,11 +20,16 @@ namespace PInvoke
         {
             using (var ntdll = LoadLibrary("ntdll.dll"))
             {
+                int dwLanguageId = 0;
+#if DESKTOP
+                dwLanguageId = CultureInfo.CurrentCulture.LCID;
+#endif
+
                 string formattedMessage = FormatMessage(
                     FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE,
                     ntdll.DangerousGetHandle(),
                     (int)status,
-                    0,
+                    dwLanguageId,
                     null,
                     MaxAllowedBufferSize);
                 if (formattedMessage != null)
