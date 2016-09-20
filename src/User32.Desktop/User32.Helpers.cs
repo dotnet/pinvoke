@@ -232,7 +232,7 @@ namespace PInvoke
         /// </item>
         /// </list>
         /// </returns>
-        public static IntPtr CreateWindow(
+        public static unsafe IntPtr CreateWindow(
            string lpClassName,
            string lpWindowName,
            WindowStyles dwStyle,
@@ -243,7 +243,7 @@ namespace PInvoke
            IntPtr hWndParent,
            IntPtr hMenu,
            IntPtr hInstance,
-           IntPtr lpParam)
+           void* lpParam)
         {
             return CreateWindowEx(0, lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
         }

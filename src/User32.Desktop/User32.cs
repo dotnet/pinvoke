@@ -2398,7 +2398,7 @@ namespace PInvoke
         /// </list>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr CreateWindowEx(
+        public static unsafe extern IntPtr CreateWindowEx(
            WindowStylesEx dwExStyle,
            string lpClassName,
            string lpWindowName,
@@ -2410,7 +2410,7 @@ namespace PInvoke
            IntPtr hWndParent,
            IntPtr hMenu,
            IntPtr hInstance,
-           IntPtr lpParam);
+           void* lpParam);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr DispatchMessage(ref MSG lpmsg);

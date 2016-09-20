@@ -24,7 +24,7 @@ namespace PInvoke
         /// <summary>
         /// All processes start at this shutdown level
         /// </summary>
-        public const int DEFAULT_SHUTDOWN_LEVEL = 0x280;
+        public const int DefaultShutdownLevel = 0x280;
 
         /// <summary>The time-out interval is the default value specified by the server process in the
         ///     <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function.
