@@ -110,11 +110,18 @@ namespace PInvoke
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None))
                     .WithExpressionBody(null);
 
-                var flags = GeneratorFlags.NativePointerToIntPtr;
-                var intPtrOverload = transformedMethodBase
-                    .WithParameterList(TransformParameterList(method.ParameterList, flags, parametersToFriendlyTransform))
-                    .WithBody(CallNativePointerOverload(method, flags, parametersToFriendlyTransform));
-                generatedType = generatedType.AddMembers(intPtrOverload);
+                var preexistingMethod = from newMethod in generatedType.Members.OfType<MethodDeclarationSyntax>()
+                                        where WhereIsIntPtrParameter(method.ParameterList.Parameters, newMethod.ParameterList.Parameters).Any() && newMethod.Identifier.ValueText == transformedMethodBase.Identifier.ValueText
+                                        select method;
+
+                if (!preexistingMethod.Any())
+                {
+                    var flags = GeneratorFlags.NativePointerToIntPtr;
+                    var intPtrOverload = transformedMethodBase
+                        .WithParameterList(TransformParameterList(method.ParameterList, flags, parametersToFriendlyTransform))
+                        .WithBody(CallNativePointerOverload(method, flags, parametersToFriendlyTransform));
+                    generatedType = generatedType.AddMembers(intPtrOverload);
+                }
 
                 if (parametersToFriendlyTransform.Count > 0)
                 {
@@ -174,6 +181,15 @@ namespace PInvoke
             var nativePointerType = typeSyntax as PointerTypeSyntax;
             var predefinedElementType = nativePointerType?.ElementType as PredefinedTypeSyntax;
             return predefinedElementType?.Keyword.IsKind(SyntaxKind.ByteKeyword) ?? false;
+        }
+
+        private static IEnumerable<ParameterSyntax> WhereIsIntPtrParameter(IEnumerable<ParameterSyntax> parameters, IEnumerable<ParameterSyntax> newParameters)
+        {
+            return from p in parameters
+                   join np in newParameters
+                   on p.Identifier.ValueText equals np.Identifier.ValueText
+                   where np.Type.IsEquivalentTo(IntPtrTypeSyntax) && p.Type is PointerTypeSyntax
+                   select p;
         }
 
         private static IEnumerable<ParameterSyntax> WhereIsPointerParameter(IEnumerable<ParameterSyntax> parameters)
