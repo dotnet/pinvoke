@@ -125,7 +125,8 @@ namespace PInvoke
 
                 if (parametersToFriendlyTransform.Count > 0)
                 {
-                    flags = GeneratorFlags.NativePointerToIntPtr | GeneratorFlags.NativePointerToFriendly;
+                    var flags = GeneratorFlags.NativePointerToIntPtr | GeneratorFlags.NativePointerToFriendly;
+
                     var byteArrayAndIntPtrOverload = transformedMethodBase
                         .WithParameterList(TransformParameterList(method.ParameterList, flags, parametersToFriendlyTransform))
                         .WithBody(CallNativePointerOverload(method, flags, parametersToFriendlyTransform));
