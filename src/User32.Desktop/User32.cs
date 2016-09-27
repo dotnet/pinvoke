@@ -156,10 +156,10 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MessageBeep(MessageBeepType uType);
 
-        [DllImport(nameof(User32))]
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
         public static extern int SetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
 
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int GetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
 
         /// <summary>
@@ -186,6 +186,19 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        /// <summary>
+        /// Retrieves the coordinates of a window's client area. The client coordinates specify the upper-left and lower-right corners of the client area. Because client coordinates are relative to the upper-left corner of a window's client area, the coordinates of the upper-left corner are (0,0).
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose client coordinates are to be retrieved.</param>
+        /// <param name="lpRect">A pointer to a RECT structure that receives the client coordinates. The left and top members are zero. The right and bottom members contain the width and height of the window.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -251,6 +264,13 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern IntPtr GetDesktopWindow();
 
+        /// <summary>
+        /// Retrieves a handle to the Shell's desktop window.
+        /// </summary>
+        /// <returns>The return value is the handle of the Shell's desktop window. If no Shell process is present, the return value is NULL.</returns>
+        [DllImport(nameof(User32))]
+        public static extern IntPtr GetShellWindow();
+
         [DllImport(nameof(User32))]
         public static extern IntPtr GetForegroundWindow();
 
@@ -269,7 +289,7 @@ namespace PInvoke
         /// <param name="wParam">Additional message-specific information.</param>
         /// <param name="lParam">Additional message-specific information.</param>
         /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe IntPtr SendMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
 
         /// <summary>
@@ -289,7 +309,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError. GetLastError returns ERROR_NOT_ENOUGH_QUOTA when the limit is hit.
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool PostMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
 
@@ -1434,7 +1454,7 @@ namespace PInvoke
         ///         call <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int GetMessage(
             MSG* lpMsg,
             IntPtr hWnd,
@@ -1488,7 +1508,7 @@ namespace PInvoke
         ///     If a message is available, the return value is true.
         ///     <para>If no messages are available, the return value is false.</para>
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool PeekMessage(
             MSG* lpMsg,
@@ -1534,7 +1554,7 @@ namespace PInvoke
         ///         <see cref="Win32ErrorCode.ERROR_NOT_ENOUGH_QUOTA" /> when the message limit is hit.
         ///     </para>
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool PostThreadMessage(
             int idThread,

@@ -461,7 +461,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
         /// If the function fails, the return value is INVALID_HANDLE_VALUE.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_2_0, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe SafeObjectHandle CreateFile(
             string filename,
             ACCESS_MASK access,
@@ -997,7 +997,7 @@ namespace PInvoke
         /// However, if this handle is passed to the <see cref="FreeLibrary"/> function, the reference count of the mapped module will be decremented.
         /// Therefore, do not pass a handle returned by this function to the <see cref="FreeLibrary"/> function. Doing so can cause a DLL module to be unmapped prematurely.
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeLibraryHandle GetModuleHandle(string lpModuleName);
 
         /// <summary>
