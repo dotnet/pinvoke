@@ -79,6 +79,7 @@ SHCore.dll   |`PInvoke.SHCore`  | [![NuGet](https://buildstats.info/nuget/PInvok
 user32.dll   |`PInvoke.User32`  | [![NuGet](https://buildstats.info/nuget/PInvoke.User32)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
 userenv.dll  |`PInvoke.Userenv` | [![NuGet](https://buildstats.info/nuget/PInvoke.Userenv)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
 uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://buildstats.info/nuget/PInvoke.UxTheme)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
+Wtsapi32.dll |`PInvoke.Wtsapi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.Wtsapi32)](https://www.nuget.org/packages/PInvoke.Wtsapi32)|[Windows Remote Desktop Services][Wtsapi32]
 
 Check out the [P/Invoke coverage](coverage.md) we have for each library.
 
@@ -99,6 +100,7 @@ public release of the library.
 [UxTheme]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773187.aspx
 [NetApi32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa370680.aspx
 [Shell32]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773177.aspx
+[Wtsapi32]: https://msdn.microsoft.com/en-us/library/aa383468(v=vs.85).aspx
 
 [pull-requests-img]: http://www.issuestats.com/github/aarnott/pinvoke/badge/pr
 [pull-requests-url]: http://www.issuestats.com/github/aarnott/pinvoke

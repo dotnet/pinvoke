@@ -256,12 +256,25 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Windows.ShellScalingApi.Sha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.ShellScalingApi", "Windows.ShellScalingApi\Windows.ShellScalingApi.csproj", "{A8669E42-8247-448D-80A8-5575ED7C63E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WtsApi32", "WtsApi32\WtsApi32.csproj", "{CC5AF931-DF34-49B6-A04E-BA6A03015799}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WtsApi32.Profile111", "WtsApi32.Profile111\WtsApi32.Profile111.csproj", "{9C99EBD5-E6CB-442B-9560-B723BF86279B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WtsApi32.Desktop", "WtsApi32.Desktop\WtsApi32.Desktop.csproj", "{BF4E3E19-7145-4D41-8906-084216599537}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WtsApi32.Shared", "WtsApi32.Shared\WtsApi32.Shared.shproj", "{07750CCA-0B69-47D6-ACEE-3AC429534235}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WtsApi32.Tests", "WtsApi32.Tests\WtsApi32.Tests.csproj", "{851B8946-8DE1-41F5-A857-BA9428B494DC}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "WtsApi32.NuGet", "WtsApi32.NuGet\WtsApi32.NuGet.nuproj", "{CBD3FAFA-7661-4446-AFF4-F090A6A50EB0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Msi.Shared\Msi.Shared.projitems*{01174e89-de65-47dc-bf53-4e2cf34ad843}*SharedItemsImports = 4
 		Windows.ShellScalingApi.Shared\Windows.ShellScalingApi.Shared.projitems*{0500e681-818f-4366-b2a5-0bb73d7864c6}*SharedItemsImports = 4
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{05fba24a-b0f6-4b04-b00f-9aa5acd191a9}*SharedItemsImports = 4
 		Windows.ShellScalingApi.Shared\Windows.ShellScalingApi.Shared.projitems*{076ae6a9-d318-47c7-a1e6-9f8022eec7e2}*SharedItemsImports = 13
+		WtsApi32.Shared\WtsApi32.Shared.projitems*{07750cca-0b69-47d6-acee-3ac429534235}*SharedItemsImports = 13
 		NCrypt.Shared\NCrypt.Shared.projitems*{093be65b-820a-470c-9a47-82592400059f}*SharedItemsImports = 4
 		Windows.Core.Shared\Windows.Core.Shared.projitems*{1386982c-4731-46cd-9444-18e891aecde0}*SharedItemsImports = 4
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{1387e009-7086-4572-ac8d-ce4242adec77}*SharedItemsImports = 4
@@ -293,13 +306,16 @@ Global
 		CodeGenerationAttributes.Shared\CodeGenerationAttributes.Shared.projitems*{8e4f09c1-d236-4273-a6ea-f50a5cf0af62}*SharedItemsImports = 13
 		SHCore.Shared\SHCore.Shared.projitems*{9c08e127-1b44-4738-9c6c-89244a3a6b53}*SharedItemsImports = 4
 		NetApi32.Shared\NetApi32.Shared.projitems*{9c5ae8e9-330a-47d9-84d8-9883880ebe9e}*SharedItemsImports = 4
+		WtsApi32.Shared\WtsApi32.Shared.projitems*{9c99ebd5-e6cb-442b-9560-b723bf86279b}*SharedItemsImports = 4
 		BCrypt.Shared\BCrypt.Shared.projitems*{9ce056e3-5d53-4092-97cc-78826a4d1c14}*SharedItemsImports = 4
 		DbgHelp.Shared\DbgHelp.Shared.projitems*{9e993e23-3da3-4824-afd1-d8c9db1d9c8a}*SharedItemsImports = 13
 		Windows.ShellScalingApi.Shared\Windows.ShellScalingApi.Shared.projitems*{a8669e42-8247-448d-80a8-5575ed7c63e6}*SharedItemsImports = 4
 		NTDll.Shared\NTDll.Shared.projitems*{a8eafcaf-fcd3-4255-93fa-1a51ca9aa07c}*SharedItemsImports = 4
 		NCrypt.Shared\NCrypt.Shared.projitems*{a9b393ca-9f5f-41a7-832c-26b92091b2f7}*SharedItemsImports = 4
 		Windows.Core.Shared\Windows.Core.Shared.projitems*{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}*SharedItemsImports = 4
+		WtsApi32.Shared\WtsApi32.Shared.projitems*{bf4e3e19-7145-4d41-8906-084216599537}*SharedItemsImports = 4
 		DbgHelp.Shared\DbgHelp.Shared.projitems*{c09e62b0-d478-4f06-82c0-aba2bb674ac6}*SharedItemsImports = 4
+		WtsApi32.Shared\WtsApi32.Shared.projitems*{cc5af931-df34-49b6-a04e-ba6a03015799}*SharedItemsImports = 4
 		Shell32.Shared\Shell32.Shared.projitems*{cf88f30d-56e8-4df2-8a34-28488edba721}*SharedItemsImports = 4
 		Kernel32.Tests.Shared\Kernel32.Tests.Shared.projitems*{d7224f5b-1aee-4624-a71f-f0bb10c63555}*SharedItemsImports = 4
 		Crypt32.Shared\Crypt32.Shared.projitems*{d9909f94-912e-41f1-bb8c-ac846d53218a}*SharedItemsImports = 13
@@ -708,6 +724,26 @@ Global
 		{A8669E42-8247-448D-80A8-5575ED7C63E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8669E42-8247-448D-80A8-5575ED7C63E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8669E42-8247-448D-80A8-5575ED7C63E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5AF931-DF34-49B6-A04E-BA6A03015799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5AF931-DF34-49B6-A04E-BA6A03015799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5AF931-DF34-49B6-A04E-BA6A03015799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5AF931-DF34-49B6-A04E-BA6A03015799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C99EBD5-E6CB-442B-9560-B723BF86279B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C99EBD5-E6CB-442B-9560-B723BF86279B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C99EBD5-E6CB-442B-9560-B723BF86279B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C99EBD5-E6CB-442B-9560-B723BF86279B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF4E3E19-7145-4D41-8906-084216599537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF4E3E19-7145-4D41-8906-084216599537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF4E3E19-7145-4D41-8906-084216599537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF4E3E19-7145-4D41-8906-084216599537}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851B8946-8DE1-41F5-A857-BA9428B494DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851B8946-8DE1-41F5-A857-BA9428B494DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851B8946-8DE1-41F5-A857-BA9428B494DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851B8946-8DE1-41F5-A857-BA9428B494DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBD3FAFA-7661-4446-AFF4-F090A6A50EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD3FAFA-7661-4446-AFF4-F090A6A50EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD3FAFA-7661-4446-AFF4-F090A6A50EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD3FAFA-7661-4446-AFF4-F090A6A50EB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
