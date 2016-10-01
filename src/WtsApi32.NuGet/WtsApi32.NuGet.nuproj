@@ -34,8 +34,6 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WtsApi32\WtsApi32.csproj" />
-    <ProjectReference Include="..\WtsApi32.Profile111\WtsApi32.Profile111.csproj" />
     <ProjectReference Include="..\WtsApi32.Desktop\WtsApi32.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
   </ItemGroup>
