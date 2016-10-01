@@ -23,7 +23,7 @@ namespace PInvoke
         {
             public int SessionID;
 
-            [MarshalAs(UnmanagedType.LPStr)]
+            [MarshalAs(UnmanagedType.LPTStr)]
             public string pWinStationName;
 
             public WtsConnectStateClass State;
