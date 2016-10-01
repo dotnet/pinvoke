@@ -101,7 +101,7 @@ namespace PInvoke
         /// <param name="dwEventThread">Identifies the thread that generated the event, or the thread that owns the current window.</param>
         /// <param name="dwmsEventTime">Specifies the time, in milliseconds, that the event was generated.</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate void WinEventProcDelegate(
+        public delegate void WinEventProc(
             SafeEventHookHandle hWinEventHook,
             WindowsEventHookType @event,
             IntPtr hwnd,
@@ -486,7 +486,7 @@ namespace PInvoke
             WindowsEventHookType eventMin,
             WindowsEventHookType eventMax,
             IntPtr hmodWinEventProc,
-            WinEventProcDelegate lpfnWinEventProc,
+            WinEventProc lpfnWinEventProc,
             int idProcess,
             int idThread,
             WindowsEventHookFlags dwflags);
