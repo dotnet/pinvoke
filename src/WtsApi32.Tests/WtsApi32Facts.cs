@@ -20,8 +20,6 @@ public class WtsApi32Facts
     [Fact]
     public void CheckWorkingOfWtsSafeMemoryGuard()
     {
-        System.Diagnostics.Debugger.Break();
-
         WtsSafeSessionInfoGuard wtsSafeMemoryGuard = new WtsSafeSessionInfoGuard();
         int sessionCount = 0;
         Assert.True(WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref wtsSafeMemoryGuard, ref sessionCount));
