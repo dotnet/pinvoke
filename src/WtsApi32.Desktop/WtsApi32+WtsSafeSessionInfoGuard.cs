@@ -17,16 +17,16 @@ namespace PInvoke
     public static partial class WtsApi32
     {
         /// <summary>
-        /// Base guard for all memory allocated inside WtsApi32.
+        /// Guard for Session info retreived from <see cref="WTSEnumerateSessions(IntPtr, int, int, ref WtsSafeSessionInfoGuard, ref int)"/>
         /// </summary>
-        public partial class WtsSafeMemoryGuard : SafeHandle
+        public partial class WtsSafeSessionInfoGuard : WtsSafeMemoryGuard, IEnumerable<WTS_SESSION_INFO>
         {
-            public WtsSafeMemoryGuard()
-                : base(IntPtr.Zero, false)
+            public WtsSafeSessionInfoGuard()
+                : base()
             {
             }
 
-            public WtsSafeMemoryGuard(IntPtr invalidHandleValue, bool ownsHandle)
+            public WtsSafeSessionInfoGuard(IntPtr invalidHandleValue, bool ownsHandle)
                 : base(invalidHandleValue, ownsHandle)
             {
             }
@@ -39,10 +39,14 @@ namespace PInvoke
                 }
             }
 
-            protected override bool ReleaseHandle()
+            public IEnumerator<WTS_SESSION_INFO> GetEnumerator()
             {
-                WTSFreeMemory(this.handle);
-                return true;
+                return new WtsSafeMemoryGuardIterator<WTS_SESSION_INFO>(this.handle);
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return new WtsSafeMemoryGuardIterator<WTS_SESSION_INFO>(this.handle);
             }
         }
     }
