@@ -6,6 +6,7 @@ namespace PInvoke
     using static Kernel32;
     using System;
     using System.Runtime.InteropServices;
+    using System.Collections.Generic;
 
     /// <content>
     /// Exported functions from the WtsApi32.dll Windows library
@@ -13,6 +14,7 @@ namespace PInvoke
     /// </content>
     public static partial class WtsApi32
     {
+        public static IntPtr WTS_CURRENT_SERVER_HANDLE = IntPtr.Zero;
         /// <summary>
         /// Obtains the primary access token of the logged-on user specified by the session ID. To call this function successfully,
         /// the calling application must be running within the context of the LocalSystem account and have the SE_TCB_NAME privilege.
@@ -31,5 +33,55 @@ namespace PInvoke
         /// token of the user.</returns>
         [DllImport(nameof(WtsApi32), SetLastError = true)]
         public static extern bool WTSQueryUserToken(int SessionId, out SafeObjectHandle phToken);
+
+        /// <summary>
+        /// Frees memory allocated by a Remote Desktop Services function.
+        /// </summary>
+        /// <param name="pMemory">Pointer to the memory to free.</param>
+        [DllImport(nameof(WtsApi32))]
+        public static extern void WTSFreeMemory(IntPtr pMemory);
+
+        /// <summary>
+        /// Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server.
+        /// </summary>
+        /// <param name="hServer">A handle to the RD Session Host server.
+        /// You can use the <see cref="WTSOpenServer"/> or <see cref="WTSOpenServerEx"/> functions to retrieve a handle to a specific 
+        /// server, or <see cref="WTS_CURRENT_SERVER_HANDLE"/> to use the RD Session Host server that hosts your application.</param>
+        /// <param name="reserved">This parameter is reserved. It must be zero.</param>
+        /// <param name="version">The version of the enumeration request. This parameter must be 1.</param>
+        /// <param name="ppSessionInfo">A pointer to an array of <see cref="WTS_SESSION_INFO"/> structures that represent the retrieved 
+        /// sessions. To free the returned buffer, call the <see cref="WTSFreeMemory"/> function.</param>
+        /// <param name="pSessionInfoCount">A pointer to the number of WTS_SESSION_INFO structures returned in the ppSessionInfo parameter.</param>
+        /// <returns>Returns zero if this function fails. If this function succeeds, a nonzero value is returned.</returns>
+        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool WTSEnumerateSessions(
+            IntPtr hServer,
+            [MarshalAs(UnmanagedType.U4)] int reserved,
+            [MarshalAs(UnmanagedType.U4)] int version,
+            ref IntPtr ppSessionInfo,
+            [MarshalAs(UnmanagedType.U4)] ref int pSessionInfoCount
+            );
+
+        /// <summary>
+        /// Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server.
+        /// </summary>
+        /// <param name="hServer">A handle to the RD Session Host server.
+        /// You can use the <see cref="WTSOpenServer"/> or <see cref="WTSOpenServerEx"/> functions to retrieve a handle to a specific 
+        /// server, or <see cref="WTS_CURRENT_SERVER_HANDLE"/> to use the RD Session Host server that hosts your application.</param>
+        /// <param name="reserved">This parameter is reserved. It must be zero.</param>
+        /// <param name="version">The version of the enumeration request. This parameter must be 1.</param>
+        /// <param name="ppSessionInfo">A pointer to <see cref="IEnumerable&lt;WTS_SESSION_INFO&gt;"/> structures that represent the retrieved 
+        /// sessions. Note, that returned object doesn't know overall count of sessions, and always return true for MoveNext, use it in pair 
+        /// with pSessionInfoCount parameter</param>
+        /// <param name="pSessionInfoCount">A pointer to the number of WTS_SESSION_INFO structures returned in the ppSessionInfo parameter.</param>
+        /// <returns>Returns zero if this function fails. If this function succeeds, a nonzero value is returned.</returns>
+        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool WTSEnumerateSessions(
+            IntPtr hServer,
+            [MarshalAs(UnmanagedType.U4)] int reserved,
+            [MarshalAs(UnmanagedType.U4)] int version,
+            ref WtsSafeMemoryGuard<WTS_SESSION_INFO> ppSessionInfo,
+            [MarshalAs(UnmanagedType.U4)] ref int pSessionInfoCount
+            );
     }
 }
