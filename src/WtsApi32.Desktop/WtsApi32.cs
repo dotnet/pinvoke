@@ -82,5 +82,31 @@ namespace PInvoke
             [MarshalAs(UnmanagedType.U4)] int version,
             ref WtsSafeSessionInfoGuard ppSessionInfo,
             [MarshalAs(UnmanagedType.U4)] ref int pSessionInfoCount);
+
+        /// <summary>
+        /// Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server.
+        /// </summary>
+        /// <param name="pServerName">A string specifying the NetBIOS name of the RD Session Host server.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the specified server.
+        /// If the function fails, it returns a handle that is not valid.You can test the validity of the handle by using it
+        /// in another function call.</returns>
+        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern WtsSafeServerHandle WTSOpenServer(string pServerName);
+
+        /// <summary>
+        /// Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
+        /// </summary>
+        /// <param name="pServerName">A string that contains the NetBIOS name of the server.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the specified server.
+        /// If the function fails, it returns an invalid handle.You can test the validity of the handle by using it in another function call.</returns>
+        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern WtsSafeServerHandle WTSOpenServerEx(string pServerName);
+
+        /// <summary>
+        /// Closes an open handle to a Remote Desktop Session Host (RD Session Host) server.
+        /// </summary>
+        /// <param name="hServer">A handle to an RD Session Host server opened by a call to the <see cref="WTSOpenServer"/> or <see cref="WTSOpenServerEx"/> function.</param>
+        [DllImport(nameof(WtsApi32), SetLastError =true, CharSet = CharSet.Auto)]
+        private static extern void WTSCloseServer(IntPtr hServer);
     }
 }

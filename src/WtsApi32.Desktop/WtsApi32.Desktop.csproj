@@ -49,6 +49,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WtsApi32+WtsSafeServerHandle.cs" />
     <Compile Include="WtsApi32+WtsSafeSessionInfoGuard.cs" />
     <Compile Include="WtsApi32+WtsSafeMemoryGuardIterator.cs" />
     <Compile Include="WtsApi32+WtsSafeMemoryGuard.cs" />
