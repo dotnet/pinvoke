@@ -20,7 +20,7 @@ namespace PInvoke
             /// <summary>
             /// The system terminates the process without displaying a retry dialog box for the user.
             /// </summary>
-            SHUTDOWN_NORETRY = 1
+            SHUTDOWN_NORETRY = 1,
         }
     }
 }

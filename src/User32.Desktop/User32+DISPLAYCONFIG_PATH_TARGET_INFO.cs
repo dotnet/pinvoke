@@ -33,7 +33,18 @@ namespace PInvoke
             [MarshalAs(UnmanagedType.Bool)]
             public bool targetAvailable;
 
-            public uint statusFlags;
+            public DISPLAYCONFIG_PATH_TARGET_INFOFlags statusFlags;
+        }
+
+        [Flags]
+        public enum DISPLAYCONFIG_PATH_TARGET_INFOFlags
+        {
+            None = 0x0,
+            DISPLAYCONFIG_TARGET_IN_USE = 0x00000001,
+            DISPLAYCONFIG_TARGET_FORCIBLE = 0x00000002,
+            DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT = 0x00000004,
+            DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH = 0x00000008,
+            DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM = 0x00000010,
         }
     }
 }

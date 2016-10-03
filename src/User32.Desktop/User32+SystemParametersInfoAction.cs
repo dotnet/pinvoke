@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Used to inform the <see cref="SystemParametersInfo(SystemParametersInfoAction, uint, void*, SPIF)"/> function of the action to be executed
+        /// Used to inform the <see cref="SystemParametersInfo(SystemParametersInfoAction, uint, void*, SystemParametersInfoFlags)"/> function of the action to be executed
         /// </summary>
         public enum SystemParametersInfoAction : uint
         {

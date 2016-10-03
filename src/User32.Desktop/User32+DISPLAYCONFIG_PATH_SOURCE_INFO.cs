@@ -20,7 +20,18 @@ namespace PInvoke
 
             public DISPLAYCONFIG_MODE_GROUP_UNION modeGroup;
 
-            public uint statusFlags;
+            public DISPLAYCONFIG_PATH_SOURCE_INFOFlags statusFlags;
+        }
+
+        [Flags]
+        public enum DISPLAYCONFIG_PATH_SOURCE_INFOFlags
+        {
+            None = 0,
+
+            /// <summary>
+            /// This source is in use by at least one active path.
+            /// </summary>
+            DISPLAYCONFIG_SOURCE_IN_USE = 0x00000001,
         }
     }
 }

@@ -7,12 +7,12 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="SPIF"/> nested type.
+    /// Contains the <see cref="SystemParametersInfoFlags"/> nested type.
     /// </content>
     public partial class User32
     {
         [Flags]
-        public enum SPIF
+        public enum SystemParametersInfoFlags
         {
             None = 0x00,
 

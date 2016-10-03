@@ -256,9 +256,6 @@ namespace PInvoke
         public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
-
-        [DllImport(nameof(User32), SetLastError = true)]
         public static extern bool GetCursorPos(out POINT lpPoint);
 
         /// <summary>
@@ -884,20 +881,6 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, [MarshalAs(UnmanagedType.Bool)] bool bRevert);
 
-        /// <summary>
-        /// Retrieves a handle to the Shell's desktop window.
-        /// <para>
-        /// Go to https://msdn.microsoft.com/en-us/library/windows/desktop/ms633512%28v=vs.85%29.aspx
-        /// for more information
-        /// </para>
-        /// </summary>
-        /// <returns>
-        /// C++ ( Type: HWND ) <br/> The return value is the handle of the Shell's desktop window. If
-        /// no Shell process is present, the return value is NULL.
-        /// </returns>
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern IntPtr GetShellWindow();
-
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr LoadCursor(IntPtr hInstance, IntPtr lpCursorName);
 
@@ -1260,7 +1243,7 @@ namespace PInvoke
             SystemParametersInfoAction uiAction,
             uint uiParam,
             void* pvParam,
-            SPIF fWinIni);
+            SystemParametersInfoFlags fWinIni);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static unsafe extern int QueryDisplayConfig(

@@ -109,7 +109,7 @@ namespace PInvoke
             {
                 return new PROCESSENTRY32
                 {
-                    dwSize = Marshal.SizeOf(typeof(PROCESSENTRY32))
+                    dwSize = Marshal.SizeOf(typeof(PROCESSENTRY32)),
                 };
             }
         }

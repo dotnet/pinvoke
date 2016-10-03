@@ -11,6 +11,9 @@ namespace PInvoke
     /// </content>
     public static partial class Gdi32
     {
+        /// <summary>
+        /// Describes the values that may be returned from <see cref="GetDeviceCaps(User32.SafeDCHandle, DeviceCap)"/>.
+        /// </summary>
         public enum DeviceCap
         {
             /// <summary>

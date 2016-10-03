@@ -84,7 +84,7 @@
     <Compile Include="User32+SafeWindowStationHandle.cs" />
     <Compile Include="User32+SpecialWindowHandles.cs" />
     <Compile Include="User32+SystemParametersInfoAction.cs" />
-    <Compile Include="User32+SPIF.cs" />
+    <Compile Include="User32+SystemParametersInfoFlags.cs" />
     <Compile Include="User32+SysCommands.cs" />
     <Compile Include="User32+SystemMetric.cs" />
     <Compile Include="User32+TextFormats.cs" />

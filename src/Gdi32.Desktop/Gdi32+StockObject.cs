@@ -11,6 +11,9 @@ namespace PInvoke
     /// </content>
     public static partial class Gdi32
     {
+        /// <summary>
+        /// Describes the values that may be supplied to the <see cref="GetStockObject(StockObject)"/> method.
+        /// </summary>
         public enum StockObject
         {
             WHITE_BRUSH = 0,

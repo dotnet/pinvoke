@@ -17,28 +17,14 @@ namespace PInvoke
 
             public uint CloneGroupId
             {
-                get
-                {
-                    return this.bitvector & 0xFFFF;
-                }
-
-                set
-                {
-                    this.bitvector = value | this.bitvector;
-                }
+                get { return this.bitvector & 0xFFFF; }
+                set { this.bitvector = value | this.bitvector; }
             }
 
             public uint SourceModeInfoIdx
             {
-                get
-                {
-                    return (this.bitvector & 0xFFFF0000) / 0x10000;
-                }
-
-                set
-                {
-                    this.bitvector = (value * 0x10000) | this.bitvector;
-                }
+                get { return (this.bitvector & 0xFFFF0000) / 0x10000; }
+                set { this.bitvector = (value * 0x10000) | this.bitvector; }
             }
         }
     }

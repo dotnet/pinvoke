@@ -293,7 +293,7 @@ namespace PInvoke
         private static unsafe bool TryGetErrorMessage(FormatMessageFlags flags, void* source, int messageId, int languageId, StringBuilder sb, IntPtr[] arguments, out string errorMsg)
         {
             errorMsg = string.Empty;
-            var result = FormatMessage(
+            int result = FormatMessage(
                 flags | FormatMessageFlags.FORMAT_MESSAGE_ARGUMENT_ARRAY & ~FormatMessageFlags.FORMAT_MESSAGE_ALLOCATE_BUFFER,
                 source,
                 messageId,

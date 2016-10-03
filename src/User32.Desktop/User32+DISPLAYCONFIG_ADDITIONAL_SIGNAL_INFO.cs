@@ -18,41 +18,20 @@ namespace PInvoke
 
             public uint VideoStandard
             {
-                get
-                {
-                    return this.bitvector & 0xFFFF;
-                }
-
-                set
-                {
-                    this.bitvector = value | this.bitvector;
-                }
+                get { return this.bitvector & 0xFFFF; }
+                set { this.bitvector = value | this.bitvector; }
             }
 
             public uint VSyncFreqDivider
             {
-                get
-                {
-                    return (this.bitvector & 0x3F0000) / 0x10000;
-                }
-
-                set
-                {
-                    this.bitvector = (value * 0x10000) | this.bitvector;
-                }
+                get { return (this.bitvector & 0x3F0000) / 0x10000; }
+                set { this.bitvector = (value * 0x10000) | this.bitvector; }
             }
 
             public uint Reserved
             {
-                get
-                {
-                    return (this.bitvector & 0xFFC00000) / 0x400000;
-                }
-
-                set
-                {
-                    this.bitvector = (value * 0x400000) | this.bitvector;
-                }
+                get { return (this.bitvector & 0xFFC00000) / 0x400000; }
+                set { this.bitvector = (value * 0x400000) | this.bitvector; }
             }
         }
     }

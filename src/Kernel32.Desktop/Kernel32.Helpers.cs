@@ -210,10 +210,15 @@ namespace PInvoke
                 fixed (char* buffer = new char[size])
                 {
                     bool success = QueryFullProcessImageName(hProcess, dwFlags, buffer, ref size);
-
                     if (success)
                     {
                         return new string(buffer, 0, size);
+                    }
+
+                    var lastError = GetLastError();
+                    if (lastError != Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
+                    {
+                        lastError.ThrowOnError();
                     }
                 }
 
