@@ -11,15 +11,25 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Explicit)]
         public struct DISPLAYCONFIG_PATH_SOURCE_INFO
         {
+            [FieldOffset(0)]
             public LUID adapterId;
 
+            [FieldOffset(8)]
             public uint id;
 
-            public DISPLAYCONFIG_MODE_GROUP_UNION modeGroup;
+            [FieldOffset(12)]
+            public uint modeInfoIdx;
 
+            [FieldOffset(12)]
+            public ushort cloneGroupId;
+
+            [FieldOffset(14)]
+            public ushort sourceModeInfoIdx;
+
+            [FieldOffset(16)]
             public DISPLAYCONFIG_PATH_SOURCE_INFOFlags statusFlags;
         }
 
