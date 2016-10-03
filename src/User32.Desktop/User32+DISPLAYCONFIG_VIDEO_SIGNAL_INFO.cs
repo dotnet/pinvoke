@@ -11,21 +11,31 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Explicit)]
         public struct DISPLAYCONFIG_VIDEO_SIGNAL_INFO
         {
+            [FieldOffset(0)]
             public ulong pixelRate;
 
+            [FieldOffset(8)]
             public DISPLAYCONFIG_RATIONAL hSyncFreq;
 
+            [FieldOffset(16)]
             public DISPLAYCONFIG_RATIONAL vSyncFreq;
 
+            [FieldOffset(24)]
             public DISPLAYCONFIG_2DREGION activeSize;
 
+            [FieldOffset(32)]
             public DISPLAYCONFIG_2DREGION totalSize;
 
-            public DISPLAYCONFIG_VIDEO_SIGNAL_INFO_UNION signalInfo;
+            [FieldOffset(40)]
+            public DISPLAYCONFIG_ADDITIONAL_SIGNAL_INFO AdditionalSignalInfo;
 
+            [FieldOffset(40)]
+            public uint videoStandard;
+
+            [FieldOffset(44)]
             public DISPLAYCONFIG_SCANLINE_ORDERING scanLineOrdering;
         }
     }

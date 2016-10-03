@@ -1,10 +1,15 @@
 ﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 
+#pragma warning disable SA1202 // Elements must be ordered by access
+#pragma warning disable SA1300 // Element must begin with upper-case letter
+#pragma warning disable SA1303 // Const field names must begin with upper-case letter
+
 namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using Validation;
 
     /// <content>
     /// Contains the <see cref="DISPLAYCONFIG_VIDEO_SIGNAL_INFO"/> nested type.
@@ -14,24 +19,24 @@ namespace PInvoke
         [StructLayout(LayoutKind.Sequential)]
         public struct DISPLAYCONFIG_ADDITIONAL_SIGNAL_INFO
         {
-            private uint bitvector;
+            private const int vSyncFreqDividerBitMask = 0x3f;
 
-            public uint VideoStandard
-            {
-                get { return this.bitvector & 0xFFFF; }
-                set { this.bitvector = value | this.bitvector; }
-            }
+            public ushort videoStandard;
 
-            public uint VSyncFreqDivider
-            {
-                get { return (this.bitvector & 0x3F0000) / 0x10000; }
-                set { this.bitvector = (value * 0x10000) | this.bitvector; }
-            }
+            private ushort split;
 
-            public uint Reserved
+            public int vSyncFreqDivider
             {
-                get { return (this.bitvector & 0xFFC00000) / 0x400000; }
-                set { this.bitvector = (value * 0x400000) | this.bitvector; }
+                get
+                {
+                    return this.split & vSyncFreqDividerBitMask;
+                }
+
+                set
+                {
+                    Requires.Range(value <= vSyncFreqDividerBitMask, nameof(value));
+                    this.split = (ushort)((this.split & ~vSyncFreqDividerBitMask) | value);
+                }
             }
         }
     }

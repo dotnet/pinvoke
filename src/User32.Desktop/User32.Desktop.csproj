@@ -42,7 +42,6 @@
     <Compile Include="User32+DISPLAYCONFIG_TOPOLOGY_ID.cs" />
     <Compile Include="User32+DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.cs" />
     <Compile Include="User32+DISPLAYCONFIG_VIDEO_SIGNAL_INFO.cs" />
-    <Compile Include="User32+DISPLAYCONFIG_VIDEO_SIGNAL_INFO_UNION.cs" />
     <Compile Include="User32+DISPLAYCONFIG__TARGET_MODE_INFO.cs" />
     <Compile Include="User32+DLGITEMTEMPLATE.cs" />
     <Compile Include="User32+DLGTEMPLATE.cs" />
