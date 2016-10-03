@@ -27,7 +27,6 @@
     <Compile Include="User32+DISPLAYCONFIG_2DREGION.cs" />
     <Compile Include="User32+DISPLAYCONFIG_ADDITIONAL_SIGNAL_INFO.cs" />
     <Compile Include="User32+DISPLAYCONFIG_DESKTOP_IMAGE_INFO.cs" />
-    <Compile Include="User32+DISPLAYCONFIG_INFO_UNION.cs" />
     <Compile Include="User32+DISPLAYCONFIG_MODE_INFO.cs" />
     <Compile Include="User32+DISPLAYCONFIG_MODE_INFO_TYPE.cs" />
     <Compile Include="User32+DISPLAYCONFIG_MOE_GROUP_UNION.cs" />

@@ -11,16 +11,26 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Explicit)]
         public struct DISPLAYCONFIG_MODE_INFO
         {
+            [FieldOffset(0)]
             public DISPLAYCONFIG_MODE_INFO_TYPE infoType;
 
+            [FieldOffset(4)]
             public uint id;
 
+            [FieldOffset(8)]
             public LUID adapterId;
 
-            public DISPLAYCONFIG_INFO_UNION modeInfo;
+            [FieldOffset(16)]
+            public DISPLAYCONFIG_TARGET_MODE targetMode;
+
+            [FieldOffset(16)]
+            public DISPLAYCONFIG_SOURCE_MODE sourceMode;
+
+            [FieldOffset(16)]
+            public DISPLAYCONFIG_DESKTOP_IMAGE_INFO desktopImageInfo;
         }
     }
 }
