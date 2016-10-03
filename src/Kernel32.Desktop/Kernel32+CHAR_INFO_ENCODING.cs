@@ -20,7 +20,7 @@ namespace PInvoke
             /// Unicode character of a screen buffer character cell.
             /// </summary>
             [FieldOffset(0)]
-            public ushort UnicodeChar;
+            public char UnicodeChar;
 
             /// <summary>
             /// ANSI character of a screen buffer character cell.
