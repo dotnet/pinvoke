@@ -11,6 +11,17 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
+        [Flags]
+        public enum DISPLAYCONFIG_PATH_SOURCE_INFOFlags
+        {
+            None = 0,
+
+            /// <summary>
+            /// This source is in use by at least one active path.
+            /// </summary>
+            DISPLAYCONFIG_SOURCE_IN_USE = 0x00000001,
+        }
+
         [StructLayout(LayoutKind.Explicit)]
         public struct DISPLAYCONFIG_PATH_SOURCE_INFO
         {
@@ -31,17 +42,6 @@ namespace PInvoke
 
             [FieldOffset(16)]
             public DISPLAYCONFIG_PATH_SOURCE_INFOFlags statusFlags;
-        }
-
-        [Flags]
-        public enum DISPLAYCONFIG_PATH_SOURCE_INFOFlags
-        {
-            None = 0,
-
-            /// <summary>
-            /// This source is in use by at least one active path.
-            /// </summary>
-            DISPLAYCONFIG_SOURCE_IN_USE = 0x00000001,
         }
     }
 }
