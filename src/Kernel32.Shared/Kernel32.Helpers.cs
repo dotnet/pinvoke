@@ -55,7 +55,7 @@ namespace PInvoke
         {
             string errorMsg;
 
-            StringBuilder sb = new StringBuilder(256);
+            var sb = new StringBuilder(256);
             do
             {
                 if (TryGetErrorMessage(dwFlags, lpSource, dwMessageId, dwLanguageId, sb, Arguments, out errorMsg))

@@ -239,7 +239,7 @@ namespace PInvoke
                         throw new Win32Exception();
                     }
 
-                    ServiceDescription descriptionStruct = new ServiceDescription
+                    var descriptionStruct = new ServiceDescription
                     {
                         lpDescription = lpDescription
                     };

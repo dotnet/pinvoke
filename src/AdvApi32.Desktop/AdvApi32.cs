@@ -41,6 +41,51 @@ namespace PInvoke
 #pragma warning restore SA1303 // Const field names must begin with upper-case letter
 
         /// <summary>
+        /// An application-defined callback function used with the <see cref="RegisterServiceCtrlHandler"/> function.
+        /// A service program can use it as the control handler function of a particular service.
+        /// </summary>
+        /// <param name="dwControl">The control code.</param>
+        /// <remarks>
+        /// <para>
+        /// This function has been superseded by the HandlerEx control handler function used with the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
+        /// A service can use either control handler, but the new control handler supports user-defined context data and additional extended control codes.
+        /// </para>
+        /// <para>
+        /// <paramref name="dwControl" /> with values in the 128 to 255 range is meant to be used by programmers.
+        /// This range is meant to hold user-defined control codes to send actions to the service.
+        /// </para>
+        /// </remarks>
+        [Obsolete("Use LPHANDLER_FUNCTION_EX with RegisterServiceCtrlHandlerEx instead")]
+        public delegate void LPHANDLER_FUNCTION(ServiceControl dwControl);
+
+        /// <summary>
+        /// An application-defined callback function used with the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
+        /// A service program can use it as the control handler function of a particular service.
+        /// </summary>
+        /// <param name="dwControl">The control code.</param>
+        /// <param name="dwEventType">The type of event that has occurred. It should be a Window Message code.</param>
+        /// <param name="lpEventData">Additional device information, if required. The format of this data depends on the value of the <paramref name="dwControl"/> and <paramref name="dwEventType"/> parameters.</param>
+        /// <param name="lpContext">User-defined data passed from <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/>. When multiple services share a process, the lpContext parameter can help identify the service.</param>
+        /// <returns>
+        /// The return value for this function depends on the control code received:
+        /// <list>
+        /// <item>In general, if your service does not handle the control, return ERROR_CALL_NOT_IMPLEMENTED. However, your service should return <see cref="Win32ErrorCode.ERROR_SUCCESS"/> for SERVICE_CONTROL_INTERROGATE even if your service does not handle it.</item>
+        /// <item>If your service handles SERVICE_CONTROL_STOP or SERVICE_CONTROL_SHUTDOWN, return <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.</item>
+        /// <item>If your service handles SERVICE_CONTROL_DEVICEEVENT, return <see cref="Win32ErrorCode.ERROR_SUCCESS"/> to grant the request and an error code to deny the request.</item>
+        /// <item>If your service handles SERVICE_CONTROL_HARDWAREPROFILECHANGE, return <see cref="Win32ErrorCode.ERROR_SUCCESS"/> to grant the request and an error code to deny the request.</item>
+        /// <item>If your service handles SERVICE_CONTROL_POWEREVENT, return <see cref="Win32ErrorCode.ERROR_SUCCESS"/> to grant the request and an error code to deny the request.</item>
+        /// <item>For all other control codes your service handles, return <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.</item>
+        /// </list>
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// <paramref name="dwControl" /> with values in the 128 to 255 range is meant to be used by programmers.
+        /// This range is meant to hold user-defined control codes to send actions to the service.
+        /// </para>
+        /// </remarks>
+        public delegate Win32ErrorCode LPHANDLER_FUNCTION_EX(ServiceControl dwControl, uint dwEventType, IntPtr lpEventData, IntPtr lpContext);
+
+        /// <summary>
         /// Changes the configuration parameters of a service.
         /// To change the optional configuration parameters, use the <see cref="ChangeServiceConfig2(SafeServiceHandle, ServiceInfoLevel, void*)"/> function.
         /// </summary>
@@ -266,7 +311,7 @@ namespace PInvoke
         /// A pointer to a <see cref="SERVICE_STATUS"/> structure that receives the latest service status information.
         /// The information returned reflects the most recent status that the service reported to the service control manager.
         /// The service control manager fills in the structure only when ControlService returns one of the following error codes:
-        /// NO_ERROR, <see cref="Win32ErrorCode.ERROR_INVALID_SERVICE_CONTROL"/>, ERROR_SERVICE_CANNOT_ACCEPT_CTRL, or <see cref="Win32ErrorCode.ERROR_SERVICE_NOT_ACTIVE"/>.
+        /// <see cref="Win32ErrorCode.ERROR_SUCCESS"/>, <see cref="Win32ErrorCode.ERROR_INVALID_SERVICE_CONTROL"/>, ERROR_SERVICE_CANNOT_ACCEPT_CTRL, or <see cref="Win32ErrorCode.ERROR_SERVICE_NOT_ACTIVE"/>.
         /// Otherwise, the structure is not filled in.
         /// </param>
         /// <returns>
@@ -894,6 +939,164 @@ namespace PInvoke
             void* lpBuffer,
             int cbBufSize,
             out int pcbBytesNeeded);
+
+        /// <summary>
+        /// Registers a function to handle service control requests.
+        /// </summary>
+        /// <param name="lpServiceName">
+        /// The name of the service run by the calling thread. This is the service name that the service control program specified in the CreateService function when creating the service.
+        /// If the service type is SERVICE_WIN32_OWN_PROCESS, the function does not verify that the specified name is valid, because there is only one registered service in the process.
+        /// </param>
+        /// <param name="lpHandlerProc">A reference to the handler function to be registered.</param>
+        /// <returns>If the function succeeds, the return value is a service status handle If the function fails, the return value is zero. </returns>
+        /// <remarks>
+        /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
+        /// A service can use either function, but the new function supports user-defined context data, and the new handler function supports additional extended control codes.
+        /// </remarks>
+        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode)]
+        [Obsolete("Use LPHANDLER_FUNCTION_EX with RegisterServiceCtrlHandlerEx instead")]
+#pragma warning disable CS0618 // Type or member is obsolete
+        public static extern IntPtr RegisterServiceCtrlHandler(string lpServiceName, LPHANDLER_FUNCTION lpHandlerProc);
+#pragma warning restore CS0618 // Type or member is obsolete
+
+        /// <summary>
+        /// Registers a function to handle extended service control requests.
+        /// </summary>
+        /// <param name="lpServiceName">
+        /// The name of the service run by the calling thread. This is the service name that the service control program specified in the CreateService function when creating the service.
+        /// </param>
+        /// <param name="lpHandlerProc">A reference to the handler function to be registered.</param>
+        /// <param name="lpContext">Any user-defined data. This parameter, which is passed to the handler function, can help identify the service when multiple services share a process.</param>
+        /// <returns>If the function succeeds, the return value is a service status handle If the function fails, the return value is zero. </returns>
+        /// <remarks>
+        /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
+        /// A service can use either function, but the new function supports user-defined context data, and the new handler function supports additional extended control codes.
+        /// </remarks>
+        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode)]
+        public static unsafe extern IntPtr RegisterServiceCtrlHandlerEx(
+            string lpServiceName,
+            LPHANDLER_FUNCTION_EX lpHandlerProc,
+            void* lpContext);
+
+        /// <summary>
+        /// The GetSecurityInfo function retrieves a copy of the security descriptor for an object specified by a handle.
+        /// </summary>
+        /// <param name="handle">A handle to the object from which to retrieve security information.</param>
+        /// <param name="ObjectType">SE_OBJECT_TYPE enumeration value that indicates the type of object.</param>
+        /// <param name="SecurityInfo">A set of bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the <see cref="SECURITY_INFORMATION"/> bit flags.</param>
+        /// <param name="ppsidOwner">A pointer to a variable that receives a pointer to the owner SID in the security descriptor returned in ppSecurityDescriptor or NULL if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be NULL if you do not need the owner SID.</param>
+        /// <param name="ppsidGroup">A pointer to a variable that receives a pointer to the primary group SID in the returned security descriptor or NULL if the security descriptor has no group SID. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. Also, this parameter can be NULL if you do not need the group SID.</param>
+        /// <param name="ppDacl">A pointer to a variable that receives a pointer to the DACL in the returned security descriptor or NULL if the security descriptor has no DACL. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. Also, this parameter can be NULL if you do not need the DACL.</param>
+        /// <param name="ppSacl">A pointer to a variable that receives a pointer to the SACL in the returned security descriptor or NULL if the security descriptor has no SACL. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. Also, this parameter can be NULL if you do not need the SACL.</param>
+        /// <param name="ppSecurityDescriptor">
+        /// A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer, free the returned buffer by calling the <see cref="LocalFree(void*)"/> function.
+        /// This parameter is required if any one of the <paramref name="ppsidOwner"/>, <paramref name="ppsidGroup"/>, <paramref name="ppDacl"/>, or <paramref name="ppSacl"/> parameters is not NULL.
+        /// </param>
+        /// <returns>If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS"/>, otherwise it return one of the default error codes.</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        public static unsafe extern uint GetSecurityInfo(
+            IntPtr handle,
+            SE_OBJECT_TYPE ObjectType,
+            SECURITY_INFORMATION SecurityInfo,
+            ref void* ppsidOwner,
+            ref void* ppsidGroup,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
+
+        /// <summary>
+        /// The GetNamedSecurityInfo function retrieves a copy of the security descriptor for an object specified by name.
+        /// </summary>
+        /// <param name="pObjectName">Specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see <see cref="SE_OBJECT_TYPE"/>.</param>
+        /// <param name="ObjectType">Specifies a value from the <see cref="SE_OBJECT_TYPE"/> enumeration that indicates the type of object named by the <paramref name="pObjectName"/> parameter.</param>
+        /// <param name="SecurityInfo">A set of bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the <see cref="SECURITY_INFORMATION"/> bit flags.</param>
+        /// <param name="ppsidOwner">A pointer to a variable that receives a pointer to the owner SID in the security descriptor returned in ppSecurityDescriptor or NULL if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be NULL if you do not need the owner SID.</param>
+        /// <param name="ppsidGroup">A pointer to a variable that receives a pointer to the primary group SID in the returned security descriptor or NULL if the security descriptor has no group SID. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. Also, this parameter can be NULL if you do not need the group SID.</param>
+        /// <param name="ppDacl">A pointer to a variable that receives a pointer to the DACL in the returned security descriptor or NULL if the security descriptor has no DACL. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. Also, this parameter can be NULL if you do not need the DACL.</param>
+        /// <param name="ppSacl">A pointer to a variable that receives a pointer to the SACL in the returned security descriptor or NULL if the security descriptor has no SACL. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. Also, this parameter can be NULL if you do not need the SACL.</param>
+        /// <param name="ppSecurityDescriptor">
+        /// A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer, free the returned buffer by calling the <see cref="LocalFree(void*)"/> function.
+        /// This parameter is required if any one of the <paramref name="ppsidOwner"/>, <paramref name="ppsidGroup"/>, <paramref name="ppDacl"/>, or <paramref name="ppSacl"/> parameters is not NULL.
+        /// </param>
+        /// <returns>If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS"/>, otherwise it return one of the default error codes.</returns>
+        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static unsafe extern Win32ErrorCode GetNamedSecurityInfo(
+            string pObjectName,
+            SE_OBJECT_TYPE ObjectType,
+            SECURITY_INFORMATION SecurityInfo,
+            ref void* ppsidOwner,
+            ref void* ppsidGroup,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
+
+        /// <summary>
+        /// The SetSecurityInfo function sets specified security information in the security descriptor of a specified object. The caller identifies the object by a handle.
+        /// To set the SACL of an object, the caller must have the SE_SECURITY_NAME privilege enabled.
+        /// </summary>
+        /// <param name="handle">A handle to the object for which to set security information.</param>
+        /// <param name="ObjectType">A member of the SE_OBJECT_TYPE enumeration that indicates the type of object identified by the handle parameter.</param>
+        /// <param name="SecurityInfo">A set of bit flags that indicate the type of security information to set. This parameter can be a combination of the <see cref="SECURITY_INFORMATION"/> bit flags.</param>
+        /// <param name="psidOwner">A pointer to a SID structure that identifies the owner of the object. If the caller does not have the SeRestorePrivilege constant (see Privilege Constants), this SID must be contained in the caller's token, and must have the SE_GROUP_OWNER permission enabled. The SecurityInfo parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner SID, this parameter can be NULL.</param>
+        /// <param name="psidGroup">A pointer to a SID that identifies the primary group of the object. The SecurityInfo parameter must include the GROUP_SECURITY_INFORMATION flag. If you are not setting the primary group SID, this parameter can be NULL.</param>
+        /// <param name="pDacl">A pointer to the new DACL for the object. The SecurityInfo parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have WRITE_DAC access to the object or be the owner of the object. If you are not setting the DACL, this parameter can be NULL.</param>
+        /// <param name="pSacl">A pointer to the new SACL for the object. The SecurityInfo parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION.</param>
+        /// <returns>If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS"/>, otherwise it return one of the default error codes.</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        public static unsafe extern uint SetSecurityInfo(
+            IntPtr handle,
+            SE_OBJECT_TYPE ObjectType,
+            SECURITY_INFORMATION SecurityInfo,
+            void* psidOwner,
+            void* psidGroup,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pDacl,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pSacl);
+
+        /// <summary>
+        /// The SetNamedSecurityInfo function sets specified security information in the security descriptor of a specified object. The caller identifies the object by name.
+        /// </summary>
+        /// <param name="pObjectName">Specifies the name of the object from which to set security information. For descriptions of the string formats for the different object types, see <see cref="SE_OBJECT_TYPE"/>.</param>
+        /// <param name="ObjectType">Specifies a value from the <see cref="SE_OBJECT_TYPE"/> enumeration that indicates the type of object named by the <paramref name="pObjectName"/> parameter.</param>
+        /// <param name="SecurityInfo">A set of bit flags that indicate the type of security information to set. This parameter can be a combination of the <see cref="SECURITY_INFORMATION"/> bit flags.</param>
+        /// <param name="psidOwner">A pointer to a SID structure that identifies the owner of the object. If the caller does not have the SeRestorePrivilege constant (see Privilege Constants), this SID must be contained in the caller's token, and must have the SE_GROUP_OWNER permission enabled. The SecurityInfo parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner SID, this parameter can be NULL.</param>
+        /// <param name="psidGroup">A pointer to a SID that identifies the primary group of the object. The SecurityInfo parameter must include the GROUP_SECURITY_INFORMATION flag. If you are not setting the primary group SID, this parameter can be NULL.</param>
+        /// <param name="pDacl">A pointer to the new DACL for the object. The SecurityInfo parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have WRITE_DAC access to the object or be the owner of the object. If you are not setting the DACL, this parameter can be NULL.</param>
+        /// <param name="pSacl">A pointer to the new SACL for the object. The SecurityInfo parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION.</param>
+        /// <returns>If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS"/>, otherwise it return one of the default error codes.</returns>
+        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static unsafe extern uint SetNamedSecurityInfo(
+            string pObjectName,
+            SE_OBJECT_TYPE ObjectType,
+            SECURITY_INFORMATION SecurityInfo,
+            void* psidOwner,
+            void* psidGroup,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pDacl,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pSacl);
+
+        /// <summary>
+        /// The ConvertSidToStringSid function converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
+        /// To convert the string-format SID back to a valid, functional SID, call the <see cref="ConvertStringSidToSid(string, ref void*)"/> function.
+        /// </summary>
+        /// <param name="sid">A pointer to the SID structure to be converted.</param>
+        /// <param name="sidString">A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the <see cref="LocalFree(void*)"/> function.</param>
+        /// <returns>If the function succeeds, the return value is true, otherwise the return value is false.</returns>
+        /// <remarks>The ConvertSidToStringSid function uses the standard S-R-I-S-S… format for SID strings.</remarks>
+        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static unsafe extern bool ConvertSidToStringSid(
+            IntPtr sid,
+            ref char* sidString);
+
+        /// <summary>
+        /// The ConvertStringSidToSid function converts a string-format security identifier (SID) into a valid, functional SID.
+        /// You can use this function to retrieve a SID that the <see cref="ConvertSidToStringSid(IntPtr, ref char*)"/> function converted to string format.
+        /// </summary>
+        /// <param name="StringSid">The string-format SID to convert. The SID string can use either the standard S-R-I-S-S… format for SID strings, or the SID string constant format, such as "BA" for built-in administrators.</param>
+        /// <param name="sid">A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the <see cref="LocalFree(void*)"/> function.</param>
+        /// <returns>If the function succeeds, the return value is true, otherwise the return value is false.</returns>
+        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static unsafe extern bool ConvertStringSidToSid(string StringSid, ref void* sid);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.

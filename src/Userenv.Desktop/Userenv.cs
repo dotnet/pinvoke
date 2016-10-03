@@ -15,7 +15,7 @@ namespace PInvoke
     public static partial class Userenv
     {
         /// <summary>
-        /// Retrieves the environment variables for the specified user. This block can then be passed to the <see cref="Kernel32.CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> function.
+        /// Retrieves the environment variables for the specified user. This block can then be passed to the <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> function.
         /// </summary>
         /// <param name="lpEnvironment">
         /// When this function returns, receives a pointer to the new environment block. The environment block is an array of null-terminated Unicode strings. The list ends with two nulls (\0\0).
@@ -32,7 +32,8 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// To free the buffer when you have finished with the environment block, call the DestroyEnvironmentBlock function.
-        /// If the environment block is passed to <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/>, you must also specify the CREATE_UNICODE_ENVIRONMENT flag. After CreateProcessAsUser has returned, the new process has a copy of the environment block, and <see cref="DestroyEnvironmentBlock(char*)"/> can be safely called.
+        /// If the environment block is passed to <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/>, you must also specify the CREATE_UNICODE_ENVIRONMENT flag.
+        /// After <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> has returned, the new process has a copy of the environment block, and <see cref="DestroyEnvironmentBlock(char*)"/> can be safely called.
         /// User-specific environment variables such as %USERPROFILE% are set only when the user's profile is loaded. To load a user's profile, call the LoadUserProfile function.
         /// </remarks>
         [DllImport(nameof(Userenv), SetLastError = true, CharSet = CharSet.Unicode)]

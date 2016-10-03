@@ -8,7 +8,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-    using static PInvoke.Kernel32.ACCESS_MASK.GenericRight;
+    using static Kernel32.ACCESS_MASK.GenericRight;
 
     /// <summary>
     /// Exported functions from the Kernel32.dll Windows library.
@@ -20,6 +20,11 @@ namespace PInvoke
         ///     limited only by the availability of system resources.
         /// </summary>
         public const int PIPE_UNLIMITED_INSTANCES = 255;
+
+        /// <summary>
+        /// All processes start at this shutdown level
+        /// </summary>
+        public const int DefaultShutdownLevel = 0x280;
 
         /// <summary>The time-out interval is the default value specified by the server process in the
         ///     <see cref="CreateNamedPipe(string, PipeAccessMode, PipeMode, int, int, int, int, SECURITY_ATTRIBUTES*)" /> function.
@@ -66,6 +71,52 @@ namespace PInvoke
         /// <returns>Returns TRUE to continue enumeration or FALSE to stop enumeration.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         public unsafe delegate bool EnumResNameProc(IntPtr hModule, char* lpszType, char* lpszName, IntPtr lParam);
+
+        /// <summary>
+        /// Callback function used with the <see cref="SetConsoleCtrlHandler"/> function.
+        /// A console process uses this function to handle control signals received by the process.
+        /// When the signal is received, the system creates a new thread in the process to execute the function.
+        /// </summary>
+        /// <param name="dwCtrlType">The type of control signal received by the handler. This parameter can be one of the following values.</param>
+        /// <returns>If the function handles the control signal, it should return TRUE. If it returns FALSE, the next handler function in the list of handlers for this process is used.</returns>
+        /// <remarks>
+        /// <para>
+        /// Because the system creates a new thread in the process to execute the handler function,
+        /// it is possible that the handler function will be terminated by another thread in the process.
+        /// Be sure to synchronize threads in the process with the thread for the handler function.
+        /// Each console process has its own list of <see cref="HandlerRoutine"/> callbacks.
+        /// Initially, this list contains only a default handler function that calls <see cref="ExitProcess"/>.
+        /// A console process adds or removes additional handler functions by calling the <see cref="SetConsoleCtrlHandler"/> function,
+        /// which does not affect the list of handler functions for other processes. When a console process receives any of the control signals,
+        /// its handler functions are called on a last-registered, first-called basis until one of the handlers returns TRUE.
+        /// If none of the handlers returns TRUE, the default handler is called.
+        /// </para>
+        /// <para>
+        /// The <see cref="ControlType.CTRL_CLOSE_EVENT"/>, <see cref="ControlType.CTRL_LOGOFF_EVENT"/>, and <see cref="ControlType.CTRL_SHUTDOWN_EVENT"/> signals give the process
+        /// an opportunity to clean up before termination. A <see cref="HandlerRoutine"/> can perform any necessary cleanup, then take one of the following actions:
+        /// </para>
+        /// <list>
+        /// <item>Call the <see cref="ExitProcess"/> function to terminate the process.</item>
+        /// <item>Return FALSE. If none of the registered handler functions returns TRUE, the default handler terminates the process.</item>
+        /// <item>Return TRUE. In this case, no other handler functions are called and the system terminates the process.</item>
+        /// </list>
+        /// <para>
+        /// A process can use the <see cref="SetProcessShutdownParameters"/> function to prevent the system from displaying a dialog box to the user during logoff or shutdown.
+        /// In this case, the system terminates the process when <see cref="HandlerRoutine"/> returns TRUE or when the time-out period elapses.
+        /// When a console application is run as a service, it receives a modified default console control handler.
+        /// This modified handler does not call <see cref="ExitProcess"/> when processing the <see cref="ControlType.CTRL_LOGOFF_EVENT"/> and <see cref="ControlType.CTRL_SHUTDOWN_EVENT"/> signals.
+        /// This allows the service to continue running after the user logs off.
+        /// If the service installs its own console control handler, this handler is called before the default handler.
+        /// If the installed handler calls <see cref="ExitProcess"/> when processing the <see cref="ControlType.CTRL_LOGOFF_EVENT"/> signal, the service exits when the user logs off.
+        /// </para>
+        /// <para>
+        /// Note that a third-party library or DLL can install a console control handler for your application.
+        /// If it does, this handler overrides the default handler, and can cause the application to exit when the user logs off.
+        /// </para>
+        /// </remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public unsafe delegate bool HandlerRoutine(ControlType dwCtrlType);
 
         /// <summary>
         ///     An application-defined callback function used with the EnumResourceLanguages and EnumResourceLanguagesEx
@@ -118,6 +169,219 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool Beep(int frequency, int duration);
+
+        /// <summary>
+        /// Terminates the specified process and all of its threads.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process to be terminated.
+        /// The handle must have the PROCESS_TERMINATE access right
+        /// </param>
+        /// <param name="uExitCode">
+        /// The exit code to be used by the process and threads terminated as a result of this call.
+        /// Use the <see cref="GetExitCodeProcess"/> function to retrieve a process's exit value.
+        /// Use the <see cref="GetExitCodeThread"/> function to retrieve a thread's exit value.
+        /// </param>
+        /// <returns>If the function succeeds, the return value is true, else the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// The TerminateProcess function is used to unconditionally cause a process to exit.
+        /// The state of global data maintained by dynamic-link libraries (DLLs) may be compromised if TerminateProcess is used rather than <see cref="ExitProcess"/>.
+        /// </para>
+        /// <para>
+        /// This function stops execution of all threads within the process and requests cancellation of all pending I/O.
+        /// The terminated process cannot exit until all pending I/O has been completed or canceled.When a process terminates,
+        /// its kernel object is not destroyed until all processes that have open handles to the process have released those handles.
+        /// TerminateProcess is asynchronous; it initiates termination and returns immediately.
+        /// If you need to be sure the process has terminated, call the <see cref="WaitForSingleObject"/> function with a handle to the process.
+        /// A process cannot prevent itself from being terminated.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TerminateProcess(IntPtr hProcess, int uExitCode);
+
+        /// <summary>
+        /// Terminates a thread.
+        /// </summary>
+        /// <param name="hThread">A handle to the thread to be terminated. The handle must have the THREAD_TERMINATE access right.</param>
+        /// <param name="dwExitCode">The exit code for the thread. Use the <see cref="GetExitCodeThread"/> function to retrieve a thread's exit value.</param>
+        /// <returns>If the function succeeds, the return value is true, else the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// TerminateThread is used to cause a thread to exit.
+        /// When this occurs, the target thread has no chance to execute any user-mode code.
+        /// DLLs attached to the thread are not notified that the thread is terminating.
+        /// The system frees the thread's initial stack.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TerminateThread(IntPtr hThread, int dwExitCode);
+
+        /// <summary>
+        /// Ends the calling process and all its threads.
+        /// </summary>
+        /// <param name="uExitCode">The exit code for the process and all threads.</param>
+        /// <remarks>
+        /// <para>
+        /// Use the <see cref="GetExitCodeProcess"/> function to retrieve the process's exit value. Use the <see cref="GetExitCodeThread"/> function to retrieve a thread's exit value.
+        /// Exiting a process causes the following:
+        /// </para>
+        /// <list>
+        /// <item>All of the threads in the process, except the calling thread, terminate their execution without receiving a DLL_THREAD_DETACH notification.</item>
+        /// <item>The states of all of the threads terminated in step 1 become signaled.</item>
+        /// <item>The entry-point functions of all loaded dynamic-link libraries (DLLs) are called with DLL_PROCESS_DETACH.</item>
+        /// <item>After all attached DLLs have executed any process termination code, the ExitProcess function terminates the current process, including the calling thread.</item>
+        /// <item>The state of the calling thread becomes signaled.</item>
+        /// <item>All of the object handles opened by the process are closed.</item>
+        /// <item>The termination status of the process changes from STILL_ACTIVE to the exit value of the process.</item>
+        /// <item>The state of the process object becomes signaled, satisfying any threads that had been waiting for the process to terminate.</item>
+        /// </list>
+        /// <para>
+        /// If one of the terminated threads in the process holds a lock and the DLL detach code in one of the loaded DLLs attempts to acquire the same lock,
+        /// then calling ExitProcess results in a deadlock. In contrast, if a process terminates by calling <see cref="TerminateProcess"/>,
+        /// the DLLs that the process is attached to are not notified of the process termination.
+        /// Therefore, if you do not know the state of all threads in your process, it is better to call <see cref="TerminateProcess"/> than <see cref="ExitProcess"/>.
+        /// Note that returning from the main function of an application results in a call to <see cref="ExitProcess"/>.
+        /// </para>
+        /// <para>
+        /// Calling ExitProcess in a DLL can lead to unexpected application or system errors.
+        /// Be sure to call <see cref="ExitProcess"/> from a DLL only if you know which applications or system components
+        /// will load the DLL and that it is safe to call <see cref="ExitProcess"/> in this context.
+        /// Exiting a process does not cause child processes to be terminated.
+        /// Exiting a process does not necessarily remove the process object from the operating system.
+        /// A process object is deleted when the last handle to the process is closed.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern void ExitProcess(int uExitCode);
+
+        /// <summary>
+        /// Ends the calling thread.
+        /// </summary>
+        /// <param name="dwExitCode">The exit code for the thread.</param>
+        /// <remarks>
+        /// <para>
+        /// ExitThread is the preferred method of exiting a thread in C code.
+        /// However, in C++ code, the thread is exited before any destructors can be called or any other automatic cleanup can be performed.
+        /// Therefore, in C++ code, you should return from your thread function.
+        /// When this function is called (either explicitly or by returning from a thread procedure), the current thread's stack is deallocated,
+        /// all pending I/O initiated by the thread is canceled, and the thread terminates.
+        /// The entry-point function of all attached dynamic-link libraries (DLLs) is invoked with a value indicating that the thread is detaching from the DLL.
+        /// If the thread is the last thread in the process when this function is called, the thread's process is also terminated.
+        /// The state of the thread object becomes signaled, releasing any other threads that had been waiting for the thread to terminate.
+        /// The thread's termination status changes from STILL_ACTIVE to the value of the dwExitCode parameter.
+        /// </para>
+        /// <para>
+        /// Terminating a thread does not necessarily remove the thread object from the operating system.
+        /// A thread object is deleted when the last handle to the thread is closed.
+        /// The <see cref="ExitProcess"/>, ExitThread, CreateThread"/>, CreateRemoteThread functions,
+        /// and a process that is starting (as the result of a CreateProcess call) are serialized between each other within a process.
+        /// Only one of these events can happen in an address space at a time.
+        /// This means the following restrictions hold:
+        /// </para>
+        /// <list>
+        /// <item>During process startup and DLL initialization routines, new threads can be created, but they do not begin execution until DLL initialization is done for the process.</item>
+        /// <item>Only one thread in a process can be in a DLL initialization or detach routine at a time.</item>
+        /// <item>ExitProcess does not return until no threads are in their DLL initialization or detach routines.</item>
+        /// </list>
+        /// <para>
+        /// A thread in an executable that is linked to the static C run-time library(CRT) should use _beginthread and _endthread for thread management
+        /// rather than CreateThread and ExitThread.
+        /// Failure to do so results in small memory leaks when the thread calls ExitThread.
+        /// Another work around is to link the executable to the CRT in a DLL instead of the static CRT.
+        /// Note that this memory leak only occurs from a DLL if the DLL is linked to the static CRT and a thread calls the DisableThreadLibraryCalls function.
+        /// Otherwise, it is safe to call CreateThread and ExitThread from a thread in a DLL that links to the static CRT.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern void ExitThread(int dwExitCode);
+
+        /// <summary>
+        /// Retrieves the termination status of the specified thread.
+        /// </summary>
+        /// <param name="hThread">
+        /// A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or THREAD_QUERY_LIMITED_INFORMATION access right.
+        /// Windows Server 2003 and Windows XP:  The handle must have the THREAD_QUERY_INFORMATION access right.
+        /// </param>
+        /// <param name="lpExitCode">A pointer to a variable to receive the thread termination status. For more information, see Remarks.</param>
+        /// <returns>If the function is succeeds, the return value is true, else the return value is zero.  To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// This function returns immediately. If the specified thread has not terminated and the function succeeds, the status returned is STILL_ACTIVE.
+        /// If the thread has terminated and the function succeeds, the status returned is one of the following values:
+        /// </para>
+        /// <list>
+        /// <item>The exit value specified in the <see cref="ExitThread"/> or <see cref="TerminateThread"/> function.</item>
+        /// <item>The return value from the thread function.</item>
+        /// <item>he exit value of the thread's process.</item>
+        /// </list>
+        /// <para>
+        /// Important: The GetExitCodeThread function returns a valid error code defined by the application only after the thread terminates.
+        /// Therefore, an application should not use STILL_ACTIVE (259) as an error code.
+        /// If a thread returns STILL_ACTIVE (259) as an error code, applications that test for this value could interpret it to mean that the thread is still running
+        /// and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetExitCodeThread(IntPtr hThread, out int lpExitCode);
+
+        /// <summary>
+        /// Retrieves the termination status of the specified process.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right.
+        /// Windows Server 2003 and Windows XP:  The handle must have the PROCESS_QUERY_INFORMATION access right.
+        /// </param>
+        /// <param name="lpExitCode">A pointer to a variable to receive the process termination status. For more information, see Remarks.</param>
+        /// <returns>If the function is succeeds, the return value is true, else the return value is zero.  To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// This function returns immediately.
+        /// If the process has not terminated and the function succeeds, the status returned is STILL_ACTIVE.
+        /// If the process has terminated and the function succeeds, the status returned is one of the following values:
+        /// </para>
+        /// <list>
+        /// <item>The exit value specified in the <see cref="ExitProcess"/> or <see cref="TerminateProcess"/> function.</item>
+        /// <item>The return value from the main or WinMain function of the process.</item>
+        /// <item>The exception value for an unhandled exception that caused the process to terminate.</item>
+        /// </list>
+        /// <para>
+        /// Important: The GetExitCodeProcess function returns a valid error code defined by the application only after the thread terminates.
+        /// Therefore, an application should not use STILL_ACTIVE (259) as an error code.
+        /// If a thread returns STILL_ACTIVE (259) as an error code, applications that test for this value could interpret it to mean that the thread is still running
+        /// and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetExitCodeProcess(IntPtr hProcess, out int lpExitCode);
+
+        /// <summary>
+        /// Sets shutdown parameters for the currently calling process. This function sets a shutdown order for a process relative to the other processes in the system.
+        /// </summary>
+        /// <param name="dwLevel">
+        /// The shutdown priority for a process relative to other processes in the system. The system shuts down processes from high dwLevel values to low.
+        /// The highest and lowest shutdown priorities are reserved for system components.
+        /// This parameter must be in the following range of values:
+        /// <list>
+        /// <item>0x000-0x0FF: System reserved last shutdown range.</item>
+        /// <item>100-1FF: Application reserved last shutdown range.</item>
+        /// <item>200-2FF: Application reserved "in between" shutdown range.</item>
+        /// <item>0x280: All processes start at this shutdown level.</item>         /// <item>300-3FF: Application reserved first shutdown range.</item>
+        /// <item>400-4FF: System reserved first shutdown range.</item>
+        /// </list>
+        /// </param>
+        /// <param name="dwFlags">Flag to indicate if a retry box should appear for the user when the process terminate.</param>
+        /// <returns>If the function is succeeds, the return value is true, else the return value is zero.  To get extended error information, call <see cref="GetLastError"/>.</returns>
+        /// <remarks>
+        /// Applications running in the system security context do not get shut down by the operating system.
+        /// They get notified of shutdown or logoff through the callback function installable via <see cref="SetConsoleCtrlHandler"/>.
+        /// They also get notified in the order specified by the dwLevel parameter.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProcessShutdownParameters(int dwLevel, ProcessShutdownFlags dwFlags);
 
         /// <summary>
         /// Creates a new process and its primary thread. The new process runs in the security context of the calling process.
@@ -564,7 +828,7 @@ namespace PInvoke
         /// <para>To destroy the snapshot, call <see cref="SafeHandle.Close" /> on the returned handle.</para>
         /// <para>
         /// Note that you can use the
-        /// <see cref="QueryFullProcessImageName(SafeObjectHandle,QueryFullProcessImageNameFlags,StringBuilder,ref int)" />
+        /// <see cref="QueryFullProcessImageName(SafeObjectHandle, QueryFullProcessImageNameFlags, char*, ref int)" />
         /// function to retrieve the full name of an executable image for both 32- and 64-bit processes from a 32-bit process.
         /// </para>
         /// </remarks>
@@ -667,7 +931,33 @@ namespace PInvoke
         /// </returns>
         /// <remarks>Minimum OS: Windows Vista / Windows Server 2008.</remarks>
         [DllImport(api_ms_win_core_psapi_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool QueryFullProcessImageName(
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool QueryFullProcessImageName(
+            SafeObjectHandle hProcess,
+            QueryFullProcessImageNameFlags dwFlags,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpExeName,
+            ref int lpdwSize);
+
+        /// <summary>Retrieves the full name of the executable image for the specified process.</summary>
+        /// <param name="hProcess">
+        /// A handle to the process. This handle must be created with the
+        /// <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION" /> or
+        /// <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION" /> access right.
+        /// </param>
+        /// <param name="dwFlags">One of the <see cref="QueryFullProcessImageNameFlags" /> values.</param>
+        /// <param name="lpExeName">The path to the executable image. If the function succeeds, this string is null-terminated.</param>
+        /// <param name="lpdwSize">
+        /// On input, specifies the size of the lpExeName buffer, in characters. On success, receives the
+        /// number of characters written to the buffer, not including the null-terminating character.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// <para>If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        /// <remarks>Minimum OS: Windows Vista / Windows Server 2008.</remarks>
+        [DllImport(api_ms_win_core_psapi_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool QueryFullProcessImageName(
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags,
             StringBuilder lpExeName,
@@ -976,6 +1266,19 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeLibraryHandle LoadLibraryEx(string lpFileName, IntPtr hFile, LoadLibraryExFlags dwFlags);
 
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern IntPtr AddDllDirectory(string NewDirectory);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetDllDirectory(
+            int nBufferLength,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpBuffer);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetDllDirectory(string lpPathName);
+
         /// <summary>
         /// Retrieves a module handle for the specified module. The module must have been loaded by the calling process.
         /// </summary>
@@ -1218,6 +1521,27 @@ namespace PInvoke
             out int lpBytesRead,
             int nTimeOut);
 
+        /// <summary>Retrieves the client computer name for the specified named pipe.</summary>
+        /// <param name="Pipe">
+        ///     A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe
+        ///     function.
+        /// </param>
+        /// <param name="ClientComputerName">The computer name.</param>
+        /// <param name="ClientComputerNameLength">The size of the ClientComputerName buffer, in bytes.</param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetNamedPipeClientComputerName(
+            SafeObjectHandle Pipe,
+            StringBuilder ClientComputerName,
+            int ClientComputerNameLength);
+
         /// <summary>Disconnects the server end of a named pipe instance from a client process.</summary>
         /// <param name="hNamedPipe">
         ///     A handle to an instance of a named pipe. This handle must be created by the CreateNamedPipe
@@ -1251,9 +1575,9 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_namedpipe_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetNamedPipeClientComputerName(
+        public static extern unsafe bool GetNamedPipeClientComputerName(
             SafeObjectHandle Pipe,
-            StringBuilder ClientComputerName,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* ClientComputerName,
             int ClientComputerNameLength);
 
         /// <summary>Retrieves the client process identifier for the specified named pipe.</summary>
@@ -1354,6 +1678,66 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpMaxCollectionCount,
             [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCollectDataTimeout,
             StringBuilder lpUserName,
+            int nMaxUserNameSize);
+
+        /// <summary>
+        ///     Retrieves information about a specified named pipe. The information returned can vary during the lifetime of
+        ///     an instance of the named pipe.
+        /// </summary>
+        /// <param name="hNamedPipe">
+        ///     A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ
+        ///     access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a
+        ///     write-only pipe.
+        ///     <para>This parameter can also be a handle to an anonymous pipe, as returned by the CreatePipe function.</para>
+        /// </param>
+        /// <param name="lpState">
+        ///     A pointer to a variable that indicates the current state of the handle. Either or both of
+        ///     <see cref="PipeMode.PIPE_NOWAIT" /> and <see cref="PipeMode.PIPE_READMODE_MESSAGE" /> can be specified.
+        /// </param>
+        /// <param name="lpCurInstances">
+        ///     A pointer to a variable that receives the number of current pipe instances. This parameter
+        ///     can be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpMaxCollectionCount">
+        ///     A pointer to a variable that receives the maximum number of bytes to be collected on
+        ///     the client's computer before transmission to the server. This parameter must be NULL if the specified pipe handle
+        ///     is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can
+        ///     be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpCollectDataTimeout">
+        ///     A pointer to a variable that receives the maximum time, in milliseconds, that can
+        ///     pass before a remote named pipe transfers information over the network. This parameter must be NULL if the
+        ///     specified pipe handle is to the server end of a named pipe or if client and server processes are on the same
+        ///     computer. This parameter can be NULL if this information is not required.
+        /// </param>
+        /// <param name="lpUserName">
+        ///     A pointer to a buffer that receives the user name string associated with the client application. The server can
+        ///     only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access.
+        ///     <para>
+        ///         This parameter must be NULL if the specified pipe handle is to the client end of a named pipe. This parameter
+        ///         can be NULL if this information is not required.
+        ///     </para>
+        /// </param>
+        /// <param name="nMaxUserNameSize">
+        ///     The size of the buffer specified by the lpUserName parameter, in chars. This parameter
+        ///     is ignored if lpUserName is NULL.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetNamedPipeHandleState(
+            SafeObjectHandle hNamedPipe,
+            out PipeMode lpState,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCurInstances,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpMaxCollectionCount,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCollectDataTimeout,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Array)] char* lpUserName,
             int nMaxUserNameSize);
 
         /// <summary>Retrieves information about the specified named pipe.</summary>
@@ -1594,9 +1978,13 @@ namespace PInvoke
         /// Allocates the specified number of bytes from the heap.
         /// </summary>
         /// <param name="uFlags">
-        /// The memory allocation attributes. The default is the <see cref="LocalAllocFlags.LMEM_FIXED"/> value. This parameter can be one or more of the following values, except for the incompatible combinations that are specifically noted.
+        /// The memory allocation attributes. The default is the <see cref="LocalAllocFlags.LMEM_FIXED"/> value.
+        /// This parameter can be one or more of the following values, except for the incompatible combinations that are specifically noted.
         /// </param>
-        /// <param name="uBytes">The number of bytes to allocate. If this parameter is zero and the <paramref name="uFlags"/> parameter specifies <see cref="LocalAllocFlags.LMEM_MOVEABLE"/>, the function returns a handle to a memory object that is marked as discarded.</param>
+        /// <param name="uBytes">
+        /// The number of bytes to allocate. If this parameter is zero and the <paramref name="uFlags"/> parameter specifies <see cref="LocalAllocFlags.LMEM_MOVEABLE"/>,
+        /// the function returns a handle to a memory object that is marked as discarded.
+        /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the newly allocated memory object.
         /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
@@ -1607,10 +1995,14 @@ namespace PInvoke
         /// <summary>
         /// Changes the size or the attributes of a specified local memory object. The size can increase or decrease.
         /// </summary>
-        /// <param name="hMem">A handle to the local memory object to be reallocated. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function.</param>
+        /// <param name="hMem">
+        /// A handle to the local memory object to be reallocated.
+        /// This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function.
+        /// </param>
         /// <param name="uBytes">The new size of the memory block, in bytes. If uFlags specifies <see cref="LocalReAllocFlags.LMEM_MODIFY"/>, this parameter is ignored.</param>
         /// <param name="uFlags">
-        /// The reallocation options. If <see cref="LocalReAllocFlags.LMEM_MODIFY"/> is specified, the function modifies the attributes of the memory object only (the uBytes parameter is ignored.) Otherwise, the function reallocates the memory object.
+        /// The reallocation options. If <see cref="LocalReAllocFlags.LMEM_MODIFY"/> is specified, the function modifies the attributes of the memory object only
+        /// (the uBytes parameter is ignored.) Otherwise, the function reallocates the memory object.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the reallocated memory object.
@@ -1618,7 +2010,8 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// If LocalReAlloc fails, the original memory is not freed, and the original handle and pointer are still valid.
-        /// If LocalReAlloc reallocates a fixed object, the value of the handle returned is the address of the first byte of the memory block. To access the memory, a process can simply cast the return value to a pointer.
+        /// If LocalReAlloc reallocates a fixed object, the value of the handle returned is the address of the first byte of the memory block.
+        /// To access the memory, a process can simply cast the return value to a pointer.
         /// </remarks>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe void* LocalReAlloc(void* hMem, IntPtr uBytes, LocalReAllocFlags uFlags);
@@ -1627,7 +2020,8 @@ namespace PInvoke
         /// Frees the specified local memory object and invalidates its handle.
         /// </summary>
         /// <param name="hMem">
-        /// A handle to the local memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function. It is not safe to free memory allocated with GlobalAlloc.
+        /// A handle to the local memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or
+        /// <see cref="LocalReAlloc(void*, IntPtr, LocalReAllocFlags)"/> function. It is not safe to free memory allocated with <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/>.
         /// If the hMem parameter is NULL, LocalFree ignores the parameter and returns NULL.
         /// </param>
         /// <returns>
@@ -1636,6 +2030,251 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe void* LocalFree(void* hMem);
+
+        /// <summary>
+        /// Locks a local memory object and returns a pointer to the first byte of the object's memory block.
+        /// </summary>
+        /// <param name="hMem">A handle to the local memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, int, LocalReAllocFlags)"/> function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a pointer to the first byte of the memory block.
+        /// If the function fails, the return value is <see cref="IntPtr.Zero"/>. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static unsafe extern void* LocalLock(void* hMem);
+
+        /// <summary>
+        /// Decrements the lock count associated with a memory object that was allocated with <see cref="LocalAllocFlags.LMEM_MOVEABLE"/>.
+        /// This function has no effect on memory objects allocated with <see cref="LocalAllocFlags.LMEM_FIXED"/>.
+        /// </summary>
+        /// <param name="hMem">A handle to the local  memory object. This handle is returned by either the <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/> or <see cref="LocalReAlloc(void*, int, LocalReAllocFlags)"/> function.</param>
+        /// <returns>
+        /// If the memory object is still locked after decrementing the lock count, the return value is true.
+        /// If the memory object is unlocked after decrementing the lock count, the function returns false and <see cref="GetLastError"/> returns <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
+        /// If the function fails, the return value is false and <see cref="GetLastError"/> returns a value other than <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool LocalUnlock(void* hMem);
+
+        /// <summary>
+        /// Allocates the specified number of bytes from the heap.
+        /// </summary>
+        /// <param name="uFlags">
+        /// The memory allocation attributes. The default is the <see cref="GlobalAllocFlags.GMEM_FIXED"/> value.
+        /// This parameter can be one or more of the following values, except for the incompatible combinations that are specifically noted.
+        /// </param>
+        /// <param name="uBytes">
+        /// The number of bytes to allocate. If this parameter is zero and the uFlags parameter specifies <see cref="GlobalAllocFlags.GMEM_MOVEABLE"/>,
+        /// the function returns a handle to a memory object that is marked as discarded.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the newly allocated memory object.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* GlobalAlloc(GlobalAllocFlags uFlags, IntPtr uBytes);
+
+        /// <summary>
+        /// Changes the size or attributes of a specified global memory object. The size can increase or decrease.
+        /// </summary>
+        /// <param name="hMem">
+        /// A handle to the global memory object to be reallocated.
+        /// This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, IntPtr, GlobalReAllocFlags)"/> function.
+        /// </param>
+        /// <param name="uBytes">The new size of the memory block, in bytes. If uFlags specifies <see cref="GlobalAllocFlags.GMEM_MODIFY"/>, this parameter is ignored.</param>
+        /// <param name="uFlags">
+        /// The reallocation options. If <see cref="LocalReAllocFlags.LMEM_MODIFY"/> is specified, the function modifies the attributes of the memory object only
+        /// (the uBytes parameter is ignored.) Otherwise, the function reallocates the memory object.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the reallocated memory object.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>
+        /// If GlobalReAlloc fails, the original memory is not freed, and the original handle and pointer are still valid.
+        /// If GlobalReAlloc reallocates a fixed object, the value of the handle returned is the address of the first byte of the memory block.
+        /// To access the memory, a process can simply cast the return value to a pointer.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* GlobalReAlloc(void* hMem, IntPtr uBytes, GlobalReAllocFlags uFlags);
+
+        /// <summary>
+        /// Frees the specified global memory object and invalidates its handle.
+        /// </summary>
+        /// <param name="hMem">
+        /// A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or
+        /// <see cref="GlobalReAlloc(void*, IntPtr, GlobalReAllocFlags)"/> function. It is not safe to free memory allocated with <see cref="LocalAlloc(LocalAllocFlags, IntPtr)"/>.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is NULL.
+        /// If the function fails, the return value is equal to a handle to <paramref name="hMem"/>. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe void* GlobalFree(void* hMem);
+
+        /// <summary>
+        /// Locks a global memory object and returns a pointer to the first byte of the object's memory block.
+        /// </summary>
+        /// <param name="hMem">A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, IntPtr, GlobalReAllocFlags)"/> function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a pointer to the first byte of the memory block.
+        ///  If the function fails, the return value is <see cref="IntPtr.Zero"/>. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static unsafe extern void* GlobalLock(void* hMem);
+
+        /// <summary>
+        /// Decrements the lock count associated with a memory object that was allocated with <see cref="GlobalAllocFlags.GMEM_MOVEABLE"/>.
+        /// This function has no effect on memory objects allocated with <see cref="GlobalAllocFlags.GMEM_FIXED"/>.
+        /// </summary>
+        /// <param name="hMem">A handle to the global memory object. This handle is returned by either the <see cref="GlobalAlloc(GlobalAllocFlags, IntPtr)"/> or <see cref="GlobalReAlloc(void*, IntPtr, GlobalReAllocFlags)"/> function.</param>
+        /// <returns>
+        /// If the memory object is still locked after decrementing the lock count, the return value is true.
+        /// If the memory object is unlocked after decrementing the lock count, the function returns false and <see cref="GetLastError"/> returns <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
+        /// If the function fails, the return value is false and <see cref="GetLastError"/> returns a value other than <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GlobalUnlock(void* hMem);
+
+        /// <summary>
+        /// Allocates a block of memory from a heap. The allocated memory is not movable.
+        /// </summary>
+        /// <param name="hHeap">A handle to the heap from which the memory will be allocated. This handle is returned by the HeapCreate or  function.</param>
+        /// <param name="uFlags">The heap allocation options. Specifying any of these values will override the corresponding value specified when the heap was created with HeapCreate.</param>
+        /// <param name="uBytes">
+        /// The number of bytes to be allocated. If the heap specified by the hHeap parameter is a "non-growable" heap,
+        /// dwBytes must be less than 0x7FFF8.
+        /// You create a non-growable heap by calling the HeapCreate function with a nonzero value.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a pointer to the allocated memory block.
+        /// If the function fails and you have not specified <see cref="HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS"/>, the return value is NULL.
+        /// If the function fails and you have specified <see cref="HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS"/>,
+        /// the function may generate either of the exceptions listed in the following table:
+        /// <list>
+        /// <item>STATUS_NO_MEMORY: The allocation attempt failed because of a lack of available memory or heap corruption.</item>
+        /// <item>STATUS_ACCESS_VIOLATION: The allocation attempt failed because of heap corruption or improper function parameters.</item>
+        /// </list>
+        /// The particular exception depends upon the nature of the heap corruption. For more information, see GetExceptionCode.
+        /// </returns>
+        /// <remarks>If the function fails, it does not call SetLastError. An application cannot call <see cref="GetLastError"/> for extended error information.</remarks>
+        [DllImport(nameof(Kernel32), SetLastError = false)]
+        public static extern unsafe void* HeapAlloc(IntPtr hHeap, HeapAllocFlags uFlags, IntPtr uBytes);
+
+        /// <summary>
+        /// Reallocates a block of memory from a heap. This function enables you to resize a memory block and change other memory block properties.
+        /// The allocated memory is not movable.
+        /// </summary>
+        /// <param name="hHeap">A handle to the heap from which the memory is to be reallocated. This handle is a returned by either the HeapCreate or GetProcessHeap function.</param>
+        /// <param name="uFlags">
+        /// The heap reallocation options. Specifying a value overrides the corresponding value specified in the flOptions parameter
+        /// when the heap was created by using the HeapCreate function.
+        /// </param>
+        /// <param name="hMem">
+        /// A pointer to the block of memory that the function reallocates.
+        /// This pointer is returned by an earlier call to the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, IntPtr)"/> function.
+        /// </param>
+        /// <param name="uBytes">
+        /// The new size of the memory block, in bytes. A memory block's size can be increased or decreased by using this function.
+        /// If the heap specified by the hHeap parameter is a "non-growable" heap, dwBytes must be less than 0x7FFF8.
+        /// You create a non-growable heap by calling the HeapCreate function with a nonzero value.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a pointer to the reallocated memory block.
+        /// If the function fails and you have not specified <see cref="HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS"/>, the return value is NULL.
+        /// If the function fails and you have specified <see cref="HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS"/>,
+        /// the function may generate either of the exceptions listed in the following table:
+        /// <list>
+        /// <item>STATUS_NO_MEMORY: The allocation attempt failed because of a lack of available memory or heap corruption.</item>
+        /// <item>STATUS_ACCESS_VIOLATION: The allocation attempt failed because of heap corruption or improper function parameters.</item>
+        /// </list>
+        /// The particular exception depends upon the nature of the heap corruption. For more information, see GetExceptionCode.
+        /// </returns>
+        /// <remarks>If the function fails, it does not call SetLastError. An application cannot call <see cref="GetLastError"/> for extended error information.</remarks>
+        [DllImport(nameof(Kernel32), SetLastError = false)]
+        public static extern unsafe void* HeapReAlloc(IntPtr hHeap, HeapReAllocFlags uFlags, void* hMem, IntPtr uBytes);
+
+        /// <summary>
+        /// Frees a memory block allocated from a heap by the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, IntPtr)"/> function.
+        /// </summary>
+        /// <param name="hHeap">
+        /// A handle to the heap whose memory block is to be freed. This handle is returned by either the HeapCreate or
+        /// GetProcessHeap function.
+        /// </param>
+        /// <param name="dwFlags">The heap free options. Specifying the following value overrides the corresponding value specified in the flOptions parameter
+        /// when the heap was created by using the HeapCreate function.</param>
+        /// <param name="hMem">
+        /// A pointer to the memory block to be freed. This pointer is returned by the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, IntPtr)"/> function.
+        /// If this pointer is NULL, the behavior is undefined.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is true. If the function fails, the return value false. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool HeapFree(IntPtr hHeap, HeapFreeFlags dwFlags, void* hMem);
+
+        /// <summary>
+        /// Attempts to acquire the critical section object, or lock, that is associated with a specified heap.
+        /// </summary>
+        /// <param name="hMem">A handle to the heap to be locked. This handle is returned by either the <see cref="HeapAlloc(IntPtr, HeapAllocFlags, IntPtr)"/> or <see cref="HeapReAlloc(IntPtr, HeapReAllocFlags, void*, IntPtr)"/> function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true. If the function fails, the return value is zero.
+        /// To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool HeapLock(IntPtr hMem);
+
+        /// <summary>
+        /// Releases ownership of the critical section object, or lock, that is associated with a specified heap. It reverses the action of the <see cref="HeapLock"/> function.
+        /// </summary>
+        /// <param name="hHeap">A handle to the heap to be unlocked. This handle is returned by either the HeapCreate or GetProcessHeap function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true. If the function fails, the return value is zero.
+        /// To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool HeapUnlock(IntPtr hHeap);
+
+        /// <summary>
+        /// Copies a block of memory from one location to another.
+        /// </summary>
+        /// <param name="Destination">A pointer to the starting address of the copied block's destination.</param>
+        /// <param name="Source">A pointer to the starting address of the block of memory to copy.</param>
+        /// <param name="Length">The size of the block of memory to copy, in bytes.</param>
+        /// <remarks>
+        /// This function is defined as the RtlCopyMemory function.
+        /// If the source and destination blocks overlap, the results are undefined.
+        /// For overlapped blocks, use the <see cref="MoveMemory(void*, void*, IntPtr)"/> function.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = false)]
+        public static unsafe extern void CopyMemory(void* Destination, void* Source, IntPtr Length);
+
+        /// <summary>
+        /// Moves a block of memory from one location to another.
+        /// </summary>
+        /// <param name="Destination">A pointer to the starting address of the move destination.</param>
+        /// <param name="Source">A pointer to the starting address of the block of memory to be moved.</param>
+        /// <param name="Length">The size of the block of memory to move, in bytes.</param>
+        /// <remarks>
+        /// <para>
+        /// This function is defined as the RtlMoveMemory function.
+        /// The source and destination blocks may overlap.
+        /// </para>
+        /// <para>
+        /// The first parameter, <paramref name="Destination"/>, must be large enough to hold <paramref name="Length"/> bytes of <paramref name="Source"/>;
+        /// otherwise, a buffer overrun may occur.
+        /// This may lead to a denial of service attack against the application if an access violation occurs or, in the worst case,
+        /// allow an attacker to inject executable code into your process.
+        /// This is especially true if <paramref name="Destination"/> is a stack-based buffer.
+        /// Be aware that the last parameter, <paramref name="Length"/>, is the number of bytes to copy into <paramref name="Destination"/>, not the size of the <paramref name="Destination"/>.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = false)]
+        public static unsafe extern void MoveMemory(void* Destination, void* Source, IntPtr Length);
 
         /// <summary>
         ///     Enumerates resources of a specified type within a binary module. For Windows Vista and later, this is
@@ -1852,6 +2491,229 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         public static extern unsafe bool SetInformationJobObject(SafeObjectHandle hJob, JOBOBJECT_INFO_CLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GenerateConsoleCtrlEvent(ControlType dwCtrlEvent, uint dwProcessGroupId);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AddConsoleAlias(string Source, string Target, string ExeName);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static unsafe extern IntPtr CreateConsoleScreenBuffer(
+            ACCESS_MASK dwDesiredAccess,
+            FileShare dwShareMode,
+            [Friendly(FriendlyFlags.Optional | FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpSecurityAttributes,
+            ConsoleScreenBufferFlag dwFlags,
+            void* lpScreenBufferData);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool FlushConsoleInputBuffer(IntPtr hConsoleInput);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern unsafe int GetConsoleAliases(
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpAliasBuffer,
+            int AliasBufferLength,
+            string lpExeName);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern int GetConsoleAliasesLength(string lpExeName);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern unsafe int GetConsoleAliasExes(
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpExeNameBuffer,
+            int ExeNameBufferLength);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern int GetConsoleAliasExesLength();
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern unsafe int GetConsoleAlias(
+            string lpSource,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpTargetBuffer,
+            int TargetBufferLength,
+            string lpExeName);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern uint GetConsoleCP();
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetConsoleDisplayMode(out ConsoleDisplayMode lpModeFlags);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern COORD GetConsoleFontSize(IntPtr hConsoleOutput, uint nFont);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetConsoleMode(IntPtr hConsoleHandle, out ConsoleBufferModes lpMode);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, ConsoleBufferModes dwMode);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern uint GetConsoleOutputCP();
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetConsoleOutputCP(uint wCodePageID);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetConsoleCP(uint wCodePageID);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static unsafe extern int GetConsoleProcessList(
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] uint* lpdwProcessList,
+            int dwProcessCount);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetConsoleScreenBufferInfo(
+            IntPtr hConsoleOutput,
+            [Friendly(FriendlyFlags.Out)] CONSOLE_SCREEN_BUFFER_INFO* lpConsoleScreenBufferInfo);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetConsoleSelectionInfo(
+            [Friendly(FriendlyFlags.Out)] CONSOLE_SELECTION_INFO* lpConsoleSelectionInfo);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern unsafe int GetConsoleTitle(
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpConsoleTitle,
+            int nSize);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetConsoleTitle(string lpConsoleTitle);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern COORD GetLargestConsoleWindowSize(IntPtr hConsoleOutput);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetNumberOfConsoleInputEvents(IntPtr hConsoleInput, out int lpNumberOfEvents);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PeekConsoleInput(IntPtr hConsoleInput, out INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsRead);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ReadConsoleOutput(IntPtr hConsoleOutput, out CHAR_INFO lpBuffer, COORD dwBufferSize, COORD dwBufferCoord, ref SMALL_RECT lpReadRegion);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool ReadConsole(
+            IntPtr hConsoleInput,
+            void* lpBuffer,
+            int nNumberOfCharsToRead,
+            [Friendly(FriendlyFlags.Out)] int lpNumberOfCharsRead,
+            IntPtr lpReserved);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ReadConsoleInput(IntPtr hConsoleInput, out INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsRead);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool ScrollConsoleScreenBuffer(
+            IntPtr hConsoleOutput,
+            [Friendly(FriendlyFlags.In)] SMALL_RECT* lpScrollRectangle,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SMALL_RECT* lpClipRectangle,
+            COORD dwDestinationOrigin,
+            [Friendly(FriendlyFlags.In)] CHAR_INFO* lpFill);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetConsoleActiveScreenBuffer(IntPtr hConsoleOutput);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern uint WTSGetActiveConsoleSessionId();
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool WriteConsole(
+            IntPtr hConsoleOutput,
+            void* lpBuffer,
+            int nNumberOfCharsToWrite,
+            [Friendly(FriendlyFlags.Out)] int* lpNumberOfCharsWritten,
+            IntPtr lpReserved);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool WriteConsoleOutput(
+            IntPtr hConsoleOutput,
+            [Friendly(FriendlyFlags.In)] CHAR_INFO* lpBuffer,
+            COORD dwBufferSize,
+            COORD dwBufferCoord,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Out)] SMALL_RECT* lpWriteRegion);
+
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool WriteConsoleInput(
+            IntPtr hConsoleInput,
+            [Friendly(FriendlyFlags.In)] INPUT_RECORD* lpBuffer,
+            int nLength,
+            [Friendly(FriendlyFlags.Out)] int* lpNumberOfEventsWritten);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetConsoleTextAttribute(IntPtr hConsoleOutput, CharacterAttributesFlags wAttributes);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetConsoleCursorPosition(IntPtr hConsoleOutput, COORD dwCursorPosition);
+
+        /// <summary>
+        /// Adds or removes an application-defined HandlerRoutine function from the list of handler
+        /// functions for the calling process. If no handler function is specified, the function sets
+        /// an inheritable attribute that determines whether the calling process ignores CTRL+C signals.
+        /// </summary>
+        /// <param name="handlerRoutine">
+        /// A pointer to the application-defined HandlerRoutine function to be added or removed. This
+        /// parameter can be NULL.
+        /// </param>
+        /// <param name="add">
+        /// <para>
+        /// If this parameter is TRUE, the handler is added; if it is FALSE, the handler is removed.
+        /// </para>
+        /// <para>
+        /// If the HandlerRoutine parameter is NULL, a TRUE value causes the calling process to
+        /// ignore CTRL+C input, and a FALSE value restores normal processing of CTRL+C input. This
+        /// attribute of ignoring or processing CTRL+C is inherited by child processes.
+        /// </para>
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero. If the function fails, the return
+        /// value is zero.To get extended error information, call GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This function provides a similar notification for console application and services that
+        /// WM_QUERYENDSESSION provides for graphical applications with a message pump. You could
+        /// also use this function from a graphical application, but there is no guarantee it would
+        /// arrive before the notification from WM_QUERYENDSESSION.
+        /// </para>
+        /// <para>
+        /// Each console process has its own list of application-defined HandlerRoutine functions
+        /// that handle CTRL+C and CTRL+BREAK signals. The handler functions also handle signals
+        /// generated by the system when the user closes the console, logs off, or shuts down the
+        /// system. Initially, the handler list for each process contains only a default handler
+        /// function that calls the ExitProcess function. A console process adds or removes
+        /// additional handler functions by calling the SetConsoleCtrlHandler function, which does
+        /// not affect the list of handler functions for other processes. When a console process
+        /// receives any of the control signals, its handler functions are called on a
+        /// last-registered, first-called basis until one of the handlers returns TRUE. If none of
+        /// the handlers returns TRUE, the default handler is called.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetConsoleCtrlHandler(HandlerRoutine handlerRoutine, [MarshalAs(UnmanagedType.Bool)] bool add);
 
         /// <summary>
         /// Enables an application to inform the system that it is in use, thereby preventing the system from entering sleep or turning off the display while the application is running.
