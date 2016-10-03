@@ -80,6 +80,7 @@
     <Compile Include="User32+QueueStatusFlags.cs" />
     <Compile Include="User32+PeekMessageParams.cs" />
     <Compile Include="User32+SafeDesktopHandle.cs" />
+    <Compile Include="User32+SafeEventHookHandle.cs" />
     <Compile Include="User32+SafeWindowStationHandle.cs" />
     <Compile Include="User32+SpecialWindowHandles.cs" />
     <Compile Include="User32+SystemParametersInfoAction.cs" />
@@ -113,6 +114,8 @@
     <Compile Include="User32+WindowLongIndexFlags.cs" />
     <Compile Include="User32+WINDOWPLACEMENT.cs" />
     <Compile Include="User32+WindowPlacementFlags.cs" />
+    <Compile Include="User32+WindowsEventHookFlags.cs" />
+    <Compile Include="User32+WindowsEventHookType.cs" />
     <Compile Include="User32+WindowsHookType.cs" />
     <Compile Include="User32+WindowShowStyle.cs" />
     <Compile Include="User32+WindowStationCreationFlags.cs" />
