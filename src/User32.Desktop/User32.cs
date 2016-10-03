@@ -2608,7 +2608,7 @@ namespace PInvoke
         [return:MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EndPaint(
             IntPtr hWnd,
-            [Friendly(FriendlyFlags.In)] PAINTSTRUCT* lpPaint);
+            [Friendly(FriendlyFlags.Bidirectional)] PAINTSTRUCT* lpPaint);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
