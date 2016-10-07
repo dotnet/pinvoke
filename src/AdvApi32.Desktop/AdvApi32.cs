@@ -1074,6 +1074,39 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* pSacl);
 
         /// <summary>
+        /// The DuplicateTokenEx function creates a new access token that duplicates an existing token.
+        /// This function can create either a primary token or an impersonation token.
+        /// </summary>
+        /// <param name="hExistingToken">A handle to an access token opened with <see cref="TokenAccessRights.TOKEN_DUPLICATE"/>
+        /// access.</param>
+        /// <param name="dwDesiredAccess">Specifies the requested access rights for the new token. The <see cref="DuplicateTokenEx(SafeObjectHandle, ACCESS_MASK, SECURITY_ATTRIBUTES*, SECURITY_IMPERSONATION_LEVEL, TOKEN_TYPE, out SafeObjectHandle)"/> function
+        /// compares the requested access rights with the existing token's discretionary access control list (DACL) to determine
+        /// which rights are granted or denied. To request the same access rights as the existing token, specify zero. To request
+        /// all access rights that are valid for the caller, specify <see cref="ACCESS_MASK.SpecialRight.MAXIMUM_ALLOWED"/>.</param>
+        /// <param name="lpTokenAttributes">A pointer to a <see cref="SECURITY_ATTRIBUTES"/> structure that specifies a security
+        /// descriptor for the new token and determines whether child processes can inherit the token.
+        /// If lpTokenAttributes is NULL, the token gets a default security descriptor and the handle cannot be inherited.
+        /// If the security descriptor contains a system access control list (SACL), the token gets
+        /// <see cref="ACCESS_MASK.SpecialRight.ACCESS_SYSTEM_SECURITY"/> access right, even if it was not requested in dwDesiredAccess.
+        /// To set the owner in the security descriptor for the new token, the caller's process token must have the SE_RESTORE_NAME
+        /// privilege set.</param>
+        /// <param name="ImpersonationLevel">Specifies a value from the <see cref="SECURITY_IMPERSONATION_LEVEL"/>
+        /// enumeration that indicates the impersonation level of the new token.</param>
+        /// <param name="TokenType">pecifies one of the following values from the <see cref="TokenType"/> enumeration.</param>
+        /// <param name="phNewToken">A pointer to a <see cref="SafeObjectHandle"/> variable that receives the new token.</param>
+        /// <returns>If the function succeeds, the function returns a nonzero value.
+        /// If the function fails, it returns zero.To get extended error information, call GetLastError.</returns>
+        [DllImport(api_ms_win_security_base_l1_2_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool DuplicateTokenEx(
+            SafeObjectHandle hExistingToken,
+            ACCESS_MASK dwDesiredAccess,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpTokenAttributes,
+            SECURITY_IMPERSONATION_LEVEL ImpersonationLevel,
+            TOKEN_TYPE TokenType,
+            out SafeObjectHandle phNewToken);
+
+        /// <summary>
         /// The ConvertSidToStringSid function converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
         /// To convert the string-format SID back to a valid, functional SID, call the <see cref="ConvertStringSidToSid(string, ref void*)"/> function.
         /// </summary>
