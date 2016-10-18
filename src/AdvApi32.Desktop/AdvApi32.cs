@@ -397,6 +397,38 @@ namespace PInvoke
         public static extern SafeServiceHandle CreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ACCESS_MASK dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
 
         /// <summary>
+        /// Retrieves parameters that govern the operations of a cryptographic service provider (CSP).
+        /// </summary>
+        /// <param name="hProv">A handle of the CSP target of the query. This handle must have been created by using the CryptAcquireContext function.</param>
+        /// <param name="queryType">The nature of the query.</param>
+        /// <param name="pbData">
+        /// A pointer to a buffer to receive the data. The form of this data varies depending on the value of <paramref name="dwParam"/>.
+        /// When <paramref name="dwParam"/> is set to <see cref="CryptGetProvParamQuery.PP_USE_HARDWARE_RNG"/>, <paramref name="pbData"/> must be set to NULL.
+        /// This parameter can be NULL to set the size of this information for memory allocation purposes.
+        /// </param>
+        /// <param name="pdwDataLen">
+        /// A pointer to a DWORD value that specifies the size, in bytes, of the buffer pointed to by the <paramref name="pbData"/> parameter.
+        /// When the function returns, the DWORD value contains the number of bytes stored or to be stored in the buffer.
+        /// </param>
+        /// <param name="dwParam">
+        /// If dwParam is <see cref="CryptGetProvParamQuery.PP_KEYSET_SEC_DESCR"/>, the security descriptor on the key container where the keys are stored is retrieved.
+        /// For this case, dwFlags is used to pass in the <see cref="SECURITY_INFORMATION"/> bit flags that indicate the requested security information,
+        /// as defined in the Platform SDK. <see cref="SECURITY_INFORMATION"/> bit flags can be combined with a bitwise-OR operation.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CryptGetProvParam(
+                SafeCryptographicProviderHandle hProv,
+                CryptGetProvParamQuery queryType,
+                [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbData,
+                ref int pdwDataLen,
+                uint dwParam);
+
+        /// <summary>
         /// Marks the specified service for deletion from the service control manager database.
         /// </summary>
         /// <param name="hService">
