@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CertCloseStoreFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CERT_PROP_ID.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CryptAcquireCertificatePrivateKeyFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CRYPT_DATA_BLOB.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
@@ -18,6 +19,7 @@
 	  <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
 	</Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+CRYPT_PROV_TYPE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Crypt32+KeySpec.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32+PFXImportCertStoreFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32.Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Crypt32.cs">

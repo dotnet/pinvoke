@@ -34,6 +34,47 @@ namespace PInvoke
             PFXImportCertStoreFlags dwFlags);
 
         /// <summary>
+        /// Obtains the private key for a certificate. This function is used to obtain access to a user's private key when the user's certificate is available, but the handle of the user's key container is not available. This function can only be used by the owner of a private key and not by any other user.
+        /// If a CSP handle and the key container containing a user's private key are available, the CryptGetUserKey function should be used instead.
+        /// </summary>
+        /// <param name="pCert">The address of a CERT_CONTEXT structure that contains the certificate context for which a private key will be obtained.</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or a combination of one or more of <see cref="CryptAcquireCertificatePrivateKeyFlags"/> values.</param>
+        /// <param name="pvParameters">
+        /// If the <see cref="CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG"/> is set, then this is the address of an HWND. If the <see cref="CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG"/> is not set, then this parameter must be NULL.
+        /// Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  This parameter was named pvReserved and reserved for future use and must be NULL.
+        /// </param>
+        /// <param name="phCryptProvOrNCryptKey">
+        /// The address of an HCRYPTPROV_OR_NCRYPT_KEY_HANDLE variable that receives the handle of either the CryptoAPI provider or the CNG key. If the <paramref name="pdwKeySpec"/> variable receives the CERT_NCRYPT_KEY_SPEC flag, this is a CNG key handle of type NCRYPT_KEY_HANDLE; otherwise, this is a CryptoAPI provider handle of type HCRYPTPROV.
+        /// For more information about when and how to release this handle, see the description of the pfCallerFreeProvOrNCryptKey parameter.
+        /// </param>
+        /// <param name="pdwKeySpec">The address of a DWORD variable that receives additional information about the key. This can be one of <see cref="KeySpec"/> values.</param>
+        /// <param name="pfCallerFreeProvOrNCryptKey">
+        /// The address of a BOOL variable that receives a value that indicates whether the caller must free the handle returned in the <paramref name="phCryptProvOrNCryptKey"/> variable.
+        /// This receives FALSE if any of the following is true:
+        /// - Public key acquisition or comparison fails.
+        /// - The <paramref name="dwFlags"/> parameter contains the <see cref="CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_CACHE_FLAG"/> flag.
+        /// - The <paramref name="dwFlags"/> parameter contains the <see cref="CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_USE_PROV_INFO_FLAG"/> flag, the certificate context property is set to <see cref="CERT_PROP_ID.CERT_KEY_PROV_INFO_PROP_ID"/> with the <see cref="CRYPT_KEY_PROV_INFO"/> structure, and the <paramref name="dwFlags"/> member of the <see cref="CRYPT_KEY_PROV_INFO"/> structure is set to CERT_SET_KEY_CONTEXT_PROP_ID.
+        /// If this variable receives FALSE, the calling application must not release the handle returned in the <paramref name="phCryptProvOrNCryptKey"/> variable.
+        /// The handle will be released on the last free action of the certificate context.
+        /// If this variable receives TRUE, the caller is responsible for releasing the handle returned in the <paramref name="phCryptProvOrNCryptKey"/> variable.
+        /// If the <paramref name="pdwKeySpec"/> variable receives the <see cref="KeySpec.CERT_NCRYPT_KEY_SPEC"/> flag, the handle must be released by passing it to the NCryptFreeObject function;
+        /// otherwise, the handle is released by passing it to the CryptReleaseContext function.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        [DllImport(nameof(Crypt32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool CryptAcquireCertificatePrivateKey(
+                IntPtr pCert,
+                CryptAcquireCertificatePrivateKeyFlags dwFlags,
+                void* pvParameters,
+                out IntPtr phCryptProvOrNCryptKey,
+                out KeySpec pdwKeySpec,
+                out bool pfCallerFreeProvOrNCryptKey);
+
+        /// <summary>
         /// The CertGetCertificateContextProperty function retrieves the information contained in an extended property of a certificate context.
         /// </summary>
         /// <param name="pCertContext">A pointer to the CERT_CONTEXT structure of the certificate that contains the property to be retrieved.</param>
