@@ -1145,5 +1145,21 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
         private static extern bool CloseServiceHandle(IntPtr hSCObject);
+
+        /// <summary>
+        /// Releases the handle of a cryptographic service provider (CSP) and a key container. At each call to this function, the reference count on the CSP is reduced by one.
+        /// When the reference count reaches zero, the context is fully released and it can  no longer be used by any function in the application.
+        /// An application calls this function after finishing the use of the CSP. After this function is called,
+        /// the released CSP handle is no longer valid.This function does not destroy key containers or key pairs.
+        /// </summary>
+        /// <param name="hProv">Handle of a cryptographic service provider (CSP) created by a call to CryptAcquireContext.</param>
+        /// <param name="dwFlags">Reserved for future use and must be zero. If dwFlags is not set to zero, this function returns FALSE but the CSP is released.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool CryptReleaseContext(IntPtr hProv, uint dwFlags);
     }
 }
