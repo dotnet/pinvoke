@@ -429,6 +429,33 @@ namespace PInvoke
                 uint dwParam);
 
         /// <summary>
+        /// Customizes the operations of a cryptographic service provider (CSP). This function is commonly used to set a security descriptor on the key container associated with a CSP to control access to the private keys in that key container.
+        /// </summary>
+        /// <param name="hProv">The handle of a CSP for which to set values. This handle must have already been created by using the CryptAcquireContext function.</param>
+        /// <param name="dwParam">Specifies the parameter to set.</param>
+        /// <param name="pbData">
+        /// A pointer to a data buffer that contains the value to be set as a provider parameter.
+        /// The form of this data varies depending on the dwParam value. If dwParam contains <see cref="CryptSetProvParamQuery.PP_USE_HARDWARE_RNG"/>, this parameter must be NULL.
+        /// </param>
+        /// <param name="dwFlags">
+        /// If <paramref name="dwFlags"/> contains <see cref="CryptSetProvParamQuery.PP_KEYSET_SEC_DESCR"/>, <paramref name="dwFlags"/> contains the <see cref="SECURITY_INFORMATION"/> applicable bit flags, as defined in the Platform SDK.
+        /// Key-container security is handled by using SetFileSecurity and GetFileSecurity.
+        /// These bit flags can be combined by using a bitwise-OR operation.For more information, see <see cref="CryptGetProvParam(SafeCryptographicProviderHandle,CryptGetProvParamQuery,byte[],ref int,uint)"/>.
+        /// If dwParam is <see cref="CryptSetProvParamQuery.PP_USE_HARDWARE_RNG"/> or <see cref="CryptSetProvParamQuery.PP_DELETEKEY"/>, <paramref name="dwFlags"/> must be set to zero.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CryptSetProvParam(
+                SafeCryptographicProviderHandle hProv,
+                CryptSetProvParamQuery dwParam,
+                IntPtr pbData,
+                uint dwFlags);
+
+        /// <summary>
         /// Marks the specified service for deletion from the service control manager database.
         /// </summary>
         /// <param name="hService">
