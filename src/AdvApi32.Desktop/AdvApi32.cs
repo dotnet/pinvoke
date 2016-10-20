@@ -400,19 +400,19 @@ namespace PInvoke
         /// Retrieves parameters that govern the operations of a cryptographic service provider (CSP).
         /// </summary>
         /// <param name="hProv">A handle of the CSP target of the query. This handle must have been created by using the CryptAcquireContext function.</param>
-        /// <param name="queryType">The nature of the query.</param>
+        /// <param name="dwParam">The nature of the query.</param>
         /// <param name="pbData">
-        /// A pointer to a buffer to receive the data. The form of this data varies depending on the value of <paramref name="dwParam"/>.
-        /// When <paramref name="dwParam"/> is set to <see cref="CryptGetProvParamQuery.PP_USE_HARDWARE_RNG"/>, <paramref name="pbData"/> must be set to NULL.
+        /// A pointer to a buffer to receive the data. The form of this data varies depending on the value of <paramref name="dwFlags"/>.
+        /// When <paramref name="dwFlags"/> is set to <see cref="CryptGetProvParamQuery.PP_USE_HARDWARE_RNG"/>, <paramref name="pbData"/> must be set to NULL.
         /// This parameter can be NULL to set the size of this information for memory allocation purposes.
         /// </param>
         /// <param name="pdwDataLen">
         /// A pointer to a DWORD value that specifies the size, in bytes, of the buffer pointed to by the <paramref name="pbData"/> parameter.
         /// When the function returns, the DWORD value contains the number of bytes stored or to be stored in the buffer.
         /// </param>
-        /// <param name="dwParam">
-        /// If dwParam is <see cref="CryptGetProvParamQuery.PP_KEYSET_SEC_DESCR"/>, the security descriptor on the key container where the keys are stored is retrieved.
-        /// For this case, dwFlags is used to pass in the <see cref="SECURITY_INFORMATION"/> bit flags that indicate the requested security information,
+        /// <param name="dwFlags">
+        /// If <paramref name="dwParam"/> is <see cref="CryptGetProvParamQuery.PP_KEYSET_SEC_DESCR"/>, the security descriptor on the key container where the keys are stored is retrieved.
+        /// For this case, <paramref name="dwFlags"/> is used to pass in the <see cref="SECURITY_INFORMATION"/> bit flags that indicate the requested security information,
         /// as defined in the Platform SDK. <see cref="SECURITY_INFORMATION"/> bit flags can be combined with a bitwise-OR operation.
         /// </param>
         /// <returns>
@@ -421,12 +421,12 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CryptGetProvParam(
-                SafeCryptographicProviderHandle hProv,
-                CryptGetProvParamQuery queryType,
-                [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbData,
+        public static extern unsafe bool CryptGetProvParam(
+                SafeHandle hProv,
+                CryptGetProvParamQuery dwParam,
+                [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] byte* pbData,
                 ref int pdwDataLen,
-                uint dwParam);
+                uint dwFlags);
 
         /// <summary>
         /// Customizes the operations of a cryptographic service provider (CSP). This function is commonly used to set a security descriptor on the key container associated with a CSP to control access to the private keys in that key container.
@@ -435,12 +435,12 @@ namespace PInvoke
         /// <param name="dwParam">Specifies the parameter to set.</param>
         /// <param name="pbData">
         /// A pointer to a data buffer that contains the value to be set as a provider parameter.
-        /// The form of this data varies depending on the dwParam value. If dwParam contains <see cref="CryptSetProvParamQuery.PP_USE_HARDWARE_RNG"/>, this parameter must be NULL.
+        /// The form of this data varies depending on the dwParam value. If dwFlags contains <see cref="CryptSetProvParamQuery.PP_USE_HARDWARE_RNG"/>, this parameter must be NULL.
         /// </param>
         /// <param name="dwFlags">
         /// If <paramref name="dwFlags"/> contains <see cref="CryptSetProvParamQuery.PP_KEYSET_SEC_DESCR"/>, <paramref name="dwFlags"/> contains the <see cref="SECURITY_INFORMATION"/> applicable bit flags, as defined in the Platform SDK.
         /// Key-container security is handled by using SetFileSecurity and GetFileSecurity.
-        /// These bit flags can be combined by using a bitwise-OR operation.For more information, see <see cref="CryptGetProvParam(SafeCryptographicProviderHandle,CryptGetProvParamQuery,byte[],ref int,uint)"/>.
+        /// These bit flags can be combined by using a bitwise-OR operation.For more information, see <see cref="CryptGetProvParam(SafeHandle,CryptGetProvParamQuery,byte*,ref int,uint)"/>.
         /// If dwParam is <see cref="CryptSetProvParamQuery.PP_USE_HARDWARE_RNG"/> or <see cref="CryptSetProvParamQuery.PP_DELETEKEY"/>, <paramref name="dwFlags"/> must be set to zero.
         /// </param>
         /// <returns>
@@ -449,10 +449,10 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CryptSetProvParam(
-                SafeCryptographicProviderHandle hProv,
+        public static extern unsafe bool CryptSetProvParam(
+                SafeHandle hProv,
                 CryptSetProvParamQuery dwParam,
-                IntPtr pbData,
+                [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] byte* pbData,
                 uint dwFlags);
 
         /// <summary>

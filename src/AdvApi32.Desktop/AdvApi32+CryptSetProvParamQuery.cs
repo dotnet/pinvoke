@@ -3,11 +3,13 @@
 
 namespace PInvoke
 {
+    using System.Runtime.InteropServices;
+
     /// <content>Contains the <see cref="CryptSetProvParamQuery" /> nested type.</content>
     public static partial class AdvApi32
     {
         /// <summary>
-        /// Defines the query types for <see cref="CryptSetProvParam"/> API
+        /// Defines the query types for <see cref="CryptSetProvParam(SafeHandle,CryptSetProvParamQuery,byte*,uint)"/> API
         /// as documented by https://msdn.microsoft.com/en-us/library/windows/desktop/aa380276(v=vs.85).aspx
         /// </summary>
         public enum CryptSetProvParamQuery : uint
