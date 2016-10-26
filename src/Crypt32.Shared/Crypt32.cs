@@ -14,6 +14,12 @@ namespace PInvoke
     public static partial class Crypt32
     {
         /// <summary>
+        /// The key is a CNG key.
+        /// Windows Server 2003 and Windows XP:  This value is not supported.
+        /// </summary>
+        public const uint CERT_NCRYPT_KEY_SPEC = 0xFFFFFFFF;
+
+        /// <summary>
         /// The PFXImportCertStore function imports a PFX BLOB and returns the handle of a store that contains certificates and any associated private keys.
         /// </summary>
         /// <param name="pPFX">A pointer to a <see cref="CRYPT_DATA_BLOB"/> structure that contains a PFX packet with the exported and encrypted certificates and keys.</param>
@@ -44,10 +50,10 @@ namespace PInvoke
         /// Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  This parameter was named pvReserved and reserved for future use and must be NULL.
         /// </param>
         /// <param name="phCryptProvOrNCryptKey">
-        /// The address of an HCRYPTPROV_OR_NCRYPT_KEY_HANDLE variable that receives the handle of either the CryptoAPI provider or the CNG key. If the <paramref name="pdwKeySpec"/> variable receives the CERT_NCRYPT_KEY_SPEC flag, this is a CNG key handle of type NCRYPT_KEY_HANDLE; otherwise, this is a CryptoAPI provider handle of type HCRYPTPROV.
+        /// The address of an HCRYPTPROV_OR_NCRYPT_KEY_HANDLE variable that receives the handle of either the CryptoAPI provider or the CNG key. If the <paramref name="pdwKeySpec"/> variable receives the <see cref="CERT_NCRYPT_KEY_SPEC"/> flag, this is a CNG key handle of type NCRYPT_KEY_HANDLE; otherwise, this is a CryptoAPI provider handle of type HCRYPTPROV.
         /// For more information about when and how to release this handle, see the description of the pfCallerFreeProvOrNCryptKey parameter.
         /// </param>
-        /// <param name="pdwKeySpec">The address of a DWORD variable that receives additional information about the key. This can be one of <see cref="KeySpec"/> values.</param>
+        /// <param name="pdwKeySpec">The address of a DWORD variable that receives additional information about the key.</param>
         /// <param name="pfCallerFreeProvOrNCryptKey">
         /// The address of a BOOL variable that receives a value that indicates whether the caller must free the handle returned in the <paramref name="phCryptProvOrNCryptKey"/> variable.
         /// This receives FALSE if any of the following is true:
@@ -57,7 +63,7 @@ namespace PInvoke
         /// If this variable receives FALSE, the calling application must not release the handle returned in the <paramref name="phCryptProvOrNCryptKey"/> variable.
         /// The handle will be released on the last free action of the certificate context.
         /// If this variable receives TRUE, the caller is responsible for releasing the handle returned in the <paramref name="phCryptProvOrNCryptKey"/> variable.
-        /// If the <paramref name="pdwKeySpec"/> variable receives the <see cref="KeySpec.CERT_NCRYPT_KEY_SPEC"/> flag, the handle must be released by passing it to the NCryptFreeObject function;
+        /// If the <paramref name="pdwKeySpec"/> variable receives the <see cref="CERT_NCRYPT_KEY_SPEC"/> flag, the handle must be released by passing it to the NCryptFreeObject function;
         /// otherwise, the handle is released by passing it to the CryptReleaseContext function.
         /// </param>
         /// <returns>
@@ -71,8 +77,8 @@ namespace PInvoke
                 CryptAcquireCertificatePrivateKeyFlags dwFlags,
                 void* pvParameters,
                 out IntPtr phCryptProvOrNCryptKey,
-                out KeySpec pdwKeySpec,
-                out bool pfCallerFreeProvOrNCryptKey);
+                out uint pdwKeySpec,
+                [MarshalAs(UnmanagedType.Bool)] out bool pfCallerFreeProvOrNCryptKey);
 
         /// <summary>
         /// The CertGetCertificateContextProperty function retrieves the information contained in an extended property of a certificate context.

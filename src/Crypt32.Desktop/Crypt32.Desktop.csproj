@@ -25,6 +25,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AdvApi32.Desktop\AdvApi32.Desktop.csproj">
+      <Project>{3fcbf2e0-1330-454c-8a17-af14eba6b244}</Project>
+      <Name>AdvApi32.Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeGenerationAttributes.Net40\CodeGenerationAttributes.Net40.csproj">
       <Project>{6a77281b-c503-44ea-90c1-0e9868d06cd0}</Project>
       <Name>CodeGenerationAttributes.Net40</Name>
@@ -36,6 +40,10 @@
       <ExcludeFromNuPkg>true</ExcludeFromNuPkg>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\NCrypt.Desktop\NCrypt.Desktop.csproj">
+      <Project>{093be65b-820a-470c-9a47-82592400059f}</Project>
+      <Name>NCrypt.Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
       <Project>{b08c3c79-4cdd-4d37-933c-07d3452fd5f1}</Project>
       <Name>Windows.Core</Name>
@@ -46,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypt32.cs" />
+    <Compile Include="Crypt32.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
