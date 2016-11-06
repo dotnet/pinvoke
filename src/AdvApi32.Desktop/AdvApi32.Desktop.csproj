@@ -49,6 +49,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvApi32+CryptGetProvParamQuery.cs" />
+    <Compile Include="AdvApi32+CryptSetProvParamQuery.cs" />
+    <Compile Include="AdvApi32+SafeCryptographicProviderHandle.cs" />
     <Compile Include="AdvApi32+SE_OBJECT_TYPE.cs" />
     <Compile Include="AdvApi32+RegNotifyFilter.cs" />
     <Compile Include="AdvApi32+RegOpenKeyOptions.cs" />

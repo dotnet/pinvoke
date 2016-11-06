@@ -397,6 +397,65 @@ namespace PInvoke
         public static extern SafeServiceHandle CreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ACCESS_MASK dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
 
         /// <summary>
+        /// Retrieves parameters that govern the operations of a cryptographic service provider (CSP).
+        /// </summary>
+        /// <param name="hProv">A handle of the CSP target of the query. This handle must have been created by using the CryptAcquireContext function.</param>
+        /// <param name="dwParam">The nature of the query.</param>
+        /// <param name="pbData">
+        /// A pointer to a buffer to receive the data. The form of this data varies depending on the value of <paramref name="dwFlags"/>.
+        /// When <paramref name="dwFlags"/> is set to <see cref="CryptGetProvParamQuery.PP_USE_HARDWARE_RNG"/>, <paramref name="pbData"/> must be set to NULL.
+        /// This parameter can be NULL to set the size of this information for memory allocation purposes.
+        /// </param>
+        /// <param name="pdwDataLen">
+        /// A pointer to a DWORD value that specifies the size, in bytes, of the buffer pointed to by the <paramref name="pbData"/> parameter.
+        /// When the function returns, the DWORD value contains the number of bytes stored or to be stored in the buffer.
+        /// </param>
+        /// <param name="dwFlags">
+        /// If <paramref name="dwParam"/> is <see cref="CryptGetProvParamQuery.PP_KEYSET_SEC_DESCR"/>, the security descriptor on the key container where the keys are stored is retrieved.
+        /// For this case, <paramref name="dwFlags"/> is used to pass in the <see cref="SECURITY_INFORMATION"/> bit flags that indicate the requested security information,
+        /// as defined in the Platform SDK. <see cref="SECURITY_INFORMATION"/> bit flags can be combined with a bitwise-OR operation.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool CryptGetProvParam(
+                SafeHandle hProv,
+                CryptGetProvParamQuery dwParam,
+                [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] byte* pbData,
+                ref int pdwDataLen,
+                uint dwFlags);
+
+        /// <summary>
+        /// Customizes the operations of a cryptographic service provider (CSP). This function is commonly used to set a security descriptor on the key container associated with a CSP to control access to the private keys in that key container.
+        /// </summary>
+        /// <param name="hProv">The handle of a CSP for which to set values. This handle must have already been created by using the CryptAcquireContext function.</param>
+        /// <param name="dwParam">Specifies the parameter to set.</param>
+        /// <param name="pbData">
+        /// A pointer to a data buffer that contains the value to be set as a provider parameter.
+        /// The form of this data varies depending on the dwParam value. If dwFlags contains <see cref="CryptSetProvParamQuery.PP_USE_HARDWARE_RNG"/>, this parameter must be NULL.
+        /// </param>
+        /// <param name="dwFlags">
+        /// If <paramref name="dwFlags"/> contains <see cref="CryptSetProvParamQuery.PP_KEYSET_SEC_DESCR"/>, <paramref name="dwFlags"/> contains the <see cref="SECURITY_INFORMATION"/> applicable bit flags, as defined in the Platform SDK.
+        /// Key-container security is handled by using SetFileSecurity and GetFileSecurity.
+        /// These bit flags can be combined by using a bitwise-OR operation.For more information, see <see cref="CryptGetProvParam(SafeHandle,CryptGetProvParamQuery,byte*,ref int,uint)"/>.
+        /// If dwParam is <see cref="CryptSetProvParamQuery.PP_USE_HARDWARE_RNG"/> or <see cref="CryptSetProvParamQuery.PP_DELETEKEY"/>, <paramref name="dwFlags"/> must be set to zero.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool CryptSetProvParam(
+                SafeHandle hProv,
+                CryptSetProvParamQuery dwParam,
+                [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] byte* pbData,
+                uint dwFlags);
+
+        /// <summary>
         /// Marks the specified service for deletion from the service control manager database.
         /// </summary>
         /// <param name="hService">
@@ -1145,5 +1204,21 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
         private static extern bool CloseServiceHandle(IntPtr hSCObject);
+
+        /// <summary>
+        /// Releases the handle of a cryptographic service provider (CSP) and a key container. At each call to this function, the reference count on the CSP is reduced by one.
+        /// When the reference count reaches zero, the context is fully released and it can  no longer be used by any function in the application.
+        /// An application calls this function after finishing the use of the CSP. After this function is called,
+        /// the released CSP handle is no longer valid.This function does not destroy key containers or key pairs.
+        /// </summary>
+        /// <param name="hProv">Handle of a cryptographic service provider (CSP) created by a call to CryptAcquireContext.</param>
+        /// <param name="dwFlags">Reserved for future use and must be zero. If dwFlags is not set to zero, this function returns FALSE but the CSP is released.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool CryptReleaseContext(IntPtr hProv, uint dwFlags);
     }
 }

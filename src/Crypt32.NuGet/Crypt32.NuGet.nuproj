@@ -38,6 +38,8 @@
     <ProjectReference Include="..\Crypt32\Crypt32.csproj" />
     <ProjectReference Include="..\Crypt32.Desktop\Crypt32.Desktop.csproj" />
     <ProjectReference Include="..\Windows.Core.NuGet\Windows.Core.NuGet.nuproj" />
+    <ProjectReference Include="..\AdvApi32.NuGet\AdvApi32.NuGet.nuproj" />
+    <ProjectReference Include="..\NCrypt.NuGet\NCrypt.NuGet.nuproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PInvoke.Crypt32.nuspec" />

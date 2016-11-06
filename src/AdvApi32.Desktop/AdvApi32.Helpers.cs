@@ -259,6 +259,38 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Retrieves parameters that govern the operations of a cryptographic service provider (CSP).
+        /// </summary>
+        /// <param name="hProv">A handle of the CSP target of the query. This handle must have been created by using the CryptAcquireContext function.</param>
+        /// <param name="dwParam">The nature of the query.</param>
+        /// <param name="dwFlags">
+        /// If <paramref name="dwParam"/> is <see cref="CryptGetProvParamQuery.PP_KEYSET_SEC_DESCR"/>, the security descriptor on the key container where the keys are stored is retrieved.
+        /// For this case, <paramref name="dwFlags"/> is used to pass in the <see cref="SECURITY_INFORMATION"/> bit flags that indicate the requested security information,
+        /// as defined in the Platform SDK. <see cref="SECURITY_INFORMATION"/> bit flags can be combined with a bitwise-OR operation.
+        /// </param>
+        /// <returns>The property value.</returns>
+        /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
+        public static unsafe byte[] CryptGetProvParam(SafeHandle hProv, CryptGetProvParamQuery dwParam, uint dwFlags)
+        {
+            var requiredSize = 0;
+            if (!CryptGetProvParam(hProv, dwParam, null, ref requiredSize, dwFlags))
+            {
+                throw new Win32Exception();
+            }
+
+            var propertyBuffer = new byte[requiredSize];
+            fixed (byte* pbData = propertyBuffer)
+            {
+                if (!CryptGetProvParam(hProv, dwParam, pbData, ref requiredSize, dwFlags))
+                {
+                    throw new Win32Exception();
+                }
+            }
+
+            return propertyBuffer;
+        }
+
+        /// <summary>
         /// Marks the specified service for deletion from the service control manager database on the local computer.
         /// </summary>
         /// <param name="lpServiceName">
