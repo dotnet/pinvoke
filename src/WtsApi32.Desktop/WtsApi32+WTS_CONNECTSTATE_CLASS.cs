@@ -3,22 +3,15 @@
 
 namespace PInvoke
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.InteropServices;
-    using System.Text;
-
     /// <content>
-    /// Exported functions from the WtsApi32.dll Windows library
-    /// that are available to Desktop apps only.
+    /// Contains the <see cref="WTS_CONNECTSTATE_CLASS"/> nested type.
     /// </content>
     public static partial class WtsApi32
     {
         /// <summary>
         ///     Specifies the connection state of a Remote Desktop Services session.
         /// </summary>
-        public enum WtsConnectStateClass
+        public enum WTS_CONNECTSTATE_CLASS
         {
             WTSActive,
             WTSConnected,
@@ -29,7 +22,7 @@ namespace PInvoke
             WTSListen,
             WTSReset,
             WTSDown,
-            WTSInit
+            WTSInit,
         }
     }
 }

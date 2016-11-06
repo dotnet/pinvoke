@@ -12,9 +12,10 @@ namespace PInvoke
     /// Exported functions from the WtsApi32.dll Windows library
     /// that are available to Desktop apps only.
     /// </content>
+    [OfferFriendlyOverloads]
     public static partial class WtsApi32
     {
-        public static readonly IntPtr WTS_CURRENT_SERVER_HANDLE = IntPtr.Zero;
+        public static readonly SafeTerminalServerHandle WTS_CURRENT_SERVER_HANDLE = SafeTerminalServerHandle.Null;
 
         /// <summary>
         /// Obtains the primary access token of the logged-on user specified by the session ID. To call this function successfully,
@@ -29,10 +30,11 @@ namespace PInvoke
         /// For more information, see Remote Desktop Services Permissions. To modify permissions on a session, use the
         /// Remote Desktop Services Configuration administrative tool.</param>
         /// <param name="phToken">If the function succeeds, receives a pointer to the token handle for the logged-on user. Note
-        /// that you must call the CloseHandle function to close this handle.</param>
+        /// that you must call <see cref="SafeHandle.Dispose()"/> function to close this handle.</param>
         /// <returns>f the function succeeds, the return value is a nonzero value, and the phToken parameter points to the primary
         /// token of the user.</returns>
         [DllImport(nameof(WtsApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool WTSQueryUserToken(int SessionId, out SafeObjectHandle phToken);
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="pMemory">Pointer to the memory to free.</param>
         [DllImport(nameof(WtsApi32))]
-        public static extern void WTSFreeMemory(IntPtr pMemory);
+        public static extern unsafe void WTSFreeMemory(void* pMemory);
 
         /// <summary>
         /// Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server.
@@ -48,40 +50,21 @@ namespace PInvoke
         /// <param name="hServer">A handle to the RD Session Host server.
         /// You can use the <see cref="WTSOpenServer"/> or <see cref="WTSOpenServerEx"/> functions to retrieve a handle to a specific
         /// server, or <see cref="WTS_CURRENT_SERVER_HANDLE"/> to use the RD Session Host server that hosts your application.</param>
-        /// <param name="reserved">This parameter is reserved. It must be zero.</param>
-        /// <param name="version">The version of the enumeration request. This parameter must be 1.</param>
-        /// <param name="ppSessionInfo">A pointer to an array of <see cref="WTS_SESSION_INFO"/> structures that represent the retrieved
-        /// sessions. To free the returned buffer, call the <see cref="WTSFreeMemory"/> function.</param>
-        /// <param name="pSessionInfoCount">A pointer to the number of WTS_SESSION_INFO structures returned in the ppSessionInfo parameter.</param>
-        /// <returns>Returns zero if this function fails. If this function succeeds, a nonzero value is returned.</returns>
-        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool WTSEnumerateSessions(
-            IntPtr hServer,
-            [MarshalAs(UnmanagedType.U4)] int reserved,
-            [MarshalAs(UnmanagedType.U4)] int version,
-            ref IntPtr ppSessionInfo,
-            [MarshalAs(UnmanagedType.U4)] ref int pSessionInfoCount);
-
-        /// <summary>
-        /// Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server.
-        /// </summary>
-        /// <param name="hServer">A handle to the RD Session Host server.
-        /// You can use the <see cref="WTSOpenServer"/> or <see cref="WTSOpenServerEx"/> functions to retrieve a handle to a specific
-        /// server, or <see cref="WTS_CURRENT_SERVER_HANDLE"/> to use the RD Session Host server that hosts your application.</param>
-        /// <param name="reserved">This parameter is reserved. It must be zero.</param>
-        /// <param name="version">The version of the enumeration request. This parameter must be 1.</param>
+        /// <param name="Reserved">This parameter is reserved. It must be zero.</param>
+        /// <param name="Version">The version of the enumeration request. This parameter must be 1.</param>
         /// <param name="ppSessionInfo">A pointer to <see cref="IEnumerable&lt;WTS_SESSION_INFO&gt;"/> structures that represent the retrieved
         /// sessions. Note, that returned object doesn't know overall count of sessions, and always return true for MoveNext, use it in pair
         /// with pSessionInfoCount parameter</param>
-        /// <param name="pSessionInfoCount">A pointer to the number of WTS_SESSION_INFO structures returned in the ppSessionInfo parameter.</param>
+        /// <param name="pCount">A pointer to the number of WTS_SESSION_INFO structures returned in the ppSessionInfo parameter.</param>
         /// <returns>Returns zero if this function fails. If this function succeeds, a nonzero value is returned.</returns>
         [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool WTSEnumerateSessions(
-            IntPtr hServer,
-            [MarshalAs(UnmanagedType.U4)] int reserved,
-            [MarshalAs(UnmanagedType.U4)] int version,
-            ref WtsSafeSessionInfoGuard ppSessionInfo,
-            [MarshalAs(UnmanagedType.U4)] ref int pSessionInfoCount);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool WTSEnumerateSessions(
+            SafeTerminalServerHandle hServer,
+            uint Reserved,
+            uint Version,
+            out WTS_SESSION_INFO* ppSessionInfo,
+            out int pCount);
 
         /// <summary>
         /// Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server.
@@ -91,7 +74,7 @@ namespace PInvoke
         /// If the function fails, it returns a handle that is not valid.You can test the validity of the handle by using it
         /// in another function call.</returns>
         [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern WtsSafeServerHandle WTSOpenServer(string pServerName);
+        public static extern SafeTerminalServerHandle WTSOpenServer(string pServerName);
 
         /// <summary>
         /// Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
@@ -100,7 +83,7 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value is a handle to the specified server.
         /// If the function fails, it returns an invalid handle.You can test the validity of the handle by using it in another function call.</returns>
         [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern WtsSafeServerHandle WTSOpenServerEx(string pServerName);
+        public static extern SafeTerminalServerHandle WTSOpenServerEx(string pServerName);
 
         /// <summary>
         /// Closes an open handle to a Remote Desktop Session Host (RD Session Host) server.

@@ -3,30 +3,34 @@
 
 namespace PInvoke
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Runtime.InteropServices;
-    using System.Text;
 
     /// <content>
-    /// Exported functions from the WtsApi32.dll Windows library
-    /// that are available to Desktop apps only.
+    /// Contains the <see cref="WTS_SESSION_INFO"/> nested type.
     /// </content>
     public static partial class WtsApi32
     {
         /// <summary>
         ///     Contains information about a client session on a Remote Desktop Session Host (RD Session Host) server.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
-        public struct WTS_SESSION_INFO
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct WTS_SESSION_INFO
         {
+            /// <summary>
+            /// Session identifier of the session.
+            /// </summary>
             public int SessionID;
 
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string pWinStationName;
+            /// <summary>
+            /// Pointer to a null-terminated string that contains the WinStation name of this session. The WinStation name is a name that Windows associates with the session, for example, "services", "console", or "RDP-Tcp#0".
+            /// </summary>
+            public char* pWinStationName;
 
-            public WtsConnectStateClass State;
+            /// <summary>
+            /// A value from the <see cref="WTS_CONNECTSTATE_CLASS"/> enumeration type that indicates the session's current connection state.
+            /// </summary>
+            public WTS_CONNECTSTATE_CLASS State;
         }
     }
 }

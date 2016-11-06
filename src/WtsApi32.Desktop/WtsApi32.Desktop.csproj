@@ -49,12 +49,11 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WtsApi32+WtsSafeServerHandle.cs" />
-    <Compile Include="WtsApi32+WtsSafeSessionInfoGuard.cs" />
-    <Compile Include="WtsApi32+WtsSafeMemoryGuardIterator.cs" />
-    <Compile Include="WtsApi32+WtsSafeMemoryGuard.cs" />
-    <Compile Include="WtsApi32+WtsConnectStateClass.cs" />
-    <Compile Include="WtsApi32+WTS_SESSION_INFO.cs" />
+    <Compile Include="WtsApi32+SafeTerminalServerHandle.cs" />
+    <Compile Include="WtsApi32+WTS_CONNECTSTATE_CLASS.cs" />
+    <Compile Include="WtsApi32+WTS_SESSION_INFO.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="WtsApi32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
