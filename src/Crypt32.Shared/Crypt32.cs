@@ -58,7 +58,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Crypt32), SetLastError = true)]
         public static extern unsafe bool CertGetCertificateContextProperty(
-            IntPtr pCertContext,
+            CERT_CONTEXT* pCertContext,
             CERT_PROP_ID dwPropId,
             void* pvData,
             ref int pcbData);
@@ -102,7 +102,7 @@ namespace PInvoke
         [DllImport(nameof(Crypt32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool CryptAcquireCertificatePrivateKey(
-                IntPtr pCert,
+                CERT_CONTEXT* pCert,
                 CryptAcquireCertificatePrivateKeyFlags dwFlags,
                 void* pvParameters,
                 out IntPtr phCryptProvOrNCryptKey,
