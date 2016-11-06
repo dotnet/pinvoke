@@ -31,6 +31,11 @@ namespace PInvoke
             /// A value from the <see cref="WTS_CONNECTSTATE_CLASS"/> enumeration type that indicates the session's current connection state.
             /// </summary>
             public WTS_CONNECTSTATE_CLASS State;
+
+            /// <summary>
+            /// Gets the WinStation name of this session. The WinStation name is a name that Windows associates with the session, for example, "services", "console", or "RDP-Tcp#0".
+            /// </summary>
+            public string WinStationName => new string(this.pWinStationName);
         }
     }
 }

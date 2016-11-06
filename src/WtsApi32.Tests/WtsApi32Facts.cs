@@ -18,17 +18,27 @@ public class WtsApi32Facts
     }
 
     [Fact]
-    public void CheckWorkingOfWtsSafeMemoryGuard()
+    public unsafe void CheckWorkingOfWtsSafeMemoryGuard()
     {
-        WtsSafeSessionInfoGuard wtsSafeMemoryGuard = new WtsSafeSessionInfoGuard();
-        int sessionCount = 0;
-        Assert.True(WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref wtsSafeMemoryGuard, ref sessionCount));
-        Assert.NotEqual(0, sessionCount);
-
-        var list = wtsSafeMemoryGuard.Take(sessionCount).ToList();
-        foreach (var ses in list)
+        WTS_SESSION_INFO* pSessions;
+        int sessionCount;
+        Assert.True(WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, out pSessions, out sessionCount));
+        try
         {
-            this.output.WriteLine($"{ses.pWinStationName}, {ses.SessionID}, {ses.State}");
+            Assert.NotEqual(0, sessionCount);
+
+            for (int i = 0; i < sessionCount; i++)
+            {
+                var ses = pSessions[i];
+                this.output.WriteLine($"#{i} {ses.WinStationName}, {ses.SessionID}, {ses.State}");
+            }
+        }
+        finally
+        {
+            if (pSessions != null)
+            {
+                WTSFreeMemory(pSessions);
+            }
         }
     }
 }
