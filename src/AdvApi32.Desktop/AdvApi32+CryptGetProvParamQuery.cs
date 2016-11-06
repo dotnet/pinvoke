@@ -48,7 +48,7 @@ namespace PInvoke
             PP_UNIQUE_CONTAINER = 0x24,
             PP_USE_HARDWARE_RNG = 0x26,
             PP_USER_CERTSTORE = 0x2A,
-            PP_VERSION = 0x5
+            PP_VERSION = 0x5,
         }
     }
 }

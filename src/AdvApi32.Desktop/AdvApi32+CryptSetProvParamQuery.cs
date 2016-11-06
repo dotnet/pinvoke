@@ -27,7 +27,7 @@ namespace PInvoke
             PP_SECURE_KEYEXCHANGE_PIN = 0x2F,
             PP_SECURE_SIGNATURE_PIN = 0x30,
             PP_SMARTCARD_READER = 0x2B,
-            PP_SMARTCARD_GUID = 0x2D
+            PP_SMARTCARD_GUID = 0x2D,
         }
     }
 }
