@@ -57,7 +57,7 @@ namespace PInvoke
         /// with pSessionInfoCount parameter</param>
         /// <param name="pCount">A pointer to the number of WTS_SESSION_INFO structures returned in the ppSessionInfo parameter.</param>
         /// <returns>Returns zero if this function fails. If this function succeeds, a nonzero value is returned.</returns>
-        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool WTSEnumerateSessions(
             SafeTerminalServerHandle hServer,
@@ -73,7 +73,7 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value is a handle to the specified server.
         /// If the function fails, it returns a handle that is not valid.You can test the validity of the handle by using it
         /// in another function call.</returns>
-        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeTerminalServerHandle WTSOpenServer(string pServerName);
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace PInvoke
         /// <param name="pServerName">A string that contains the NetBIOS name of the server.</param>
         /// <returns>If the function succeeds, the return value is a handle to the specified server.
         /// If the function fails, it returns an invalid handle.You can test the validity of the handle by using it in another function call.</returns>
-        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeTerminalServerHandle WTSOpenServerEx(string pServerName);
 
         /// <summary>
         /// Closes an open handle to a Remote Desktop Session Host (RD Session Host) server.
         /// </summary>
         /// <param name="hServer">A handle to an RD Session Host server opened by a call to the <see cref="WTSOpenServer"/> or <see cref="WTSOpenServerEx"/> function.</param>
-        [DllImport(nameof(WtsApi32), SetLastError =true, CharSet = CharSet.Auto)]
+        [DllImport(nameof(WtsApi32), SetLastError =true, CharSet = CharSet.Unicode)]
         private static extern void WTSCloseServer(IntPtr hServer);
     }
 }
