@@ -40,6 +40,30 @@ namespace PInvoke
             PFXImportCertStoreFlags dwFlags);
 
         /// <summary>
+        /// The CertGetCertificateContextProperty function retrieves the information contained in an extended property of a certificate context.
+        /// </summary>
+        /// <param name="pCertContext">A pointer to the CERT_CONTEXT structure of the certificate that contains the property to be retrieved.</param>
+        /// <param name="dwPropId">The property to be retrieved.</param>
+        /// <param name="pvData">
+        /// A pointer to a buffer to receive the data as determined by dwPropId
+        /// Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in pcbData often exceeds the size of the base structure.
+        /// </param>
+        /// <param name="pcbData">
+        /// A pointer to a DWORD value that specifies the size, in bytes, of the buffer pointed to by the pvData parameter.
+        /// When the function returns, the DWORD value contains the number of bytes to be stored in the buffer.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the function returns TRUE.
+        /// If the function fails, it returns FALSE.
+        /// </returns>
+        [DllImport(nameof(Crypt32), SetLastError = true)]
+        public static extern unsafe bool CertGetCertificateContextProperty(
+            IntPtr pCertContext,
+            CERT_PROP_ID dwPropId,
+            void* pvData,
+            ref int pcbData);
+
+        /// <summary>
         /// Obtains the private key for a certificate. This function is used to obtain access to a user's private key when the user's certificate is available, but the handle of the user's key container is not available. This function can only be used by the owner of a private key and not by any other user.
         /// If a CSP handle and the key container containing a user's private key are available, the CryptGetUserKey function should be used instead.
         /// </summary>
@@ -70,39 +94,20 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
+        /// <devremarks>
+        /// This is private because it returns an <see cref="IntPtr"/> for the handle
+        /// and we don't expose the release methods publicly.
+        /// A helper method strongly types it as either of two <see cref="SafeHandle"/> types.
+        /// </devremarks>
         [DllImport(nameof(Crypt32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool CryptAcquireCertificatePrivateKey(
+        private static extern unsafe bool CryptAcquireCertificatePrivateKey(
                 IntPtr pCert,
                 CryptAcquireCertificatePrivateKeyFlags dwFlags,
                 void* pvParameters,
                 out IntPtr phCryptProvOrNCryptKey,
                 out uint pdwKeySpec,
                 [MarshalAs(UnmanagedType.Bool)] out bool pfCallerFreeProvOrNCryptKey);
-
-        /// <summary>
-        /// The CertGetCertificateContextProperty function retrieves the information contained in an extended property of a certificate context.
-        /// </summary>
-        /// <param name="pCertContext">A pointer to the CERT_CONTEXT structure of the certificate that contains the property to be retrieved.</param>
-        /// <param name="dwPropId">The property to be retrieved.</param>
-        /// <param name="pvData">
-        /// A pointer to a buffer to receive the data as determined by dwPropId
-        /// Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in pcbData often exceeds the size of the base structure.
-        /// </param>
-        /// <param name="pcbData">
-        /// A pointer to a DWORD value that specifies the size, in bytes, of the buffer pointed to by the pvData parameter.
-        /// When the function returns, the DWORD value contains the number of bytes to be stored in the buffer.
-        /// </param>
-        /// <returns>
-        /// If the function succeeds, the function returns TRUE.
-        /// If the function fails, it returns FALSE.
-        /// </returns>
-        [DllImport(nameof(Crypt32), SetLastError = true)]
-        public static extern unsafe bool CertGetCertificateContextProperty(
-            IntPtr pCertContext,
-            CERT_PROP_ID dwPropId,
-            void* pvData,
-            ref int pcbData);
 
         /// <summary>
         /// The CertCloseStore function closes a certificate store handle and reduces the reference count on the store. There needs to be a corresponding call to CertCloseStore for each successful call to the CertOpenStore or CertDuplicateStore functions.
