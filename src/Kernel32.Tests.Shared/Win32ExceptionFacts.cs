@@ -31,11 +31,7 @@ public partial class Win32ExceptionFacts
     {
         Win32ErrorCode error = (Win32ErrorCode)0x11111111;
         var ex = new Win32Exception(error);
-#if DESKTOP
         Assert.Equal("Unknown error (0x11111111)", ex.Message);
-#else
-        Assert.Equal("Unknown error (0x11111111)", ex.Message);
-#endif
     }
 
     [Fact]
