@@ -20,7 +20,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="statusCode">The status code identifying the error.</param>
         public NTStatusException(NTSTATUS statusCode)
-            : this(statusCode, null, null)
+            : this(statusCode, GetMessage(statusCode))
         {
         }
 
@@ -65,32 +65,6 @@ namespace PInvoke
         /// </summary>
         public NTSTATUS NativeErrorCode { get; }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="NTStatusException"/> class with localized message.
-        /// </summary>
-        /// <param name="statusCode">The status code identifying the error.</param>
-        /// <param name="localize">Indicates wether the message should be localized</param>
-        /// <returns>The localized NTStatusException</returns>
-        public static NTStatusException Create(NTSTATUS statusCode, bool localize)
-        {
-            NTStatusException result;
-
-            if (localize)
-            {
-#if DESKTOP
-                result = new NTStatusException(statusCode, $"{statusCode.GetMessage()} (NT_STATUS error: {statusCode.Value:G} (0x{statusCode.AsInt32:X8}))");
-#else
-                result = new NTStatusException(statusCode);
-#endif
-            }
-            else
-            {
-                result = new NTStatusException(statusCode);
-            }
-
-            return result;
-        }
-
 #if DESKTOP
         /// <inheritdoc />
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -109,7 +83,7 @@ namespace PInvoke
         {
             string hexCode = $"0x{(int)status:X8}";
             string namedCode = Enum.GetName(typeof(NTSTATUS.Code), status.AsUInt32);
-            string statusAsString = namedCode != null
+            string statusAsString = namedCode != null && namedCode != hexCode
                 ? $"{namedCode} ({hexCode})"
                 : hexCode;
             string insert = $"NT_STATUS {GetSeverityString(status)}: {statusAsString}";

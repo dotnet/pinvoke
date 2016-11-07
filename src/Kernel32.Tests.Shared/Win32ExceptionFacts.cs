@@ -22,7 +22,7 @@ public partial class Win32ExceptionFacts
     public void Win32Exception_Message()
     {
         Win32ErrorCode error = Win32ErrorCode.ERROR_INVALID_LABEL;
-        var ex = Win32Exception.Create(error, true);
+        var ex = new Win32Exception(error);
         Assert.Equal("Indicates a particular Security ID may not be assigned as the label of an object", ex.Message);
     }
 
@@ -30,7 +30,7 @@ public partial class Win32ExceptionFacts
     public void Win32Exception_MessageNotFound()
     {
         Win32ErrorCode error = (Win32ErrorCode)0x11111111;
-        var ex = Win32Exception.Create(error, true);
+        var ex = new Win32Exception(error);
 #if DESKTOP
         Assert.Equal("Unknown error (0x11111111)", ex.Message);
 #else

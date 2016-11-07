@@ -63,30 +63,5 @@ namespace PInvoke
                 throw new NTStatusException(status);
             }
         }
-
-        /// <summary>
-        /// Throws an exception with localized message when an error occurs.
-        /// </summary>
-        /// <param name="errorCode">The result of the P/Invoke call.</param>
-        /// <exception cref="Win32Exception">If <paramref name="errorCode"/> is not <see cref="Win32ErrorCode.ERROR_SUCCESS"/></exception>
-        public static void ThrowOnLocalizedError(this Win32ErrorCode errorCode)
-        {
-            if (errorCode != Win32ErrorCode.ERROR_SUCCESS)
-            {
-                throw Win32Exception.Create(errorCode, true);
-            }
-        }
-
-        /// <summary>
-        /// Throws an exception with localized message if a P/Invoke failed.
-        /// </summary>
-        /// <param name="status">The result of the P/Invoke call.</param>
-        public static void ThrowOnLocalizedError(this NTSTATUS status)
-        {
-            if (status.Severity == NTSTATUS.SeverityCode.STATUS_SEVERITY_ERROR)
-            {
-                throw NTStatusException.Create(status, true);
-            }
-        }
     }
 }

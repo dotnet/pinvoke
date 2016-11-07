@@ -13,11 +13,11 @@ public partial class Kernel32ExtensionsFacts
         Win32ErrorCode success = Win32ErrorCode.ERROR_SUCCESS;
         success.ThrowOnError();
         Win32ErrorCode failure = Win32ErrorCode.ERROR_FAIL_NOACTION_REBOOT;
-        Assert.Throws<Win32Exception>(() => failure.ThrowOnLocalizedError());
+        Assert.Throws<Win32Exception>(() => failure.ThrowOnError());
 
         try
         {
-            failure.ThrowOnLocalizedError();
+            failure.ThrowOnError();
             Assert.False(true, "Expected exception not thrown.");
         }
         catch (Win32Exception ex)
@@ -37,7 +37,7 @@ public partial class Kernel32ExtensionsFacts
 
         try
         {
-            failure.ThrowOnLocalizedError();
+            failure.ThrowOnError();
             Assert.False(true, "Expected exception not thrown.");
         }
         catch (NTStatusException ex)
