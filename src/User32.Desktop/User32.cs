@@ -160,7 +160,7 @@ namespace PInvoke
         /// The callback function can call SetLastError to set an error code for the caller to retrieve by calling GetLastError.
         /// </remarks>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public delegate bool WNDENUMPROC(IntPtr hwnd, IntPtr lParam);
 
         /// <summary>
@@ -2605,10 +2605,27 @@ namespace PInvoke
         /// EndPaint releases the display device context that <see cref="BeginPaint(IntPtr, PAINTSTRUCT*)"/> retrieved.
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EndPaint(
             IntPtr hWnd,
             [Friendly(FriendlyFlags.In)] PAINTSTRUCT* lpPaint);
+
+        /// <summary>
+        /// Sets the show state and the restored, minimized, and maximized positions of the specified window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window.</param>
+        /// <param name="lpwndpl">A pointer to a WINDOWPLACEMENT structure that specifies the new show state and window positions.
+        /// Before calling SetWindowPlacement, set the <see cref="WINDOWPLACEMENT.length"/> member of the <see cref="WINDOWPLACEMENT"/> structure to sizeof(WINDOWPLACEMENT).
+        /// SetWindowPlacement fails if the length member is not set correctly.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool SetWindowPlacement(
+            IntPtr hWnd,
+            [Friendly(FriendlyFlags.In)] WINDOWPLACEMENT* lpwndpl);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
