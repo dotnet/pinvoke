@@ -46,7 +46,7 @@ namespace PInvoke
         /// <param name="error">The Win32 error code associated with this exception.</param>
         public Win32Exception(Win32ErrorCode error)
 #if DESKTOP
-            : base((int)error)
+            : this(error, error.GetMessage() ?? $"Unknown error (0x{(int)error:x8})")
 #else
             : this(error, error.GetMessage() ?? $"Unknown error (0x{(int)error:x8})")
 #endif
