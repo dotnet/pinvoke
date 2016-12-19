@@ -64,6 +64,7 @@
     <Compile Include="User32+KEYBDINPUT.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
+    <Compile Include="User32+keybd_eventFlags.cs" />
     <Compile Include="User32+HARDWAREINPUT.cs" />
     <Compile Include="User32+INPUT.cs" />
     <Compile Include="User32+MSG.cs" />

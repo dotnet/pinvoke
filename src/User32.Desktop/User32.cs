@@ -2633,7 +2633,7 @@ namespace PInvoke
         ///     Synthesizes a keystroke. The system can use such a synthesized keystroke to generate a WM_KEYUP or WM_KEYDOWN message. The keyboard driver's interrupt handler calls the keybd_event function.
         /// </summary>
         /// <param name="bVk">
-        ///     A virtual-key code. The code must be a value in the range 1 to 254. For a complete list, see Virtual Key Codes.
+        ///     A virtual-key code from <see cref="VirtualKey" />. The code must be a value in the range 1 to 254.
         /// </param>
         /// <param name="bScan">
         ///     A hardware scan code for the key.
@@ -2645,7 +2645,7 @@ namespace PInvoke
         ///     An additional value associated with the key stroke.
         /// </param>
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+        public static extern unsafe void keybd_event(byte bVk, byte bScan, keybd_eventFlags dwFlags, void* dwExtraInfo);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
