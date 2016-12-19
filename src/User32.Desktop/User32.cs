@@ -11,6 +11,8 @@ namespace PInvoke
     using PInvoke;
     using static PInvoke.Kernel32;
 
+    #pragma warning disable SA1300 // Elements must begin with an uppercase letter
+
     /// <summary>
     /// Exported functions from the User32.dll Windows library.
     /// </summary>
@@ -2626,6 +2628,24 @@ namespace PInvoke
         public static extern unsafe bool SetWindowPlacement(
             IntPtr hWnd,
             [Friendly(FriendlyFlags.In)] WINDOWPLACEMENT* lpwndpl);
+
+        /// <summary>
+        ///     Synthesizes a keystroke. The system can use such a synthesized keystroke to generate a WM_KEYUP or WM_KEYDOWN message. The keyboard driver's interrupt handler calls the keybd_event function.
+        /// </summary>
+        /// <param name="bVk">
+        ///     A virtual-key code from <see cref="VirtualKey" />. The code must be a value in the range 1 to 254.
+        /// </param>
+        /// <param name="bScan">
+        ///     A hardware scan code for the key from <see cref="ScanCode" />.
+        /// </param>
+        /// <param name="dwFlags">
+        ///     Controls various aspects of function operation. This parameter can be one or more of the following values.
+        /// </param>
+        /// <param name="dwExtraInfo">
+        ///     An additional value associated with the key stroke.
+        /// </param>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe void keybd_event(byte bVk, byte bScan, KEYEVENTF dwFlags, void* dwExtraInfo);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
