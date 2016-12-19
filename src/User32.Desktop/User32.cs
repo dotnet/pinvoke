@@ -11,6 +11,8 @@ namespace PInvoke
     using PInvoke;
     using static PInvoke.Kernel32;
 
+    #pragma warning disable SA1300 // Elements must begin with an uppercase letter
+
     /// <summary>
     /// Exported functions from the User32.dll Windows library.
     /// </summary>
