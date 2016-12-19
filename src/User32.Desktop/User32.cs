@@ -1329,11 +1329,35 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int WaitForInputIdle(IntPtr hProcess, int dwMilliseconds);
 
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern short GetAsyncKeyState(VirtualKey vKey);
+        /// <summary>
+        /// Determines whether a key is up or down at the time the function is called, and whether the key was pressed after a previous call to GetAsyncKeyState.
+        /// </summary>
+        /// <param name="vKey">
+        /// The virtual-key code from the <see cref="VirtualKey" /> enum.
+        /// You can use left- and right-distinguishing constants to specify certain keys.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value specifies whether the key was pressed since the last call to GetAsyncKeyState, and whether the key is currently up or down. If the most significant bit is set, the key is down, and if the least significant bit is set, the key was pressed after /// the previous call to GetAsyncKeyState. However, you should not rely on this last behavior; for more information, see the Remarks on MSDN.
+        /// </returns>
+        [DllImport(nameof(User32))]
+        public static extern short GetAsyncKeyState(int vKey);
 
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern short GetKeyState(VirtualKey vKey);
+        /// <summary>
+        /// Retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed).
+        /// </summary>
+        /// <param name="nVirtKey">
+        /// A virtual key code from the <see cref="VirtualKey" /> enum. If the desired virtual key is a letter or digit (A through Z, a through z, or 0 through 9), nVirtKey must be set to the ASCII value of that character. For other keys, it must be a virtual-key code.
+        /// If a non-English keyboard layout is used, virtual keys with values in the range ASCII A through Z and 0 through 9 are used to specify most of the character keys. For example, for the German keyboard layout,
+        /// the virtual key of value ASCII O (0x4F) refers to the "o" key, whereas VK_OEM_1 refers to the "o with umlaut" key.
+        /// </param>
+        /// <returns>
+        /// The return value specifies the status of the specified virtual key, as follows:
+        /// If the high-order bit is 1, the key is down; otherwise, it is up.
+        /// If the low-order bit is 1, the key is toggled. A key, such as the CAPS LOCK key, is toggled if it is turned on. The key is off and untoggled if the low-order bit is 0. A toggle key's indicator light (if any) on the keyboard will be on when the key is toggled,
+        /// and off when the key is untoggled.
+        /// </returns>
+        [DllImport(nameof(User32))]
+        public static extern short GetKeyState(int nVirtKey);
 
         /// <summary>
         /// <para>
