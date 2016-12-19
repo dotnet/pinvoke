@@ -2628,6 +2628,24 @@ namespace PInvoke
             [Friendly(FriendlyFlags.In)] WINDOWPLACEMENT* lpwndpl);
 
         /// <summary>
+        ///     Synthesizes a keystroke. The system can use such a synthesized keystroke to generate a WM_KEYUP or WM_KEYDOWN message. The keyboard driver's interrupt handler calls the keybd_event function.
+        /// </summary>
+        /// <param name="bVk">
+        ///     A virtual-key code. The code must be a value in the range 1 to 254. For a complete list, see Virtual Key Codes.
+        /// </param>
+        /// <param name="bScan">
+        ///     A hardware scan code for the key.
+        /// </param>
+        /// <param name="dwFlags">
+        ///     Controls various aspects of function operation. This parameter can be one or more of the following values.
+        /// </param>
+        /// <param name="dwExtraInfo">
+        ///     An additional value associated with the key stroke.
+        /// </param>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
+        /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
         /// </summary>
         /// <param name="hwnd">Handle to the window to be repainted.</param>
@@ -2754,23 +2772,5 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool UnhookWinEvent(IntPtr hWinEventHook);
-
-        /// <summary>
-        ///     Synthesizes a keystroke. The system can use such a synthesized keystroke to generate a WM_KEYUP or WM_KEYDOWN message. The keyboard driver's interrupt handler calls the keybd_event function.
-        /// </summary>
-        /// <param name="bVk">
-        ///     A virtual-key code. The code must be a value in the range 1 to 254. For a complete list, see Virtual Key Codes.
-        /// </param>
-        /// <param name="bScan">
-        ///     A hardware scan code for the key.
-        /// </param>
-        /// <param name="dwFlags">
-        ///     Controls various aspects of function operation. This parameter can be one or more of the following values.
-        /// </param>
-        /// <param name="dwExtraInfo">
-        ///     An additional value associated with the key stroke.
-        /// </param>
-        [DllImport(nameof(User32), SetLastError = true)]
-        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
     }
 }
