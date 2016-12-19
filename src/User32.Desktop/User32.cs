@@ -2636,7 +2636,7 @@ namespace PInvoke
         ///     A virtual-key code from <see cref="VirtualKey" />. The code must be a value in the range 1 to 254.
         /// </param>
         /// <param name="bScan">
-        ///     A hardware scan code for the key.
+        ///     A hardware scan code for the key from <see cref="ScanCode" />.
         /// </param>
         /// <param name="dwFlags">
         ///     Controls various aspects of function operation. This parameter can be one or more of the following values.
@@ -2645,7 +2645,7 @@ namespace PInvoke
         ///     An additional value associated with the key stroke.
         /// </param>
         [DllImport(nameof(User32), SetLastError = true)]
-        public static extern unsafe void keybd_event(byte bVk, byte bScan, keybd_eventFlags dwFlags, void* dwExtraInfo);
+        public static extern unsafe void keybd_event(byte bVk, byte bScan, KEYEVENTF dwFlags, void* dwExtraInfo);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
