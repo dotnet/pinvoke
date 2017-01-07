@@ -12,6 +12,12 @@ namespace PInvoke
     {
         /// <summary>Virtual-key codes</summary>
         /// <remarks>Defined in winuser.h from Windows SDK v6.1</remarks>
+        /// <devremarks>
+        /// APIs vary in the length they expect a parameter for virtual keys to be.
+        /// Be sure to type the parameter as byte, ushort, or int as appropriate and document
+        /// that the user should get the value from this enum and cast the result to ensure
+        /// the method signature is compatible.
+        /// </devremarks>
         public enum VirtualKey : ushort
         {
             /// <summary>
