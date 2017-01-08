@@ -16,17 +16,17 @@ namespace PInvoke
         public enum InputType : uint
         {
             /// <summary>
-            /// The event is a mouse event. Use the <see cref="INPUT.mi"/> structure of the union.
+            /// The event is a mouse event. Use the <see cref="INPUT.InputUnion.mi"/> structure of the union.
             /// </summary>
             INPUT_MOUSE = 0,
 
             /// <summary>
-            /// The event is a keyboard event. Use the <see cref="INPUT.ki"/> structure of the union.
+            /// The event is a keyboard event. Use the <see cref="INPUT.InputUnion.ki"/> structure of the union.
             /// </summary>
             INPUT_KEYBOARD = 1,
 
             /// <summary>
-            /// The event is a hardware event. Use the <see cref="INPUT.hi"/> structure of the union.
+            /// The event is a hardware event. Use the <see cref="INPUT.InputUnion.hi"/> structure of the union.
             /// </summary>
             INPUT_HARDWARE = 2,
         }

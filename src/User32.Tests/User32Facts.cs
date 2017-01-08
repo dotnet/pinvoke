@@ -26,13 +26,13 @@ public partial class User32Facts
         i.type = InputType.INPUT_HARDWARE;
 
         // Assert that the first field (type) has its own memory space.
-        Assert.Equal(0u, i.hi.uMsg);
-        Assert.Equal(0, (int)i.ki.wScan);
-        Assert.Equal(0, i.mi.dx);
+        Assert.Equal(0u, i.Inputs.hi.uMsg);
+        Assert.Equal(0, (int)i.Inputs.ki.wScan);
+        Assert.Equal(0, i.Inputs.mi.dx);
 
         // Assert that these three fields (hi, ki, mi) share memory space.
-        i.hi.uMsg = 1;
-        Assert.Equal(1, (int)i.ki.wVk);
-        Assert.Equal(1, i.mi.dx);
+        i.Inputs.hi.uMsg = 1;
+        Assert.Equal(1, (int)i.Inputs.ki.wVk);
+        Assert.Equal(1, i.Inputs.mi.dx);
     }
 }
