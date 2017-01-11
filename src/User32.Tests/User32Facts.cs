@@ -38,7 +38,7 @@ public partial class User32Facts
 
     /// <summary>
     /// Validates that the union fields are all exactly 4 bytes (or 8 bytes on x64)
-    /// after the start of the struct.i
+    /// after the start of the struct.
     /// </summary>
     /// <devremarks>
     /// From http://www.pinvoke.net/default.aspx/Structures/INPUT.html:
