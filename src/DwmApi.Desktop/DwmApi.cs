@@ -77,5 +77,16 @@ namespace PInvoke
         public static extern HResult DwmGetColorizationColor(
             out uint pcrColorization,
             [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
+
+        /// <summary>
+        /// Retrieves the current value of a specified attribute applied to a window.
+        /// </summary>
+        /// <param name="hwnd">The handle to the window from which the attribute data is retrieved.</param>
+        /// <param name="dwAttribute">The attribute to retrieve, specified as a <see cref="DWMWINDOWATTRIBUTE"/> value.</param>
+        /// <param name="pvAttribute">A pointer to a value that, when this function returns successfully, receives the current value of the attribute. The type of the retrieved value depends on the value of the <paramref name="dwAttribute"/> parameter.</param>
+        /// <param name="cbAttribute">The size of the <see cref="DWMWINDOWATTRIBUTE"/> value being retrieved. The size is dependent on the type of the <paramref name="pvAttribute"/> parameter.</param>
+        /// <returns>If this function succeeds, it returns <see cref="HResult.Code.S_OK"/>. Otherwise, it returns an <see cref="HResult"/> error code.</returns>
+        [DllImport(nameof(DwmApi))]
+        public static unsafe extern HResult DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, out void* pvAttribute, int cbAttribute);
     }
 }

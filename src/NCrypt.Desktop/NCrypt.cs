@@ -35,6 +35,6 @@ namespace PInvoke
         /// <returns>Returns a nonzero value if the handle is a key handle or zero otherwise.</returns>
         [DllImport(nameof(NCrypt))]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool NCryptIsKeyHandle(IntPtr hKey);
+        public static extern bool NCryptIsKeyHandle(IntPtr hKey);
     }
 }

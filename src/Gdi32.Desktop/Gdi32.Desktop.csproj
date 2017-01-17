@@ -21,6 +21,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Gdi32+DeviceCap.cs" />
+    <Compile Include="Gdi32+StockObject.cs" />
     <Compile Include="Gdi32.cs" />
     <Compile Include="Gdi32.Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

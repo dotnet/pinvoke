@@ -197,26 +197,34 @@ namespace PInvoke
             }
         }
 
-        public static string QueryFullProcessImageName(
+        public static unsafe string QueryFullProcessImageName(
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags = QueryFullProcessImageNameFlags.None)
         {
             // If we ever resize over this value something got really wrong
             const int maximumRealisticSize = 1 * 1024 * 2014;
 
-            var buffer = new StringBuilder(255);
+            int size = 255;
             do
             {
-                int size = buffer.Capacity;
-                bool success = QueryFullProcessImageName(hProcess, dwFlags, buffer, ref size);
-                if (success)
+                fixed (char* buffer = new char[size])
                 {
-                    return buffer.ToString();
+                    bool success = QueryFullProcessImageName(hProcess, dwFlags, buffer, ref size);
+                    if (success)
+                    {
+                        return new string(buffer, 0, size);
+                    }
+
+                    var lastError = GetLastError();
+                    if (lastError != Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
+                    {
+                        lastError.ThrowOnError();
+                    }
                 }
 
-                buffer.Capacity = buffer.Capacity * 2;
+                size *= 2;
             }
-            while (buffer.Capacity < maximumRealisticSize);
+            while (size < maximumRealisticSize);
 
             throw new InvalidOperationException(
                 $"QueryFullProcessImageName is expecting a buffer of more than {maximumRealisticSize} bytes");

@@ -21,11 +21,42 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="User32+ClassStyles.cs" />
     <Compile Include="User32+DesktopCreationFlags.cs" />
+    <Compile Include="User32+DeviceContextValues.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_2DREGION.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_ADDITIONAL_SIGNAL_INFO.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_DESKTOP_IMAGE_INFO.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_MODE_INFO.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_MODE_INFO_TYPE.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_PATH_INFO.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_PATH_SOURCE_INFO.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_PATH_TARGET_INFO.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_PIXELFORMAT.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_RATIONAL.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_ROTATION.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_SCALING.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_SCANLINE_ORDERING.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_SOURCE_MODE.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_TARGET_MODE.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_TOPOLOGY_ID.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.cs" />
+    <Compile Include="User32+DISPLAYCONFIG_VIDEO_SIGNAL_INFO.cs" />
+    <Compile Include="User32+DISPLAYCONFIG__TARGET_MODE_INFO.cs" />
     <Compile Include="User32+DLGITEMTEMPLATE.cs" />
     <Compile Include="User32+DLGTEMPLATE.cs" />
+    <Compile Include="User32+DRAWTEXTPARAMS.cs" />
+    <Compile Include="User32+HELPINFO.cs" />
     <Compile Include="User32+InputType.cs" />
     <Compile Include="User32+KEYEVENTF.cs" />
+    <Compile Include="User32+LUID.cs" />
+    <Compile Include="User32+MesageBoxOptions.cs" />
+    <Compile Include="User32+MessageBoxResult.cs" />
+    <Compile Include="User32+MONITORINFO.cs" />
+    <Compile Include="User32+MONITORINFOEX.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="User32+MonitorOptions.cs" />
     <Compile Include="User32+MOUSEEVENTF.cs" />
     <Compile Include="User32+MOUSEINPUT.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
@@ -36,17 +67,29 @@
     <Compile Include="User32+HARDWAREINPUT.cs" />
     <Compile Include="User32+INPUT.cs" />
     <Compile Include="User32+MSG.cs" />
+    <Compile Include="User32+MSGBOXPARAMS.cs" />
     <Compile Include="User32+ObjectIinformationFlag.cs" />
+    <Compile Include="User32+PAINTSTRUCT.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="User32+PeekMessageRemoveFlags.cs" />
     <Compile Include="User32+QueueStatusFlags.cs" />
     <Compile Include="User32+PeekMessageParams.cs" />
     <Compile Include="User32+SafeDesktopHandle.cs" />
+    <Compile Include="User32+SafeEventHookHandle.cs" />
     <Compile Include="User32+SafeWindowStationHandle.cs" />
+    <Compile Include="User32+SpecialWindowHandles.cs" />
+    <Compile Include="User32+SystemParametersInfoAction.cs" />
+    <Compile Include="User32+SystemParametersInfoFlags.cs" />
     <Compile Include="User32+SysCommands.cs" />
+    <Compile Include="User32+SystemMetric.cs" />
+    <Compile Include="User32+TextFormats.cs" />
     <Compile Include="User32+USEROBJECTFLAGS.cs" />
     <Compile Include="User32+UserObjectFlagsEnum.cs" />
     <Compile Include="User32+VirtualKey.cs" />
     <Compile Include="User32+ScanCode.cs" />
+    <Compile Include="User32+ChildWindowFromPointExFlags.cs" />
+    <Compile Include="User32+WINDOWINFO.cs" />
     <Compile Include="User32+WindowMessage.cs" />
     <Compile Include="User32+MessageBeepType.cs" />
     <Compile Include="User32+FlashWindowFlags.cs" />
@@ -67,9 +110,20 @@
     <Compile Include="User32+WindowLongIndexFlags.cs" />
     <Compile Include="User32+WINDOWPLACEMENT.cs" />
     <Compile Include="User32+WindowPlacementFlags.cs" />
+    <Compile Include="User32+WindowsEventHookFlags.cs" />
+    <Compile Include="User32+WindowsEventHookType.cs" />
     <Compile Include="User32+WindowsHookType.cs" />
     <Compile Include="User32+WindowShowStyle.cs" />
     <Compile Include="User32+WindowStationCreationFlags.cs" />
+    <Compile Include="User32+WindowStyles.cs" />
+    <Compile Include="User32+WindowStylesEx.cs" />
+    <Compile Include="User32+WINMAXINFO.cs" />
+    <Compile Include="User32+WNDCLASSEX.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+    <Compile Include="User32+WNDCLASS.cs">
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
     <Compile Include="User32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>

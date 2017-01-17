@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DwmApi+DwmEnableCompositionFlags.cs" />
+    <Compile Include="DwmApi+DWMWINDOWATTRIBUTE.cs" />
     <Compile Include="DwmApi+DWM_BLURBEHIND.cs" />
     <Compile Include="DwmApi.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
