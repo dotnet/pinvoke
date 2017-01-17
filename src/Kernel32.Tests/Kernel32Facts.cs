@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -164,6 +165,7 @@ public partial class Kernel32Facts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void FormatMessage_NTStatus()
     {
         using (var ntdll = LoadLibrary("ntdll.dll"))
@@ -172,7 +174,11 @@ public partial class Kernel32Facts
                 FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE,
                 ntdll.DangerousGetHandle(),
                 (int)NTSTATUS.Code.DBG_REPLY_LATER,
+#if DESKTOP
+                CultureInfo.CurrentCulture.LCID,
+#else
                 0,
+#endif
                 null,
                 500);
             Assert.Equal("Debugger will reply later", actual);

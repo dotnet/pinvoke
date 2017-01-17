@@ -112,5 +112,5 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies', 'vstest.console.exe'))
     $TestAssemblies = Get-ChildItem -Recurse "$BinTestsFolder\*.Tests.dll"
     Write-Output "Testing..."
     # Add /Parallel switch when VS2015 Update 2 is more popular, as it's new in that version.
-    & $VSTestConsoleCommand.Path /TestAdapterPath:$BinTestsFolder $TestAssemblies
+    & $VSTestConsoleCommand.Path /Logger:trx /TestAdapterPath:$BinTestsFolder $TestAssemblies
 }

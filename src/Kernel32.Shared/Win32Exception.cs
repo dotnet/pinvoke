@@ -48,7 +48,7 @@ namespace PInvoke
 #if DESKTOP
             : base((int)error)
 #else
-            : this(error, error.GetMessage() ?? $"Unknown Win32 error (0x{(int)error:x8})")
+            : this(error, error.GetMessage() ?? $"Unknown error (0x{(int)error:x8})")
 #endif
         {
         }

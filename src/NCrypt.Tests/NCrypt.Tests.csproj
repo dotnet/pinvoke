@@ -31,6 +31,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Kernel32.Tests.Shared\UseCultureAttribute.cs">
+      <Link>UseCultureAttribute.cs</Link>
+    </Compile>
     <Compile Include="NCryptFacts.cs" />
     <Compile Include="NCryptExtensionsFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

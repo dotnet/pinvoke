@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System.Globalization;
+    using System.Threading;
     using static PInvoke.Kernel32;
 
     /// <summary>
@@ -22,11 +24,17 @@ namespace PInvoke
         /// <returns>The error message. Or <c>null</c> if no message could be found.</returns>
         public static unsafe string GetMessage(this Win32ErrorCode error)
         {
+            int dwLanguageId = 0;
+
+#if DESKTOP
+            dwLanguageId = CultureInfo.CurrentCulture.LCID;
+#endif
+
             return FormatMessage(
                 FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM,
                 null,
                 (int)error,
-                0,
+                dwLanguageId,
                 null,
                 MaxAllowedBufferSize);
         }

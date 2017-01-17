@@ -20,7 +20,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="statusCode">The status code identifying the error.</param>
         public NTStatusException(NTSTATUS statusCode)
-            : this(statusCode, null, null)
+            : this(statusCode, GetMessage(statusCode))
         {
         }
 
@@ -83,7 +83,7 @@ namespace PInvoke
         {
             string hexCode = $"0x{(int)status:X8}";
             string namedCode = Enum.GetName(typeof(NTSTATUS.Code), status.AsUInt32);
-            string statusAsString = namedCode != null
+            string statusAsString = namedCode != null && namedCode != hexCode
                 ? $"{namedCode} ({hexCode})"
                 : hexCode;
             string insert = $"NT_STATUS {GetSeverityString(status)}: {statusAsString}";

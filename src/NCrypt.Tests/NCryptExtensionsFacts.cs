@@ -9,6 +9,7 @@ using static PInvoke.NCrypt;
 public class NCryptExtensionsFacts
 {
     [Fact]
+    [UseCulture("en-US")]
     public void GetMessage_SecurityStatus()
     {
         SECURITY_STATUS status = SECURITY_STATUS.NTE_BAD_DATA;
@@ -22,6 +23,7 @@ public class NCryptExtensionsFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void ThrowOnError_Failure()
     {
         SECURITY_STATUS status = SECURITY_STATUS.NTE_BAD_DATA;

@@ -12,6 +12,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32Facts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NTStatusExceptionFacts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UseCultureAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Win32ExceptionFacts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32ExtensionsFacts.cs" />
   </ItemGroup>

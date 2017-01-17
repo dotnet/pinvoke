@@ -7,6 +7,7 @@ using Xunit;
 public partial class Kernel32ExtensionsFacts
 {
     [Fact]
+    [UseCulture("en-US")]
     public void ThrowOnError_Win32ErrorCode()
     {
         Win32ErrorCode success = Win32ErrorCode.ERROR_SUCCESS;
@@ -26,6 +27,7 @@ public partial class Kernel32ExtensionsFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void ThrowOnError_NTStatus()
     {
         NTSTATUS success = NTSTATUS.Code.STATUS_SUCCESS;
@@ -49,6 +51,7 @@ public partial class Kernel32ExtensionsFacts
     }
 
     [Fact]
+    [UseCulture("en-US")]
     public void GetMessage_Win32ErrorCode()
     {
         string message = Win32ErrorCode.ERROR_INVALID_LABEL.GetMessage();
