@@ -2768,5 +2768,30 @@ namespace PInvoke
             void* lpBuffer,
             IntPtr nSize,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] IntPtr* lpNumberOfBytesRead);
+
+        /// <summary>
+        /// Retrieves a handle to the specified standard device (standard input, standard output, or standard error).
+        /// </summary>
+        /// <param name="nStdHandle">The standard device.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the specified device, or a redirected handle set by a previous call to <see cref="SetStdHandle"/>. The handle has GENERIC_READ and GENERIC_WRITE access rights, unless the application has used <see cref="SetStdHandle"/> to set a standard handle with lesser access.
+        /// If the function fails, the return value is <see cref="INVALID_HANDLE_VALUE"/>. To get extended error information, call <see cref="GetLastError"/>.
+        /// If an application does not have associated standard handles, such as a service running on an interactive desktop, and has not redirected them, the return value is NULL.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern IntPtr GetStdHandle(StdHandle nStdHandle);
+
+        /// <summary>
+        /// Sets the handle for the specified standard device (standard input, standard output, or standard error).
+        /// </summary>
+        /// <param name="nStdHandle">The standard device for which the handle is to be set.</param>
+        /// <param name="nHandle">The handle for the standard device.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetStdHandle(StdHandle nStdHandle, IntPtr nHandle);
     }
 }
