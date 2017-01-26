@@ -14,7 +14,7 @@ namespace PInvoke
         /// <summary>
         /// A handle to the type of input event and the event record stored in the <see cref="INPUT_RECORD.Event"/> member.
         /// </summary>
-        public enum InputEventTypeFlag
+        public enum InputEventTypeFlag : short
         {
             /// <summary>
             /// The Event member contains a <see cref="FOCUS_EVENT_RECORD"/> structure. These events are used internally and should be ignored
