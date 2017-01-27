@@ -90,6 +90,7 @@
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
     <Compile Include="Kernel32+STARTUPINFO.cs" />
+    <Compile Include="Kernel32+StdHandle.cs" />
     <Compile Include="Kernel32+WINDOW_BUFFER_SIZE_RECORD.cs" />
     <Compile Include="Kernel32.cs">
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>

@@ -14,7 +14,7 @@ namespace PInvoke
         /// The character attributes for console input/output.
         /// </summary>
         [Flags]
-        public enum CharacterAttributesFlags
+        public enum CharacterAttributesFlags : ushort
         {
             None = 0,
 
