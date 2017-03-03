@@ -1,0 +1,48 @@
+<Project>
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\obj\</BaseIntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
+    <!--<GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Desktop\" />-->
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>PInvoke</RootNamespace>
+    <AssemblyName>PInvoke.$(MSBuildProjectName)</AssemblyName>
+    <Title>PInvoke.$(MSBuildProjectName)</Title>
+    <Authors>Andrew Arnott</Authors>
+    <Summary>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Summary>
+    <Description>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Description>
+    <PackageProjectUrl>https://github.com/AArnott/pinvoke</PackageProjectUrl>
+    <Copyright>Copyright © $(Authors)</Copyright>
+    <Tags>pinvoke .net pcl</Tags>
+
+    <DefineConstants Condition=" '$(TargetFramework)' != 'net40' ">$(DefineConstants);APISets</DefineConstants>
+    <NoWarn>CS1591</NoWarn>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
+
+    <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.Tests.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
+    <Content Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') ">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.25" PrivateAssets="all" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="1.6.19-beta" />
+  </ItemGroup>
+
+  <Target Name="SetNuSpecProperties" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
+    <PropertyGroup>
+      <PackageLicenseUrl>https://raw.githubusercontent.com/AArnott/pinvoke/$(GitCommitIdShort)/LICENSE.txt</PackageLicenseUrl>
+    </PropertyGroup>
+  </Target>
+</Project>
