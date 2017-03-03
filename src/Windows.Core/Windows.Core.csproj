@@ -4,9 +4,5 @@
     <Summary>P/Invoke types for common Windows APIs.</Summary>
     <Description>P/Invoke types for common Windows APIs.</Description>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
-    <BuildProjectReference Include="..\CodeGeneration\CodeGeneration.csproj" />
-  </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

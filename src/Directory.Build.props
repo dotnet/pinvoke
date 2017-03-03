@@ -4,8 +4,6 @@
     <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RootNamespace>PInvoke</RootNamespace>
-    <AssemblyName>PInvoke.$(MSBuildProjectName)</AssemblyName>
     <Title>PInvoke.$(MSBuildProjectName)</Title>
     <Authors>Andrew Arnott</Authors>
     <Summary>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Summary>
@@ -22,11 +20,23 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
 
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
+    <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
+    <RootNamespace>PInvoke</RootNamespace>
+    <AssemblyName >PInvoke.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <Compile>
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+  </ItemDefinitionGroup>
 
   <ItemGroup>
     <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\net46\" />
@@ -39,6 +49,11 @@
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.25" PrivateAssets="all" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="1.6.19-beta" PrivateAssets="all" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.0" PrivateAssets="all" />
+    <PackageReference Include="CodeGeneration.Roslyn" Version="0.1.48-alpha-gaa3f482974" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
+    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
+    <BuildProjectReference Include="..\CodeGeneration\CodeGeneration.csproj" />
   </ItemGroup>
 
   <Target Name="SetNuSpecProperties" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
