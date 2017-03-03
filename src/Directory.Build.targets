@@ -1,0 +1,7 @@
+<Project>
+  <Target Name="BuildProjectReferencesFirst" BeforeTargets="ResolveProjectReferences">
+    <MSBuild Projects="@(BuildProjectReference)"
+             BuildInParallel="$(BuildInParallel)"
+             Properties="Configuration=$(Configuration);Platform=$(Platform);TargetFramework=net46" />
+  </Target>
+</Project>

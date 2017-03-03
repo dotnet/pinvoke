@@ -2,7 +2,6 @@
   <PropertyGroup>
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
-    <!--<GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\Desktop\" />-->
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RootNamespace>PInvoke</RootNamespace>
@@ -30,6 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\net46\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
     <Content Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
