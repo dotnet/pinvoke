@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net40</TargetFramework>
+    <Summary>P/Invoke methods for Win32 APIs</Summary>
+    <Description>P/Invoke methods for Win32 APIs</Description>
+
+    <!-- This package is just a wrapper -->
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" />
+    <ProjectReference Include="..\BCrypt\BCrypt.csproj" />
+    <ProjectReference Include="..\Crypt32\Crypt32.csproj" />
+    <ProjectReference Include="..\DbgHelp\DbgHelp.csproj" />
+    <ProjectReference Include="..\DwmApi\DwmApi.csproj" />
+    <ProjectReference Include="..\Gdi32\Gdi32.csproj" />
+    <ProjectReference Include="..\Hid\Hid.csproj" />
+    <ProjectReference Include="..\ImageHlp\ImageHlp.csproj" />
+    <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
+    <ProjectReference Include="..\Msi\Msi.csproj" />
+    <ProjectReference Include="..\NCrypt\NCrypt.csproj" />
+    <ProjectReference Include="..\NetApi32\NetApi32.csproj" />
+    <ProjectReference Include="..\NTDll\NTDll.csproj" />
+    <ProjectReference Include="..\Psapi\Psapi.csproj" />
+    <ProjectReference Include="..\SetupApi\SetupApi.csproj" />
+    <ProjectReference Include="..\Shell32\Shell32.csproj" />
+    <ProjectReference Include="..\SHCore\SHCore.csproj" />
+    <ProjectReference Include="..\User32\User32.csproj" />
+    <ProjectReference Include="..\Userenv\Userenv.csproj" />
+    <ProjectReference Include="..\UxTheme\UxTheme.csproj" />
+    <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
+    <ProjectReference Include="..\Windows.ShellScalingApi\Windows.ShellScalingApi.csproj" />
+    <ProjectReference Include="..\Wtsapi32\Wtsapi32.csproj" />
+  </ItemGroup>
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+</Project>
