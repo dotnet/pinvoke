@@ -41,9 +41,9 @@
   <ItemGroup>
     <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\net46\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
-    <Content Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') ">
+    <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.25" PrivateAssets="all" />
