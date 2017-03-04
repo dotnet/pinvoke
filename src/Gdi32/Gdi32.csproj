@@ -3,7 +3,7 @@
     <TargetFrameworks>net40</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
+    <ProjectReference Include="..\User32\User32.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
