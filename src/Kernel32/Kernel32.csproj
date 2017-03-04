@@ -5,8 +5,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="desktop\**" Condition=" '$(TargetFramework)' != 'net40' " />
-  </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

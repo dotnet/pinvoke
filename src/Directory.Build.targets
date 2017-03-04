@@ -1,4 +1,8 @@
 <Project>
+  <ItemGroup>
+    <Compile Remove="desktop\**" Condition=" '$(TargetFramework)' != 'net40' " />
+  </ItemGroup>
+
   <Target Name="BuildProjectReferencesFirst" BeforeTargets="ResolveProjectReferences">
     <MSBuild Projects="@(BuildProjectReference)"
              BuildInParallel="$(BuildInParallel)"
