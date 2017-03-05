@@ -49,9 +49,9 @@
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.25" PrivateAssets="all" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="1.6.19-beta" PrivateAssets="all" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.0" PrivateAssets="all" />
-    <PackageReference Include="CodeGeneration.Roslyn" Version="0.1.48-alpha-gaa3f482974" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
+    <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="0.1.57" PrivateAssets="all" />
     <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
     <BuildProjectReference Include="..\CodeGeneration\CodeGeneration.csproj" />
   </ItemGroup>

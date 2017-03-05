@@ -7,5 +7,8 @@
       <Link>FriendlyFlags.cs</Link>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CodeGeneration.Roslyn" Version="0.1.57" PrivateAssets="all" />
+  </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
