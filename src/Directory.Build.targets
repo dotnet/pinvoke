@@ -1,6 +1,6 @@
 <Project>
   <ItemGroup>
-    <Compile Remove="desktop\**" Condition=" '$(TargetFramework)' != 'net40' " />
+    <Compile Remove="desktop\**" Condition=" '$(TargetsDesktop)' != 'true' " />
   </ItemGroup>
 
   <Target Name="BuildProjectReferencesFirst" BeforeTargets="ResolveProjectReferences">

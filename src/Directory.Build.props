@@ -19,6 +19,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
 
+    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
   </PropertyGroup>
