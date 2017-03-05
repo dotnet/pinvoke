@@ -55,6 +55,11 @@
     <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
     <BuildProjectReference Include="..\CodeGeneration\CodeGeneration.csproj" />
   </ItemGroup>
+  <ItemGroup Condition=" $(MSBuildProjectName.Contains('.Tests')) ">
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+  </ItemGroup>
 
   <Target Name="SetNuSpecProperties" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
     <PropertyGroup>
