@@ -8,13 +8,13 @@
     <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\metahost.tlb">
       <Visible>false</Visible>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMFileReference>
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
 </Project>
