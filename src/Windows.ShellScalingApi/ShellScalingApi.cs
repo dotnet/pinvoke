@@ -6,6 +6,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the ShellScalingApi.h header.
     /// </summary>
+    [OfferFriendlyOverloads]
     public partial class ShellScalingApi
     {
     }

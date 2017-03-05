@@ -10,6 +10,7 @@ namespace PInvoke
     /// Exported functions from the NetApi32.dll Windows library
     /// that are available to Desktop apps only.
     /// </content>
+    [OfferFriendlyOverloads]
     public static partial class NetApi32
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace PInvoke
     /// Exported functions from the Hid.dll Windows library
     /// that are available to Desktop apps only.
     /// </summary>
+    [OfferFriendlyOverloads]
     public static partial class Hid
     {
         /// <summary>

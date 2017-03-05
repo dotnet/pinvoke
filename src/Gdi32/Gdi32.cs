@@ -9,6 +9,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the Gdi32.dll Windows library.
     /// </summary>
+    [OfferFriendlyOverloads]
     public static partial class Gdi32
     {
         /// <summary>

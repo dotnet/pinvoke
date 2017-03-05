@@ -10,6 +10,7 @@ namespace PInvoke
     /// Exported functions from the NTDll.dll Windows library
     /// that are available to Desktop apps only.
     /// </content>
+    [OfferFriendlyOverloads]
     public static partial class NTDll
     {
         /// <summary>
