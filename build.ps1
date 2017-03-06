@@ -42,7 +42,7 @@ $SolutionFile = Join-Path $SolutionFolder "PInvoke.sln"
 $ToolsFolder = Join-Path $ProjectRoot tools
 $BinFolder = Join-Path $ProjectRoot "bin"
 $BinConfigFolder = Join-Path $BinFolder $Configuration
-$BinTestsFolder = Join-Path $BinConfigFolder "Tests"
+$BinTestsFolder = Join-Path $BinConfigFolder "net46"
 
 # Set script scope for external tool variables.
 $MSBuildCommand = Get-Command MSBuild.exe -ErrorAction SilentlyContinue
