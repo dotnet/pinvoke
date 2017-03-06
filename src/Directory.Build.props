@@ -24,12 +24,17 @@
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(TargetsDesktop)' == 'true' ">
+    <DefineConstants>$(DefineConstants);DESKTOP</DefineConstants>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
     <RootNamespace>PInvoke</RootNamespace>
     <AssemblyName >PInvoke.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
+    <RootNamespace />
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
