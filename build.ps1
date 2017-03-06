@@ -1,12 +1,12 @@
 <#
-.Synopsis 
+.Synopsis
     Acquires dependencies, builds, and tests this project.
 .Description
     If no actions are specified, the default is to run all actions.
 .Parameter Restore
     Restore NuGet packages.
 .Parameter Build
-    Build the entire project. Requires that -Restore is or has been executed. 
+    Build the entire project. Requires that -Restore is or has been executed.
 .Parameter Test
     Run all built tests.
 .Parameter Configuration
@@ -29,7 +29,7 @@ if ($NothingToDo) {
     Write-Output "No actions specified. Applying default actions."
     $Restore = $true
     $Build = $true
-    $Test = $true    
+    $Test = $true
 }
 
 # External dependencies
@@ -53,7 +53,7 @@ Function Get-ExternalTools {
         Write-Error "Unable to find MSBuild.exe. Make sure you're running in a VS Developer Prompt."
         exit 1;
     }
-    
+
     if (!$VSTestConsoleCommand) {
         Write-Error "Unable to find vstest.console.exe. Make sure you're running in a VS Developer prompt."
         exit 2;
@@ -69,7 +69,7 @@ if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "Restore packages")) {
 
 if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
     Write-Output "Building..."
-    & $MSBuildCommand.Path $SolutionFile /nologo /nr:false /m /v:minimal /fl /t:pack "/flp:verbosity=normal;logfile=msbuild.log" "/flp1:warningsonly;logfile=msbuild.wrn" "/flp2:errorsonly;logfile=msbuild.err"
+    & $MSBuildCommand.Path $SolutionFile /nologo /nr:false /m /v:minimal /fl /t:pack "/flp:verbosity=normal;logfile=msbuild.log" "/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal" "/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal"
     $fail = $false
 
     $warnings = Get-Content msbuild.wrn
@@ -82,7 +82,7 @@ if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
     } else {
         Write-Output $ErrorsPrompt
     }
-    
+
     if ($WarnAsError -and $warnings.length -gt 0) {
         Write-Error $WarningsPrompt
         $fail = $true
