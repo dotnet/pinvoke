@@ -45,21 +45,10 @@ $BinConfigFolder = Join-Path $BinFolder $Configuration
 $BinTestsFolder = Join-Path $BinConfigFolder "Tests"
 
 # Set script scope for external tool variables.
-$NuGetPath = Join-Path $ToolsFolder "NuGet.exe"
-$NuGetCommand = Get-Command $NuGetPath -ErrorAction SilentlyContinue
 $MSBuildCommand = Get-Command MSBuild.exe -ErrorAction SilentlyContinue
 $VSTestConsoleCommand = Get-Command vstest.console.exe -ErrorAction SilentlyContinue
 
 Function Get-ExternalTools {
-    if (!$NuGetCommand) {
-        Write-Host "NuGet.exe not found. Downloading to $NuGetPath..."
-        if ($PSCmdlet.ShouldProcess($sourceNuGetExe, "Download")) {
-            Invoke-WebRequest $sourceNugetExe -OutFile $NuGetPath
-        }
-        
-        $script:NuGetCommand = Get-Command $NuGetPath
-    }
-
     if (!$MSBuildCommand) {
         Write-Error "Unable to find MSBuild.exe. Make sure you're running in a VS Developer Prompt."
         exit 1;
@@ -73,14 +62,14 @@ Function Get-ExternalTools {
 
 Get-ExternalTools
 
-if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "NuGet restore")) {
+if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "Restore packages")) {
     Write-Output "Restoring NuGet packages..."
-    & $NuGetCommand.Path restore $SolutionFile -Verbosity quiet
+    & $MSBuildCommand.Path $SolutionFile /t:restore
 }
 
 if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
     Write-Output "Building..."
-    & $MSBuildCommand.Path $SolutionFile /nologo /nr:false /m /v:minimal /fl "/flp:verbosity=normal;logfile=msbuild.log" "/flp1:warningsonly;logfile=msbuild.wrn" "/flp2:errorsonly;logfile=msbuild.err"
+    & $MSBuildCommand.Path $SolutionFile /nologo /nr:false /m /v:minimal /fl /t:pack "/flp:verbosity=normal;logfile=msbuild.log" "/flp1:warningsonly;logfile=msbuild.wrn" "/flp2:errorsonly;logfile=msbuild.err"
     $fail = $false
 
     $warnings = Get-Content msbuild.wrn
