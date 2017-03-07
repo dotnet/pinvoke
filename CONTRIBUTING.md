@@ -65,6 +65,9 @@ The C# language service will sometimes reports many errors that are not "real".
 Waiting for VS to "settle" (sometimes a couple minutes) can sometimes help. Other times, building the solution
 can cause the error list to clear out and the red squigglies to go away.
 
+The most sure way to eliminate the errors is to run `.\build -restore -build` from
+the command line before opening in Visual Studio.
+
 ### Frequently Asked Questions
 
 #### Can p/invoke signatures and docs found on pinvoke.net be copied into this project?
@@ -90,8 +93,7 @@ in this document.
 
 ### Project structure
 
- * One class library (or two, with a Shared Project between them, when portable and desktop are targets)
-   and NuGet package per P/Invoke'd DLL.
+ * One class library per P/Invoke'd DLL.
  * Types, enums, and constants defined in common Windows header files should be defined
    in the PInvoke.Windows.Core project.
 
@@ -125,7 +127,7 @@ Windows 8 as it does on newer Windows versions.
 ### File structure
 
  * Nested classes and structs go into their own files.
- * P/Invoke methods go into the *binary*.cs file. While higher level helper methods go in *binary*.Helpers.cs.
+ * P/Invoke methods go into the *libname*.cs file. While higher level helper methods go in *libname*.Helpers.cs.
 
 ### Naming
 
