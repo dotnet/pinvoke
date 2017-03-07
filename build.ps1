@@ -13,6 +13,8 @@
     The configuration to build. Either "debug" or "release". The default is debug, or the Configuration environment variable if set.
 .Parameter WarnAsError
     Converts all build warnings to errors. Useful in preparation to sending a pull request.
+.Parameter UseVSTestConsole
+    Use the vstest.console.exe runner instead of the xunit console runner.
 #>
 [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='Medium')]
 Param(
@@ -21,7 +23,8 @@ Param(
     [switch]$Test,
     [Parameter()][ValidateSet('debug', 'release')]
     [string]$Configuration = $env:configuration,
-    [switch]$WarnAsError = $true
+    [switch]$WarnAsError = $true,
+    [switch]$UseVSTestConsole
 )
 
 if (!$Configuration) { $Configuration = 'debug' }
@@ -49,11 +52,17 @@ $PackageRestoreRoot = Join-Path $env:userprofile '.nuget/packages/'
 
 # Set script scope for external tool variables.
 $MSBuildCommand = Get-Command MSBuild.exe -ErrorAction SilentlyContinue
+$VSTestConsoleCommand = Get-Command vstest.console.exe -ErrorAction SilentlyContinue
 
 Function Get-ExternalTools {
     if (!$MSBuildCommand) {
         Write-Error "Unable to find MSBuild.exe. Make sure you're running in a VS Developer Prompt."
         exit 1;
+    }
+
+    if ($UseVSTestConsole -and !$VSTestConsoleCommand) {
+        Write-Error "Unable to find vstest.console.exe. Make sure you're running in a VS Developer prompt."
+        exit 2;
     }
 }
 
@@ -100,6 +109,10 @@ if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
 if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
     $TestAssemblies = Get-ChildItem -Recurse "$BinTestsFolder\*.Tests.dll"
     Write-Output "Testing..."
-    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.2.0/tools/xunit.console.x86.exe'
-    & $xunitRunner $TestAssemblies -nologo -html "$BinTestsFolder\testresults.html" -xml "$BinTestsFolder\testresults.xml" -parallel all
+    if ($UseVSTestConsole) {
+        & $VSTestConsoleCommand.Path /Parallel /Logger:trx /TestAdapterPath:$BinTestsFolder $TestAssemblies
+    } else {
+        $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.2.0/tools/xunit.console.x86.exe'
+        & $xunitRunner $TestAssemblies -html "$BinTestsFolder\testresults.html" -xml "$BinTestsFolder\testresults.xml" -parallel all
+    }
 }
