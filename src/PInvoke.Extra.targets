@@ -9,6 +9,8 @@
       $(BuildDependsOn);
       CreatePInvokesTxtFiles
     </BuildDependsOn>
+
+    <PInvokeTextFile>$(TargetDir)$(TargetName).pinvokes.txt</PInvokeTextFile>
   </PropertyGroup>
   <Target Name="CleanPInvokesTxtFiles">
     <ItemGroup>
@@ -20,7 +22,7 @@
     <PropertyGroup>
       <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">$(windir)\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
     </PropertyGroup>
-    <Message Text="Exporting P/Invoke methods from $(TargetPath)" />
-    <Exec LogStandardErrorAsError="true" Command='$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp; &apos;$(ProjectRoot)tools\Create-PInvokeTxtFile.ps1&apos; &apos;$(TargetPath)&apos; } &quot;' />
+    <Message Text="$(MSBuildProjectName) -> $(PInvokeTextFile)" Importance='high' />
+    <Exec LogStandardErrorAsError="true" Command='$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp; &apos;$(MSBuildThisFileDirectory)..\tools\Create-PInvokeTxtFile.ps1&apos; &apos;$(TargetPath)&apos; } &quot;' />
   </Target>
 </Project>

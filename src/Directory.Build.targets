@@ -11,4 +11,6 @@
              Properties="Configuration=$(Configuration);Platform=$(Platform)"
              RemoveProperties="TargetFramework" />
   </Target>
+
+  <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
 </Project>
