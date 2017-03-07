@@ -14,7 +14,7 @@ before_build:
 build_script:
 - ps: .\build.ps1 -Build
 test_script:
-- ps: .\build.ps1 -Test -UseVSTestConsole
+- ps: .\build.ps1 -Test -NoParallelTests
 artifacts:
 - path: bin\**\*.nupkg
   name: NuGet Package
