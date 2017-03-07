@@ -8,15 +8,15 @@ environment:
   TreatWarningsAsErrors: true
 before_build:
 - ps: >-
-    cd src
-
-    msbuild PInvoke.sln /nologo /m /v:minimal /t:restore
+    .\build.ps1 -Restore
 
     #$blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 build_script:
-- ps: msbuild PInvoke.sln /nologo /m /v:minimal /t:build,pack
+- ps: .\build.ps1 -Build
+test_script:
+- ps: .\build.ps1 -Test
 artifacts:
-- path: bin\**\PInvoke.*.nupkg
+- path: bin\**\*.nupkg
   name: NuGet Package
 - path: bin\**\*.pinvokes.txt
   name: PInvoke method coverage
