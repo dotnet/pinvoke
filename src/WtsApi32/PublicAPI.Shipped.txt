@@ -1,0 +1,34 @@
+PInvoke.WtsApi32
+PInvoke.WtsApi32.SafeTerminalServerHandle
+PInvoke.WtsApi32.SafeTerminalServerHandle.SafeTerminalServerHandle() -> void
+PInvoke.WtsApi32.SafeTerminalServerHandle.SafeTerminalServerHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSActive = 0 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSConnectQuery = 2 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSConnected = 1 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSDisconnected = 4 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSDown = 8 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSIdle = 5 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSInit = 9 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSListen = 6 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSReset = 7 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS.WTSShadow = 3 -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_SESSION_INFO
+PInvoke.WtsApi32.WTS_SESSION_INFO.SessionID -> int
+PInvoke.WtsApi32.WTS_SESSION_INFO.State -> PInvoke.WtsApi32.WTS_CONNECTSTATE_CLASS
+PInvoke.WtsApi32.WTS_SESSION_INFO.WTS_SESSION_INFO() -> void
+PInvoke.WtsApi32.WTS_SESSION_INFO.WinStationName.get -> string
+PInvoke.WtsApi32.WTS_SESSION_INFO.pWinStationName -> char*
+PInvoke.WtsApi32.WTS_SESSION_INFO.pWinStationName_IntPtr.get -> System.IntPtr
+PInvoke.WtsApi32.WTS_SESSION_INFO.pWinStationName_IntPtr.set -> void
+override PInvoke.WtsApi32.SafeTerminalServerHandle.IsInvalid.get -> bool
+override PInvoke.WtsApi32.SafeTerminalServerHandle.ReleaseHandle() -> bool
+static PInvoke.WtsApi32.WTSEnumerateSessions(PInvoke.WtsApi32.SafeTerminalServerHandle hServer, uint Reserved, uint Version, out System.IntPtr ppSessionInfo, out int pCount) -> bool
+static PInvoke.WtsApi32.WTSFreeMemory(System.IntPtr pMemory) -> void
+static extern PInvoke.WtsApi32.WTSEnumerateSessions(PInvoke.WtsApi32.SafeTerminalServerHandle hServer, uint Reserved, uint Version, out PInvoke.WtsApi32.WTS_SESSION_INFO* ppSessionInfo, out int pCount) -> bool
+static extern PInvoke.WtsApi32.WTSFreeMemory(void* pMemory) -> void
+static extern PInvoke.WtsApi32.WTSOpenServer(string pServerName) -> PInvoke.WtsApi32.SafeTerminalServerHandle
+static extern PInvoke.WtsApi32.WTSOpenServerEx(string pServerName) -> PInvoke.WtsApi32.SafeTerminalServerHandle
+static extern PInvoke.WtsApi32.WTSQueryUserToken(int SessionId, out PInvoke.Kernel32.SafeObjectHandle phToken) -> bool
+static readonly PInvoke.WtsApi32.SafeTerminalServerHandle.Null -> PInvoke.WtsApi32.SafeTerminalServerHandle
+static readonly PInvoke.WtsApi32.WTS_CURRENT_SERVER_HANDLE -> PInvoke.WtsApi32.SafeTerminalServerHandle

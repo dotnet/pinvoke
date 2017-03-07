@@ -1,0 +1,2 @@
+PInvoke.Psapi
+static extern PInvoke.Psapi.EmptyWorkingSet(PInvoke.Kernel32.SafeObjectHandle hProcess) -> bool

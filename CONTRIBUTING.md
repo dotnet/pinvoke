@@ -314,6 +314,17 @@ this can be suppressed by adding this near the top of your file:
 #pragma warning disable SA1401 // Fields must be private
 ```
 
+### RS0016 warnings or RS0017 errors in the build
+
+To guard against breaking API changes, we leverage the `Roslyn.Diagnostics.Analyzers`
+which track the public API we have shipped (or added but not yet shipped).
+When you remove a member of the public API, build error RS0017 occurs.
+When you add a member to the public API, build warning RS0016 lets you know you need to
+update the PublicAPI.Unshipped.txt file with your new member. This is so that if your
+new API is removed later, it can generate an RS0017 error.
+Use the analyzer's automatic code fix in Visual Studio 2017 to update the file and
+include that file change in your commit.
+
 ### SafeHandles
 
 Safe handles should follow a few rules :

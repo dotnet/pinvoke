@@ -78,4 +78,7 @@
     <Rule Id="SA1600" Action="Hidden" />
     <Rule Id="SA1602" Action="Hidden" />
   </Rules>
+  <Rules AnalyzerId="Roslyn.Diagnostics.Analyzers" RuleNamespace="Roslyn.Diagnostics.Analyzers">
+    <Rule Id="RS0017" Action="Error" />
+  </Rules>
 </RuleSet>

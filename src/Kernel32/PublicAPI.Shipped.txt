@@ -1,0 +1,1450 @@
+PInvoke.Kernel32
+PInvoke.Kernel32.ACCESS_MASK
+PInvoke.Kernel32.ACCESS_MASK.ACCESS_MASK(uint value) -> void
+PInvoke.Kernel32.ACCESS_MASK.AsInt32.get -> int
+PInvoke.Kernel32.ACCESS_MASK.CompareTo(PInvoke.Kernel32.ACCESS_MASK other) -> int
+PInvoke.Kernel32.ACCESS_MASK.CompareTo(object obj) -> int
+PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight.GENERIC_ALL = 983551 -> PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight.GENERIC_EXECUTE = 131328 -> PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight.GENERIC_READ = 131137 -> PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight.GENERIC_WRITE = 131262 -> PInvoke.Kernel32.ACCESS_MASK.DesktopGenericRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_ALL_ACCESS = PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_READOBJECTS | PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW | PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEMENU | PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_HOOKCONTROL | PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_JOURNALRECORD | PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_JOURNALPLAYBACK | PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_ENUMERATE | PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_WRITEOBJECTS | PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_SWITCHDESKTOP -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEMENU = 4 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW = 2 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_ENUMERATE = 64 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_HOOKCONTROL = 8 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_JOURNALPLAYBACK = 32 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_JOURNALRECORD = 16 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_READOBJECTS = 1 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_SWITCHDESKTOP = 256 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight.DESKTOP_WRITEOBJECTS = 128 -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRights.get -> PInvoke.Kernel32.ACCESS_MASK.DesktopSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.Equals(PInvoke.Kernel32.ACCESS_MASK other) -> bool
+PInvoke.Kernel32.ACCESS_MASK.GenericRight
+PInvoke.Kernel32.ACCESS_MASK.GenericRight.GENERIC_ALL = 268435456 -> PInvoke.Kernel32.ACCESS_MASK.GenericRight
+PInvoke.Kernel32.ACCESS_MASK.GenericRight.GENERIC_EXECUTE = 536870912 -> PInvoke.Kernel32.ACCESS_MASK.GenericRight
+PInvoke.Kernel32.ACCESS_MASK.GenericRight.GENERIC_READ = 2147483648 -> PInvoke.Kernel32.ACCESS_MASK.GenericRight
+PInvoke.Kernel32.ACCESS_MASK.GenericRight.GENERIC_WRITE = 1073741824 -> PInvoke.Kernel32.ACCESS_MASK.GenericRight
+PInvoke.Kernel32.ACCESS_MASK.GenericRights.get -> PInvoke.Kernel32.ACCESS_MASK.GenericRight
+PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight.GENERIC_ALL = 983935 -> PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight.GENERIC_EXECUTE = 131168 -> PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight.GENERIC_READ = 131843 -> PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight.GENERIC_WRITE = 131100 -> PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRights.get -> PInvoke.Kernel32.ACCESS_MASK.InteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight.GENERIC_ALL = 983919 -> PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight.GENERIC_EXECUTE = 131168 -> PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight.GENERIC_READ = 131331 -> PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight.GENERIC_WRITE = 131084 -> PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRights.get -> PInvoke.Kernel32.ACCESS_MASK.NonInteractiveWindowStationGenericRight
+PInvoke.Kernel32.ACCESS_MASK.SpecialRight
+PInvoke.Kernel32.ACCESS_MASK.SpecialRight.ACCESS_SYSTEM_SECURITY = 16777216 -> PInvoke.Kernel32.ACCESS_MASK.SpecialRight
+PInvoke.Kernel32.ACCESS_MASK.SpecialRight.MAXIMUM_ALLOWED = 33554432 -> PInvoke.Kernel32.ACCESS_MASK.SpecialRight
+PInvoke.Kernel32.ACCESS_MASK.SpecialRights.get -> PInvoke.Kernel32.ACCESS_MASK.SpecialRight
+PInvoke.Kernel32.ACCESS_MASK.SpecificRight
+PInvoke.Kernel32.ACCESS_MASK.SpecificRight.SPECIFIC_RIGHTS_ALL = 65535 -> PInvoke.Kernel32.ACCESS_MASK.SpecificRight
+PInvoke.Kernel32.ACCESS_MASK.SpecificRights.get -> PInvoke.Kernel32.ACCESS_MASK.SpecificRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.DELETE = 65536 -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.READ_CONTROL = 131072 -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_ALL = PInvoke.Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_REQUIRED | PInvoke.Kernel32.ACCESS_MASK.StandardRight.SYNCHRONIZE -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_EXECUTE = 131072 -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_READ = 131072 -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_REQUIRED = PInvoke.Kernel32.ACCESS_MASK.StandardRight.DELETE | PInvoke.Kernel32.ACCESS_MASK.StandardRight.READ_CONTROL | PInvoke.Kernel32.ACCESS_MASK.StandardRight.WRITE_DAC | PInvoke.Kernel32.ACCESS_MASK.StandardRight.WRITE_OWNER -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_WRITE = 131072 -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.SYNCHRONIZE = 1048576 -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.WRITE_DAC = 262144 -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRight.WRITE_OWNER = 524288 -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.StandardRights.get -> PInvoke.Kernel32.ACCESS_MASK.StandardRight
+PInvoke.Kernel32.ACCESS_MASK.ToString(string format, System.IFormatProvider formatProvider) -> string
+PInvoke.Kernel32.ACCESS_MASK.Value.get -> uint
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ACCESSCLIPBOARD = 4 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ACCESSGLOBALATOMS = 32 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ALL_ACCESS = PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ENUMDESKTOPS | PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_READATTRIBUTES | PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ACCESSCLIPBOARD | PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_CREATEDESKTOP | PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_WRITEATTRIBUTES | PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ACCESSGLOBALATOMS | PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_EXITWINDOWS | PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ENUMERATE | PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_READSCREEN -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_CREATEDESKTOP = 8 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ENUMDESKTOPS = 1 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_ENUMERATE = 256 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_EXITWINDOWS = 64 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_READATTRIBUTES = 2 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_READSCREEN = 512 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight.WINSTA_WRITEATTRIBUTES = 16 -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRights.get -> PInvoke.Kernel32.ACCESS_MASK.WindowStationSpecificRight
+PInvoke.Kernel32.ACL
+PInvoke.Kernel32.ACL.ACL() -> void
+PInvoke.Kernel32.ACL.AceCount -> ushort
+PInvoke.Kernel32.ACL.AclRevision -> byte
+PInvoke.Kernel32.ACL.AclSize -> ushort
+PInvoke.Kernel32.ACL.Sbz1 -> byte
+PInvoke.Kernel32.ACL.Sbz2 -> ushort
+PInvoke.Kernel32.CHAR_INFO
+PInvoke.Kernel32.CHAR_INFO.Attributes -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CHAR_INFO.CHAR_INFO() -> void
+PInvoke.Kernel32.CHAR_INFO.Char -> PInvoke.Kernel32.CHAR_INFO_ENCODING
+PInvoke.Kernel32.CHAR_INFO_ENCODING
+PInvoke.Kernel32.CHAR_INFO_ENCODING.AsciiChar -> byte
+PInvoke.Kernel32.CHAR_INFO_ENCODING.CHAR_INFO_ENCODING() -> void
+PInvoke.Kernel32.CHAR_INFO_ENCODING.UnicodeChar -> char
+PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO
+PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO.CONSOLE_SCREEN_BUFFER_INFO() -> void
+PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO.dwCursorPosition -> PInvoke.COORD
+PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO.dwMaximumWindowSize -> PInvoke.COORD
+PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO.dwSize -> PInvoke.COORD
+PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO.srWindow -> PInvoke.SMALL_RECT
+PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO.wAttributes -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CONSOLE_SELECTION_INFO
+PInvoke.Kernel32.CONSOLE_SELECTION_INFO.CONSOLE_SELECTION_INFO() -> void
+PInvoke.Kernel32.CONSOLE_SELECTION_INFO.dwFlags -> PInvoke.Kernel32.ConsoleSelectionFlags
+PInvoke.Kernel32.CONSOLE_SELECTION_INFO.dwSelectionAnchor -> PInvoke.COORD
+PInvoke.Kernel32.CONSOLE_SELECTION_INFO.srSelection -> PInvoke.SMALL_RECT
+PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.BACKGROUND_BLUE = 16 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.BACKGROUND_GREEN = 32 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.BACKGROUND_INTENSITY = 128 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.BACKGROUND_RED = 64 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.COMMON_LVB_GRID_HORIZONTAL = 1024 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.COMMON_LVB_GRID_LVERTICAL = 2048 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.COMMON_LVB_GRID_RVERTICAL = 4096 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.COMMON_LVB_LEADING_BYTE = 256 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.COMMON_LVB_REVERSE_VIDEO = 16384 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.COMMON_LVB_TRAILING_BYTE = 512 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.COMMON_LVB_UNDERSCORE = 32768 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.FOREGROUND_BLUE = 1 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.FOREGROUND_GREEN = 2 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.FOREGROUND_INTENSITY = 8 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.FOREGROUND_RED = 4 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.CharacterAttributesFlags.None = 0 -> PInvoke.Kernel32.CharacterAttributesFlags
+PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.DISABLE_NEWLINE_AUTO_RETURN = 8 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_ECHO_INPUT = 4 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_INSERT_MODE = 32 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_LINE_INPUT = 2 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_LVB_GRID_WORLDWIDE = 16 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_MOUSE_INPUT = 16 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_PROCESSED_INPUT = 1 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_PROCESSED_OUTPUT = 1 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_QUICK_EDIT_MODE = 64 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_WINDOW_INPUT = 8 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleBufferModes.ENABLE_WRAP_AT_EOL_OUTPUT = 2 -> PInvoke.Kernel32.ConsoleBufferModes
+PInvoke.Kernel32.ConsoleDisplayMode
+PInvoke.Kernel32.ConsoleDisplayMode.CONSOLE_FULLSCREEN_MODE = 1 -> PInvoke.Kernel32.ConsoleDisplayMode
+PInvoke.Kernel32.ConsoleDisplayMode.CONSOLE_WINDOWED_MODE = 2 -> PInvoke.Kernel32.ConsoleDisplayMode
+PInvoke.Kernel32.ConsoleScreenBufferFlag
+PInvoke.Kernel32.ConsoleScreenBufferFlag.CONSOLE_TEXTMODE_BUFFER = 1 -> PInvoke.Kernel32.ConsoleScreenBufferFlag
+PInvoke.Kernel32.ConsoleScreenBufferFlag.None = 0 -> PInvoke.Kernel32.ConsoleScreenBufferFlag
+PInvoke.Kernel32.ConsoleSelectionFlags
+PInvoke.Kernel32.ConsoleSelectionFlags.CONSOLE_MOUSE_DOWN = 8 -> PInvoke.Kernel32.ConsoleSelectionFlags
+PInvoke.Kernel32.ConsoleSelectionFlags.CONSOLE_MOUSE_SELECTION = 4 -> PInvoke.Kernel32.ConsoleSelectionFlags
+PInvoke.Kernel32.ConsoleSelectionFlags.CONSOLE_NO_SELECTION = 0 -> PInvoke.Kernel32.ConsoleSelectionFlags
+PInvoke.Kernel32.ConsoleSelectionFlags.CONSOLE_SELECTION_IN_PROGRESS = 1 -> PInvoke.Kernel32.ConsoleSelectionFlags
+PInvoke.Kernel32.ConsoleSelectionFlags.CONSOLE_SELECTION_NOT_EMPTY = 2 -> PInvoke.Kernel32.ConsoleSelectionFlags
+PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.CAPSLOCK_ON = 128 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.ENHANCED_KEY = 256 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.LEFT_ALT_PRESSED = 2 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.LEFT_CTRL_PRESSED = 8 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.NUMLOCK_ON = 32 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.RIGHT_ALT_PRESSED = 1 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.RIGHT_CTRL_PRESSED = 4 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.SCROLLLOCK_ON = 64 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlKeyStates.SHIFT_PRESSED = 16 -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.ControlType
+PInvoke.Kernel32.ControlType.CTRL_BREAK_EVENT = 1 -> PInvoke.Kernel32.ControlType
+PInvoke.Kernel32.ControlType.CTRL_CLOSE_EVENT = 2 -> PInvoke.Kernel32.ControlType
+PInvoke.Kernel32.ControlType.CTRL_C_EVENT = 0 -> PInvoke.Kernel32.ControlType
+PInvoke.Kernel32.ControlType.CTRL_LOGOFF_EVENT = 5 -> PInvoke.Kernel32.ControlType
+PInvoke.Kernel32.ControlType.CTRL_SHUTDOWN_EVENT = 6 -> PInvoke.Kernel32.ControlType
+PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_ATTRIBUTE_ARCHIVE = 32 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_ATTRIBUTE_ENCRYPTED = 16384 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_ATTRIBUTE_HIDDEN = 2 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_ATTRIBUTE_NORMAL = 128 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_ATTRIBUTE_OFFLINE = 4096 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_ATTRIBUTE_READONLY = 1 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_ATTRIBUTE_SYSTEM = 4 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_ATTRIBUTE_TEMPORARY = 256 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_BACKUP_SEMANTICS = 33554432 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_DELETE_ON_CLOSE = 67108864 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_NO_BUFFERING = 536870912 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_OPEN_NO_RECALL = 1048576 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_OPEN_REPARSE_POINT = 2097152 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_OVERLAPPED = 1073741824 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_POSIX_SEMANTICS = 1048576 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_RANDOM_ACCESS = 268435456 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_SEQUENTIAL_SCAN = 134217728 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_SESSION_AWARE = 8388608 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.FILE_FLAG_WRITE_THROUGH = 2147483648 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.SECURITY_ANONYMOUS = 0 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.SECURITY_CONTEXT_TRACKING = 262144 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.SECURITY_DELEGATION = PInvoke.Kernel32.CreateFileFlags.SECURITY_IDENTIFICATION | PInvoke.Kernel32.CreateFileFlags.SECURITY_IMPERSONATION -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.SECURITY_EFFECTIVE_ONLY = 524288 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.SECURITY_IDENTIFICATION = 65536 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.SECURITY_IMPERSONATION = 131072 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateFileFlags.SECURITY_SQOS_PRESENT = 1048576 -> PInvoke.Kernel32.CreateFileFlags
+PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.ABOVE_NORMAL_PRIORITY_CLASS = 32768 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.BELOW_NORMAL_PRIORITY_CLASS = 16384 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_BREAKAWAY_FROM_JOB = 16777216 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_DEFAULT_ERROR_MODE = 67108864 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_FORCEDOS = 8192 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_NEW_CONSOLE = 16 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_NEW_PROCESS_GROUP = 512 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_NO_WINDOW = 134217728 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_PRESERVE_CODE_AUTHZ_LEVEL = 33554432 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_PROTECTED_PROCESS = 262144 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_SEPARATE_WOW_VDM = 2048 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_SHARED_WOW_VDM = 4096 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_SUSPENDED = 4 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.CREATE_UNICODE_ENVIRONMENT = 1024 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.DEBUG_ONLY_THIS_PROCESS = 2 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.DEBUG_PROCESS = 1 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.DETACHED_PROCESS = 8 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.EXTENDED_STARTUPINFO_PRESENT = 524288 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.HIGH_PRIORITY_CLASS = 128 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.IDLE_PRIORITY_CLASS = 64 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.INHERIT_PARENT_AFFINITY = 65536 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.NORMAL_PRIORITY_CLASS = 32 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.None = 0 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.PROCESS_MODE_BACKGROUND_BEGIN = 1048576 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.PROCESS_MODE_BACKGROUND_END = 2097152 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.PROFILE_KERNEL = 536870912 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.PROFILE_SERVER = 1073741824 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.PROFILE_USER = 268435456 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateProcessFlags.REALTIME_PRIORITY_CLASS = 256 -> PInvoke.Kernel32.CreateProcessFlags
+PInvoke.Kernel32.CreateToolhelp32SnapshotFlags
+PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_INHERIT = 2147483648 -> PInvoke.Kernel32.CreateToolhelp32SnapshotFlags
+PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPALL = PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPHEAPLIST | PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPPROCESS | PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPTHREAD | PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE -> PInvoke.Kernel32.CreateToolhelp32SnapshotFlags
+PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPHEAPLIST = 1 -> PInvoke.Kernel32.CreateToolhelp32SnapshotFlags
+PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE = 8 -> PInvoke.Kernel32.CreateToolhelp32SnapshotFlags
+PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE32 = 16 -> PInvoke.Kernel32.CreateToolhelp32SnapshotFlags
+PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPPROCESS = 2 -> PInvoke.Kernel32.CreateToolhelp32SnapshotFlags
+PInvoke.Kernel32.CreateToolhelp32SnapshotFlags.TH32CS_SNAPTHREAD = 4 -> PInvoke.Kernel32.CreateToolhelp32SnapshotFlags
+PInvoke.Kernel32.CreationDisposition
+PInvoke.Kernel32.CreationDisposition.CREATE_ALWAYS = 2 -> PInvoke.Kernel32.CreationDisposition
+PInvoke.Kernel32.CreationDisposition.CREATE_NEW = 1 -> PInvoke.Kernel32.CreationDisposition
+PInvoke.Kernel32.CreationDisposition.OPEN_ALWAYS = 4 -> PInvoke.Kernel32.CreationDisposition
+PInvoke.Kernel32.CreationDisposition.OPEN_EXISTING = 3 -> PInvoke.Kernel32.CreationDisposition
+PInvoke.Kernel32.CreationDisposition.TRUNCATE_EXISTING = 5 -> PInvoke.Kernel32.CreationDisposition
+PInvoke.Kernel32.EXECUTION_STATE
+PInvoke.Kernel32.EXECUTION_STATE.ES_AWAYMODE_REQUIRED = 64 -> PInvoke.Kernel32.EXECUTION_STATE
+PInvoke.Kernel32.EXECUTION_STATE.ES_CONTINUOUS = 2147483648 -> PInvoke.Kernel32.EXECUTION_STATE
+PInvoke.Kernel32.EXECUTION_STATE.ES_DISPLAY_REQUIRED = 2 -> PInvoke.Kernel32.EXECUTION_STATE
+PInvoke.Kernel32.EXECUTION_STATE.ES_SYSTEM_REQUIRED = 1 -> PInvoke.Kernel32.EXECUTION_STATE
+PInvoke.Kernel32.EXECUTION_STATE.ES_USER_PRESENT = 4 -> PInvoke.Kernel32.EXECUTION_STATE
+PInvoke.Kernel32.EXECUTION_STATE.None = 0 -> PInvoke.Kernel32.EXECUTION_STATE
+PInvoke.Kernel32.EnumResLangProc
+PInvoke.Kernel32.EnumResNameProc
+PInvoke.Kernel32.FILETIME
+PInvoke.Kernel32.FILETIME.FILETIME() -> void
+PInvoke.Kernel32.FILETIME.dwHighDateTime -> int
+PInvoke.Kernel32.FILETIME.dwLowDateTime -> int
+PInvoke.Kernel32.FINDEX_INFO_LEVELS
+PInvoke.Kernel32.FINDEX_INFO_LEVELS.FindExInfoMaxInfoLevel = 1 -> PInvoke.Kernel32.FINDEX_INFO_LEVELS
+PInvoke.Kernel32.FINDEX_INFO_LEVELS.FindExInfoStandard = 0 -> PInvoke.Kernel32.FINDEX_INFO_LEVELS
+PInvoke.Kernel32.FINDEX_SEARCH_OPS
+PInvoke.Kernel32.FINDEX_SEARCH_OPS.FindExSearchLimitToDevices = 2 -> PInvoke.Kernel32.FINDEX_SEARCH_OPS
+PInvoke.Kernel32.FINDEX_SEARCH_OPS.FindExSearchLimitToDirectories = 1 -> PInvoke.Kernel32.FINDEX_SEARCH_OPS
+PInvoke.Kernel32.FINDEX_SEARCH_OPS.FindExSearchMaxSearchOp = 3 -> PInvoke.Kernel32.FINDEX_SEARCH_OPS
+PInvoke.Kernel32.FINDEX_SEARCH_OPS.FindExSearchNameMatch = 0 -> PInvoke.Kernel32.FINDEX_SEARCH_OPS
+PInvoke.Kernel32.FOCUS_EVENT_RECORD
+PInvoke.Kernel32.FOCUS_EVENT_RECORD.FOCUS_EVENT_RECORD() -> void
+PInvoke.Kernel32.FOCUS_EVENT_RECORD.bSetFocus -> bool
+PInvoke.Kernel32.FileAccess
+PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_ARCHIVE = 32 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_COMPRESSED = 2048 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_DEVICE = 64 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_DIRECTORY = 16 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_ENCRYPTED = 16384 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_HIDDEN = 2 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_INTEGRITY_STREAM = 32768 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_NORMAL = 128 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_NOT_CONTENT_INDEXED = 8192 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_NO_SCRUB_DATA = 131072 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_OFFLINE = 4096 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_READONLY = 1 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_REPARSE_POINT = 1024 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_SPARSE_FILE = 512 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_SYSTEM = 4 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_TEMPORARY = 256 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileAttribute.FILE_ATTRIBUTE_VIRTUAL = 65536 -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.FileShare
+PInvoke.Kernel32.FileShare.FILE_SHARE_DELETE = 4 -> PInvoke.Kernel32.FileShare
+PInvoke.Kernel32.FileShare.FILE_SHARE_READ = 1 -> PInvoke.Kernel32.FileShare
+PInvoke.Kernel32.FileShare.FILE_SHARE_WRITE = 2 -> PInvoke.Kernel32.FileShare
+PInvoke.Kernel32.FileShare.None = 0 -> PInvoke.Kernel32.FileShare
+PInvoke.Kernel32.FindFirstFileExFlags
+PInvoke.Kernel32.FindFirstFileExFlags.FIND_FIRST_EX_CASE_SENSITIVE = 1 -> PInvoke.Kernel32.FindFirstFileExFlags
+PInvoke.Kernel32.FindFirstFileExFlags.FIND_FIRST_EX_LARGE_FETCH = 2 -> PInvoke.Kernel32.FindFirstFileExFlags
+PInvoke.Kernel32.FindFirstFileExFlags.None = 0 -> PInvoke.Kernel32.FindFirstFileExFlags
+PInvoke.Kernel32.FormatMessageFlags
+PInvoke.Kernel32.FormatMessageFlags.FORMAT_MESSAGE_ALLOCATE_BUFFER = 256 -> PInvoke.Kernel32.FormatMessageFlags
+PInvoke.Kernel32.FormatMessageFlags.FORMAT_MESSAGE_ARGUMENT_ARRAY = 8192 -> PInvoke.Kernel32.FormatMessageFlags
+PInvoke.Kernel32.FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE = 2048 -> PInvoke.Kernel32.FormatMessageFlags
+PInvoke.Kernel32.FormatMessageFlags.FORMAT_MESSAGE_FROM_STRING = 1024 -> PInvoke.Kernel32.FormatMessageFlags
+PInvoke.Kernel32.FormatMessageFlags.FORMAT_MESSAGE_FROM_SYSTEM = 4096 -> PInvoke.Kernel32.FormatMessageFlags
+PInvoke.Kernel32.FormatMessageFlags.FORMAT_MESSAGE_IGNORE_INSERTS = 512 -> PInvoke.Kernel32.FormatMessageFlags
+PInvoke.Kernel32.FormatMessageFlags.FORMAT_MESSAGE_MAX_WIDTH_MASK = 255 -> PInvoke.Kernel32.FormatMessageFlags
+PInvoke.Kernel32.GRPICONDIR
+PInvoke.Kernel32.GRPICONDIR.GRPICONDIR() -> void
+PInvoke.Kernel32.GRPICONDIR.idCount -> ushort
+PInvoke.Kernel32.GRPICONDIR.idReserved -> ushort
+PInvoke.Kernel32.GRPICONDIR.idType -> ushort
+PInvoke.Kernel32.GRPICONDIRENTRY
+PInvoke.Kernel32.GRPICONDIRENTRY.GRPICONDIRENTRY() -> void
+PInvoke.Kernel32.GRPICONDIRENTRY.bColorCount -> byte
+PInvoke.Kernel32.GRPICONDIRENTRY.bHeight -> byte
+PInvoke.Kernel32.GRPICONDIRENTRY.bReserved -> byte
+PInvoke.Kernel32.GRPICONDIRENTRY.bWidth -> byte
+PInvoke.Kernel32.GRPICONDIRENTRY.dwBytesInRes -> uint
+PInvoke.Kernel32.GRPICONDIRENTRY.nId -> ushort
+PInvoke.Kernel32.GRPICONDIRENTRY.wBitCount -> ushort
+PInvoke.Kernel32.GRPICONDIRENTRY.wPlanes -> ushort
+PInvoke.Kernel32.GetModuleHandleExFlags
+PInvoke.Kernel32.GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS = 4 -> PInvoke.Kernel32.GetModuleHandleExFlags
+PInvoke.Kernel32.GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_PIN = 1 -> PInvoke.Kernel32.GetModuleHandleExFlags
+PInvoke.Kernel32.GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT = 2 -> PInvoke.Kernel32.GetModuleHandleExFlags
+PInvoke.Kernel32.GetModuleHandleExFlags.None = 0 -> PInvoke.Kernel32.GetModuleHandleExFlags
+PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GHND = PInvoke.Kernel32.GlobalAllocFlags.GMEM_MOVEABLE | PInvoke.Kernel32.GlobalAllocFlags.GMEM_ZEROINIT -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_DDESHARE = 8192 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_DISCARDABLE = 256 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_FIXED = 0 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_LOWER = 4096 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_MODIFY = 128 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_MOVEABLE = 2 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_NOCOMPACT = 16 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_NODISCARD = 32 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_NOTIFY = 16384 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_NOT_BANKED = 4096 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_SHARE = 8192 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GMEM_ZEROINIT = 64 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalAllocFlags.GPTR = 64 -> PInvoke.Kernel32.GlobalAllocFlags
+PInvoke.Kernel32.GlobalReAllocFlags
+PInvoke.Kernel32.GlobalReAllocFlags.GMEM_MODIFY = 128 -> PInvoke.Kernel32.GlobalReAllocFlags
+PInvoke.Kernel32.GlobalReAllocFlags.GMEM_MOVEABLE = 2 -> PInvoke.Kernel32.GlobalReAllocFlags
+PInvoke.Kernel32.GlobalReAllocFlags.GMEM_ZEROINIT = 64 -> PInvoke.Kernel32.GlobalReAllocFlags
+PInvoke.Kernel32.HandlerRoutine
+PInvoke.Kernel32.HeapAllocFlags
+PInvoke.Kernel32.HeapAllocFlags.HEAP_GENERATE_EXCEPTIONS = 4 -> PInvoke.Kernel32.HeapAllocFlags
+PInvoke.Kernel32.HeapAllocFlags.HEAP_NO_SERIALIZE = 1 -> PInvoke.Kernel32.HeapAllocFlags
+PInvoke.Kernel32.HeapAllocFlags.HEAP_ZERO_MEMORY = 8 -> PInvoke.Kernel32.HeapAllocFlags
+PInvoke.Kernel32.HeapAllocFlags.None = 0 -> PInvoke.Kernel32.HeapAllocFlags
+PInvoke.Kernel32.HeapFreeFlags
+PInvoke.Kernel32.HeapFreeFlags.HEAP_NO_SERIALIZE = 1 -> PInvoke.Kernel32.HeapFreeFlags
+PInvoke.Kernel32.HeapFreeFlags.None = 0 -> PInvoke.Kernel32.HeapFreeFlags
+PInvoke.Kernel32.HeapReAllocFlags
+PInvoke.Kernel32.HeapReAllocFlags.HEAP_GENERATE_EXCEPTIONS = 4 -> PInvoke.Kernel32.HeapReAllocFlags
+PInvoke.Kernel32.HeapReAllocFlags.HEAP_NO_SERIALIZE = 1 -> PInvoke.Kernel32.HeapReAllocFlags
+PInvoke.Kernel32.HeapReAllocFlags.HEAP_REALLOC_IN_PLACE_ONLY = 16 -> PInvoke.Kernel32.HeapReAllocFlags
+PInvoke.Kernel32.HeapReAllocFlags.HEAP_ZERO_MEMORY = 8 -> PInvoke.Kernel32.HeapReAllocFlags
+PInvoke.Kernel32.HeapReAllocFlags.None = 0 -> PInvoke.Kernel32.HeapReAllocFlags
+PInvoke.Kernel32.ICONDIR
+PInvoke.Kernel32.ICONDIR.ICONDIR() -> void
+PInvoke.Kernel32.ICONDIR.idCount -> ushort
+PInvoke.Kernel32.ICONDIR.idReserved -> ushort
+PInvoke.Kernel32.ICONDIR.idType -> ushort
+PInvoke.Kernel32.ICONDIRENTRY
+PInvoke.Kernel32.ICONDIRENTRY.ICONDIRENTRY() -> void
+PInvoke.Kernel32.ICONDIRENTRY.bColorCount -> byte
+PInvoke.Kernel32.ICONDIRENTRY.bHeight -> byte
+PInvoke.Kernel32.ICONDIRENTRY.bReserved -> byte
+PInvoke.Kernel32.ICONDIRENTRY.bWidth -> byte
+PInvoke.Kernel32.ICONDIRENTRY.dwBytesInRes -> uint
+PInvoke.Kernel32.ICONDIRENTRY.dwImageOffset -> uint
+PInvoke.Kernel32.ICONDIRENTRY.wBitCount -> ushort
+PInvoke.Kernel32.ICONDIRENTRY.wPlanes -> ushort
+PInvoke.Kernel32.INPUT_EVENT_RECORD
+PInvoke.Kernel32.INPUT_EVENT_RECORD.FocusEvent -> PInvoke.Kernel32.FOCUS_EVENT_RECORD
+PInvoke.Kernel32.INPUT_EVENT_RECORD.INPUT_EVENT_RECORD() -> void
+PInvoke.Kernel32.INPUT_EVENT_RECORD.KeyEvent -> PInvoke.Kernel32.KEY_EVENT_RECORD
+PInvoke.Kernel32.INPUT_EVENT_RECORD.MenuEvent -> PInvoke.Kernel32.MENU_EVENT_RECORD
+PInvoke.Kernel32.INPUT_EVENT_RECORD.MouseEvent -> PInvoke.Kernel32.MOUSE_EVENT_RECORD
+PInvoke.Kernel32.INPUT_EVENT_RECORD.WindowBufferSizeEvent -> PInvoke.Kernel32.WINDOW_BUFFER_SIZE_RECORD
+PInvoke.Kernel32.INPUT_RECORD
+PInvoke.Kernel32.INPUT_RECORD.Event -> PInvoke.Kernel32.INPUT_EVENT_RECORD
+PInvoke.Kernel32.INPUT_RECORD.EventType -> PInvoke.Kernel32.InputEventTypeFlag
+PInvoke.Kernel32.INPUT_RECORD.INPUT_RECORD() -> void
+PInvoke.Kernel32.IO_COUNTERS
+PInvoke.Kernel32.IO_COUNTERS.IO_COUNTERS() -> void
+PInvoke.Kernel32.IO_COUNTERS.OtherOperationCount -> ulong
+PInvoke.Kernel32.IO_COUNTERS.OtherTransferCount -> ulong
+PInvoke.Kernel32.IO_COUNTERS.ReadOperationCount -> ulong
+PInvoke.Kernel32.IO_COUNTERS.ReadTransferCount -> ulong
+PInvoke.Kernel32.IO_COUNTERS.WriteOperationCount -> ulong
+PInvoke.Kernel32.IO_COUNTERS.WriteTransferCount -> ulong
+PInvoke.Kernel32.InputEventTypeFlag
+PInvoke.Kernel32.InputEventTypeFlag.FOCUS_EVENT = 16 -> PInvoke.Kernel32.InputEventTypeFlag
+PInvoke.Kernel32.InputEventTypeFlag.KEY_EVENT = 1 -> PInvoke.Kernel32.InputEventTypeFlag
+PInvoke.Kernel32.InputEventTypeFlag.MENU_EVENT = 8 -> PInvoke.Kernel32.InputEventTypeFlag
+PInvoke.Kernel32.InputEventTypeFlag.MOUSE_EVENT = 2 -> PInvoke.Kernel32.InputEventTypeFlag
+PInvoke.Kernel32.InputEventTypeFlag.WINDOW_BUFFER_SIZE_EVENT = 4 -> PInvoke.Kernel32.InputEventTypeFlag
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS.JOB_OBJECT_CPU_RATE_CONTROL_ENABLE = 1 -> PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS.JOB_OBJECT_CPU_RATE_CONTROL_HARD_CAP = 4 -> PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS.JOB_OBJECT_CPU_RATE_CONTROL_MIN_MAX_RATE = 16 -> PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS.JOB_OBJECT_CPU_RATE_CONTROL_NOTIFY = 8 -> PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS.JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED = 2 -> PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.ControlFlags -> PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_FLAGS
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.CpuRate -> uint
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION() -> void
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.MaxRate -> ushort
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.MinRate -> ushort
+PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.Weight -> uint
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectAssociateCompletionPortInformation = 7 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectBasicLimitInformation = 2 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectBasicUIRestrictions = 4 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectCpuRateControlInformation = 15 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectEndOfJobTimeInformation = 6 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectExtendedLimitInformation = 9 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectGroupInformation = 11 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectGroupInformationEx = 14 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectLimitViolationInformation2 = 35 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectNetRateControlInformation = 32 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectNotificationLimitInformation = 12 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectNotificationLimitInformation2 = 34 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectSecurityLimitInformation = 5 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.ActiveProcessLimit -> uint
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.Affinity -> System.UIntPtr
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.JOB_OBJECT_BASIC_LIMIT_INFORMATION() -> void
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.LimitFlags -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.MaxWorkingSetSize -> System.UIntPtr
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.MinWorkingSetSize -> System.UIntPtr
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.PerJobUserTimeLimit -> long
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.PerProcessUserTimeLimit -> long
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.PriorityClass -> uint
+PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.SchedulingClass -> uint
+PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION
+PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.BasicLimitInformation -> PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION
+PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.IoInfo -> PInvoke.Kernel32.IO_COUNTERS
+PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION() -> void
+PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.JobMemoryLimit -> System.UIntPtr
+PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.PeakJobMemoryUsed -> System.UIntPtr
+PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.PeakProcessMemoryUsed -> System.UIntPtr
+PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.ProcessMemoryLimit -> System.UIntPtr
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_ACTIVE_PROCESS = 8 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_AFFINITY = 16 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_BREAKAWAY_OK = 2048 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_DIE_ON_UNHANDLED_EXCEPTION = 1024 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_JOB_MEMORY = 512 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_JOB_TIME = 4 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 8192 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_PRESERVE_JOB_TIME = 64 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_PRIORITY_CLASS = 32 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_PROCESS_MEMORY = 256 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_PROCESS_TIME = 2 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_SCHEDULING_CLASS = 128 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_SILENT_BREAKAWAY_OK = 4096 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_SUBSET_AFFINITY = 16384 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_WORKINGSET = 1 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.KEY_EVENT_RECORD
+PInvoke.Kernel32.KEY_EVENT_RECORD.KEY_EVENT_RECORD() -> void
+PInvoke.Kernel32.KEY_EVENT_RECORD.bKeyDown -> bool
+PInvoke.Kernel32.KEY_EVENT_RECORD.dwControlKeyState -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.KEY_EVENT_RECORD.uChar -> PInvoke.Kernel32.CHAR_INFO_ENCODING
+PInvoke.Kernel32.KEY_EVENT_RECORD.wRepeatCount -> ushort
+PInvoke.Kernel32.KEY_EVENT_RECORD.wVirtualKeyCode -> ushort
+PInvoke.Kernel32.KEY_EVENT_RECORD.wVirtualScanCode -> ushort
+PInvoke.Kernel32.LANGID
+PInvoke.Kernel32.LANGID.Data.get -> ushort
+PInvoke.Kernel32.LANGID.Data.set -> void
+PInvoke.Kernel32.LANGID.LANGID(ushort usLanguages) -> void
+PInvoke.Kernel32.LANGID.Primary.get -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.Primary.set -> void
+PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_AFRIKAANS = 54 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ALBANIAN = 28 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ALSATIAN = 132 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_AMHARIC = 94 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ARABIC = 1 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ARMENIAN = 43 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ASSAMESE = 77 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_AZERI = 44 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_BANGLA = 69 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_BASHKIR = 109 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_BASQUE = 45 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_BELARUSSIAN = 35 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_BOSNIAN = 26 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_BRETON = 126 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_BULGARIAN = 2 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CATALAN = 3 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CENTRAL_KURDISH = 146 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CHEROKEE = 92 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CHINESE = 4 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CHINESE_SIMPLIFIED = 4 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CHINESE_TRADITIONAL = 4 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CORSICAN = 131 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CROATIAN = 26 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_CZECH = 5 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_DANISH = 6 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_DARI = 140 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_DIVEHI = 101 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_DUTCH = 19 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ENGLISH = 9 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ESTONIAN = 37 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_FAEROESE = 56 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_FILIPINO = 100 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_FINNISH = 11 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_FRENCH = 12 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_FRISIAN = 98 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_GALICIAN = 86 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_GEORGIAN = 55 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_GERMAN = 7 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_GREEK = 8 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_GREENLANDIC = 111 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_GUJARATI = 71 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_HAUSA = 104 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_HAWAIIAN = 117 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_HEBREW = 13 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_HINDI = 57 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_HUNGARIAN = 14 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ICELANDIC = 15 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_IGBO = 112 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_INDONESIAN = 33 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_INUKTITUT = 93 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_INVARIANT = 127 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_IRISH = 60 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ITALIAN = 16 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_JAPANESE = 17 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KANNADA = 75 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KASHMIRI = 96 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KAZAK = 63 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KHMER = 83 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KICHE = 134 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KINYARWANDA = 135 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KONKANI = 87 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KOREAN = 18 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_KYRGYZ = 64 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_LAO = 84 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_LATVIAN = 38 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_LITHUANIAN = 39 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_LOWER_SORBIAN = 46 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_LUXEMBOURGISH = 110 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MACEDONIAN = 47 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MALAY = 62 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MALAYALAM = 76 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MALTESE = 58 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MANIPURI = 88 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MAORI = 129 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MAPUDUNGUN = 122 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MARATHI = 78 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MOHAWK = 124 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_MONGOLIAN = 80 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_NEPALI = 97 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_NEUTRAL = 0 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_NORWEGIAN = 20 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_OCCITAN = 130 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ORIYA = 72 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_PASHTO = 99 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_PERSIAN = 41 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_POLISH = 21 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_PORTUGUESE = 22 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_PULAR = 103 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_PUNJABI = 70 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_QUECHUA = 107 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ROMANIAN = 24 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ROMANSH = 23 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_RUSSIAN = 25 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SAKHA = 133 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SAMI = 59 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SANSKRIT = 79 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SERBIAN = 26 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SINDHI = 89 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SINHALESE = 91 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SLOVAK = 27 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SLOVENIAN = 36 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SOTHO = 108 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SPANISH = 10 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SWAHILI = 65 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SWEDISH = 29 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SYRIAC = 90 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_SYSTEM_DEFAULT = 2 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TAJIK = 40 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TAMAZIGHT = 95 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TAMIL = 73 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TATAR = 68 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TELUGU = 74 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_THAI = 30 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TIBETAN = 81 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TIGRIGNA = 115 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TIGRINYA = 115 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TSWANA = 50 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TURKISH = 31 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_TURKMEN = 66 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_UIGHUR = 128 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_UKRAINIAN = 34 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_UPPER_SORBIAN = 46 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_URDU = 32 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_USER_DEFAULT = 0 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_UZBEK = 67 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_VALENCIAN = 3 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_VIETNAMESE = 42 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_WELSH = 82 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_WOLOF = 136 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_XHOSA = 52 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_YI = 120 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_YORUBA = 106 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.PrimaryLanguage.LANG_ZULU = 53 -> PInvoke.Kernel32.LANGID.PrimaryLanguage
+PInvoke.Kernel32.LANGID.Sub.get -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.Sub.set -> void
+PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_AFRIKAANS_SOUTH_AFRICA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ALBANIAN_ALBANIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ALSATIAN_FRANCE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_AMHARIC_ETHIOPIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_ALGERIA = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_BAHRAIN = 15 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_EGYPT = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_IRAQ = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_JORDAN = 11 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_KUWAIT = 13 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_LEBANON = 12 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_LIBYA = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_MOROCCO = 6 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_OMAN = 8 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_QATAR = 16 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_SAUDI_ARABIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_SYRIA = 10 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_TUNISIA = 7 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_UAE = 14 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARABIC_YEMEN = 9 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ARMENIAN_ARMENIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ASSAMESE_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_AZERI_CYRILLIC = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_AZERI_LATIN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BANGLA_BANGLADESH = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BANGLA_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BASHKIR_RUSSIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BASQUE_BASQUE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BELARUSIAN_BELARUS = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BOSNIAN_BOSNIA_HERZEGOVINA_CYRILLIC = 8 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BOSNIAN_BOSNIA_HERZEGOVINA_LATIN = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BRETON_FRANCE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_BULGARIAN_BULGARIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CATALAN_CATALAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CENTRAL_KURDISH_IRAQ = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CHEROKEE_CHEROKEE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CHINESE_HONGKONG = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CHINESE_MACAU = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CHINESE_SIMPLIFIED = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CHINESE_SINGAPORE = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CHINESE_TRADITIONAL = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CORSICAN_FRANCE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CROATIAN_BOSNIA_HERZEGOVINA_LATIN = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CROATIAN_CROATIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CUSTOM_DEFAULT = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CUSTOM_UNSPECIFIED = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_CZECH_CZECH_REPUBLIC = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_DANISH_DENMARK = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_DARI_AFGHANISTAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_DEFAULT = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_DIVEHI_MALDIVES = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_DUTCH = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_DUTCH_BELGIAN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_AUS = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_BELIZE = 10 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_CAN = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_CARIBBEAN = 9 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_EIRE = 6 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_INDIA = 16 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_IRELAND = 6 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_JAMAICA = 8 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_MALAYSIA = 17 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_NZ = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_PHILIPPINES = 13 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_SINGAPORE = 18 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_SOUTH_AFRICA = 7 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_TRINIDAD = 11 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_UK = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_US = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ENGLISH_ZIMBABWE = 12 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ESTONIAN_ESTONIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FAEROESE_FAROE_ISLANDS = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FILIPINO_PHILIPPINES = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FINNISH_FINLAND = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FRENCH = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FRENCH_BELGIAN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FRENCH_CANADIAN = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FRENCH_LUXEMBOURG = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FRENCH_MONACO = 6 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FRENCH_SWISS = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_FRISIAN_NETHERLANDS = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GALICIAN_GALICIAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GEORGIAN_GEORGIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GERMAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GERMAN_AUSTRIAN = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GERMAN_LIECHTENSTEIN = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GERMAN_LUXEMBOURG = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GERMAN_SWISS = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GREEK_GREECE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GREENLANDIC_GREENLAND = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_GUJARATI_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_HAUSA_NIGERIA_LATIN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_HAWAIIAN_US = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_HEBREW_ISRAEL = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_HINDI_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_HUNGARIAN_HUNGARY = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ICELANDIC_ICELAND = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_IGBO_NIGERIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_INDONESIAN_INDONESIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_INUKTITUT_CANADA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_INUKTITUT_CANADA_LATIN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_IRISH_IRELAND = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ITALIAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ITALIAN_SWISS = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_JAPANESE_JAPAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KANNADA_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KASHMIRI_INDIA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KASHMIRI_SASIA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KAZAK_KAZAKHSTAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KHMER_CAMBODIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KICHE_GUATEMALA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KINYARWANDA_RWANDA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KONKANI_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KOREAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_KYRGYZ_KYRGYZSTAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_LAO_LAO = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_LATVIAN_LATVIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_LITHUANIAN_LITHUANIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_LOWER_SORBIAN_GERMANY = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_LUXEMBOURGISH_LUXEMBOURG = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MACEDONIAN_MACEDONIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MALAYALAM_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MALAY_BRUNEI_DARUSSALAM = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MALAY_MALAYSIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MALTESE_MALTA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MAORI_NEW_ZEALAND = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MAPUDUNGUN_CHILE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MARATHI_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MOHAWK_MOHAWK = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MONGOLIAN_CYRILLIC_MONGOLIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_MONGOLIAN_PRC = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_NEPALI_INDIA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_NEPALI_NEPAL = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_NEUTRAL = 0 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_NORWEGIAN_BOKMAL = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_NORWEGIAN_NYNORSK = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_OCCITAN_FRANCE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ORIYA_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_PASHTO_AFGHANISTAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_PERSIAN_IRAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_POLISH_POLAND = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_PORTUGUESE = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_PORTUGUESE_BRAZILIAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_PULAR_SENEGAL = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_PUNJABI_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_PUNJABI_PAKISTAN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_QUECHUA_BOLIVIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_QUECHUA_ECUADOR = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_QUECHUA_PERU = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ROMANIAN_ROMANIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ROMANSH_SWITZERLAND = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_RUSSIAN_RUSSIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAKHA_RUSSIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_INARI_FINLAND = 9 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_LULE_NORWAY = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_LULE_SWEDEN = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_NORTHERN_FINLAND = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_NORTHERN_NORWAY = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_NORTHERN_SWEDEN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_SKOLT_FINLAND = 8 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_SOUTHERN_NORWAY = 6 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SAMI_SOUTHERN_SWEDEN = 7 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SANSKRIT_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SERBIAN_BOSNIA_HERZEGOVINA_CYRILLIC = 7 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SERBIAN_BOSNIA_HERZEGOVINA_LATIN = 6 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SERBIAN_CROATIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SERBIAN_CYRILLIC = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SERBIAN_LATIN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SINDHI_AFGHANISTAN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SINDHI_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SINDHI_PAKISTAN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SINHALESE_SRI_LANKA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SLOVAK_SLOVAKIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SLOVENIAN_SLOVENIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SOTHO_NORTHERN_SOUTH_AFRICA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_ARGENTINA = 11 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_BOLIVIA = 16 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_CHILE = 13 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_COLOMBIA = 9 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_COSTA_RICA = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_DOMINICAN_REPUBLIC = 7 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_ECUADOR = 12 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_EL_SALVADOR = 17 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_GUATEMALA = 4 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_HONDURAS = 18 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_MEXICAN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_MODERN = 3 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_NICARAGUA = 19 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_PANAMA = 6 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_PARAGUAY = 15 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_PERU = 10 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_PUERTO_RICO = 20 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_URUGUAY = 14 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_US = 21 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SPANISH_VENEZUELA = 8 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SWAHILI = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SWEDISH = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SWEDISH_FINLAND = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SWEDISH_SWEDEN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SYRIAC = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_SYS_DEFAULT = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TAJIK_TAJIKISTAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TAMAZIGHT_ALGERIA_LATIN = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TAMIL_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TAMIL_SRI_LANKA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TATAR_RUSSIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TELUGU_INDIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_THAI_THAILAND = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TIBETAN_PRC = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TIGRIGNA_ERITREA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TIGRINYA_ERITREA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TIGRINYA_ETHIOPIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TSWANA_BOTSWANA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TSWANA_SOUTH_AFRICA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TURKISH_TURKEY = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_TURKMEN_TURKMENISTAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_UIGHUR_PRC = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_UI_CUSTOM_DEFAULT = 5 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_UKRAINIAN_UKRAINE = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_UPPER_SORBIAN_GERMANY = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_URDU_INDIA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_URDU_PAKISTAN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_UZBEK_CYRILLIC = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_UZBEK_LATIN = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_VALENCIAN_VALENCIA = 2 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_VIETNAMESE_VIETNAM = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_WELSH_UNITED_KINGDOM = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_WOLOF_SENEGAL = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_XHOSA_SOUTH_AFRICA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_YI_PRC = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_YORUBA_NIGERIA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LANGID.SubLanguage.SUBLANG_ZULU_SOUTH_AFRICA = 1 -> PInvoke.Kernel32.LANGID.SubLanguage
+PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.DONT_RESOLVE_DLL_REFERENCES = 1 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_IGNORE_CODE_AUTHZ_LEVEL = 16 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE = 2 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE = 64 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE = 32 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_LIBRARY_SEARCH_APPLICATION_DIR = 512 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_LIBRARY_SEARCH_DEFAULT_DIRS = 4096 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR = 256 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_LIBRARY_SEARCH_SYSTEM32 = 2048 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_LIBRARY_SEARCH_USER_DIRS = 1024 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.LOAD_WITH_ALTERED_SEARCH_PATH = 8 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LoadLibraryExFlags.None = 0 -> PInvoke.Kernel32.LoadLibraryExFlags
+PInvoke.Kernel32.LocalAllocFlags
+PInvoke.Kernel32.LocalAllocFlags.LHND = PInvoke.Kernel32.LocalAllocFlags.LMEM_MOVEABLE | PInvoke.Kernel32.LocalAllocFlags.LMEM_ZEROINIT -> PInvoke.Kernel32.LocalAllocFlags
+PInvoke.Kernel32.LocalAllocFlags.LMEM_FIXED = 0 -> PInvoke.Kernel32.LocalAllocFlags
+PInvoke.Kernel32.LocalAllocFlags.LMEM_MOVEABLE = 2 -> PInvoke.Kernel32.LocalAllocFlags
+PInvoke.Kernel32.LocalAllocFlags.LMEM_ZEROINIT = 64 -> PInvoke.Kernel32.LocalAllocFlags
+PInvoke.Kernel32.LocalAllocFlags.LPTR = 64 -> PInvoke.Kernel32.LocalAllocFlags
+PInvoke.Kernel32.LocalAllocFlags.NONZEROLHND = 2 -> PInvoke.Kernel32.LocalAllocFlags
+PInvoke.Kernel32.LocalAllocFlags.NONZEROLPTR = 0 -> PInvoke.Kernel32.LocalAllocFlags
+PInvoke.Kernel32.LocalReAllocFlags
+PInvoke.Kernel32.LocalReAllocFlags.LMEM_MODIFY = 128 -> PInvoke.Kernel32.LocalReAllocFlags
+PInvoke.Kernel32.LocalReAllocFlags.LMEM_MOVEABLE = 2 -> PInvoke.Kernel32.LocalReAllocFlags
+PInvoke.Kernel32.LocalReAllocFlags.LMEM_ZEROINIT = 64 -> PInvoke.Kernel32.LocalReAllocFlags
+PInvoke.Kernel32.MENU_EVENT_RECORD
+PInvoke.Kernel32.MENU_EVENT_RECORD.MENU_EVENT_RECORD() -> void
+PInvoke.Kernel32.MENU_EVENT_RECORD.dwCommandId -> uint
+PInvoke.Kernel32.MODULEENTRY32
+PInvoke.Kernel32.MODULEENTRY32.ExePath.get -> string
+PInvoke.Kernel32.MODULEENTRY32.GlblcntUsage -> int
+PInvoke.Kernel32.MODULEENTRY32.MODULEENTRY32() -> void
+PInvoke.Kernel32.MODULEENTRY32.Module.get -> string
+PInvoke.Kernel32.MODULEENTRY32.ProccntUsage -> int
+PInvoke.Kernel32.MODULEENTRY32.dwSize -> int
+PInvoke.Kernel32.MODULEENTRY32.hModule -> void*
+PInvoke.Kernel32.MODULEENTRY32.hModule_IntPtr.get -> System.IntPtr
+PInvoke.Kernel32.MODULEENTRY32.hModule_IntPtr.set -> void
+PInvoke.Kernel32.MODULEENTRY32.modBaseAddr -> byte*
+PInvoke.Kernel32.MODULEENTRY32.modBaseAddr_IntPtr.get -> System.IntPtr
+PInvoke.Kernel32.MODULEENTRY32.modBaseAddr_IntPtr.set -> void
+PInvoke.Kernel32.MODULEENTRY32.modBaseSize -> uint
+PInvoke.Kernel32.MODULEENTRY32.szExePath -> char*
+PInvoke.Kernel32.MODULEENTRY32.szModule -> char*
+PInvoke.Kernel32.MODULEENTRY32.th32ModuleID -> int
+PInvoke.Kernel32.MODULEENTRY32.th32ProcessID -> int
+PInvoke.Kernel32.MOUSE_EVENT_RECORD
+PInvoke.Kernel32.MOUSE_EVENT_RECORD.MOUSE_EVENT_RECORD() -> void
+PInvoke.Kernel32.MOUSE_EVENT_RECORD.dwButtonState -> PInvoke.Kernel32.MouseButtonStates
+PInvoke.Kernel32.MOUSE_EVENT_RECORD.dwControlKeyState -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.MOUSE_EVENT_RECORD.dwEventFlags -> PInvoke.Kernel32.MouseEvents
+PInvoke.Kernel32.MOUSE_EVENT_RECORD.dwMousePosition -> PInvoke.COORD
+PInvoke.Kernel32.MouseButtonStates
+PInvoke.Kernel32.MouseButtonStates.FROM_LEFT_1ST_BUTTON_PRESSED = 1 -> PInvoke.Kernel32.MouseButtonStates
+PInvoke.Kernel32.MouseButtonStates.FROM_LEFT_2ND_BUTTON_PRESSED = 4 -> PInvoke.Kernel32.MouseButtonStates
+PInvoke.Kernel32.MouseButtonStates.FROM_LEFT_3RD_BUTTON_PRESSED = 8 -> PInvoke.Kernel32.MouseButtonStates
+PInvoke.Kernel32.MouseButtonStates.FROM_LEFT_4TH_BUTTON_PRESSED = 16 -> PInvoke.Kernel32.MouseButtonStates
+PInvoke.Kernel32.MouseButtonStates.RIGHTMOST_BUTTON_PRESSED = 2 -> PInvoke.Kernel32.MouseButtonStates
+PInvoke.Kernel32.MouseEvents
+PInvoke.Kernel32.MouseEvents.DOUBLE_CLICK = 2 -> PInvoke.Kernel32.MouseEvents
+PInvoke.Kernel32.MouseEvents.MOUSE_HWHEELED = 8 -> PInvoke.Kernel32.MouseEvents
+PInvoke.Kernel32.MouseEvents.MOUSE_MOVED = 1 -> PInvoke.Kernel32.MouseEvents
+PInvoke.Kernel32.MouseEvents.MOUSE_WHEELED = 4 -> PInvoke.Kernel32.MouseEvents
+PInvoke.Kernel32.MouseEvents.None = 0 -> PInvoke.Kernel32.MouseEvents
+PInvoke.Kernel32.NamedPipeInfoFlags
+PInvoke.Kernel32.NamedPipeInfoFlags.PIPE_CLIENT_END = 0 -> PInvoke.Kernel32.NamedPipeInfoFlags
+PInvoke.Kernel32.NamedPipeInfoFlags.PIPE_SERVER_END = 1 -> PInvoke.Kernel32.NamedPipeInfoFlags
+PInvoke.Kernel32.NamedPipeInfoFlags.PIPE_TYPE_BYTE = 0 -> PInvoke.Kernel32.NamedPipeInfoFlags
+PInvoke.Kernel32.NamedPipeInfoFlags.PIPE_TYPE_MESSAGE = 4 -> PInvoke.Kernel32.NamedPipeInfoFlags
+PInvoke.Kernel32.OVERLAPPED
+PInvoke.Kernel32.OVERLAPPED.Internal -> System.IntPtr
+PInvoke.Kernel32.OVERLAPPED.InternalHigh -> System.IntPtr
+PInvoke.Kernel32.OVERLAPPED.OVERLAPPED() -> void
+PInvoke.Kernel32.OVERLAPPED.Offset -> int
+PInvoke.Kernel32.OVERLAPPED.OffsetHigh -> int
+PInvoke.Kernel32.OVERLAPPED.hEvent -> System.IntPtr
+PInvoke.Kernel32.PROCESSENTRY32
+PInvoke.Kernel32.PROCESSENTRY32.ExeFile.get -> string
+PInvoke.Kernel32.PROCESSENTRY32.PROCESSENTRY32() -> void
+PInvoke.Kernel32.PROCESSENTRY32.cntThreads -> int
+PInvoke.Kernel32.PROCESSENTRY32.cntUsage -> int
+PInvoke.Kernel32.PROCESSENTRY32.dwFlags -> uint
+PInvoke.Kernel32.PROCESSENTRY32.dwSize -> int
+PInvoke.Kernel32.PROCESSENTRY32.pcPriClassBase -> int
+PInvoke.Kernel32.PROCESSENTRY32.szExeFile -> char*
+PInvoke.Kernel32.PROCESSENTRY32.th32DefaultHeapID -> System.IntPtr
+PInvoke.Kernel32.PROCESSENTRY32.th32ModuleID -> int
+PInvoke.Kernel32.PROCESSENTRY32.th32ParentProcessID -> int
+PInvoke.Kernel32.PROCESSENTRY32.th32ProcessID -> int
+PInvoke.Kernel32.PROCESS_INFORMATION
+PInvoke.Kernel32.PROCESS_INFORMATION.PROCESS_INFORMATION() -> void
+PInvoke.Kernel32.PROCESS_INFORMATION.dwProcessId -> int
+PInvoke.Kernel32.PROCESS_INFORMATION.dwThreadId -> int
+PInvoke.Kernel32.PROCESS_INFORMATION.hProcess -> System.IntPtr
+PInvoke.Kernel32.PROCESS_INFORMATION.hThread -> System.IntPtr
+PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST
+PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST.PROC_THREAD_ATTRIBUTE_LIST() -> void
+PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.ACCESS_SYSTEM_SECURITY = 16777216 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.FILE_FLAG_FIRST_PIPE_INSTANCE = 524288 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.FILE_FLAG_OVERLAPPED = 1073741824 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.FILE_FLAG_WRITE_THROUGH = 2147483648 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.None = 0 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.PIPE_ACCESS_DUPLEX = PInvoke.Kernel32.PipeAccessMode.PIPE_ACCESS_INBOUND | PInvoke.Kernel32.PipeAccessMode.PIPE_ACCESS_OUTBOUND -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.PIPE_ACCESS_INBOUND = 1 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.PIPE_ACCESS_OUTBOUND = 2 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.WRITE_DAC = 262144 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeAccessMode.WRITE_OWNER = 524288 -> PInvoke.Kernel32.PipeAccessMode
+PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.PipeMode.PIPE_ACCEPT_REMOTE_CLIENTS = 0 -> PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.PipeMode.PIPE_NOWAIT = 1 -> PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.PipeMode.PIPE_READMODE_BYTE = 0 -> PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.PipeMode.PIPE_READMODE_MESSAGE = 2 -> PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.PipeMode.PIPE_REJECT_REMOTE_CLIENTS = 8 -> PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.PipeMode.PIPE_TYPE_BYTE = 0 -> PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.PipeMode.PIPE_TYPE_MESSAGE = 4 -> PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.PipeMode.PIPE_WAIT = 0 -> PInvoke.Kernel32.PipeMode
+PInvoke.Kernel32.ProcessAccess
+PInvoke.Kernel32.ProcessShutdownFlags
+PInvoke.Kernel32.ProcessShutdownFlags.None = 0 -> PInvoke.Kernel32.ProcessShutdownFlags
+PInvoke.Kernel32.ProcessShutdownFlags.SHUTDOWN_NORETRY = 1 -> PInvoke.Kernel32.ProcessShutdownFlags
+PInvoke.Kernel32.QueryFullProcessImageNameFlags
+PInvoke.Kernel32.QueryFullProcessImageNameFlags.None = 0 -> PInvoke.Kernel32.QueryFullProcessImageNameFlags
+PInvoke.Kernel32.QueryFullProcessImageNameFlags.PROCESS_NAME_NATIVE = 1 -> PInvoke.Kernel32.QueryFullProcessImageNameFlags
+PInvoke.Kernel32.SECURITY_ATTRIBUTES
+PInvoke.Kernel32.SECURITY_ATTRIBUTES.InheritHandle.get -> bool
+PInvoke.Kernel32.SECURITY_ATTRIBUTES.SECURITY_ATTRIBUTES() -> void
+PInvoke.Kernel32.SECURITY_ATTRIBUTES.bInheritHandle -> int
+PInvoke.Kernel32.SECURITY_ATTRIBUTES.lpSecurityDescriptor -> System.IntPtr
+PInvoke.Kernel32.SECURITY_ATTRIBUTES.nLength -> int
+PInvoke.Kernel32.SECURITY_DESCRIPTOR
+PInvoke.Kernel32.SECURITY_DESCRIPTOR.Control -> ushort
+PInvoke.Kernel32.SECURITY_DESCRIPTOR.Dacl -> System.IntPtr
+PInvoke.Kernel32.SECURITY_DESCRIPTOR.Group -> System.IntPtr
+PInvoke.Kernel32.SECURITY_DESCRIPTOR.Owner -> System.IntPtr
+PInvoke.Kernel32.SECURITY_DESCRIPTOR.Revision -> byte
+PInvoke.Kernel32.SECURITY_DESCRIPTOR.SECURITY_DESCRIPTOR() -> void
+PInvoke.Kernel32.SECURITY_DESCRIPTOR.Sacl -> System.IntPtr
+PInvoke.Kernel32.SECURITY_DESCRIPTOR.Sbz1 -> byte
+PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL
+PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL.SecurityAnonymous = 0 -> PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL
+PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL.SecurityDelegation = 3 -> PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL
+PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL.SecurityIdentification = 1 -> PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL
+PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation = 2 -> PInvoke.Kernel32.SECURITY_IMPERSONATION_LEVEL
+PInvoke.Kernel32.STARTUPINFO
+PInvoke.Kernel32.STARTUPINFO.STARTUPINFO() -> void
+PInvoke.Kernel32.STARTUPINFO.cb -> int
+PInvoke.Kernel32.STARTUPINFO.cbReserved2 -> ushort
+PInvoke.Kernel32.STARTUPINFO.dwFillAttribute -> uint
+PInvoke.Kernel32.STARTUPINFO.dwFlags -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.STARTUPINFO.dwX -> int
+PInvoke.Kernel32.STARTUPINFO.dwXCountChars -> int
+PInvoke.Kernel32.STARTUPINFO.dwXSize -> int
+PInvoke.Kernel32.STARTUPINFO.dwY -> int
+PInvoke.Kernel32.STARTUPINFO.dwYCountChars -> int
+PInvoke.Kernel32.STARTUPINFO.dwYSize -> int
+PInvoke.Kernel32.STARTUPINFO.hStdError -> PInvoke.Kernel32.SafeObjectHandle
+PInvoke.Kernel32.STARTUPINFO.hStdInput -> PInvoke.Kernel32.SafeObjectHandle
+PInvoke.Kernel32.STARTUPINFO.hStdOutput -> PInvoke.Kernel32.SafeObjectHandle
+PInvoke.Kernel32.STARTUPINFO.lpDesktop -> string
+PInvoke.Kernel32.STARTUPINFO.lpReserved -> string
+PInvoke.Kernel32.STARTUPINFO.lpReserved2 -> System.IntPtr
+PInvoke.Kernel32.STARTUPINFO.lpTitle -> string
+PInvoke.Kernel32.STARTUPINFO.wShowWindow -> ushort
+PInvoke.Kernel32.STARTUPINFOEX
+PInvoke.Kernel32.STARTUPINFOEX.STARTUPINFOEX() -> void
+PInvoke.Kernel32.STARTUPINFOEX.StartupInfo -> PInvoke.Kernel32.STARTUPINFO
+PInvoke.Kernel32.STARTUPINFOEX.lpAttributeList -> PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST*
+PInvoke.Kernel32.STARTUPINFOEX.lpAttributeList_IntPtr.get -> System.IntPtr
+PInvoke.Kernel32.STARTUPINFOEX.lpAttributeList_IntPtr.set -> void
+PInvoke.Kernel32.SYSTEMTIME
+PInvoke.Kernel32.SYSTEMTIME.SYSTEMTIME() -> void
+PInvoke.Kernel32.SYSTEMTIME.wDay -> short
+PInvoke.Kernel32.SYSTEMTIME.wDayOfWeek -> short
+PInvoke.Kernel32.SYSTEMTIME.wHour -> short
+PInvoke.Kernel32.SYSTEMTIME.wMilliseconds -> short
+PInvoke.Kernel32.SYSTEMTIME.wMinute -> short
+PInvoke.Kernel32.SYSTEMTIME.wMonth -> short
+PInvoke.Kernel32.SYSTEMTIME.wSecond -> short
+PInvoke.Kernel32.SYSTEMTIME.wYear -> short
+PInvoke.Kernel32.SafeFindFilesHandle
+PInvoke.Kernel32.SafeFindFilesHandle.SafeFindFilesHandle() -> void
+PInvoke.Kernel32.SafeFindFilesHandle.SafeFindFilesHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.Kernel32.SafeLibraryHandle
+PInvoke.Kernel32.SafeLibraryHandle.SafeLibraryHandle() -> void
+PInvoke.Kernel32.SafeLibraryHandle.SafeLibraryHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.Kernel32.SafeObjectHandle
+PInvoke.Kernel32.SafeObjectHandle.SafeObjectHandle() -> void
+PInvoke.Kernel32.SafeObjectHandle.SafeObjectHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.None = 0 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_FORCEOFFFEEDBACK = 128 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_FORCEONFEEDBACK = 64 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_PREVENTPINNING = 8192 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_RUNFULLSCREEN = 32 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_TITLEISAPPID = 4096 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_TITLEISLINKNAME = 2048 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_UNTRUSTEDSOURCE = 32768 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_USECOUNTCHARS = 8 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_USEFILLATTRIBUTE = 16 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_USEHOTKEY = 512 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_USEPOSITION = 4 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_USESHOWWINDOW = 1 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_USESIZE = 2 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StartupInfoFlags.STARTF_USESTDHANDLES = 256 -> PInvoke.Kernel32.StartupInfoFlags
+PInvoke.Kernel32.StdHandle
+PInvoke.Kernel32.StdHandle.STD_ERROR_HANDLE = -12 -> PInvoke.Kernel32.StdHandle
+PInvoke.Kernel32.StdHandle.STD_INPUT_HANDLE = -10 -> PInvoke.Kernel32.StdHandle
+PInvoke.Kernel32.StdHandle.STD_OUTPUT_HANDLE = -11 -> PInvoke.Kernel32.StdHandle
+PInvoke.Kernel32.WIN32_FIND_DATA
+PInvoke.Kernel32.WIN32_FIND_DATA.WIN32_FIND_DATA() -> void
+PInvoke.Kernel32.WIN32_FIND_DATA.cAlternateFileName -> string
+PInvoke.Kernel32.WIN32_FIND_DATA.cFileName -> string
+PInvoke.Kernel32.WIN32_FIND_DATA.dwFileAttributes -> PInvoke.Kernel32.FileAttribute
+PInvoke.Kernel32.WIN32_FIND_DATA.dwReserved0 -> uint
+PInvoke.Kernel32.WIN32_FIND_DATA.dwReserved1 -> uint
+PInvoke.Kernel32.WIN32_FIND_DATA.ftCreationTime -> PInvoke.Kernel32.FILETIME
+PInvoke.Kernel32.WIN32_FIND_DATA.ftLastAccessTime -> PInvoke.Kernel32.FILETIME
+PInvoke.Kernel32.WIN32_FIND_DATA.ftLastWriteTime -> PInvoke.Kernel32.FILETIME
+PInvoke.Kernel32.WIN32_FIND_DATA.nFileSizeHigh -> uint
+PInvoke.Kernel32.WIN32_FIND_DATA.nFileSizeLow -> uint
+PInvoke.Kernel32.WINDOW_BUFFER_SIZE_RECORD
+PInvoke.Kernel32.WINDOW_BUFFER_SIZE_RECORD.WINDOW_BUFFER_SIZE_RECORD() -> void
+PInvoke.Kernel32.WINDOW_BUFFER_SIZE_RECORD.dwSize -> PInvoke.COORD
+PInvoke.Kernel32.WaitForSingleObjectResult
+PInvoke.Kernel32.WaitForSingleObjectResult.WAIT_ABANDONED = 128 -> PInvoke.Kernel32.WaitForSingleObjectResult
+PInvoke.Kernel32.WaitForSingleObjectResult.WAIT_FAILED = 4294967295 -> PInvoke.Kernel32.WaitForSingleObjectResult
+PInvoke.Kernel32.WaitForSingleObjectResult.WAIT_OBJECT_0 = 0 -> PInvoke.Kernel32.WaitForSingleObjectResult
+PInvoke.Kernel32.WaitForSingleObjectResult.WAIT_TIMEOUT = 258 -> PInvoke.Kernel32.WaitForSingleObjectResult
+PInvoke.Kernel32Extensions
+PInvoke.NTStatusException
+PInvoke.NTStatusException.NTStatusException(PInvoke.NTSTATUS statusCode) -> void
+PInvoke.NTStatusException.NTStatusException(PInvoke.NTSTATUS statusCode, string message) -> void
+PInvoke.NTStatusException.NTStatusException(PInvoke.NTSTATUS statusCode, string message, System.Exception inner) -> void
+PInvoke.NTStatusException.NTStatusException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) -> void
+PInvoke.NTStatusException.NativeErrorCode.get -> PInvoke.NTSTATUS
+PInvoke.Win32Exception
+PInvoke.Win32Exception.NativeErrorCode.get -> PInvoke.Win32ErrorCode
+PInvoke.Win32Exception.Win32Exception() -> void
+PInvoke.Win32Exception.Win32Exception(PInvoke.Win32ErrorCode error) -> void
+PInvoke.Win32Exception.Win32Exception(PInvoke.Win32ErrorCode error, string message) -> void
+PInvoke.Win32Exception.Win32Exception(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) -> void
+PInvoke.Win32Exception.Win32Exception(int error) -> void
+const PInvoke.Kernel32.DefaultShutdownLevel = 640 -> int
+const PInvoke.Kernel32.FileAccess.FILE_ADD_FILE = 2 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_ADD_SUBDIRECTORY = 4 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_ALL_ACCESS = 2032127 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_APPEND_DATA = 4 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_CREATE_PIPE_INSTANCE = 4 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_DELETE_CHILD = 64 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_EXECUTE = 32 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_GENERIC_EXECUTE = 1179808 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_GENERIC_READ = 1179785 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_GENERIC_WRITE = 1179926 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_LIST_DIRECTORY = 1 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_READ_ATTRIBUTES = 128 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_READ_DATA = 1 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_READ_EA = 8 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_TRAVERSE = 32 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_WRITE_ATTRIBUTES = 256 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_WRITE_DATA = 2 -> uint
+const PInvoke.Kernel32.FileAccess.FILE_WRITE_EA = 16 -> uint
+const PInvoke.Kernel32.FileAccess.SPECIFIC_RIGHTS_ALL = 65535 -> uint
+const PInvoke.Kernel32.MAX_MODULE_NAME32 = 255 -> int
+const PInvoke.Kernel32.MAX_PATH = 260 -> int
+const PInvoke.Kernel32.NMPWAIT_NOWAIT = 1 -> int
+const PInvoke.Kernel32.NMPWAIT_USE_DEFAULT_WAIT = 0 -> int
+const PInvoke.Kernel32.NMPWAIT_WAIT_FOREVER = -1 -> int
+const PInvoke.Kernel32.PIPE_UNLIMITED_INSTANCES = 255 -> int
+const PInvoke.Kernel32.ProcessAccess.PROCESS_CREATE_PROCESS = 128 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_CREATE_THREAD = 2 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_DUP_HANDLE = 64 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_QUERY_INFORMATION = 1024 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION = 4096 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_SET_INFORMATION = 512 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_SET_QUOTA = 256 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_SUSPEND_RESUME = 2048 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_TERMINATE = 1 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_VM_OPERATION = 8 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_VM_READ = 16 -> uint
+const PInvoke.Kernel32.ProcessAccess.PROCESS_VM_WRITE = 32 -> uint
+override PInvoke.Kernel32.ACCESS_MASK.Equals(object obj) -> bool
+override PInvoke.Kernel32.ACCESS_MASK.GetHashCode() -> int
+override PInvoke.Kernel32.ACCESS_MASK.ToString() -> string
+override PInvoke.Kernel32.SafeFindFilesHandle.IsInvalid.get -> bool
+override PInvoke.Kernel32.SafeFindFilesHandle.ReleaseHandle() -> bool
+override PInvoke.Kernel32.SafeLibraryHandle.IsInvalid.get -> bool
+override PInvoke.Kernel32.SafeLibraryHandle.ReleaseHandle() -> bool
+override PInvoke.Kernel32.SafeObjectHandle.IsInvalid.get -> bool
+override PInvoke.Kernel32.SafeObjectHandle.ReleaseHandle() -> bool
+override PInvoke.NTStatusException.GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) -> void
+static PInvoke.Kernel32.ACCESS_MASK.explicit operator int(PInvoke.Kernel32.ACCESS_MASK value) -> int
+static PInvoke.Kernel32.ACCESS_MASK.implicit operator PInvoke.Kernel32.ACCESS_MASK(PInvoke.Kernel32.ACCESS_MASK.GenericRight value) -> PInvoke.Kernel32.ACCESS_MASK
+static PInvoke.Kernel32.ACCESS_MASK.implicit operator PInvoke.Kernel32.ACCESS_MASK(PInvoke.Kernel32.ACCESS_MASK.SpecificRight value) -> PInvoke.Kernel32.ACCESS_MASK
+static PInvoke.Kernel32.ACCESS_MASK.implicit operator PInvoke.Kernel32.ACCESS_MASK(PInvoke.Kernel32.ACCESS_MASK.StandardRight value) -> PInvoke.Kernel32.ACCESS_MASK
+static PInvoke.Kernel32.ACCESS_MASK.implicit operator PInvoke.Kernel32.ACCESS_MASK(int value) -> PInvoke.Kernel32.ACCESS_MASK
+static PInvoke.Kernel32.ACCESS_MASK.implicit operator PInvoke.Kernel32.ACCESS_MASK(uint value) -> PInvoke.Kernel32.ACCESS_MASK
+static PInvoke.Kernel32.ACCESS_MASK.implicit operator uint(PInvoke.Kernel32.ACCESS_MASK value) -> uint
+static PInvoke.Kernel32.CallNamedPipe(string lpNamedPipeName, System.IntPtr lpInBuffer, int nInBufferSize, System.IntPtr lpOutBuffer, int nOutBufferSize, out int lpBytesRead, int nTimeOut) -> bool
+static PInvoke.Kernel32.CancelIoEx(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpOverlapped) -> bool
+static PInvoke.Kernel32.ConnectNamedPipe(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, System.IntPtr lpOverlapped) -> bool
+static PInvoke.Kernel32.CopyMemory(System.IntPtr Destination, System.IntPtr Source, System.IntPtr Length) -> void
+static PInvoke.Kernel32.CreateConsoleScreenBuffer(PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, PInvoke.Kernel32.FileShare dwShareMode, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpSecurityAttributes, PInvoke.Kernel32.ConsoleScreenBufferFlag dwFlags, System.IntPtr lpScreenBufferData) -> System.IntPtr
+static PInvoke.Kernel32.CreateConsoleScreenBuffer(PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, PInvoke.Kernel32.FileShare dwShareMode, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpSecurityAttributes, PInvoke.Kernel32.ConsoleScreenBufferFlag dwFlags, void* lpScreenBufferData) -> System.IntPtr
+static PInvoke.Kernel32.CreateConsoleScreenBuffer(PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, PInvoke.Kernel32.FileShare dwShareMode, System.IntPtr lpSecurityAttributes, PInvoke.Kernel32.ConsoleScreenBufferFlag dwFlags, System.IntPtr lpScreenBufferData) -> System.IntPtr
+static PInvoke.Kernel32.CreateFile(string filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, PInvoke.Kernel32.SECURITY_ATTRIBUTES? securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateFile(string filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, System.IntPtr securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateJobObject(System.IntPtr lpJobAttributes, string lpName) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateMutex(PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpMutexAttributes, bool bInitialOwner, string lpName) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateMutex(System.IntPtr lpMutexAttributes, bool bInitialOwner, string lpName) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateNamedPipe(string lpName, PInvoke.Kernel32.PipeAccessMode dwOpenMode, PInvoke.Kernel32.PipeMode dwPipeMode, int nMaxInstances, int nOutBufferSize, int nInBufferSize, int nDefaultTimeOut, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpSecurityAttributes) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateNamedPipe(string lpName, PInvoke.Kernel32.PipeAccessMode dwOpenMode, PInvoke.Kernel32.PipeMode dwPipeMode, int nMaxInstances, int nOutBufferSize, int nInBufferSize, int nDefaultTimeOut, System.IntPtr lpSecurityAttributes) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreatePipe(out PInvoke.Kernel32.SafeObjectHandle hReadPipe, out PInvoke.Kernel32.SafeObjectHandle hWritePipe, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpPipeAttributes, int nSize) -> bool
+static PInvoke.Kernel32.CreatePipe(out PInvoke.Kernel32.SafeObjectHandle hReadPipe, out PInvoke.Kernel32.SafeObjectHandle hWritePipe, System.IntPtr lpPipeAttributes, int nSize) -> bool
+static PInvoke.Kernel32.CreateProcess(string lpApplicationName, string lpCommandLine, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpProcessAttributes, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, bool bInheritHandles, PInvoke.Kernel32.CreateProcessFlags dwCreationFlags, System.IntPtr lpEnvironment, string lpCurrentDirectory, ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo, out PInvoke.Kernel32.PROCESS_INFORMATION lpProcessInformation) -> bool
+static PInvoke.Kernel32.CreateProcess(string lpApplicationName, string lpCommandLine, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpProcessAttributes, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, bool bInheritHandles, PInvoke.Kernel32.CreateProcessFlags dwCreationFlags, void* lpEnvironment, string lpCurrentDirectory, ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo, out PInvoke.Kernel32.PROCESS_INFORMATION lpProcessInformation) -> bool
+static PInvoke.Kernel32.CreateProcess(string lpApplicationName, string lpCommandLine, System.IntPtr lpProcessAttributes, System.IntPtr lpThreadAttributes, bool bInheritHandles, PInvoke.Kernel32.CreateProcessFlags dwCreationFlags, System.IntPtr lpEnvironment, string lpCurrentDirectory, ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo, out PInvoke.Kernel32.PROCESS_INFORMATION lpProcessInformation) -> bool
+static PInvoke.Kernel32.CreateProcessAsUser(System.IntPtr hToken, string lpApplicationName, string lpCommandLine, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpProcessAttributes, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, bool bInheritHandles, PInvoke.Kernel32.CreateProcessFlags dwCreationFlags, System.IntPtr lpEnvironment, string lpCurrentDirectory, ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo, out PInvoke.Kernel32.PROCESS_INFORMATION lpProcessInformation) -> bool
+static PInvoke.Kernel32.CreateProcessAsUser(System.IntPtr hToken, string lpApplicationName, string lpCommandLine, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpProcessAttributes, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, bool bInheritHandles, PInvoke.Kernel32.CreateProcessFlags dwCreationFlags, void* lpEnvironment, string lpCurrentDirectory, ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo, out PInvoke.Kernel32.PROCESS_INFORMATION lpProcessInformation) -> bool
+static PInvoke.Kernel32.CreateProcessAsUser(System.IntPtr hToken, string lpApplicationName, string lpCommandLine, System.IntPtr lpProcessAttributes, System.IntPtr lpThreadAttributes, bool bInheritHandles, PInvoke.Kernel32.CreateProcessFlags dwCreationFlags, System.IntPtr lpEnvironment, string lpCurrentDirectory, ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo, out PInvoke.Kernel32.PROCESS_INFORMATION lpProcessInformation) -> bool
+static PInvoke.Kernel32.DeleteProcThreadAttributeList(System.IntPtr lpAttributeList) -> void
+static PInvoke.Kernel32.DeviceIoControl(PInvoke.Kernel32.SafeObjectHandle hDevice, int dwIoControlCode, System.IntPtr inBuffer, int nInBufferSize, System.IntPtr outBuffer, int nOutBufferSize, out int pBytesReturned, System.IntPtr lpOverlapped) -> bool
+static PInvoke.Kernel32.EnumResourceLanguages(PInvoke.Kernel32.SafeLibraryHandle hModule, System.IntPtr lpType, System.IntPtr lpName, PInvoke.Kernel32.EnumResLangProc lpEnumFunc, System.IntPtr lParam) -> bool
+static PInvoke.Kernel32.EnumResourceNames(PInvoke.Kernel32.SafeLibraryHandle hModule, System.IntPtr lpszType, PInvoke.Kernel32.EnumResNameProc lpEnumFunc, System.IntPtr lParam) -> bool
+static PInvoke.Kernel32.FindFirstFileEx(string lpFileName, PInvoke.Kernel32.FINDEX_INFO_LEVELS fInfoLevelId, out PInvoke.Kernel32.WIN32_FIND_DATA lpFindFileData, PInvoke.Kernel32.FINDEX_SEARCH_OPS fSearchOp, System.IntPtr lpSearchFilter, PInvoke.Kernel32.FindFirstFileExFlags dwAdditionalFlags) -> PInvoke.Kernel32.SafeFindFilesHandle
+static PInvoke.Kernel32.FindResource(PInvoke.Kernel32.SafeLibraryHandle hModule, System.IntPtr lpName, System.IntPtr lpType) -> System.IntPtr
+static PInvoke.Kernel32.FormatMessage(PInvoke.Kernel32.FormatMessageFlags dwFlags, System.IntPtr lpSource, int dwMessageId, int dwLanguageId, System.IntPtr[] Arguments, int maxAllowedBufferSize) -> string
+static PInvoke.Kernel32.FormatMessage(PInvoke.Kernel32.FormatMessageFlags dwFlags, System.IntPtr lpSource, int dwMessageId, int dwLanguageId, System.Text.StringBuilder lpBuffer, int nSize, System.IntPtr[] Arguments) -> int
+static PInvoke.Kernel32.FormatMessage(PInvoke.Kernel32.FormatMessageFlags dwFlags, void* lpSource, int dwMessageId, int dwLanguageId, System.IntPtr[] Arguments, int maxAllowedBufferSize) -> string
+static PInvoke.Kernel32.GetConsoleAlias(string lpSource, System.IntPtr lpTargetBuffer, int TargetBufferLength, string lpExeName) -> int
+static PInvoke.Kernel32.GetConsoleAlias(string lpSource, char[] lpTargetBuffer, int TargetBufferLength, string lpExeName) -> int
+static PInvoke.Kernel32.GetConsoleAliasExes(System.IntPtr lpExeNameBuffer, int ExeNameBufferLength) -> int
+static PInvoke.Kernel32.GetConsoleAliasExes(char[] lpExeNameBuffer, int ExeNameBufferLength) -> int
+static PInvoke.Kernel32.GetConsoleAliases(System.IntPtr lpAliasBuffer, int AliasBufferLength, string lpExeName) -> int
+static PInvoke.Kernel32.GetConsoleAliases(char[] lpAliasBuffer, int AliasBufferLength, string lpExeName) -> int
+static PInvoke.Kernel32.GetConsoleProcessList(System.IntPtr lpdwProcessList, int dwProcessCount) -> int
+static PInvoke.Kernel32.GetConsoleProcessList(uint[] lpdwProcessList, int dwProcessCount) -> int
+static PInvoke.Kernel32.GetConsoleScreenBufferInfo(System.IntPtr hConsoleOutput, System.IntPtr lpConsoleScreenBufferInfo) -> bool
+static PInvoke.Kernel32.GetConsoleScreenBufferInfo(System.IntPtr hConsoleOutput, out PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO lpConsoleScreenBufferInfo) -> bool
+static PInvoke.Kernel32.GetConsoleSelectionInfo(System.IntPtr lpConsoleSelectionInfo) -> bool
+static PInvoke.Kernel32.GetConsoleSelectionInfo(out PInvoke.Kernel32.CONSOLE_SELECTION_INFO lpConsoleSelectionInfo) -> bool
+static PInvoke.Kernel32.GetConsoleTitle(System.IntPtr lpConsoleTitle, int nSize) -> int
+static PInvoke.Kernel32.GetConsoleTitle(char[] lpConsoleTitle, int nSize) -> int
+static PInvoke.Kernel32.GetDllDirectory(int nBufferLength, System.IntPtr lpBuffer) -> bool
+static PInvoke.Kernel32.GetDllDirectory(int nBufferLength, char[] lpBuffer) -> bool
+static PInvoke.Kernel32.GetLastError() -> PInvoke.Win32ErrorCode
+static PInvoke.Kernel32.GetNamedPipeClientComputerName(PInvoke.Kernel32.SafeObjectHandle Pipe, System.IntPtr ClientComputerName, int ClientComputerNameLength) -> bool
+static PInvoke.Kernel32.GetNamedPipeClientComputerName(PInvoke.Kernel32.SafeObjectHandle Pipe, char[] ClientComputerName, int ClientComputerNameLength) -> bool
+static PInvoke.Kernel32.GetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.PipeMode lpState, System.IntPtr lpCurInstances, System.IntPtr lpMaxCollectionCount, System.IntPtr lpCollectDataTimeout, System.IntPtr lpUserName, int nMaxUserNameSize) -> bool
+static PInvoke.Kernel32.GetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.PipeMode lpState, System.IntPtr lpCurInstances, System.IntPtr lpMaxCollectionCount, System.IntPtr lpCollectDataTimeout, System.Text.StringBuilder lpUserName, int nMaxUserNameSize) -> bool
+static PInvoke.Kernel32.GetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.PipeMode lpState, ref int? lpCurInstances, ref int? lpMaxCollectionCount, ref int? lpCollectDataTimeout, System.Text.StringBuilder lpUserName, int nMaxUserNameSize) -> bool
+static PInvoke.Kernel32.GetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.PipeMode lpState, ref int? lpCurInstances, ref int? lpMaxCollectionCount, ref int? lpCollectDataTimeout, char[] lpUserName, int nMaxUserNameSize) -> bool
+static PInvoke.Kernel32.GetOverlappedResult(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpOverlapped, out int lpNumberOfBytesTransferred, bool bWait) -> bool
+static PInvoke.Kernel32.GetSystemTime(System.IntPtr lpSystemTime) -> void
+static PInvoke.Kernel32.GetSystemTime(out PInvoke.Kernel32.SYSTEMTIME lpSystemTime) -> void
+static PInvoke.Kernel32.GlobalAlloc_IntPtr(PInvoke.Kernel32.GlobalAllocFlags uFlags, System.IntPtr uBytes) -> System.IntPtr
+static PInvoke.Kernel32.GlobalFree(System.IntPtr hMem) -> System.IntPtr
+static PInvoke.Kernel32.GlobalLock(System.IntPtr hMem) -> System.IntPtr
+static PInvoke.Kernel32.GlobalReAlloc(System.IntPtr hMem, System.IntPtr uBytes, PInvoke.Kernel32.GlobalReAllocFlags uFlags) -> System.IntPtr
+static PInvoke.Kernel32.GlobalUnlock(System.IntPtr hMem) -> bool
+static PInvoke.Kernel32.HeapAlloc_IntPtr(System.IntPtr hHeap, PInvoke.Kernel32.HeapAllocFlags uFlags, System.IntPtr uBytes) -> System.IntPtr
+static PInvoke.Kernel32.HeapFree(System.IntPtr hHeap, PInvoke.Kernel32.HeapFreeFlags dwFlags, System.IntPtr hMem) -> bool
+static PInvoke.Kernel32.HeapReAlloc(System.IntPtr hHeap, PInvoke.Kernel32.HeapReAllocFlags uFlags, System.IntPtr hMem, System.IntPtr uBytes) -> System.IntPtr
+static PInvoke.Kernel32.IS_INTRESOURCE(System.IntPtr p) -> bool
+static PInvoke.Kernel32.IS_INTRESOURCE(char* p) -> bool
+static PInvoke.Kernel32.InitializeProcThreadAttributeList(System.IntPtr lpAttributeList, int dwAttributeCount, uint dwFlags, ref System.IntPtr lpSize) -> bool
+static PInvoke.Kernel32.IsWow64Process(PInvoke.Kernel32.SafeObjectHandle hProcess) -> bool
+static PInvoke.Kernel32.LocalAlloc(PInvoke.Kernel32.LocalAllocFlags uFlags, int uBytes) -> void*
+static PInvoke.Kernel32.LocalAlloc_IntPtr(PInvoke.Kernel32.LocalAllocFlags uFlags, System.IntPtr uBytes) -> System.IntPtr
+static PInvoke.Kernel32.LocalAlloc_IntPtr(PInvoke.Kernel32.LocalAllocFlags uFlags, int uBytes) -> System.IntPtr
+static PInvoke.Kernel32.LocalFree(System.IntPtr hMem) -> System.IntPtr
+static PInvoke.Kernel32.LocalLock(System.IntPtr hMem) -> System.IntPtr
+static PInvoke.Kernel32.LocalReAlloc(System.IntPtr hMem, System.IntPtr uBytes, PInvoke.Kernel32.LocalReAllocFlags uFlags) -> System.IntPtr
+static PInvoke.Kernel32.LocalReAlloc(System.IntPtr hMem, int uBytes, PInvoke.Kernel32.LocalReAllocFlags uFlags) -> System.IntPtr
+static PInvoke.Kernel32.LocalReAlloc(void* hMem, int uBytes, PInvoke.Kernel32.LocalReAllocFlags uFlags) -> void*
+static PInvoke.Kernel32.LocalUnlock(System.IntPtr hMem) -> bool
+static PInvoke.Kernel32.LockResource_IntPtr(System.IntPtr hResData) -> System.IntPtr
+static PInvoke.Kernel32.MAKEINTRESOURCE(int wInteger) -> char*
+static PInvoke.Kernel32.MAKEINTRESOURCE_IntPtr(int wInteger) -> System.IntPtr
+static PInvoke.Kernel32.MAKELANGID(PInvoke.Kernel32.LANGID.PrimaryLanguage ePrimaryLanguage, PInvoke.Kernel32.LANGID.SubLanguage eSubLanguage) -> PInvoke.Kernel32.LANGID
+static PInvoke.Kernel32.MAKELANGID(ushort usPrimaryLanguage, ushort usSubLanguage) -> PInvoke.Kernel32.LANGID
+static PInvoke.Kernel32.MODULEENTRY32.Create() -> PInvoke.Kernel32.MODULEENTRY32
+static PInvoke.Kernel32.Module32Enumerate(PInvoke.Kernel32.SafeObjectHandle hSnapshot) -> System.Collections.Generic.IEnumerable<PInvoke.Kernel32.MODULEENTRY32>
+static PInvoke.Kernel32.Module32First(PInvoke.Kernel32.SafeObjectHandle hSnapshot) -> PInvoke.Kernel32.MODULEENTRY32?
+static PInvoke.Kernel32.Module32First(PInvoke.Kernel32.SafeObjectHandle hSnapshot, System.IntPtr lpme) -> bool
+static PInvoke.Kernel32.Module32First(PInvoke.Kernel32.SafeObjectHandle hSnapshot, ref PInvoke.Kernel32.MODULEENTRY32 lpme) -> bool
+static PInvoke.Kernel32.Module32Next(PInvoke.Kernel32.SafeObjectHandle hSnapshot) -> PInvoke.Kernel32.MODULEENTRY32?
+static PInvoke.Kernel32.Module32Next(PInvoke.Kernel32.SafeObjectHandle hSnapshot, System.IntPtr lpme) -> bool
+static PInvoke.Kernel32.Module32Next(PInvoke.Kernel32.SafeObjectHandle hSnapshot, ref PInvoke.Kernel32.MODULEENTRY32 lpme) -> bool
+static PInvoke.Kernel32.MoveMemory(System.IntPtr Destination, System.IntPtr Source, System.IntPtr Length) -> void
+static PInvoke.Kernel32.PROCESSENTRY32.Create() -> PInvoke.Kernel32.PROCESSENTRY32
+static PInvoke.Kernel32.PeekNamedPipe(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, System.IntPtr lpBuffer, int nBufferSize, out int lpBytesRead, out int lpTotalBytesAvail, out int lpBytesLeftThisMessage) -> bool
+static PInvoke.Kernel32.Process32Enumerate(PInvoke.Kernel32.SafeObjectHandle hSnapshot) -> System.Collections.Generic.IEnumerable<PInvoke.Kernel32.PROCESSENTRY32>
+static PInvoke.Kernel32.Process32First(PInvoke.Kernel32.SafeObjectHandle hSnapshot) -> PInvoke.Kernel32.PROCESSENTRY32?
+static PInvoke.Kernel32.Process32First(PInvoke.Kernel32.SafeObjectHandle hSnapshot, System.IntPtr lppe) -> bool
+static PInvoke.Kernel32.Process32First(PInvoke.Kernel32.SafeObjectHandle hSnapshot, ref PInvoke.Kernel32.PROCESSENTRY32 lppe) -> bool
+static PInvoke.Kernel32.Process32Next(PInvoke.Kernel32.SafeObjectHandle hSnapshot) -> PInvoke.Kernel32.PROCESSENTRY32?
+static PInvoke.Kernel32.Process32Next(PInvoke.Kernel32.SafeObjectHandle hSnapshot, System.IntPtr lppe) -> bool
+static PInvoke.Kernel32.Process32Next(PInvoke.Kernel32.SafeObjectHandle hSnapshot, ref PInvoke.Kernel32.PROCESSENTRY32 lppe) -> bool
+static PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.QueryFullProcessImageNameFlags dwFlags = PInvoke.Kernel32.QueryFullProcessImageNameFlags.None) -> string
+static PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.QueryFullProcessImageNameFlags dwFlags, System.IntPtr lpExeName, ref int lpdwSize) -> bool
+static PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.QueryFullProcessImageNameFlags dwFlags, char[] lpExeName, ref int lpdwSize) -> bool
+static PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, System.IntPtr lpBuffer, int nNumberOfCharsToRead, int lpNumberOfCharsRead, System.IntPtr lpReserved) -> bool
+static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.ArraySegment<byte> lpBuffer) -> int
+static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpBuffer, int nNumberOfBytesToRead) -> int
+static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpBuffer, int nNumberOfBytesToRead, System.IntPtr lpNumberOfBytesRead, System.IntPtr lpOverlapped) -> bool
+static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpBuffer, int nNumberOfBytesToRead, ref int? lpNumberOfBytesRead, System.IntPtr lpOverlapped) -> bool
+static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, int nNumberOfBytesToRead) -> System.ArraySegment<byte>
+static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead) -> int
+static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead, ref int? lpNumberOfBytesRead, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
+static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.IntPtr nSize, System.IntPtr lpNumberOfBytesRead) -> bool
+static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.IntPtr nSize, ref System.IntPtr? lpNumberOfBytesRead) -> bool
+static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.IntPtr nSize, ref System.IntPtr? lpNumberOfBytesRead) -> bool
+static PInvoke.Kernel32.SECURITY_ATTRIBUTES.Create() -> PInvoke.Kernel32.SECURITY_ATTRIBUTES
+static PInvoke.Kernel32.STARTUPINFO.Create() -> PInvoke.Kernel32.STARTUPINFO
+static PInvoke.Kernel32.STARTUPINFOEX.Create() -> PInvoke.Kernel32.STARTUPINFOEX
+static PInvoke.Kernel32.ScrollConsoleScreenBuffer(System.IntPtr hConsoleOutput, PInvoke.SMALL_RECT lpScrollRectangle, PInvoke.SMALL_RECT? lpClipRectangle, PInvoke.COORD dwDestinationOrigin, PInvoke.Kernel32.CHAR_INFO lpFill) -> bool
+static PInvoke.Kernel32.ScrollConsoleScreenBuffer(System.IntPtr hConsoleOutput, System.IntPtr lpScrollRectangle, System.IntPtr lpClipRectangle, PInvoke.COORD dwDestinationOrigin, System.IntPtr lpFill) -> bool
+static PInvoke.Kernel32.SetInformationJobObject(PInvoke.Kernel32.SafeObjectHandle hJob, PInvoke.Kernel32.JOBOBJECT_INFO_CLASS jobObjectInfoClass, System.IntPtr lpJobObjectInfo, uint cbJobObjectInfoLength) -> bool
+static PInvoke.Kernel32.SetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, PInvoke.Kernel32.PipeMode? lpMode, int? lpMaxCollectionCount, int? lpCollectDataTimeout) -> bool
+static PInvoke.Kernel32.SetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, System.IntPtr lpMode, System.IntPtr lpMaxCollectionCount, System.IntPtr lpCollectDataTimeout) -> bool
+static PInvoke.Kernel32.SetSystemTime(PInvoke.Kernel32.SYSTEMTIME lpSystemTime) -> bool
+static PInvoke.Kernel32.SetSystemTime(System.IntPtr lpSystemTime) -> bool
+static PInvoke.Kernel32.TransactNamedPipe(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, System.IntPtr lpInBuffer, int nInBufferSize, System.IntPtr lpOutBuffer, int nOutBufferSize, out int lpBytesRead, System.IntPtr lpOverlapped) -> bool
+static PInvoke.Kernel32.UpdateProcThreadAttribute(System.IntPtr lpAttributeList, uint dwFlags, ref uint Attribute, System.IntPtr lpValue, System.IntPtr cbSize, ref System.IntPtr lpPreviousValue, ref System.IntPtr lpReturnSize) -> bool
+static PInvoke.Kernel32.WriteConsole(System.IntPtr hConsoleOutput, System.IntPtr lpBuffer, int nNumberOfCharsToWrite, System.IntPtr lpNumberOfCharsWritten, System.IntPtr lpReserved) -> bool
+static PInvoke.Kernel32.WriteConsole(System.IntPtr hConsoleOutput, System.IntPtr lpBuffer, int nNumberOfCharsToWrite, out int lpNumberOfCharsWritten, System.IntPtr lpReserved) -> bool
+static PInvoke.Kernel32.WriteConsole(System.IntPtr hConsoleOutput, void* lpBuffer, int nNumberOfCharsToWrite, out int lpNumberOfCharsWritten, System.IntPtr lpReserved) -> bool
+static PInvoke.Kernel32.WriteConsoleInput(System.IntPtr hConsoleInput, PInvoke.Kernel32.INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsWritten) -> bool
+static PInvoke.Kernel32.WriteConsoleInput(System.IntPtr hConsoleInput, System.IntPtr lpBuffer, int nLength, System.IntPtr lpNumberOfEventsWritten) -> bool
+static PInvoke.Kernel32.WriteConsoleOutput(System.IntPtr hConsoleOutput, PInvoke.Kernel32.CHAR_INFO lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, ref PInvoke.SMALL_RECT lpWriteRegion) -> bool
+static PInvoke.Kernel32.WriteConsoleOutput(System.IntPtr hConsoleOutput, System.IntPtr lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, System.IntPtr lpWriteRegion) -> bool
+static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.ArraySegment<byte> lpBuffer) -> int
+static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpBuffer, int nNumberOfBytesToWrite) -> int
+static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpBuffer, int nNumberOfBytesToWrite, System.IntPtr lpNumberOfBytesWritten, System.IntPtr lpOverlapped) -> bool
+static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpBuffer, int nNumberOfBytesToWrite, ref int? lpNumberOfBytesWritten, System.IntPtr lpOverlapped) -> bool
+static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite) -> int
+static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite, ref int? lpNumberOfBytesWritten, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
+static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.IntPtr nSize, System.IntPtr lpNumberOfBytesWritten) -> bool
+static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.IntPtr nSize, ref System.IntPtr? lpNumberOfBytesWritten) -> bool
+static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.IntPtr nSize, ref System.IntPtr? lpNumberOfBytesWritten) -> bool
+static PInvoke.Kernel32Extensions.GetMessage(this PInvoke.NTSTATUS status) -> string
+static PInvoke.Kernel32Extensions.GetMessage(this PInvoke.Win32ErrorCode error) -> string
+static PInvoke.Kernel32Extensions.ThrowOnError(this PInvoke.NTSTATUS status) -> void
+static PInvoke.Kernel32Extensions.ThrowOnError(this PInvoke.Win32ErrorCode errorCode) -> void
+static extern PInvoke.Kernel32.AddConsoleAlias(string Source, string Target, string ExeName) -> bool
+static extern PInvoke.Kernel32.AddDllDirectory(string NewDirectory) -> System.IntPtr
+static extern PInvoke.Kernel32.AllocConsole() -> bool
+static extern PInvoke.Kernel32.AssignProcessToJobObject(PInvoke.Kernel32.SafeObjectHandle hJob, PInvoke.Kernel32.SafeObjectHandle hProcess) -> bool
+static extern PInvoke.Kernel32.AttachConsole(int dwProcessId) -> bool
+static extern PInvoke.Kernel32.Beep(int frequency, int duration) -> bool
+static extern PInvoke.Kernel32.CallNamedPipe(string lpNamedPipeName, void* lpInBuffer, int nInBufferSize, void* lpOutBuffer, int nOutBufferSize, out int lpBytesRead, int nTimeOut) -> bool
+static extern PInvoke.Kernel32.CancelIo(PInvoke.Kernel32.SafeObjectHandle hFile) -> bool
+static extern PInvoke.Kernel32.CancelIoEx(PInvoke.Kernel32.SafeObjectHandle hFile, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
+static extern PInvoke.Kernel32.CloseHandle(System.IntPtr hObject) -> bool
+static extern PInvoke.Kernel32.ConnectNamedPipe(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
+static extern PInvoke.Kernel32.CopyMemory(void* Destination, void* Source, System.IntPtr Length) -> void
+static extern PInvoke.Kernel32.CreateConsoleScreenBuffer(PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, PInvoke.Kernel32.FileShare dwShareMode, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpSecurityAttributes, PInvoke.Kernel32.ConsoleScreenBufferFlag dwFlags, void* lpScreenBufferData) -> System.IntPtr
+static extern PInvoke.Kernel32.CreateFile(string filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, PInvoke.Kernel32.SECURITY_ATTRIBUTES* securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreateJobObject(PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpJobAttributes, string lpName) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreateMutex(PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpMutexAttributes, bool bInitialOwner, string lpName) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreateNamedPipe(string lpName, PInvoke.Kernel32.PipeAccessMode dwOpenMode, PInvoke.Kernel32.PipeMode dwPipeMode, int nMaxInstances, int nOutBufferSize, int nInBufferSize, int nDefaultTimeOut, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpSecurityAttributes) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreatePipe(out PInvoke.Kernel32.SafeObjectHandle hReadPipe, out PInvoke.Kernel32.SafeObjectHandle hWritePipe, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpPipeAttributes, int nSize) -> bool
+static extern PInvoke.Kernel32.CreateProcess(string lpApplicationName, string lpCommandLine, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpProcessAttributes, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, bool bInheritHandles, PInvoke.Kernel32.CreateProcessFlags dwCreationFlags, void* lpEnvironment, string lpCurrentDirectory, ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo, out PInvoke.Kernel32.PROCESS_INFORMATION lpProcessInformation) -> bool
+static extern PInvoke.Kernel32.CreateProcessAsUser(System.IntPtr hToken, string lpApplicationName, string lpCommandLine, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpProcessAttributes, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, bool bInheritHandles, PInvoke.Kernel32.CreateProcessFlags dwCreationFlags, void* lpEnvironment, string lpCurrentDirectory, ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo, out PInvoke.Kernel32.PROCESS_INFORMATION lpProcessInformation) -> bool
+static extern PInvoke.Kernel32.CreateToolhelp32Snapshot(PInvoke.Kernel32.CreateToolhelp32SnapshotFlags dwFlags, int th32ProcessID) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.DeleteProcThreadAttributeList(PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList) -> void
+static extern PInvoke.Kernel32.DeviceIoControl(PInvoke.Kernel32.SafeObjectHandle hDevice, int dwIoControlCode, void* inBuffer, int nInBufferSize, void* outBuffer, int nOutBufferSize, out int pBytesReturned, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
+static extern PInvoke.Kernel32.DisconnectNamedPipe(PInvoke.Kernel32.SafeObjectHandle hNamedPipe) -> bool
+static extern PInvoke.Kernel32.EnumResourceLanguages(PInvoke.Kernel32.SafeLibraryHandle hModule, char* lpType, char* lpName, PInvoke.Kernel32.EnumResLangProc lpEnumFunc, void* lParam) -> bool
+static extern PInvoke.Kernel32.EnumResourceNames(PInvoke.Kernel32.SafeLibraryHandle hModule, char* lpszType, PInvoke.Kernel32.EnumResNameProc lpEnumFunc, System.IntPtr lParam) -> bool
+static extern PInvoke.Kernel32.ExitProcess(int uExitCode) -> void
+static extern PInvoke.Kernel32.ExitThread(int dwExitCode) -> void
+static extern PInvoke.Kernel32.FindFirstFile(string lpFileName, out PInvoke.Kernel32.WIN32_FIND_DATA lpFindFileData) -> PInvoke.Kernel32.SafeFindFilesHandle
+static extern PInvoke.Kernel32.FindFirstFileEx(string lpFileName, PInvoke.Kernel32.FINDEX_INFO_LEVELS fInfoLevelId, out PInvoke.Kernel32.WIN32_FIND_DATA lpFindFileData, PInvoke.Kernel32.FINDEX_SEARCH_OPS fSearchOp, void* lpSearchFilter, PInvoke.Kernel32.FindFirstFileExFlags dwAdditionalFlags) -> PInvoke.Kernel32.SafeFindFilesHandle
+static extern PInvoke.Kernel32.FindNextFile(PInvoke.Kernel32.SafeFindFilesHandle hFindFile, out PInvoke.Kernel32.WIN32_FIND_DATA lpFindFileData) -> bool
+static extern PInvoke.Kernel32.FindResource(PInvoke.Kernel32.SafeLibraryHandle hModule, char* lpName, char* lpType) -> System.IntPtr
+static extern PInvoke.Kernel32.FlushConsoleInputBuffer(System.IntPtr hConsoleInput) -> bool
+static extern PInvoke.Kernel32.FlushFileBuffers(PInvoke.Kernel32.SafeObjectHandle hFile) -> bool
+static extern PInvoke.Kernel32.FormatMessage(PInvoke.Kernel32.FormatMessageFlags dwFlags, void* lpSource, int dwMessageId, int dwLanguageId, System.Text.StringBuilder lpBuffer, int nSize, System.IntPtr[] Arguments) -> int
+static extern PInvoke.Kernel32.FreeConsole() -> bool
+static extern PInvoke.Kernel32.GenerateConsoleCtrlEvent(PInvoke.Kernel32.ControlType dwCtrlEvent, uint dwProcessGroupId) -> bool
+static extern PInvoke.Kernel32.GetConsoleAlias(string lpSource, char* lpTargetBuffer, int TargetBufferLength, string lpExeName) -> int
+static extern PInvoke.Kernel32.GetConsoleAliasExes(char* lpExeNameBuffer, int ExeNameBufferLength) -> int
+static extern PInvoke.Kernel32.GetConsoleAliasExesLength() -> int
+static extern PInvoke.Kernel32.GetConsoleAliases(char* lpAliasBuffer, int AliasBufferLength, string lpExeName) -> int
+static extern PInvoke.Kernel32.GetConsoleAliasesLength(string lpExeName) -> int
+static extern PInvoke.Kernel32.GetConsoleCP() -> uint
+static extern PInvoke.Kernel32.GetConsoleDisplayMode(out PInvoke.Kernel32.ConsoleDisplayMode lpModeFlags) -> bool
+static extern PInvoke.Kernel32.GetConsoleFontSize(System.IntPtr hConsoleOutput, uint nFont) -> PInvoke.COORD
+static extern PInvoke.Kernel32.GetConsoleMode(System.IntPtr hConsoleHandle, out PInvoke.Kernel32.ConsoleBufferModes lpMode) -> bool
+static extern PInvoke.Kernel32.GetConsoleOutputCP() -> uint
+static extern PInvoke.Kernel32.GetConsoleProcessList(uint* lpdwProcessList, int dwProcessCount) -> int
+static extern PInvoke.Kernel32.GetConsoleScreenBufferInfo(System.IntPtr hConsoleOutput, PInvoke.Kernel32.CONSOLE_SCREEN_BUFFER_INFO* lpConsoleScreenBufferInfo) -> bool
+static extern PInvoke.Kernel32.GetConsoleSelectionInfo(PInvoke.Kernel32.CONSOLE_SELECTION_INFO* lpConsoleSelectionInfo) -> bool
+static extern PInvoke.Kernel32.GetConsoleTitle(char* lpConsoleTitle, int nSize) -> int
+static extern PInvoke.Kernel32.GetConsoleWindow() -> System.IntPtr
+static extern PInvoke.Kernel32.GetCurrentProcess() -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.GetCurrentProcessId() -> int
+static extern PInvoke.Kernel32.GetCurrentThreadId() -> int
+static extern PInvoke.Kernel32.GetDllDirectory(int nBufferLength, char* lpBuffer) -> bool
+static extern PInvoke.Kernel32.GetExitCodeProcess(System.IntPtr hProcess, out int lpExitCode) -> bool
+static extern PInvoke.Kernel32.GetExitCodeThread(System.IntPtr hThread, out int lpExitCode) -> bool
+static extern PInvoke.Kernel32.GetLargestConsoleWindowSize(System.IntPtr hConsoleOutput) -> PInvoke.COORD
+static extern PInvoke.Kernel32.GetModuleHandle(string lpModuleName) -> PInvoke.Kernel32.SafeLibraryHandle
+static extern PInvoke.Kernel32.GetModuleHandleEx(PInvoke.Kernel32.GetModuleHandleExFlags dwFlags, string lpModuleName, out PInvoke.Kernel32.SafeLibraryHandle phModule) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeClientComputerName(PInvoke.Kernel32.SafeObjectHandle Pipe, System.Text.StringBuilder ClientComputerName, int ClientComputerNameLength) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeClientComputerName(PInvoke.Kernel32.SafeObjectHandle Pipe, char* ClientComputerName, int ClientComputerNameLength) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeClientProcessId(PInvoke.Kernel32.SafeObjectHandle Pipe, out int ClientProcessId) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeClientSessionId(PInvoke.Kernel32.SafeObjectHandle Pipe, out int ClientSessionId) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.PipeMode lpState, int* lpCurInstances, int* lpMaxCollectionCount, int* lpCollectDataTimeout, System.Text.StringBuilder lpUserName, int nMaxUserNameSize) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.PipeMode lpState, int* lpCurInstances, int* lpMaxCollectionCount, int* lpCollectDataTimeout, char* lpUserName, int nMaxUserNameSize) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeInfo(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.NamedPipeInfoFlags lpFlags, out int lpOutBufferSize, out int lpInBufferSize, out int lpMaxInstances) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeServerProcessId(PInvoke.Kernel32.SafeObjectHandle Pipe, out int ServerProcessId) -> bool
+static extern PInvoke.Kernel32.GetNamedPipeServerSessionId(PInvoke.Kernel32.SafeObjectHandle Pipe, out int ServerSessionId) -> bool
+static extern PInvoke.Kernel32.GetNumberOfConsoleInputEvents(System.IntPtr hConsoleInput, out int lpNumberOfEvents) -> bool
+static extern PInvoke.Kernel32.GetOverlappedResult(PInvoke.Kernel32.SafeObjectHandle hFile, PInvoke.Kernel32.OVERLAPPED* lpOverlapped, out int lpNumberOfBytesTransferred, bool bWait) -> bool
+static extern PInvoke.Kernel32.GetProcAddress(PInvoke.Kernel32.SafeLibraryHandle hModule, string procName) -> System.IntPtr
+static extern PInvoke.Kernel32.GetStartupInfo(out PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
+static extern PInvoke.Kernel32.GetStdHandle(PInvoke.Kernel32.StdHandle nStdHandle) -> System.IntPtr
+static extern PInvoke.Kernel32.GetSystemTime(PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> void
+static extern PInvoke.Kernel32.GetTickCount() -> uint
+static extern PInvoke.Kernel32.GetTickCount64() -> ulong
+static extern PInvoke.Kernel32.GlobalAlloc(PInvoke.Kernel32.GlobalAllocFlags uFlags, System.IntPtr uBytes) -> void*
+static extern PInvoke.Kernel32.GlobalFree(void* hMem) -> void*
+static extern PInvoke.Kernel32.GlobalLock(void* hMem) -> void*
+static extern PInvoke.Kernel32.GlobalReAlloc(void* hMem, System.IntPtr uBytes, PInvoke.Kernel32.GlobalReAllocFlags uFlags) -> void*
+static extern PInvoke.Kernel32.GlobalUnlock(void* hMem) -> bool
+static extern PInvoke.Kernel32.HeapAlloc(System.IntPtr hHeap, PInvoke.Kernel32.HeapAllocFlags uFlags, System.IntPtr uBytes) -> void*
+static extern PInvoke.Kernel32.HeapFree(System.IntPtr hHeap, PInvoke.Kernel32.HeapFreeFlags dwFlags, void* hMem) -> bool
+static extern PInvoke.Kernel32.HeapLock(System.IntPtr hMem) -> bool
+static extern PInvoke.Kernel32.HeapReAlloc(System.IntPtr hHeap, PInvoke.Kernel32.HeapReAllocFlags uFlags, void* hMem, System.IntPtr uBytes) -> void*
+static extern PInvoke.Kernel32.HeapUnlock(System.IntPtr hHeap) -> bool
+static extern PInvoke.Kernel32.InitializeProcThreadAttributeList(PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, int dwAttributeCount, uint dwFlags, ref System.IntPtr lpSize) -> bool
+static extern PInvoke.Kernel32.IsProcessInJob(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.SafeObjectHandle hJob, out bool result) -> bool
+static extern PInvoke.Kernel32.IsWow64Process(PInvoke.Kernel32.SafeObjectHandle hProcess, out bool Wow64Process) -> bool
+static extern PInvoke.Kernel32.K32EmptyWorkingSet(PInvoke.Kernel32.SafeObjectHandle hProcess) -> bool
+static extern PInvoke.Kernel32.LoadLibrary(string lpFileName) -> PInvoke.Kernel32.SafeLibraryHandle
+static extern PInvoke.Kernel32.LoadLibraryEx(string lpFileName, System.IntPtr hFile, PInvoke.Kernel32.LoadLibraryExFlags dwFlags) -> PInvoke.Kernel32.SafeLibraryHandle
+static extern PInvoke.Kernel32.LoadResource(PInvoke.Kernel32.SafeLibraryHandle hModule, System.IntPtr hResInfo) -> System.IntPtr
+static extern PInvoke.Kernel32.LocalAlloc(PInvoke.Kernel32.LocalAllocFlags uFlags, System.IntPtr uBytes) -> void*
+static extern PInvoke.Kernel32.LocalFree(void* hMem) -> void*
+static extern PInvoke.Kernel32.LocalLock(void* hMem) -> void*
+static extern PInvoke.Kernel32.LocalReAlloc(void* hMem, System.IntPtr uBytes, PInvoke.Kernel32.LocalReAllocFlags uFlags) -> void*
+static extern PInvoke.Kernel32.LocalUnlock(void* hMem) -> bool
+static extern PInvoke.Kernel32.LockResource(System.IntPtr hResData) -> void*
+static extern PInvoke.Kernel32.Module32First(PInvoke.Kernel32.SafeObjectHandle hSnapshot, PInvoke.Kernel32.MODULEENTRY32* lpme) -> bool
+static extern PInvoke.Kernel32.Module32Next(PInvoke.Kernel32.SafeObjectHandle hSnapshot, PInvoke.Kernel32.MODULEENTRY32* lpme) -> bool
+static extern PInvoke.Kernel32.MoveMemory(void* Destination, void* Source, System.IntPtr Length) -> void
+static extern PInvoke.Kernel32.OpenProcess(PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, bool bInheritHandle, int dwProcessId) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.PeekConsoleInput(System.IntPtr hConsoleInput, out PInvoke.Kernel32.INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsRead) -> bool
+static extern PInvoke.Kernel32.PeekNamedPipe(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, void* lpBuffer, int nBufferSize, out int lpBytesRead, out int lpTotalBytesAvail, out int lpBytesLeftThisMessage) -> bool
+static extern PInvoke.Kernel32.Process32First(PInvoke.Kernel32.SafeObjectHandle hSnapshot, PInvoke.Kernel32.PROCESSENTRY32* lppe) -> bool
+static extern PInvoke.Kernel32.Process32Next(PInvoke.Kernel32.SafeObjectHandle hSnapshot, PInvoke.Kernel32.PROCESSENTRY32* lppe) -> bool
+static extern PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.QueryFullProcessImageNameFlags dwFlags, System.Text.StringBuilder lpExeName, ref int lpdwSize) -> bool
+static extern PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.QueryFullProcessImageNameFlags dwFlags, char* lpExeName, ref int lpdwSize) -> bool
+static extern PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, void* lpBuffer, int nNumberOfCharsToRead, int lpNumberOfCharsRead, System.IntPtr lpReserved) -> bool
+static extern PInvoke.Kernel32.ReadConsoleInput(System.IntPtr hConsoleInput, out PInvoke.Kernel32.INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsRead) -> bool
+static extern PInvoke.Kernel32.ReadConsoleOutput(System.IntPtr hConsoleOutput, out PInvoke.Kernel32.CHAR_INFO lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, ref PInvoke.SMALL_RECT lpReadRegion) -> bool
+static extern PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead, int* lpNumberOfBytesRead, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
+static extern PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.IntPtr nSize, System.IntPtr* lpNumberOfBytesRead) -> bool
+static extern PInvoke.Kernel32.ResumeThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> int
+static extern PInvoke.Kernel32.ScrollConsoleScreenBuffer(System.IntPtr hConsoleOutput, PInvoke.SMALL_RECT* lpScrollRectangle, PInvoke.SMALL_RECT* lpClipRectangle, PInvoke.COORD dwDestinationOrigin, PInvoke.Kernel32.CHAR_INFO* lpFill) -> bool
+static extern PInvoke.Kernel32.SetConsoleActiveScreenBuffer(System.IntPtr hConsoleOutput) -> bool
+static extern PInvoke.Kernel32.SetConsoleCP(uint wCodePageID) -> bool
+static extern PInvoke.Kernel32.SetConsoleCtrlHandler(PInvoke.Kernel32.HandlerRoutine handlerRoutine, bool add) -> bool
+static extern PInvoke.Kernel32.SetConsoleCursorPosition(System.IntPtr hConsoleOutput, PInvoke.COORD dwCursorPosition) -> bool
+static extern PInvoke.Kernel32.SetConsoleMode(System.IntPtr hConsoleHandle, PInvoke.Kernel32.ConsoleBufferModes dwMode) -> bool
+static extern PInvoke.Kernel32.SetConsoleOutputCP(uint wCodePageID) -> bool
+static extern PInvoke.Kernel32.SetConsoleTextAttribute(System.IntPtr hConsoleOutput, PInvoke.Kernel32.CharacterAttributesFlags wAttributes) -> bool
+static extern PInvoke.Kernel32.SetConsoleTitle(string lpConsoleTitle) -> bool
+static extern PInvoke.Kernel32.SetDllDirectory(string lpPathName) -> bool
+static extern PInvoke.Kernel32.SetInformationJobObject(PInvoke.Kernel32.SafeObjectHandle hJob, PInvoke.Kernel32.JOBOBJECT_INFO_CLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength) -> bool
+static extern PInvoke.Kernel32.SetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, PInvoke.Kernel32.PipeMode* lpMode, int* lpMaxCollectionCount, int* lpCollectDataTimeout) -> bool
+static extern PInvoke.Kernel32.SetProcessShutdownParameters(int dwLevel, PInvoke.Kernel32.ProcessShutdownFlags dwFlags) -> bool
+static extern PInvoke.Kernel32.SetStdHandle(PInvoke.Kernel32.StdHandle nStdHandle, System.IntPtr nHandle) -> bool
+static extern PInvoke.Kernel32.SetSystemTime(PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> bool
+static extern PInvoke.Kernel32.SetThreadExecutionState(PInvoke.Kernel32.EXECUTION_STATE esFlags) -> PInvoke.Kernel32.EXECUTION_STATE
+static extern PInvoke.Kernel32.SizeofResource(PInvoke.Kernel32.SafeLibraryHandle hModule, System.IntPtr hResInfo) -> int
+static extern PInvoke.Kernel32.SuspendThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> int
+static extern PInvoke.Kernel32.TerminateProcess(System.IntPtr hProcess, int uExitCode) -> bool
+static extern PInvoke.Kernel32.TerminateThread(System.IntPtr hThread, int dwExitCode) -> bool
+static extern PInvoke.Kernel32.TransactNamedPipe(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, void* lpInBuffer, int nInBufferSize, void* lpOutBuffer, int nOutBufferSize, out int lpBytesRead, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
+static extern PInvoke.Kernel32.UpdateProcThreadAttribute(PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, uint dwFlags, ref uint Attribute, void* lpValue, System.IntPtr cbSize, ref System.IntPtr lpPreviousValue, ref System.IntPtr lpReturnSize) -> bool
+static extern PInvoke.Kernel32.WTSGetActiveConsoleSessionId() -> uint
+static extern PInvoke.Kernel32.WaitForSingleObject(System.Runtime.InteropServices.SafeHandle hHandle, int dwMilliseconds) -> PInvoke.Kernel32.WaitForSingleObjectResult
+static extern PInvoke.Kernel32.WaitNamedPipe(string lpNamedPipeName, int nTimeOut) -> bool
+static extern PInvoke.Kernel32.Wow64SuspendThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> int
+static extern PInvoke.Kernel32.WriteConsole(System.IntPtr hConsoleOutput, void* lpBuffer, int nNumberOfCharsToWrite, int* lpNumberOfCharsWritten, System.IntPtr lpReserved) -> bool
+static extern PInvoke.Kernel32.WriteConsoleInput(System.IntPtr hConsoleInput, PInvoke.Kernel32.INPUT_RECORD* lpBuffer, int nLength, int* lpNumberOfEventsWritten) -> bool
+static extern PInvoke.Kernel32.WriteConsoleOutput(System.IntPtr hConsoleOutput, PInvoke.Kernel32.CHAR_INFO* lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, PInvoke.SMALL_RECT* lpWriteRegion) -> bool
+static extern PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite, int* lpNumberOfBytesWritten, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
+static extern PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.IntPtr nSize, System.IntPtr* lpNumberOfBytesWritten) -> bool
+static readonly PInvoke.Kernel32.INVALID_HANDLE_VALUE -> System.IntPtr
+static readonly PInvoke.Kernel32.RT_ACCELERATOR -> char*
+static readonly PInvoke.Kernel32.RT_ANICURSOR -> char*
+static readonly PInvoke.Kernel32.RT_ANIICON -> char*
+static readonly PInvoke.Kernel32.RT_BITMAP -> char*
+static readonly PInvoke.Kernel32.RT_CURSOR -> char*
+static readonly PInvoke.Kernel32.RT_DIALOG -> char*
+static readonly PInvoke.Kernel32.RT_DLGINCLUDE -> char*
+static readonly PInvoke.Kernel32.RT_FONT -> char*
+static readonly PInvoke.Kernel32.RT_FONTDIR -> char*
+static readonly PInvoke.Kernel32.RT_GROUP_CURSOR -> char*
+static readonly PInvoke.Kernel32.RT_GROUP_ICON -> char*
+static readonly PInvoke.Kernel32.RT_HTML -> char*
+static readonly PInvoke.Kernel32.RT_ICON -> char*
+static readonly PInvoke.Kernel32.RT_MENU -> char*
+static readonly PInvoke.Kernel32.RT_MESSAGETABLE -> char*
+static readonly PInvoke.Kernel32.RT_PLUGPLAY -> char*
+static readonly PInvoke.Kernel32.RT_RCDATA -> char*
+static readonly PInvoke.Kernel32.RT_STRING -> char*
+static readonly PInvoke.Kernel32.RT_VERSION -> char*
+static readonly PInvoke.Kernel32.RT_VXD -> char*
+static readonly PInvoke.Kernel32.SafeFindFilesHandle.Invalid -> PInvoke.Kernel32.SafeFindFilesHandle
+static readonly PInvoke.Kernel32.SafeLibraryHandle.Invalid -> PInvoke.Kernel32.SafeLibraryHandle
+static readonly PInvoke.Kernel32.SafeLibraryHandle.Null -> PInvoke.Kernel32.SafeLibraryHandle
+static readonly PInvoke.Kernel32.SafeObjectHandle.Invalid -> PInvoke.Kernel32.SafeObjectHandle
+static readonly PInvoke.Kernel32.SafeObjectHandle.Null -> PInvoke.Kernel32.SafeObjectHandle
