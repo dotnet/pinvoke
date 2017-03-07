@@ -3,14 +3,5 @@
     <Compile Remove="desktop\**" Condition=" '$(TargetsDesktop)' != 'true' " />
   </ItemGroup>
 
-  <Target Name="BuildProjectReferencesFirst" BeforeTargets="ResolveProjectReferences">
-    <!-- The set of global properties we use is carefully chosen so that when building a sln,
-         the project is not re-built by this invocation after the sln builds it. -->
-    <MSBuild Projects="@(BuildProjectReference)"
-             BuildInParallel="$(BuildInParallel)"
-             Properties="Configuration=$(Configuration);Platform=$(Platform)"
-             RemoveProperties="TargetFramework" />
-  </Target>
-
   <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
 </Project>

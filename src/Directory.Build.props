@@ -61,7 +61,11 @@
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
     <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="0.1.57" PrivateAssets="all" />
     <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
-    <BuildProjectReference Include="..\CodeGeneration\CodeGeneration.csproj" />
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+      <UndefineProperties>TargetFramework</UndefineProperties>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
     <PackageReference Include="xunit" Version="2.2.0" />
