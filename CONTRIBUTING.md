@@ -9,9 +9,9 @@ Please send pull requests to add what you've come up with.
 ### Required
 
 * [Visual Studio 2017](https://www.visualstudio.com/en-us) with the following workloads:
-  * Desktop Development with C++
-  * Desktop Development with .NET
-  * .NET Core
+  * Desktop development with C++
+  * .NET desktop development
+  * .NET Core cross-platform development
 
 ## Guidelines
 
