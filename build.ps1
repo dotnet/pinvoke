@@ -61,7 +61,9 @@ Get-ExternalTools
 
 if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "Restore packages")) {
     Write-Output "Restoring NuGet packages..."
-    & $MSBuildCommand.Path $SolutionFile /t:restore
+    & $MSBuildCommand.Path /t:restore /nologo /m $SolutionFile
+    & $MSBuildCommand.Path /t:restore /nologo /m "$SolutionFolder\NtDll.Tests\NtDll.Tests.csproj"
+    & $MSBuildCommand.Path /t:restore /nologo /m "$SolutionFolder\WtsApi32.Tests\WtsApi32.Tests.csproj"
 }
 
 if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
