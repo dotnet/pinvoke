@@ -2634,7 +2634,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EndPaint(
             IntPtr hWnd,
-            [Friendly(FriendlyFlags.In)] PAINTSTRUCT* lpPaint);
+            [Friendly(FriendlyFlags.Bidirectional)] PAINTSTRUCT* lpPaint);
 
         /// <summary>
         /// Sets the show state and the restored, minimized, and maximized positions of the specified window.
