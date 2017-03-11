@@ -18,6 +18,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
+    <DebugType>portable</DebugType>
 
     <TargetsDesktop Condition=" '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
@@ -40,6 +41,11 @@
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
+  <ItemGroup Condition=" '$(IsTestProject)' != 'true' ">
+    <PackageReference Include="SourceLink.Create.GitHub" Version="2.0.2" PrivateAssets="all" />
+    <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.0.2" />
+  </ItemGroup>
+
   <ItemDefinitionGroup>
     <Compile>
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
@@ -57,8 +63,6 @@
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.25" PrivateAssets="all" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="1.6.19-beta" PrivateAssets="all" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.0" PrivateAssets="all" />
-    <PackageReference Include="SourceLink.Create.GitHub" Version="2.0.2" PrivateAssets="all" />
-    <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
     <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="0.1.57" PrivateAssets="all" />
