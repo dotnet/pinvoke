@@ -20,7 +20,14 @@ Please send pull requests to add what you've come up with.
 The `build.ps1` script at the root of this project will restore packages, build, and run tests.
 With the appropriate switch, this script will perform a subset of these functions.
 
-### Important notice when developing with Visual Studio
+### Important notices when developing with Visual Studio
+
+Consider using Visual Studio Code or Visual Studio's Open Folder feature instead of opening
+the PInvoke.sln in Visual Studio 2017. In exchange for fewer features, you'll have a more responsive UI.
+
+If you proceed to open the solution in Visual Studio, the following workarounds are necessary:
+
+#### Workaround [NuGet/Home#4764](https://github.com/NuGet/Home/issues/4764)
 
 The NuGet package restore functionality in Visual Studio does not work for this project,
 and the relevant bugs in VS are tracked at https://github.com/AArnott/pinvoke/issues/314.
@@ -31,6 +38,8 @@ Follow these steps to disable automatic package restore in Visual Studio:
 
 1. Tools -> Options -> NuGet Package Manager -> General
 2. *Clear* the checkbox for "Automatically check for missing packages during build in Visual Studio
+
+![The NuGet package restore option turned off in Visual Studio](doc/NuGetPackageRestoreOption.png)
 
 With this setting, you can still execute a package restore within Visual Studio by right-clicking
 on the _solution_ node in Solution Explorer and clicking "Restore NuGet Packages". But do not
@@ -43,6 +52,18 @@ at the root of the repo, from the Visual Studio Developer Command Prompt:
 ```
 .\build -Restore
 ```
+
+#### Workaround [dotnet/roslyn#17570](https://github.com/dotnet/roslyn/issues/17570)
+
+Make sure that "Lightweight solution load" is turned OFF before loading PInvoke.sln in Visual Studio, as shown here:
+
+![Screenshot of Visual Studio's options page with lightweight solution load highlighted](doc/LightweightSolutionLoadOption.PNG)
+
+#### Workaround Intellisense errors
+
+The C# language service will sometimes reports many errors that are not "real".
+Waiting for VS to "settle" (sometimes a couple minutes) can sometimes help. Other times, building the solution
+can cause the error list to clear out and the red squigglies to go away.
 
 ### Frequently Asked Questions
 
