@@ -24,6 +24,8 @@
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
+
+    <CodeGenerationPackageVersion>0.3.1</CodeGenerationPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetsDesktop)' == 'true' ">
@@ -65,7 +67,7 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.0" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
-    <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="0.1.57" PrivateAssets="all" />
+    <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
     <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

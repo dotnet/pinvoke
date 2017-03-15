@@ -33,7 +33,7 @@ namespace PInvoke
         }
 
         /// <inheritdoc />
-        public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
+        public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, CSharpCompilation compilation, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
             var applyToStruct = applyTo as StructDeclarationSyntax;
             var applyToClass = applyTo as ClassDeclarationSyntax;

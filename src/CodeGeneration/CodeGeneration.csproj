@@ -8,7 +8,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CodeGeneration.Roslyn" Version="0.1.57" PrivateAssets="all" />
+    <PackageReference Include="CodeGeneration.Roslyn" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
   </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
