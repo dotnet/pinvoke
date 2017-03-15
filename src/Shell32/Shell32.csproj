@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>portable-net4+win8+wpa81;portable-net45+win8+wpa81;net40</TargetFrameworks>
+    <TargetFrameworks>netstandard1.1;portable-net4+win8+wpa81;portable-net45+win8+wpa81;net40;net20</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />

@@ -5,7 +5,6 @@ namespace PInvoke
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Runtime.InteropServices;
     using System.Security.AccessControl;
     using static Kernel32;
@@ -46,7 +45,11 @@ namespace PInvoke
                     ref numServicesReturned,
                     ref resumeIndex))
                 {
-                    return Enumerable.Empty<ENUM_SERVICE_STATUS>();
+#if NET20
+                    return new ENUM_SERVICE_STATUS[0];
+#else
+                    return System.Linq.Enumerable.Empty<ENUM_SERVICE_STATUS>();
+#endif
                 }
 
                 var lastError = GetLastError();
@@ -200,12 +203,12 @@ namespace PInvoke
         /// <exception cref="ArgumentException"><paramref name="lpServiceName" /> or <paramref name="lpBinaryPathName"/> are NULL or empty string.</exception>
         public static unsafe void CreateService(string lpBinaryPathName, string lpServiceName, string lpDisplayName, string lpDescription, string lpServiceStartName, string lpPassword)
         {
-            if (string.IsNullOrWhiteSpace(lpBinaryPathName))
+            if (string.IsNullOrEmpty(lpBinaryPathName))
             {
                 throw new ArgumentException("Binary path name must not be null nor empty", nameof(lpBinaryPathName));
             }
 
-            if (string.IsNullOrWhiteSpace(lpServiceName))
+            if (string.IsNullOrEmpty(lpServiceName))
             {
                 throw new ArgumentException("Service name must not be null nor empty", nameof(lpServiceName));
             }
@@ -303,7 +306,7 @@ namespace PInvoke
         /// <exception cref="ArgumentException"><paramref name="lpServiceName" /> is NULL or an empty string.</exception>
         public static void DeleteService(string lpServiceName)
         {
-            if (string.IsNullOrWhiteSpace(lpServiceName))
+            if (string.IsNullOrEmpty(lpServiceName))
             {
                 throw new ArgumentException("Service name must not be null nor empty", nameof(lpServiceName));
             }

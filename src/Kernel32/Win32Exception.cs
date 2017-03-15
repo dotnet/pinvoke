@@ -5,7 +5,9 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+#if DESKTOP
     using System.Runtime.Serialization;
+#endif
     using static Kernel32;
 
     /// <summary>

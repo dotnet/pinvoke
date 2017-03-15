@@ -4,7 +4,9 @@
 namespace PInvoke
 {
     using System;
+#if DESKTOP
     using System.Runtime.Serialization;
+#endif
     using static PInvoke.Kernel32;
 
     /// <summary>

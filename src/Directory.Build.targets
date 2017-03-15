@@ -1,6 +1,8 @@
 <Project>
   <ItemGroup>
     <Compile Remove="desktop\**" Condition=" '$(TargetsDesktop)' != 'true' " />
+    <Compile Include="$(MSBuildThisFileDirectory)net20Helpers\*.cs"
+             Condition=" '$(TargetFramework)' == 'net20' and '$(MSBuildProjectName)' != 'CodeGenerationAttributes' " />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
