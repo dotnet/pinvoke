@@ -48,10 +48,20 @@ $ToolsFolder = Join-Path $ProjectRoot tools
 $BinFolder = Join-Path $ProjectRoot "bin"
 $BinConfigFolder = Join-Path $BinFolder $Configuration
 $BinTestsFolder = Join-Path $BinConfigFolder "tests"
-$PackageRestoreRoot = Join-Path $env:userprofile '.nuget/packages/'
+
+if ($IsWindows) {
+	$PackageRestoreRoot = Join-Path $env:userprofile '.nuget/packages/'
+} else {
+	$PackageRestoreRoot = Join-Path $env:HOME '.nuget/packages/'
+}
 
 # Set script scope for external tool variables.
-$MSBuildCommand = Get-Command MSBuild.exe -ErrorAction SilentlyContinue
+
+if ($IsWindows) {
+	$MSBuildCommand = Get-Command MSBuild.exe -ErrorAction SilentlyContinue
+} else {
+	$MSBuildCommand = Get-Command msbuild -ErrorAction SilentlyContinue
+}
 
 Function Get-ExternalTools {
     if (!$MSBuildCommand) {
