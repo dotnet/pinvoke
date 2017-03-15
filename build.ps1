@@ -64,7 +64,13 @@ Get-ExternalTools
 
 if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "Restore packages")) {
     Write-Output "Restoring NuGet packages..."
+
+    # Workaround NuGet/Home#4790 - this gets Nerdbank.GitVersioning into the package cache
+    & $MSBuildCommand.Path /t:restore /nologo /m "$SolutionFolder\Windows.Core\Windows.Core.csproj"
+
+    # Now do the simple thing that SHOULD be the only requirement
     & $MSBuildCommand.Path /t:restore /nologo /m $SolutionFile
+
     # Workaround NuGet/Home#4753
     & $MSBuildCommand.Path /t:restore /nologo /m "$SolutionFolder\NtDll.Tests\NtDll.Tests.csproj"
     & $MSBuildCommand.Path /t:restore /nologo /m "$SolutionFolder\WtsApi32.Tests\WtsApi32.Tests.csproj"
