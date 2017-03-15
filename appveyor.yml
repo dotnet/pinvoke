@@ -1,4 +1,4 @@
-version: 1.0.{build}
+version: '{build}'
 skip_tags: true
 os: Visual Studio 2017
 configuration: Release
