@@ -1,0 +1,90 @@
+﻿<Project>
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Title>PInvoke.$(MSBuildProjectName)</Title>
+    <Authors>Andrew Arnott</Authors>
+    <Summary>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Summary>
+    <Description>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Description>
+    <PackageProjectUrl>https://github.com/AArnott/pinvoke</PackageProjectUrl>
+    <Copyright>Copyright © $(Authors)</Copyright>
+    <Tags>pinvoke .net pcl</Tags>
+
+    <DefineConstants Condition=" '$(TargetFramework)' != 'net40' ">$(DefineConstants);APISets</DefineConstants>
+    <NoWarn>CS1591</NoWarn>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
+    <DebugType>portable</DebugType>
+
+    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
+    <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
+    <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
+    <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
+
+    <CodeGenerationPackageVersion>0.3.1</CodeGenerationPackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetsDesktop)' == 'true' ">
+    <DefineConstants>$(DefineConstants);DESKTOP</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
+    <RootNamespace>PInvoke</RootNamespace>
+    <AssemblyName >PInvoke.$(MSBuildProjectName)</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
+    <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\tests\$(MSBuildProjectName)\</OutputPath>
+    <RootNamespace />
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.Tests.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(IsTestProject)' != 'true' ">
+    <PackageReference Include="SourceLink.Create.GitHub" Version="2.0.2" PrivateAssets="all" />
+    <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemDefinitionGroup>
+    <Compile>
+      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+    </Compile>
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\net46\" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
+    <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') ">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.25" PrivateAssets="all" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="1.6.19-beta" PrivateAssets="all" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.0" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
+    <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
+    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+      <UndefineProperties>TargetFramework</UndefineProperties>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.console" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+  </ItemGroup>
+
+  <Target Name="SetNuSpecProperties" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
+    <PropertyGroup>
+      <PackageLicenseUrl>https://raw.githubusercontent.com/AArnott/pinvoke/$(GitCommitIdShort)/LICENSE.txt</PackageLicenseUrl>
+    </PropertyGroup>
+  </Target>
+</Project>

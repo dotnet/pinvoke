@@ -16,6 +16,7 @@ namespace PInvoke
     ///         <see cref="K32EmptyWorkingSet" /> for an example.
     ///     </para>
     /// </devremark>
+    [OfferFriendlyOverloads]
     public static partial class Psapi
     {
         /// <summary>Removes as many pages as possible from the working set of the specified process.</summary>

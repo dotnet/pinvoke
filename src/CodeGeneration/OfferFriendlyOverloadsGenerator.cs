@@ -61,9 +61,9 @@ namespace PInvoke
         }
 
         /// <inheritdoc />
-        public async Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, Document document, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
+        public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(MemberDeclarationSyntax applyTo, CSharpCompilation compilation, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
-            var semanticModel = await document.GetSemanticModelAsync(cancellationToken);
+            var semanticModel = compilation.GetSemanticModel(applyTo.SyntaxTree);
             var type = (ClassDeclarationSyntax)applyTo;
             var generatedType = type
                 .WithMembers(SyntaxFactory.List<MemberDeclarationSyntax>());
@@ -137,7 +137,7 @@ namespace PInvoke
                 }
             }
 
-            return SyntaxFactory.SingletonList<MemberDeclarationSyntax>(generatedType);
+            return Task.FromResult(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(generatedType));
         }
 
         private static SyntaxList<AttributeListSyntax> FilterAttributes(SyntaxList<AttributeListSyntax> attributeLists)

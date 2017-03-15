@@ -13,9 +13,8 @@ Param(
 $exportedMethods = @()
 
 if (Test-Path $AssemblyPath) {
-	Write-Host "Exporting P/Invoke methods from -> $AssemblyPath"
 	Add-Type -LiteralPath $AssemblyPath -PassThru |% {
-        $_.GetMethods($([Reflection.BindingFlags]'NonPublic,Public,Static')) | Where {!$_.GetMethodBody()} |% {                            
+        $_.GetMethods($([Reflection.BindingFlags]'NonPublic,Public,Static')) | Where {!$_.GetMethodBody()} |% {
             $attribute = $_.GetCustomAttributes([System.Runtime.InteropServices.DllImportAttribute], $false) | Select -First 1
             if ($attribute){
                 $exportedMethods += $attribute.EntryPoint

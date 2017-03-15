@@ -1,0 +1,7 @@
+<Project>
+  <ItemGroup>
+    <Compile Remove="desktop\**" Condition=" '$(TargetsDesktop)' != 'true' " />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
+</Project>

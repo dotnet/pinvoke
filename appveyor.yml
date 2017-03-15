@@ -1,24 +1,20 @@
 version: 1.0.{build}
 skip_tags: true
-os: Visual Studio 2015
+os: Visual Studio 2017
 configuration: Release
 environment:
-  VisualStudioVersion: 14.0
+  VisualStudioVersion: 15.0
   GeneratePInvokesTxt: true
   TreatWarningsAsErrors: true
-cache:
-- '%USERPROFILE%\.nuget\packages -> **\project.json'
-install:
-- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/install-nuget-3-3-0.ps1'))
 before_build:
 - ps: >-
-    nuget restore src -Verbosity quiet
+    .\build.ps1 -Restore
 
     #$blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-build:
-  project: src\pinvoke.sln
-  parallel: true
-  verbosity: minimal
+build_script:
+- ps: .\build.ps1 -Build
+test_script:
+- ps: .\build.ps1 -Test -NoParallelTests
 artifacts:
 - path: bin\**\*.nupkg
   name: NuGet Package

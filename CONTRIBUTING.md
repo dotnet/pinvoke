@@ -8,38 +8,62 @@ Please send pull requests to add what you've come up with.
 
 ### Required
 
-* [Microsoft Build Tools 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48159) (automatically installed with Visual Studio 2015)
-
-### Better with
-
-* [Visual Studio 2015](https://www.visualstudio.com/en-us)
-* [NuProj](http://nuproj.net) extension for Visual Studio
+* [Visual Studio 2017](https://www.visualstudio.com/en-us) with the following workloads:
+  * Desktop development with C++
+  * .NET desktop development
+  * .NET Core cross-platform development
 
 ## Guidelines
 
-### Important notice when developing with Visual Studio
+### How to build
 
-The NuGet package restore functionality in Visual Studio does not work for this project, which relies
-on newer functionality than comes with Visual Studio 2015 Update 3. You should disable automatic
-package restore on build in Visual Studio in order to build successfully and have a useful Error List
-while developing.
+The `build.ps1` script at the root of this project will restore packages, build, and run tests.
+With the appropriate switch, this script will perform a subset of these functions.
+
+### Important notices when developing with Visual Studio
+
+Consider using Visual Studio Code or Visual Studio's Open Folder feature instead of opening
+the PInvoke.sln in Visual Studio 2017. In exchange for fewer features, you'll have a more responsive UI.
+
+If you proceed to open the solution in Visual Studio, the following workarounds are necessary:
+
+#### Workaround [NuGet/Home#4764](https://github.com/NuGet/Home/issues/4764)
+
+The NuGet package restore functionality in Visual Studio does not work for this project,
+and the relevant bugs in VS are tracked at https://github.com/AArnott/pinvoke/issues/314.
+You should disable automatic package restore on build in Visual Studio in order to build
+successfully and have a useful Error List while developing.
 
 Follow these steps to disable automatic package restore in Visual Studio:
 
 1. Tools -> Options -> NuGet Package Manager -> General
 2. *Clear* the checkbox for "Automatically check for missing packages during build in Visual Studio
 
-With this setting, you can still execute a package restore within Visual Studio by right-clicking
-on the _solution_ node in Solution Explorer and clicking "Restore NuGet Packages". But do not ever
-execute that on this project as that will corrupt the result of `build.ps1 -restore`.
+![The NuGet package restore option turned off in Visual Studio](doc/NuGetPackageRestoreOption.png)
 
-Before developing this project in Visual Studio, or after making project or project.json changes,
+With this setting, you can still execute a package restore within Visual Studio by right-clicking
+on the _solution_ node in Solution Explorer and clicking "Restore NuGet Packages". But do not
+execute that on the solution in this repo as that will corrupt the result of `build.ps1 -restore`.
+
+Before developing this project in Visual Studio, or after making project or package reference changes,
 or to recover after Visual Studio executes a package restore, run this command, which is defined
 at the root of the repo, from the Visual Studio Developer Command Prompt:
 
 ```
 .\build -Restore
 ```
+
+#### Workaround [dotnet/roslyn#17570](https://github.com/dotnet/roslyn/issues/17570)
+
+Make sure that "Lightweight solution load" is turned OFF before loading PInvoke.sln in Visual Studio, as shown here:
+
+![Screenshot of Visual Studio's options page with lightweight solution load highlighted](doc/LightweightSolutionLoadOption.PNG)
+
+#### Workaround Intellisense errors
+
+The C# language service will sometimes reports many errors that are not "real".
+Waiting for VS to "settle" (sometimes a couple minutes) can sometimes help. Other times, building the solution
+can cause the error list to clear out and the red squigglies to go away.
 
 ### Frequently Asked Questions
 
@@ -90,7 +114,7 @@ The high-level libraries should also be added to the list on the [readme](README
 
 When developing a library for Win32, be aware of [API Sets][APISets] and follow the pattern in
 [Kernel32.cs](src/Kernel32.Shared/Kernel32.cs) to use them in the portable project but not for the
-"desktop" targeted project. 
+"desktop" targeted project.
 
 Be sure to use the *lowest* version of the API Sets facade that includes your function.
 For example, `FormatMessage` appears in `api-ms-win-core-localization-l1-2-1.dll` according to
@@ -189,20 +213,10 @@ Pinnable structs cannot have a `string` field, since `string` is a reference typ
 fixed-size character array, or [BCRYPT_ALGORITHM_IDENTIFIER][BCRYPT_ALGORITHM_IDENTIFIER] for an example
 of this for a variable length, null-terminated string.
 
-When a struct has pointer types for fields, add an `[OfferIntPtrPropertyAccessors]` attribute to the struct
-and set the file's `Custom Tool` property to `MSBuild:GenerateCodeFromAttributes`. This causes `IntPtr`
-property accessors to these pointer fields to be automatically generated, making the struct accessible to
-languages that do not support pointers (e.g. VB.NET) or simply more convenient to callers with an `IntPtr`.
-If this file belongs to a Shared Project, the `Custom Tool` property is not available in the IDE and you
-will need to manually edit the .projitems file to add the item metadata, like this:
-
-```xml
-<Compile Include="$(MSBuildThisFileDirectory)YourLib+YourStruct.cs">
-  <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-</Compile>
-```
-
-Note that while the IDE exposes the property as `Custom Tool`, MSBuild represents it as `Generator`.
+When a struct has pointer types for fields, add an `[OfferIntPtrPropertyAccessors]` attribute to the struct.
+This causes `IntPtr` property accessors to these pointer fields to be automatically generated,
+making the struct accessible to languages that do not support pointers (e.g. VB.NET) or simply more convenient
+to callers with an `IntPtr`.
 
 ### Helper methods
 
@@ -272,7 +286,7 @@ Notice not only the missing `///` but that sentences are missing a space between
 on subsequent lines. The easiest way to fix this is to get in the habit of pasting by:
 Ctrl+V, Ctrl+Z. The Undo command will not revert the paste, but it will revert the formatting
 that the language service applied. Which turns the above paste to this:
- 
+
 ```csharp
     /// <summary>
     /// First line of documentation
