@@ -1166,6 +1166,17 @@ namespace PInvoke
             out SafeObjectHandle phNewToken);
 
         /// <summary>
+        /// Closes a handle to the specified registry key.
+        /// </summary>
+        /// <param name="hKey">A handle to the open key to be closed. The handle must have been opened by the RegCreateKeyEx, RegCreateKeyTransacted, RegOpenKeyEx, RegOpenKeyTransacted, or RegConnectRegistry function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />.
+        /// If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the FormatMessage function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+        /// </returns>
+        [DllImport(nameof(AdvApi32))]
+        internal static extern Win32ErrorCode RegCloseKey(IntPtr hKey);
+
+        /// <summary>
         /// The ConvertSidToStringSid function converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
         /// To convert the string-format SID back to a valid, functional SID, call the <see cref="ConvertStringSidToSid(string, ref void*)"/> function.
         /// </summary>

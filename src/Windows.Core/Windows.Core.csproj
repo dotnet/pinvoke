@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>portable-net4+win8+wpa81</TargetFrameworks>
+    <TargetFrameworks>portable-net4+win8+wpa81;net20</TargetFrameworks>
     <Summary>P/Invoke types for common Windows APIs.</Summary>
     <Description>P/Invoke types for common Windows APIs.</Description>
   </PropertyGroup>

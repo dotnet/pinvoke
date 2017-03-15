@@ -4,10 +4,7 @@
 namespace PInvoke
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Runtime.InteropServices;
-    using System.Text;
 
     /// <content>
     /// Contains the <see cref="IAssemblyCache"/> nested type.
