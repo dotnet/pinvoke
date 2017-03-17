@@ -1,0 +1,50 @@
+PInvoke.Hid
+PInvoke.Hid.HiddAttributes
+PInvoke.Hid.HiddAttributes.HiddAttributes() -> void
+PInvoke.Hid.HiddAttributes.ProductId -> ushort
+PInvoke.Hid.HiddAttributes.Size -> int
+PInvoke.Hid.HiddAttributes.VendorId -> ushort
+PInvoke.Hid.HiddAttributes.VersionNumber -> ushort
+PInvoke.Hid.HidpCaps
+PInvoke.Hid.HidpCaps.FeatureReportByteLength -> ushort
+PInvoke.Hid.HidpCaps.HidpCaps() -> void
+PInvoke.Hid.HidpCaps.InputReportByteLength -> ushort
+PInvoke.Hid.HidpCaps.NumberFeatureButtonCaps -> ushort
+PInvoke.Hid.HidpCaps.NumberFeatureDataIndices -> ushort
+PInvoke.Hid.HidpCaps.NumberFeatureValueCaps -> ushort
+PInvoke.Hid.HidpCaps.NumberInputButtonCaps -> ushort
+PInvoke.Hid.HidpCaps.NumberInputDataIndices -> ushort
+PInvoke.Hid.HidpCaps.NumberInputValueCaps -> ushort
+PInvoke.Hid.HidpCaps.NumberLinkCollectionNodes -> ushort
+PInvoke.Hid.HidpCaps.NumberOutputButtonCaps -> ushort
+PInvoke.Hid.HidpCaps.NumberOutputDataIndices -> ushort
+PInvoke.Hid.HidpCaps.NumberOutputValueCaps -> ushort
+PInvoke.Hid.HidpCaps.OutputReportByteLength -> ushort
+PInvoke.Hid.HidpCaps.Reserved -> ushort*
+PInvoke.Hid.HidpCaps.Usage -> ushort
+PInvoke.Hid.HidpCaps.UsagePage -> ushort
+PInvoke.Hid.SafePreparsedDataHandle
+PInvoke.Hid.SafePreparsedDataHandle.SafePreparsedDataHandle() -> void
+PInvoke.Hid.SafePreparsedDataHandle.SafePreparsedDataHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+override PInvoke.Hid.SafePreparsedDataHandle.IsInvalid.get -> bool
+override PInvoke.Hid.SafePreparsedDataHandle.ReleaseHandle() -> bool
+static PInvoke.Hid.HidD_GetAttributes(PInvoke.Kernel32.SafeObjectHandle hFile) -> PInvoke.Hid.HiddAttributes
+static PInvoke.Hid.HidD_GetHidGuid() -> System.Guid
+static PInvoke.Hid.HidD_GetManufacturerString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject) -> string
+static PInvoke.Hid.HidD_GetManufacturerString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, out string result) -> bool
+static PInvoke.Hid.HidD_GetPreparsedData(PInvoke.Kernel32.SafeObjectHandle hDevice) -> PInvoke.Hid.SafePreparsedDataHandle
+static PInvoke.Hid.HidD_GetProductString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject) -> string
+static PInvoke.Hid.HidD_GetProductString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, out string result) -> bool
+static PInvoke.Hid.HidD_GetSerialNumberString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject) -> string
+static PInvoke.Hid.HidD_GetSerialNumberString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, out string result) -> bool
+static PInvoke.Hid.HidP_GetCaps(PInvoke.Hid.SafePreparsedDataHandle preparsedData) -> PInvoke.Hid.HidpCaps
+static PInvoke.Hid.HiddAttributes.Create() -> PInvoke.Hid.HiddAttributes
+static extern PInvoke.Hid.HidD_GetAttributes(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, ref PInvoke.Hid.HiddAttributes attributes) -> bool
+static extern PInvoke.Hid.HidD_GetHidGuid(out System.Guid hidGuid) -> void
+static extern PInvoke.Hid.HidD_GetManufacturerString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, System.Text.StringBuilder buffer, int bufferLength) -> bool
+static extern PInvoke.Hid.HidD_GetPreparsedData(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, out PInvoke.Hid.SafePreparsedDataHandle preparsedDataHandle) -> bool
+static extern PInvoke.Hid.HidD_GetProductString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, System.Text.StringBuilder buffer, int bufferLength) -> bool
+static extern PInvoke.Hid.HidD_GetSerialNumberString(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, System.Text.StringBuilder buffer, int bufferLength) -> bool
+static extern PInvoke.Hid.HidD_SetNumInputBuffers(PInvoke.Kernel32.SafeObjectHandle hidDeviceObject, int numberBuffers) -> bool
+static extern PInvoke.Hid.HidP_GetCaps(PInvoke.Hid.SafePreparsedDataHandle preparsedData, ref PInvoke.Hid.HidpCaps capabilities) -> PInvoke.NTSTATUS
+static readonly PInvoke.Hid.SafePreparsedDataHandle.Invalid -> PInvoke.Hid.SafePreparsedDataHandle

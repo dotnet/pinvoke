@@ -1,0 +1,61 @@
+PInvoke.Fusion
+PInvoke.Fusion.ASSEMBLY_INFO
+PInvoke.Fusion.ASSEMBLY_INFO.ASSEMBLY_INFO() -> void
+PInvoke.Fusion.ASSEMBLY_INFO.cbAssemblyInfo -> uint
+PInvoke.Fusion.ASSEMBLY_INFO.cchBuf -> int
+PInvoke.Fusion.ASSEMBLY_INFO.dwAssemblyFlags -> PInvoke.Fusion.AssemblyInfoFlags
+PInvoke.Fusion.ASSEMBLY_INFO.pszCurrentAssemblyPathBuf -> char*
+PInvoke.Fusion.ASSEMBLY_INFO.pszCurrentAssemblyPathBuf_IntPtr.get -> System.IntPtr
+PInvoke.Fusion.ASSEMBLY_INFO.pszCurrentAssemblyPathBuf_IntPtr.set -> void
+PInvoke.Fusion.ASSEMBLY_INFO.uliAssemblySizeInKB -> long
+PInvoke.Fusion.AssemblyCacheInstallFlags
+PInvoke.Fusion.AssemblyCacheInstallFlags.IASSEMBLYCACHE_INSTALL_FLAG_FORCE_REFRESH = 2 -> PInvoke.Fusion.AssemblyCacheInstallFlags
+PInvoke.Fusion.AssemblyCacheInstallFlags.IASSEMBLYCACHE_INSTALL_FLAG_REFRESH = 1 -> PInvoke.Fusion.AssemblyCacheInstallFlags
+PInvoke.Fusion.AssemblyCacheInstallFlags.None = 0 -> PInvoke.Fusion.AssemblyCacheInstallFlags
+PInvoke.Fusion.AssemblyInfoFlags
+PInvoke.Fusion.AssemblyInfoFlags.ASSEMBLYINFO_FLAG_INSTALLED = 1 -> PInvoke.Fusion.AssemblyInfoFlags
+PInvoke.Fusion.AssemblyInfoFlags.ASSEMBLYINFO_FLAG_PAYLOADRESIDENT = 2 -> PInvoke.Fusion.AssemblyInfoFlags
+PInvoke.Fusion.AssemblyInfoFlags.None = 0 -> PInvoke.Fusion.AssemblyInfoFlags
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.FUSION_INSTALL_REFERENCE() -> void
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.cbSize -> uint
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.dwFlags -> PInvoke.Fusion.FusionInstallReferenceFlags
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.guidScheme -> System.Guid
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.szIdentifier -> char*
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.szIdentifier_IntPtr.get -> System.IntPtr
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.szIdentifier_IntPtr.set -> void
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.szNonCannonicalData -> char*
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.szNonCannonicalData_IntPtr.get -> System.IntPtr
+PInvoke.Fusion.FUSION_INSTALL_REFERENCE.szNonCannonicalData_IntPtr.set -> void
+PInvoke.Fusion.FusionInstallReferenceFlags
+PInvoke.Fusion.FusionInstallReferenceFlags.None = 0 -> PInvoke.Fusion.FusionInstallReferenceFlags
+PInvoke.Fusion.IAssemblyCache
+PInvoke.Fusion.IAssemblyCache.CreateAssemblyCacheItem(PInvoke.Fusion.AssemblyCacheInstallFlags dwFlags, object pvReserved, out PInvoke.Fusion.IAssemblyCacheItem ppAsmItem, string pszAssemblyName) -> PInvoke.HResult
+PInvoke.Fusion.IAssemblyCache.CreateAssemblyScavenger(out object ppUnkReserved) -> PInvoke.HResult
+PInvoke.Fusion.IAssemblyCache.InstallAssembly(PInvoke.Fusion.AssemblyCacheInstallFlags dwFlags, string pszManifestFilePath, PInvoke.Fusion.FUSION_INSTALL_REFERENCE* pRefData) -> PInvoke.HResult
+PInvoke.Fusion.IAssemblyCache.QueryAssemblyInfo(PInvoke.Fusion.QueryAssemblyInfoFlags dwFlags, string pszAssemblyName, PInvoke.Fusion.ASSEMBLY_INFO* pAsmInfo) -> PInvoke.HResult
+PInvoke.Fusion.IAssemblyCache.UninstallAssembly(PInvoke.Fusion.UninstallAssemblyFlags dwFlags, string pszAssemblyName, PInvoke.Fusion.FUSION_INSTALL_REFERENCE* pRefData, PInvoke.Fusion.UninstallDisposition* pulDisposition) -> PInvoke.HResult
+PInvoke.Fusion.IAssemblyCacheItem
+PInvoke.Fusion.IAssemblyCacheItem.AbortItem() -> PInvoke.HResult
+PInvoke.Fusion.IAssemblyCacheItem.Commit(uint dwFlags, uint* pulDisposition) -> PInvoke.HResult
+PInvoke.Fusion.IAssemblyCacheItem.CreateStream(uint dwFlags, string pszStreamName, uint dwFormat, uint dwFormatFlags, out mscoree.IStream ppIStream, ulong* puliMaxSize) -> PInvoke.HResult
+PInvoke.Fusion.QueryAssemblyInfoFlags
+PInvoke.Fusion.QueryAssemblyInfoFlags.None = 0 -> PInvoke.Fusion.QueryAssemblyInfoFlags
+PInvoke.Fusion.QueryAssemblyInfoFlags.QUERYASMINFO_FLAG_GETSIZE = 2 -> PInvoke.Fusion.QueryAssemblyInfoFlags
+PInvoke.Fusion.QueryAssemblyInfoFlags.QUERYASMINFO_FLAG_VALIDATE = 1 -> PInvoke.Fusion.QueryAssemblyInfoFlags
+PInvoke.Fusion.UninstallAssemblyFlags
+PInvoke.Fusion.UninstallAssemblyFlags.None = 0 -> PInvoke.Fusion.UninstallAssemblyFlags
+PInvoke.Fusion.UninstallDisposition
+PInvoke.Fusion.UninstallDisposition.IASSEMBLYCACHE_UNINSTALL_DISPOSITION_ALREADY_UNINSTALLED = 3 -> PInvoke.Fusion.UninstallDisposition
+PInvoke.Fusion.UninstallDisposition.IASSEMBLYCACHE_UNINSTALL_DISPOSITION_DELETE_PENDING = 4 -> PInvoke.Fusion.UninstallDisposition
+PInvoke.Fusion.UninstallDisposition.IASSEMBLYCACHE_UNINSTALL_DISPOSITION_HAS_INSTALL_REFERENCES = 5 -> PInvoke.Fusion.UninstallDisposition
+PInvoke.Fusion.UninstallDisposition.IASSEMBLYCACHE_UNINSTALL_DISPOSITION_REFERENCE_NOT_FOUND = 6 -> PInvoke.Fusion.UninstallDisposition
+PInvoke.Fusion.UninstallDisposition.IASSEMBLYCACHE_UNINSTALL_DISPOSITION_STILL_IN_USE = 2 -> PInvoke.Fusion.UninstallDisposition
+PInvoke.Fusion.UninstallDisposition.IASSEMBLYCACHE_UNINSTALL_DISPOSITION_UNINSTALLED = 1 -> PInvoke.Fusion.UninstallDisposition
+static PInvoke.Fusion.ASSEMBLY_INFO.Create() -> PInvoke.Fusion.ASSEMBLY_INFO
+static extern PInvoke.Fusion.CreateAssemblyCache(out PInvoke.Fusion.IAssemblyCache ppAsmCache, int dwReserved) -> PInvoke.HResult
+static readonly PInvoke.Fusion.FUSION_INSTALL_REFERENCE.FUSION_REFCOUNT_FILEPATH_GUID -> System.Guid
+static readonly PInvoke.Fusion.FUSION_INSTALL_REFERENCE.FUSION_REFCOUNT_MSI_GUID -> System.Guid
+static readonly PInvoke.Fusion.FUSION_INSTALL_REFERENCE.FUSION_REFCOUNT_OPAQUE_STRING_GUID -> System.Guid
+static readonly PInvoke.Fusion.FUSION_INSTALL_REFERENCE.FUSION_REFCOUNT_OSINSTALL_GUID -> System.Guid
+static readonly PInvoke.Fusion.FUSION_INSTALL_REFERENCE.FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID -> System.Guid
