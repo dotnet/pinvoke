@@ -20,9 +20,10 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
     <DebugType>portable</DebugType>
 
-    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
+    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
+    <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
 
     <CodeGenerationPackageVersion>0.3.1</CodeGenerationPackageVersion>
