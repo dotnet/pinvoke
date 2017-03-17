@@ -3,6 +3,10 @@
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
 
+    <DesktopOnlyFrameworks>net45;net40;net20</DesktopOnlyFrameworks>
+    <PortableOnlyFrameworks>netstandard1.1;portable-net4+win8+wpa81;portable-net45+win8+wpa81</PortableOnlyFrameworks>
+    <DesktopAndPortableFrameworks>$(PortableOnlyFrameworks);$(DesktopOnlyFrameworks)</DesktopAndPortableFrameworks>
+
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Title>PInvoke.$(MSBuildProjectName)</Title>
     <Authors>Andrew Arnott</Authors>
