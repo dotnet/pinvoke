@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;net40;net20</TargetFrameworks>
+    <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
     <ResolveComReferenceSilent>true</ResolveComReferenceSilent>
   </PropertyGroup>
   <ItemGroup>

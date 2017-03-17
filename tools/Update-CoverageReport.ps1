@@ -10,7 +10,7 @@ Param(
 	[string]$Configuration='release'
 )
 
-nuget restore "$PSScriptRoot\..\src" -Verbosity quiet
+& "$PSScriptRoot\..\Build.ps1" -Restore
 msbuild /nologo /m /v:minimal /fl "$PSScriptRoot\..\src\PInvoke.sln" /p:configuration=$Configuration /p:GeneratePInvokesTxt=true
 
 $Shields = & "$PSScriptRoot\Get-Shields.ps1" -Directory "$PSScriptRoot\..\bin\$Configuration"
