@@ -6,6 +6,8 @@ environment:
   VisualStudioVersion: 15.0
   GeneratePInvokesTxt: true
   TreatWarningsAsErrors: true
+install:
+- choco install pandoc
 before_build:
 - ps: >-
     .\build.ps1 -Restore
@@ -19,6 +21,16 @@ after_build:
 - ps: Get-ChildItem bin\*.pinvokes.txt -rec |? { $_.directory -notmatch 'tests' } |% { Push-AppveyorArtifact $_ -DeploymentName "PInvoke method coverage" }
 - ps: Get-ChildItem bin\*.exports.txt -rec |? { $_.directory -notmatch 'tests' } |% { Push-AppveyorArtifact $_ -DeploymentName "Exported methods" }
 - ps: Get-ChildItem bin\*.nupkg -rec |% { Push-AppveyorArtifact $_ -DeploymentName "NuGet Package" }
+- ps: >-
+    $reportdir = "bin\$env:configuration"
+
+    tools\Get-CoverageReport.ps1 -NoBuild -Configuration $env:configuration -OutFile "$reportdir\coverage.md"
+
+    pandoc -f markdown -t html "$reportdir\coverage.md" -o "$reportdir\coverage.html"
+
+    Push-AppveyorArtifact "$reportdir\coverage.html" -DeploymentName "PInvoke coverage report"
+
+    Push-AppveyorArtifact "$reportdir\coverage.md" -DeploymentName "PInvoke coverage report"
 notifications:
 - provider: Webhook
   url: https://webhooks.gitter.im/e/c4d61fc5002e9a62a22f

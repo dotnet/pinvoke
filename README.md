@@ -53,7 +53,7 @@ or elsewhere as applicable.
 ## Distribution
 
 This library should be available on NuGet for easy consumption by your projects.
-You may also copy and paste the P/Invoke signatures you need directly into your projects if desired. 
+You may also copy and paste the P/Invoke signatures you need directly into your projects if desired.
 
 Packages:
 
@@ -81,7 +81,7 @@ userenv.dll  |`PInvoke.Userenv` | [![NuGet](https://buildstats.info/nuget/PInvok
 uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://buildstats.info/nuget/PInvoke.UxTheme)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
 WtsApi32.dll |`PInvoke.WtsApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.WtsApi32)](https://www.nuget.org/packages/PInvoke.WtsApi32)|[Windows Remote Desktop Services][Wtsapi32]
 
-Check out the [P/Invoke coverage](coverage.md) we have for each library.
+Check out the [P/Invoke coverage][PInvokeCoverageReport] we have for each library.
 
 ## Contribution
 
@@ -107,3 +107,5 @@ public release of the library.
 
 [issues-closed-img]: http://www.issuestats.com/github/aarnott/pinvoke/badge/issue
 [issues-closed-url]: http://www.issuestats.com/github/aarnott/pinvoke
+
+[PInvokeCoverageReport]: https://ci.appveyor.com/api/projects/aarnott/pinvoke/artifacts/coverage.html?branch=master
