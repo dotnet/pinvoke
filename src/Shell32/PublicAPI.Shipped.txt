@@ -1,0 +1,233 @@
+PInvoke.Shell32
+PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_ADMINTOOLS = PInvoke.Shell32.CSIDL.CSIDL_DESKTOPDIRECTORY | PInvoke.Shell32.CSIDL.CSIDL_INTERNET_CACHE -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_ALTSTARTUP = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_LOCAL_APPDATA -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_APPDATA = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_COMMON_STARTUP -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_BITBUCKET = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_RECENT -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_CDBURN_AREA = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_COMMON_OEM_LINKS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_ADMINTOOLS = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_COMMON_DOCUMENTS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_ALTSTARTUP = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_LOCAL_APPDATA -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_APPDATA = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_HISTORY -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_DESKTOPDIRECTORY = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_COMMON_STARTUP -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_DOCUMENTS = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_PROGRAM_FILES_COMMONX86 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_FAVORITES = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_COMMON_ALTSTARTUP -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_MUSIC = PInvoke.Shell32.CSIDL.CSIDL_PRINTERS | PInvoke.Shell32.CSIDL.CSIDL_CONNECTIONS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_OEM_LINKS = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_RESOURCES -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_PICTURES = PInvoke.Shell32.CSIDL.CSIDL_FAVORITES | PInvoke.Shell32.CSIDL.CSIDL_ADMINTOOLS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_PROGRAMS = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_COMMON_STARTMENU -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_STARTMENU = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_FONTS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_STARTUP = PInvoke.Shell32.CSIDL.CSIDL_RECENT | PInvoke.Shell32.CSIDL.CSIDL_DESKTOPDIRECTORY -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_TEMPLATES = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_PROGRAM_FILES_COMMONX86 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMMON_VIDEO = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_COMMON_PICTURES -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COMPUTERSNEARME = PInvoke.Shell32.CSIDL.CSIDL_PRINTERS | PInvoke.Shell32.CSIDL.CSIDL_RESOURCES_LOCALIZED -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_CONNECTIONS = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_ADMINTOOLS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_CONTROLS = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_COOKIES = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_INTERNET_CACHE -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_DESKTOP = 0 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_DESKTOPDIRECTORY = 16 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_DRIVES = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_DESKTOPDIRECTORY -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_FAVORITES = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_PRINTERS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_FLAG_CREATE = 32768 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_FLAG_DONT_UNEXPAND = 8192 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_FLAG_DONT_VERIFY = 16384 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_FLAG_MASK = 65280 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_FLAG_NO_ALIAS = 4096 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_FLAG_PER_USER_INIT = 2048 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_FONTS = PInvoke.Shell32.CSIDL.CSIDL_PRINTERS | PInvoke.Shell32.CSIDL.CSIDL_DESKTOPDIRECTORY -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_HISTORY = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_INTERNET_CACHE -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_INTERNET = 1 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_INTERNET_CACHE = 32 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_LOCAL_APPDATA = PInvoke.Shell32.CSIDL.CSIDL_PRINTERS | PInvoke.Shell32.CSIDL.CSIDL_COMMON_STARTUP -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_MYDOCUMENTS = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_PRINTERS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_MYMUSIC = PInvoke.Shell32.CSIDL.CSIDL_PRINTERS | PInvoke.Shell32.CSIDL.CSIDL_SENDTO -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_MYPICTURES = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_PROGRAM_FILES -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_MYVIDEO = PInvoke.Shell32.CSIDL.CSIDL_PRINTERS | PInvoke.Shell32.CSIDL.CSIDL_BITBUCKET -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_NETHOOD = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_NETWORK -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_NETWORK = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_DESKTOPDIRECTORY -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PERSONAL = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_PRINTERS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PRINTERS = 4 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PRINTHOOD = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_APPDATA -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PROFILE = PInvoke.Shell32.CSIDL.CSIDL_RECENT | PInvoke.Shell32.CSIDL.CSIDL_INTERNET_CACHE -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS = 2 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PROGRAM_FILES = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_WINDOWS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PROGRAM_FILESX86 = PInvoke.Shell32.CSIDL.CSIDL_PROGRAMS | PInvoke.Shell32.CSIDL.CSIDL_PROFILE -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PROGRAM_FILES_COMMON = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_PROGRAM_FILESX86 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_PROGRAM_FILES_COMMONX86 = PInvoke.Shell32.CSIDL.CSIDL_PRINTERS | PInvoke.Shell32.CSIDL.CSIDL_PROFILE -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_RECENT = 8 -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_RESOURCES = PInvoke.Shell32.CSIDL.CSIDL_RECENT | PInvoke.Shell32.CSIDL.CSIDL_ADMINTOOLS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_RESOURCES_LOCALIZED = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_RESOURCES -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_SENDTO = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_RECENT -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_STARTMENU = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_BITBUCKET -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_STARTUP = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_FAVORITES -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_SYSTEM = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_WINDOWS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_SYSTEMX86 = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_PROFILE -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_TEMPLATES = PInvoke.Shell32.CSIDL.CSIDL_INTERNET | PInvoke.Shell32.CSIDL.CSIDL_FONTS -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.CSIDL.CSIDL_WINDOWS = PInvoke.Shell32.CSIDL.CSIDL_PRINTERS | PInvoke.Shell32.CSIDL.CSIDL_INTERNET_CACHE -> PInvoke.Shell32.CSIDL
+PInvoke.Shell32.ITEMIDLIST
+PInvoke.Shell32.ITEMIDLIST.ITEMIDLIST() -> void
+PInvoke.Shell32.ITEMIDLIST.mkid -> PInvoke.Shell32.SHITEMID
+PInvoke.Shell32.KNOWNFOLDERID
+PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_ALIAS_ONLY = 2147483648 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_CREATE = 32768 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_DEFAULT_PATH = 1024 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_DONT_UNEXPAND = 8192 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_DONT_VERIFY = 16384 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_INIT = 2048 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_NOT_PARENT_RELATIVE = 512 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_NO_ALIAS = 4096 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_NO_APPCONTAINER_REDIRECTION = 65536 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.KF_FLAG_SIMPLE_IDLIST = 256 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.KNOWN_FOLDER_FLAG.None = 0 -> PInvoke.Shell32.KNOWN_FOLDER_FLAG
+PInvoke.Shell32.SHGetFolderPathFlags
+PInvoke.Shell32.SHGetFolderPathFlags.SHGFP_TYPE_CURRENT = 0 -> PInvoke.Shell32.SHGetFolderPathFlags
+PInvoke.Shell32.SHGetFolderPathFlags.SHGFP_TYPE_DEFAULT = 1 -> PInvoke.Shell32.SHGetFolderPathFlags
+PInvoke.Shell32.SHITEMID
+PInvoke.Shell32.SHITEMID.SHITEMID() -> void
+PInvoke.Shell32.SHITEMID.abID -> byte*
+PInvoke.Shell32.SHITEMID.cb -> ushort
+static PInvoke.Shell32.ILFree(System.IntPtr pidl) -> void
+static PInvoke.Shell32.SHGetFolderLocation(System.IntPtr hwndOwner, PInvoke.Shell32.CSIDL nFolder, System.IntPtr hToken, int dwReserved, out System.IntPtr pidl) -> PInvoke.HResult
+static PInvoke.Shell32.SHGetFolderPath(PInvoke.Shell32.CSIDL folder, System.IntPtr hToken = default(System.IntPtr), PInvoke.Shell32.SHGetFolderPathFlags flags = PInvoke.Shell32.SHGetFolderPathFlags.SHGFP_TYPE_CURRENT) -> string
+static PInvoke.Shell32.SHGetFolderPath(System.IntPtr hwndOwner, PInvoke.Shell32.CSIDL nFolder, System.IntPtr hToken, PInvoke.Shell32.SHGetFolderPathFlags dwFlags, System.IntPtr pszPath) -> PInvoke.HResult
+static PInvoke.Shell32.SHGetFolderPath(System.IntPtr hwndOwner, PInvoke.Shell32.CSIDL nFolder, System.IntPtr hToken, PInvoke.Shell32.SHGetFolderPathFlags dwFlags, char[] pszPath) -> PInvoke.HResult
+static PInvoke.Shell32.SHGetKnownFolderIDList(System.Guid rfid, PInvoke.Shell32.KNOWN_FOLDER_FLAG dwFlags, System.IntPtr hToken, out System.IntPtr pidl) -> PInvoke.HResult
+static PInvoke.Shell32.SHGetKnownFolderPath(System.Guid rfid, PInvoke.Shell32.KNOWN_FOLDER_FLAG dwFlags = PInvoke.Shell32.KNOWN_FOLDER_FLAG.None, System.IntPtr hToken = default(System.IntPtr)) -> string
+static PInvoke.Shell32.SHGetKnownFolderPath(System.Guid rfid, PInvoke.Shell32.KNOWN_FOLDER_FLAG dwFlags, System.IntPtr hToken, out System.IntPtr ppszPath) -> PInvoke.HResult
+static PInvoke.Shell32.SHGetPathFromIDList(PInvoke.Shell32.ITEMIDLIST* pidl) -> string
+static PInvoke.Shell32.SHGetPathFromIDList(PInvoke.Shell32.ITEMIDLIST* pidl, char[] pszPath) -> bool
+static PInvoke.Shell32.SHGetPathFromIDList(System.IntPtr pidl) -> string
+static PInvoke.Shell32.SHGetPathFromIDList(System.IntPtr pidl, System.IntPtr pszPath) -> bool
+static PInvoke.Shell32.SHGetPathFromIDList(System.IntPtr pidl, char[] pszPath) -> bool
+static extern PInvoke.Shell32.ILFree(void* pidl) -> void
+static extern PInvoke.Shell32.SHGetFolderLocation(System.IntPtr hwndOwner, PInvoke.Shell32.CSIDL nFolder, System.IntPtr hToken, int dwReserved, out PInvoke.Shell32.ITEMIDLIST* pidl) -> PInvoke.HResult
+static extern PInvoke.Shell32.SHGetFolderPath(System.IntPtr hwndOwner, PInvoke.Shell32.CSIDL nFolder, System.IntPtr hToken, PInvoke.Shell32.SHGetFolderPathFlags dwFlags, char* pszPath) -> PInvoke.HResult
+static extern PInvoke.Shell32.SHGetKnownFolderIDList(System.Guid rfid, PInvoke.Shell32.KNOWN_FOLDER_FLAG dwFlags, System.IntPtr hToken, out PInvoke.Shell32.ITEMIDLIST* pidl) -> PInvoke.HResult
+static extern PInvoke.Shell32.SHGetKnownFolderPath(System.Guid rfid, PInvoke.Shell32.KNOWN_FOLDER_FLAG dwFlags, System.IntPtr hToken, out char* ppszPath) -> PInvoke.HResult
+static extern PInvoke.Shell32.SHGetPathFromIDList(PInvoke.Shell32.ITEMIDLIST* pidl, char* pszPath) -> bool
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_AccountPictures -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_AddNewPrograms -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_AdminTools -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_AppUpdates -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ApplicationShortcuts -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_AppsFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CDBurning -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CameraRoll -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CameraRollLibrary -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ChangeRemovePrograms -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CommonAdminTools -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CommonOEMLinks -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CommonPrograms -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CommonStartMenu -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CommonStartup -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_CommonTemplates -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ComputerFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ConflictFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ConnectionsFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Contacts -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ControlPanelFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Cookies -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Desktop -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_DevelopmentFiles -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_DeviceMetadataStore -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Documents -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_DocumentsLibrary -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Downloads -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Favorites -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Fonts -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_GameTasks -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Games -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_History -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_HomeGroup -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_HomeGroupCurrentUser -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ImplicitAppShortcuts -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_InternetCache -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_InternetFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Libraries -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Links -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_LocalAppData -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_LocalAppDataLow -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_LocalizedResourcesDir -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Music -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_MusicLibrary -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_NetHood -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_NetworkFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Objects3D -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_OneDrive -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_OriginalImages -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PhotoAlbums -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Pictures -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PicturesLibrary -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Playlists -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PrintHood -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PrintersFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Profile -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ProgramData -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ProgramFiles -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ProgramFilesCommon -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ProgramFilesCommonX64 -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ProgramFilesCommonX86 -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ProgramFilesX64 -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ProgramFilesX86 -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Programs -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Public -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicDesktop -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicDocuments -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicDownloads -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicGameTasks -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicLibraries -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicMusic -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicPictures -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicRingtones -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicUserTiles -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_PublicVideos -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_QuickLaunch -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Recent -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_RecordedTV -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_RecordedTVLibrary -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_RecycleBinFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_ResourceDir -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_RetailDemo -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Ringtones -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_RoamedTileImages -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_RoamingAppData -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_RoamingTiles -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SEARCH_CSC -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SEARCH_MAPI -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SampleMusic -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SamplePictures -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SamplePlaylists -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SampleVideos -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SavedGames -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SavedPictures -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SavedPicturesLibrary -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SavedSearches -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Screenshots -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SearchHistory -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SearchHome -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SearchTemplates -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SendTo -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SidebarDefaultParts -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SidebarParts -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SkyDrive -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SkyDriveCameraRoll -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SkyDriveDocuments -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SkyDrivePictures -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_StartMenu -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Startup -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SyncManagerFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SyncResultsFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SyncSetupFolder -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_System -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_SystemX86 -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Templates -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_TreeProperties -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_UserPinned -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_UserProfiles -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_UserProgramFiles -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_UserProgramFilesCommon -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_UsersFiles -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_UsersLibraries -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Videos -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_VideosLibrary -> System.Guid
+static readonly PInvoke.Shell32.KNOWNFOLDERID.FOLDERID_Windows -> System.Guid

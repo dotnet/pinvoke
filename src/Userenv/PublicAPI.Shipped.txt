@@ -1,0 +1,5 @@
+PInvoke.Userenv
+static PInvoke.Userenv.CreateEnvironmentBlock(out System.IntPtr lpEnvironment, PInvoke.Kernel32.SafeObjectHandle hToken, bool bInherit) -> bool
+static PInvoke.Userenv.DestroyEnvironmentBlock(System.IntPtr lpEnvironment) -> bool
+static extern PInvoke.Userenv.CreateEnvironmentBlock(out char* lpEnvironment, PInvoke.Kernel32.SafeObjectHandle hToken, bool bInherit) -> bool
+static extern PInvoke.Userenv.DestroyEnvironmentBlock(char* lpEnvironment) -> bool

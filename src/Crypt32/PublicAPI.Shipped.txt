@@ -1,0 +1,107 @@
+PInvoke.Crypt32
+PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_ACCESS_STATE_PROP_ID = 14 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_ARCHIVED_PROP_ID = 19 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_AUTO_ENROLL_PROP_ID = 21 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_CROSS_CERT_DIST_POINTS_PROP_ID = 23 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_DATE_STAMP_PROP_ID = 27 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_DESCRIPTION_PROP_ID = 13 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_EFS_PROP_ID = 17 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_ENHKEY_USAGE_PROP_ID = 9 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_ENROLLMENT_PROP_ID = 26 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_EXTENDED_ERROR_INFO_PROP_ID = 30 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_FORTEZZA_DATA_PROP_ID = 18 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_FRIENDLY_NAME_PROP_ID = 11 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_IE30_RESERVED_PROP_ID = 7 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_ISSUER_PUBLIC_KEY_MD5_HASH_PROP_ID = 24 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_ISSUER_SERIAL_NUMBER_MD5_HASH_PROP_ID = 28 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_KEY_CONTEXT_PROP_ID = 5 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_KEY_IDENTIFIER_PROP_ID = 20 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_KEY_PROV_HANDLE_PROP_ID = 1 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_KEY_PROV_INFO_PROP_ID = 2 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_KEY_SPEC_PROP_ID = 6 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_MD5_HASH_PROP_ID = 4 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_NEXT_UPDATE_LOCATION_PROP_ID = 10 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_PUBKEY_ALG_PARA_PROP_ID = 22 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_PUBKEY_HASH_RESERVED_PROP_ID = 8 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_PVK_FILE_PROP_ID = 12 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_SHA1_HASH_PROP_ID = 3 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_SIGNATURE_HASH_PROP_ID = 15 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_SMART_CARD_DATA_PROP_ID = 16 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_SUBJECT_NAME_MD5_HASH_PROP_ID = 29 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CERT_PROP_ID.CERT_SUBJECT_PUBLIC_KEY_MD5_HASH_PROP_ID = 25 -> PInvoke.Crypt32.CERT_PROP_ID
+PInvoke.Crypt32.CRYPT_DATA_BLOB
+PInvoke.Crypt32.CRYPT_DATA_BLOB.CRYPT_DATA_BLOB() -> void
+PInvoke.Crypt32.CRYPT_DATA_BLOB.cbData -> int
+PInvoke.Crypt32.CRYPT_DATA_BLOB.pbData -> byte*
+PInvoke.Crypt32.CRYPT_DATA_BLOB.pbData_IntPtr.get -> System.IntPtr
+PInvoke.Crypt32.CRYPT_DATA_BLOB.pbData_IntPtr.set -> void
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.CRYPT_KEY_PROV_INFO() -> void
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.ContainerName.get -> string
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.ProvName.get -> string
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.cProvParam -> uint
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.dwFlags -> uint
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.dwKeySpec -> uint
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.dwProvType -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.pwszContainerName -> char*
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.pwszContainerName_IntPtr.get -> System.IntPtr
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.pwszContainerName_IntPtr.set -> void
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.pwszProvName -> char*
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.pwszProvName_IntPtr.get -> System.IntPtr
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.pwszProvName_IntPtr.set -> void
+PInvoke.Crypt32.CRYPT_KEY_PROV_INFO.rgProvParam -> System.IntPtr
+PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_CNG = 0 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_DH_SCHANNEL = 18 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_DSS_DH = 13 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_EC_ECDSA_FULL = 16 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_EC_ECDSA_SIG = 14 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_EC_ECNRA_FULL = 17 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_EC_ECNRA_SIG = 15 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_INTEL_SEC = 22 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_MS_EXCHANGE = 5 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_REPLACE_OWF = 23 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_RNG = 21 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_RSA_AES = 24 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_RSA_DSS = 3 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_RSA_FORTEZZA = 4 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_RSA_FULL = 1 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_RSA_SCHANNEL = 12 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_RSA_SIG = 2 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_SPYRUS_LYNKS = 20 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CRYPT_PROV_TYPE.PROV_SSL = 6 -> PInvoke.Crypt32.CRYPT_PROV_TYPE
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_ALLOW_NCRYPT_KEY_FLAG = 65536 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_CACHE_FLAG = 1 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_COMPARE_KEY_FLAG = 4 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_NCRYPT_KEY_FLAGS_MASK = PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_ALLOW_NCRYPT_KEY_FLAG | PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_PREFER_NCRYPT_KEY_FLAG | PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_ONLY_NCRYPT_KEY_FLAG -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_NO_HEALING = 8 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_ONLY_NCRYPT_KEY_FLAG = 262144 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_PREFER_NCRYPT_KEY_FLAG = 131072 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_SILENT_FLAG = 64 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_USE_PROV_INFO_FLAG = 2 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags.CRYPT_ACQUIRE_WINDOW_HANDLE_FLAG = 128 -> PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.CRYPT_EXPORTABLE = 1 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.CRYPT_MACHINE_KEYSET = 32 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.CRYPT_USER_KEYSET = 4096 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.CRYPT_USER_PROTECTED = 2 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.None = 0 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.PKCS12_ALLOW_OVERWRITE_KEY = 16384 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.PKCS12_ALWAYS_CNG_KSP = 512 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.PKCS12_INCLUDE_EXTENDED_PROPERTIES = 16 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.PKCS12_NO_PERSIST_KEY = 32768 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.PKCS12_PREFER_CNG_KSP = 256 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.PFXImportCertStoreFlags.UnnamedValue = 268435456 -> PInvoke.Crypt32.PFXImportCertStoreFlags
+PInvoke.Crypt32.SafeCertStoreHandle
+PInvoke.Crypt32.SafeCertStoreHandle.SafeCertStoreHandle() -> void
+PInvoke.Crypt32.SafeCertStoreHandle.SafeCertStoreHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+const PInvoke.Crypt32.CERT_NCRYPT_KEY_SPEC = 4294967295 -> uint
+override PInvoke.Crypt32.SafeCertStoreHandle.IsInvalid.get -> bool
+override PInvoke.Crypt32.SafeCertStoreHandle.ReleaseHandle() -> bool
+static PInvoke.Crypt32.CertGetCertificateContextProperty(System.IntPtr pCertContext, PInvoke.Crypt32.CERT_PROP_ID dwPropId, System.IntPtr pvData, ref int pcbData) -> bool
+static PInvoke.Crypt32.CryptAcquireCertificatePrivateKey(System.IntPtr pCert, PInvoke.Crypt32.CryptAcquireCertificatePrivateKeyFlags dwFlags, System.IntPtr pvParameters, out System.Runtime.InteropServices.SafeHandle cryptHandle) -> bool
+static extern PInvoke.Crypt32.CertGetCertificateContextProperty(System.IntPtr pCertContext, PInvoke.Crypt32.CERT_PROP_ID dwPropId, void* pvData, ref int pcbData) -> bool
+static extern PInvoke.Crypt32.PFXImportCertStore(ref PInvoke.Crypt32.CRYPT_DATA_BLOB pPFX, string szPassword, PInvoke.Crypt32.PFXImportCertStoreFlags dwFlags) -> PInvoke.Crypt32.SafeCertStoreHandle
+static readonly PInvoke.Crypt32.SafeCertStoreHandle.Null -> PInvoke.Crypt32.SafeCertStoreHandle

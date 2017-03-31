@@ -1,0 +1,31 @@
+PInvoke.IEnumUnknownExtensions
+PInvoke.MSCorEE
+static PInvoke.IEnumUnknownExtensions.Cast<T>(this CLRMetaHost.IEnumUnknown enumerator) -> System.Collections.Generic.IEnumerable<T>
+static PInvoke.IEnumUnknownExtensions.GetEnumerator(this CLRMetaHost.IEnumUnknown enumerator) -> System.Collections.Generic.IEnumerator<object>
+static PInvoke.MSCorEE.GetFileVersion(string fileName) -> string
+static PInvoke.MSCorEE.GetFileVersion(string szFileName, System.IntPtr szBuffer, int cchBuffer, out int dwLength) -> PInvoke.HResult
+static PInvoke.MSCorEE.GetFileVersion(string szFileName, char[] szBuffer, int cchBuffer, out int dwLength) -> PInvoke.HResult
+static PInvoke.MSCorEE.GetVersionFromProcess(System.Runtime.InteropServices.SafeHandle hProcess) -> string
+static PInvoke.MSCorEE.GetVersionFromProcess(System.Runtime.InteropServices.SafeHandle hProcess, System.IntPtr pVersion, int cchBuffer, out int dwLength) -> PInvoke.HResult
+static PInvoke.MSCorEE.GetVersionFromProcess(System.Runtime.InteropServices.SafeHandle hProcess, char[] pVersion, int cchBuffer, out int dwLength) -> PInvoke.HResult
+static PInvoke.MSCorEE.StrongNameFreeBuffer(System.IntPtr pbMemory) -> int
+static PInvoke.MSCorEE.StrongNameFreeBuffer(byte[] pbMemory) -> int
+static PInvoke.MSCorEE.StrongNameGetPublicKey(byte[] keyBlob) -> byte[]
+static PInvoke.MSCorEE.StrongNameGetPublicKey(string keyContainer) -> byte[]
+static PInvoke.MSCorEE.StrongNameGetPublicKey(string szKeyContainer, System.IntPtr pbKeyBlob, int cbKeyBlob, out System.IntPtr ppbPublicKeyBlob, out int pcbPublicKeyBlob) -> int
+static PInvoke.MSCorEE.StrongNameGetPublicKey(string szKeyContainer, byte[] pbKeyBlob, int cbKeyBlob, out System.IntPtr ppbPublicKeyBlob, out int pcbPublicKeyBlob) -> int
+static PInvoke.MSCorEE.StrongNameGetPublicKey(string szKeyContainer, byte[] pbKeyBlob, int cbKeyBlob, out byte* ppbPublicKeyBlob, out int pcbPublicKeyBlob) -> int
+static PInvoke.MSCorEE.StrongNameTokenFromPublicKey(System.IntPtr pbPublicKeyBlob, int cbPublicKeyBlob, out System.IntPtr ppbStrongNameToken, out int pcbStrongNameToken) -> int
+static PInvoke.MSCorEE.StrongNameTokenFromPublicKey(byte[] pbPublicKeyBlob, int cbPublicKeyBlob, out System.IntPtr ppbStrongNameToken, out int pcbStrongNameToken) -> int
+static PInvoke.MSCorEE.StrongNameTokenFromPublicKey(byte[] pbPublicKeyBlob, int cbPublicKeyBlob, out byte* ppbStrongNameToken, out int pcbStrongNameToken) -> int
+static PInvoke.MSCorEE.StrongNameTokenFromPublicKey(byte[] publicKeyBlob) -> byte[]
+static extern PInvoke.MSCorEE.CLRCreateInstance(System.Guid clsid, System.Guid riid, out object ppInterface) -> int
+static extern PInvoke.MSCorEE.GetFileVersion(string szFileName, char* szBuffer, int cchBuffer, out int dwLength) -> PInvoke.HResult
+static extern PInvoke.MSCorEE.GetVersionFromProcess(System.Runtime.InteropServices.SafeHandle hProcess, char* pVersion, int cchBuffer, out int dwLength) -> PInvoke.HResult
+static extern PInvoke.MSCorEE.LoadLibraryShim(string szDllName, string szVersion, System.IntPtr pvReserved, out System.IntPtr phModDll) -> PInvoke.HResult
+static extern PInvoke.MSCorEE.StrongNameFreeBuffer(byte* pbMemory) -> int
+static extern PInvoke.MSCorEE.StrongNameGetPublicKey(string szKeyContainer, byte* pbKeyBlob, int cbKeyBlob, out byte* ppbPublicKeyBlob, out int pcbPublicKeyBlob) -> int
+static extern PInvoke.MSCorEE.StrongNameTokenFromPublicKey(byte* pbPublicKeyBlob, int cbPublicKeyBlob, out byte* ppbStrongNameToken, out int pcbStrongNameToken) -> int
+static readonly PInvoke.MSCorEE.CLSID_CLRDebugging -> System.Guid
+static readonly PInvoke.MSCorEE.CLSID_CLRMetaHost -> System.Guid
+static readonly PInvoke.MSCorEE.CLSID_CLRMetaHostPolicy -> System.Guid

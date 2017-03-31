@@ -65,6 +65,9 @@ The C# language service will sometimes reports many errors that are not "real".
 Waiting for VS to "settle" (sometimes a couple minutes) can sometimes help. Other times, building the solution
 can cause the error list to clear out and the red squigglies to go away.
 
+The most sure way to eliminate the errors is to run `.\build -restore -build` from
+the command line before opening in Visual Studio.
+
 ### Frequently Asked Questions
 
 #### Can p/invoke signatures and docs found on pinvoke.net be copied into this project?
@@ -90,8 +93,7 @@ in this document.
 
 ### Project structure
 
- * One class library (or two, with a Shared Project between them, when portable and desktop are targets)
-   and NuGet package per P/Invoke'd DLL.
+ * One class library per P/Invoke'd DLL.
  * Types, enums, and constants defined in common Windows header files should be defined
    in the PInvoke.Windows.Core project.
 
@@ -125,7 +127,7 @@ Windows 8 as it does on newer Windows versions.
 ### File structure
 
  * Nested classes and structs go into their own files.
- * P/Invoke methods go into the *binary*.cs file. While higher level helper methods go in *binary*.Helpers.cs.
+ * P/Invoke methods go into the *libname*.cs file. While higher level helper methods go in *libname*.Helpers.cs.
 
 ### Naming
 
@@ -313,6 +315,17 @@ this can be suppressed by adding this near the top of your file:
 ```csharp
 #pragma warning disable SA1401 // Fields must be private
 ```
+
+### RS0016 warnings or RS0017 errors in the build
+
+To guard against breaking API changes, we leverage the `Roslyn.Diagnostics.Analyzers`
+which track the public API we have shipped (or added but not yet shipped).
+When you remove a member of the public API, build error RS0017 occurs.
+When you add a member to the public API, build warning RS0016 lets you know you need to
+update the PublicAPI.Unshipped.txt file with your new member. This is so that if your
+new API is removed later, it can generate an RS0017 error.
+Use the analyzer's automatic code fix in Visual Studio 2017 to update the file and
+include that file change in your commit.
 
 ### SafeHandles
 

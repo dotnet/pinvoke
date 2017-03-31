@@ -3,6 +3,13 @@
     <Compile Remove="desktop\**" Condition=" '$(TargetsDesktop)' != 'true' " />
     <Compile Include="$(MSBuildThisFileDirectory)net20Helpers\*.cs"
              Condition=" '$(TargetFramework)' == 'net20' and '$(MSBuildProjectName)' != 'CodeGenerationAttributes' " />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAttributes.cs" Condition=" '$(IsPInvokeProject)' == 'true' " />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(IsPInvokeProject)' == 'true' and '$(MSBuildProjectName)' != 'Win32' and '$(TargetFramework)' == 'net20' ">
+    <PackageReference Include="Roslyn.Diagnostics.Analyzers" Version="1.2.0-beta2" PrivateAssets="all" />
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
