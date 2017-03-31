@@ -1,0 +1,459 @@
+PInvoke.BCrypt
+PInvoke.BCrypt.AlgorithmIdentifiers
+PInvoke.BCrypt.AlgorithmOperations
+PInvoke.BCrypt.AlgorithmOperations.BCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION = 4 -> PInvoke.BCrypt.AlgorithmOperations
+PInvoke.BCrypt.AlgorithmOperations.BCRYPT_CIPHER_OPERATION = 1 -> PInvoke.BCrypt.AlgorithmOperations
+PInvoke.BCrypt.AlgorithmOperations.BCRYPT_HASH_OPERATION = 2 -> PInvoke.BCrypt.AlgorithmOperations
+PInvoke.BCrypt.AlgorithmOperations.BCRYPT_KEY_DERIVATION_OPERATION = 64 -> PInvoke.BCrypt.AlgorithmOperations
+PInvoke.BCrypt.AlgorithmOperations.BCRYPT_RNG_OPERATION = 32 -> PInvoke.BCrypt.AlgorithmOperations
+PInvoke.BCrypt.AlgorithmOperations.BCRYPT_SECRET_AGREEMENT_OPERATION = 8 -> PInvoke.BCrypt.AlgorithmOperations
+PInvoke.BCrypt.AlgorithmOperations.BCRYPT_SIGNATURE_OPERATION = 16 -> PInvoke.BCrypt.AlgorithmOperations
+PInvoke.BCrypt.AsymmetricKeyBlobTypes
+PInvoke.BCrypt.AsymmetricKeyBlobTypes.AsymmetricKeyBlobTypes() -> void
+PInvoke.BCrypt.AuthModeFlags
+PInvoke.BCrypt.AuthModeFlags.BCRYPT_AUTH_MODE_CHAIN_CALLS_FLAG = 1 -> PInvoke.BCrypt.AuthModeFlags
+PInvoke.BCrypt.AuthModeFlags.BCRYPT_AUTH_MODE_IN_PROGRESS_FLAG = 2 -> PInvoke.BCrypt.AuthModeFlags
+PInvoke.BCrypt.AuthModeFlags.None = 0 -> PInvoke.BCrypt.AuthModeFlags
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.BCRYPT_ALGORITHM_IDENTIFIER() -> void
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.Flags
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.Flags.None = 0 -> PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.Flags
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.Name.get -> string
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.dwClass -> PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.dwFlags -> PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.Flags
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.pszName -> char*
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.pszName_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER.pszName_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO() -> void
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cbAAD -> int
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cbAuthData -> int
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cbData -> long
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cbMacContext -> int
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cbNonce -> int
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cbSize -> int
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.cbTag -> int
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.dwFlags -> PInvoke.BCrypt.AuthModeFlags
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.dwInfoVersion -> uint
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbAuthData -> byte*
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbAuthData_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbAuthData_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbMacContext -> byte*
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbMacContext_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbMacContext_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbNonce -> byte*
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbNonce_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbNonce_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbTag -> byte*
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbTag_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.pbTag_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_AUTH_TAG_LENGTHS_STRUCT
+PInvoke.BCrypt.BCRYPT_AUTH_TAG_LENGTHS_STRUCT.BCRYPT_AUTH_TAG_LENGTHS_STRUCT() -> void
+PInvoke.BCrypt.BCRYPT_AUTH_TAG_LENGTHS_STRUCT.GetEnumerator() -> System.Collections.Generic.IEnumerator<int>
+PInvoke.BCrypt.BCRYPT_AUTH_TAG_LENGTHS_STRUCT.dwIncrement -> int
+PInvoke.BCrypt.BCRYPT_AUTH_TAG_LENGTHS_STRUCT.dwMaxLength -> int
+PInvoke.BCrypt.BCRYPT_AUTH_TAG_LENGTHS_STRUCT.dwMinLength -> int
+PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB
+PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.BCRYPT_DH_KEY_BLOB() -> void
+PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.MagicNumber.BCRYPT_DH_PRIVATE_MAGIC = 1448101956 -> PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.MagicNumber.BCRYPT_DH_PUBLIC_MAGIC = 1112557636 -> PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.cbKey -> int
+PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.dwMagic -> PInvoke.BCrypt.BCRYPT_DH_KEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.BCRYPT_DSA_KEY_BLOB() -> void
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.Count -> int
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.MagicNumber.BCRYPT_DSA_PRIVATE_MAGIC = 1448104772 -> PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.MagicNumber.BCRYPT_DSA_PUBLIC_MAGIC = 1112560452 -> PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.Seed -> byte[]
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.cbKey -> int
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.dwMagic -> PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB.q -> byte[]
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.BCRYPT_DSA_KEY_BLOB_V2() -> void
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.Count -> int
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.MagicNumber.BCRYPT_DSA_PRIVATE_MAGIC_V2 = 844517444 -> PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.MagicNumber.BCRYPT_DSA_PUBLIC_MAGIC_V2 = 843206724 -> PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.cbGroupSize -> int
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.cbKey -> int
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.cbSeedLength -> int
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.dwMagic -> PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.MagicNumber
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.hashAlgorithm -> PInvoke.BCrypt.HASHALGORITHM_ENUM
+PInvoke.BCrypt.BCRYPT_DSA_KEY_BLOB_V2.standardVersion -> PInvoke.BCrypt.DSAFIPSVERSION_ENUM
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.BCRYPT_ECCKEY_BLOB() -> void
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDH_PRIVATE_P256_MAGIC = 843793221 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDH_PRIVATE_P384_MAGIC = 877347653 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDH_PRIVATE_P521_MAGIC = 910902085 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDH_PUBLIC_P256_MAGIC = 827016005 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDH_PUBLIC_P384_MAGIC = 860570437 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDH_PUBLIC_P521_MAGIC = 894124869 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDSA_PRIVATE_P256_MAGIC = 844317509 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDSA_PRIVATE_P384_MAGIC = 877871941 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDSA_PRIVATE_P521_MAGIC = 911426373 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDSA_PUBLIC_P256_MAGIC = 827540293 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDSA_PUBLIC_P384_MAGIC = 861094725 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber.BCRYPT_ECDSA_PUBLIC_P521_MAGIC = 894649157 -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.cbKey -> int
+PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.dwMagic -> PInvoke.BCrypt.BCRYPT_ECCKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_KEY_BLOB
+PInvoke.BCrypt.BCRYPT_KEY_BLOB.BCRYPT_KEY_BLOB() -> void
+PInvoke.BCrypt.BCRYPT_KEY_BLOB.dwMagic -> uint
+PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER
+PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.BCRYPT_KEY_DATA_BLOB_HEADER() -> void
+PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.MagicNumber
+PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.MagicNumber.BCRYPT_KEY_DATA_BLOB_MAGIC = 1296188491 -> PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.MagicNumber
+PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.cbKeyData -> int
+PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.dwMagic -> PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.MagicNumber
+PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.dwVersion -> uint
+PInvoke.BCrypt.BCRYPT_KEY_LENGTHS_STRUCT
+PInvoke.BCrypt.BCRYPT_KEY_LENGTHS_STRUCT.BCRYPT_KEY_LENGTHS_STRUCT() -> void
+PInvoke.BCrypt.BCRYPT_KEY_LENGTHS_STRUCT.GetEnumerator() -> System.Collections.Generic.IEnumerator<int>
+PInvoke.BCrypt.BCRYPT_KEY_LENGTHS_STRUCT.Increment -> int
+PInvoke.BCrypt.BCRYPT_KEY_LENGTHS_STRUCT.MaxLength -> int
+PInvoke.BCrypt.BCRYPT_KEY_LENGTHS_STRUCT.MinLength -> int
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO.BCRYPT_OAEP_PADDING_INFO() -> void
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO.cbLabel -> int
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO.pbLabel -> byte*
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO.pbLabel_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO.pbLabel_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO.pszAlgId -> char*
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO.pszAlgId_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_OAEP_PADDING_INFO.pszAlgId_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_PKCS1_PADDING_INFO
+PInvoke.BCrypt.BCRYPT_PKCS1_PADDING_INFO.BCRYPT_PKCS1_PADDING_INFO() -> void
+PInvoke.BCrypt.BCRYPT_PKCS1_PADDING_INFO.pszAlgId -> char*
+PInvoke.BCrypt.BCRYPT_PKCS1_PADDING_INFO.pszAlgId_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_PKCS1_PADDING_INFO.pszAlgId_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_PSS_PADDING_INFO
+PInvoke.BCrypt.BCRYPT_PSS_PADDING_INFO.BCRYPT_PSS_PADDING_INFO() -> void
+PInvoke.BCrypt.BCRYPT_PSS_PADDING_INFO.cbSalt -> int
+PInvoke.BCrypt.BCRYPT_PSS_PADDING_INFO.pszAlgId -> char*
+PInvoke.BCrypt.BCRYPT_PSS_PADDING_INFO.pszAlgId_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCRYPT_PSS_PADDING_INFO.pszAlgId_IntPtr.set -> void
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.BCRYPT_RSAKEY_BLOB() -> void
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.BitLength -> int
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.Magic -> PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.MagicNumber.BCRYPT_RSAFULLPRIVATE_MAGIC = 859919186 -> PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.MagicNumber.BCRYPT_RSAPRIVATE_MAGIC = 843141970 -> PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.MagicNumber.BCRYPT_RSAPUBLIC_MAGIC = 826364754 -> PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.MagicNumber
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.cbModulus -> int
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.cbPrime1 -> int
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.cbPrime2 -> int
+PInvoke.BCrypt.BCRYPT_RSAKEY_BLOB.cbPublicExp -> int
+PInvoke.BCrypt.BCryptBuffer
+PInvoke.BCrypt.BCryptBuffer.BCryptBuffer() -> void
+PInvoke.BCrypt.BCryptBuffer.BufferType -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BCryptBuffer.cbBuffer -> int
+PInvoke.BCrypt.BCryptBuffer.pvBuffer -> void*
+PInvoke.BCrypt.BCryptBuffer.pvBuffer_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCryptBuffer.pvBuffer_IntPtr.set -> void
+PInvoke.BCrypt.BCryptBufferDesc
+PInvoke.BCrypt.BCryptBufferDesc.BCryptBufferDesc() -> void
+PInvoke.BCrypt.BCryptBufferDesc.cBuffers -> int
+PInvoke.BCrypt.BCryptBufferDesc.pBuffers -> PInvoke.BCrypt.BCryptBuffer*
+PInvoke.BCrypt.BCryptBufferDesc.pBuffers_IntPtr.get -> System.IntPtr
+PInvoke.BCrypt.BCryptBufferDesc.pBuffers_IntPtr.set -> void
+PInvoke.BCrypt.BCryptBufferDesc.ulVersion -> uint
+PInvoke.BCrypt.BCryptCloseAlgorithmProviderFlags
+PInvoke.BCrypt.BCryptCloseAlgorithmProviderFlags.None = 0 -> PInvoke.BCrypt.BCryptCloseAlgorithmProviderFlags
+PInvoke.BCrypt.BCryptCreateHashFlags
+PInvoke.BCrypt.BCryptCreateHashFlags.BCRYPT_HASH_REUSABLE_FLAG = 32 -> PInvoke.BCrypt.BCryptCreateHashFlags
+PInvoke.BCrypt.BCryptCreateHashFlags.None = 0 -> PInvoke.BCrypt.BCryptCreateHashFlags
+PInvoke.BCrypt.BCryptDeriveKeyFlags
+PInvoke.BCrypt.BCryptDeriveKeyFlags.KDF_USE_SECRET_AS_HMAC_KEY_FLAG = 1 -> PInvoke.BCrypt.BCryptDeriveKeyFlags
+PInvoke.BCrypt.BCryptDeriveKeyFlags.None = 0 -> PInvoke.BCrypt.BCryptDeriveKeyFlags
+PInvoke.BCrypt.BCryptEncryptFlags
+PInvoke.BCrypt.BCryptEncryptFlags.BCRYPT_BLOCK_PADDING = 1 -> PInvoke.BCrypt.BCryptEncryptFlags
+PInvoke.BCrypt.BCryptEncryptFlags.BCRYPT_PAD_NONE = 1 -> PInvoke.BCrypt.BCryptEncryptFlags
+PInvoke.BCrypt.BCryptEncryptFlags.BCRYPT_PAD_OAEP = 4 -> PInvoke.BCrypt.BCryptEncryptFlags
+PInvoke.BCrypt.BCryptEncryptFlags.BCRYPT_PAD_PKCS1 = 2 -> PInvoke.BCrypt.BCryptEncryptFlags
+PInvoke.BCrypt.BCryptEncryptFlags.None = 0 -> PInvoke.BCrypt.BCryptEncryptFlags
+PInvoke.BCrypt.BCryptEnumAlgorithmsFlags
+PInvoke.BCrypt.BCryptEnumAlgorithmsFlags.None = 0 -> PInvoke.BCrypt.BCryptEnumAlgorithmsFlags
+PInvoke.BCrypt.BCryptExportKeyFlags
+PInvoke.BCrypt.BCryptExportKeyFlags.None = 0 -> PInvoke.BCrypt.BCryptExportKeyFlags
+PInvoke.BCrypt.BCryptFinalizeKeyPairFlags
+PInvoke.BCrypt.BCryptFinalizeKeyPairFlags.None = 0 -> PInvoke.BCrypt.BCryptFinalizeKeyPairFlags
+PInvoke.BCrypt.BCryptFinishHashFlags
+PInvoke.BCrypt.BCryptFinishHashFlags.None = 0 -> PInvoke.BCrypt.BCryptFinishHashFlags
+PInvoke.BCrypt.BCryptGenRandomFlags
+PInvoke.BCrypt.BCryptGenRandomFlags.None = 0 -> PInvoke.BCrypt.BCryptGenRandomFlags
+PInvoke.BCrypt.BCryptGenRandomFlags.UseEntropyInBuffer = 1 -> PInvoke.BCrypt.BCryptGenRandomFlags
+PInvoke.BCrypt.BCryptGenRandomFlags.UseSystemPreferredRNG = 2 -> PInvoke.BCrypt.BCryptGenRandomFlags
+PInvoke.BCrypt.BCryptGenerateKeyPairFlags
+PInvoke.BCrypt.BCryptGenerateKeyPairFlags.None = 0 -> PInvoke.BCrypt.BCryptGenerateKeyPairFlags
+PInvoke.BCrypt.BCryptGenerateSymmetricKeyFlags
+PInvoke.BCrypt.BCryptGenerateSymmetricKeyFlags.None = 0 -> PInvoke.BCrypt.BCryptGenerateSymmetricKeyFlags
+PInvoke.BCrypt.BCryptGetPropertyFlags
+PInvoke.BCrypt.BCryptGetPropertyFlags.None = 0 -> PInvoke.BCrypt.BCryptGetPropertyFlags
+PInvoke.BCrypt.BCryptHashDataFlags
+PInvoke.BCrypt.BCryptHashDataFlags.None = 0 -> PInvoke.BCrypt.BCryptHashDataFlags
+PInvoke.BCrypt.BCryptImportKeyFlags
+PInvoke.BCrypt.BCryptImportKeyFlags.None = 0 -> PInvoke.BCrypt.BCryptImportKeyFlags
+PInvoke.BCrypt.BCryptImportKeyPairFlags
+PInvoke.BCrypt.BCryptImportKeyPairFlags.BCRYPT_NO_KEY_VALIDATION = 8 -> PInvoke.BCrypt.BCryptImportKeyPairFlags
+PInvoke.BCrypt.BCryptImportKeyPairFlags.None = 0 -> PInvoke.BCrypt.BCryptImportKeyPairFlags
+PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
+PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.AlgorithmHandleHmac = 1 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
+PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.HashReusable = 2 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
+PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.None = 0 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
+PInvoke.BCrypt.BCryptSecretAgreementFlags
+PInvoke.BCrypt.BCryptSecretAgreementFlags.None = 0 -> PInvoke.BCrypt.BCryptSecretAgreementFlags
+PInvoke.BCrypt.BCryptSetPropertyFlags
+PInvoke.BCrypt.BCryptSetPropertyFlags.None = 0 -> PInvoke.BCrypt.BCryptSetPropertyFlags
+PInvoke.BCrypt.BCryptSignHashFlags
+PInvoke.BCrypt.BCryptSignHashFlags.BCRYPT_PAD_PKCS1 = 2 -> PInvoke.BCrypt.BCryptSignHashFlags
+PInvoke.BCrypt.BCryptSignHashFlags.BCRYPT_PAD_PSS = 8 -> PInvoke.BCrypt.BCryptSignHashFlags
+PInvoke.BCrypt.BCryptSignHashFlags.None = 0 -> PInvoke.BCrypt.BCryptSignHashFlags
+PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_ALGORITHMID = 8 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_CONTEXT = 14 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_HASH_ALGORITHM = 0 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_HMAC_KEY = 3 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_ITERATION_COUNT = 16 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_LABEL = 13 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_PARTYUINFO = 9 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_PARTYVINFO = 10 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_SALT = 15 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_SECRET_APPEND = 2 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_SECRET_HANDLE = 6 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_SECRET_PREPEND = 1 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_SUPPPRIVINFO = 12 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_SUPPPUBINFO = 11 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_TLS_PRF_LABEL = 4 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_TLS_PRF_PROTOCOL = 7 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.BufferType.KDF_TLS_PRF_SEED = 5 -> PInvoke.BCrypt.BufferType
+PInvoke.BCrypt.ChainingModes
+PInvoke.BCrypt.ConfigurationTable
+PInvoke.BCrypt.ConfigurationTable.CRYPT_DOMAIN = 1 -> PInvoke.BCrypt.ConfigurationTable
+PInvoke.BCrypt.ConfigurationTable.CRYPT_LOCAL = 0 -> PInvoke.BCrypt.ConfigurationTable
+PInvoke.BCrypt.DSAFIPSVERSION_ENUM
+PInvoke.BCrypt.DSAFIPSVERSION_ENUM.DSA_FIPS186_2 = 0 -> PInvoke.BCrypt.DSAFIPSVERSION_ENUM
+PInvoke.BCrypt.DSAFIPSVERSION_ENUM.DSA_FIPS186_3 = 1 -> PInvoke.BCrypt.DSAFIPSVERSION_ENUM
+PInvoke.BCrypt.EccKeyBlob
+PInvoke.BCrypt.EccKeyBlob.EccKeyBlob(byte[] keyBlob) -> void
+PInvoke.BCrypt.EccKeyBlob.KeyLength -> int
+PInvoke.BCrypt.EccKeyBlob.Magic -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDH_PRIVATE_P256_MAGIC = 843793221 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDH_PRIVATE_P384_MAGIC = 877347653 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDH_PRIVATE_P521_MAGIC = 910902085 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDH_PUBLIC_P256_MAGIC = 827016005 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDH_PUBLIC_P384_MAGIC = 860570437 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDH_PUBLIC_P521_MAGIC = 894124869 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDSA_PRIVATE_P256_MAGIC = 844317509 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDSA_PRIVATE_P384_MAGIC = 877871941 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDSA_PRIVATE_P521_MAGIC = 911426373 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDSA_PUBLIC_P256_MAGIC = 827540293 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDSA_PUBLIC_P384_MAGIC = 861094725 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.EccKeyBlobMagicNumbers.BCRYPT_ECDSA_PUBLIC_P521_MAGIC = 894649157 -> PInvoke.BCrypt.EccKeyBlobMagicNumbers
+PInvoke.BCrypt.HASHALGORITHM_ENUM
+PInvoke.BCrypt.HASHALGORITHM_ENUM.DSA_HASH_ALGORITHM_SHA1 = 0 -> PInvoke.BCrypt.HASHALGORITHM_ENUM
+PInvoke.BCrypt.HASHALGORITHM_ENUM.DSA_HASH_ALGORITHM_SHA256 = 1 -> PInvoke.BCrypt.HASHALGORITHM_ENUM
+PInvoke.BCrypt.HASHALGORITHM_ENUM.DSA_HASH_ALGORITHM_SHA512 = 2 -> PInvoke.BCrypt.HASHALGORITHM_ENUM
+PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.InterfaceIdentifiers.BCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE = 3 -> PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.InterfaceIdentifiers.BCRYPT_CIPHER_INTERFACE = 1 -> PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.InterfaceIdentifiers.BCRYPT_HASH_INTERFACE = 2 -> PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.InterfaceIdentifiers.BCRYPT_KEY_DERIVATION_INTERFACE = 7 -> PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.InterfaceIdentifiers.BCRYPT_RNG_INTERFACE = 6 -> PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.InterfaceIdentifiers.BCRYPT_SECRET_AGREEMENT_INTERFACE = 4 -> PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.InterfaceIdentifiers.BCRYPT_SIGNATURE_INTERFACE = 5 -> PInvoke.BCrypt.InterfaceIdentifiers
+PInvoke.BCrypt.KeyDerivationFunctions
+PInvoke.BCrypt.PaddingSchemes
+PInvoke.BCrypt.PaddingSchemes.Oaep = 8 -> PInvoke.BCrypt.PaddingSchemes
+PInvoke.BCrypt.PaddingSchemes.Pkcs1Encryption = 2 -> PInvoke.BCrypt.PaddingSchemes
+PInvoke.BCrypt.PaddingSchemes.Pkcs1Signature = 4 -> PInvoke.BCrypt.PaddingSchemes
+PInvoke.BCrypt.PaddingSchemes.Pss = 16 -> PInvoke.BCrypt.PaddingSchemes
+PInvoke.BCrypt.PaddingSchemes.Router = 1 -> PInvoke.BCrypt.PaddingSchemes
+PInvoke.BCrypt.PropertyNames
+PInvoke.BCrypt.SafeAlgorithmHandle
+PInvoke.BCrypt.SafeAlgorithmHandle.SafeAlgorithmHandle() -> void
+PInvoke.BCrypt.SafeAlgorithmHandle.SafeAlgorithmHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.BCrypt.SafeHashHandle
+PInvoke.BCrypt.SafeHashHandle.SafeHashHandle() -> void
+PInvoke.BCrypt.SafeHashHandle.SafeHashHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.BCrypt.SafeKeyHandle
+PInvoke.BCrypt.SafeKeyHandle.SafeKeyHandle() -> void
+PInvoke.BCrypt.SafeKeyHandle.SafeKeyHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.BCrypt.SafeSecretHandle
+PInvoke.BCrypt.SafeSecretHandle.SafeSecretHandle() -> void
+PInvoke.BCrypt.SafeSecretHandle.SafeSecretHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.BCrypt.SymmetricKeyBlobTypes
+PInvoke.BCrypt.SymmetricKeyBlobTypes.SymmetricKeyBlobTypes() -> void
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_3DES_112_ALGORITHM = "3DES_112" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_3DES_ALGORITHM = "3DES" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM = "AES" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_AES_CMAC_ALGORITHM = "AES-CMAC" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_AES_GMAC_ALGORITHM = "AES-GMAC" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_CAPI_KDF_ALGORITHM = "CAPI_KDF" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_DESX_ALGORITHM = "DESX" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_DES_ALGORITHM = "DES" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_DH_ALGORITHM = "DH" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_DSA_ALGORITHM = "DSA" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM = "ECDH_P256" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_ECDH_P384_ALGORITHM = "ECDH_P384" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_ECDH_P521_ALGORITHM = "ECDH_P521" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM = "ECDSA_P256" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P384_ALGORITHM = "ECDSA_P384" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P521_ALGORITHM = "ECDSA_P521" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_MD2_ALGORITHM = "MD2" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_MD4_ALGORITHM = "MD4" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_MD5_ALGORITHM = "MD5" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_PBKDF2_ALGORITHM = "PBKDF2" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_RC2_ALGORITHM = "RC2" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_RC4_ALGORITHM = "RC4" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_RNG_ALGORITHM = "RNG" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_RNG_DUAL_EC_ALGORITHM = "DUALECRNG" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_RNG_FIPS186_DSA_ALGORITHM = "FIPS186DSARNG" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM = "RSA" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_SIGN_ALGORITHM = "RSA_SIGN" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_SHA1_ALGORITHM = "SHA1" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM = "SHA256" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_SHA384_ALGORITHM = "SHA384" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_SHA512_ALGORITHM = "SHA512" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_SP800108_CTR_HMAC_ALGORITHM = "SP800_108_CTR_HMAC" -> string
+const PInvoke.BCrypt.AlgorithmIdentifiers.BCRYPT_SP80056A_CONCAT_ALGORITHM = "SP800_56A_CONCAT" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_DH_PRIVATE_BLOB = "DHPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_DH_PUBLIC_BLOB = "DHPUBLICBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_DSA_PRIVATE_BLOB = "DSAPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_DSA_PUBLIC_BLOB = "DSAPUBLICBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_ECCPRIVATE_BLOB = "ECCPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB = "ECCPUBLICBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_PRIVATE_KEY_BLOB = "PRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_PUBLIC_KEY_BLOB = "PUBLICBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_RSAFULLPRIVATE_BLOB = "RSAFULLPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_RSAPRIVATE_BLOB = "RSAPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.BCRYPT_RSAPUBLIC_BLOB = "RSAPUBLICBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.LEGACY_DH_PRIVATE_BLOB = "CAPIDHPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.LEGACY_DH_PUBLIC_BLOB = "CAPIDHPUBLICBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.LEGACY_DSA_PRIVATE_BLOB = "CAPIDSAPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.LEGACY_DSA_PUBLIC_BLOB = "CAPIDSAPUBLICBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.LEGACY_DSA_V2_PRIVATE_BLOB = "V2CAPIDSAPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.LEGACY_DSA_V2_PUBLIC_BLOB = "V2CAPIDSAPUBLICBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.LEGACY_RSAPRIVATE_BLOB = "CAPIPRIVATEBLOB" -> string
+const PInvoke.BCrypt.AsymmetricKeyBlobTypes.LEGACY_RSAPUBLIC_BLOB = "CAPIPUBLICBLOB" -> string
+const PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION = 1 -> uint
+const PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.BCRYPT_KEY_DATA_BLOB_VERSION1 = 1 -> uint
+const PInvoke.BCrypt.BCryptBufferDesc.BCRYPTBUFFER_VERSION = 0 -> uint
+const PInvoke.BCrypt.CRYPT_PRIORITY_BOTTOM = 4294967295 -> uint
+const PInvoke.BCrypt.CRYPT_PRIORITY_TOP = 0 -> uint
+const PInvoke.BCrypt.ChainingModes.Cbc = "ChainingModeCBC" -> string
+const PInvoke.BCrypt.ChainingModes.Ccm = "ChainingModeCCM" -> string
+const PInvoke.BCrypt.ChainingModes.Cfb = "ChainingModeCFB" -> string
+const PInvoke.BCrypt.ChainingModes.Ecb = "ChainingModeECB" -> string
+const PInvoke.BCrypt.ChainingModes.Gcm = "ChainingModeGCM" -> string
+const PInvoke.BCrypt.ChainingModes.NotApplicable = "ChainingModeN/A" -> string
+const PInvoke.BCrypt.KeyDerivationFunctions.BCRYPT_KDF_HASH = "HASH" -> string
+const PInvoke.BCrypt.KeyDerivationFunctions.BCRYPT_KDF_HMAC = "HMAC" -> string
+const PInvoke.BCrypt.KeyDerivationFunctions.BCRYPT_KDF_SP80056A_CONCAT = "SP800_56A_CONCAT" -> string
+const PInvoke.BCrypt.KeyDerivationFunctions.BCRYPT_KDF_TLS_PRF = "TLS_PRF" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_ALGORITHM_NAME = "AlgorithmName" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_AUTH_TAG_LENGTH = "AuthTagLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_BLOCK_LENGTH = "BlockLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_BLOCK_SIZE_LIST = "BlockSizeList" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_CHAINING_MODE = "ChainingMode" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_DH_PARAMETERS = "DHParameters" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_DSA_PARAMETERS = "DSAParameters" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_EFFECTIVE_KEY_LENGTH = "EffectiveKeyLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_HASH_BLOCK_LENGTH = "HashBlockLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_HASH_LENGTH = "HashDigestLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_HASH_OID_LIST = "HashOIDList" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_INITIALIZATION_VECTOR = "IV" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_IS_KEYED_HASH = "IsKeyedHash" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_IS_REUSABLE_HASH = "IsReusableHash" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_KEY_LENGTH = "KeyLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_KEY_LENGTHS = "KeyLengths" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_KEY_OBJECT_LENGTH = "KeyObjectLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_KEY_STRENGTH = "KeyStrength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_MESSAGE_BLOCK_LENGTH = "MessageBlockLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_OBJECT_LENGTH = "ObjectLength" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_PADDING_SCHEMES = "PaddingSchemes" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_PRIMITIVE_TYPE = "PrimitiveType" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_PROVIDER_HANDLE = "ProviderHandle" -> string
+const PInvoke.BCrypt.PropertyNames.BCRYPT_SIGNATURE_LENGTH = "SignatureLength" -> string
+const PInvoke.BCrypt.SymmetricKeyBlobTypes.BCRYPT_AES_WRAP_KEY_BLOB = "Rfc3565KeyWrapBlob" -> string
+const PInvoke.BCrypt.SymmetricKeyBlobTypes.BCRYPT_KEY_DATA_BLOB = "KeyDataBlob" -> string
+const PInvoke.BCrypt.SymmetricKeyBlobTypes.BCRYPT_OPAQUE_KEY_BLOB = "OpaqueKeyBlob" -> string
+override PInvoke.BCrypt.SafeAlgorithmHandle.IsInvalid.get -> bool
+override PInvoke.BCrypt.SafeAlgorithmHandle.ReleaseHandle() -> bool
+override PInvoke.BCrypt.SafeHashHandle.IsInvalid.get -> bool
+override PInvoke.BCrypt.SafeHashHandle.ReleaseHandle() -> bool
+override PInvoke.BCrypt.SafeKeyHandle.IsInvalid.get -> bool
+override PInvoke.BCrypt.SafeKeyHandle.ReleaseHandle() -> bool
+override PInvoke.BCrypt.SafeSecretHandle.IsInvalid.get -> bool
+override PInvoke.BCrypt.SafeSecretHandle.ReleaseHandle() -> bool
+static PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.Create() -> PInvoke.BCrypt.BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO
+static PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.Create(int cbKeyData = 0) -> PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER
+static PInvoke.BCrypt.BCRYPT_KEY_DATA_BLOB_HEADER.InsertBeforeKey(byte[] keyMaterial) -> byte[]
+static PInvoke.BCrypt.BCryptCreateHash(PInvoke.BCrypt.SafeAlgorithmHandle algorithm, byte[] hashObject = null, byte[] secret = null, PInvoke.BCrypt.BCryptCreateHashFlags flags = PInvoke.BCrypt.BCryptCreateHashFlags.None) -> PInvoke.BCrypt.SafeHashHandle
+static PInvoke.BCrypt.BCryptDecrypt(PInvoke.BCrypt.SafeKeyHandle hKey, System.IntPtr pbInput, int cbInput, System.IntPtr pPaddingInfo, System.IntPtr pbIV, int cbIV, System.IntPtr pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptDecrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte[] pbInput, System.IntPtr pPaddingInfo, byte[] pbIV, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> System.ArraySegment<byte>
+static PInvoke.BCrypt.BCryptDecrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte[] pbInput, int cbInput, System.IntPtr pPaddingInfo, byte[] pbIV, int cbIV, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptDecrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte[] pbInput, int cbInput, void* pPaddingInfo, byte[] pbIV, int cbIV, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptDecrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte[] pbInput, void* pPaddingInfo, byte[] pbIV, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> System.ArraySegment<byte>
+static PInvoke.BCrypt.BCryptDecrypt(PInvoke.BCrypt.SafeKeyHandle key, System.ArraySegment<byte>? input, System.IntPtr paddingInfo, System.ArraySegment<byte>? iv, System.ArraySegment<byte>? output, out int outputLength, PInvoke.BCrypt.BCryptEncryptFlags flags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptDecrypt(PInvoke.BCrypt.SafeKeyHandle key, System.ArraySegment<byte>? input, void* paddingInfo, System.ArraySegment<byte>? iv, System.ArraySegment<byte>? output, out int outputLength, PInvoke.BCrypt.BCryptEncryptFlags flags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptEncrypt(PInvoke.BCrypt.SafeKeyHandle hKey, System.IntPtr pbInput, int cbInput, System.IntPtr pPaddingInfo, System.IntPtr pbIV, int cbIV, System.IntPtr pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptEncrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte[] pbInput, System.IntPtr pPaddingInfo, byte[] pbIV, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> System.ArraySegment<byte>
+static PInvoke.BCrypt.BCryptEncrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte[] pbInput, int cbInput, System.IntPtr pPaddingInfo, byte[] pbIV, int cbIV, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptEncrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte[] pbInput, int cbInput, void* pPaddingInfo, byte[] pbIV, int cbIV, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptEncrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte[] pbInput, void* pPaddingInfo, byte[] pbIV, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> System.ArraySegment<byte>
+static PInvoke.BCrypt.BCryptEncrypt(PInvoke.BCrypt.SafeKeyHandle key, System.ArraySegment<byte>? input, System.IntPtr paddingInfo, System.ArraySegment<byte>? iv, System.ArraySegment<byte>? output, out int outputLength, PInvoke.BCrypt.BCryptEncryptFlags flags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptEncrypt(PInvoke.BCrypt.SafeKeyHandle key, System.ArraySegment<byte>? input, void* paddingInfo, System.ArraySegment<byte>? iv, System.ArraySegment<byte>? output, out int outputLength, PInvoke.BCrypt.BCryptEncryptFlags flags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptEnumAlgorithms(PInvoke.BCrypt.AlgorithmOperations dwAlgOperations, out int pAlgCount, out System.IntPtr ppAlgList, PInvoke.BCrypt.BCryptEnumAlgorithmsFlags dwFlags = PInvoke.BCrypt.BCryptEnumAlgorithmsFlags.None) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptExportKey(PInvoke.BCrypt.SafeKeyHandle key, PInvoke.BCrypt.SafeKeyHandle exportKey, string blobType) -> System.ArraySegment<byte>
+static PInvoke.BCrypt.BCryptFinishHash(PInvoke.BCrypt.SafeHashHandle hHash, PInvoke.BCrypt.BCryptFinishHashFlags flags = PInvoke.BCrypt.BCryptFinishHashFlags.None) -> byte[]
+static PInvoke.BCrypt.BCryptFreeBuffer(System.IntPtr pvBuffer) -> void
+static PInvoke.BCrypt.BCryptGenerateKeyPair(PInvoke.BCrypt.SafeAlgorithmHandle algorithm, int keyLength) -> PInvoke.BCrypt.SafeKeyHandle
+static PInvoke.BCrypt.BCryptGenerateSymmetricKey(PInvoke.BCrypt.SafeAlgorithmHandle algorithm, byte[] secret, byte[] keyObject = null, PInvoke.BCrypt.BCryptGenerateSymmetricKeyFlags flags = PInvoke.BCrypt.BCryptGenerateSymmetricKeyFlags.None) -> PInvoke.BCrypt.SafeKeyHandle
+static PInvoke.BCrypt.BCryptGetProperty(System.Runtime.InteropServices.SafeHandle hObject, string propertyName, PInvoke.BCrypt.BCryptGetPropertyFlags flags = PInvoke.BCrypt.BCryptGetPropertyFlags.None) -> System.ArraySegment<byte>
+static PInvoke.BCrypt.BCryptGetProperty<T>(System.Runtime.InteropServices.SafeHandle hObject, string propertyName, PInvoke.BCrypt.BCryptGetPropertyFlags flags = PInvoke.BCrypt.BCryptGetPropertyFlags.None) -> T
+static PInvoke.BCrypt.BCryptImportKey(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, string pszBlobType, byte[] pbInput, PInvoke.BCrypt.SafeKeyHandle hImportKey = null, byte[] pbKeyObject = null, PInvoke.BCrypt.BCryptImportKeyFlags dwFlags = PInvoke.BCrypt.BCryptImportKeyFlags.None) -> PInvoke.BCrypt.SafeKeyHandle
+static PInvoke.BCrypt.BCryptImportKeyPair(PInvoke.BCrypt.SafeAlgorithmHandle algorithm, string blobType, byte[] input, PInvoke.BCrypt.BCryptImportKeyPairFlags flags = PInvoke.BCrypt.BCryptImportKeyPairFlags.None) -> PInvoke.BCrypt.SafeKeyHandle
+static PInvoke.BCrypt.BCryptOpenAlgorithmProvider(string pszAlgId, string pszImplementation = null, PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags dwFlags = PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.None) -> PInvoke.BCrypt.SafeAlgorithmHandle
+static PInvoke.BCrypt.BCryptSecretAgreement(PInvoke.BCrypt.SafeKeyHandle privateKey, PInvoke.BCrypt.SafeKeyHandle publicKey) -> PInvoke.BCrypt.SafeSecretHandle
+static PInvoke.BCrypt.BCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string propertyName, string propertyValue, PInvoke.BCrypt.BCryptSetPropertyFlags flags = PInvoke.BCrypt.BCryptSetPropertyFlags.None) -> void
+static PInvoke.BCrypt.BCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, System.IntPtr pbInput, int cbInput, PInvoke.BCrypt.BCryptSetPropertyFlags dwFlags = PInvoke.BCrypt.BCryptSetPropertyFlags.None) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, byte[] pbInput, int cbInput, PInvoke.BCrypt.BCryptSetPropertyFlags dwFlags = PInvoke.BCrypt.BCryptSetPropertyFlags.None) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptSetProperty<T>(System.Runtime.InteropServices.SafeHandle hObject, string propertyName, T propertyValue, PInvoke.BCrypt.BCryptSetPropertyFlags flags = PInvoke.BCrypt.BCryptSetPropertyFlags.None) -> void
+static PInvoke.BCrypt.BCryptSignHash(PInvoke.BCrypt.SafeKeyHandle hKey, System.IntPtr pPaddingInfo, byte[] pbInput, int cbInput, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptSignHashFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptSignHash(PInvoke.BCrypt.SafeKeyHandle key, byte[] hash, System.IntPtr paddingInfo, PInvoke.BCrypt.BCryptSignHashFlags flags = PInvoke.BCrypt.BCryptSignHashFlags.None) -> System.ArraySegment<byte>
+static PInvoke.BCrypt.BCryptSignHash(PInvoke.BCrypt.SafeKeyHandle key, byte[] hash, void* paddingInfo = null, PInvoke.BCrypt.BCryptSignHashFlags flags = PInvoke.BCrypt.BCryptSignHashFlags.None) -> System.ArraySegment<byte>
+static PInvoke.BCrypt.BCryptVerifySignature(PInvoke.BCrypt.SafeKeyHandle hKey, System.IntPtr pPaddingInfo, byte[] pbHash, int cbHash, byte[] pbSignature, int cbSignature, PInvoke.BCrypt.BCryptSignHashFlags dwFlags = PInvoke.BCrypt.BCryptSignHashFlags.None) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptVerifySignature(PInvoke.BCrypt.SafeKeyHandle key, byte[] hash, byte[] signature, System.IntPtr paddingInfo, PInvoke.BCrypt.BCryptSignHashFlags flags = PInvoke.BCrypt.BCryptSignHashFlags.None) -> bool
+static PInvoke.BCrypt.BCryptVerifySignature(PInvoke.BCrypt.SafeKeyHandle key, byte[] hash, byte[] signature, void* paddingInfo = null, PInvoke.BCrypt.BCryptSignHashFlags flags = PInvoke.BCrypt.BCryptSignHashFlags.None) -> bool
+static extern PInvoke.BCrypt.BCryptAddContextFunction(PInvoke.BCrypt.ConfigurationTable dwTable, string pszContext, PInvoke.BCrypt.InterfaceIdentifiers dwInterface, string pszFunction, uint dwPosition) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptCreateHash(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, out PInvoke.BCrypt.SafeHashHandle phHash, byte[] pbHashObject, int cbHashObject, byte[] pbSecret, int cbSecret, PInvoke.BCrypt.BCryptCreateHashFlags dwFlags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptDecrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte* pbInput, int cbInput, void* pPaddingInfo, byte* pbIV, int cbIV, byte* pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptDeriveKey(PInvoke.BCrypt.SafeSecretHandle sharedSecret, string keyDerivationFunction, ref PInvoke.BCrypt.BCryptBufferDesc kdfParameters, byte[] derivedKey, int derivedKeySize, out int resultSize, PInvoke.BCrypt.BCryptDeriveKeyFlags flags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptEncrypt(PInvoke.BCrypt.SafeKeyHandle hKey, byte* pbInput, int cbInput, void* pPaddingInfo, byte* pbIV, int cbIV, byte* pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptEncryptFlags dwFlags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptEnumAlgorithms(PInvoke.BCrypt.AlgorithmOperations dwAlgOperations, out int pAlgCount, out PInvoke.BCrypt.BCRYPT_ALGORITHM_IDENTIFIER* ppAlgList, PInvoke.BCrypt.BCryptEnumAlgorithmsFlags dwFlags = PInvoke.BCrypt.BCryptEnumAlgorithmsFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptExportKey(PInvoke.BCrypt.SafeKeyHandle hKey, PInvoke.BCrypt.SafeKeyHandle hExportKey, string pszBlobType, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptExportKeyFlags dwFlags = PInvoke.BCrypt.BCryptExportKeyFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptFinalizeKeyPair(PInvoke.BCrypt.SafeKeyHandle hKey, PInvoke.BCrypt.BCryptFinalizeKeyPairFlags dwFlags = PInvoke.BCrypt.BCryptFinalizeKeyPairFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptFinishHash(PInvoke.BCrypt.SafeHashHandle hHash, byte[] pbOutput, int cbOutput, PInvoke.BCrypt.BCryptFinishHashFlags dwFlags = PInvoke.BCrypt.BCryptFinishHashFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptFreeBuffer(void* pvBuffer) -> void
+static extern PInvoke.BCrypt.BCryptGenRandom(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, byte[] pbBuffer, int cbBuffer, PInvoke.BCrypt.BCryptGenRandomFlags flags = PInvoke.BCrypt.BCryptGenRandomFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptGenerateKeyPair(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, out PInvoke.BCrypt.SafeKeyHandle phKey, int dwLength, PInvoke.BCrypt.BCryptGenerateKeyPairFlags dwFlags = PInvoke.BCrypt.BCryptGenerateKeyPairFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptGenerateSymmetricKey(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, out PInvoke.BCrypt.SafeKeyHandle phKey, byte[] pbKeyObject, int cbKeyObject, byte[] pbSecret, int cbSecret, PInvoke.BCrypt.BCryptGenerateSymmetricKeyFlags flags = PInvoke.BCrypt.BCryptGenerateSymmetricKeyFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptGetProperty(System.Runtime.InteropServices.SafeHandle hObject, string property, byte[] output, int outputSize, out int resultSize, PInvoke.BCrypt.BCryptGetPropertyFlags flags = PInvoke.BCrypt.BCryptGetPropertyFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptHashData(PInvoke.BCrypt.SafeHashHandle hHash, byte[] pbInput, int cbInput, PInvoke.BCrypt.BCryptHashDataFlags dwFlags = PInvoke.BCrypt.BCryptHashDataFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptImportKey(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, PInvoke.BCrypt.SafeKeyHandle hImportKey, string pszBlobType, out PInvoke.BCrypt.SafeKeyHandle phKey, byte[] pbKeyObject, int cbKeyObject, byte[] pbInput, int cbInput, PInvoke.BCrypt.BCryptImportKeyFlags dwFlags = PInvoke.BCrypt.BCryptImportKeyFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptImportKeyPair(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, PInvoke.BCrypt.SafeKeyHandle hImportKey, string pszBlobType, out PInvoke.BCrypt.SafeKeyHandle phKey, byte[] pbInput, int cbInput, PInvoke.BCrypt.BCryptImportKeyPairFlags dwFlags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptOpenAlgorithmProvider(out PInvoke.BCrypt.SafeAlgorithmHandle phAlgorithm, string pszAlgId, string pszImplementation, PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags dwFlags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptSecretAgreement(PInvoke.BCrypt.SafeKeyHandle privateKey, PInvoke.BCrypt.SafeKeyHandle publicKey, out PInvoke.BCrypt.SafeSecretHandle secret, PInvoke.BCrypt.BCryptSecretAgreementFlags flags = PInvoke.BCrypt.BCryptSecretAgreementFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, byte* pbInput, int cbInput, PInvoke.BCrypt.BCryptSetPropertyFlags dwFlags = PInvoke.BCrypt.BCryptSetPropertyFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, string pbInput, int cbInput, PInvoke.BCrypt.BCryptSetPropertyFlags dwFlags = PInvoke.BCrypt.BCryptSetPropertyFlags.None) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptSignHash(PInvoke.BCrypt.SafeKeyHandle hKey, void* pPaddingInfo, byte[] pbInput, int cbInput, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptSignHashFlags dwFlags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptVerifySignature(PInvoke.BCrypt.SafeKeyHandle hKey, void* pPaddingInfo, byte[] pbHash, int cbHash, byte[] pbSignature, int cbSignature, PInvoke.BCrypt.BCryptSignHashFlags dwFlags = PInvoke.BCrypt.BCryptSignHashFlags.None) -> PInvoke.NTSTATUS
+static readonly PInvoke.BCrypt.SafeAlgorithmHandle.Null -> PInvoke.BCrypt.SafeAlgorithmHandle
+static readonly PInvoke.BCrypt.SafeHashHandle.Null -> PInvoke.BCrypt.SafeHashHandle
+static readonly PInvoke.BCrypt.SafeKeyHandle.Null -> PInvoke.BCrypt.SafeKeyHandle
+static readonly PInvoke.BCrypt.SafeSecretHandle.Null -> PInvoke.BCrypt.SafeSecretHandle

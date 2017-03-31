@@ -1,0 +1,3 @@
+PInvoke.ImageHlp
+static extern PInvoke.ImageHlp.MapAndLoad(string ImageName, string DllPath, out PInvoke.DbgHelp.LOADED_IMAGE LoadedImage, bool DotDll, bool ReadOnly) -> bool
+static extern PInvoke.ImageHlp.UnMapAndLoad(ref PInvoke.DbgHelp.LOADED_IMAGE LoadedImage) -> bool

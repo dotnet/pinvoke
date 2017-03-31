@@ -3,6 +3,10 @@
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
 
+    <DesktopOnlyFrameworks>net45;net40;net20</DesktopOnlyFrameworks>
+    <PortableOnlyFrameworks>netstandard1.1;portable-net4+win8+wpa81;portable-net45+win8+wpa81</PortableOnlyFrameworks>
+    <DesktopAndPortableFrameworks>$(PortableOnlyFrameworks);$(DesktopOnlyFrameworks)</DesktopAndPortableFrameworks>
+
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Title>PInvoke.$(MSBuildProjectName)</Title>
     <Authors>Andrew Arnott</Authors>
@@ -20,9 +24,10 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
     <DebugType>portable</DebugType>
 
-    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
+    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
+    <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
 
     <CodeGenerationPackageVersion>0.3.1</CodeGenerationPackageVersion>
@@ -58,7 +63,7 @@
   <ItemGroup>
     <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\net46\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
-    <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') ">
+    <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

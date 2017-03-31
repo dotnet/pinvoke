@@ -18,7 +18,7 @@
     </ItemGroup>
     <Delete Files="@(PInvokesTxtFilesToDelete)" />
   </Target>
-  <Target Name="CreatePInvokesTxtFiles" Condition=" '$(GeneratePInvokesTxt)'=='true' ">
+  <Target Name="CreatePInvokesTxtFiles" Condition=" '$(GeneratePInvokesTxt)'=='true' and '$(TargetFramework)' == 'net45' ">
     <PropertyGroup>
       <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">$(windir)\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
     </PropertyGroup>

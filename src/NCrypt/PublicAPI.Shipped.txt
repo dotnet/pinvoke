@@ -1,0 +1,448 @@
+PInvoke.NCrypt
+PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AlgorithmOperations.All = 0 -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AlgorithmOperations.NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION = 4 -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AlgorithmOperations.NCRYPT_CIPHER_OPERATION = 1 -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AlgorithmOperations.NCRYPT_HASH_OPERATION = 2 -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AlgorithmOperations.NCRYPT_KEY_DERIVATION_OPERATION = 64 -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AlgorithmOperations.NCRYPT_RNG_OPERATION = 32 -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AlgorithmOperations.NCRYPT_SECRET_AGREEMENT_OPERATION = 8 -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AlgorithmOperations.NCRYPT_SIGNATURE_OPERATION = 16 -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.AsymmetricKeyBlobTypes
+PInvoke.NCrypt.AsymmetricKeyBlobTypes.AsymmetricKeyBlobTypes() -> void
+PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_ALGORITHMID = 8 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_CONTEXT = 14 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_HASH_ALGORITHM = 0 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_HMAC_KEY = 3 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_ITERATION_COUNT = 16 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_LABEL = 13 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_PARTYUINFO = 9 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_PARTYVINFO = 10 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_SALT = 15 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_SECRET_APPEND = 2 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_SECRET_HANDLE = 6 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_SECRET_PREPEND = 1 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_SUPPPRIVINFO = 12 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_SUPPPUBINFO = 11 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_TLS_PRF_LABEL = 4 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_TLS_PRF_PROTOCOL = 7 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.KDF_TLS_PRF_SEED = 5 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_CERT_BLOB = 47 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_PKCS_ALG_ID = 43 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_PKCS_ALG_OID = 41 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_PKCS_ALG_PARAM = 42 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_PKCS_ATTRS = 44 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_PKCS_KEY_NAME = 45 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_PKCS_OID = 40 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_PKCS_SECRET = 46 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_SSL_CLEAR_KEY = 23 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_SSL_CLIENT_RANDOM = 20 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_SSL_HIGHEST_VERSION = 22 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_SSL_KEY_ARG_DATA = 24 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.BufferType.NCRYPTBUFFER_SSL_SERVER_RANDOM = 21 -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.InterfaceIdentifiers
+PInvoke.NCrypt.InterfaceIdentifiers.NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE = 3 -> PInvoke.NCrypt.InterfaceIdentifiers
+PInvoke.NCrypt.InterfaceIdentifiers.NCRYPT_KEY_STORAGE_INTERFACE = 65537 -> PInvoke.NCrypt.InterfaceIdentifiers
+PInvoke.NCrypt.InterfaceIdentifiers.NCRYPT_SCHANNEL_INTERFACE = 65538 -> PInvoke.NCrypt.InterfaceIdentifiers
+PInvoke.NCrypt.InterfaceIdentifiers.NCRYPT_SCHANNEL_SIGNATURE_INTERFACE = 65539 -> PInvoke.NCrypt.InterfaceIdentifiers
+PInvoke.NCrypt.InterfaceIdentifiers.NCRYPT_SECRET_AGREEMENT_INTERFACE = 4 -> PInvoke.NCrypt.InterfaceIdentifiers
+PInvoke.NCrypt.InterfaceIdentifiers.NCRYPT_SIGNATURE_INTERFACE = 5 -> PInvoke.NCrypt.InterfaceIdentifiers
+PInvoke.NCrypt.KeyStoragePropertyIdentifiers
+PInvoke.NCrypt.KeyStoragePropertyValues
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_ALGORITHM_GROUP_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY.NCRYPT_ALLOW_ARCHIVING_FLAG = 4 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY.NCRYPT_ALLOW_EXPORT_FLAG = 1 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY.NCRYPT_ALLOW_PLAINTEXT_ARCHIVING_FLAG = 8 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY.NCRYPT_ALLOW_PLAINTEXT_EXPORT_FLAG = 2 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY.None = 0 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_EXPORT_POLICY_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY.NCRYPT_IMPL_HARDWARE_FLAG = 1 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY.NCRYPT_IMPL_HARDWARE_RNG_FLAG = 16 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY.NCRYPT_IMPL_REMOVABLE_FLAG = 8 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY.NCRYPT_IMPL_SOFTWARE_FLAG = 2 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY.None = 0 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_TYPE_PROPERTY.NCRYPT_MACHINE_KEY_FLAG = 1 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_TYPE_PROPERTY.None = 0 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_TYPE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY.NCRYPT_ALLOW_ALL_USAGES = 16777215 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY.NCRYPT_ALLOW_DECRYPT_FLAG = 1 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY.NCRYPT_ALLOW_KEY_AGREEMENT_FLAG = 4 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY.NCRYPT_ALLOW_SIGNING_FLAG = 2 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY
+PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY.None = 0 -> PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_KEY_USAGE_PROPERTY
+PInvoke.NCrypt.KeyStorageProviders
+PInvoke.NCrypt.LegacyKeySpec
+PInvoke.NCrypt.LegacyKeySpec.AT_KEYEXCHANGE = 1 -> PInvoke.NCrypt.LegacyKeySpec
+PInvoke.NCrypt.LegacyKeySpec.AT_SIGNATURE = 2 -> PInvoke.NCrypt.LegacyKeySpec
+PInvoke.NCrypt.LegacyKeySpec.None = 0 -> PInvoke.NCrypt.LegacyKeySpec
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.MagicNumber
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.MagicNumber.NCRYPT_CIPHER_KEY_BLOB_MAGIC = 1380470851 -> PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.MagicNumber
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.MagicNumber.NCRYPT_PROTECTED_KEY_BLOB_MAGIC = 1263817296 -> PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.MagicNumber
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.NCRYPT_KEY_BLOB_HEADER() -> void
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.cbAlgName -> int
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.cbKeyData -> int
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.cbSize -> int
+PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.dwMagic -> PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.MagicNumber
+PInvoke.NCrypt.NCRYPT_SUPPORTED_LENGTHS
+PInvoke.NCrypt.NCRYPT_SUPPORTED_LENGTHS.GetEnumerator() -> System.Collections.Generic.IEnumerator<int>
+PInvoke.NCrypt.NCRYPT_SUPPORTED_LENGTHS.NCRYPT_SUPPORTED_LENGTHS() -> void
+PInvoke.NCrypt.NCRYPT_SUPPORTED_LENGTHS.dwDefaultLength -> int
+PInvoke.NCrypt.NCRYPT_SUPPORTED_LENGTHS.dwIncrement -> int
+PInvoke.NCrypt.NCRYPT_SUPPORTED_LENGTHS.dwMaxLength -> int
+PInvoke.NCrypt.NCRYPT_SUPPORTED_LENGTHS.dwMinLength -> int
+PInvoke.NCrypt.NCryptAlgorithmName
+PInvoke.NCrypt.NCryptAlgorithmName.NCryptAlgorithmName() -> void
+PInvoke.NCrypt.NCryptAlgorithmName.Name.get -> string
+PInvoke.NCrypt.NCryptAlgorithmName.dwAlgOperations -> PInvoke.NCrypt.AlgorithmOperations
+PInvoke.NCrypt.NCryptAlgorithmName.dwClass -> PInvoke.NCrypt.InterfaceIdentifiers
+PInvoke.NCrypt.NCryptAlgorithmName.dwFlags -> uint
+PInvoke.NCrypt.NCryptAlgorithmName.pszName -> char*
+PInvoke.NCrypt.NCryptAlgorithmName.pszName_IntPtr.get -> System.IntPtr
+PInvoke.NCrypt.NCryptAlgorithmName.pszName_IntPtr.set -> void
+PInvoke.NCrypt.NCryptBuffer
+PInvoke.NCrypt.NCryptBuffer.BufferType -> PInvoke.NCrypt.BufferType
+PInvoke.NCrypt.NCryptBuffer.NCryptBuffer() -> void
+PInvoke.NCrypt.NCryptBuffer.cbBuffer -> int
+PInvoke.NCrypt.NCryptBuffer.pvBuffer -> void*
+PInvoke.NCrypt.NCryptBuffer.pvBuffer_IntPtr.get -> System.IntPtr
+PInvoke.NCrypt.NCryptBuffer.pvBuffer_IntPtr.set -> void
+PInvoke.NCrypt.NCryptBufferDesc
+PInvoke.NCrypt.NCryptBufferDesc.NCryptBufferDesc() -> void
+PInvoke.NCrypt.NCryptBufferDesc.cBuffers -> int
+PInvoke.NCrypt.NCryptBufferDesc.pBuffers -> PInvoke.NCrypt.NCryptBuffer*
+PInvoke.NCrypt.NCryptBufferDesc.pBuffers_IntPtr.get -> System.IntPtr
+PInvoke.NCrypt.NCryptBufferDesc.pBuffers_IntPtr.set -> void
+PInvoke.NCrypt.NCryptBufferDesc.ulVersion -> uint
+PInvoke.NCrypt.NCryptCreatePersistedKeyFlags
+PInvoke.NCrypt.NCryptCreatePersistedKeyFlags.NCRYPT_MACHINE_KEY_FLAG = 32 -> PInvoke.NCrypt.NCryptCreatePersistedKeyFlags
+PInvoke.NCrypt.NCryptCreatePersistedKeyFlags.NCRYPT_OVERWRITE_KEY_FLAG = 128 -> PInvoke.NCrypt.NCryptCreatePersistedKeyFlags
+PInvoke.NCrypt.NCryptCreatePersistedKeyFlags.None = 0 -> PInvoke.NCrypt.NCryptCreatePersistedKeyFlags
+PInvoke.NCrypt.NCryptDeleteKeyFlags
+PInvoke.NCrypt.NCryptDeleteKeyFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptDeleteKeyFlags
+PInvoke.NCrypt.NCryptDeleteKeyFlags.None = 0 -> PInvoke.NCrypt.NCryptDeleteKeyFlags
+PInvoke.NCrypt.NCryptDeriveKeyFlags
+PInvoke.NCrypt.NCryptDeriveKeyFlags.KDF_USE_SECRET_AS_HMAC_KEY_FLAG = 1 -> PInvoke.NCrypt.NCryptDeriveKeyFlags
+PInvoke.NCrypt.NCryptDeriveKeyFlags.None = 0 -> PInvoke.NCrypt.NCryptDeriveKeyFlags
+PInvoke.NCrypt.NCryptEncryptFlags
+PInvoke.NCrypt.NCryptEncryptFlags.NCRYPT_NO_PADDING_FLAG = 1 -> PInvoke.NCrypt.NCryptEncryptFlags
+PInvoke.NCrypt.NCryptEncryptFlags.NCRYPT_PAD_OAEP_FLAG = 4 -> PInvoke.NCrypt.NCryptEncryptFlags
+PInvoke.NCrypt.NCryptEncryptFlags.NCRYPT_PAD_PKCS1_FLAG = 2 -> PInvoke.NCrypt.NCryptEncryptFlags
+PInvoke.NCrypt.NCryptEncryptFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptEncryptFlags
+PInvoke.NCrypt.NCryptEncryptFlags.None = 0 -> PInvoke.NCrypt.NCryptEncryptFlags
+PInvoke.NCrypt.NCryptEnumAlgorithmsFlags
+PInvoke.NCrypt.NCryptEnumAlgorithmsFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptEnumAlgorithmsFlags
+PInvoke.NCrypt.NCryptEnumAlgorithmsFlags.None = 0 -> PInvoke.NCrypt.NCryptEnumAlgorithmsFlags
+PInvoke.NCrypt.NCryptEnumKeysFlags
+PInvoke.NCrypt.NCryptEnumKeysFlags.NCRYPT_MACHINE_KEY_FLAG = 32 -> PInvoke.NCrypt.NCryptEnumKeysFlags
+PInvoke.NCrypt.NCryptEnumKeysFlags.None = 0 -> PInvoke.NCrypt.NCryptEnumKeysFlags
+PInvoke.NCrypt.NCryptEnumStorageProvidersFlags
+PInvoke.NCrypt.NCryptEnumStorageProvidersFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptEnumStorageProvidersFlags
+PInvoke.NCrypt.NCryptEnumStorageProvidersFlags.None = 0 -> PInvoke.NCrypt.NCryptEnumStorageProvidersFlags
+PInvoke.NCrypt.NCryptExportKeyFlags
+PInvoke.NCrypt.NCryptExportKeyFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptExportKeyFlags
+PInvoke.NCrypt.NCryptExportKeyFlags.None = 0 -> PInvoke.NCrypt.NCryptExportKeyFlags
+PInvoke.NCrypt.NCryptFinalizeKeyFlags
+PInvoke.NCrypt.NCryptFinalizeKeyFlags.NCRYPT_NO_KEY_VALIDATION = 8 -> PInvoke.NCrypt.NCryptFinalizeKeyFlags
+PInvoke.NCrypt.NCryptFinalizeKeyFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptFinalizeKeyFlags
+PInvoke.NCrypt.NCryptFinalizeKeyFlags.NCRYPT_WRITE_KEY_TO_LEGACY_STORE_FLAG = 512 -> PInvoke.NCrypt.NCryptFinalizeKeyFlags
+PInvoke.NCrypt.NCryptFinalizeKeyFlags.None = 0 -> PInvoke.NCrypt.NCryptFinalizeKeyFlags
+PInvoke.NCrypt.NCryptGetPropertyFlags
+PInvoke.NCrypt.NCryptGetPropertyFlags.DACL_SECURITY_INFORMATION = 4 -> PInvoke.NCrypt.NCryptGetPropertyFlags
+PInvoke.NCrypt.NCryptGetPropertyFlags.GROUP_SECURITY_INFORMATION = 2 -> PInvoke.NCrypt.NCryptGetPropertyFlags
+PInvoke.NCrypt.NCryptGetPropertyFlags.NCRYPT_PERSIST_ONLY_FLAG = 1073741824 -> PInvoke.NCrypt.NCryptGetPropertyFlags
+PInvoke.NCrypt.NCryptGetPropertyFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptGetPropertyFlags
+PInvoke.NCrypt.NCryptGetPropertyFlags.None = 0 -> PInvoke.NCrypt.NCryptGetPropertyFlags
+PInvoke.NCrypt.NCryptGetPropertyFlags.OWNER_SECURITY_INFORMATION = 1 -> PInvoke.NCrypt.NCryptGetPropertyFlags
+PInvoke.NCrypt.NCryptGetPropertyFlags.SACL_SECURITY_INFORMATION = 8 -> PInvoke.NCrypt.NCryptGetPropertyFlags
+PInvoke.NCrypt.NCryptIsAlgSupportedFlags
+PInvoke.NCrypt.NCryptIsAlgSupportedFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptIsAlgSupportedFlags
+PInvoke.NCrypt.NCryptIsAlgSupportedFlags.None = 0 -> PInvoke.NCrypt.NCryptIsAlgSupportedFlags
+PInvoke.NCrypt.NCryptKeyDerivationFlags
+PInvoke.NCrypt.NCryptKeyDerivationFlags.BCRYPT_CAPI_AES_FLAG = 16 -> PInvoke.NCrypt.NCryptKeyDerivationFlags
+PInvoke.NCrypt.NCryptKeyDerivationFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptKeyDerivationFlags
+PInvoke.NCrypt.NCryptKeyDerivationFlags.None = 0 -> PInvoke.NCrypt.NCryptKeyDerivationFlags
+PInvoke.NCrypt.NCryptKeyName
+PInvoke.NCrypt.NCryptKeyName.Algid.get -> string
+PInvoke.NCrypt.NCryptKeyName.Flags
+PInvoke.NCrypt.NCryptKeyName.Flags.NCRYPT_MACHINE_KEY_FLAG = 32 -> PInvoke.NCrypt.NCryptKeyName.Flags
+PInvoke.NCrypt.NCryptKeyName.NCryptKeyName() -> void
+PInvoke.NCrypt.NCryptKeyName.Name.get -> string
+PInvoke.NCrypt.NCryptKeyName.dwFlags -> PInvoke.NCrypt.NCryptKeyName.Flags
+PInvoke.NCrypt.NCryptKeyName.dwLegacyKeySpec -> PInvoke.NCrypt.LegacyKeySpec
+PInvoke.NCrypt.NCryptKeyName.pszAlgid -> char*
+PInvoke.NCrypt.NCryptKeyName.pszAlgid_IntPtr.get -> System.IntPtr
+PInvoke.NCrypt.NCryptKeyName.pszAlgid_IntPtr.set -> void
+PInvoke.NCrypt.NCryptKeyName.pszName -> char*
+PInvoke.NCrypt.NCryptKeyName.pszName_IntPtr.get -> System.IntPtr
+PInvoke.NCrypt.NCryptKeyName.pszName_IntPtr.set -> void
+PInvoke.NCrypt.NCryptOpenKeyFlags
+PInvoke.NCrypt.NCryptOpenKeyFlags.NCRYPT_MACHINE_KEY_FLAG = 32 -> PInvoke.NCrypt.NCryptOpenKeyFlags
+PInvoke.NCrypt.NCryptOpenKeyFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptOpenKeyFlags
+PInvoke.NCrypt.NCryptOpenKeyFlags.None = 0 -> PInvoke.NCrypt.NCryptOpenKeyFlags
+PInvoke.NCrypt.NCryptOpenStorageProviderFlags
+PInvoke.NCrypt.NCryptOpenStorageProviderFlags.None = 0 -> PInvoke.NCrypt.NCryptOpenStorageProviderFlags
+PInvoke.NCrypt.NCryptProviderName
+PInvoke.NCrypt.NCryptProviderName.Comment.get -> string
+PInvoke.NCrypt.NCryptProviderName.NCryptProviderName() -> void
+PInvoke.NCrypt.NCryptProviderName.Name.get -> string
+PInvoke.NCrypt.NCryptProviderName.pszComment -> char*
+PInvoke.NCrypt.NCryptProviderName.pszComment_IntPtr.get -> System.IntPtr
+PInvoke.NCrypt.NCryptProviderName.pszComment_IntPtr.set -> void
+PInvoke.NCrypt.NCryptProviderName.pszName -> char*
+PInvoke.NCrypt.NCryptProviderName.pszName_IntPtr.get -> System.IntPtr
+PInvoke.NCrypt.NCryptProviderName.pszName_IntPtr.set -> void
+PInvoke.NCrypt.NCryptSecretAgreementFlags
+PInvoke.NCrypt.NCryptSecretAgreementFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptSecretAgreementFlags
+PInvoke.NCrypt.NCryptSecretAgreementFlags.None = 0 -> PInvoke.NCrypt.NCryptSecretAgreementFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags.DACL_SECURITY_INFORMATION = 4 -> PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags.GROUP_SECURITY_INFORMATION = 2 -> PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags.LABEL_SECURITY_INFORMATION = 16 -> PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags.NCRYPT_PERSIST_ONLY_FLAG = 1073741824 -> PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags.None = 0 -> PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags.OWNER_SECURITY_INFORMATION = 1 -> PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSetPropertyFlags.SACL_SECURITY_INFORMATION = 8 -> PInvoke.NCrypt.NCryptSetPropertyFlags
+PInvoke.NCrypt.NCryptSignHashFlags
+PInvoke.NCrypt.NCryptSignHashFlags.BCRYPT_PAD_PKCS1 = 2 -> PInvoke.NCrypt.NCryptSignHashFlags
+PInvoke.NCrypt.NCryptSignHashFlags.BCRYPT_PAD_PSS = 8 -> PInvoke.NCrypt.NCryptSignHashFlags
+PInvoke.NCrypt.NCryptSignHashFlags.NCRYPT_SILENT_FLAG = 64 -> PInvoke.NCrypt.NCryptSignHashFlags
+PInvoke.NCrypt.NCryptSignHashFlags.None = 0 -> PInvoke.NCrypt.NCryptSignHashFlags
+PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.ERROR_SUCCESS = 0 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_AUTHENTICATION_IGNORED = 2148073521 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_ALGID = 2148073480 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_DATA = 2148073477 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_FLAGS = 2148073481 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_HASH = 2148073474 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_HASH_STATE = 2148073484 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_KEY = 2148073475 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_KEYSET = 2148073494 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_KEYSET_PARAM = 2148073503 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_KEY_STATE = 2148073483 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_LEN = 2148073476 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_PROVIDER = 2148073491 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_PROV_TYPE = 2148073492 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_PUBLIC_KEY = 2148073493 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_SIGNATURE = 2148073478 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_TYPE = 2148073482 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_UID = 2148073473 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BAD_VER = 2148073479 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BUFFERS_OVERLAP = 2148073515 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_BUFFER_TOO_SMALL = 2148073512 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_DECRYPTION_FAILURE = 2148073516 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_DEVICE_NOT_FOUND = 2148073525 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_DEVICE_NOT_READY = 2148073520 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_DOUBLE_ENCRYPT = 2148073490 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_ENCRYPTION_FAILURE = 2148073524 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_EXISTS = 2148073487 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_FAIL = 2148073504 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_FIXEDPARAMETER = 2148073509 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_HMAC_NOT_SUPPORTED = 2148073519 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_INCORRECT_PASSWORD = 2148073523 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_INTERNAL_ERROR = 2148073517 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_INVALID_HANDLE = 2148073510 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_INVALID_PARAMETER = 2148073511 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_KEYSET_ENTRY_BAD = 2148073498 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_KEYSET_NOT_DEF = 2148073497 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_NOT_FOUND = 2148073489 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_NOT_SUPPORTED = 2148073513 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_NO_KEY = 2148073485 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_NO_MEMORY = 2148073486 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_NO_MORE_ITEMS = 2148073514 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_PERM = 2148073488 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_PROVIDER_DLL_FAIL = 2148073501 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_PROV_DLL_NOT_FOUND = 2148073502 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_PROV_TYPE_ENTRY_BAD = 2148073496 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_PROV_TYPE_NOT_DEF = 2148073495 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_PROV_TYPE_NO_MATCH = 2148073499 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_SIGNATURE_FILE_BAD = 2148073500 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_SILENT_CONTEXT = 2148073506 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_SYS_ERR = 2148073505 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_TEMPORARY_PROFILE = 2148073508 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_TOKEN_KEYSET_STORAGE_FULL = 2148073507 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_UI_REQUIRED = 2148073518 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SECURITY_STATUS.NTE_VALIDATION_FAILED = 2148073522 -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.NCrypt.SafeKeyHandle
+PInvoke.NCrypt.SafeKeyHandle.SafeKeyHandle() -> void
+PInvoke.NCrypt.SafeKeyHandle.SafeKeyHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.NCrypt.SafeProviderHandle
+PInvoke.NCrypt.SafeProviderHandle.SafeProviderHandle() -> void
+PInvoke.NCrypt.SafeProviderHandle.SafeProviderHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.NCrypt.SafeSecretHandle
+PInvoke.NCrypt.SafeSecretHandle.SafeSecretHandle() -> void
+PInvoke.NCrypt.SafeSecretHandle.SafeSecretHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.NCrypt.SymmetricKeyBlobTypes
+PInvoke.NCrypt.SymmetricKeyBlobTypes.SymmetricKeyBlobTypes() -> void
+PInvoke.NCryptExtensions
+PInvoke.SecurityStatusException
+PInvoke.SecurityStatusException.NativeErrorCode.get -> PInvoke.NCrypt.SECURITY_STATUS
+PInvoke.SecurityStatusException.SecurityStatusException(PInvoke.NCrypt.SECURITY_STATUS status) -> void
+PInvoke.SecurityStatusException.SecurityStatusException(PInvoke.NCrypt.SECURITY_STATUS status, string message) -> void
+PInvoke.SecurityStatusException.SecurityStatusException(PInvoke.NCrypt.SECURITY_STATUS status, string message, System.Exception inner) -> void
+PInvoke.SecurityStatusException.SecurityStatusException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) -> void
+const PInvoke.NCrypt.AsymmetricKeyBlobTypes.NCRYPT_CIPHER_KEY_BLOB = "CipherKeyBlob" -> string
+const PInvoke.NCrypt.AsymmetricKeyBlobTypes.NCRYPT_OPAQUETRANSPORT_BLOB = "OpaqueTransport" -> string
+const PInvoke.NCrypt.AsymmetricKeyBlobTypes.NCRYPT_PKCS7_ENVELOPE_BLOB = "PKCS7_ENVELOPE" -> string
+const PInvoke.NCrypt.AsymmetricKeyBlobTypes.NCRYPT_PKCS8_PRIVATE_KEY_BLOB = "PKCS8_PRIVATEKEY" -> string
+const PInvoke.NCrypt.AsymmetricKeyBlobTypes.NCRYPT_PROTECTED_KEY_BLOB = "ProtectedKeyBlob" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_ALGORITHM_GROUP_PROPERTY = "Algorithm Group" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_ALGORITHM_PROPERTY = "Algorithm Name" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_ASSOCIATED_ECDH_KEY = "SmartCardAssociatedECDHKey" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_AUTH_TAG_LENGTH = "AuthTagLength" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_BLOCK_LENGTH_PROPERTY = "Block Length" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_CERTIFICATE_PROPERTY = "SmartCardKeyCertificate" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_CHAINING_MODE_PROPERTY = "Chaining Mode" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_DH_PARAMETERS_PROPERTY = "DHParameters" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_EXPORT_POLICY_PROPERTY = "Export Policy" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_IMPL_TYPE_PROPERTY = "Impl Type" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_KDF_SECRET_VALUE = "KDFKeySecret" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_KEY_TYPE_PROPERTY = "Key Type" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_KEY_USAGE_PROPERTY = "Key Usage" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_LAST_MODIFIED_PROPERTY = "Modified" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY = "Lengths" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_LENGTH_PROPERTY = "Length" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_MAX_NAME_LENGTH_PROPERTY = "Max Name Length" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_NAME_PROPERTY = "Name" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY = "PCP_ALTERNATE_KEY_STORAGE_LOCATION" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_CHANGEPASSWORD_PROPERTY = "PCP_CHANGEPASSWORD" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_EKCERT_PROPERTY = "PCP_EKCERT" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_EKNVCERT_PROPERTY = "PCP_EKNVCERT" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_EKPUB_PROPERTY = "PCP_EKPUB" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY = "PCP_EXPORT_ALLOWED" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_KEYATTESTATION_PROPERTY = "PCP_TPM12_KEYATTESTATION" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY = "PCP_KEY_USAGE_POLICY" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY = "PCP_MIGRATIONPASSWORD" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY = "PCP_PASSWORD_REQUIRED" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PCRTABLE_PROPERTY = "PCP_PCRTABLE" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PLATFORMHANDLE_PROPERTY = "PCP_PLATFORMHANDLE" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY = "PCP_PLATFORM_BINDING_PCRDIGESTLIST" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY = "PCP_PLATFORM_BINDING_PCRDIGEST" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY = "PCP_PLATFORM_BINDING_PCRMASK" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PLATFORM_TYPE_PROPERTY = "PCP_PLATFORM_TYPE" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PROVIDERHANDLE_PROPERTY = "PCP_PROVIDERMHANDLE" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_PROVIDER_VERSION_PROPERTY = "PCP_PROVIDER_VERSION" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_SRKPUB_PROPERTY = "PCP_SRKPUB" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_STORAGEPARENT_PROPERTY = "PCP_STORAGEPARENT" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY = "PCP_TPM12_IDACTIVATION" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY = "PCP_TPM12_IDBINDING_DYNAMIC" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_TPM12_IDBINDING_PROPERTY = "PCP_TPM12_IDBINDING" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PCP_USAGEAUTH_PROPERTY = "PCP_USAGEAUTH" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PIN_PROMPT_PROPERTY = "SmartCardPinPrompt" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PIN_PROPERTY = "SmartCardPin" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_PROVIDER_HANDLE_PROPERTY = "Provider Handle" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_READER_ICON_PROPERTY = "SmartCardReaderIcon" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_READER_PROPERTY = "SmartCardReader" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_ROOT_CERTSTORE_PROPERTY = "SmartcardRootCertStore" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_SCARD_PIN_ID = "SmartCardPinId" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_SCARD_PIN_INFO = "SmartCardPinInfo" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_SECURE_PIN_PROPERTY = "SmartCardSecurePin" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_SECURITY_DESCR_PROPERTY = "Security Descr" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY = "Security Descr Support" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_SMARTCARD_GUID_PROPERTY = "SmartCardGuid" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_UI_POLICY_PROPERTY = "UI Policy" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_UNIQUE_NAME_PROPERTY = "Unique Name" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_USER_CERTSTORE_PROPERTY = "SmartCardUserCertStore" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_USE_CONTEXT_PROPERTY = "Use Context" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_USE_COUNT_ENABLED_PROPERTY = "Enabled Use Count" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_USE_COUNT_PROPERTY = "Use Count" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_VERSION_PROPERTY = "Version" -> string
+const PInvoke.NCrypt.KeyStoragePropertyIdentifiers.NCRYPT_WINDOW_HANDLE_PROPERTY = "HWND Handle" -> string
+const PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_ALGORITHM_GROUP_PROPERTY.NCRYPT_DH_ALGORITHM_GROUP = "DH" -> string
+const PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_ALGORITHM_GROUP_PROPERTY.NCRYPT_DSA_ALGORITHM_GROUP = "DSA" -> string
+const PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_ALGORITHM_GROUP_PROPERTY.NCRYPT_ECDH_ALGORITHM_GROUP = "ECDH" -> string
+const PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_ALGORITHM_GROUP_PROPERTY.NCRYPT_ECDSA_ALGORITHM_GROUP = "ECDSA" -> string
+const PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_ALGORITHM_GROUP_PROPERTY.NCRYPT_RSA_ALGORITHM_GROUP = "RSA" -> string
+const PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_MAX_PROPERTY_DATA = 1048576 -> int
+const PInvoke.NCrypt.KeyStoragePropertyValues.NCRYPT_MAX_PROPERTY_NAME = 64 -> int
+const PInvoke.NCrypt.KeyStorageProviders.MS_KEY_STORAGE_PROVIDER = "Microsoft Software Key Storage Provider" -> string
+const PInvoke.NCrypt.KeyStorageProviders.MS_SMART_CARD_KEY_STORAGE_PROVIDER = "Microsoft Smart Card Key Storage Provider" -> string
+const PInvoke.NCrypt.NCryptBufferDesc.NCRYPTBUFFER_EMPTY = 0 -> int
+const PInvoke.NCrypt.NCryptBufferDesc.NCRYPTBUFFER_VERSION = 0 -> uint
+override PInvoke.NCrypt.SafeKeyHandle.IsInvalid.get -> bool
+override PInvoke.NCrypt.SafeKeyHandle.ReleaseHandle() -> bool
+override PInvoke.NCrypt.SafeProviderHandle.IsInvalid.get -> bool
+override PInvoke.NCrypt.SafeProviderHandle.ReleaseHandle() -> bool
+override PInvoke.NCrypt.SafeSecretHandle.IsInvalid.get -> bool
+override PInvoke.NCrypt.SafeSecretHandle.ReleaseHandle() -> bool
+static PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER.Create() -> PInvoke.NCrypt.NCRYPT_KEY_BLOB_HEADER
+static PInvoke.NCrypt.NCryptBufferDesc.Create() -> PInvoke.NCrypt.NCryptBufferDesc
+static PInvoke.NCrypt.NCryptCreatePersistedKey(PInvoke.NCrypt.SafeProviderHandle provider, string algorithmId, string keyName = null, PInvoke.NCrypt.LegacyKeySpec legacyKeySpec = PInvoke.NCrypt.LegacyKeySpec.None, PInvoke.NCrypt.NCryptCreatePersistedKeyFlags flags = PInvoke.NCrypt.NCryptCreatePersistedKeyFlags.None) -> PInvoke.NCrypt.SafeKeyHandle
+static PInvoke.NCrypt.NCryptDecrypt(PInvoke.NCrypt.SafeKeyHandle hKey, System.IntPtr pbInput, int cbInput, System.IntPtr pPaddingInfo, System.IntPtr pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptEncryptFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptDecrypt(PInvoke.NCrypt.SafeKeyHandle hKey, byte[] pbInput, int cbInput, System.IntPtr pPaddingInfo, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptEncryptFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptDecrypt(PInvoke.NCrypt.SafeKeyHandle hKey, byte[] pbInput, int cbInput, void* pPaddingInfo, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptEncryptFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptDecrypt(PInvoke.NCrypt.SafeKeyHandle key, byte[] ciphertext, System.IntPtr paddingInfo, PInvoke.NCrypt.NCryptEncryptFlags flags = PInvoke.NCrypt.NCryptEncryptFlags.None) -> System.ArraySegment<byte>
+static PInvoke.NCrypt.NCryptDecrypt(PInvoke.NCrypt.SafeKeyHandle key, byte[] ciphertext, void* paddingInfo = null, PInvoke.NCrypt.NCryptEncryptFlags flags = PInvoke.NCrypt.NCryptEncryptFlags.None) -> System.ArraySegment<byte>
+static PInvoke.NCrypt.NCryptDeriveKey(PInvoke.NCrypt.SafeSecretHandle hSharedSecret, string pwszKDF, PInvoke.NCrypt.NCryptBufferDesc* pParameterList, byte[] pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.NCrypt.NCryptDeriveKeyFlags dwFlags = PInvoke.NCrypt.NCryptDeriveKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptDeriveKey(PInvoke.NCrypt.SafeSecretHandle hSharedSecret, string pwszKDF, System.IntPtr pParameterList, System.IntPtr pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.NCrypt.NCryptDeriveKeyFlags dwFlags = PInvoke.NCrypt.NCryptDeriveKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptDeriveKey(PInvoke.NCrypt.SafeSecretHandle hSharedSecret, string pwszKDF, System.IntPtr pParameterList, byte[] pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.NCrypt.NCryptDeriveKeyFlags dwFlags = PInvoke.NCrypt.NCryptDeriveKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptEncrypt(PInvoke.NCrypt.SafeKeyHandle hKey, System.IntPtr pbInput, int cbInput, System.IntPtr pPaddingInfo, System.IntPtr pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptEncryptFlags dwFlags = PInvoke.NCrypt.NCryptEncryptFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptEncrypt(PInvoke.NCrypt.SafeKeyHandle hKey, byte[] pbInput, int cbInput, System.IntPtr pPaddingInfo, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptEncryptFlags dwFlags = PInvoke.NCrypt.NCryptEncryptFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptEncrypt(PInvoke.NCrypt.SafeKeyHandle hKey, byte[] pbInput, int cbInput, void* pPaddingInfo, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptEncryptFlags dwFlags = PInvoke.NCrypt.NCryptEncryptFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptEncrypt(PInvoke.NCrypt.SafeKeyHandle key, byte[] plaintext, System.IntPtr paddingInfo, PInvoke.NCrypt.NCryptEncryptFlags flags = PInvoke.NCrypt.NCryptEncryptFlags.None) -> System.ArraySegment<byte>
+static PInvoke.NCrypt.NCryptEncrypt(PInvoke.NCrypt.SafeKeyHandle key, byte[] plaintext, void* paddingInfo = null, PInvoke.NCrypt.NCryptEncryptFlags flags = PInvoke.NCrypt.NCryptEncryptFlags.None) -> System.ArraySegment<byte>
+static PInvoke.NCrypt.NCryptEnumAlgorithms(PInvoke.NCrypt.SafeProviderHandle hProvider, PInvoke.NCrypt.AlgorithmOperations dwAlgOperations, out int pdwAlgCount, out System.IntPtr ppAlgList, PInvoke.NCrypt.NCryptEnumAlgorithmsFlags dwFlags = PInvoke.NCrypt.NCryptEnumAlgorithmsFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptEnumKeys(PInvoke.NCrypt.SafeProviderHandle hProvider, string pszScope, out System.IntPtr ppKeyName, ref System.IntPtr ppEnumState, PInvoke.NCrypt.NCryptEnumKeysFlags dwFlags = PInvoke.NCrypt.NCryptEnumKeysFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptEnumStorageProviders(out int pdwProviderCount, out System.IntPtr ppProviderList, PInvoke.NCrypt.NCryptEnumStorageProvidersFlags dwFlags = PInvoke.NCrypt.NCryptEnumStorageProvidersFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptExportKey(PInvoke.NCrypt.SafeKeyHandle hKey, PInvoke.NCrypt.SafeKeyHandle hExportKey, string pszBlobType, System.IntPtr pParameterList, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptExportKeyFlags dwFlags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptExportKey(PInvoke.NCrypt.SafeKeyHandle key, PInvoke.NCrypt.SafeKeyHandle exportKey, string blobType, PInvoke.NCrypt.NCryptBufferDesc* parameterList = null, PInvoke.NCrypt.NCryptExportKeyFlags flags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> System.ArraySegment<byte>
+static PInvoke.NCrypt.NCryptExportKey(PInvoke.NCrypt.SafeKeyHandle key, PInvoke.NCrypt.SafeKeyHandle exportKey, string blobType, System.IntPtr parameterList, PInvoke.NCrypt.NCryptExportKeyFlags flags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> System.ArraySegment<byte>
+static PInvoke.NCrypt.NCryptFreeBuffer(System.IntPtr pvInput) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptGetProperty(System.Runtime.InteropServices.SafeHandle hObject, string propertyName, PInvoke.NCrypt.NCryptGetPropertyFlags flags = PInvoke.NCrypt.NCryptGetPropertyFlags.None) -> byte[]
+static PInvoke.NCrypt.NCryptGetProperty<T>(System.Runtime.InteropServices.SafeHandle hObject, string propertyName, PInvoke.NCrypt.NCryptGetPropertyFlags flags = PInvoke.NCrypt.NCryptGetPropertyFlags.None) -> T
+static PInvoke.NCrypt.NCryptImportKey(PInvoke.NCrypt.SafeProviderHandle hProvider, PInvoke.NCrypt.SafeKeyHandle hImportKey, string pszBlobType, PInvoke.NCrypt.NCryptBufferDesc* pParameterList, out PInvoke.NCrypt.SafeKeyHandle phKey, byte[] pbData, int cbData, PInvoke.NCrypt.NCryptExportKeyFlags dwFlags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptImportKey(PInvoke.NCrypt.SafeProviderHandle hProvider, PInvoke.NCrypt.SafeKeyHandle hImportKey, string pszBlobType, System.IntPtr pParameterList, out PInvoke.NCrypt.SafeKeyHandle phKey, System.IntPtr pbData, int cbData, PInvoke.NCrypt.NCryptExportKeyFlags dwFlags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptImportKey(PInvoke.NCrypt.SafeProviderHandle hProvider, PInvoke.NCrypt.SafeKeyHandle hImportKey, string pszBlobType, System.IntPtr pParameterList, out PInvoke.NCrypt.SafeKeyHandle phKey, byte[] pbData, int cbData, PInvoke.NCrypt.NCryptExportKeyFlags dwFlags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptImportKey(PInvoke.NCrypt.SafeProviderHandle provider, PInvoke.NCrypt.SafeKeyHandle importKey, string blobType, PInvoke.NCrypt.NCryptBufferDesc* parameterList, byte[] keyData, PInvoke.NCrypt.NCryptExportKeyFlags flags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> PInvoke.NCrypt.SafeKeyHandle
+static PInvoke.NCrypt.NCryptImportKey(PInvoke.NCrypt.SafeProviderHandle provider, PInvoke.NCrypt.SafeKeyHandle importKey, string blobType, System.IntPtr parameterList, byte[] keyData, PInvoke.NCrypt.NCryptExportKeyFlags flags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> PInvoke.NCrypt.SafeKeyHandle
+static PInvoke.NCrypt.NCryptKeyDerivation(PInvoke.NCrypt.SafeKeyHandle hKey, PInvoke.NCrypt.NCryptBufferDesc* pParameterList, byte[] pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.NCrypt.NCryptKeyDerivationFlags dwFlags = PInvoke.NCrypt.NCryptKeyDerivationFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptKeyDerivation(PInvoke.NCrypt.SafeKeyHandle hKey, System.IntPtr pParameterList, System.IntPtr pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.NCrypt.NCryptKeyDerivationFlags dwFlags = PInvoke.NCrypt.NCryptKeyDerivationFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptKeyDerivation(PInvoke.NCrypt.SafeKeyHandle hKey, System.IntPtr pParameterList, byte[] pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.NCrypt.NCryptKeyDerivationFlags dwFlags = PInvoke.NCrypt.NCryptKeyDerivationFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptOpenKey(PInvoke.NCrypt.SafeProviderHandle provider, PInvoke.NCrypt.NCryptKeyName keyName) -> PInvoke.NCrypt.SafeKeyHandle
+static PInvoke.NCrypt.NCryptOpenKey(PInvoke.NCrypt.SafeProviderHandle provider, string keyName, PInvoke.NCrypt.LegacyKeySpec legacyKeySpec, PInvoke.NCrypt.NCryptOpenKeyFlags flags = PInvoke.NCrypt.NCryptOpenKeyFlags.None) -> PInvoke.NCrypt.SafeKeyHandle
+static PInvoke.NCrypt.NCryptOpenStorageProvider(string providerName, PInvoke.NCrypt.NCryptOpenStorageProviderFlags flags = PInvoke.NCrypt.NCryptOpenStorageProviderFlags.None) -> PInvoke.NCrypt.SafeProviderHandle
+static PInvoke.NCrypt.NCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string propertyName, string propertyValue) -> void
+static PInvoke.NCrypt.NCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, System.IntPtr pbInput, int cbInput, PInvoke.NCrypt.NCryptSetPropertyFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, byte[] pbInput, int cbInput, PInvoke.NCrypt.NCryptSetPropertyFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptSetProperty<T>(System.Runtime.InteropServices.SafeHandle hObject, string propertyName, T propertyValue, PInvoke.NCrypt.NCryptSetPropertyFlags flags = PInvoke.NCrypt.NCryptSetPropertyFlags.None) -> void
+static PInvoke.NCrypt.NCryptSignHash(PInvoke.NCrypt.SafeKeyHandle hKey, System.IntPtr pPaddingInfo, System.IntPtr pbHashValue, int cbHashValue, System.IntPtr pbSignature, int cbSignature, out int pcbResult, PInvoke.NCrypt.NCryptSignHashFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptSignHash(PInvoke.NCrypt.SafeKeyHandle hKey, System.IntPtr pPaddingInfo, byte[] pbHashValue, int cbHashValue, byte[] pbSignature, int cbSignature, out int pcbResult, PInvoke.NCrypt.NCryptSignHashFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptSignHash(PInvoke.NCrypt.SafeKeyHandle hKey, void* pPaddingInfo, byte[] pbHashValue, int cbHashValue, byte[] pbSignature, int cbSignature, out int pcbResult, PInvoke.NCrypt.NCryptSignHashFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptSignHash(PInvoke.NCrypt.SafeKeyHandle key, System.IntPtr paddingInfo, byte[] hashValue, PInvoke.NCrypt.NCryptSignHashFlags flags = PInvoke.NCrypt.NCryptSignHashFlags.None) -> System.ArraySegment<byte>
+static PInvoke.NCrypt.NCryptSignHash(PInvoke.NCrypt.SafeKeyHandle key, void* paddingInfo, byte[] hashValue, PInvoke.NCrypt.NCryptSignHashFlags flags = PInvoke.NCrypt.NCryptSignHashFlags.None) -> System.ArraySegment<byte>
+static PInvoke.NCrypt.NCryptVerifySignature(PInvoke.NCrypt.SafeKeyHandle hKey, System.IntPtr pPaddingInfo, System.IntPtr pbHashValue, int cbHashValue, System.IntPtr pbSignature, int cbSignature, PInvoke.NCrypt.NCryptSignHashFlags dwFlags = PInvoke.NCrypt.NCryptSignHashFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptVerifySignature(PInvoke.NCrypt.SafeKeyHandle hKey, System.IntPtr pPaddingInfo, byte[] pbHashValue, int cbHashValue, byte[] pbSignature, int cbSignature, PInvoke.NCrypt.NCryptSignHashFlags dwFlags = PInvoke.NCrypt.NCryptSignHashFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptVerifySignature(PInvoke.NCrypt.SafeKeyHandle hKey, void* pPaddingInfo, byte[] pbHashValue, int cbHashValue, byte[] pbSignature, int cbSignature, PInvoke.NCrypt.NCryptSignHashFlags dwFlags = PInvoke.NCrypt.NCryptSignHashFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static PInvoke.NCrypt.NCryptVerifySignature(PInvoke.NCrypt.SafeKeyHandle key, System.IntPtr paddingInfo, byte[] hashValue, byte[] signature, PInvoke.NCrypt.NCryptSignHashFlags flags = PInvoke.NCrypt.NCryptSignHashFlags.None) -> bool
+static PInvoke.NCrypt.NCryptVerifySignature(PInvoke.NCrypt.SafeKeyHandle key, void* paddingInfo, byte[] hashValue, byte[] signature, PInvoke.NCrypt.NCryptSignHashFlags flags = PInvoke.NCrypt.NCryptSignHashFlags.None) -> bool
+static PInvoke.NCryptExtensions.GetMessage(this PInvoke.NCrypt.SECURITY_STATUS error) -> string
+static PInvoke.NCryptExtensions.ThrowOnError(this PInvoke.NCrypt.SECURITY_STATUS status) -> void
+static extern PInvoke.NCrypt.NCryptCreatePersistedKey(PInvoke.NCrypt.SafeProviderHandle hProvider, out PInvoke.NCrypt.SafeKeyHandle phKey, string pszAlgId, string pszKeyName = null, PInvoke.NCrypt.LegacyKeySpec dwLegacyKeySpec = PInvoke.NCrypt.LegacyKeySpec.None, PInvoke.NCrypt.NCryptCreatePersistedKeyFlags dwFlags = PInvoke.NCrypt.NCryptCreatePersistedKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptDecrypt(PInvoke.NCrypt.SafeKeyHandle hKey, byte* pbInput, int cbInput, void* pPaddingInfo, byte* pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptEncryptFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptDeleteKey(PInvoke.NCrypt.SafeKeyHandle hKey, PInvoke.NCrypt.NCryptDeleteKeyFlags dwFlags = PInvoke.NCrypt.NCryptDeleteKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptDeriveKey(PInvoke.NCrypt.SafeSecretHandle hSharedSecret, string pwszKDF, PInvoke.NCrypt.NCryptBufferDesc* pParameterList, byte* pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.NCrypt.NCryptDeriveKeyFlags dwFlags = PInvoke.NCrypt.NCryptDeriveKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptEncrypt(PInvoke.NCrypt.SafeKeyHandle hKey, byte* pbInput, int cbInput, void* pPaddingInfo, byte* pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptEncryptFlags dwFlags = PInvoke.NCrypt.NCryptEncryptFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptEnumAlgorithms(PInvoke.NCrypt.SafeProviderHandle hProvider, PInvoke.NCrypt.AlgorithmOperations dwAlgOperations, out int pdwAlgCount, out PInvoke.NCrypt.NCryptAlgorithmName* ppAlgList, PInvoke.NCrypt.NCryptEnumAlgorithmsFlags dwFlags = PInvoke.NCrypt.NCryptEnumAlgorithmsFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptEnumKeys(PInvoke.NCrypt.SafeProviderHandle hProvider, string pszScope, out PInvoke.NCrypt.NCryptKeyName* ppKeyName, ref void* ppEnumState, PInvoke.NCrypt.NCryptEnumKeysFlags dwFlags = PInvoke.NCrypt.NCryptEnumKeysFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptEnumStorageProviders(out int pdwProviderCount, out PInvoke.NCrypt.NCryptProviderName* ppProviderList, PInvoke.NCrypt.NCryptEnumStorageProvidersFlags dwFlags = PInvoke.NCrypt.NCryptEnumStorageProvidersFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptExportKey(PInvoke.NCrypt.SafeKeyHandle hKey, PInvoke.NCrypt.SafeKeyHandle hExportKey, string pszBlobType, PInvoke.NCrypt.NCryptBufferDesc* pParameterList, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptExportKeyFlags dwFlags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptFinalizeKey(PInvoke.NCrypt.SafeKeyHandle hKey, PInvoke.NCrypt.NCryptFinalizeKeyFlags dwFlags = PInvoke.NCrypt.NCryptFinalizeKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptFreeBuffer(void* pvInput) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptGetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, byte[] pbOutput, int cbOutput, out int pcbResult, PInvoke.NCrypt.NCryptGetPropertyFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptImportKey(PInvoke.NCrypt.SafeProviderHandle hProvider, PInvoke.NCrypt.SafeKeyHandle hImportKey, string pszBlobType, PInvoke.NCrypt.NCryptBufferDesc* pParameterList, out PInvoke.NCrypt.SafeKeyHandle phKey, byte* pbData, int cbData, PInvoke.NCrypt.NCryptExportKeyFlags dwFlags = PInvoke.NCrypt.NCryptExportKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptIsAlgSupported(PInvoke.NCrypt.SafeProviderHandle hProvider, string pszAlgId, PInvoke.NCrypt.NCryptIsAlgSupportedFlags dwFlags = PInvoke.NCrypt.NCryptIsAlgSupportedFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptIsKeyHandle(System.IntPtr hKey) -> bool
+static extern PInvoke.NCrypt.NCryptKeyDerivation(PInvoke.NCrypt.SafeKeyHandle hKey, PInvoke.NCrypt.NCryptBufferDesc* pParameterList, byte* pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.NCrypt.NCryptKeyDerivationFlags dwFlags = PInvoke.NCrypt.NCryptKeyDerivationFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptOpenKey(PInvoke.NCrypt.SafeProviderHandle hProvider, out PInvoke.NCrypt.SafeKeyHandle phKey, string pszKeyName, PInvoke.NCrypt.LegacyKeySpec dwLegacyKeySpec, PInvoke.NCrypt.NCryptOpenKeyFlags dwFlags = PInvoke.NCrypt.NCryptOpenKeyFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptOpenStorageProvider(out PInvoke.NCrypt.SafeProviderHandle phProvider, string pszProviderName, PInvoke.NCrypt.NCryptOpenStorageProviderFlags dwFlags = PInvoke.NCrypt.NCryptOpenStorageProviderFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptSecretAgreement(PInvoke.NCrypt.SafeKeyHandle hPrivKey, PInvoke.NCrypt.SafeKeyHandle hPubKey, out PInvoke.NCrypt.SafeSecretHandle phSecret, PInvoke.NCrypt.NCryptSecretAgreementFlags dwFlags = PInvoke.NCrypt.NCryptSecretAgreementFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, byte* pbInput, int cbInput, PInvoke.NCrypt.NCryptSetPropertyFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptSetProperty(System.Runtime.InteropServices.SafeHandle hObject, string pszProperty, string pbInput, int cbInput, PInvoke.NCrypt.NCryptSetPropertyFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptSignHash(PInvoke.NCrypt.SafeKeyHandle hKey, void* pPaddingInfo, byte* pbHashValue, int cbHashValue, byte* pbSignature, int cbSignature, out int pcbResult, PInvoke.NCrypt.NCryptSignHashFlags dwFlags) -> PInvoke.NCrypt.SECURITY_STATUS
+static extern PInvoke.NCrypt.NCryptVerifySignature(PInvoke.NCrypt.SafeKeyHandle hKey, void* pPaddingInfo, byte* pbHashValue, int cbHashValue, byte* pbSignature, int cbSignature, PInvoke.NCrypt.NCryptSignHashFlags dwFlags = PInvoke.NCrypt.NCryptSignHashFlags.None) -> PInvoke.NCrypt.SECURITY_STATUS
+static readonly PInvoke.NCrypt.SafeKeyHandle.Null -> PInvoke.NCrypt.SafeKeyHandle
+static readonly PInvoke.NCrypt.SafeProviderHandle.Null -> PInvoke.NCrypt.SafeProviderHandle
+static readonly PInvoke.NCrypt.SafeSecretHandle.Null -> PInvoke.NCrypt.SafeSecretHandle

@@ -1,0 +1,16 @@
+PInvoke.Msi
+PInvoke.Msi.MSIINSTALLCONTEXT
+PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_ALL = PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_USERMANAGED | PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_USERUNMANAGED | PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_MACHINE -> PInvoke.Msi.MSIINSTALLCONTEXT
+PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_ALLUSERMANAGED = 8 -> PInvoke.Msi.MSIINSTALLCONTEXT
+PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_FIRSTVISIBLE = 0 -> PInvoke.Msi.MSIINSTALLCONTEXT
+PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_MACHINE = 4 -> PInvoke.Msi.MSIINSTALLCONTEXT
+PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_NONE = 0 -> PInvoke.Msi.MSIINSTALLCONTEXT
+PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_USERMANAGED = 1 -> PInvoke.Msi.MSIINSTALLCONTEXT
+PInvoke.Msi.MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_USERUNMANAGED = 2 -> PInvoke.Msi.MSIINSTALLCONTEXT
+static PInvoke.Msi.MsiEnumProductsEx(string szProductCode, string szUserSid, PInvoke.Msi.MSIINSTALLCONTEXT dwContext, int dwIndex, System.IntPtr szInstalledProductCode, System.IntPtr pdwInstalledContext, System.IntPtr szSid, System.IntPtr pcchSid) -> PInvoke.Win32ErrorCode
+static PInvoke.Msi.MsiEnumProductsEx(string szProductCode, string szUserSid, PInvoke.Msi.MSIINSTALLCONTEXT dwContext, int dwIndex, char[] szInstalledProductCode, ref PInvoke.Msi.MSIINSTALLCONTEXT? pdwInstalledContext, char[] szSid, ref int? pcchSid) -> PInvoke.Win32ErrorCode
+static PInvoke.Msi.MsiEnumProductsEx(string szProductCode, string szUserSid, PInvoke.Msi.MSIINSTALLCONTEXT dwContext, int dwIndex, out System.Guid szInstalledProductCode, out PInvoke.Msi.MSIINSTALLCONTEXT pdwInstalledContext, out string szSid) -> PInvoke.Win32ErrorCode
+static PInvoke.Msi.MsiIsProductElevated(System.Guid szProductCode, out bool pfElevated) -> PInvoke.Win32ErrorCode
+static extern PInvoke.Msi.MsiEnumProductsEx(string szProductCode, string szUserSid, PInvoke.Msi.MSIINSTALLCONTEXT dwContext, int dwIndex, char* szInstalledProductCode, PInvoke.Msi.MSIINSTALLCONTEXT* pdwInstalledContext, char* szSid, int* pcchSid) -> PInvoke.Win32ErrorCode
+static extern PInvoke.Msi.MsiInstallProduct(string szPackagePath, string szCommandLine) -> PInvoke.Win32ErrorCode
+static extern PInvoke.Msi.MsiIsProductElevated(string szProductCode, out bool pfElevated) -> PInvoke.Win32ErrorCode

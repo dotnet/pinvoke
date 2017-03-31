@@ -13,6 +13,8 @@
     The configuration to build. Either "debug" or "release". The default is debug, or the Configuration environment variable if set.
 .Parameter WarnAsError
     Converts all build warnings to errors. Useful in preparation to sending a pull request.
+.Parameter GeneratePInvokesTxt
+    Produces the LIBNAME.pinvokes.txt files along with the assemblies during the build.
 .Parameter NoParallelTests
     Do not execute tests in parallel.
 #>
@@ -24,6 +26,7 @@ Param(
     [Parameter()][ValidateSet('debug', 'release')]
     [string]$Configuration = $env:configuration,
     [switch]$WarnAsError = $true,
+    [switch]$GeneratePInvokesTxt,
     [switch]$NoParallelTests
 )
 
@@ -87,8 +90,15 @@ if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "Restore packages")) {
 }
 
 if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
+    $buildArgs = @()
+    $buildArgs += $SolutionFile,'/nologo','/nr:false','/m','/v:minimal','/t:build,pack'
+    $buildArgs += '/fl','/flp:verbosity=normal;logfile=msbuild.log','/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal','/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal'
+    if ($GeneratePInvokesTxt) {
+        $buildArgs += '/p:GeneratePInvokesTxt=true'
+    }
+
     Write-Output "Building..."
-    & $MSBuildCommand.Path $SolutionFile /nologo /nr:false /m /v:minimal /fl /t:build,pack "/flp:verbosity=normal;logfile=msbuild.log" "/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal" "/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal"
+    & $MSBuildCommand.Path $buildArgs
     $fail = $false
 
     $warnings = Get-Content msbuild.wrn
