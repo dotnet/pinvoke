@@ -3,7 +3,7 @@
     <TargetFrameworks>net46</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NtDll\NtDll.csproj" />
+    <ProjectReference Include="..\NTDll\NTDll.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
