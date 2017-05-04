@@ -50,6 +50,14 @@ types as parameters and flags `enum` types. API documentation will be provided v
 for easy reading with Intellisense, along with links to the describing pages on MSDN
 or elsewhere as applicable.
 
+In some cases we offer several overloads of a given native method to offer native pointer and
+`IntPtr` access. We encourage folks to try writing C# `unsafe` code before using `IntPtr` because
+it (ironically) can often be easier to write correct and efficient code using native pointers than
+all the casting and `Marshal` call overhead that `IntPtr` requires.
+Note that when a method's only use of a native pointer is its return type, the `IntPtr` returning
+variant must be given a different method name by CLR overloading rules, so look for the same method
+but with an `_IntPtr` suffix.
+
 ## Distribution
 
 This library should be available on NuGet for easy consumption by your projects.
