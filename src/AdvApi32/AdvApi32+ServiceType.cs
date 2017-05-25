@@ -64,7 +64,7 @@ namespace PInvoke
             /// <summary>
             /// The service current type is not changed.
             /// </summary>
-            SERVICE_NO_CHANGE = 0xFFFFFFFF
+            SERVICE_NO_CHANGE = 0xFFFFFFFF,
         }
     }
 }
