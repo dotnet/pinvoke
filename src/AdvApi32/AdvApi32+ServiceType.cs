@@ -60,7 +60,7 @@ namespace PInvoke
             /// The service can interact with the desktop.
             /// </summary>
             SERVICE_INTERACTIVE_PROCESS = 0x00000100,
-            
+
             /// <summary>
             /// The service current type is not changed.
             /// </summary>
