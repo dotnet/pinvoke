@@ -33,7 +33,12 @@ namespace PInvoke
             /// The startup program logs the error in the event log, if possible. If the last-known-good configuration is being started, the startup operation fails.
             /// Otherwise, the system is restarted with the last-known good configuration.
             /// </summary>
-            SERVICE_ERROR_CRITICAL = 0x00000003
+            SERVICE_ERROR_CRITICAL = 0x00000003,
+
+            /// <summary>
+            /// The service current type is not changed.
+            /// </summary>
+            SERVICE_NO_CHANGE = 0xFFFFFFFF,
         }
     }
 }

@@ -1,0 +1,3 @@
+PInvoke.AdvApi32.ServiceErrorControl.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceErrorControl
+PInvoke.AdvApi32.ServiceStartType.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceStartType
+PInvoke.AdvApi32.ServiceType.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceType

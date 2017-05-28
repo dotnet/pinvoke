@@ -36,7 +36,12 @@ namespace PInvoke
             /// <summary>
             /// A service that cannot be started. Attempts to start the service result in the error code ERROR_SERVICE_DISABLED.
             /// </summary>
-            SERVICE_DISABLED = 0x00000004
+            SERVICE_DISABLED = 0x00000004,
+
+            /// <summary>
+            /// The service current type is not changed.
+            /// </summary>
+            SERVICE_NO_CHANGE = 0xFFFFFFFF,
         }
     }
 }
