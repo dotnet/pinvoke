@@ -30,7 +30,7 @@
     <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
 
-    <CodeGenerationPackageVersion>0.3.1</CodeGenerationPackageVersion>
+    <CodeGenerationPackageVersion>0.4.6</CodeGenerationPackageVersion>
     <NerdbankGitVersioningPackageVersion>1.6.21</NerdbankGitVersioningPackageVersion>
   </PropertyGroup>
 
@@ -40,7 +40,7 @@
 
   <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
     <RootNamespace>PInvoke</RootNamespace>
-    <AssemblyName >PInvoke.$(MSBuildProjectName)</AssemblyName>
+    <AssemblyName>PInvoke.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
@@ -61,7 +61,7 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\net46\" />
+    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\netstandard1.5\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
     <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
     <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
+    <DotNetCliToolReference Include="dotnet-codegen" Version="$(CodeGenerationPackageVersion)" />
     <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
