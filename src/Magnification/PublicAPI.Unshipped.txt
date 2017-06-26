@@ -1,0 +1,3 @@
+PInvoke.Magnification
+static extern PInvoke.Magnification.MagInitialize() -> bool
+static extern PInvoke.Magnification.MagUninitialize() -> bool
