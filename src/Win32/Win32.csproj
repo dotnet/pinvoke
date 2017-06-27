@@ -30,7 +30,7 @@
     <ProjectReference Include="..\UxTheme\UxTheme.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
     <ProjectReference Include="..\Windows.ShellScalingApi\Windows.ShellScalingApi.csproj" />
-    <ProjectReference Include="..\Wtsapi32\Wtsapi32.csproj" />
+    <ProjectReference Include="..\WtsApi32\WtsApi32.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
