@@ -28,5 +28,83 @@ namespace PInvoke
         [DllImport(nameof(Magnification))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagUninitialize();
+
+        /// <summary>
+        /// Shows or hides the system cursor.
+        /// </summary>
+        /// <param name="fShowCursor">TRUE to show the system cursor, or FALSE to hide it.</param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
+        [DllImport(nameof(Magnification))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool MagShowSystemCursor(
+            [MarshalAs(UnmanagedType.Bool)] bool fShowCursor);
+
+        /// <summary>
+        /// Sets the transformation matrix for a magnifier control.
+        /// </summary>
+        /// <param name="hwnd">The magnification window.</param>
+        /// <param name="pTransform">A transformation matrix.</param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
+        [DllImport(nameof(Magnification))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool MagSetWindowTransform(
+            IntPtr hwnd,
+            [Friendly(FriendlyFlags.In)] MAGTRANSFORM* pTransform);
+
+        /// <summary>
+        /// Retrieves the transformation matrix associated with a magnifier control.
+        /// </summary>
+        /// <param name="hwnd">The magnification window.</param>
+        /// <param name="pTransform">The transformation matrix.</param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
+        [DllImport(nameof(Magnification))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool MagGetWindowTransform(
+            IntPtr hwnd,
+            [Friendly(FriendlyFlags.Out)] MAGTRANSFORM* pTransform);
+
+        /// <summary>
+        /// Sets the color transformation matrix for a magnifier control.
+        /// </summary>
+        /// <param name="hwnd">The magnification window.</param>
+        /// <param name="pEffect">The color transformation matrix, or NULL to remove the current color effect, if any.</param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
+        [DllImport(nameof(Magnification))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool MagSetColorEffect(
+            IntPtr hwnd,
+            [Friendly(FriendlyFlags.In)] MAGCOLOREFFECT* pEffect);
+
+        /// <summary>
+        /// Gets the color transformation matrix for a magnifier control.
+        /// </summary>
+        /// <param name="hwnd">The magnification window.</param>
+        /// <param name="pEffect">The color transformation matrix, or NULL if no color effect has been set.</param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
+        [DllImport(nameof(Magnification))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool MagGetColorEffect(
+            IntPtr hwnd,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] MAGCOLOREFFECT* pEffect);
+
+        /// <summary>
+        /// Changes the color transformation matrix associated with the full-screen magnifier.
+        /// </summary>
+        /// <param name="pEffect">The new color transformation matrix. This parameter must not be NULL.</param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
+        [DllImport(nameof(Magnification))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool MagSetFullscreenColorEffect(
+            [Friendly(FriendlyFlags.In)] MAGCOLOREFFECT* pEffect);
+
+        /// <summary>
+        /// Retrieves the color transformation matrix associated with the full-screen magnifier.
+        /// </summary>
+        /// <param name="pEffect">The color transformation matrix, or the identity matrix if no color effect has been set.</param>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
+        [DllImport(nameof(Magnification))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool MagGetFullscreenColorEffect(
+            [Friendly(FriendlyFlags.Out)] MAGCOLOREFFECT* pEffect);
     }
 }
