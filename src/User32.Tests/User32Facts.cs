@@ -58,4 +58,38 @@ public partial class User32Facts
         Assert.Equal(IntPtr.Size, (long)&input.Inputs.mi - (long)&input);
         Assert.Equal(IntPtr.Size, (long)&input.Inputs.ki - (long)&input);
     }
+
+    [Fact]
+    public void GetWindowTextHelper_WithNonzeroLastError()
+    {
+        IntPtr hwnd = CreateWindow(
+            "BUTTON",
+            string.Empty, // empty window name
+            WindowStyles.WS_OVERLAPPED,
+            0,
+            0,
+            0,
+            0,
+            IntPtr.Zero,
+            IntPtr.Zero,
+            Process.GetCurrentProcess().Handle,
+            IntPtr.Zero);
+        if (hwnd == IntPtr.Zero)
+        {
+            throw new Win32Exception();
+        }
+
+        try
+        {
+            Kernel32.SetLastError(2);
+            Assert.Equal(string.Empty, GetWindowText(hwnd));
+        }
+        finally
+        {
+            if (!DestroyWindow(hwnd))
+            {
+                throw new Win32Exception();
+            }
+        }
+    }
 }
