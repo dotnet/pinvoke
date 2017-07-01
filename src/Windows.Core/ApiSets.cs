@@ -118,5 +118,10 @@ namespace PInvoke
         /// The "api-ms-win-core-libraryloader-l1-1-1.dll" constant.
         /// </summary>
         public const string api_ms_win_core_libraryloader_l1_1_1 = "api-ms-win-core-libraryloader-l1-1-1.dll";
+
+        /// <summary>
+        /// The "api-ms-win-core-errorhandling-l1-1-1.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_errorhandling_l1_1_1 = "api-ms-win-core-errorhandling-l1-1-1.dll";
     }
 }
