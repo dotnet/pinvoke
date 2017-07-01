@@ -443,3 +443,6 @@ static readonly PInvoke.AdvApi32.KEY_WOW64_64KEY -> PInvoke.Kernel32.ACCESS_MASK
 static readonly PInvoke.AdvApi32.KEY_WRITE -> PInvoke.Kernel32.ACCESS_MASK
 static readonly PInvoke.AdvApi32.SafeCryptographicProviderHandle.Null -> PInvoke.AdvApi32.SafeCryptographicProviderHandle
 static readonly PInvoke.AdvApi32.SafeServiceHandle.Null -> PInvoke.AdvApi32.SafeServiceHandle
+PInvoke.AdvApi32.ServiceErrorControl.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceErrorControl
+PInvoke.AdvApi32.ServiceStartType.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceStartType
+PInvoke.AdvApi32.ServiceType.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceType

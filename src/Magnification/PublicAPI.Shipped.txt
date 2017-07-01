@@ -1,0 +1,27 @@
+PInvoke.Magnification
+PInvoke.Magnification.MAGCOLOREFFECT
+PInvoke.Magnification.MAGCOLOREFFECT.MAGCOLOREFFECT() -> void
+PInvoke.Magnification.MAGTRANSFORM
+PInvoke.Magnification.MAGTRANSFORM.MAGTRANSFORM() -> void
+static PInvoke.Magnification.MagGetColorEffect(System.IntPtr hwnd, System.IntPtr pEffect) -> bool
+static PInvoke.Magnification.MagGetColorEffect(System.IntPtr hwnd, ref PInvoke.Magnification.MAGCOLOREFFECT? pEffect) -> bool
+static PInvoke.Magnification.MagGetFullscreenColorEffect(System.IntPtr pEffect) -> bool
+static PInvoke.Magnification.MagGetFullscreenColorEffect(out PInvoke.Magnification.MAGCOLOREFFECT pEffect) -> bool
+static PInvoke.Magnification.MagGetWindowTransform(System.IntPtr hwnd, System.IntPtr pTransform) -> bool
+static PInvoke.Magnification.MagGetWindowTransform(System.IntPtr hwnd, out PInvoke.Magnification.MAGTRANSFORM pTransform) -> bool
+static PInvoke.Magnification.MagSetColorEffect(System.IntPtr hwnd, PInvoke.Magnification.MAGCOLOREFFECT pEffect) -> bool
+static PInvoke.Magnification.MagSetColorEffect(System.IntPtr hwnd, System.IntPtr pEffect) -> bool
+static PInvoke.Magnification.MagSetFullscreenColorEffect(PInvoke.Magnification.MAGCOLOREFFECT pEffect) -> bool
+static PInvoke.Magnification.MagSetFullscreenColorEffect(System.IntPtr pEffect) -> bool
+static PInvoke.Magnification.MagSetWindowTransform(System.IntPtr hwnd, PInvoke.Magnification.MAGTRANSFORM pTransform) -> bool
+static PInvoke.Magnification.MagSetWindowTransform(System.IntPtr hwnd, System.IntPtr pTransform) -> bool
+static extern PInvoke.Magnification.MagGetColorEffect(System.IntPtr hwnd, PInvoke.Magnification.MAGCOLOREFFECT* pEffect) -> bool
+static extern PInvoke.Magnification.MagGetFullscreenColorEffect(PInvoke.Magnification.MAGCOLOREFFECT* pEffect) -> bool
+static extern PInvoke.Magnification.MagGetWindowTransform(System.IntPtr hwnd, PInvoke.Magnification.MAGTRANSFORM* pTransform) -> bool
+static extern PInvoke.Magnification.MagInitialize() -> bool
+static extern PInvoke.Magnification.MagSetColorEffect(System.IntPtr hwnd, PInvoke.Magnification.MAGCOLOREFFECT* pEffect) -> bool
+static extern PInvoke.Magnification.MagSetFullscreenColorEffect(PInvoke.Magnification.MAGCOLOREFFECT* pEffect) -> bool
+static extern PInvoke.Magnification.MagSetFullscreenTransform(float magLevel, int xOffset, int yOffset) -> bool
+static extern PInvoke.Magnification.MagSetWindowTransform(System.IntPtr hwnd, PInvoke.Magnification.MAGTRANSFORM* pTransform) -> bool
+static extern PInvoke.Magnification.MagShowSystemCursor(bool fShowCursor) -> bool
+static extern PInvoke.Magnification.MagUninitialize() -> bool
