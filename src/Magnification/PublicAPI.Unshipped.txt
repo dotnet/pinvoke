@@ -21,6 +21,7 @@ static extern PInvoke.Magnification.MagGetWindowTransform(System.IntPtr hwnd, PI
 static extern PInvoke.Magnification.MagInitialize() -> bool
 static extern PInvoke.Magnification.MagSetColorEffect(System.IntPtr hwnd, PInvoke.Magnification.MAGCOLOREFFECT* pEffect) -> bool
 static extern PInvoke.Magnification.MagSetFullscreenColorEffect(PInvoke.Magnification.MAGCOLOREFFECT* pEffect) -> bool
+static extern PInvoke.Magnification.MagSetFullscreenTransform(float magLevel, int xOffset, int yOffset) -> bool
 static extern PInvoke.Magnification.MagSetWindowTransform(System.IntPtr hwnd, PInvoke.Magnification.MAGTRANSFORM* pTransform) -> bool
 static extern PInvoke.Magnification.MagShowSystemCursor(bool fShowCursor) -> bool
 static extern PInvoke.Magnification.MagUninitialize() -> bool
