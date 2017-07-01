@@ -2363,6 +2363,26 @@ namespace PInvoke
             int nMaxCount);
 
         /// <summary>
+        /// Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
+        /// </summary>
+        /// <param name="hWnd">A handle to a window. The window handle retrieved is relative to this window, based on the value of the wCmd parameter. </param>
+        /// <param name="wCmd">The relationship between the specified window and the window whose handle is to be retrieved.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the next (or previous) window. If there is no next (or previous) window, the return value is NULL. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetWindow(
+            IntPtr hWnd,
+            GetWindowCommands wCmd);
+
+        /// <summary>
+        /// Retrieves a handle to the next or previous window in the Z-Order. The next window is below the specified window; the previous window is above.
+        /// If the specified window is a topmost window, the function searches for a topmost window. If the specified window is a top-level window, the function searches for a top-level window. If the specified window is a child window, the function searches for a child window.
+        /// </summary>
+        /// <param name="hWnd">A handle to a window. The window handle retrieved is relative to this window, based on the value of the wCmd parameter. </param>
+        /// <param name="wCmd">Indicates whether the function returns a handle to the next window or the previous window.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the next (or previous) window. If there is no next (or previous) window, the return value is NULL. To get extended error information, call GetLastError.</returns>
+        public static IntPtr GetNextWindow(IntPtr hWnd, GetNextWindowCommands wCmd) => GetWindow(hWnd, (GetWindowCommands)wCmd);
+
+        /// <summary>
         /// Moves the cursor to the specified screen coordinates. If the new coordinates are not within the screen
         /// rectangle set by the most recent ClipCursor function call, the system automatically adjusts the coordinates so that the
         /// cursor stays within the rectangle.
