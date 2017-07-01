@@ -1,0 +1,17 @@
+PInvoke.User32.GetNextWindowCommands
+PInvoke.User32.GetNextWindowCommands.GW_HWNDNEXT = 2 -> PInvoke.User32.GetNextWindowCommands
+PInvoke.User32.GetNextWindowCommands.GW_HWNDPREV = 3 -> PInvoke.User32.GetNextWindowCommands
+PInvoke.User32.GetWindowCommands
+PInvoke.User32.GetWindowCommands.GW_CHILD = 5 -> PInvoke.User32.GetWindowCommands
+PInvoke.User32.GetWindowCommands.GW_ENABLEDPOPUP = 6 -> PInvoke.User32.GetWindowCommands
+PInvoke.User32.GetWindowCommands.GW_HWNDFIRST = 0 -> PInvoke.User32.GetWindowCommands
+PInvoke.User32.GetWindowCommands.GW_HWNDLAST = 1 -> PInvoke.User32.GetWindowCommands
+PInvoke.User32.GetWindowCommands.GW_HWNDNEXT = 2 -> PInvoke.User32.GetWindowCommands
+PInvoke.User32.GetWindowCommands.GW_HWNDPREV = 3 -> PInvoke.User32.GetWindowCommands
+PInvoke.User32.GetWindowCommands.GW_OWNER = 4 -> PInvoke.User32.GetWindowCommands
+static PInvoke.User32.GetNextWindow(System.IntPtr hWnd, PInvoke.User32.GetNextWindowCommands wCmd) -> System.IntPtr
+static extern PInvoke.User32.DestroyWindow(System.IntPtr hWnd) -> bool
+static extern PInvoke.User32.GetTopWindow(System.IntPtr hWnd) -> System.IntPtr
+static extern PInvoke.User32.GetWindow(System.IntPtr hWnd, PInvoke.User32.GetWindowCommands wCmd) -> System.IntPtr
+static extern PInvoke.User32.SetLastErrorEx(uint dwErrCode, uint dwType) -> void
+static extern PInvoke.User32.SetWindowText(System.IntPtr hWnd, string lpString) -> bool

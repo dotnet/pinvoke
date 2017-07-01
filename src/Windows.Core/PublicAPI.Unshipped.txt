@@ -1,0 +1,1 @@
+const PInvoke.ApiSets.api_ms_win_core_errorhandling_l1_1_1 = "api-ms-win-core-errorhandling-l1-1-1.dll" -> string

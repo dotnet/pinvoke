@@ -1,0 +1,1 @@
+static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
