@@ -17,7 +17,7 @@ namespace PInvoke
         /// <see cref="HidD_GetPreparsedData(SafeObjectHandle, out SafePreparsedDataHandle)"/>
         /// that can be closed with <see cref="HidD_FreePreparsedData"/>.
         /// </summary>
-        public class SafePreparsedDataHandle : SafeHandle
+        public class SafePreparsedDataHandle : SafeHandleMinusOneIsInvalid
         {
             /// <summary>
             /// An invalid handle that may be used in place of <see cref="INVALID_HANDLE_VALUE"/>.
@@ -45,9 +45,7 @@ namespace PInvoke
             {
                 this.SetHandle(preexistingHandle);
             }
-
-            public override bool IsInvalid => this.handle == INVALID_HANDLE_VALUE;
-
+            
             protected override bool ReleaseHandle() => HidD_FreePreparsedData(this.handle);
         }
     }
