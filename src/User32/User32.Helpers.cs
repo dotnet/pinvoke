@@ -255,7 +255,7 @@ namespace PInvoke
         /// <param name="maxLength">The size of the string to return</param>
         /// <returns>The class name string.</returns>
         /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
-        /// <remarks>The suggested class name length is 256 as we didn't find any reference of class name length limits</remarks>
+        /// <remarks>The maximum length for lpszClassName is 256. See WNDCLASS structure documentation: https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576(v=vs.85).aspx</remarks>
         public static unsafe string GetClassName(IntPtr hWnd, int maxLength = 256)
         {
             char* className = stackalloc char[maxLength];
