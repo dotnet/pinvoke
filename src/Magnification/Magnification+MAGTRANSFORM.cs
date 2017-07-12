@@ -18,14 +18,15 @@ namespace PInvoke
         public unsafe struct MAGTRANSFORM
         {
             /// <summary>
+            /// The transformation matrix. Represents a 2 dimensional array that is always 3x3 in size.
+            /// Use the indexer on the declaring struct for convenient 2D indexing into the array.
+            /// </summary>
+            public fixed float v[OneDimensionLength * OneDimensionLength];
+
+            /// <summary>
             /// Gets the length of each dimension in the flattened array.
             /// </summary>
             private const int OneDimensionLength = 3;
-
-            /// <summary>
-            /// The transformation matrix. Always 3x3.
-            /// </summary>
-            private fixed float v[OneDimensionLength * OneDimensionLength];
 
             /// <summary>Gets or sets a value of the <see cref="v" /> field of this struct.</summary>
             /// <param name="x">The index into the first dimension of the array.</param>

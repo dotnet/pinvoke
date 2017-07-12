@@ -1,4 +1,6 @@
 PInvoke.Magnification.MAGCOLOREFFECT.this[int x, int y].get -> float
 PInvoke.Magnification.MAGCOLOREFFECT.this[int x, int y].set -> void
+PInvoke.Magnification.MAGCOLOREFFECT.transform -> float*
 PInvoke.Magnification.MAGTRANSFORM.this[int x, int y].get -> float
 PInvoke.Magnification.MAGTRANSFORM.this[int x, int y].set -> void
+PInvoke.Magnification.MAGTRANSFORM.v -> float*
