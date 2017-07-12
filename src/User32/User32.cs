@@ -237,6 +237,12 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Array)] char* lpClassName,
             int nMaxCount);
 
+        /// <summary>
+        /// Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the process that created the window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window. </param>
+        /// <param name="lpdwProcessId">A pointer to a variable that receives the process identifier. If this parameter is not NULL, GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not.</param>
+        /// <returns>The return value is the identifier of the thread that created the window. </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
@@ -2363,6 +2369,51 @@ namespace PInvoke
             int nMaxCount);
 
         /// <summary>
+        /// Changes the text of the specified window's title bar (if it has one). If the specified window is a control, the text of the control is changed. However, SetWindowText cannot change the text of a control in another application.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window or control whose text is to be changed. </param>
+        /// <param name="lpString">The new title or control text. </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool SetWindowText(
+            IntPtr hWnd,
+            string lpString);
+
+        /// <summary>
+        /// Examines the Z order of the child windows associated with the specified parent window and retrieves a handle to the child window at the top of the Z order.
+        /// </summary>
+        /// <param name="hWnd">A handle to the parent window whose child windows are to be examined. If this parameter is NULL, the function returns a handle to the window at the top of the Z order.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the child window at the top of the Z order. If the specified window has no child windows, the return value is NULL. To get extended error information, use the GetLastError function.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetTopWindow(IntPtr hWnd);
+
+        /// <summary>
+        /// Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
+        /// </summary>
+        /// <param name="hWnd">A handle to a window. The window handle retrieved is relative to this window, based on the value of the wCmd parameter. </param>
+        /// <param name="wCmd">The relationship between the specified window and the window whose handle is to be retrieved.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the next (or previous) window. If there is no next (or previous) window, the return value is NULL. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetWindow(
+            IntPtr hWnd,
+            GetWindowCommands wCmd);
+
+        /// <summary>
+        /// Retrieves a handle to the next or previous window in the Z-Order. The next window is below the specified window; the previous window is above.
+        /// If the specified window is a topmost window, the function searches for a topmost window. If the specified window is a top-level window, the function searches for a top-level window. If the specified window is a child window, the function searches for a child window.
+        /// </summary>
+        /// <param name="hWnd">A handle to a window. The window handle retrieved is relative to this window, based on the value of the wCmd parameter. </param>
+        /// <param name="wCmd">Indicates whether the function returns a handle to the next window or the previous window.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the next (or previous) window. If there is no next (or previous) window, the return value is NULL. To get extended error information, call GetLastError.</returns>
+        public static IntPtr GetNextWindow(IntPtr hWnd, GetNextWindowCommands wCmd) => GetWindow(hWnd, (GetWindowCommands)wCmd);
+
+        /// <summary>
         /// Moves the cursor to the specified screen coordinates. If the new coordinates are not within the screen
         /// rectangle set by the most recent ClipCursor function call, the system automatically adjusts the coordinates so that the
         /// cursor stays within the rectangle.
@@ -2548,6 +2599,20 @@ namespace PInvoke
            IntPtr hInstance,
            void* lpParam);
 
+        /// <summary>
+        /// Destroys the specified window. The function sends WM_DESTROY and WM_NCDESTROY messages to the window to deactivate it and remove the keyboard focus from it. The function also destroys the window's menu, flushes the thread message queue, destroys timers, removes clipboard ownership, and breaks the clipboard viewer chain (if the window is at the top of the viewer chain).
+        /// If the specified window is a parent or owner window, DestroyWindow automatically destroys the associated child or owned windows when it destroys the parent or owner window. The function first destroys child or owned windows, and then it destroys the parent or owner window.
+        /// DestroyWindow also destroys modeless dialog boxes created by the CreateDialog function.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be destroyed. </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DestroyWindow(IntPtr hWnd);
+
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr DispatchMessage(ref MSG lpmsg);
 
@@ -2670,6 +2735,15 @@ namespace PInvoke
         /// </param>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe void keybd_event(byte bVk, byte bScan, KEYEVENTF dwFlags, void* dwExtraInfo);
+
+        /// <summary>
+        /// Sets the last-error code for the calling thread.
+        /// Currently, this function is identical to the SetLastError function. The second parameter is ignored.
+        /// </summary>
+        /// <param name="dwErrCode">The last-error code for the thread.</param>
+        /// <param name="dwType">This parameter is ignored.</param>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern void SetLastErrorEx(uint dwErrCode, uint dwType);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.

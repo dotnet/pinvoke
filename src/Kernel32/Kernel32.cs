@@ -43,6 +43,7 @@ namespace PInvoke
         private const string api_ms_win_core_libraryloader_l1_1_1 = ApiSets.api_ms_win_core_libraryloader_l1_1_1;
         private const string api_ms_win_core_sysinfo_l1_2_1 = ApiSets.api_ms_win_core_sysinfo_l1_2_1;
         private const string api_ms_win_core_sysinfo_l1_2_0 = ApiSets.api_ms_win_core_sysinfo_l1_2_0;
+        private const string api_ms_win_core_errorhandling_l1_1_1 = ApiSets.api_ms_win_core_errorhandling_l1_1_1;
 #else
         private const string api_ms_win_core_localization_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_processthreads_l1_1_1 = nameof(Kernel32);
@@ -57,6 +58,7 @@ namespace PInvoke
         private const string api_ms_win_core_libraryloader_l1_1_1 = nameof(Kernel32);
         private const string api_ms_win_core_sysinfo_l1_2_1 = nameof(Kernel32);
         private const string api_ms_win_core_sysinfo_l1_2_0 = nameof(Kernel32);
+        private const string api_ms_win_core_errorhandling_l1_1_1 = nameof(Kernel32);
 #endif
 #pragma warning restore SA1303 // Const field names must begin with upper-case letter
 
@@ -660,6 +662,13 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_libraryloader_l1_1_1, CharSet = CharSet.Unicode, SetLastError = true)]
         public static unsafe extern void* LockResource(IntPtr hResData);
+
+        /// <summary>
+        /// Sets the last-error code for the calling thread.
+        /// </summary>
+        /// <param name="dwErrCode">The last-error code for the thread.</param>
+        [DllImport(api_ms_win_core_errorhandling_l1_1_1, SetLastError = true)]
+        public static extern void SetLastError(uint dwErrCode);
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
