@@ -123,5 +123,15 @@ namespace PInvoke
         /// The "api-ms-win-core-errorhandling-l1-1-1.dll" constant.
         /// </summary>
         public const string api_ms_win_core_errorhandling_l1_1_1 = "api-ms-win-core-errorhandling-l1-1-1.dll";
+
+        /// <summary>
+        /// The "api-ms-win-security-sddl-l1-1-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_security_sddl_l1_1_0 = "api-ms-win-security-sddl-l1-1-0.dll";
+
+        /// <summary>
+        /// The "api-ms-win-core-registry-l1-1-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_registry_l1_1_0 = "api-ms-win-core-registry-l1-1-0.dll";
     }
 }

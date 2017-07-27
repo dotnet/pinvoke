@@ -30,6 +30,9 @@ namespace PInvoke
         private const string api_ms_win_core_processthreads_l1_1_1 = ApiSets.api_ms_win_core_processthreads_l1_1_1;
         private const string api_ms_win_security_base_l1_2_0 = ApiSets.api_ms_win_security_base_l1_2_0;
         private const string api_ms_win_service_winsvc_l1_2_0 = ApiSets.api_ms_win_service_winsvc_l1_2_0;
+        private const string api_ms_win_security_sddl_l1_1_0 = ApiSets.api_ms_win_security_sddl_l1_1_0;
+        private const string api_ms_win_core_processthreads_l1_1_2 = ApiSets.api_ms_win_core_processthreads_l1_1_2;
+        private const string api_ms_win_core_registry_l1_1_0 = ApiSets.api_ms_win_core_registry_l1_1_0;
 #else
         private const string api_ms_win_service_core_l1_1_1 = nameof(AdvApi32);
         private const string api_ms_win_service_management_l1_1_0 = nameof(AdvApi32);
@@ -37,6 +40,9 @@ namespace PInvoke
         private const string api_ms_win_core_processthreads_l1_1_1 = nameof(AdvApi32);
         private const string api_ms_win_security_base_l1_2_0 = nameof(AdvApi32);
         private const string api_ms_win_service_winsvc_l1_2_0 = nameof(AdvApi32);
+        private const string api_ms_win_security_sddl_l1_1_0 = nameof(AdvApi32);
+        private const string api_ms_win_core_processthreads_l1_1_2 = nameof(AdvApi32);
+        private const string api_ms_win_core_registry_l1_1_0 = nameof(AdvApi32);
 #endif
 #pragma warning restore SA1303 // Const field names must begin with upper-case letter
 
@@ -318,7 +324,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
         /// </returns>
-        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [DllImport(api_ms_win_service_winsvc_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ControlService(SafeServiceHandle hService, ServiceControl dwControl, ref SERVICE_STATUS lpServiceStatus);
 
@@ -419,7 +425,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
-        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool CryptGetProvParam(
                 SafeHandle hProv,
@@ -447,7 +453,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
-        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool CryptSetProvParam(
                 SafeHandle hProv,
@@ -556,7 +562,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_2, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenProcessToken(
             IntPtr processHandle,
@@ -887,7 +893,7 @@ namespace PInvoke
         ///     If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />. If the function
         ///     fails the error code is returned.
         /// </returns>
-        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_registry_l1_1_0, CharSet = CharSet.Unicode)]
         public static extern Win32ErrorCode RegOpenKeyEx(
             SafeRegistryHandle hKey,
             string lpSubKey,
@@ -914,7 +920,7 @@ namespace PInvoke
         ///     If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />. If the function
         ///     fails the error code is returned.
         /// </returns>
-        [DllImport(nameof(AdvApi32))]
+        [DllImport(api_ms_win_core_registry_l1_1_0)]
         public static extern Win32ErrorCode RegFlushKey(SafeRegistryHandle hKey);
 
         /// <summary>Notifies the caller about changes to the attributes or contents of a specified registry key.</summary>
@@ -959,7 +965,7 @@ namespace PInvoke
         ///     If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />. If the function
         ///     fails the error code is returned.
         /// </returns>
-        [DllImport(nameof(AdvApi32))]
+        [DllImport(api_ms_win_core_registry_l1_1_0)]
         public static extern Win32ErrorCode RegNotifyChangeKeyValue(
             SafeRegistryHandle hKey,
             bool bWatchSubtree,
@@ -990,7 +996,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [DllImport(api_ms_win_service_management_l2_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool QueryServiceStatusEx(
             SafeServiceHandle hService,
@@ -1012,7 +1018,7 @@ namespace PInvoke
         /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
         /// A service can use either function, but the new function supports user-defined context data, and the new handler function supports additional extended control codes.
         /// </remarks>
-        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_service_winsvc_l1_2_0, CharSet = CharSet.Unicode)]
         [Obsolete("Use LPHANDLER_FUNCTION_EX with RegisterServiceCtrlHandlerEx instead")]
 #pragma warning disable CS0618 // Type or member is obsolete
         public static extern IntPtr RegisterServiceCtrlHandler(string lpServiceName, LPHANDLER_FUNCTION lpHandlerProc);
@@ -1031,7 +1037,7 @@ namespace PInvoke
         /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
         /// A service can use either function, but the new function supports user-defined context data, and the new handler function supports additional extended control codes.
         /// </remarks>
-        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_service_core_l1_1_1, CharSet = CharSet.Unicode)]
         public static unsafe extern IntPtr RegisterServiceCtrlHandlerEx(
             string lpServiceName,
             LPHANDLER_FUNCTION_EX lpHandlerProc,
@@ -1173,7 +1179,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />.
         /// If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the FormatMessage function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
         /// </returns>
-        [DllImport(nameof(AdvApi32))]
+        [DllImport(api_ms_win_core_registry_l1_1_0)]
         internal static extern Win32ErrorCode RegCloseKey(IntPtr hKey);
 
         /// <summary>
@@ -1184,7 +1190,7 @@ namespace PInvoke
         /// <param name="sidString">A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the <see cref="LocalFree(void*)"/> function.</param>
         /// <returns>If the function succeeds, the return value is true, otherwise the return value is false.</returns>
         /// <remarks>The ConvertSidToStringSid function uses the standard S-R-I-S-S… format for SID strings.</remarks>
-        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport(api_ms_win_security_sddl_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static unsafe extern bool ConvertSidToStringSid(
             IntPtr sid,
@@ -1197,7 +1203,7 @@ namespace PInvoke
         /// <param name="StringSid">The string-format SID to convert. The SID string can use either the standard S-R-I-S-S… format for SID strings, or the SID string constant format, such as "BA" for built-in administrators.</param>
         /// <param name="sid">A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the <see cref="LocalFree(void*)"/> function.</param>
         /// <returns>If the function succeeds, the return value is true, otherwise the return value is false.</returns>
-        [DllImport(nameof(AdvApi32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport(api_ms_win_security_sddl_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static unsafe extern bool ConvertStringSidToSid(string StringSid, ref void* sid);
 
@@ -1228,7 +1234,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
-        [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool CryptReleaseContext(IntPtr hProv, uint dwFlags);
     }
