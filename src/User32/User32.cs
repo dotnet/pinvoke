@@ -647,6 +647,37 @@ namespace PInvoke
         public static extern unsafe bool PostMessage(IntPtr hWnd, WindowMessage wMsg, void* wParam, void* lParam);
 
         /// <summary>
+        /// Sends the specified message to one or more windows.
+        /// </summary>
+        /// <param name="hWnd">
+        /// A handle to the window whose window procedure will receive the message.
+        /// If this parameter is HWND_BROADCAST ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows.
+        /// The function does not return until each window has timed out.
+        /// Therefore, the total wait time can be up to the value of uTimeout multiplied by the number of top-level windows.
+        /// </param>
+        /// <param name="msg">
+        /// The message to be sent.
+        /// For lists of the system-provided messages, see <see cref="WindowMessage"/>.
+        /// </param>
+        /// <param name="wParam">Any additional message-specific information.</param>
+        /// <param name="lParam">Any additional message-specific information.</param>
+        /// <param name="flags">The behavior of this function. This parameter can be one or more of the following values: <see cref="SendMessageTimeoutFlags"/>. </param>
+        /// <param name="timeout">The duration of the time-out period, in milliseconds.
+        /// If the message is a broadcast message, each window can use the full time-out period.
+        /// For example, if you specify a five second time-out period and there are three top-level windows that fail to process the message, you could have up to a 15 second delay.
+        /// </param>
+        /// <param name="pdwResult">The result of the message processing. The value of this parameter depends on the message that is specified.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// SendMessageTimeout does not provide information about individual windows timing out if HWND_BROADCAST is used.
+        /// If the function fails or times out, the return value is 0.
+        /// To get extended error information, call GetLastError.
+        /// If GetLastError returns ERROR_TIMEOUT, then the function timed out.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr SendMessageTimeout(IntPtr hWnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, SendMessageTimeoutFlags flags, int timeout, out IntPtr pdwResult);
+
+        /// <summary>
         ///     Brings the thread that created the specified window into the foreground and activates the window. Keyboard
         ///     input is directed to the window, and various visual cues are changed for the user. The system assigns a slightly
         ///     higher priority to the thread that created the foreground window than it does to other threads.
