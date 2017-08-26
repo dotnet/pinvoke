@@ -10,7 +10,6 @@ namespace PInvoke
     {
         /// <summary>
         /// Possible flag values for <see cref="User32.SendMessageTimeout"/>
-        /// Documentation pulled from MSDN.
         /// </summary>
         public enum SendMessageTimeoutFlags : int
         {
