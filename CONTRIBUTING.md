@@ -25,6 +25,8 @@ With the appropriate switch, this script will perform a subset of these function
 Consider using Visual Studio Code or Visual Studio's Open Folder feature instead of opening
 the PInvoke.sln in Visual Studio 2017. In exchange for fewer features, you'll have a more responsive UI.
 
+Use Visual Studio 2017 Update 3 (15.3) or later to get several important fixes.
+
 If you proceed to open the solution in Visual Studio, the following workarounds are necessary:
 
 #### Workaround [NuGet/Home#4764](https://github.com/NuGet/Home/issues/4764)
@@ -53,9 +55,10 @@ at the root of the repo, from the Visual Studio Developer Command Prompt:
 .\build -Restore
 ```
 
-#### Workaround [dotnet/roslyn#17570](https://github.com/dotnet/roslyn/issues/17570)
+#### Consider use of "Lightweight solution load" carefully
 
-Make sure that "Lightweight solution load" is turned OFF before loading PInvoke.sln in Visual Studio, as shown here:
+Lightweight Solution Load is a new feature in VS 2017 and *may* be used with PInvoke.sln,
+but it seems to cause issues with package restore and Intellisense at least in some cases.
 
 ![Screenshot of Visual Studio's options page with lightweight solution load highlighted](doc/LightweightSolutionLoadOption.PNG)
 
