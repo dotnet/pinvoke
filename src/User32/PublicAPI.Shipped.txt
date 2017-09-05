@@ -1903,7 +1903,7 @@ static extern PInvoke.User32.GetWindowRect(System.IntPtr hWnd, out PInvoke.RECT 
 static extern PInvoke.User32.GetWindowText(System.IntPtr hWnd, char* lpString, int nMaxCount) -> int
 static extern PInvoke.User32.GetWindowTextLength(System.IntPtr hWnd) -> int
 static extern PInvoke.User32.GetWindowThreadProcessId(System.IntPtr hWnd, out int lpdwProcessId) -> int
-static extern PInvoke.User32.AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach) -> bool
+static extern PInvoke.User32.AttachThreadInput(int idAttach, int idAttachTo, bool fAttach) -> bool
 static extern PInvoke.User32.IsChild(System.IntPtr hWndParent, System.IntPtr hWnd) -> bool
 static extern PInvoke.User32.IsDialogMessage(System.IntPtr hDlg, PInvoke.User32.MSG* lpMsg) -> bool
 static extern PInvoke.User32.IsGUIThread(bool bConvert) -> PInvoke.HResult

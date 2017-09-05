@@ -257,7 +257,7 @@ namespace PInvoke
         // public static extern bool AttachThreadInput(int idAttach, int idAttachTo, bool fAttach);
         [DllImport("user32.dll", EntryPoint = "AttachThreadInput")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, [MarshalAs(UnmanagedType.Bool)] bool fAttach);
+        public static extern bool AttachThreadInput(int idAttach, int idAttachTo, [MarshalAs(UnmanagedType.Bool)] bool fAttach);
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
