@@ -249,10 +249,10 @@ namespace PInvoke
         /// <summary>
         /// Attaches or detaches the input processing mechanism of one thread to that of another thread.
         /// </summary>
-        /// <param name="idAttach">The identifier of the thread to be attached to another thread.The thread to be attached cannot be a system thread.</param>
-        /// <param name="idAttachTo">The identifier of the thread to which idAttach will be attached.This thread cannot be a system thread. A thread cannot attach to itself. Therefore, idAttachTo cannot equal idAttach.</param>
-        /// <param name="fAttach">If this parameter is TRUE, the two threads are attached.If the parameter is FALSE, the threads are detached.</param>
-        /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero.To get extended error information, call GetLastError. Windows Server2003 and WindowsXP:  There is no extended error information; do not call GetLastError.This behavior changed as of WindowsVista.</returns>
+        /// <param name="idAttach">The identifier of the thread to be attached to another thread. The thread to be attached cannot be a system thread.</param>
+        /// <param name="idAttachTo">The identifier of the thread to which idAttach will be attached. This thread cannot be a system thread. A thread cannot attach to itself. Therefore, idAttachTo cannot equal idAttach.</param>
+        /// <param name="fAttach">If this parameter is TRUE, the two threads are attached. If the parameter is FALSE, the threads are detached.</param>
+        /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError. Windows Server2003 and WindowsXP: There is no extended error information; do not call GetLastError. This behavior changed as of WindowsVista.</returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern bool AttachThreadInput(int idAttach, int idAttachTo, [MarshalAs(UnmanagedType.Bool)] bool fAttach);
 
