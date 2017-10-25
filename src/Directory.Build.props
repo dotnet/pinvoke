@@ -17,7 +17,6 @@
     <Copyright>Copyright © $(Authors)</Copyright>
     <Tags>pinvoke .net pcl</Tags>
 
-    <DefineConstants Condition=" '$(TargetFramework)' != 'net40' and '$(TargetFramework)' != 'net20' ">$(DefineConstants);APISets</DefineConstants>
     <NoWarn>CS1591</NoWarn>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -30,6 +29,8 @@
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
     <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
+
+    <DefineConstants Condition=" '$(TargetsDesktop)' != 'true' ">$(DefineConstants);APISets</DefineConstants>
 
     <CodeGenerationPackageVersion>0.4.6</CodeGenerationPackageVersion>
     <NerdbankGitVersioningPackageVersion>1.6.21</NerdbankGitVersioningPackageVersion>
