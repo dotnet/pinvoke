@@ -17,7 +17,7 @@
     <Copyright>Copyright © $(Authors)</Copyright>
     <Tags>pinvoke .net pcl</Tags>
 
-    <DefineConstants Condition=" '$(TargetFramework)' != 'net40' ">$(DefineConstants);APISets</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFramework)' != 'net40' and '$(TargetFramework)' != 'net20' ">$(DefineConstants);APISets</DefineConstants>
     <NoWarn>CS1591</NoWarn>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
