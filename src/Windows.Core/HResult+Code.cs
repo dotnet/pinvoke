@@ -72,6 +72,21 @@ namespace PInvoke
             /// Unexpected failure
             /// </summary>
             E_UNEXPECTED = 0x8000FFFF,
+
+            /// <summary>
+            /// The call was already canceled
+            /// </summary>
+            RPC_E_CALL_CANCELED = 0x80010002,
+
+            /// <summary>
+            /// The call was completed during the timeout interval
+            /// </summary>
+            RPC_E_CALL_COMPLETE = 0x80010117,
+
+            /// <summary>
+            /// Call cancellation is not enabled on the specified thread
+            /// </summary>
+            CO_E_CANCEL_DISABLED = 0x80010140,
         }
     }
 }
