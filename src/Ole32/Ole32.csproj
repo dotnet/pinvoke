@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>$(DesktopAndPortableFrameworks)</TargetFrameworks>
+    <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />

@@ -16,10 +16,10 @@ namespace PInvoke
         /// <summary>
         /// Enables cancellation of synchronous calls on the calling thread.
         /// </summary>
-        /// <param name="pReserved">This parameter is reserved and must be NULL.(<see cref="IntPtr.Zero"/>)</param>
+        /// <param name="pReserved">This parameter is reserved and must be NULL (<see cref="IntPtr.Zero"/>)</param>
         /// <returns>This function can return the standard return values <see cref="HResult.Code.S_OK"/>, <see cref="HResult.Code.E_FAIL"/>, <see cref="HResult.Code.E_INVALIDARG"/>, and <see cref="HResult.Code.E_OUTOFMEMORY"/>.</returns>
         [DllImport(nameof(Ole32))]
-        public static extern HResult CoEnableCallCancellation(IntPtr pReserved);
+        public static extern unsafe HResult CoEnableCallCancellation(void* pReserved);
 
         /// <summary>
         /// Undoes the action of a call to <see cref="CoEnableCallCancellation(IntPtr)"/>. Disables cancellation of synchronous calls on the calling thread when all calls to CoEnableCallCancellation are balanced by calls to CoDisableCallCancellation.
@@ -42,7 +42,7 @@ namespace PInvoke
         /// </list>
         /// </returns>
         [DllImport(nameof(Ole32))]
-        public static extern HResult CoDisableCallCancellation(IntPtr pReserved);
+        public static extern unsafe HResult CoDisableCallCancellation(void* pReserved);
 
         /// <summary>
         /// Requests cancellation of an outbound DCOM method call pending on a specified thread.
@@ -76,7 +76,12 @@ namespace PInvoke
         ///         <term>The call was already canceled.</term>
         ///     </item>
         /// </list></returns>
+        /// <remarks>
+        /// <paramref name="dwThreadId"/> is the ID of the native thread (typically obtained by
+        /// calling GetCurrentThreadId or GetThreadId functions. This is not the same as the
+        /// managed thread ID returned by <see cref="System.Threading.Thread.ManagedThreadId"/>
+        /// </remarks>
         [DllImport(nameof(Ole32))]
-        public static extern HResult CoCancelCall(uint dwThreadId, uint ulTimeout);
+        public static extern HResult CoCancelCall(int dwThreadId, int ulTimeout);
     }
 }

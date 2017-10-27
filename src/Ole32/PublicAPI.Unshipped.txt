@@ -1,6 +1,6 @@
 ﻿PInvoke.Ole32
-static extern PInvoke.Ole32.CoEnableCallCancellation(System.IntPtr pReserved) -> PInvoke.HResult
-static extern PInvoke.Ole32.CoDisableCallCancellation(System.IntPtr pReserved) -> PInvoke.HResult
-static extern PInvoke.Ole32.CoCancelCall(uint dwThreadId, uint ulTimeout) -> PInvoke.HResult
-static PInvoke.Ole32.CoEnableCallCancellation() -> PInvoke.HResult
-static PInvoke.Ole32.CoDisableCallCancellation() -> PInvoke.HResult
+static extern PInvoke.Ole32.CoEnableCallCancellation(void* pReserved) -> PInvoke.HResult
+static extern PInvoke.Ole32.CoDisableCallCancellation(void* pReserved) -> PInvoke.HResult
+static PInvoke.Ole32.CoEnableCallCancellation(System.IntPtr pReserved) -> PInvoke.HResult
+static PInvoke.Ole32.CoDisableCallCancellation(System.IntPtr pReserved) -> PInvoke.HResult
+static extern PInvoke.Ole32.CoCancelCall(int dwThreadId, int ulTimeout) -> PInvoke.HResult
