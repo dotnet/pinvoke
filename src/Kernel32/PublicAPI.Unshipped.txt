@@ -1,1 +1,2 @@
 static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
+static extern PInvoke.Kernel32.GetProcessId(IntPtr Process) -> int
