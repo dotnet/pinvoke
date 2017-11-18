@@ -160,7 +160,7 @@ namespace PInvoke
         /// <summary>
         /// Retrieves the process identifier of the specified process.
         /// </summary>
-        /// <param name="Process">A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights."/></param>
+        /// <param name="Process">A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see Process Security and Access Rights."</param>
         /// <returns>The process identifier of the specified process.</returns>
         [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static extern int GetProcessId(IntPtr Process);
