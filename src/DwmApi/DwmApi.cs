@@ -88,5 +88,14 @@ namespace PInvoke
         /// <returns>If this function succeeds, it returns <see cref="HResult.Code.S_OK"/>. Otherwise, it returns an <see cref="HResult"/> error code.</returns>
         [DllImport(nameof(DwmApi))]
         public static unsafe extern HResult DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, out void* pvAttribute, int cbAttribute);
+
+        /// <summary>
+        /// Extends the window frame into the client area.
+        /// </summary>
+        /// <param name="hWnd">The handle to the window in which the frame will be extended into the client area.</param>
+        /// <param name="margins">A pointer to a MARGINS structure that describes the margins to use when extending the frame into the client area.</param>
+        /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(DwmApi))]
+        public static extern HResult DwmExtendFrameIntoClientArea(System.IntPtr hWnd, PInvoke.UxTheme.MARGINS margins);
     }
 }

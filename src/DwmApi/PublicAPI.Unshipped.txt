@@ -1,0 +1,1 @@
+static extern PInvoke.DwmApi.DwmExtendFrameIntoClientArea(System.IntPtr hWnd, PInvoke.UxTheme.MARGINS margins) -> PInvoke.HResult
