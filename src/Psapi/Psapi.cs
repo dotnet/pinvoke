@@ -47,7 +47,7 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
         [DllImport(nameof(Psapi), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool EnumProcessModulesEx(IntPtr hProcess, [MarshalAs(UnmanagedType.LPArray)] [In][Out] IntPtr[] lphModule, uint cb, [MarshalAs(UnmanagedType.U4)] out uint lpcbNeeded, uint dwFilterFlag);
+        public static unsafe extern bool EnumProcessModulesEx(IntPtr hProcess, [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Array)] IntPtr* lphModule, int cb, [MarshalAs(UnmanagedType.U4)] out int lpcbNeeded, EnumProcessModulesFlags dwFilterFlag);
 
         /// <summary>
         /// Retrieves information about the specified module in the <see cref="MODULEINFO"/> structure.
@@ -59,7 +59,7 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
         [DllImport(nameof(Psapi), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetModuleInformation(IntPtr hProcess, IntPtr hModule, out MODULEINFO lpmodinfo, uint cb);
+        public static extern bool GetModuleInformation(IntPtr hProcess, IntPtr hModule, out MODULEINFO lpmodinfo, int cb);
 
         /// <summary>
         /// Retrieves the fully qualified path for the file containing the specified module.
@@ -71,6 +71,6 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value specifies the length of the string copied to the buffer. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
         [DllImport(nameof(Psapi), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.U4)]
-        public static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpFilename, uint nSize);
+        public static unsafe extern int GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFilename, int nSize);
     }
 }

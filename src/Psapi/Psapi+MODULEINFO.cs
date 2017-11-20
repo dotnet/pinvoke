@@ -3,7 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -16,12 +15,12 @@ namespace PInvoke
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
-        public partial struct MODULEINFO
+        public unsafe partial struct MODULEINFO
         {
             /// <summary>
             /// The base address of the module
             /// </summary>
-            public IntPtr lpBaseOfDll;
+            public void* lpBaseOfDll;
 
             /// <summary>
             /// The size of the module
@@ -31,7 +30,7 @@ namespace PInvoke
             /// <summary>
             /// The entry point of the module
             /// </summary>
-            public IntPtr EntryPoint;
+            public void* EntryPoint;
         }
     }
 }
