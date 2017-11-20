@@ -1,3 +1,8 @@
+PInvoke.Psapi.EnumProcessModulesFlags
+PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_DEFAULT = 0 -> PInvoke.Psapi.EnumProcessModulesFlags
+PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_32BIT = 1 -> PInvoke.Psapi.EnumProcessModulesFlags
+PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_64BIT = 2 -> PInvoke.Psapi.EnumProcessModulesFlags
+PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_ALL = 3 -> PInvoke.Psapi.EnumProcessModulesFlags
 PInvoke.Psapi.MODULEINFO
 PInvoke.Psapi.MODULEINFO.lpBaseOfDll -> void*
 PInvoke.Psapi.MODULEINFO.SizeOfImage -> uint
