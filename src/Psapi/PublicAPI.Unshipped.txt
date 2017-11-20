@@ -1,0 +1,7 @@
+PInvoke.Psapi.MODULEINFO
+PInvoke.Psapi.MODULEINFO.lpBaseOfDll -> System.IntPtr
+PInvoke.Psapi.MODULEINFO.SizeOfImage -> uint
+PInvoke.Psapi.MODULEINFO.EntryPoint -> System.IntPtr
+static extern PInvoke.Psapi.EnumProcessModulesEx(System.IntPtr hProcess, System.IntPtr[] lphModule, uint cb, out uint lpcbNeeded, uint dwFilterFlag) -> bool
+static extern PInvoke.Psapi.GetModuleInformation(System.IntPtr hProcess, System.IntPtr hModule, out PInvoke.Psapi.MODULEINFO lpmodinfo, uint cb) -> bool
+static extern PInvoke.Psapi.GetModuleFileNameEx(System.IntPtr hProcess, System.IntPtr hModule, System.Text.StringBuilder lpFilename, uint nSize) -> uint

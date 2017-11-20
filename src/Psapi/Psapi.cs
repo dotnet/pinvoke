@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Text;
     using static Kernel32;
 
     /// <content>Exported functions from the Psapi.dll Windows library that are available to Desktop apps only.</content>
@@ -34,5 +35,42 @@ namespace PInvoke
         [DllImport(nameof(Psapi), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EmptyWorkingSet(SafeObjectHandle hProcess);
+
+        /// <summary>
+        /// Retrieves a handle for each module in the specified process that meets the specified filter criteria.
+        /// </summary>
+        /// <param name="hProcess">A handle to the process.</param>
+        /// <param name="lphModule">An array that receives the list of module handles.</param>
+        /// <param name="cb">The size of the lphModule array, in bytes.</param>
+        /// <param name="lpcbNeeded">The number of bytes required to store all module handles in the lphModule array.</param>
+        /// <param name="dwFilterFlag">The filter criteria. This parameter can be one of the following values.</param>
+        /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(Psapi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumProcessModulesEx(IntPtr hProcess, [MarshalAs(UnmanagedType.LPArray)] [In][Out] IntPtr[] lphModule, uint cb, [MarshalAs(UnmanagedType.U4)] out uint lpcbNeeded, uint dwFilterFlag);
+
+        /// <summary>
+        /// Retrieves information about the specified module in the <see cref="MODULEINFO"/> structure.
+        /// </summary>
+        /// <param name="hProcess">A handle to the process that contains the module.</param>
+        /// <param name="hModule">A handle to the module.</param>
+        /// <param name="lpmodinfo">A pointer to the MODULEINFO structure that receives information about the module.</param>
+        /// <param name="cb">The size of the <see cref="MODULEINFO"/> structure, in bytes.</param>
+        /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(Psapi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetModuleInformation(IntPtr hProcess, IntPtr hModule, out MODULEINFO lpmodinfo, uint cb);
+
+        /// <summary>
+        /// Retrieves the fully qualified path for the file containing the specified module.
+        /// </summary>
+        /// <param name="hProcess">A handle to the process that contains the module.</param>
+        /// <param name="hModule">A handle to the module. If this parameter is NULL, GetModuleFileNameEx returns the path of the executable file of the process specified in hProcess.</param>
+        /// <param name="lpFilename">A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the nSize parameter, the function succeeds but the file name is truncated and null-terminated.</param>
+        /// <param name="nSize">The size of the lpFilename buffer, in characters.</param>
+        /// <returns>If the function succeeds, the return value specifies the length of the string copied to the buffer. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
+        [DllImport(nameof(Psapi), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.U4)]
+        public static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpFilename, uint nSize);
     }
 }
