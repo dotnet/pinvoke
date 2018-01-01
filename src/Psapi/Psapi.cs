@@ -41,13 +41,18 @@ namespace PInvoke
         /// </summary>
         /// <param name="hProcess">A handle to the process.</param>
         /// <param name="lphModule">An array that receives the list of module handles.</param>
-        /// <param name="cb">The size of the lphModule array, in bytes.</param>
-        /// <param name="lpcbNeeded">The number of bytes required to store all module handles in the lphModule array.</param>
+        /// <param name="cb">The size of the <paramref name="lphModule"/> array, in bytes.</param>
+        /// <param name="lpcbNeeded">The number of bytes required to store all module handles in the <paramref name="lphModule"/> array.</param>
         /// <param name="dwFilterFlag">The filter criteria. This parameter can be one of the following values.</param>
         /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
         [DllImport(nameof(Psapi), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool EnumProcessModulesEx(IntPtr hProcess, [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Array)] IntPtr* lphModule, int cb, [MarshalAs(UnmanagedType.U4)] out int lpcbNeeded, EnumProcessModulesFlags dwFilterFlag);
+        public static unsafe extern bool EnumProcessModulesEx(
+            IntPtr hProcess,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] IntPtr* lphModule,
+            int cb,
+            out int lpcbNeeded,
+            EnumProcessModulesFlags dwFilterFlag);
 
         /// <summary>
         /// Retrieves information about the specified module in the <see cref="MODULEINFO"/> structure.
@@ -70,7 +75,10 @@ namespace PInvoke
         /// <param name="nSize">The size of the lpFilename buffer, in characters.</param>
         /// <returns>If the function succeeds, the return value specifies the length of the string copied to the buffer. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
         [DllImport(nameof(Psapi), SetLastError = true, CharSet = CharSet.Unicode)]
-        [return: MarshalAs(UnmanagedType.U4)]
-        public static unsafe extern int GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFilename, int nSize);
+        public static unsafe extern int GetModuleFileNameEx(
+            IntPtr hProcess,
+            IntPtr hModule,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFilename,
+            int nSize);
     }
 }

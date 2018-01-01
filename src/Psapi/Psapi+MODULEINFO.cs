@@ -25,7 +25,7 @@ namespace PInvoke
             /// <summary>
             /// The size of the module
             /// </summary>
-            public uint SizeOfImage;
+            public int SizeOfImage;
 
             /// <summary>
             /// The entry point of the module

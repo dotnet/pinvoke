@@ -8,7 +8,7 @@ PInvoke.Psapi.MODULEINFO.EntryPoint -> void*
 PInvoke.Psapi.MODULEINFO.EntryPoint_IntPtr.get -> System.IntPtr
 PInvoke.Psapi.MODULEINFO.EntryPoint_IntPtr.set -> void
 PInvoke.Psapi.MODULEINFO.MODULEINFO() -> void
-PInvoke.Psapi.MODULEINFO.SizeOfImage -> uint
+PInvoke.Psapi.MODULEINFO.SizeOfImage -> int
 PInvoke.Psapi.MODULEINFO.lpBaseOfDll -> void*
 PInvoke.Psapi.MODULEINFO.lpBaseOfDll_IntPtr.get -> System.IntPtr
 PInvoke.Psapi.MODULEINFO.lpBaseOfDll_IntPtr.set -> void
