@@ -3,7 +3,6 @@
 
 namespace PInvoke
 {
-
     /// <content>
     /// Contains the <see cref="EnumProcessModulesFlags"/> nested type.
     /// </content>

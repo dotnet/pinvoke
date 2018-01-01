@@ -1,12 +1,21 @@
 PInvoke.Psapi.EnumProcessModulesFlags
-PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_DEFAULT = 0 -> PInvoke.Psapi.EnumProcessModulesFlags
 PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_32BIT = 1 -> PInvoke.Psapi.EnumProcessModulesFlags
 PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_64BIT = 2 -> PInvoke.Psapi.EnumProcessModulesFlags
 PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_ALL = 3 -> PInvoke.Psapi.EnumProcessModulesFlags
+PInvoke.Psapi.EnumProcessModulesFlags.LIST_MODULES_DEFAULT = 0 -> PInvoke.Psapi.EnumProcessModulesFlags
 PInvoke.Psapi.MODULEINFO
-PInvoke.Psapi.MODULEINFO.lpBaseOfDll -> void*
-PInvoke.Psapi.MODULEINFO.SizeOfImage -> uint
 PInvoke.Psapi.MODULEINFO.EntryPoint -> void*
+PInvoke.Psapi.MODULEINFO.EntryPoint_IntPtr.get -> System.IntPtr
+PInvoke.Psapi.MODULEINFO.EntryPoint_IntPtr.set -> void
+PInvoke.Psapi.MODULEINFO.MODULEINFO() -> void
+PInvoke.Psapi.MODULEINFO.SizeOfImage -> uint
+PInvoke.Psapi.MODULEINFO.lpBaseOfDll -> void*
+PInvoke.Psapi.MODULEINFO.lpBaseOfDll_IntPtr.get -> System.IntPtr
+PInvoke.Psapi.MODULEINFO.lpBaseOfDll_IntPtr.set -> void
+static PInvoke.Psapi.EnumProcessModulesEx(System.IntPtr hProcess, System.IntPtr lphModule, int cb, out int lpcbNeeded, PInvoke.Psapi.EnumProcessModulesFlags dwFilterFlag) -> bool
+static PInvoke.Psapi.EnumProcessModulesEx(System.IntPtr hProcess, System.IntPtr[] lphModule, int cb, out int lpcbNeeded, PInvoke.Psapi.EnumProcessModulesFlags dwFilterFlag) -> bool
+static PInvoke.Psapi.GetModuleFileNameEx(System.IntPtr hProcess, System.IntPtr hModule, System.IntPtr lpFilename, int nSize) -> int
+static PInvoke.Psapi.GetModuleFileNameEx(System.IntPtr hProcess, System.IntPtr hModule, char[] lpFilename, int nSize) -> int
 static extern PInvoke.Psapi.EnumProcessModulesEx(System.IntPtr hProcess, System.IntPtr* lphModule, int cb, out int lpcbNeeded, PInvoke.Psapi.EnumProcessModulesFlags dwFilterFlag) -> bool
-static extern PInvoke.Psapi.GetModuleInformation(System.IntPtr hProcess, System.IntPtr hModule, out PInvoke.Psapi.MODULEINFO lpmodinfo, int cb) -> bool
 static extern PInvoke.Psapi.GetModuleFileNameEx(System.IntPtr hProcess, System.IntPtr hModule, char* lpFilename, int nSize) -> int
+static extern PInvoke.Psapi.GetModuleInformation(System.IntPtr hProcess, System.IntPtr hModule, out PInvoke.Psapi.MODULEINFO lpmodinfo, int cb) -> bool
