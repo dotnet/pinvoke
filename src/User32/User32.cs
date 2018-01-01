@@ -2906,6 +2906,22 @@ namespace PInvoke
         public static extern void SetLastErrorEx(uint dwErrCode, uint dwType);
 
         /// <summary>
+        /// The <see cref="mouse_event(mouse_eventFlags, int, int, int, void*)"/> function synthesizes mouse motion and button clicks.
+        /// </summary>
+        /// <param name="dwFlags">Controls various aspects of mouse motion and button clicking.</param>
+        /// <param name="dx">The mouse's absolute position along the x-axis or its amount of motion since the last mouse event was generated, depending on the setting of <see cref="mouse_eventFlags.MOUSEEVENTF_ABSOLUTE" />. Absolute data is specified as the mouse's actual x-coordinate; relative data is specified as the number of mickeys moved. A mickey is the amount that a mouse has to move for it to report that it has moved.</param>
+        /// <param name="dy">The mouse's absolute position along the y-axis or its amount of motion since the last mouse event was generated, depending on the setting of <see cref="mouse_eventFlags.MOUSEEVENTF_ABSOLUTE" />. Absolute data is specified as the mouse's actual y-coordinate; relative data is specified as the number of mickeys moved.</param>
+        /// <param name="dwData">
+        /// If <paramref name="dwFlags"/> contains <see cref="mouse_eventFlags.MOUSEEVENTF_WHEEL"/>, then dwData specifies the amount of wheel movement. A positive value indicates that the wheel was rotated forward, away from the user; a negative value indicates that the wheel was rotated backward, toward the user. One wheel click is defined as WHEEL_DELTA, which is 120.
+        /// If <paramref name="dwFlags"/> contains <see cref="mouse_eventFlags.MOUSEEVENTF_HWHEEL" />, then dwData specifies the amount of wheel movement. A positive value indicates that the wheel was tilted to the right; a negative value indicates that the wheel was tilted to the left.
+        /// If <paramref name="dwFlags"/> contains <see cref="mouse_eventFlags.MOUSEEVENTF_XDOWN" /> or <see cref="mouse_eventFlags.MOUSEEVENTF_XUP" />, then <paramref name="dwData"/> specifies which X buttons were pressed or released. This value may be any combination of the following flags.
+        /// If <paramref name="dwFlags"/> is not <see cref="mouse_eventFlags.MOUSEEVENTF_WHEEL" />, <see cref="mouse_eventFlags.MOUSEEVENTF_XDOWN" />, or <see cref="mouse_eventFlags.MOUSEEVENTF_XUP" />, then <paramref name="dwData"/> should be zero.
+        /// </param>
+        /// <param name="dwExtraInfo">An additional value associated with the mouse event. An application calls GetMessageExtraInfo to obtain this extra information.</param>
+        [DllImport(nameof(User32))]
+        public static extern unsafe void mouse_event(mouse_eventFlags dwFlags, int dx, int dy, int dwData, void* dwExtraInfo);
+
+        /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
         /// </summary>
         /// <param name="hwnd">Handle to the window to be repainted.</param>
