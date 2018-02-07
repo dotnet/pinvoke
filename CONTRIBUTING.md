@@ -12,6 +12,7 @@ Please send pull requests to add what you've come up with.
   * Desktop development with C++
   * .NET desktop development
   * .NET Core cross-platform development
+    * plus the optional component ".NET Core 1.0 - 1.1 development tools for Desktop"
 
 ## Guidelines
 
