@@ -13,11 +13,11 @@ namespace PInvoke
         [StructLayout(LayoutKind.Sequential)]
         public struct MINMAXINFO
         {
-            public POINT ptMaxPosition;
-            public POINT ptMaxSize;
-            public POINT ptMaxTrackSize;
-            public POINT ptMinTrackSize;
             public POINT ptReserved;
+            public POINT ptMaxSize;
+            public POINT ptMaxPosition;
+            public POINT ptMinTrackSize;
+            public POINT ptMaxTrackSize;
         }
     }
 }

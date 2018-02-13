@@ -3,7 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -14,15 +13,15 @@ namespace PInvoke
         [StructLayout(LayoutKind.Sequential)]
         public struct WINDOWINFO
         {
-            public ushort atomWindowType;
             public uint cbSize;
+            public RECT rcWindow;
+            public RECT rcClient;
+            public uint dwStyle;
+            public uint dwExStyle;
+            public uint dwWindowStatus;
             public uint cxWindowBorders;
             public uint cyWindowBorders;
-            public uint dwExStyle;
-            public uint dwStyle;
-            public uint dwWindowStatus;
-            public RECT rcClient;
-            public RECT rcWindow;
+            public ushort atomWindowType;
             public ushort wCreatorVersion;
 
             public static WINDOWINFO Create()
