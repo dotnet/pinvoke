@@ -38,9 +38,9 @@ namespace PInvoke
 
             public IntPtr hbrBackground;
 
-            public char* lpszClassName;
-
             public char* lpszMenuName;
+
+            public char* lpszClassName;
 
             public IntPtr hIconSm;
 
