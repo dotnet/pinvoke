@@ -26,14 +26,14 @@ namespace PInvoke
             /// algorithm with the specified hash algorithm. This flag is only used by hash
             /// algorithm providers.
             /// </summary>
-            AlgorithmHandleHmac,
+            BCRYPT_ALG_HANDLE_HMAC_FLAG = 0x8,
 
             /// <summary>
             /// Creates a reusable hashing object. The object can be used for a new hashing
             /// operation immediately after calling BCryptFinishHash. For more information,
             /// see Creating a Hash with CNG.
             /// </summary>
-            HashReusable,
+            BCRYPT_HASH_REUSABLE_FLAG = 0x20,
         }
     }
 }
