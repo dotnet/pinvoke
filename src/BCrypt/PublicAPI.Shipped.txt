@@ -201,8 +201,8 @@ PInvoke.BCrypt.BCryptImportKeyPairFlags
 PInvoke.BCrypt.BCryptImportKeyPairFlags.BCRYPT_NO_KEY_VALIDATION = 8 -> PInvoke.BCrypt.BCryptImportKeyPairFlags
 PInvoke.BCrypt.BCryptImportKeyPairFlags.None = 0 -> PInvoke.BCrypt.BCryptImportKeyPairFlags
 PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
-PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.AlgorithmHandleHmac = 1 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
-PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.HashReusable = 2 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
+PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.BCRYPT_ALG_HANDLE_HMAC_FLAG = 8 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
+PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.BCRYPT_HASH_REUSABLE_FLAG = 32 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
 PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.None = 0 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
 PInvoke.BCrypt.BCryptSecretAgreementFlags
 PInvoke.BCrypt.BCryptSecretAgreementFlags.None = 0 -> PInvoke.BCrypt.BCryptSecretAgreementFlags

@@ -79,7 +79,7 @@ namespace PInvoke
         /// Windows 7:  This memory management functionality is available beginning with Windows 7.
         /// </param>
         /// <param name="secret">
-        /// A pointer to a buffer that contains the key to use for the hash or MAC. This key only applies to hash algorithms opened by the BCryptOpenAlgorithmProvider function by using the <see cref="BCryptOpenAlgorithmProviderFlags.AlgorithmHandleHmac"/> flag. Otherwise, set this parameter to NULL.
+        /// A pointer to a buffer that contains the key to use for the hash or MAC. This key only applies to hash algorithms opened by the BCryptOpenAlgorithmProvider function by using the <see cref="BCryptOpenAlgorithmProviderFlags.BCRYPT_ALG_HANDLE_HMAC_FLAG"/> flag. Otherwise, set this parameter to NULL.
         /// </param>
         /// <param name="flags">Flags that modify the behavior of the function.</param>
         /// <returns>
