@@ -2498,6 +2498,21 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool GetWindowPlacement(IntPtr hWnd, WINDOWPLACEMENT* lpwndpl);
 
+        /// <summary>Retrieves the show state and the restored, minimized, and maximized positions of the specified window.</summary>
+        /// <param name="hWnd">A handle to the window.</param>
+        /// <param name="lpwndpl">
+        /// A reference to the WINDOWPLACEMENT structure that receives the show state and position information.
+        /// Before calling GetWindowPlacement, set the length member to sizeof(WINDOWPLACEMENT). GetWindowPlacement fails if
+        /// lpwndpl-> length is not set correctly.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
+
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, POINT Point);
 

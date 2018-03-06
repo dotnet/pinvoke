@@ -369,5 +369,18 @@ namespace PInvoke
 
             return result;
         }
+
+        /// <summary>Attempts to retrieve the show state and the restored, minimized, and maximized positions of the specified window.</summary>
+        /// <param name="hWnd">A handle to the window.</param>
+        /// <returns>
+        /// A WINDOWPLACEMENT structure with the show state and position information.
+        /// If the data can not be retrieved, <c>null</c> is returned. In that case <see cref="GetLastError"/>
+        /// or <see cref="Win32Exception"/> can be used to obtain the error.
+        /// </returns>
+        public static unsafe WINDOWPLACEMENT? TryGetWindowPlacement(IntPtr hWnd)
+        {
+            var result = WINDOWPLACEMENT.Create();
+            return GetWindowPlacement(hWnd, &result) ? (WINDOWPLACEMENT?)result : null;
+        }
     }
 }
