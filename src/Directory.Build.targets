@@ -1,4 +1,8 @@
 <Project>
+  <PropertyGroup>
+    <RootNamespace Condition=" '$(IsTestProject)' == 'true' " />
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="desktop\**" Condition=" '$(TargetsDesktop)' != 'true' " />
     <Compile Include="$(MSBuildThisFileDirectory)net20Helpers\*.cs"
