@@ -54,6 +54,7 @@ dlldata.c
 *.tmp
 *.tmp_proj
 *.log
+msbuild.binlog
 *.wrn
 *.err
 *.vspscc
