@@ -1,4 +1,17 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.namespace PInvoke{    using System;    using System.Runtime.InteropServices;    /// <content>    /// Contains the <see cref="MSG"/> nested type.    /// </content>    public partial class User32    {        /// <summary>
+﻿LICENSE
+// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+
+namespace PInvoke
+{
+    using System;
+    using System.Runtime.InteropServices;
+
+    /// <content>
+    /// Contains the <see cref="MSG"/> nested type.
+    /// </content>
+    public partial class User32
+    {
+        /// <summary>
         /// Contains message information from a thread's message queue.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
@@ -34,4 +47,6 @@
             /// The cursor position, in screen coordinates, when the message was posted.
             /// </summary>
             public POINT pt;
-        }    }}
+        }
+    }
+}

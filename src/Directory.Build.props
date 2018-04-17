@@ -102,7 +102,7 @@
 
   <Target Name="SetNuSpecProperties" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
     <PropertyGroup>
-      <PackageLicenseUrl>https://raw.githubusercontent.com/AArnott/pinvoke/$(GitCommitIdShort)/LICENSE.txt</PackageLicenseUrl>
+      <PackageLicenseUrl>https://raw.githubusercontent.com/AArnott/pinvoke/$(GitCommitIdShort)/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
   </Target>
 </Project>

@@ -13,13 +13,13 @@
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/SPACE_AFTER_TYPECAST_PARENTHESES/@EntryValue">False</s:Boolean>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/WRAP_ARGUMENTS_STYLE/@EntryValue">CHOP_IF_LONG</s:String>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/WRAP_PARAMETERS_STYLE/@EntryValue">CHOP_IF_LONG</s:String>
-	
+
 	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/KEEP_BLANK_LINES_IN_DECLARATIONS/@EntryValue">1</s:Int64>
 	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/KEEP_BLANK_LINES_IN_CODE/@EntryValue">1</s:Int64>
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/SPACE_AROUND_MULTIPLICATIVE_OP/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/ThisQualifier/INSTANCE_MEMBERS_QUALIFY_MEMBERS/@EntryValue">15</s:String>
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/XmlDocFormatter/KeepUserLineBreaks/@EntryValue">False</s:Boolean>
-	
+
 	<s:Boolean x:Key="/Default/CodeStyle/CSharpUsing/AddImportsToDeepestScope/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeStyle/CSharpUsing/QualifiedUsingAtNestedScope/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=Constants/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
@@ -91,4 +91,4 @@
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=67C1E0A08AB96D4BB8249F5551FDFD07/Scope/=E8F0594528C33E45BBFEC6CFE851095D/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=67C1E0A08AB96D4BB8249F5551FDFD07/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=67C1E0A08AB96D4BB8249F5551FDFD07/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=67C1E0A08AB96D4BB8249F5551FDFD07/Text/@EntryValue">// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.&#xD;// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.&#xD;&#xD;namespace PInvoke&#xD;{&#xD;    /// &lt;content&gt;&#xD;    /// Contains the &lt;see cref="$NESTED$"/&gt; nested type.&#xD;    /// &lt;/content&gt;&#xD;	public partial class $BASECLASS$&#xD;	{&#xD;		/// &lt;summary&gt;&#xD;		/// &lt;/summary&gt;&#xD;		public class $NESTED$&#xD;		{&#xD;			$END$&#xD;		}&#xD;	}&#xD;}</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=67C1E0A08AB96D4BB8249F5551FDFD07/Text/@EntryValue">// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.&#xD;// Licensed under the MIT license. See LICENSE file in the project root for full license information.&#xD;&#xD;namespace PInvoke&#xD;{&#xD;    /// &lt;content&gt;&#xD;    /// Contains the &lt;see cref="$NESTED$"/&gt; nested type.&#xD;    /// &lt;/content&gt;&#xD;	public partial class $BASECLASS$&#xD;	{&#xD;		/// &lt;summary&gt;&#xD;		/// &lt;/summary&gt;&#xD;		public class $NESTED$&#xD;		{&#xD;			$END$&#xD;		}&#xD;	}&#xD;}</s:String></wpf:ResourceDictionary>

@@ -1,4 +1,16 @@
-﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.namespace PInvoke{    using System.Runtime.InteropServices;    /// <content>    /// Contains the <see cref="DLGTEMPLATE"/> nested type.    /// </content>    public partial class User32    {        /// <summary>
+﻿LICENSE
+// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+
+namespace PInvoke
+{
+    using System.Runtime.InteropServices;
+
+    /// <content>
+    /// Contains the <see cref="DLGTEMPLATE"/> nested type.
+    /// </content>
+    public partial class User32
+    {
+        /// <summary>
         ///     Defines the dimensions and style of a dialog box. This structure, always the first in a standard template for a
         ///     dialog box, also specifies the number of controls in the dialog box and therefore specifies the number of
         ///     subsequent <see cref="DLGITEMTEMPLATE" /> structures in the template.
@@ -51,4 +63,6 @@
             ///     The height, in dialog box units, of the dialog box.
             /// </summary>
             public byte cy;
-        }    }}
+        }
+    }
+}

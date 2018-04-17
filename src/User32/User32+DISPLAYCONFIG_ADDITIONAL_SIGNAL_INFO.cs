@@ -1,5 +1,5 @@
 ﻿// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
-// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #pragma warning disable SA1202 // Elements must be ordered by access
 #pragma warning disable SA1300 // Element must begin with upper-case letter
