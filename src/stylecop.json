@@ -4,7 +4,7 @@
     "documentationRules": {
       "companyName": "Andrew Arnott",
       "xmlHeader": false,
-      "copyrightText": "Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.\nLicensed under the {licenseName} license. See {licenseFile} file in the project root for full license information.",
+      "copyrightText": "Copyright (c) All contributors. All rights reserved.\nLicensed under the {licenseName} license. See {licenseFile} file in the project root for full license information.",
       "variables": {
         "licenseName": "MIT",
         "licenseFile": "LICENSE"

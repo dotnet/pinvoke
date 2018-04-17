@@ -1,4 +1,4 @@
-// Copyright (c) to owners found in https://github.com/AArnott/pinvoke/blob/master/COPYRIGHT.md. All rights reserved.
+// Copyright (c) All contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #if NET20 || NET40 || NET45 || NETSTANDARD1_1 || PROFILE111
