@@ -1,3 +1,24 @@
+PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.DCDC_DEFAULT = 0 -> PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.DCDC_DISABLE_FONT_UPDATE = 1 -> PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.DCDC_DISABLE_RELAYOUT = 2 -> PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS.DDC_DEFAULT = 0 -> PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS.DDC_DISABLE_ALL = 1 -> PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS.DDC_DISABLE_CONTROL_RELAYOUT = 3 -> PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS.DDC_DISABLE_RESIZE = 2 -> PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS
+PInvoke.User32.DPI_AWARENESS
+PInvoke.User32.DPI_AWARENESS.DPI_AWARENESS_INVALID = -1 -> PInvoke.User32.DPI_AWARENESS
+PInvoke.User32.DPI_AWARENESS.DPI_AWARENESS_PER_MONITOR_AWARE = 2 -> PInvoke.User32.DPI_AWARENESS
+PInvoke.User32.DPI_AWARENESS.DPI_AWARENESS_SYSTEM_AWARE = 1 -> PInvoke.User32.DPI_AWARENESS
+PInvoke.User32.DPI_AWARENESS.DPI_AWARENESS_UNAWARE = 0 -> PInvoke.User32.DPI_AWARENESS
+PInvoke.User32.DPI_AWARENESS_CONTEXT
+PInvoke.User32.DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT() -> void
+PInvoke.User32.DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT(System.IntPtr preexistingHandle) -> void
+PInvoke.User32.DPI_HOSTING_BEHAVIOR
+PInvoke.User32.DPI_HOSTING_BEHAVIOR.DPI_HOSTING_BEHAVIOR_DEFAULT = 0 -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
+PInvoke.User32.DPI_HOSTING_BEHAVIOR.DPI_HOSTING_BEHAVIOR_INVALID = -1 -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
+PInvoke.User32.DPI_HOSTING_BEHAVIOR.DPI_HOSTING_BEHAVIOR_MIXED = 1 -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
 PInvoke.User32.GetNextWindowCommands
 PInvoke.User32.GetNextWindowCommands.GW_HWNDNEXT = 2 -> PInvoke.User32.GetNextWindowCommands
 PInvoke.User32.GetNextWindowCommands.GW_HWNDPREV = 3 -> PInvoke.User32.GetNextWindowCommands
@@ -15,6 +36,9 @@ PInvoke.User32.SendMessageTimeoutFlags.SMTO_BLOCK = 1 -> PInvoke.User32.SendMess
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_ERRORONEXIT = 32 -> PInvoke.User32.SendMessageTimeoutFlags
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_NORMAL = 0 -> PInvoke.User32.SendMessageTimeoutFlags
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_NOTIMEOUTIFNOTHUNG = 8 -> PInvoke.User32.SendMessageTimeoutFlags
+PInvoke.User32.WindowMessage.WM_DPICHANGED_AFTERPARENT = 739 -> PInvoke.User32.WindowMessage
+PInvoke.User32.WindowMessage.WM_DPICHANGED_BEFOREPARENT = 738 -> PInvoke.User32.WindowMessage
+PInvoke.User32.WindowMessage.WM_GETDPISCALEDSIZE = 740 -> PInvoke.User32.WindowMessage
 PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_ABSOLUTE = 32768 -> PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_HWHEEL = 4096 -> PInvoke.User32.mouse_eventFlags
@@ -28,14 +52,57 @@ PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_RIGHTUP = 16 -> PInvoke.User32.mouse
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_WHEEL = 2048 -> PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_XDOWN = 128 -> PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_XUP = 256 -> PInvoke.User32.mouse_eventFlags
+override PInvoke.User32.DPI_AWARENESS_CONTEXT.IsInvalid.get -> bool
+override PInvoke.User32.DPI_AWARENESS_CONTEXT.ReleaseHandle() -> bool
+static PInvoke.User32.AdjustWindowRectExForDpi(System.IntPtr lpRect, PInvoke.User32.WindowStyles dwStyle, bool bMenu, PInvoke.User32.WindowStylesEx dwExStyle, int dpi) -> bool
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, System.IntPtr lpParam) -> System.IntPtr
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, void* lpParam) -> System.IntPtr
+static PInvoke.User32.DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE.get -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static PInvoke.User32.DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2.get -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static PInvoke.User32.DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT_SYSTEM_AWARE.get -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static PInvoke.User32.DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT_UNAWARE.get -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static PInvoke.User32.DPI_AWARENESS_CONTEXT.NULL.get -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static PInvoke.User32.EnableNonClientDpiScaling(System.IntPtr hwnd) -> bool
+static PInvoke.User32.GetDialogControlDpiChangeBehavior(System.IntPtr hWnd) -> PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS
+static PInvoke.User32.GetDialogDpiChangeBehavior(System.IntPtr hDlg) -> PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS
+static PInvoke.User32.GetDpiForWindow(System.IntPtr hwnd) -> int
 static PInvoke.User32.GetNextWindow(System.IntPtr hWnd, PInvoke.User32.GetNextWindowCommands wCmd) -> System.IntPtr
+static PInvoke.User32.GetSystemDpiForProcess(System.IntPtr hProcess) -> int
+static PInvoke.User32.GetWindowDpiAwarenessContext(System.IntPtr hwnd) -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static PInvoke.User32.GetWindowDpiHostingBehavior(System.IntPtr hwnd) -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
+static PInvoke.User32.IsValidDpiAwarenessContext(System.IntPtr dpiAwarenessContext) -> bool
+static PInvoke.User32.OpenThemeDataForDpi(System.IntPtr hwnd, string pszClassIdList, int dpi) -> System.IntPtr
+static PInvoke.User32.SetDialogControlDpiChangeBehavior(System.IntPtr hwnd, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS values) -> bool
+static PInvoke.User32.SetDialogDpiChangeBehavior(System.IntPtr hDlg, PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS values) -> bool
+static PInvoke.User32.SystemParametersInfoForDpi(PInvoke.User32.SystemParametersInfoAction uiAction, int uiParam, System.IntPtr pvParam, PInvoke.User32.SystemParametersInfoFlags fWinIni, int dpi) -> bool
 static PInvoke.User32.mouse_event(PInvoke.User32.mouse_eventFlags dwFlags, int dx, int dy, int dwData, System.IntPtr dwExtraInfo) -> void
+static extern PInvoke.User32.AdjustWindowRectExForDpi(PInvoke.RECT* lpRect, PInvoke.User32.WindowStyles dwStyle, bool bMenu, PInvoke.User32.WindowStylesEx dwExStyle, int dpi) -> bool
+static extern PInvoke.User32.AreDpiAwarenessContextsEqual(PInvoke.User32.DPI_AWARENESS_CONTEXT dpiContextA, PInvoke.User32.DPI_AWARENESS_CONTEXT dpiContextB) -> bool
 static extern PInvoke.User32.DestroyWindow(System.IntPtr hWnd) -> bool
+static extern PInvoke.User32.EnableNonClientDpiScaling(void* hwnd) -> bool
+static extern PInvoke.User32.GetAwarenessFromDpiAwarenessContext(PInvoke.User32.DPI_AWARENESS_CONTEXT dpiAwarenessContext) -> PInvoke.User32.DPI_AWARENESS
+static extern PInvoke.User32.GetDialogControlDpiChangeBehavior(void* hWnd) -> PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS
+static extern PInvoke.User32.GetDialogDpiChangeBehavior(void* hDlg) -> PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS
+static extern PInvoke.User32.GetDpiForSystem() -> int
+static extern PInvoke.User32.GetDpiForWindow(void* hwnd) -> int
+static extern PInvoke.User32.GetDpiFromDpiAwarenessContext(PInvoke.User32.DPI_AWARENESS_CONTEXT dpiAwarenessContext) -> int
+static extern PInvoke.User32.GetSystemDpiForProcess(void* hProcess) -> int
+static extern PInvoke.User32.GetSystemMetricsForDpi(int nIndex, int dpi) -> bool
+static extern PInvoke.User32.GetThreadDpiAwarenessContext() -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static extern PInvoke.User32.GetThreadDpiHostingBehavior() -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
 static extern PInvoke.User32.GetTopWindow(System.IntPtr hWnd) -> System.IntPtr
 static extern PInvoke.User32.GetWindow(System.IntPtr hWnd, PInvoke.User32.GetWindowCommands wCmd) -> System.IntPtr
+static extern PInvoke.User32.GetWindowDpiAwarenessContext(void* hwnd) -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static extern PInvoke.User32.GetWindowDpiHostingBehavior(void* hwnd) -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
+static extern PInvoke.User32.IsValidDpiAwarenessContext(void* dpiAwarenessContext) -> bool
+static extern PInvoke.User32.OpenThemeDataForDpi(void* hwnd, string pszClassIdList, int dpi) -> void*
 static extern PInvoke.User32.SendMessageTimeout(System.IntPtr hWnd, PInvoke.User32.WindowMessage msg, System.IntPtr wParam, System.IntPtr lParam, PInvoke.User32.SendMessageTimeoutFlags flags, int timeout, out System.IntPtr pdwResult) -> System.IntPtr
+static extern PInvoke.User32.SetDialogControlDpiChangeBehavior(void* hwnd, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS values) -> bool
+static extern PInvoke.User32.SetDialogDpiChangeBehavior(void* hDlg, PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS values) -> bool
 static extern PInvoke.User32.SetLastErrorEx(uint dwErrCode, uint dwType) -> void
+static extern PInvoke.User32.SetProcessDpiAwarenessContext(PInvoke.User32.DPI_AWARENESS_CONTEXT dpiAWarenessContext) -> bool
+static extern PInvoke.User32.SetThreadDpiAwarenessContext(PInvoke.User32.DPI_AWARENESS_CONTEXT dpiContext) -> PInvoke.User32.DPI_AWARENESS_CONTEXT
+static extern PInvoke.User32.SetThreadDpiHostingBehavior(PInvoke.User32.DPI_HOSTING_BEHAVIOR dpiHostingBehavior) -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
 static extern PInvoke.User32.SetWindowText(System.IntPtr hWnd, string lpString) -> bool
+static extern PInvoke.User32.SystemParametersInfoForDpi(PInvoke.User32.SystemParametersInfoAction uiAction, int uiParam, void* pvParam, PInvoke.User32.SystemParametersInfoFlags fWinIni, int dpi) -> bool
 static extern PInvoke.User32.mouse_event(PInvoke.User32.mouse_eventFlags dwFlags, int dx, int dy, int dwData, void* dwExtraInfo) -> void

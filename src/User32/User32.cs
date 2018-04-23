@@ -11,7 +11,7 @@ namespace PInvoke
     using PInvoke;
     using static PInvoke.Kernel32;
 
-    #pragma warning disable SA1300 // Elements must begin with an uppercase letter
+#pragma warning disable SA1300 // Elements must begin with an uppercase letter
 
     /// <summary>
     /// Exported functions from the User32.dll Windows library.
@@ -2920,6 +2920,381 @@ namespace PInvoke
         /// <param name="dwExtraInfo">An additional value associated with the mouse event. An application calls GetMessageExtraInfo to obtain this extra information.</param>
         [DllImport(nameof(User32))]
         public static extern unsafe void mouse_event(mouse_eventFlags dwFlags, int dx, int dy, int dwData, void* dwExtraInfo);
+
+        /// <summary>
+        /// Calculates the required size of the window rectangle, based on the desired size of the client rectangle and the provided DPI. This window rectangle can then be passed to the CreateWindowEx function to create a window with a client area of the desired size.
+        /// </summary>
+        /// <param name="lpRect">A pointer to a <see cref="RECT"/> structure that contains the coordinates of the top-left and bottom-right corners of the desired client area. When the function returns, the structure contains the coordinates of the top-left and bottom-right corners of the window to accommodate the desired client area.</param>
+        /// <param name="dwStyle">The Window Style of the window whose required size is to be calculated. Note that you cannot specify the <see cref="WindowStyles.WS_OVERLAPPED"/> style.</param>
+        /// <param name="bMenu">Indicates whether the window has a menu.</param>
+        /// <param name="dwExStyle">The Extended Window Style of the window whose required size is to be calculated.</param>
+        /// <param name="dpi">The DPI to use for scaling.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true.
+        /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool AdjustWindowRectExForDpi(
+            [In][Out] RECT* lpRect,
+            [In] WindowStyles dwStyle,
+            [In] [MarshalAs(UnmanagedType.Bool)] bool bMenu,
+            [In] WindowStylesEx dwExStyle,
+            [In] int dpi);
+
+        /// <summary>
+        /// Determines whether two <see cref="DPI_AWARENESS_CONTEXT"/> values are identical.
+        /// </summary>
+        /// <param name="dpiContextA">The first value to compare.</param>
+        /// <param name="dpiContextB">The second value to compare.</param>
+        /// <returns>Returns true if the values are equal, otherwise false.</returns>
+        /// <remarks>
+        /// A <see cref="DPI_AWARENESS_CONTEXT"/> contains multiple pieces of information. For example, it includes both the current and the inherited <see cref="DPI_AWARENESS"/> values. AreDpiAwarenessContextsEqual ignores informational flags and determines if the values are equal. You can't use a direct bitwise comparison because of these informational flags.
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AreDpiAwarenessContextsEqual(
+            [In] DPI_AWARENESS_CONTEXT dpiContextA,
+            [In] DPI_AWARENESS_CONTEXT dpiContextB);
+
+        /// <summary>
+        /// In high-DPI displays, enables automatic display scaling of the non-client area portions of the specified top-level window. Must be called during the initialization of that window.
+        /// </summary>
+        /// <param name="hwnd">The window that should have automatic scaling enabled.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true.
+        /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool EnableNonClientDpiScaling([In] void* hwnd);
+
+        /// <summary>
+        /// Retrieves the <see cref="DPI_AWARENESS"/> value from a <see cref="DPI_AWARENESS_CONTEXT"/>.
+        /// </summary>
+        /// <param name="dpiAwarenessContext">The <see cref="DPI_AWARENESS_CONTEXT"/> you want to examine.</param>
+        /// <returns>The <see cref="DPI_AWARENESS"/>. If the provided <paramref name="dpiAwarenessContext"/> is null or invalid, this method will return <see cref="DPI_AWARENESS.DPI_AWARENESS_INVALID"/>.</returns>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern DPI_AWARENESS GetAwarenessFromDpiAwarenessContext([In]DPI_AWARENESS_CONTEXT dpiAwarenessContext);
+
+        /// <summary>
+        /// Returns the system DPI.
+        /// </summary>
+        /// <returns>The system DPI value.</returns>
+        /// <remarks>
+        /// The return value will be dependent based upon the calling context. If the current thread has a <see cref="DPI_AWARENESS"/> value of <see cref="DPI_AWARENESS.DPI_AWARENESS_UNAWARE"/>, the return value will be 96. That is because the current context always assumes a DPI of 96. For any other <see cref="DPI_AWARENESS"/> value, the return value will be the actual system DPI.
+        /// You should not cache the system DPI, but should use GetDpiForSystem whenever you need the system DPI value.
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern int GetDpiForSystem();
+
+        /// <summary>
+        /// Returns the dots per inch (dpi) value for the associated window.
+        /// </summary>
+        /// <param name="hwnd">The window you want to get information about.</param>
+        /// <returns>The DPI for the window which depends on the <see cref="DPI_AWARENESS"/> of the window. An invalid <paramref name="hwnd"/> value will result in a return value of 0.</returns>
+        /// <remarks>
+        /// The following table indicates the return value of GetDpiForWindow based on the <see cref="DPI_AWARENESS"/> of the provided <paramref name="hwnd"/>.
+        /// +---------------------------------+-----------------------------------------------------+
+        /// |          DPI_AWARENESS          |                    Return value                     |
+        /// +---------------------------------+-----------------------------------------------------+
+        /// | DPI_AWARENESS_UNAWARE           | 96                                                  |
+        /// | DPI_AWARENESS_SYSTEM_AWARE      | The system DPI.                                     |
+        /// | DPI_AWARENESS_PER_MONITOR_AWARE | The DPI of the monitor where the window is located. |
+        /// +---------------------------------+-----------------------------------------------------+
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern unsafe int GetDpiForWindow([In] void* hwnd);
+
+        /// <summary>
+        /// Retrieves the specified system metric or system configuration setting taking into account a provided DPI.
+        /// </summary>
+        /// <param name="nIndex">The system metric or configuration setting to be retrieved. See <see cref="GetSystemMetrics(SystemMetric)"/> for the possible values.</param>
+        /// <param name="dpi">The DPI to use for scaling the metric.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true.
+        /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>This function returns the same result as <see cref="GetSystemMetrics(SystemMetric)"/> but scales it according to an arbitrary DPI you provide if appropriate.</remarks>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetSystemMetricsForDpi([In] int nIndex, [In] int dpi);
+
+        /// <summary>
+        /// Gets the <see cref="DPI_AWARENESS_CONTEXT"/> for the current thread.
+        /// </summary>
+        /// <returns>The current <see cref="DPI_AWARENESS_CONTEXT"/> for the thread.</returns>
+        /// <remarks>
+        /// This method will return the latest <see cref="DPI_AWARENESS_CONTEXT"/> sent to SetThreadDpiAwarenessContext. If SetThreadDpiAwarenessContext was never called for this thread, then the return value will equal the default <see cref="DPI_AWARENESS_CONTEXT"/> for the process.
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern DPI_AWARENESS_CONTEXT GetThreadDpiAwarenessContext();
+
+        /// <summary>
+        /// Returns the <see cref="DPI_AWARENESS_CONTEXT"/> associated with a window.
+        /// </summary>
+        /// <param name="hwnd">The window to query.</param>
+        /// <returns>The <see cref="DPI_AWARENESS_CONTEXT"/> for the provided window. If the window is not valid, the return value is NULL.</returns>
+        /// <remarks>
+        /// The return value of GetWindowDpiAwarenessContext is not affected by the <see cref="DPI_AWARENESS"/> of the current thread. It only indicates the context of the window specified by the <paramref name="hwnd"/> input parameter.
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern unsafe DPI_AWARENESS_CONTEXT GetWindowDpiAwarenessContext([In] void* hwnd);
+
+        /// <summary>
+        /// Determines if a specified DPI_AWARENESS_CONTEXT is valid and supported by the current system.
+        /// </summary>
+        /// <param name="dpiAwarenessContext">The context that you want to determine if it is supported.</param>
+        /// <returns>true if the provided context is supported, otherwise false.</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item>
+        /// IsValidDpiAwarenessContext determines the validity of any provided DPI_AWARENESS_CONTEXT. You should make sure a context is valid before using SetThreadDpiAwarenessContext to that context.
+        /// An input value of NULL is considered to be an invalid context and will result in a return value of false.
+        /// </item>
+        /// <item>
+        /// This function operates on a pointer rather than on <see cref="DPI_AWARENESS_CONTEXT"/> SafeHandle. This is intentional because this function is used to determine the validity of the SafeHandle itself. It is
+        /// called indirectly by <see cref="DPI_AWARENESS_CONTEXT.IsInvalid"/>
+        /// </item>
+        /// </list>
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool IsValidDpiAwarenessContext([In] void* dpiAwarenessContext);
+
+        /// <summary>
+        /// Set the DPI awareness for the current thread to the provided value.
+        /// </summary>
+        /// <param name="dpiContext">The new <see cref="DPI_AWARENESS_CONTEXT"/> for the current thread. This context includes the <see cref="DPI_AWARENESS"/> value.</param>
+        /// <returns>The old <see cref="DPI_AWARENESS_CONTEXT"/> for the thread. If the <paramref name="dpiContext"/> is invalid, the thread will not be updated and the return value will be NULL. You can use this value to restore the old <see cref="DPI_AWARENESS_CONTEXT"/> after overriding it with a predefined value.</returns>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern DPI_AWARENESS_CONTEXT SetThreadDpiAwarenessContext([In] DPI_AWARENESS_CONTEXT dpiContext);
+
+        /// <summary>
+        /// Retrieves the value of one of the system-wide parameters, taking into account the provided DPI value.
+        /// </summary>
+        /// <param name="uiAction">The system-wide parameter to be retrieved. This function is only intended for use with <see cref="SystemParametersInfoAction.SPI_GETICONTITLELOGFONT"/>, <see cref="SystemParametersInfoAction.SPI_GETICONMETRICS"/>, or <see cref="SystemParametersInfoAction.SPI_GETNONCLIENTMETRICS"/>. See <see cref="SystemParametersInfoAction"/> for more information on these values.</param>
+        /// <param name="uiParam">A parameter whose usage and format depends on the system parameter being queried. For more information about system-wide parameters, see the <paramref name="uiAction"/> parameter. If not otherwise indicated, you must specify zero for this parameter.</param>
+        /// <param name="pvParam">A parameter whose usage and format depends on the system parameter being queried. For more information about system-wide parameters, see the <paramref name="uiAction"/> parameter. If not otherwise indicated, you must specify NULL for this parameter.</param>
+        /// <param name="fWinIni">Has no effect for with this API. This parameter only has an effect if you're setting parameter.</param>
+        /// <param name="dpi">The DPI to use for scaling the metric.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true.
+        /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>
+        /// This function returns a similar result as SystemParametersInfo, but scales it according to an arbitrary DPI you provide (if appropriate). It only scales with the following possible values for uiAction:
+        ///     SPI_GETICONTITLELOGFONT, SPI_GETICONMETRICS, SPI_GETNONCLIENTMETRICS.
+        /// Other possible uiAction values do not provide ForDPI behavior, and therefore this function returns 0 if called with them.
+        /// For uiAction values that contain strings within their associated structures, only Unicode(LOGFONTW) strings are supported in this function.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SystemParametersInfoForDpi(
+            [In] SystemParametersInfoAction uiAction,
+            [In] int uiParam,
+            [In][Out] void* pvParam,
+            [In] SystemParametersInfoFlags fWinIni,
+            [In] int dpi);
+
+        /// <summary>
+        /// Sets the current process to a specified dots per inch (dpi) awareness context. The DPI awareness contexts are from the <see cref="DPI_AWARENESS_CONTEXT"/> value.
+        /// </summary>
+        /// <param name="dpiAWarenessContext">The DPI awareness value to set. Possible values are from the <see cref="DPI_AWARENESS_CONTEXT"/> enumeration.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true.
+        /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
+        ///
+        /// Possible errors are <see cref="Win32ErrorCode.ERROR_INVALID_PARAMETER"/> for an invalid input, and <see cref="Win32ErrorCode.ERROR_ACCESS_DENIED"/> if the default API awareness mode for the process has already been set (via a previous API call or within the application manifest).
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProcessDpiAwarenessContext([In] DPI_AWARENESS_CONTEXT dpiAWarenessContext);
+
+        /// <summary>
+        /// Dialogs in Per-Monitor v2 contexts are automatically DPI scaled. This method lets you customize their DPI change behavior.
+        /// This function works in conjunction with the <see cref="DIALOG_DPI_CHANGE_BEHAVIORS"/> enum in order to override the default DPI scaling behavior for
+        /// dialogs.This function is called on a specified dialog, for which the specified flags are individually saved.
+        /// This function does not affect the DPI scaling behavior for the child windows of the dialog in question - that is done with SetDialogControlDpiChangeBehavior.
+        /// </summary>
+        /// <param name="hDlg">A handle for the dialog whose behavior will be modified.</param>
+        /// <param name="mask">A mask specifying the subset of flags to be changed.</param>
+        /// <param name="values">The desired value to be set for the specified subset of flags.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true.
+        /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
+        ///
+        /// Possible errors are <see cref="Win32ErrorCode.ERROR_INVALID_HANDLE"/> for an invalid dialog HWND, and <see cref="Win32ErrorCode.ERROR_ACCESS_DENIED"/> if if the dialog belongs to another process.
+        /// </returns>
+        /// <remarks>
+        /// For extensibility, <see cref="DIALOG_DPI_CHANGE_BEHAVIORS"/> was modeled as a set of bit-flags representing separate behaviors. This function
+        /// follows the typical two-parameter approach to setting flags, where a mask specifies the subset of the flags to be changed.
+        /// It is not an error to call this API outside of Per Monitor v2 contexts, though the flags will have no effect on the behavior of the
+        /// specified dialog until the context is changed to Per Monitor v2.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool SetDialogDpiChangeBehavior(
+            void* hDlg,
+            DIALOG_DPI_CHANGE_BEHAVIORS mask,
+            DIALOG_DPI_CHANGE_BEHAVIORS values);
+
+        /// <summary>
+        /// Returns the flags that might have been set on a given dialog by an earlier call to SetDialogDpiChangeBehavior.
+        /// If that function was never called on the dialog, the return value will be 0.
+        /// </summary>
+        /// <param name="hDlg">The handle for the dialog to examine.</param>
+        /// <returns>The flags set on the given dialog. If passed an invalid handle, this function will return 0, and set its last error to <see cref="Win32ErrorCode.ERROR_INVALID_HANDLE"/>.</returns>
+        /// <remarks>
+        /// It can be difficult to distinguish between a return value of <see cref="DIALOG_DPI_CHANGE_BEHAVIORS.DDC_DEFAULT"/> and the error case, which is zero. To determine between the two, it is recommended that you call <see cref="GetLastError"/> to check the error.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe DIALOG_DPI_CHANGE_BEHAVIORS GetDialogDpiChangeBehavior(void* hDlg);
+
+        /// <summary>
+        /// Overrides the default per-monitor DPI scaling behavior of a child window in a dialog.
+        /// </summary>
+        /// <param name="hwnd">A handle for the window whose behavior will be modified.</param>
+        /// <param name="mask">A mask specifying the subset of flags to be changed.</param>
+        /// <param name="values">The desired value to be set for the specified subset of flags.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true.
+        /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
+        ///
+        /// Possible errors are <see cref="Win32ErrorCode.ERROR_INVALID_HANDLE"/> if passed an invalid HWND, and <see cref="Win32ErrorCode.ERROR_ACCESS_DENIED"/> if the windows belongs to another process.
+        /// </returns>
+        /// <remarks>
+        /// The behaviors are specified as values from the <see cref="DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS"/> enum. This function follows the typical two-parameter approach
+        /// to setting flags, where a mask specifies the subset of the flags to be changed.
+        /// It is valid to set these behaviors on any window.It does not matter if the window is currently a child of a dialog at the point in time that SetDialogControlDpiChangeBehavior is
+        /// called.The behaviors are retained and will take effect only when the window is an immediate child of a dialog that has per-monitor DPI scaling enabled.
+        /// This API influences individual controls within dialogs.The dialog-wide per-monitor DPI scaling behavior is controlled by SetDialogDpiChangeBehavior.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool SetDialogControlDpiChangeBehavior(
+            void* hwnd,
+            DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS mask,
+            DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS values);
+
+        /// <summary>
+        /// Retrieves and per-monitor DPI scaling behavior overrides of a child window in a dialog.
+        /// </summary>
+        /// <param name="hWnd">The handle for the window to examine.</param>
+        /// <returns>The flags set on the given window. If passed an invalid handle, this function will return zero, and set its last error to <see cref="Win32ErrorCode.ERROR_INVALID_HANDLE"/>.</returns>
+        /// <remarks>It can be difficult to distinguish between a return value of <see cref="DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.DCDC_DEFAULT"/> and the error case, which is zero. To determine between the two, it is recommended that you call <see cref="GetLastError"/> to check the error.</remarks>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        public static extern unsafe DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS GetDialogControlDpiChangeBehavior(void* hWnd);
+
+        /// <summary>
+        /// A variant of OpenThemeData that opens a theme handle associated with a specific DPI.
+        /// </summary>
+        /// <param name="hwnd">The handle of the window for which theme data is required.</param>
+        /// <param name="pszClassIdList">A pointer to a string that contains a semicolon-separated list of classes.</param>
+        /// <param name="dpi">The specified DPI value with which to associate the theme handle. The function will return an error if this value is outside of those that correspond to the set of connected monitors.</param>
+        /// <returns>See OpenThemeData</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item>
+        /// uxtheme!OpenThemeData will create theme handles associated with the DPI of a window when used with Per Monitor v2 windows. OpenThemeDataForDpi
+        /// allows you to open a theme handle for a specific DPI when you do not have a window at that DPI.
+        /// The behavior of the returned theme handle will be undermined if the requested DPI value does not correspond to a currently connected display.The theming system only loads theme assets
+        /// for the set of DPI values corresponding to the currently connected displays.
+        /// The theme handle will become invalid anytime the system reloads the theme data.Applications are required to monitor <see cref="WindowMessage.WM_THEMECHANGED"/> and close and reopen all
+        /// theme handles in response.This behavior is the same regardless of whether the handles were opened via OpenThemeData or OpenThemeDataForDpi.
+        /// </item>
+        /// <item>Instead of returning a SafeHandle, we return pointer. This should be immediately converted into a SafeHandle. Doing so automatically in this library would require a dependency
+        /// dependency from User32 to UxTheme, which is being avoided here</item>
+        /// </list>
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern unsafe void* OpenThemeDataForDpi(
+            void* hwnd,
+            [MarshalAs(UnmanagedType.LPWStr)] string pszClassIdList,
+            int dpi);
+
+        /// <summary>
+        /// Retrieves the system DPI associated with a given process. This is useful for avoiding compatibility issues that arise from sharing DPI-sensitive information between multiple system-aware processes with different system DPI values.
+        /// </summary>
+        /// <param name="hProcess">The handle for the process to examine. If this value is null, this API behaves identically to <see cref="GetDpiForSystem"/>.</param>
+        /// <returns>The process's system DPI value.</returns>
+        /// <remarks>
+        /// The return value will be dependent based upon the process passed as a parameter. If the specified process has a
+        /// <see cref="DPI_AWARENESS"/> value of <see cref="DPI_AWARENESS.DPI_AWARENESS_UNAWARE"/>, the return value will be 96. That is because the current context always assumes a DPI of 96.
+        /// For any other <see cref="DPI_AWARENESS"/> value, the return value will be the actual system DPI of the given process.
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern unsafe int GetSystemDpiForProcess(void* hProcess);
+
+        /// <summary>
+        /// Retrieves the DPI from a given <see cref="DPI_AWARENESS_CONTEXT"/> handle. This enables you to determine the DPI of a thread without needed to examine a window created within that thread.
+        /// </summary>
+        /// <param name="dpiAwarenessContext">The <see cref="DPI_AWARENESS_CONTEXT"/> handle to examine.</param>
+        /// <returns>The DPI value associated with the <see cref="DPI_AWARENESS_CONTEXT"/> handle</returns>
+        /// <remarks>
+        /// <see cref="DPI_AWARENESS_CONTEXT"/> handles associated with values of <see cref="DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE"/> and
+        /// <see cref="DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 "/> will return a value of 0 for their DPI. This is because the DPI of a
+        /// per-monitor-aware window can change, and the actual DPI cannot be returned without the window's HWND.
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern int GetDpiFromDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiAwarenessContext);
+
+        /// <summary>
+        /// Sets the thread's <see cref="DPI_HOSTING_BEHAVIOR"/>. This behavior allows windows created in the thread to host child windows with a different <see cref="DPI_AWARENESS_CONTEXT"/>.
+        /// </summary>
+        /// <param name="dpiHostingBehavior">The new <see cref="DPI_HOSTING_BEHAVIOR"/> value for the current thread.</param>
+        /// <returns>
+        /// The previous <see cref="DPI_HOSTING_BEHAVIOR"/> for the thread. If the hosting behavior passed in is invalid, the thread will not be updated and the return value will be
+        /// <see cref="DPI_HOSTING_BEHAVIOR.DPI_HOSTING_BEHAVIOR_INVALID"/>. You can use this value to restore the old <see cref="DPI_HOSTING_BEHAVIOR"/> after overriding it with a predefined value.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// <see cref="DPI_HOSTING_BEHAVIOR"/> enables a mixed content hosting behavior, which allows parent windows created in the thread to host child windows with a different <see cref="DPI_AWARENESS_CONTEXT"/> value.
+        /// This property only effects new windows created within this thread while the mixed hosting behavior is active. A parent window with this hosting behavior is able to host child windows with
+        /// different <see cref="DPI_AWARENESS_CONTEXT"/> values, regardless of whether the child windows have mixed hosting behavior enabled
+        /// </para>
+        /// <para>
+        /// This hosting behavior does not allow for windows with per-monitor <see cref="DPI_AWARENESS_CONTEXT"/> values to be hosted until windows with <see cref="DPI_AWARENESS_CONTEXT"/> values of system or unaware.
+        /// </para>
+        /// <para>
+        /// To avoid unexpected outcomes, a thread's <see cref="DPI_HOSTING_BEHAVIOR"/> should be changed to support mixed hosting behaviors only when creating a new window which needs to support those behaviors.
+        /// Once that window is created, the hosting behavior should be switched back to its default value.
+        /// </para>
+        /// <para>
+        /// This API is used to change the thread's <see cref="DPI_HOSTING_BEHAVIOR"/> from its default value. This is only necessary if your app needs to host child windows from plugins and third-party
+        /// components that do not support per-monitor-aware context. This is most likely to occur if you are updating complex applications to support per-monitor <see cref="DPI_AWARENESS_CONTEXT"/> behaviors.
+        /// </para>
+        /// <para>
+        /// Enabling mixed hosting behavior will not automatically adjust the thread's <see cref="DPI_AWARENESS_CONTEXT"/> to be compatible with legacy content. The thread's awareness context must
+        /// still be manually changed before new windows are created to host such content.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern DPI_HOSTING_BEHAVIOR SetThreadDpiHostingBehavior(DPI_HOSTING_BEHAVIOR dpiHostingBehavior);
+
+        /// <summary>
+        /// Retrieves the <see cref="DPI_HOSTING_BEHAVIOR"/> from the current thread.
+        /// </summary>
+        /// <returns>The <see cref="DPI_HOSTING_BEHAVIOR"/> of the current thread.</returns>
+        /// <remarks>
+        /// This API returns the hosting behavior set by an earlier call of <see cref="SetThreadDpiHostingBehavior(DPI_HOSTING_BEHAVIOR)"/>,
+        /// or <see cref="DPI_HOSTING_BEHAVIOR.DPI_HOSTING_BEHAVIOR_DEFAULT"/> if no earlier call has been made.
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern DPI_HOSTING_BEHAVIOR GetThreadDpiHostingBehavior();
+
+        /// <summary>
+        /// Returns the <see cref="DPI_HOSTING_BEHAVIOR"/> of the specified window.
+        /// </summary>
+        /// <param name="hwnd">The handle for the window to examine.</param>
+        /// <returns>The <see cref="DPI_HOSTING_BEHAVIOR"/> of the specified window.</returns>
+        /// <remarks>
+        /// This API allows you to examine the hosting behavior of a window after it has been created. A window's hosting behavior
+        /// is the hosting behavior of the thread in which the window was created, as set by a call to <see cref="SetThreadDpiHostingBehavior(DPI_HOSTING_BEHAVIOR)"/>.
+        /// This is a permanent value and cannot be changed after the window is created, even if the thread's hosting behavior is changed.
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern unsafe DPI_HOSTING_BEHAVIOR GetWindowDpiHostingBehavior(void* hwnd);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
