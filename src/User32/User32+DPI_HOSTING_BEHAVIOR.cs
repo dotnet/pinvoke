@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Identifies the DPI hosting behavior for a window. This behavior allows windows created in the thread to host child windows with a different <see cref="DPI_AWARENESS_CONTEXT"/>
+        /// Identifies the DPI hosting behavior for a window. This behavior allows windows created in the thread to host child windows with a different DPI_AWARENESS_CONTEXT.
         /// </summary>
         public enum DPI_HOSTING_BEHAVIOR : int
         {
@@ -19,14 +19,14 @@ namespace PInvoke
             DPI_HOSTING_BEHAVIOR_INVALID = -1,
 
             /// <summary>
-            /// Default DPI hosting behavior. The associated window behaves as normal, and cannot create or re-parent child windows with a different <see cref="DPI_AWARENESS_CONTEXT"/>.
+            /// Default DPI hosting behavior. The associated window behaves as normal, and cannot create or re-parent child windows with a different DPI_AWARENESS_CONTEXT.
             /// </summary>
             DPI_HOSTING_BEHAVIOR_DEFAULT = 0,
 
             /// <summary>
-            /// Mixed DPI hosting behavior. This enables the creation and re-parenting of child windows with different <see cref="DPI_AWARENESS_CONTEXT"/>. These child windows will be independently scaled by the OS.
+            /// Mixed DPI hosting behavior. This enables the creation and re-parenting of child windows with different DPI_AWARENESS_CONTEXT. These child windows will be independently scaled by the OS.
             /// </summary>
-            DPI_HOSTING_BEHAVIOR_MIXED = 1
+            DPI_HOSTING_BEHAVIOR_MIXED = 1,
         }
     }
 }

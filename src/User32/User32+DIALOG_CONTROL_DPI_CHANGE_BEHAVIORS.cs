@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System;
+
     /// <content>
     /// Contains nested type <see cref="DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS"/>
     /// </content>
@@ -14,8 +16,9 @@ namespace PInvoke
         /// <remarks>
         /// This enum is used with SetDialogControlDpiChangeBehavior in order to override the default per-monitor DPI scaling behavior for a child window within a dialog.
         ///
-        /// These settings only apply to individual controls within dialogs.The dialog-wide per-monitor DPI scaling behavior of a dialog is controlled by <see cref="DIALOG_DPI_CHANGE_BEHAVIORS"/>.
+        /// These settings only apply to individual controls within dialogs. The dialog-wide per-monitor DPI scaling behavior of a dialog is controlled by <see cref="DIALOG_DPI_CHANGE_BEHAVIORS"/>.
         /// </remarks>
+        [Flags]
         public enum DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS : int
         {
             /// <summary>
@@ -31,7 +34,7 @@ namespace PInvoke
             /// <summary>
             /// Prevents the dialog manager from resizing and repositioning the child window in response to a DPI change.
             /// </summary>
-            DCDC_DISABLE_RELAYOUT = 0x0002
+            DCDC_DISABLE_RELAYOUT = 0x0002,
         }
     }
 }

@@ -31,7 +31,7 @@ namespace PInvoke
             /// <summary>
             /// Per monitor DPI aware. This process checks for the DPI when it is created and adjusts the scale factor whenever the DPI changes. These processes are not automatically scaled by the system.
             /// </summary>
-            DPI_AWARENESS_PER_MONITOR_AWARE = 2
+            DPI_AWARENESS_PER_MONITOR_AWARE = 2,
         }
     }
 }
