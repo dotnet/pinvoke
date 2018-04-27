@@ -9,12 +9,12 @@ namespace PInvoke
     /// <content>
     /// Contains the <see cref="SafeThemeHandle"/> nested type.
     /// </content>
-    public partial class UxTheme
+    public partial class User32
     {
         /// <summary>
-        /// Represents a windows Hook that can be removed with <see cref="CloseThemeData(IntPtr)"/>.
+        /// Represents a windows Hook that can be removed with CloseThemeData"/>.
         /// </summary>
-        public class SafeThemeHandle : SafeHandle
+        public partial class SafeThemeHandle : SafeHandle
         {
             /// <summary>
             /// A handle that may be used in place of <see cref="IntPtr.Zero"/>.
@@ -46,25 +46,8 @@ namespace PInvoke
             /// <inheritdoc />
             public override bool IsInvalid => this.handle == IntPtr.Zero;
 
-            /// <summary>
-            /// Implicitly converts a <see cref="User32.SafeThemeHandle"/> to a <see cref="SafeThemeHandle"/>.
-            /// This enables the use of theme handles created as part of user32!OpenThemeDataForDpi to be used
-            /// in UxTheme API's seamlessly.
-            /// </summary>
-            /// <param name="hTheme">Theme handle from User32 library to be converted to a <see cref="SafeThemeHandle"/></param>
-            public static implicit operator SafeThemeHandle(User32.SafeThemeHandle hTheme)
-            {
-                if (hTheme == null)
-                {
-                    throw new ArgumentNullException(nameof(hTheme));
-                }
-
-                hTheme.SetHandleAsInvalid();
-                return new SafeThemeHandle(hTheme.DangerousGetHandle(), true);
-            }
-
             /// <inheritdoc />
-            protected override bool ReleaseHandle() => CloseThemeData(this.handle).Succeeded;
+            protected override bool ReleaseHandle() => UxTheme.CloseThemeData(this.handle).Succeeded;
         }
     }
 }

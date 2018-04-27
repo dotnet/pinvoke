@@ -79,6 +79,49 @@ namespace PInvoke
         public static readonly IntPtr HBMMENU_SYSTEM = new IntPtr(1);
 
         /// <summary>
+        /// Gets the predefined DPI_AWARENESS_CONTEXT handle for DPI unaware mode. These windows do not scale
+        /// for DPI changes and are always assumed to have a scale factor of 100% (96 DPI). They will be automatically scaled by
+        /// the system on any other DPI setting.
+        /// </summary>
+        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function</remarks>
+        public static readonly IntPtr DPI_AWARENESS_CONTEXT_UNAWARE = new IntPtr(-1);
+
+        /// <summary>
+        /// Gets the predefined DPI_AWARENESS_CONTEXT handle for System aware mode. These windows do not scale for DPI changes.
+        /// They will query for the DPI once and use that value for the lifetime of the process. If the DPI changes,
+        /// the process will not adjust to the new DPI value. It will be automatically scaled up or down by the system
+        /// when the DPI changes from the system value.
+        /// </summary>
+        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function</remarks>
+        public static readonly IntPtr DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = new IntPtr(-2);
+
+        /// <summary>
+        /// Gets the predefined DPI_AWARENESS_CONTEXT handle for the Per Monitor mode. These windows check for the DPI when
+        /// they are created and adjust the scale factor whenever the DPI changes. These processes are not automatically
+        /// scaled by the system.
+        /// </summary>
+        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function</remarks>
+        public static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE = new IntPtr(-3);
+
+        /// <summary>
+        /// Gets the predefined DPI_AWARENESS_CONTEXT handle for Per Monitor v2 mode.
+        /// Per Monitor v2 is an advancement over the original Per Monitor DPI awareness mode, which enables applications to access
+        /// new DPI-related scaling behaviors on a per top-level window basis. Per Monitor v2 was made available in the
+        /// Creators Update of Windows 10, and is not available on earlier versions of the operating system. The additional behaviors
+        /// introduced are as follows:
+        /// <list type="bullet">
+        /// <item>Child window DPI change notifications - In Per Monitor v2 contexts, the entire window tree is notified of any DPI changes that occur.</item>
+        /// <item>Scaling of non-client area - All windows will automatically have their non-client area drawn in a DPI sensitive fashion. Calls to EnableNonClientDpiScaling are unnecessary.</item>
+        /// <item>Scaling of Win32 menus - All NTUSER menus created in Per Monitor v2 contexts will be scaling in a per-monitor fashion.</item>
+        /// <item>Dialog Scaling - Win32 dialogs created in Per Monitor v2 contexts will automatically respond to DPI changes.</item>
+        /// <item>Improved scaling of comctl32 controls - Various comctl32 controls have improved DPI scaling behavior in Per Monitor v2 contexts.</item>
+        /// <item>Improved theming behavior - UxTheme handles opened in the context of a Per Monitor v2 window will operate in terms of the DPI associated with that window.</item>
+        /// </list>
+        /// </summary>
+        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function</remarks>
+        public static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = new IntPtr(-4);
+
+        /// <summary>
         /// A special windows handle used to indicate to <see cref="SendMessage(IntPtr, WindowMessage, IntPtr, IntPtr)" />
         /// that the message is sent to all top-level windows in the system, including disabled or invisible unowned windows,
         /// overlapped windows, and pop-up windows.
@@ -2954,9 +2997,9 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool AreDpiAwarenessContextsEqual(
-            void* dpiContextA,
-            void* dpiContextB);
+        public static extern bool AreDpiAwarenessContextsEqual(
+            IntPtr dpiContextA,
+            IntPtr dpiContextB);
 
         /// <summary>
         /// In high-DPI displays, enables automatic display scaling of the non-client area portions of the specified top-level window. Must be called during the initialization of that window.
@@ -2974,11 +3017,11 @@ namespace PInvoke
         /// <summary>
         /// Retrieves the <see cref="DPI_AWARENESS"/> value from a DPI_AWARENESS_CONTEXT.
         /// </summary>
-        /// <param name="dpiAwarenessContext">The <see cref="DPI_AWARENESS_CONTEXT"/> you want to examine.</param>
+        /// <param name="dpiAwarenessContext">The DPI_AWARENESS_CONTEXT you want to examine.</param>
         /// <returns>The <see cref="DPI_AWARENESS"/>. If the provided <paramref name="dpiAwarenessContext"/> is null or invalid, this method will return <see cref="DPI_AWARENESS.DPI_AWARENESS_INVALID"/>.</returns>
         [DllImport(nameof(User32))]
-        public static extern unsafe DPI_AWARENESS GetAwarenessFromDpiAwarenessContext(
-            void* dpiAwarenessContext);
+        public static extern DPI_AWARENESS GetAwarenessFromDpiAwarenessContext(
+            IntPtr dpiAwarenessContext);
 
         /// <summary>
         /// Returns the system DPI.
@@ -3034,10 +3077,10 @@ namespace PInvoke
         /// This method will return the latest DPI_AWARENESS_CONTEXT sent to SetThreadDpiAwarenessContext. If SetThreadDpiAwarenessContext was never called for this thread, then the return value will equal the default DPI_AWARENESS_CONTEXT for the process.
         /// </remarks>
         [DllImport(nameof(User32))]
-        public static extern unsafe void* GetThreadDpiAwarenessContext();
+        public static extern IntPtr GetThreadDpiAwarenessContext();
 
         /// <summary>
-        /// Returns the <see cref="DPI_AWARENESS_CONTEXT"/> associated with a window.
+        /// Returns the DPI_AWARENESS_CONTEXT associated with a window.
         /// </summary>
         /// <param name="hwnd">The window to query.</param>
         /// <returns>The DPI_AWARENESS_CONTEXT for the provided window. If the window is not valid, the return value is NULL.</returns>
@@ -3045,7 +3088,7 @@ namespace PInvoke
         /// The return value of GetWindowDpiAwarenessContext is not affected by the <see cref="DPI_AWARENESS"/> of the current thread. It only indicates the context of the window specified by the <paramref name="hwnd"/> input parameter.
         /// </remarks>
         [DllImport(nameof(User32))]
-        public static extern unsafe void* GetWindowDpiAwarenessContext(
+        public static extern IntPtr GetWindowDpiAwarenessContext(
             IntPtr hwnd);
 
         /// <summary>
@@ -3059,8 +3102,8 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool IsValidDpiAwarenessContext(
-            void* dpiAwarenessContext);
+        public static extern bool IsValidDpiAwarenessContext(
+            IntPtr dpiAwarenessContext);
 
         /// <summary>
         /// Set the DPI awareness for the current thread to the provided value.
@@ -3068,8 +3111,8 @@ namespace PInvoke
         /// <param name="dpiContext">The new DPI_AWARENESS_CONTEXT for the current thread. This context includes the <see cref="DPI_AWARENESS"/> value.</param>
         /// <returns>The old DPI_AWARENESS_CONTEXT for the thread. If the <paramref name="dpiContext"/> is invalid, the thread will not be updated and the return value will be NULL. You can use this value to restore the old DPI_AWARENESS_CONTEXT after overriding it with a predefined value.</returns>
         [DllImport(nameof(User32))]
-        public static extern unsafe void* SetThreadDpiAwarenessContext(
-            void* dpiContext);
+        public static extern IntPtr SetThreadDpiAwarenessContext(
+            IntPtr dpiContext);
 
         /// <summary>
         /// Retrieves the value of one of the system-wide parameters, taking into account the provided DPI value.
@@ -3099,9 +3142,9 @@ namespace PInvoke
             int dpi);
 
         /// <summary>
-        /// Sets the current process to a specified dots per inch (dpi) awareness context. The DPI awareness contexts are handles from the <see cref="DPI_AWARENESS_CONTEXT"/> class.
+        /// Sets the current process to a specified dots per inch (dpi) awareness context.
         /// </summary>
-        /// <param name="dpiAWarenessContext">The DPI awareness value to set. Possible values are from the <see cref="DPI_AWARENESS_CONTEXT"/> class.</param>
+        /// <param name="dpiAWarenessContext">The DPI awareness value to set.</param>
         /// <returns>
         /// If the function succeeds, the return value is true.
         /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
@@ -3110,8 +3153,8 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool SetProcessDpiAwarenessContext(
-            void* dpiAWarenessContext);
+        public static extern bool SetProcessDpiAwarenessContext(
+            IntPtr dpiAWarenessContext);
 
         /// <summary>
         /// Dialogs in Per-Monitor v2 contexts are automatically DPI scaled. This method lets you customize their DPI change behavior.
@@ -3207,12 +3250,12 @@ namespace PInvoke
         /// The theme handle will become invalid anytime the system reloads the theme data.Applications are required to monitor <see cref="WindowMessage.WM_THEMECHANGED"/> and close and reopen all
         /// theme handles in response.This behavior is the same regardless of whether the handles were opened via OpenThemeData or OpenThemeDataForDpi.
         /// </item>
-        /// <item>Instead of returning a SafeHandle, we return pointer. This should be immediately converted into a SafeHandle. Doing so automatically in this library would require a dependency
-        /// dependency from User32 to UxTheme, which is being avoided here</item>
+        /// <item>The <see cref="SafeThemeHandle"/> returned by this method is not the same one as those used within the UxTheme library,  but it can be passed to
+        /// UxTheme API's seamlessly</item>
         /// </list>
         /// </remarks>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
-        public static extern unsafe void* OpenThemeDataForDpi(
+        public static extern SafeThemeHandle OpenThemeDataForDpi(
             IntPtr hwnd,
             [MarshalAs(UnmanagedType.LPWStr)] string pszClassIdList,
             int dpi);
@@ -3228,8 +3271,8 @@ namespace PInvoke
         /// For any other <see cref="DPI_AWARENESS"/> value, the return value will be the actual system DPI of the given process.
         /// </remarks>
         [DllImport(nameof(User32))]
-        public static extern unsafe int GetSystemDpiForProcess(
-            void* hProcess);
+        public static extern int GetSystemDpiForProcess(
+            SafeObjectHandle hProcess);
 
         /// <summary>
         /// Retrieves the DPI from a given DPI_AWARENESS_CONTEXT handle. This enables you to determine the DPI of a thread without needed to examine a window created within that thread.
@@ -3237,16 +3280,16 @@ namespace PInvoke
         /// <param name="dpiAwarenessContext">The DPI_AWARENESS_CONTEXT handle to examine.</param>
         /// <returns>The DPI value associated with the DPI_AWARENESS_CONTEXT handle</returns>
         /// <remarks>
-        /// DPI_AWARENESS_CONTEXT handles associated with values of <see cref="DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE"/> and
-        /// <see cref="DPI_AWARENESS_CONTEXT.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2"/> will return a value of 0 for their DPI. This is because the DPI of a
+        /// DPI_AWARENESS_CONTEXT handles associated with values of <see cref="DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE"/> and
+        /// <see cref="DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2"/> will return a value of 0 for their DPI. This is because the DPI of a
         /// per-monitor-aware window can change, and the actual DPI cannot be returned without the window's HWND.
         /// </remarks>
         [DllImport(nameof(User32))]
-        public static extern unsafe int GetDpiFromDpiAwarenessContext(
-            void* dpiAwarenessContext);
+        public static extern int GetDpiFromDpiAwarenessContext(
+            IntPtr dpiAwarenessContext);
 
         /// <summary>
-        /// Sets the thread's <see cref="DPI_HOSTING_BEHAVIOR"/>. This behavior allows windows created in the thread to host child windows with a different <see cref="DPI_AWARENESS_CONTEXT"/>.
+        /// Sets the thread's <see cref="DPI_HOSTING_BEHAVIOR"/>. This behavior allows windows created in the thread to host child windows with a different DPI_AWARENESS_CONTEXT.
         /// </summary>
         /// <param name="dpiHostingBehavior">The new <see cref="DPI_HOSTING_BEHAVIOR"/> value for the current thread.</param>
         /// <returns>
@@ -3255,12 +3298,12 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// <para>
-        /// <see cref="DPI_HOSTING_BEHAVIOR"/> enables a mixed content hosting behavior, which allows parent windows created in the thread to host child windows with a different <see cref="DPI_AWARENESS_CONTEXT"/> value.
+        /// <see cref="DPI_HOSTING_BEHAVIOR"/> enables a mixed content hosting behavior, which allows parent windows created in the thread to host child windows with a different DPI_AWARENESS_CONTEXT value.
         /// This property only effects new windows created within this thread while the mixed hosting behavior is active. A parent window with this hosting behavior is able to host child windows with
-        /// different <see cref="DPI_AWARENESS_CONTEXT"/> values, regardless of whether the child windows have mixed hosting behavior enabled
+        /// different DPI_AWARENESS_CONTEXT values, regardless of whether the child windows have mixed hosting behavior enabled
         /// </para>
         /// <para>
-        /// This hosting behavior does not allow for windows with per-monitor <see cref="DPI_AWARENESS_CONTEXT"/> values to be hosted until windows with <see cref="DPI_AWARENESS_CONTEXT"/> values of system or unaware.
+        /// This hosting behavior does not allow for windows with per-monitor DPI_AWARENESS_CONTEXT values to be hosted until windows with DPI_AWARENESS_CONTEXT values of system or unaware.
         /// </para>
         /// <para>
         /// To avoid unexpected outcomes, a thread's <see cref="DPI_HOSTING_BEHAVIOR"/> should be changed to support mixed hosting behaviors only when creating a new window which needs to support those behaviors.
@@ -3268,10 +3311,10 @@ namespace PInvoke
         /// </para>
         /// <para>
         /// This API is used to change the thread's <see cref="DPI_HOSTING_BEHAVIOR"/> from its default value. This is only necessary if your app needs to host child windows from plugins and third-party
-        /// components that do not support per-monitor-aware context. This is most likely to occur if you are updating complex applications to support per-monitor <see cref="DPI_AWARENESS_CONTEXT"/> behaviors.
+        /// components that do not support per-monitor-aware context. This is most likely to occur if you are updating complex applications to support per-monitor DPI_AWARENESS_CONTEXT behaviors.
         /// </para>
         /// <para>
-        /// Enabling mixed hosting behavior will not automatically adjust the thread's <see cref="DPI_AWARENESS_CONTEXT"/> to be compatible with legacy content. The thread's awareness context must
+        /// Enabling mixed hosting behavior will not automatically adjust the thread's DPI_AWARENESS_CONTEXT to be compatible with legacy content. The thread's awareness context must
         /// still be manually changed before new windows are created to host such content.
         /// </para>
         /// </remarks>
