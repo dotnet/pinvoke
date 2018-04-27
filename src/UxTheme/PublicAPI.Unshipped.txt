@@ -1,0 +1,1 @@
+static PInvoke.UxTheme.SafeThemeHandle.implicit operator PInvoke.UxTheme.SafeThemeHandle(PInvoke.User32.SafeThemeHandle hTheme) -> PInvoke.UxTheme.SafeThemeHandle
