@@ -983,6 +983,21 @@ namespace PInvoke
             WM_DPICHANGED = 0x02E0,
 
             /// <summary>
+            /// For Per Monitor v2 top-level windows, this message is sent to all HWNDs in the child HWDN tree of the window that is undergoing a DPI change. This message occurs before the top-level window receives <see cref="WM_DPICHANGED"/>, and traverses the child tree from the bottom up.
+            /// </summary>
+            WM_DPICHANGED_BEFOREPARENT = 0x02E2,
+
+            /// <summary>
+            /// For Per Monitor v2 top-level windows, this message is sent to all HWNDs in the child HWDN tree of the window that is undergoing a DPI change. This message occurs after the top-level window receives <see cref="WM_DPICHANGED"/>, and traverses the child tree from the top down.
+            /// </summary>
+            WM_DPICHANGED_AFTERPARENT = 0x02E3,
+
+            /// <summary>
+            /// The WM_GETDPISCALEDSIZE message tells the operating system that the window will be sized to dimensions other than the default.
+            /// </summary>
+            WM_GETDPISCALEDSIZE = 0x02E4,
+
+            /// <summary>
             /// An application sends a WM_CUT message to an edit control or combo box to delete (cut) the current selection, if any, in the edit control and copy the deleted text to the clipboard in CF_TEXT format.
             /// </summary>
             WM_CUT = 0x0300,
