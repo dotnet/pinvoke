@@ -31,6 +31,33 @@ namespace PInvoke
             string pszClassList);
 
         /// <summary>
+        /// A variant of OpenThemeData that opens a theme handle associated with a specific DPI.
+        /// </summary>
+        /// <param name="hwnd">The handle of the window for which theme data is required.</param>
+        /// <param name="pszClassIdList">A pointer to a string that contains a semicolon-separated list of classes.</param>
+        /// <param name="dpi">The specified DPI value with which to associate the theme handle. The function will return an error if this value is outside of those that correspond to the set of connected monitors.</param>
+        /// <returns>See OpenThemeData</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item>
+        /// uxtheme!OpenThemeData will create theme handles associated with the DPI of a window when used with Per Monitor v2 windows. OpenThemeDataForDpi
+        /// allows you to open a theme handle for a specific DPI when you do not have a window at that DPI.
+        /// The behavior of the returned theme handle will be undermined if the requested DPI value does not correspond to a currently connected display.The theming system only loads theme assets
+        /// for the set of DPI values corresponding to the currently connected displays.
+        /// The theme handle will become invalid anytime the system reloads the theme data.Applications are required to monitor <see cref="User32.WindowMessage.WM_THEMECHANGED"/> and close and reopen all
+        /// theme handles in response.This behavior is the same regardless of whether the handles were opened via OpenThemeData or OpenThemeDataForDpi.
+        /// </item>
+        /// <item>The <see cref="SafeThemeHandle"/> returned by this method is not the same one as those used within the UxTheme library,  but it can be passed to
+        /// UxTheme API's seamlessly</item>
+        /// </list>
+        /// </remarks>
+        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        public static extern SafeThemeHandle OpenThemeDataForDpi(
+            IntPtr hwnd,
+            [MarshalAs(UnmanagedType.LPWStr)] string pszClassIdList,
+            int dpi);
+
+        /// <summary>
         /// Retrieves the value of a <see cref="MARGINS"/> property.
         /// </summary>
         /// <param name="hTheme">Handle to a window's specified theme data. Use <see cref="OpenThemeData"/> to create an HTHEME.</param>
