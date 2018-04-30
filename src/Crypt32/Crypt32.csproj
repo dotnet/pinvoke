@@ -5,7 +5,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
     <ProjectReference Include="..\NCrypt\NCrypt.csproj" />
-    <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" Condition=" '$(TargetsDesktop)' == 'true' " />
+    <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" Condition=" '$(IncludeStoreBannedAPIs)' == 'true' " />
   </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
