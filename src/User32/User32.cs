@@ -256,8 +256,86 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int MessageBoxIndirect(ref MSGBOXPARAMS lpMsgBoxParams);
 
-        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        [DllImport(nameof(User32), SetLastError = true)]
         public static extern int SetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex, SetWindowLongFlags dwNewLong);
+
+        /// <summary>
+        /// Changes an attribute of the specified window. The function also sets a value at the specified
+        /// offset in the extra window memory.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window and, indirectly, the class to which the window belongs.
+        /// The SetWindowLongPtr function fails if the process that owns the window specified by the
+        /// <paramref name="hWnd"/> parameter is at a higher process privilege in the UIPI hierarchy than the
+        /// process the calling thread resides in.</param>
+        /// <param name="nIndex">The zero-based offset to the value to be set. Valid values are in the range zero
+        /// through the number of bytes of extra window memory, minus the size of a LONG_PTR. To set any other value,
+        /// specify one of the following values.
+        /// +---------------------+---------------------------------------------------------------------------------------------------+
+        /// |        Value        |                                           Meaning                                                 |
+        /// +---------------------+---------------------------------------------------------------------------------------------------+
+        /// | GWL_EXSTYLE(-20)    | Sets a new extended window style.                                                                 |
+        /// | GWLP_HINSTANCE(-6)  | Sets a new application instance handle.                                                           |
+        /// | GWLP_ID(-12)        | Sets a new identifier of the child window.The window cannot be a top-level window.                |
+        /// | GWL_STYLE (-16)     | Sets a new window style.                                                                          |
+        /// | GWLP_USERDATA (-21) | Sets the user data associated with the window.This data is intended for use by the application    |
+        /// |                     | that created the window. Its value is initially zero.                                             |
+        /// | GWLP_WNDPROC (-4)   | Sets a new address for the window procedure.                                                      |
+        /// +---------------------+---------------------------------------------------------------------------------------------------+
+        ///
+        /// The following values are also available when the hWnd parameter identifies a dialog box.
+        ///
+        /// +-------------------------------------------------+---------------------------------------------------------------------------+
+        /// |                     Value                       |                                  Meaning                                  |
+        /// +-------------------------------------------------+---------------------------------------------------------------------------+
+        /// | DWLP_DLGPROC (DWLP_MSGRESULT + sizeof(LRESULT)) | Sets the new pointer to the dialog box procedure.                         |
+        /// | DWLP_MSGRESULT (0)                              | Sets the return value of a message processed in the dialog box procedure. |
+        /// | DWLP_USER (DWLP_DLGPROC + sizeof(DLGPROC))      | Sets new extra info                                                       |
+        /// +-------------------------------------------------+---------------------------------------------------------------------------+
+        /// </param>
+        /// <param name="dwNewLong">The replacement value.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is the previous value of the specified offset.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// <para>If the previous value is zero and the function succeeds, the return value is zero, but the function does
+        /// not clear the last error information. To determine success or failure, clear the last error information by
+        /// calling SetLastError with 0, then call SetWindowLongPtr. Function failure will be indicated by a return value of
+        /// zero and a GetLastError result that is nonzero.</para>
+        /// </returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item>The return type, and the type of <paramref name="dwNewLong"/> are both LONG_PTR.
+        /// LONG_PTR is defined as <code>__int64</code> on 64-bit platforms, and it is defined as <code>long</code>
+        /// on 32-bit platforms. This definition fits nicely with now <see cref="IntPtr"/> works on 32-bit vs. 64-bit
+        /// platforms.</item>
+        /// <item>Windows XP/2000: The SetWindowLongPtr function fails if the window specified by the
+        /// <paramref name="hWnd"/> parameter does not belong to the same process as the calling thread.</item>
+        /// <item>
+        /// <para>Certain window data is cached, so changes you make using SetWindowLongPtr will not take effect until you call
+        /// the SetWindowPos function.</para>
+        /// <para>If you use SetWindowLongPtr with the <see cref="WindowLongIndexFlags.GWLP_WNDPROC"/> index to replace the window procedure,
+        /// the window procedure must conform to the guidelines specified in the description of the WindowProc callback function.</para>
+        /// <para>If you use SetWindowLongPtr with the <see cref="WindowLongIndexFlags.DWLP_MSGRESULT"/> index to set the return value for a
+        /// message processed by a dialog box procedure, the dialog box procedure should return TRUE directly afterward. Otherwise, if you call
+        /// any function that results in your dialog box procedure receiving a window message, the nested window message could overwrite the return value
+        /// you set by using <see cref="WindowLongIndexFlags.DWLP_MSGRESULT"/>.</para>
+        /// <para>Calling SetWindowLongPtr with the <see cref="WindowLongIndexFlags.GWLP_WNDPROC"/> index creates a subclass of the window
+        /// class used to create the window. An application can subclass a system class, but should not subclass a window class created by another process.
+        /// The SetWindowLongPtr function creates the window subclass by changing the window procedure associated with a particular
+        /// window class, causing the system to call the new window procedure instead of the previous one. An application must pass
+        /// any messages not processed by the new window procedure to the previous window procedure by calling CallWindowProc.
+        /// This allows the application to create a chain of window procedures.</para>
+        /// <para>Reserve extra window memory by specifying a nonzero value in the <see cref="WNDCLASSEX.cbWndExtra"/> member of the
+        /// <see cref="WNDCLASSEX"/> structure used with the RegisterClassEx function.</para>
+        /// <para>Do not call SetWindowLongPtr with the <see cref="WindowLongIndexFlags.GWLP_HWNDPARENT"/> index to change the parent of a
+        /// child window. Instead, use the SetParent function.</para>
+        /// <para>If the window has a class style of <see cref="ClassStyles.CS_CLASSDC"/> or <see cref="ClassStyles.CS_PARENTDC"/>, do not set
+        /// the extended window styles <see cref="WindowStylesEx.WS_EX_COMPOSITED"/> or <see cref="WindowStylesEx.WS_EX_LAYERED"/>.</para>
+        /// <para>Calling SetWindowLongPtr to set the style on a progressbar will reset its position.</para>
+        /// </item>
+        /// </list>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe void* SetWindowLongPtr(IntPtr hWnd, WindowLongIndexFlags nIndex, void* dwNewLong);
 
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int GetWindowLong(IntPtr hWnd, WindowLongIndexFlags nIndex);
