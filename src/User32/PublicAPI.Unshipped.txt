@@ -56,6 +56,7 @@ static PInvoke.User32.AdjustWindowRectExForDpi(System.IntPtr lpRect, PInvoke.Use
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, System.IntPtr lpParam) -> System.IntPtr
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, void* lpParam) -> System.IntPtr
 static PInvoke.User32.GetNextWindow(System.IntPtr hWnd, PInvoke.User32.GetNextWindowCommands wCmd) -> System.IntPtr
+static PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, void* dwNewLong) -> void*
 static PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, System.IntPtr dwNewLong) -> System.IntPtr
 static PInvoke.User32.SystemParametersInfoForDpi(PInvoke.User32.SystemParametersInfoAction uiAction, int uiParam, System.IntPtr pvParam, PInvoke.User32.SystemParametersInfoFlags fWinIni, int dpi) -> bool
 static PInvoke.User32.mouse_event(PInvoke.User32.mouse_eventFlags dwFlags, int dx, int dy, int dwData, System.IntPtr dwExtraInfo) -> void
@@ -82,7 +83,6 @@ static extern PInvoke.User32.SendMessageTimeout(System.IntPtr hWnd, PInvoke.User
 static extern PInvoke.User32.SetDialogControlDpiChangeBehavior(System.IntPtr hwnd, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS values) -> bool
 static extern PInvoke.User32.SetDialogDpiChangeBehavior(System.IntPtr hDlg, PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS values) -> bool
 static extern PInvoke.User32.SetLastErrorEx(uint dwErrCode, uint dwType) -> void
-static extern PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, void* dwNewLong) -> void*
 static extern PInvoke.User32.SetProcessDpiAwarenessContext(System.IntPtr dpiAWarenessContext) -> bool
 static extern PInvoke.User32.SetThreadDpiAwarenessContext(System.IntPtr dpiContext) -> System.IntPtr
 static extern PInvoke.User32.SetThreadDpiHostingBehavior(PInvoke.User32.DPI_HOSTING_BEHAVIOR dpiHostingBehavior) -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
