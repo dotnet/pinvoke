@@ -23,6 +23,12 @@ namespace PInvoke
         public struct SP_DEVINFO_DATA
         {
             /// <summary>
+            /// The size, in bytes, of the <see cref="SP_DEVINFO_DATA" /> structure. The constructor set this value automatically
+            /// to the correct size.
+            /// </summary>
+            public int Size;
+
+            /// <summary>
             /// The GUID of the device's setup class.
             /// </summary>
             public Guid ClassGuid;
@@ -41,12 +47,6 @@ namespace PInvoke
             /// Reserved. For internal use only.
             /// </summary>
             public IntPtr Reserved;
-
-            /// <summary>
-            /// The size, in bytes, of the <see cref="SP_DEVINFO_DATA" /> structure. The constructor set this value automatically
-            /// to the correct size.
-            /// </summary>
-            public int Size;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SP_DEVINFO_DATA" /> struct
