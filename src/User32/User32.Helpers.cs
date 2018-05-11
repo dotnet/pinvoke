@@ -381,27 +381,26 @@ namespace PInvoke
         /// <param name="nIndex">The zero-based offset to the value to be set. Valid values are in the range zero
         /// through the number of bytes of extra window memory, minus the size of a LONG_PTR. To set any other value,
         /// specify one of the following values.
-        /// +---------------------+---------------------------------------------------------------------------------------------------+
-        /// |        Value        |                                           Meaning                                                 |
-        /// +---------------------+---------------------------------------------------------------------------------------------------+
-        /// | GWL_EXSTYLE(-20)    | Sets a new extended window style.                                                                 |
-        /// | GWLP_HINSTANCE(-6)  | Sets a new application instance handle.                                                           |
-        /// | GWLP_ID(-12)        | Sets a new identifier of the child window.The window cannot be a top-level window.                |
-        /// | GWL_STYLE (-16)     | Sets a new window style.                                                                          |
-        /// | GWLP_USERDATA (-21) | Sets the user data associated with the window.This data is intended for use by the application    |
-        /// |                     | that created the window. Its value is initially zero.                                             |
-        /// | GWLP_WNDPROC (-4)   | Sets a new address for the window procedure.                                                      |
-        /// +---------------------+---------------------------------------------------------------------------------------------------+
+        ///
+        /// <list type="table">
+        /// <listheader><term>Value</term><term>Meaning</term></listheader>
+        /// <item><term>GWL_EXSTYLE(-20)</term><term>Sets a new extended window style.</term></item>
+        /// <item><term>GWLP_HINSTANCE(-6)</term><term>Sets a new application instance handle.</term></item>
+        /// <item><term>GWLP_ID(-12)</term><term>Sets a new identifier of the child window.The window cannot be a top-level window.</term></item>
+        /// <item><term>GWL_STYLE (-16)</term><term>Sets a new window style.</term></item>
+        /// <item><term>GWLP_USERDATA</term><term>Sets the user data associated with the window.This data is intended for use by the application that created the window. Its value is initially zero.</term></item>
+        /// <item><term>GWLP_WNDPROC (-4)</term><term>Sets a new address for the window procedure.</term></item>
+        /// </list>
         ///
         /// The following values are also available when the hWnd parameter identifies a dialog box.
         ///
-        /// +-------------------------------------------------+---------------------------------------------------------------------------+
-        /// |                     Value                       |                                  Meaning                                  |
-        /// +-------------------------------------------------+---------------------------------------------------------------------------+
-        /// | DWLP_DLGPROC (DWLP_MSGRESULT + sizeof(LRESULT)) | Sets the new pointer to the dialog box procedure.                         |
-        /// | DWLP_MSGRESULT (0)                              | Sets the return value of a message processed in the dialog box procedure. |
-        /// | DWLP_USER (DWLP_DLGPROC + sizeof(DLGPROC))      | Sets new extra info                                                       |
-        /// +-------------------------------------------------+---------------------------------------------------------------------------+
+        /// <list type="table">
+        /// <listheader><term>Value</term><term>Meaning</term></listheader>
+        /// <item><term>DWLP_DLGPROC (DWLP_MSGRESULT + sizeof(LRESULT))</term><term>Sets the new pointer to the dialog box procedure.</term></item>
+        /// <item><term>DWLP_MSGRESULT (0)</term><term>Sets the return value of a message processed in the dialog box procedure.</term></item>
+        /// <item><term>DWLP_USER (DWLP_DLGPROC + sizeof(DLGPROC))</term><term>Sets new extra info</term></item>
+        /// </list>
+        ///
         /// </param>
         /// <param name="dwNewLong">The replacement value.</param>
         /// <returns>
@@ -454,8 +453,8 @@ namespace PInvoke
             }
             else
             {
-                var pFlags = (SetWindowLongFlags*)dwNewLong;
-                return (void*)SetWindowLong(hWnd, nIndex, *pFlags);
+                var dwValue = (SetWindowLongFlags)(int)dwNewLong;
+                return (void*)SetWindowLong(hWnd, nIndex, dwValue);
             }
         }
     }
