@@ -33,12 +33,12 @@ PInvoke.User32.SendMessageTimeoutFlags.SMTO_BLOCK = 1 -> PInvoke.User32.SendMess
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_ERRORONEXIT = 32 -> PInvoke.User32.SendMessageTimeoutFlags
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_NORMAL = 0 -> PInvoke.User32.SendMessageTimeoutFlags
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_NOTIMEOUTIFNOTHUNG = 8 -> PInvoke.User32.SendMessageTimeoutFlags
-PInvoke.User32.WindowMessage.WM_DPICHANGED_AFTERPARENT = 739 -> PInvoke.User32.WindowMessage
-PInvoke.User32.WindowMessage.WM_DPICHANGED_BEFOREPARENT = 738 -> PInvoke.User32.WindowMessage
-PInvoke.User32.WindowMessage.WM_GETDPISCALEDSIZE = 740 -> PInvoke.User32.WindowMessage
 PInvoke.User32.WindowLongIndexFlags.GWLP_ID = PInvoke.User32.WindowLongIndexFlags.GWL_STYLE | PInvoke.User32.WindowLongIndexFlags.DWLP_DLGPROC -> PInvoke.User32.WindowLongIndexFlags
 PInvoke.User32.WindowLongIndexFlags.GWLP_USERDATA = -21 -> PInvoke.User32.WindowLongIndexFlags
 PInvoke.User32.WindowLongIndexFlags.GWLP_WNDPROC = PInvoke.User32.WindowLongIndexFlags.GWL_STYLE | PInvoke.User32.WindowLongIndexFlags.DWLP_DLGPROC | PInvoke.User32.WindowLongIndexFlags.DWLP_USER -> PInvoke.User32.WindowLongIndexFlags
+PInvoke.User32.WindowMessage.WM_DPICHANGED_AFTERPARENT = 739 -> PInvoke.User32.WindowMessage
+PInvoke.User32.WindowMessage.WM_DPICHANGED_BEFOREPARENT = 738 -> PInvoke.User32.WindowMessage
+PInvoke.User32.WindowMessage.WM_GETDPISCALEDSIZE = 740 -> PInvoke.User32.WindowMessage
 PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_ABSOLUTE = 32768 -> PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_HWHEEL = 4096 -> PInvoke.User32.mouse_eventFlags
@@ -52,14 +52,16 @@ PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_RIGHTUP = 16 -> PInvoke.User32.mouse
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_WHEEL = 2048 -> PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_XDOWN = 128 -> PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_XUP = 256 -> PInvoke.User32.mouse_eventFlags
+static PInvoke.User32.AdjustWindowRectEx(System.IntPtr lpRect, PInvoke.User32.WindowStyles dwStyle, bool bMenu, PInvoke.User32.WindowStylesEx dwExStyle) -> bool
 static PInvoke.User32.AdjustWindowRectExForDpi(System.IntPtr lpRect, PInvoke.User32.WindowStyles dwStyle, bool bMenu, PInvoke.User32.WindowStylesEx dwExStyle, int dpi) -> bool
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, System.IntPtr lpParam) -> System.IntPtr
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, void* lpParam) -> System.IntPtr
 static PInvoke.User32.GetNextWindow(System.IntPtr hWnd, PInvoke.User32.GetNextWindowCommands wCmd) -> System.IntPtr
-static PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, void* dwNewLong) -> void*
 static PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, System.IntPtr dwNewLong) -> System.IntPtr
+static PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, void* dwNewLong) -> void*
 static PInvoke.User32.SystemParametersInfoForDpi(PInvoke.User32.SystemParametersInfoAction uiAction, int uiParam, System.IntPtr pvParam, PInvoke.User32.SystemParametersInfoFlags fWinIni, int dpi) -> bool
 static PInvoke.User32.mouse_event(PInvoke.User32.mouse_eventFlags dwFlags, int dx, int dy, int dwData, System.IntPtr dwExtraInfo) -> void
+static extern PInvoke.User32.AdjustWindowRectEx(PInvoke.RECT* lpRect, PInvoke.User32.WindowStyles dwStyle, bool bMenu, PInvoke.User32.WindowStylesEx dwExStyle) -> bool
 static extern PInvoke.User32.AdjustWindowRectExForDpi(PInvoke.RECT* lpRect, PInvoke.User32.WindowStyles dwStyle, bool bMenu, PInvoke.User32.WindowStylesEx dwExStyle, int dpi) -> bool
 static extern PInvoke.User32.AreDpiAwarenessContextsEqual(System.IntPtr dpiContextA, System.IntPtr dpiContextB) -> bool
 static extern PInvoke.User32.DestroyWindow(System.IntPtr hWnd) -> bool

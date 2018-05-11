@@ -3321,6 +3321,54 @@ namespace PInvoke
             IntPtr hwnd);
 
         /// <summary>
+        /// Calculates the required size of the window rectangle, based on the desired size of the client rectangle.
+        /// The window rectangle can then be passed to the CreateWindowEx function to create a window whose client area
+        /// is the desired size.
+        /// </summary>
+        /// <param name="lpRect">
+        /// A pointer to a RECT structure that contains the coordinates of the top-left and bottom-right corners
+        /// of the desired client area. When the function returns, the structure contains the coordinates of the top-left
+        /// and bottom-right corners of the window to accommodate the desired client area.
+        /// </param>
+        /// <param name="dwStyle">
+        /// The window style of the window whose required size is to be calculated. Note that you cannot specify
+        /// the <see cref="WindowStyles.WS_OVERLAPPED"/> style.</param>
+        /// <param name="bMenu">Indicates whether the window has a menu.</param>
+        /// <param name="dwExStyle">The extended window style of the window whose required size is to be calculated.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is true.
+        /// If the function fails, the return value is false.
+        /// To get extended error information, call GetLastError.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// A client rectangle is the smallest rectangle that completely encloses a client area.
+        /// A window rectangle is the smallest rectangle that completely encloses the window, which includes
+        /// the client area and the nonclient area.
+        /// </para>
+        /// <para>
+        /// The AdjustWindowRectEx function does not add extra space when a menu bar wraps to two or more rows.
+        /// </para>
+        /// <para>
+        /// The AdjustWindowRectEx function does not take the <see cref="WindowStyles.WS_VSCROLL"/> or
+        /// <see cref="WindowStyles.WS_HSCROLL"/> styles into account.
+        /// To account for the scroll bars, call the GetSystemMetrics function with <see cref="SystemMetric.SM_CXVSCROLL"/> or
+        /// <see cref="SystemMetric.SM_CYHSCROLL"/>.
+        /// </para>
+        /// <para>
+        /// This API is not DPI aware, and should not be used if the calling thread is per-monitor DPI aware.
+        /// For the DPI-aware version of this API, see AdjustWindowsRectExForDPI.
+        /// </para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool AdjustWindowRectEx(
+            RECT* lpRect,
+            WindowStyles dwStyle,
+            [MarshalAs(UnmanagedType.Bool)] bool bMenu,
+            WindowStylesEx dwExStyle);
+
+        /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
         /// </summary>
         /// <param name="hwnd">Handle to the window to be repainted.</param>
@@ -3589,7 +3637,7 @@ namespace PInvoke
         /// When compiling for 32-bit Windows, SetWindowLongPtr is defined as a call to the SetWindowLong function. This
         /// function is exposed using a helper that conditionally calls SetWindowLong in 32-bit processes.
         /// </remarks>
-        [DllImport(nameof(User32), SetLastError = true, EntryPoint = nameof(SetWindowLongPtr))]
+        [DllImport(nameof(User32), SetLastError = true, EntryPoint = "SetWindowLongPtr")]
         private static extern unsafe void* SetWindowLongPtr64(IntPtr hWnd, WindowLongIndexFlags nIndex, void* dwNewLong);
     }
 }
