@@ -5,7 +5,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using PInvoke;
 using Xunit;
@@ -89,6 +88,60 @@ public partial class User32Facts
             if (!DestroyWindow(hwnd))
             {
                 throw new Win32Exception();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Validates that User32.SetWindowLongPtr works as intended.
+    /// SetWindowLongPtr is implemented as a call into User32.SetWindowLong on 32-bit platforms. This
+    /// test...
+    /// ... a. Creates a window
+    /// ... b. Subclasses it by calling SetWindowLongPtr.
+    ///          On 32-bit processes, it will indirectly call into SetWindowLong, and validate that our implementation is accurate.
+    ///     c. Wait a few seconds for window messages to appear in the new wndow procedure, and declare success as soon as the first message
+    ///         appears, which would indicate that the subclassing was successful.
+    /// </summary>
+    [Fact]
+    [STAThread]
+    public void SetWindowLongPtr_Test()
+    {
+        IntPtr hwnd = CreateWindow(
+            "static",
+            "Window",
+            WindowStyles.WS_BORDER | WindowStyles.WS_CAPTION | WindowStyles.WS_OVERLAPPED | WindowStyles.WS_VISIBLE,
+            0,
+            0,
+            100,
+            100,
+            IntPtr.Zero,
+            IntPtr.Zero,
+            Process.GetCurrentProcess().Handle,
+            IntPtr.Zero);
+
+        if (hwnd == IntPtr.Zero)
+        {
+            throw new Win32Exception();
+        }
+
+        SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+
+        var hwndSubClass = new HwndSubClass(hwnd);
+        hwndSubClass.WindowMessage += (_, __) =>
+        {
+            semaphore.Release();
+        };
+
+        try
+        {
+            Assert.True(semaphore.Wait(TimeSpan.FromSeconds(5)));
+        }
+        finally
+        {
+            hwndSubClass.Dispose();
+            if (hwnd != IntPtr.Zero)
+            {
+                DestroyWindow(hwnd);
             }
         }
     }
