@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="JOB_OBJECT_BASIC_LIMIT_INFORMATION"/> nested type.
+    /// Contains the <see cref="JOBOBJECT_BASIC_LIMIT_INFORMATION"/> nested type.
     /// </content>
     public partial class Kernel32
     {
@@ -15,7 +15,7 @@ namespace PInvoke
         /// Contains basic limit information for a job object.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct JOB_OBJECT_BASIC_LIMIT_INFORMATION
+        public struct JOBOBJECT_BASIC_LIMIT_INFORMATION
         {
             /// <summary>
             /// If LimitFlags specifies JOB_OBJECT_LIMIT_PROCESS_TIME, this member is the per-process user-mode execution time limit, in 100-nanosecond ticks. Otherwise, this member is ignored.

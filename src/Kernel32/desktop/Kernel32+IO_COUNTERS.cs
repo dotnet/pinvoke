@@ -1,4 +1,4 @@
-﻿// Copyright (c) All contributors. All rights reserved.
+// Copyright (c) All contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace PInvoke
@@ -11,7 +11,9 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Contains I/O accounting information for a process or a job object. For a job object, the counters include all operations performed by all processes that have ever been associated with the job, in addition to all processes currently associated with the job.
+        /// Contains I/O accounting information for a process or a job object.
+        /// For a job object, the counters include all operations performed by all processes that have ever been associated with the job,
+        /// in addition to all processes currently associated with the job.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct IO_COUNTERS

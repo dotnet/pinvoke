@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="JOBOBJECT_INFO_CLASS"/> nested type.
+    /// Contains the <see cref="JOBOBJECTINFOCLASS"/> nested type.
     /// </content>
     public partial class Kernel32
     {
@@ -14,10 +14,10 @@ namespace PInvoke
         /// <remarks>
         /// Taken from https://msdn.microsoft.com/en-us/library/windows/desktop/ms686216(v=vs.85).aspx
         /// </remarks>
-        public enum JOBOBJECT_INFO_CLASS
+        public enum JOBOBJECTINFOCLASS
         {
             /// <summary>
-            /// The lpJobObjectInfo parameter is a pointer to a JOBOBJECT_BASIC_LIMIT_INFORMATION structure.
+            /// The lpJobObjectInfo parameter is a pointer to a <see cref="JOBOBJECT_BASIC_LIMIT_INFORMATION" /> structure.
             /// </summary>
             JobObjectBasicLimitInformation = 2,
 
@@ -42,7 +42,7 @@ namespace PInvoke
             JobObjectAssociateCompletionPortInformation = 7,
 
             /// <summary>
-            /// The lpJobObjectInfo parameter is a pointer to a JOBOBJECT_EXTENDED_LIMIT_INFORMATION structure.
+            /// The lpJobObjectInfo parameter is a pointer to a <see cref="JOBOBJECT_EXTENDED_LIMIT_INFORMATION" /> structure.
             /// </summary>
             JobObjectExtendedLimitInformation = 9,
 
