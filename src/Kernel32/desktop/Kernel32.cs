@@ -2412,7 +2412,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hJob">
         /// A handle to the job object to which the process will be associated.
-        /// The CreateJobObject or OpenJobObject function returns this handle.
+        /// The <see cref="CreateJobObject(SECURITY_ATTRIBUTES*, string)" /> or OpenJobObject function returns this handle.
         /// The handle must have the JOB_OBJECT_ASSIGN_PROCESS access right. For more information, see Job Object Security and Access Rights.
         /// </param>
         /// <param name="hProcess">
@@ -2474,7 +2474,7 @@ namespace PInvoke
         /// Sets limits for a job object.
         /// </summary>
         /// <param name="hJob">
-        /// A handle to the job whose limits are being set. The CreateJobObject or OpenJobObject function returns this handle. The handle must have the JOB_OBJECT_SET_ATTRIBUTES access right. For more information, see Job Object Security and Access Rights.
+        /// A handle to the job whose limits are being set. The <see cref="CreateJobObject(SECURITY_ATTRIBUTES*, string)" /> or OpenJobObject function returns this handle. The handle must have the JOB_OBJECT_SET_ATTRIBUTES access right. For more information, see Job Object Security and Access Rights.
         /// </param>
         /// <param name="jobObjectInfoClass">
         /// The information class for the limits to be set.
@@ -2490,7 +2490,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern unsafe bool SetInformationJobObject(SafeObjectHandle hJob, JOBOBJECT_INFO_CLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength);
+        public static extern unsafe bool SetInformationJobObject(SafeObjectHandle hJob, JOBOBJECTINFOCLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

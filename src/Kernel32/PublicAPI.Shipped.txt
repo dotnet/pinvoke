@@ -396,39 +396,39 @@ PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.JOBOBJECT_CPU_RATE_CONTR
 PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.MaxRate -> ushort
 PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.MinRate -> ushort
 PInvoke.Kernel32.JOBOBJECT_CPU_RATE_CONTROL_INFORMATION.Weight -> uint
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectAssociateCompletionPortInformation = 7 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectBasicLimitInformation = 2 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectBasicUIRestrictions = 4 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectCpuRateControlInformation = 15 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectEndOfJobTimeInformation = 6 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectExtendedLimitInformation = 9 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectGroupInformation = 11 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectGroupInformationEx = 14 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectLimitViolationInformation2 = 35 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectNetRateControlInformation = 32 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectNotificationLimitInformation = 12 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectNotificationLimitInformation2 = 34 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOBOBJECT_INFO_CLASS.JobObjectSecurityLimitInformation = 5 -> PInvoke.Kernel32.JOBOBJECT_INFO_CLASS
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.ActiveProcessLimit -> uint
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.Affinity -> System.UIntPtr
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.JOB_OBJECT_BASIC_LIMIT_INFORMATION() -> void
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.LimitFlags -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.MaxWorkingSetSize -> System.UIntPtr
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.MinWorkingSetSize -> System.UIntPtr
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.PerJobUserTimeLimit -> long
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.PerProcessUserTimeLimit -> long
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.PriorityClass -> uint
-PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION.SchedulingClass -> uint
-PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION
-PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.BasicLimitInformation -> PInvoke.Kernel32.JOB_OBJECT_BASIC_LIMIT_INFORMATION
-PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.IoInfo -> PInvoke.Kernel32.IO_COUNTERS
-PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION() -> void
-PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.JobMemoryLimit -> System.UIntPtr
-PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.PeakJobMemoryUsed -> System.UIntPtr
-PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.PeakProcessMemoryUsed -> System.UIntPtr
-PInvoke.Kernel32.JOB_OBJECT_EXTENDED_LIMIT_INFORMATION.ProcessMemoryLimit -> System.UIntPtr
+PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectAssociateCompletionPortInformation = 7 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectBasicLimitInformation = 2 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectBasicUIRestrictions = 4 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectCpuRateControlInformation = 15 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectEndOfJobTimeInformation = 6 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectExtendedLimitInformation = 9 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectGroupInformation = 11 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectGroupInformationEx = 14 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectLimitViolationInformation2 = 35 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectNetRateControlInformation = 32 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectNotificationLimitInformation = 12 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectNotificationLimitInformation2 = 34 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECTINFOCLASS.JobObjectSecurityLimitInformation = 5 -> PInvoke.Kernel32.JOBOBJECTINFOCLASS
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.ActiveProcessLimit -> uint
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.Affinity -> System.UIntPtr
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.JOBOBJECT_BASIC_LIMIT_INFORMATION() -> void
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.LimitFlags -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.MaxWorkingSetSize -> System.UIntPtr
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.MinWorkingSetSize -> System.UIntPtr
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.PerJobUserTimeLimit -> long
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.PerProcessUserTimeLimit -> long
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.PriorityClass -> uint
+PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION.SchedulingClass -> uint
+PInvoke.Kernel32.JOBOBJECT_EXTENDED_LIMIT_INFORMATION
+PInvoke.Kernel32.JOBOBJECT_EXTENDED_LIMIT_INFORMATION.BasicLimitInformation -> PInvoke.Kernel32.JOBOBJECT_BASIC_LIMIT_INFORMATION
+PInvoke.Kernel32.JOBOBJECT_EXTENDED_LIMIT_INFORMATION.IoInfo -> PInvoke.Kernel32.IO_COUNTERS
+PInvoke.Kernel32.JOBOBJECT_EXTENDED_LIMIT_INFORMATION.JOBOBJECT_EXTENDED_LIMIT_INFORMATION() -> void
+PInvoke.Kernel32.JOBOBJECT_EXTENDED_LIMIT_INFORMATION.JobMemoryLimit -> System.UIntPtr
+PInvoke.Kernel32.JOBOBJECT_EXTENDED_LIMIT_INFORMATION.PeakJobMemoryUsed -> System.UIntPtr
+PInvoke.Kernel32.JOBOBJECT_EXTENDED_LIMIT_INFORMATION.PeakProcessMemoryUsed -> System.UIntPtr
+PInvoke.Kernel32.JOBOBJECT_EXTENDED_LIMIT_INFORMATION.ProcessMemoryLimit -> System.UIntPtr
 PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
 PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_ACTIVE_PROCESS = 8 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
 PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS.JOB_OBJECT_LIMIT_AFFINITY = 16 -> PInvoke.Kernel32.JOB_OBJECT_LIMIT_FLAGS
@@ -1247,7 +1247,7 @@ static PInvoke.Kernel32.STARTUPINFO.Create() -> PInvoke.Kernel32.STARTUPINFO
 static PInvoke.Kernel32.STARTUPINFOEX.Create() -> PInvoke.Kernel32.STARTUPINFOEX
 static PInvoke.Kernel32.ScrollConsoleScreenBuffer(System.IntPtr hConsoleOutput, PInvoke.SMALL_RECT lpScrollRectangle, PInvoke.SMALL_RECT? lpClipRectangle, PInvoke.COORD dwDestinationOrigin, PInvoke.Kernel32.CHAR_INFO lpFill) -> bool
 static PInvoke.Kernel32.ScrollConsoleScreenBuffer(System.IntPtr hConsoleOutput, System.IntPtr lpScrollRectangle, System.IntPtr lpClipRectangle, PInvoke.COORD dwDestinationOrigin, System.IntPtr lpFill) -> bool
-static PInvoke.Kernel32.SetInformationJobObject(PInvoke.Kernel32.SafeObjectHandle hJob, PInvoke.Kernel32.JOBOBJECT_INFO_CLASS jobObjectInfoClass, System.IntPtr lpJobObjectInfo, uint cbJobObjectInfoLength) -> bool
+static PInvoke.Kernel32.SetInformationJobObject(PInvoke.Kernel32.SafeObjectHandle hJob, PInvoke.Kernel32.JOBOBJECTINFOCLASS jobObjectInfoClass, System.IntPtr lpJobObjectInfo, uint cbJobObjectInfoLength) -> bool
 static PInvoke.Kernel32.SetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, PInvoke.Kernel32.PipeMode? lpMode, int? lpMaxCollectionCount, int? lpCollectDataTimeout) -> bool
 static PInvoke.Kernel32.SetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, System.IntPtr lpMode, System.IntPtr lpMaxCollectionCount, System.IntPtr lpCollectDataTimeout) -> bool
 static PInvoke.Kernel32.SetSystemTime(PInvoke.Kernel32.SYSTEMTIME lpSystemTime) -> bool
@@ -1401,7 +1401,7 @@ static extern PInvoke.Kernel32.SetConsoleOutputCP(uint wCodePageID) -> bool
 static extern PInvoke.Kernel32.SetConsoleTextAttribute(System.IntPtr hConsoleOutput, PInvoke.Kernel32.CharacterAttributesFlags wAttributes) -> bool
 static extern PInvoke.Kernel32.SetConsoleTitle(string lpConsoleTitle) -> bool
 static extern PInvoke.Kernel32.SetDllDirectory(string lpPathName) -> bool
-static extern PInvoke.Kernel32.SetInformationJobObject(PInvoke.Kernel32.SafeObjectHandle hJob, PInvoke.Kernel32.JOBOBJECT_INFO_CLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength) -> bool
+static extern PInvoke.Kernel32.SetInformationJobObject(PInvoke.Kernel32.SafeObjectHandle hJob, PInvoke.Kernel32.JOBOBJECTINFOCLASS jobObjectInfoClass, void* lpJobObjectInfo, uint cbJobObjectInfoLength) -> bool
 static extern PInvoke.Kernel32.SetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, PInvoke.Kernel32.PipeMode* lpMode, int* lpMaxCollectionCount, int* lpCollectDataTimeout) -> bool
 static extern PInvoke.Kernel32.SetProcessShutdownParameters(int dwLevel, PInvoke.Kernel32.ProcessShutdownFlags dwFlags) -> bool
 static extern PInvoke.Kernel32.SetStdHandle(PInvoke.Kernel32.StdHandle nStdHandle, System.IntPtr nHandle) -> bool
