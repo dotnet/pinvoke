@@ -73,14 +73,19 @@ namespace PInvoke
         /// <remarks>
         /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0
         /// </remarks>
-        public static string GetVersionFromProcess(SafeHandle hProcess)
+        public static unsafe string GetVersionFromProcess(SafeHandle hProcess)
         {
             const int insaneSize = 256 * 1024;
             char[] versionChars = new char[32];
             while (true)
             {
                 int dwLength;
-                HResult hr = GetVersionFromProcess(hProcess, versionChars, versionChars.Length, out dwLength);
+                HResult hr = -1;
+                fixed (char* versionCharsPtr = versionChars)
+                {
+                    hr = GetVersionFromProcess(hProcess, versionCharsPtr, versionChars.Length, out dwLength);
+                }
+
                 if (hr.Succeeded)
                 {
                     return new string(versionChars, 0, dwLength);

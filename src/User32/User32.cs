@@ -162,7 +162,7 @@ namespace PInvoke
         /// <param name="dwmsEventTime">Specifies the time, in milliseconds, that the event was generated.</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate void WinEventProc(
-            SafeEventHookHandle hWinEventHook,
+            IntPtr hWinEventHook,
             WindowsEventHookType @event,
             IntPtr hwnd,
             int idObject,
