@@ -32,8 +32,8 @@
 
     <DefineConstants Condition=" '$(TargetsDesktop)' != 'true' ">$(DefineConstants);APISets</DefineConstants>
 
-    <CodeGenerationPackageVersion>0.4.6</CodeGenerationPackageVersion>
-    <NerdbankGitVersioningPackageVersion>2.1.23</NerdbankGitVersioningPackageVersion>
+    <CodeGenerationPackageVersion>0.4.65</CodeGenerationPackageVersion>
+    <NerdbankGitVersioningPackageVersion>2.2.13</NerdbankGitVersioningPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetsDesktop)' == 'true' ">
@@ -63,7 +63,7 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\netstandard1.5\" />
+    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\netstandard1.6\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
     <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
