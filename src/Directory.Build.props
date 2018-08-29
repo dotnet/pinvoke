@@ -4,7 +4,7 @@
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
 
-    <DesktopOnlyFrameworks>net45;net40;net20</DesktopOnlyFrameworks>
+    <DesktopOnlyFrameworks>netstandard2.0;net45;net40;net20</DesktopOnlyFrameworks>
     <PortableOnlyFrameworks>netstandard1.1;portable-net40+win8+wpa81;portable-net45+win8+wpa81</PortableOnlyFrameworks>
     <DesktopAndPortableFrameworks>$(PortableOnlyFrameworks);$(DesktopOnlyFrameworks)</DesktopAndPortableFrameworks>
 
@@ -24,7 +24,7 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
     <DebugType>portable</DebugType>
 
-    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
+    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'netstandard2.0' ">true</TargetsDesktop>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
     <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
