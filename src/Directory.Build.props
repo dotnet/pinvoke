@@ -30,14 +30,10 @@
     <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
 
-    <DefineConstants Condition=" '$(TargetsDesktop)' != 'true' ">$(DefineConstants);APISets</DefineConstants>
+    <DefineConstants Condition=" '$(TargetsDesktop)' == 'true' ">$(DefineConstants);DESKTOP</DefineConstants>
 
     <CodeGenerationPackageVersion>0.4.65</CodeGenerationPackageVersion>
     <NerdbankGitVersioningPackageVersion>2.2.13</NerdbankGitVersioningPackageVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetsDesktop)' == 'true' ">
-    <DefineConstants>$(DefineConstants);DESKTOP</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
