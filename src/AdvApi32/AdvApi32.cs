@@ -23,17 +23,7 @@ namespace PInvoke
         public const uint SERVICE_NO_CHANGE = 0xFFFFFFFF;
 
 #pragma warning disable SA1303 // Const field names must begin with upper-case letter
-#if APISets
-        private const string api_ms_win_service_core_l1_1_1 = ApiSets.api_ms_win_service_core_l1_1_1;
-        private const string api_ms_win_service_management_l1_1_0 = ApiSets.api_ms_win_service_management_l1_1_0;
-        private const string api_ms_win_service_management_l2_1_0 = ApiSets.api_ms_win_service_management_l2_1_0;
-        private const string api_ms_win_core_processthreads_l1_1_1 = ApiSets.api_ms_win_core_processthreads_l1_1_1;
-        private const string api_ms_win_security_base_l1_2_0 = ApiSets.api_ms_win_security_base_l1_2_0;
-        private const string api_ms_win_service_winsvc_l1_2_0 = ApiSets.api_ms_win_service_winsvc_l1_2_0;
-        private const string api_ms_win_security_sddl_l1_1_0 = ApiSets.api_ms_win_security_sddl_l1_1_0;
-        private const string api_ms_win_core_processthreads_l1_1_2 = ApiSets.api_ms_win_core_processthreads_l1_1_2;
-        private const string api_ms_win_core_registry_l1_1_0 = ApiSets.api_ms_win_core_registry_l1_1_0;
-#else
+#if DESKTOP
         private const string api_ms_win_service_core_l1_1_1 = nameof(AdvApi32);
         private const string api_ms_win_service_management_l1_1_0 = nameof(AdvApi32);
         private const string api_ms_win_service_management_l2_1_0 = nameof(AdvApi32);
@@ -43,6 +33,16 @@ namespace PInvoke
         private const string api_ms_win_security_sddl_l1_1_0 = nameof(AdvApi32);
         private const string api_ms_win_core_processthreads_l1_1_2 = nameof(AdvApi32);
         private const string api_ms_win_core_registry_l1_1_0 = nameof(AdvApi32);
+#else
+        private const string api_ms_win_service_core_l1_1_1 = ApiSets.api_ms_win_service_core_l1_1_1;
+        private const string api_ms_win_service_management_l1_1_0 = ApiSets.api_ms_win_service_management_l1_1_0;
+        private const string api_ms_win_service_management_l2_1_0 = ApiSets.api_ms_win_service_management_l2_1_0;
+        private const string api_ms_win_core_processthreads_l1_1_1 = ApiSets.api_ms_win_core_processthreads_l1_1_1;
+        private const string api_ms_win_security_base_l1_2_0 = ApiSets.api_ms_win_security_base_l1_2_0;
+        private const string api_ms_win_service_winsvc_l1_2_0 = ApiSets.api_ms_win_service_winsvc_l1_2_0;
+        private const string api_ms_win_security_sddl_l1_1_0 = ApiSets.api_ms_win_security_sddl_l1_1_0;
+        private const string api_ms_win_core_processthreads_l1_1_2 = ApiSets.api_ms_win_core_processthreads_l1_1_2;
+        private const string api_ms_win_core_registry_l1_1_0 = ApiSets.api_ms_win_core_registry_l1_1_0;
 #endif
 #pragma warning restore SA1303 // Const field names must begin with upper-case letter
 
