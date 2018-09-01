@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
+    <StoreBanned>true</StoreBanned>
     <ResolveComReferenceSilent>true</ResolveComReferenceSilent>
   </PropertyGroup>
   <ItemGroup>

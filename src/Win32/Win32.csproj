@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
+    <StoreBanned>true</StoreBanned>
     <Summary>P/Invoke methods for Win32 APIs</Summary>
     <Description>P/Invoke methods for Win32 APIs</Description>
 

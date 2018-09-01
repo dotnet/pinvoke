@@ -9,6 +9,8 @@
     <PortableOnlyFrameworks>netstandard1.1;portable-net40+win8+wpa81;portable-net45+win8+wpa81</PortableOnlyFrameworks>
     <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 
+    <TargetPlatformMinVersion Condition=" '$(TargetFramework)' == 'win8' ">8.0</TargetPlatformMinVersion>
+
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Title>PInvoke.$(MSBuildProjectName)</Title>
     <Authors>Andrew Arnott</Authors>
@@ -26,14 +28,12 @@
     <DebugType>portable</DebugType>
 
     <TargetsDesktop Condition=" '$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
-    <IncludeStoreBannedAPIs Condition=" '$(TargetPlatformIdentifier)' != 'UAP' ">true</IncludeStoreBannedAPIs>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
     <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
 
     <DefineConstants Condition=" '$(TargetsDesktop)' != 'true' ">$(DefineConstants);APISets</DefineConstants>
-    <DefineConstants Condition=" '$(IncludeStoreBannedAPIs)' == 'true' ">$(DefineConstants);IncludeStoreBannedAPIs</DefineConstants>
 
     <CodeGenerationPackageVersion>0.4.6</CodeGenerationPackageVersion>
     <NerdbankGitVersioningPackageVersion>2.1.23</NerdbankGitVersioningPackageVersion>

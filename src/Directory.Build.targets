@@ -1,10 +1,13 @@
 <Project>
   <PropertyGroup>
     <RootNamespace Condition=" '$(IsTestProject)' == 'true' " />
+    <ExcludeStoreBannedAPIs Condition=" '$(TargetPlatformIdentifier)' == 'Windows' and '$(TargetPlatformVersion)' >= 8.0 ">true</ExcludeStoreBannedAPIs>
+    <DefineConstants Condition=" '$(ExcludeStoreBannedAPIs)' != 'true' ">$(DefineConstants);IncludeStoreBannedAPIs</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="desktop\**" Condition=" '$(IncludeStoreBannedAPIs)' != 'true' " />
+    <Compile Remove="storebanned\**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' " />
+    <Compile Remove="**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' and '$(StoreBanned)' == 'true' " />
     <Compile Include="$(MSBuildThisFileDirectory)net20Helpers\*.cs"
              Condition=" '$(TargetFramework)' == 'net20' and '$(MSBuildProjectName)' != 'CodeGenerationAttributes' " />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAttributes.cs" Condition=" '$(IsPInvokeProject)' == 'true' " />
