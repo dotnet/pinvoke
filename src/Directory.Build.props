@@ -5,8 +5,9 @@
     <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
 
     <DesktopOnlyFrameworks>net45;net40;net20</DesktopOnlyFrameworks>
-    <PortableOnlyFrameworks>netstandard1.1;portable-net40+win8+wpa81;portable-net45+win8+wpa81;win8</PortableOnlyFrameworks>
-    <DesktopAndPortableFrameworks>$(PortableOnlyFrameworks);$(DesktopOnlyFrameworks)</DesktopAndPortableFrameworks>
+    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);win8</PlatformSpecificFrameworks>
+    <PortableOnlyFrameworks>netstandard1.1;portable-net40+win8+wpa81;portable-net45+win8+wpa81</PortableOnlyFrameworks>
+    <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Title>PInvoke.$(MSBuildProjectName)</Title>
