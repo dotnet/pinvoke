@@ -17,7 +17,7 @@ namespace PInvoke
         /// <summary>
         /// The CLSID that may be passed to <see cref="CLRCreateInstance"/> to create an instance of <see cref="ICLRMetaHost"/>.
         /// </summary>
-        public static readonly Guid CLSID_CLRMetaHost = new Guid(0x9280188d, 0xe8e, 0x4867, 0xb3, 0xc, 0x7f, 0xa8, 0x38, 0x84, 0xe8, 0xde);
+        public static readonly Guid CLSID_CLRMetaHost = new Guid(unchecked((int)0x9280188d), 0xe8e, 0x4867, 0xb3, 0xc, 0x7f, 0xa8, 0x38, 0x84, 0xe8, 0xde);
 
         /// <summary>
         /// The CLSID that may be passed to <see cref="CLRCreateInstance"/> to create an instance of <see cref="ICLRMetaHostPolicy"/>.
@@ -27,7 +27,7 @@ namespace PInvoke
         /// <summary>
         /// The CLSID that may be passed to <see cref="CLRCreateInstance"/> to create an instance of <see cref="ICLRDebugging"/>.
         /// </summary>
-        public static readonly Guid CLSID_CLRDebugging = new Guid(0xbacc578d, 0xfbdd, 0x48a4, 0x96, 0x9f, 0x2, 0xd9, 0x32, 0xb7, 0x46, 0x34);
+        public static readonly Guid CLSID_CLRDebugging = new Guid(unchecked((int)0xbacc578d), unchecked((short)0xfbdd), 0x48a4, 0x96, 0x9f, 0x2, 0xd9, 0x32, 0xb7, 0x46, 0x34);
 
         /// <summary>
         /// Gets the public key from a public/private key pair. The key pair can be supplied either as a key container name within a cryptographic service provider (CSP) or as a raw collection of bytes.

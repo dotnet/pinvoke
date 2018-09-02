@@ -1157,7 +1157,7 @@ namespace PInvoke
         /// privilege set.</param>
         /// <param name="ImpersonationLevel">Specifies a value from the <see cref="SECURITY_IMPERSONATION_LEVEL"/>
         /// enumeration that indicates the impersonation level of the new token.</param>
-        /// <param name="TokenType">pecifies one of the following values from the <see cref="TokenType"/> enumeration.</param>
+        /// <param name="TokenType">pecifies one of the following values from the <see cref="TOKEN_TYPE"/> enumeration.</param>
         /// <param name="phNewToken">A pointer to a <see cref="SafeObjectHandle"/> variable that receives the new token.</param>
         /// <returns>If the function succeeds, the function returns a nonzero value.
         /// If the function fails, it returns zero.To get extended error information, call GetLastError.</returns>

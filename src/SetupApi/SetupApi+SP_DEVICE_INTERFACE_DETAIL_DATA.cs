@@ -56,7 +56,7 @@ namespace PInvoke
             /// </remarks>
             public static string GetDevicePath(SP_DEVICE_INTERFACE_DETAIL_DATA* pSelf)
             {
-                return Marshal.PtrToStringAuto(new IntPtr(pSelf->DevicePath));
+                return Marshal.PtrToStringUni(new IntPtr(pSelf->DevicePath));
             }
         }
     }

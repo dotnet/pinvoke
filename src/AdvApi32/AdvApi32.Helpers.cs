@@ -6,7 +6,9 @@ namespace PInvoke
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
+#if !(NETSTANDARD1_1 || PROFILE92 || PROFILE111)
     using System.Security.AccessControl;
+#endif
     using static Kernel32;
 
     /// <content>
@@ -87,6 +89,8 @@ namespace PInvoke
             }
         }
 
+#if !(NETSTANDARD1_1 || PROFILE92 || PROFILE111)
+
         /// <summary>
         ///     Retrieves a copy of the security descriptor associated with a service object. You can also use the
         ///     GetNamedSecurityInfo function to retrieve a security descriptor.
@@ -163,6 +167,8 @@ namespace PInvoke
                 throw new Win32Exception();
             }
         }
+
+#endif
 
         /// <summary>
         /// Creates a service object and adds it to service control manager database o the local computer.

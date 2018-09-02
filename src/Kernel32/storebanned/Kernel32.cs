@@ -825,7 +825,7 @@ namespace PInvoke
         /// <see cref="CreateToolhelp32SnapshotFlags.TH32CS_SNAPMODULE32" /> flags do not retrieve handles for modules that were
         /// loaded with the LOAD_LIBRARY_AS_DATAFILE or similar flags. For more information, see LoadLibraryEx.
         /// </para>
-        /// <para>To destroy the snapshot, call <see cref="SafeHandle.Close" /> on the returned handle.</para>
+        /// <para>To destroy the snapshot, call <see cref="SafeHandle.Dispose()" /> on the returned handle.</para>
         /// <para>
         /// Note that you can use the
         /// <see cref="QueryFullProcessImageName(SafeObjectHandle, QueryFullProcessImageNameFlags, char*, ref int)" />

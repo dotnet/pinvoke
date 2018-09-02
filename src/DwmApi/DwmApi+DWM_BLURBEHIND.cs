@@ -47,10 +47,14 @@ namespace PInvoke
                 set { this.fEnable = value ? (byte)1 : (byte)0; }
             }
 
+#if !(NETSTANDARD1_1 || PROFILE92 || PROFILE111)
+
             /// <summary>
             /// Gets a <see cref="Region"/> object from the <see cref="hRgnBlur"/> handle.
             /// </summary>
             public System.Drawing.Region Region => System.Drawing.Region.FromHrgn(this.hRgnBlur);
+
+#endif
 
             /// <summary>
             /// Gets or sets a value indicating whether the window's colorization should transition to match the maximized windows.
