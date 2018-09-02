@@ -6,7 +6,7 @@ trigger:
   branches:
     include: ["master"]
   paths:
-    exclude: [".github", "doc", "*.md"]
+    exclude: [".github", "doc", "*.md", ".appveyor.yml"]
 
 variables:
   BuildConfiguration: Release
