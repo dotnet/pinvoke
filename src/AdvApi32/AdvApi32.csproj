@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
   </PropertyGroup>
@@ -6,5 +6,5 @@
     <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
 </Project>

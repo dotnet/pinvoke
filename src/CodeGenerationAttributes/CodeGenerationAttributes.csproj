@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(PortableOnlyFrameworks);net20</TargetFrameworks>
     <AssemblyName>CodeGenerationAttributes</AssemblyName>
@@ -6,5 +6,4 @@
   <ItemGroup>
     <PackageReference Include="CodeGeneration.Roslyn.Attributes" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
   </ItemGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

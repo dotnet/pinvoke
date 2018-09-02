@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
   </PropertyGroup>
@@ -8,5 +8,4 @@
     <ProjectReference Include="..\Windows.ShellScalingApi\Windows.ShellScalingApi.csproj" />
     <PackageReference Include="Validation" Version="2.4.15" />
   </ItemGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
     <ResolveComReferenceSilent>true</ResolveComReferenceSilent>
@@ -16,5 +16,4 @@
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMFileReference>
   </ItemGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

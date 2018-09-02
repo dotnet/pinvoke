@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
     <Summary>P/Invoke methods for Win32 APIs</Summary>
@@ -34,5 +34,4 @@
     <ProjectReference Include="..\Wtsapi32\Wtsapi32.csproj" />
     <ProjectReference Include="..\Magnification\Magnification.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
