@@ -123,6 +123,7 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
     $xunitArgs = @()
     $xunitArgs += $TestAssemblies
     $xunitArgs += "-html","$BinTestsFolder\testresults.html","-xml","$BinTestsFolder\testresults.xml"
+    $xunitArgs += "-notrait",'"skiponcloud=true"'
     if (!$NoParallelTests) {
         $xunitArgs += "-parallel","all"
     }
