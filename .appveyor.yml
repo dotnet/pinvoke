@@ -1,6 +1,16 @@
 version: '{build}'
 skip_tags: true
 skip_branch_with_pr: true
+branches:
+  only:
+  - master
+  - /^v\d+(?:\.\d+)?$/
+  - /[\b_]validate\b/
+skip_commits:
+  files:
+    - doc/*
+    - '**/*.md'
+    - .vsts-ci.yml
 os: Visual Studio 2017
 configuration: Release
 environment:

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
     <StoreBanned>true</StoreBanned>
@@ -6,5 +6,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

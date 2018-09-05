@@ -1,0 +1,95 @@
+queue:
+  name: Hosted VS2017
+  timeoutInMinutes: 60
+
+trigger:
+  branches:
+    include: ["master"]
+  paths:
+    exclude: [".github", "doc", "*.md", ".appveyor.yml"]
+
+variables:
+  BuildConfiguration: Release
+  VisualStudioVersion: 15.0
+  GeneratePInvokesTxt: true
+  TreatWarningsAsErrors: true
+  ReportDir: bin\$(BuildConfiguration)
+
+steps:
+- task: BatchScript@1
+  inputs:
+    filename: C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsDevCmd.bat
+    arguments: -no_logo
+    modifyEnvironment: true
+  displayName: Setup Environment Variables
+
+- powershell: choco install pandoc
+  displayName: Install prerequisites
+
+- powershell: .\build.ps1 -Restore
+  displayName: Restore packages
+
+- powershell: .\build.ps1 -Configuration $(BuildConfiguration) -Build
+  displayName: Build
+
+- powershell: .\build.ps1 -Configuration $(BuildConfiguration) -Test -NoParallelTests
+  displayName: Test
+
+- powershell: |
+    tools\Get-CoverageReport.ps1 -NoBuild -Configuration $(BuildConfiguration) -OutFile "$(ReportDir)\coverage.md"
+    pandoc -f markdown -t html "$(ReportDir)\coverage.md" -o "$(ReportDir)\coverage.html"
+  displayName: Collect P/Invoke coverage report
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)\PInvoke coverage report'
+  inputs:
+    SourceFolder: $(ReportDir)
+    Contents: |
+      coverage.html
+      coverage.md
+    TargetFolder: $(build.artifactstagingdirectory)\PInvoke coverage report
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: PInvoke coverage report'
+  inputs:
+    PathtoPublish: $(build.artifactstagingdirectory)\PInvoke coverage report
+    ArtifactName: PInvoke coverage report
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)\PInvoke method coverage'
+  inputs:
+    SourceFolder: bin
+    Contents: '**\*.pinvokes.txt'
+    TargetFolder: '$(build.artifactstagingdirectory)\PInvoke method coverage'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: PInvoke method coverage'
+  inputs:
+    PathtoPublish: $(build.artifactstagingdirectory)\PInvoke method coverage
+    ArtifactName: PInvoke method coverage
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)\Exported methods'
+  inputs:
+    SourceFolder: bin
+    Contents: '**\*.exports.txt'
+    TargetFolder: '$(build.artifactstagingdirectory)\Exported methods'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Exported methods'
+  inputs:
+    PathtoPublish: $(build.artifactstagingdirectory)\Exported methods
+    ArtifactName: Exported methods
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)\NuGet packages'
+  inputs:
+    SourceFolder: bin
+    Contents: '**\*.nupkg'
+    TargetFolder: '$(build.artifactstagingdirectory)\NuGet packages'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: NuGet packages'
+  inputs:
+    PathtoPublish: $(build.artifactstagingdirectory)\NuGet packages
+    ArtifactName: NuGet packages

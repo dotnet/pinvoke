@@ -35,8 +35,8 @@
 
     <DefineConstants Condition=" '$(TargetsDesktop)' != 'true' ">$(DefineConstants);APISets</DefineConstants>
 
-    <CodeGenerationPackageVersion>0.4.6</CodeGenerationPackageVersion>
-    <NerdbankGitVersioningPackageVersion>2.1.23</NerdbankGitVersioningPackageVersion>
+    <CodeGenerationPackageVersion>0.4.65</CodeGenerationPackageVersion>
+    <NerdbankGitVersioningPackageVersion>2.2.13</NerdbankGitVersioningPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetsDesktop)' == 'true' ">
@@ -66,14 +66,13 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\netstandard1.5\" />
+    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\netstandard1.6\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
     <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.6" PrivateAssets="all" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="$(NerdbankGitVersioningPackageVersion)" PrivateAssets="all" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>

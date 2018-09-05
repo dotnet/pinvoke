@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
     <StoreBanned>true</StoreBanned>
@@ -14,5 +14,4 @@
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMFileReference>
   </ItemGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

@@ -82,6 +82,7 @@ if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "Restore packages")) {
 if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
     $buildArgs = @()
     $buildArgs += $SolutionFile,'/nologo','/nr:false','/m','/v:minimal','/t:build,pack'
+    $buildArgs += "/p:Configuration=$Configuration"
     $buildArgs += '/fl','/flp:verbosity=normal;logfile=msbuild.log','/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal','/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal'
     if ($GeneratePInvokesTxt) {
         $buildArgs += '/p:GeneratePInvokesTxt=true'
@@ -123,6 +124,7 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
     $xunitArgs = @()
     $xunitArgs += $TestAssemblies
     $xunitArgs += "-html","$BinTestsFolder\testresults.html","-xml","$BinTestsFolder\testresults.xml"
+    $xunitArgs += "-notrait",'"skiponcloud=true"'
     if (!$NoParallelTests) {
         $xunitArgs += "-parallel","all"
     }

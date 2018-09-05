@@ -59,6 +59,7 @@ public partial class User32Facts
     }
 
     [Fact]
+    [Trait("skiponcloud", "true")]
     public void GetWindowTextHelper_WithNonzeroLastError()
     {
         IntPtr hwnd = CreateWindow(
