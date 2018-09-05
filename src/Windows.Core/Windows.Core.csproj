@@ -1,8 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(PortableOnlyFrameworks);net20;net35</TargetFrameworks>
     <Summary>P/Invoke types for common Windows APIs.</Summary>
     <Description>P/Invoke types for common Windows APIs.</Description>
   </PropertyGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(DesktopAndPortableFrameworks)</TargetFrameworks>
   </PropertyGroup>
@@ -7,5 +7,4 @@
     <ProjectReference Include="..\NCrypt\NCrypt.csproj" />
     <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" Condition=" '$(TargetsDesktop)' == 'true' " />
   </ItemGroup>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
