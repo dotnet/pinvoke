@@ -35,7 +35,7 @@
 
     <DefineConstants Condition=" '$(TargetsDesktop)' != 'true' ">$(DefineConstants);APISets</DefineConstants>
 
-    <CodeGenerationPackageVersion>0.4.65</CodeGenerationPackageVersion>
+    <CodeGenerationPackageVersion>0.4.74</CodeGenerationPackageVersion>
     <NerdbankGitVersioningPackageVersion>2.2.13</NerdbankGitVersioningPackageVersion>
   </PropertyGroup>
 

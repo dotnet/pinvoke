@@ -107,8 +107,8 @@ namespace PInvoke
                     .WithIdentifier(TransformMethodName(method))
                     .WithModifiers(RemoveModifier(method.Modifiers, SyntaxKind.ExternKeyword))
                     .WithAttributeLists(FilterAttributes(method.AttributeLists))
-                    .WithLeadingTrivia(method.GetLeadingTrivia().Where(t => !t.IsDirective))
-                    .WithTrailingTrivia(method.GetTrailingTrivia().Where(t => !t.IsDirective))
+                    .WithLeadingTrivia(method.GetLeadingTrivia().Reverse().TakeWhile(t => !t.IsDirective).Reverse())
+                    .WithTrailingTrivia(method.GetTrailingTrivia().TakeWhile(t => !t.IsDirective))
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None))
                     .WithExpressionBody(null);
 
