@@ -47,7 +47,7 @@ namespace PInvoke
                 set { this.fEnable = value ? (byte)1 : (byte)0; }
             }
 
-#if !(NETSTANDARD1_1 || PROFILE92 || PROFILE111)
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
 
             /// <summary>
             /// Gets a <see cref="Region"/> object from the <see cref="hRgnBlur"/> handle.

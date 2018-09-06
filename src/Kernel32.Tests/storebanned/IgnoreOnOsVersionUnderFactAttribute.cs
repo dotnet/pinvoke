@@ -16,7 +16,7 @@ internal class IgnoreOnOsVersionUnderFactAttribute : FactAttribute
     /// <summary>Initializes a new instance of the <see cref="IgnoreOnOsVersionUnderFactAttribute" /> class.</summary>
     /// <param name="minimumVersion">
     ///     The minimum version required for this <see cref="FactAttribute" /> in a format usable by
-    ///     <see cref="Version.Parse" />.
+    ///     <see cref="Version.Parse(string)" />.
     /// </param>
     public IgnoreOnOsVersionUnderFactAttribute(string minimumVersion)
     {

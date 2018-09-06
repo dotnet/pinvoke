@@ -21,7 +21,7 @@ namespace PInvoke
             using (var ntdll = LoadLibrary("ntdll.dll"))
             {
                 int dwLanguageId = 0;
-#if DESKTOP
+#if NETFRAMEWORK || NETSTANDARD2_0
                 dwLanguageId = CultureInfo.CurrentCulture.LCID;
 #endif
 

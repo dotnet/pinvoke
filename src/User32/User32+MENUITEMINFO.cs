@@ -14,7 +14,7 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a menu item.
         /// </summary>
-#if NETSTANDARD1_1 || PROFILE92 || PROFILE111
+#if NETPORTABLE
         [StructLayout(LayoutKind.Sequential)]
 #else
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]

@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
-#if !(NETSTANDARD1_1 || PROFILE92 || PROFILE111)
+#if !(NETSTANDARD1_1 || NETPORTABLE)
     using System.Security.AccessControl;
 #endif
     using static Kernel32;
@@ -89,7 +89,7 @@ namespace PInvoke
             }
         }
 
-#if !(NETSTANDARD1_1 || PROFILE92 || PROFILE111)
+#if NETFRAMEWORK || NETSTANDARD1_6_ORLATER
 
         /// <summary>
         ///     Retrieves a copy of the security descriptor associated with a service object. You can also use the

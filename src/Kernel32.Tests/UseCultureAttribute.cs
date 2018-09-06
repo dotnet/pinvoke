@@ -70,7 +70,7 @@ internal class UseCultureAttribute : BeforeAfterTestAttribute
         this.originalCulture = CultureInfo.CurrentCulture;
         this.originalUICulture = CultureInfo.CurrentUICulture;
 
-#if DESKTOP
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
         Thread.CurrentThread.CurrentCulture = this.Culture;
         Thread.CurrentThread.CurrentUICulture = this.UICulture;
 #else
@@ -86,7 +86,7 @@ internal class UseCultureAttribute : BeforeAfterTestAttribute
     /// <param name="methodUnderTest">The method under test</param>
     public override void After(MethodInfo methodUnderTest)
     {
-#if DESKTOP
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
         Thread.CurrentThread.CurrentCulture = this.originalCulture;
         Thread.CurrentThread.CurrentUICulture = this.originalUICulture;
 #else

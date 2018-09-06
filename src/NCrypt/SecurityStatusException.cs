@@ -9,7 +9,7 @@ namespace PInvoke
     /// <summary>
     /// An exception that describes a failure with a <see cref="SECURITY_STATUS"/> code.
     /// </summary>
-#if DESKTOP
+#if Serialization
     [Serializable]
 #endif
     public class SecurityStatusException : Exception
@@ -45,7 +45,7 @@ namespace PInvoke
             this.NativeErrorCode = status;
         }
 
-#if DESKTOP
+#if Serialization
         /// <summary>
         /// Initializes a new instance of the <see cref="SecurityStatusException"/> class
         /// for deserialization.

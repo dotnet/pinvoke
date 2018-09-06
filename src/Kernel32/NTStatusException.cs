@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     using System;
-#if DESKTOP
+#if Serialization
     using System.Runtime.Serialization;
 #endif
     using static PInvoke.Kernel32;
@@ -12,7 +12,7 @@ namespace PInvoke
     /// <summary>
     /// An exception thrown for a failure described by a <see cref="NTSTATUS"/>.
     /// </summary>
-#if DESKTOP
+#if Serialization
     [Serializable]
 #endif
     public class NTStatusException : Exception
@@ -48,7 +48,7 @@ namespace PInvoke
             this.NativeErrorCode = statusCode;
         }
 
-#if DESKTOP
+#if Serialization
         /// <summary>
         /// Initializes a new instance of the <see cref="NTStatusException"/> class
         /// for deserialization.
@@ -67,7 +67,7 @@ namespace PInvoke
         /// </summary>
         public NTSTATUS NativeErrorCode { get; }
 
-#if DESKTOP
+#if Serialization
         /// <inheritdoc />
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
@@ -90,7 +90,7 @@ namespace PInvoke
                 : hexCode;
             string insert = $"NT_STATUS {GetSeverityString(status)}: {statusAsString}";
             string message = null;
-#if DESKTOP
+#if !WINDOWS8
             message = status.GetMessage();
 #endif
 

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(PortableOnlyFrameworks);net20;net35</TargetFrameworks>
+    <TargetFrameworks>$(PortableOnlyFrameworks);net20;net35;netstandard2.0</TargetFrameworks>
     <Summary>P/Invoke types for common Windows APIs.</Summary>
     <Description>P/Invoke types for common Windows APIs.</Description>
   </PropertyGroup>

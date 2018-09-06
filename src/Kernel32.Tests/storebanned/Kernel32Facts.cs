@@ -174,7 +174,7 @@ public partial class Kernel32Facts
                 FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE,
                 ntdll.DangerousGetHandle(),
                 (int)NTSTATUS.Code.DBG_REPLY_LATER,
-#if DESKTOP
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
                 CultureInfo.CurrentCulture.LCID,
 #else
                 0,
