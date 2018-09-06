@@ -1,6 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(DesktopOnlyFrameworks)</TargetFrameworks>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
+    <StoreBanned>true</StoreBanned>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\DbgHelp\DbgHelp.csproj" />

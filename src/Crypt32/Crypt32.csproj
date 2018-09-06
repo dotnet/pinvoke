@@ -1,10 +1,10 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(DesktopAndPortableFrameworks)</TargetFrameworks>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
     <ProjectReference Include="..\NCrypt\NCrypt.csproj" />
-    <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" Condition=" '$(TargetsDesktop)' == 'true' " />
+    <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" />
   </ItemGroup>
 </Project>

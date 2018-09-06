@@ -79,7 +79,7 @@ namespace PInvoke
         /// <remarks>
         /// <paramref name="dwThreadId"/> is the ID of the native thread (typically obtained by
         /// calling GetCurrentThreadId or GetThreadId functions. This is not the same as the
-        /// managed thread ID returned by <see cref="System.Threading.Thread.ManagedThreadId"/>
+        /// managed thread ID returned by System.Threading.Thread.ManagedThreadId or System.Environment.CurrentManagedThreadId.
         /// </remarks>
         [DllImport(nameof(Ole32))]
         public static extern HResult CoCancelCall(int dwThreadId, int ulTimeout);

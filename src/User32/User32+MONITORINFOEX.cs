@@ -17,7 +17,11 @@ namespace PInvoke
         /// MONITORINFOEX structure is a superset of the MONITORINFO structure. The MONITORINFOEX
         /// structure adds a string member to contain a name for the display monitor.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+#if NETSTANDARD1_1 || PROFILE92 || PROFILE111
+        [StructLayout(LayoutKind.Sequential)]
+#else
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+#endif
         public unsafe struct MONITORINFOEX
         {
             /// <summary>

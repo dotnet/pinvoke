@@ -1,10 +1,13 @@
 <Project>
   <PropertyGroup>
     <RootNamespace Condition=" '$(IsTestProject)' == 'true' " />
+    <ExcludeStoreBannedAPIs Condition=" '$(TargetPlatformIdentifier)' == 'Windows' and '$(TargetPlatformVersion)' >= 8.0 ">true</ExcludeStoreBannedAPIs>
+    <DefineConstants Condition=" '$(ExcludeStoreBannedAPIs)' != 'true' ">$(DefineConstants);IncludeStoreBannedAPIs</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="desktop\**" Condition=" '$(TargetsDesktop)' != 'true' " />
+    <Compile Remove="storebanned\**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' " />
+    <Compile Remove="**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' and '$(StoreBanned)' == 'true' " />
     <Compile Include="$(MSBuildThisFileDirectory)net20Helpers\*.cs"
              Condition=" '$(TargetFramework)' == 'net20' and '$(MSBuildProjectName)' != 'CodeGenerationAttributes' " />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAttributes.cs" Condition=" '$(IsPInvokeProject)' == 'true' " />
@@ -17,4 +20,7 @@
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
+
+  <!-- Workaround win8 .targets defining a target that should be blank (https://github.com/dotnet/sdk/issues/2517) -->
+  <Target Name="GetPackagingOutputs" />
 </Project>
