@@ -20,4 +20,7 @@
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
+
+  <!-- Workaround win8 .targets defining a target that should be blank (https://github.com/dotnet/sdk/issues/2517) -->
+  <Target Name="GetPackagingOutputs" />
 </Project>
