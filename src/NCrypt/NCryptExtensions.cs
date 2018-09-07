@@ -42,7 +42,7 @@ namespace PInvoke
         {
             int dwLanguageId = 0;
 
-#if DESKTOP
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
             dwLanguageId = CultureInfo.CurrentCulture.LCID;
 #endif
 

@@ -26,7 +26,7 @@ public class SecurityStatusExceptionFacts
     {
         SECURITY_STATUS error = SECURITY_STATUS.NTE_BAD_DATA;
         var ex = new SecurityStatusException(error);
-#if DESKTOP
+#if NETFRAMEWORK
         Assert.Equal("Bad Data (SECURITY_STATUS error: NTE_BAD_DATA (0x80090005))", ex.Message);
 #else
         Assert.Equal("SECURITY_STATUS error: NTE_BAD_DATA (0x80090005)", ex.Message);
@@ -39,7 +39,7 @@ public class SecurityStatusExceptionFacts
     {
         SECURITY_STATUS error = SECURITY_STATUS.ERROR_SUCCESS;
         var ex = new SecurityStatusException(error);
-#if DESKTOP
+#if NETFRAMEWORK
         Assert.Equal("The operation completed successfully (SECURITY_STATUS success: ERROR_SUCCESS (0x00000000))", ex.Message);
 #else
         Assert.Equal("SECURITY_STATUS success: ERROR_SUCCESS (0x00000000)", ex.Message);

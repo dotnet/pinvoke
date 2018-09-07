@@ -128,7 +128,11 @@ namespace PInvoke
             {
                 return new STARTUPINFO
                 {
+#if NETSTANDARD1_3_ORLATER
+                    cb = Marshal.SizeOf<STARTUPINFO>(),
+#else
                     cb = Marshal.SizeOf(typeof(STARTUPINFO)),
+#endif
                     hStdInput = SafeObjectHandle.Null,
                     hStdOutput = SafeObjectHandle.Null,
                     hStdError = SafeObjectHandle.Null,

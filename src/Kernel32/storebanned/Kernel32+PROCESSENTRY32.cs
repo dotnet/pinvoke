@@ -109,7 +109,11 @@ namespace PInvoke
             {
                 return new PROCESSENTRY32
                 {
+#if NETSTANDARD1_3_ORLATER
+                    dwSize = Marshal.SizeOf<PROCESSENTRY32>(),
+#else
                     dwSize = Marshal.SizeOf(typeof(PROCESSENTRY32)),
+#endif
                 };
             }
         }

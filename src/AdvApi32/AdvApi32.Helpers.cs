@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
-#if !(NETSTANDARD1_1 || PROFILE92 || PROFILE111)
+#if !(NETSTANDARD1_1 || NETPORTABLE)
     using System.Security.AccessControl;
 #endif
     using static Kernel32;
@@ -77,10 +77,18 @@ namespace PInvoke
 
                     var result = new ENUM_SERVICE_STATUS[numServicesReturned];
                     byte* position = buffer;
+#if NETSTANDARD1_3_ORLATER
+                    int structSize = Marshal.SizeOf<ENUM_SERVICE_STATUS>();
+#else
                     int structSize = Marshal.SizeOf(typeof(ENUM_SERVICE_STATUS));
+#endif
                     for (int i = 0; i < numServicesReturned; i++)
                     {
+#if NETSTANDARD1_3_ORLATER
+                        result[i] = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure<ENUM_SERVICE_STATUS>(new IntPtr(position));
+#else
                         result[i] = (ENUM_SERVICE_STATUS)Marshal.PtrToStructure(new IntPtr(position), typeof(ENUM_SERVICE_STATUS));
+#endif
                         position += structSize;
                     }
 
@@ -89,7 +97,7 @@ namespace PInvoke
             }
         }
 
-#if !(NETSTANDARD1_1 || PROFILE92 || PROFILE111)
+#if NETFRAMEWORK || NETSTANDARD1_6_ORLATER
 
         /// <summary>
         ///     Retrieves a copy of the security descriptor associated with a service object. You can also use the
@@ -253,7 +261,11 @@ namespace PInvoke
                         lpDescription = lpDescription
                     };
 
-                    fixed (void* lpInfo = new byte[Marshal.SizeOf(descriptionStruct)])
+#if NETSTANDARD1_3_ORLATER
+                    fixed (void* lpInfo = new byte[Marshal.SizeOf<ServiceDescription>()])
+#else
+                    fixed (void* lpInfo = new byte[Marshal.SizeOf(typeof(ServiceDescription))])
+#endif
                     {
                         Marshal.StructureToPtr(descriptionStruct, new IntPtr(lpInfo), false);
                         if (!ChangeServiceConfig2(svcHandle, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, lpInfo))
@@ -261,7 +273,11 @@ namespace PInvoke
                             throw new Win32Exception();
                         }
 
+#if NETSTANDARD1_3_ORLATER
+                        Marshal.DestroyStructure<ServiceDescription>(new IntPtr(lpInfo));
+#else
                         Marshal.DestroyStructure(new IntPtr(lpInfo), typeof(ServiceDescription));
+#endif
                     }
                 }
             }

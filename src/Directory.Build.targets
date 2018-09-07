@@ -3,6 +3,14 @@
     <RootNamespace Condition=" '$(IsTestProject)' == 'true' " />
     <ExcludeStoreBannedAPIs Condition=" '$(TargetPlatformIdentifier)' == 'Windows' and '$(TargetPlatformVersion)' >= 8.0 ">true</ExcludeStoreBannedAPIs>
     <DefineConstants Condition=" '$(ExcludeStoreBannedAPIs)' != 'true' ">$(DefineConstants);IncludeStoreBannedAPIs</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' or ('$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 2.0) ">$(DefineConstants);Serialization</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 1.3 ">$(DefineConstants);NETSTANDARD1_3_ORLATER</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 1.6 ">$(DefineConstants);NETSTANDARD1_6_ORLATER</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 2.0 ">$(DefineConstants);NETSTANDARD2_0_ORLATER</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(_TargetFrameworkVersionWithoutV)' >= 4.0 ">$(DefineConstants);NET40_ORLATER</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(_TargetFrameworkVersionWithoutV)' >= 4.5 ">$(DefineConstants);NET45_ORLATER</DefineConstants>
+
+    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' != '.NETFramework' ">$(DefineConstants);APISets</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

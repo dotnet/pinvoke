@@ -6,6 +6,7 @@
 
     <DesktopOnlyFrameworks>net45;net40;net20</DesktopOnlyFrameworks>
     <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);win8</PlatformSpecificFrameworks>
+    <!-- Target frameworks beyond .NET Standard 1.1 are added to individual projects on an as-needed basis. -->
     <PortableOnlyFrameworks>netstandard1.1;portable-net40+win8+wpa81;portable-net45+win8+wpa81</PortableOnlyFrameworks>
     <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 
@@ -27,20 +28,13 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
     <DebugType>portable</DebugType>
 
-    <TargetsDesktop Condition=" '$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net46' ">true</TargetsDesktop>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
     <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
 
-    <DefineConstants Condition=" '$(TargetsDesktop)' != 'true' ">$(DefineConstants);APISets</DefineConstants>
-
     <CodeGenerationPackageVersion>0.4.74</CodeGenerationPackageVersion>
     <NerdbankGitVersioningPackageVersion>2.2.13</NerdbankGitVersioningPackageVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetsDesktop)' == 'true' ">
-    <DefineConstants>$(DefineConstants);DESKTOP</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">

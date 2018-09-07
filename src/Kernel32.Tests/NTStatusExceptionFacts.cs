@@ -24,7 +24,7 @@ public partial class NTStatusExceptionFacts
     {
         NTSTATUS error = NTSTATUS.Code.EPT_NT_INVALID_ENTRY;
         var ex = new NTStatusException(error);
-#if DESKTOP
+#if NETFRAMEWORK
         Assert.Equal("The entry is invalid (NT_STATUS error: EPT_NT_INVALID_ENTRY (0xC0020034))", ex.Message);
 #else
         Assert.Equal("NT_STATUS error: EPT_NT_INVALID_ENTRY (0xC0020034)", ex.Message);
@@ -37,7 +37,7 @@ public partial class NTStatusExceptionFacts
     {
         NTSTATUS error = NTSTATUS.Code.STATUS_BUFFER_OVERFLOW;
         var ex = new NTStatusException(error);
-#if DESKTOP
+#if NETFRAMEWORK
         Assert.Equal("{Buffer Overflow}\r\nThe data was too large to fit into the specified buffer (NT_STATUS warning: STATUS_BUFFER_OVERFLOW (0x80000005))", ex.Message);
 #else
         Assert.Equal("NT_STATUS warning: STATUS_BUFFER_OVERFLOW (0x80000005)", ex.Message);
@@ -50,7 +50,7 @@ public partial class NTStatusExceptionFacts
     {
         NTSTATUS error = NTSTATUS.Code.STATUS_WAKE_SYSTEM;
         var ex = new NTStatusException(error);
-#if DESKTOP
+#if NETFRAMEWORK
         Assert.Equal("The system has awoken (NT_STATUS information: STATUS_WAKE_SYSTEM (0x40000294))", ex.Message);
 #else
         Assert.Equal("NT_STATUS information: STATUS_WAKE_SYSTEM (0x40000294)", ex.Message);
@@ -63,7 +63,7 @@ public partial class NTStatusExceptionFacts
     {
         NTSTATUS error = NTSTATUS.Code.STATUS_PENDING;
         var ex = new NTStatusException(error);
-#if DESKTOP
+#if NETFRAMEWORK
         Assert.Equal("The operation that was requested is pending completion (NT_STATUS success: STATUS_PENDING (0x00000103))", ex.Message);
 #else
         Assert.Equal("NT_STATUS success: STATUS_PENDING (0x00000103)", ex.Message);
