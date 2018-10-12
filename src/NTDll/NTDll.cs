@@ -4,7 +4,11 @@
 namespace PInvoke
 {
     using System;
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+    using System.Runtime.ConstrainedExecution;
+#endif
     using System.Runtime.InteropServices;
+    using System.Security;
 
     /// <content>
     /// Exported functions from the NTDll.dll Windows library
@@ -45,6 +49,10 @@ namespace PInvoke
         /// <returns>
         /// Returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/> on success, or the appropriate <see cref="NTSTATUS"/> error code on failure.
         /// </returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(NTDll))]
         private static extern NTSTATUS NtClose(IntPtr handle);
     }

@@ -4,7 +4,11 @@
 namespace PInvoke
 {
     using System;
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+    using System.Runtime.ConstrainedExecution;
+#endif
     using System.Runtime.InteropServices;
+    using System.Security;
     using System.Text;
     using static Kernel32;
 
@@ -169,6 +173,10 @@ namespace PInvoke
         /// <see cref="HidD_GetPreparsedData(Kernel32.SafeObjectHandle, out SafePreparsedDataHandle)" />, that is freed.
         /// </param>
         /// <returns>TRUE if it succeeds. Otherwise, it returns FALSE if the buffer was not a preparsed data buffer.</returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(Hid), SetLastError = true)]
         private static extern bool HidD_FreePreparsedData(IntPtr preparsedData);
     }

@@ -4,7 +4,11 @@
 namespace PInvoke
 {
     using System;
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+    using System.Runtime.ConstrainedExecution;
+#endif
     using System.Runtime.InteropServices;
+    using System.Security;
 
     /// <content>
     /// Exported functions from the SetupApi.dll Windows library
@@ -186,6 +190,10 @@ namespace PInvoke
         /// error, <see langword="false" /> is returned and the error code for the failure can be retrieved by calling
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(SetupApi), SetLastError = true)]
         private static extern bool SetupDiDestroyDeviceInfoList(IntPtr deviceInfoSet);
     }

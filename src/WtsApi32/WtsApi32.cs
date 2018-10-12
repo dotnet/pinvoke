@@ -5,7 +5,11 @@ namespace PInvoke
 {
     using System;
     using System.Collections.Generic;
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+    using System.Runtime.ConstrainedExecution;
+#endif
     using System.Runtime.InteropServices;
+    using System.Security;
     using static Kernel32;
 
     /// <content>
@@ -89,6 +93,10 @@ namespace PInvoke
         /// Closes an open handle to a Remote Desktop Session Host (RD Session Host) server.
         /// </summary>
         /// <param name="hServer">A handle to an RD Session Host server opened by a call to the <see cref="WTSOpenServer"/> or <see cref="WTSOpenServerEx"/> function.</param>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(WtsApi32), SetLastError =true, CharSet = CharSet.Unicode)]
         private static extern void WTSCloseServer(IntPtr hServer);
     }
