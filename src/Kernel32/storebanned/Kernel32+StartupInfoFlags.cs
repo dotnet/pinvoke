@@ -97,7 +97,7 @@ namespace PInvoke
             /// <summary>
             /// The <see cref="STARTUPINFO.hStdInput"/>, <see cref="STARTUPINFO.hStdOutput"/>, and <see cref="STARTUPINFO.hStdError"/> members contain additional information.
             /// If this flag is specified when calling one of the process creation functions, the handles must be inheritable and the function's bInheritHandles parameter must be set to TRUE. For more information, see Handle Inheritance.
-            /// If this flag is specified when calling the <see cref="GetStartupInfo"/> function, these members are either the handle value specified during process creation or <see cref="INVALID_HANDLE_VALUE"/>.
+            /// If this flag is specified when calling the <see cref="GetStartupInfo(STARTUPINFO*)"/> function, these members are either the handle value specified during process creation or <see cref="INVALID_HANDLE_VALUE"/>.
             /// Handles must be closed with <see cref="CloseHandle"/> when they are no longer needed.
             /// This flag cannot be used with <see cref="STARTF_USEHOTKEY"/>.
             /// </summary>

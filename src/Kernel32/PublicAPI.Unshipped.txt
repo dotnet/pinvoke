@@ -1,2 +1,19 @@
+PInvoke.Kernel32.STARTUPINFO.Desktop.get -> string
+PInvoke.Kernel32.STARTUPINFO.Title.get -> string
+PInvoke.Kernel32.STARTUPINFO.hStdError -> System.IntPtr
+PInvoke.Kernel32.STARTUPINFO.hStdInput -> System.IntPtr
+PInvoke.Kernel32.STARTUPINFO.hStdOutput -> System.IntPtr
+PInvoke.Kernel32.STARTUPINFO.lpDesktop -> char*
+PInvoke.Kernel32.STARTUPINFO.lpDesktop_IntPtr.get -> System.IntPtr
+PInvoke.Kernel32.STARTUPINFO.lpDesktop_IntPtr.set -> void
+PInvoke.Kernel32.STARTUPINFO.lpReserved -> char*
+PInvoke.Kernel32.STARTUPINFO.lpReserved_IntPtr.get -> System.IntPtr
+PInvoke.Kernel32.STARTUPINFO.lpReserved_IntPtr.set -> void
+PInvoke.Kernel32.STARTUPINFO.lpTitle -> char*
+PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.get -> System.IntPtr
+PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.set -> void
+static PInvoke.Kernel32.GetStartupInfo(System.IntPtr lpStartupInfo) -> void
+static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
 static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
+static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
 static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void

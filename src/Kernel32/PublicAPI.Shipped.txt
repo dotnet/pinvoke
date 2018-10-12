@@ -985,13 +985,7 @@ PInvoke.Kernel32.STARTUPINFO.dwXSize -> int
 PInvoke.Kernel32.STARTUPINFO.dwY -> int
 PInvoke.Kernel32.STARTUPINFO.dwYCountChars -> int
 PInvoke.Kernel32.STARTUPINFO.dwYSize -> int
-PInvoke.Kernel32.STARTUPINFO.hStdError -> PInvoke.Kernel32.SafeObjectHandle
-PInvoke.Kernel32.STARTUPINFO.hStdInput -> PInvoke.Kernel32.SafeObjectHandle
-PInvoke.Kernel32.STARTUPINFO.hStdOutput -> PInvoke.Kernel32.SafeObjectHandle
-PInvoke.Kernel32.STARTUPINFO.lpDesktop -> string
-PInvoke.Kernel32.STARTUPINFO.lpReserved -> string
 PInvoke.Kernel32.STARTUPINFO.lpReserved2 -> System.IntPtr
-PInvoke.Kernel32.STARTUPINFO.lpTitle -> string
 PInvoke.Kernel32.STARTUPINFO.wShowWindow -> ushort
 PInvoke.Kernel32.STARTUPINFOEX
 PInvoke.Kernel32.STARTUPINFOEX.STARTUPINFOEX() -> void
@@ -1347,7 +1341,6 @@ static extern PInvoke.Kernel32.GetNamedPipeServerSessionId(PInvoke.Kernel32.Safe
 static extern PInvoke.Kernel32.GetNumberOfConsoleInputEvents(System.IntPtr hConsoleInput, out int lpNumberOfEvents) -> bool
 static extern PInvoke.Kernel32.GetOverlappedResult(PInvoke.Kernel32.SafeObjectHandle hFile, PInvoke.Kernel32.OVERLAPPED* lpOverlapped, out int lpNumberOfBytesTransferred, bool bWait) -> bool
 static extern PInvoke.Kernel32.GetProcAddress(PInvoke.Kernel32.SafeLibraryHandle hModule, string procName) -> System.IntPtr
-static extern PInvoke.Kernel32.GetStartupInfo(out PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
 static extern PInvoke.Kernel32.GetStdHandle(PInvoke.Kernel32.StdHandle nStdHandle) -> System.IntPtr
 static extern PInvoke.Kernel32.GetSystemTime(PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> void
 static extern PInvoke.Kernel32.GetTickCount() -> uint

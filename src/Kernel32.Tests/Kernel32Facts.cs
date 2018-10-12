@@ -30,4 +30,13 @@ public partial class Kernel32Facts
         SetLastError(2);
         Assert.Equal(2, Marshal.GetLastWin32Error());
     }
+
+    [Fact]
+    public unsafe void GetStartupInfo_Title()
+    {
+        var startupInfo = STARTUPINFO.Create();
+        GetStartupInfo(ref startupInfo);
+        Assert.NotNull(startupInfo.Title);
+        Assert.NotEqual(0, startupInfo.Title.Length);
+    }
 }

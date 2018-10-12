@@ -550,8 +550,8 @@ namespace PInvoke
         /// This function does not return a value, and does not fail.
         /// </remarks>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, CharSet = CharSet.Unicode)]
-        public static extern void GetStartupInfo(
-            out STARTUPINFO lpStartupInfo);
+        public static extern unsafe void GetStartupInfo(
+            [Friendly(FriendlyFlags.Bidirectional)] STARTUPINFO* lpStartupInfo);
 
         /// <summary>
         /// Initializes the specified list of attributes for process and thread creation.
