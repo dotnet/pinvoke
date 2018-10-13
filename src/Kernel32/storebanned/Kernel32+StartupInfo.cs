@@ -17,7 +17,8 @@ namespace PInvoke
         /// Specifies the window station, desktop, standard handles, and appearance of the main window for a process at creation time.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct STARTUPINFO
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct STARTUPINFO
         {
             /// <summary>
             /// The size of this data structure.
@@ -27,17 +28,17 @@ namespace PInvoke
             /// <summary>
             /// Reserved; must be NULL.
             /// </summary>
-            public string lpReserved;
+            public char* lpReserved;
 
             /// <summary>
             /// The name of the desktop, or the name of both the desktop and window station for this process. A backslash in the string indicates that the string includes both the desktop and window station names. For more information, see Thread Connection to a Desktop.
             /// </summary>
-            public string lpDesktop;
+            public char* lpDesktop;
 
             /// <summary>
             /// For console processes, this is the title displayed in the title bar if a new console window is created. If NULL, the name of the executable file is used as the window title instead. This parameter must be NULL for GUI or console processes that do not create a new console window.
             /// </summary>
-            public string lpTitle;
+            public char* lpTitle;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies STARTF_USEPOSITION, this member is the x offset of the upper left corner of a window if a new window is created, in pixels. Otherwise, this member is ignored.
@@ -106,19 +107,29 @@ namespace PInvoke
             /// If <see cref="dwFlags"/> specifies <see cref="StartupInfoFlags.STARTF_USEHOTKEY"/>, this member specifies a hotkey value that is sent as the wParam parameter of a WM_SETHOTKEY message to the first eligible top-level window created by the application that owns the process. If the window is created with the WS_POPUP window style, it is not eligible unless the WS_EX_APPWINDOW extended window style is also set. For more information, see CreateWindowEx.
             /// Otherwise, this member is ignored.
             /// </summary>
-            public SafeObjectHandle hStdInput;
+            public IntPtr hStdInput;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies <see cref="StartupInfoFlags.STARTF_USESTDHANDLES"/>, this member is the standard output handle for the process. Otherwise, this member is ignored and the default for standard output is the console window's buffer.
             /// If a process is launched from the taskbar or jump list, the system sets <see cref="hStdOutput"/> to a handle to the monitor that contains the taskbar or jump list used to launch the process. For more information, see Remarks.
             /// Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP, and Windows Server 2003:  This behavior was introduced in Windows 8 and Windows Server 2012.
             /// </summary>
-            public SafeObjectHandle hStdOutput;
+            public IntPtr hStdOutput;
 
             /// <summary>
             /// If <see cref="dwFlags"/> specifies <see cref="StartupInfoFlags.STARTF_USESTDHANDLES"/>, this member is the standard error handle for the process. Otherwise, this member is ignored and the default for standard error is the console window's buffer.
             /// </summary>
-            public SafeObjectHandle hStdError;
+            public IntPtr hStdError;
+
+            /// <summary>
+            /// Gets the value of <see cref="lpDesktop" /> as a string.
+            /// </summary>
+            public string Desktop => this.lpDesktop != null ? new string(this.lpDesktop) : null;
+
+            /// <summary>
+            /// Gets the value of <see cref="lpDesktop" /> as a string.
+            /// </summary>
+            public string Title => this.lpTitle != null ? new string(this.lpTitle) : null;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="STARTUPINFO"/> struct.
@@ -133,9 +144,6 @@ namespace PInvoke
 #else
                     cb = Marshal.SizeOf(typeof(STARTUPINFO)),
 #endif
-                    hStdInput = SafeObjectHandle.Null,
-                    hStdOutput = SafeObjectHandle.Null,
-                    hStdError = SafeObjectHandle.Null,
                 };
             }
         }
