@@ -4,7 +4,11 @@
 namespace PInvoke
 {
     using System;
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+    using System.Runtime.ConstrainedExecution;
+#endif
     using System.Runtime.InteropServices;
+    using System.Security;
 
     /// <summary>
     /// Exported functions from the UxTheme.dll Windows library
@@ -83,6 +87,10 @@ namespace PInvoke
         /// </summary>
         /// <param name="hTheme">Handle to a window's specified theme data. Use <see cref="OpenThemeData"/> to create an HTHEME.</param>
         /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(UxTheme), CharSet = CharSet.Unicode)]
         private static extern HResult CloseThemeData(IntPtr hTheme);
     }

@@ -6,7 +6,11 @@
 namespace PInvoke
 {
     using System;
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+    using System.Runtime.ConstrainedExecution;
+#endif
     using System.Runtime.InteropServices;
+    using System.Security;
     using System.Text;
     using PInvoke;
     using static PInvoke.Kernel32;
@@ -580,6 +584,10 @@ namespace PInvoke
         /// The return value indicates whether the DC was released. If the DC was released, the return value is 1.
         /// If the DC was not released, the return value is zero.
         /// </returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(User32), SetLastError = false)]
         public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
@@ -1937,6 +1945,10 @@ namespace PInvoke
         /// </param>
         /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
         /// <remarks>The CloseDesktop function will fail if any thread in the calling process is using the specified desktop handle or if the handle refers to the initial desktop of the calling process.</remarks>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CloseDesktop(IntPtr hDesktop);
@@ -1987,6 +1999,10 @@ namespace PInvoke
         /// The CloseWindowStation function will fail if the handle being closed is for the window station assigned to the calling process.
         /// </para>
         /// </remarks>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CloseWindowStation(IntPtr hWinsta);
@@ -3476,6 +3492,10 @@ namespace PInvoke
         ///     If the function succeeds, the return value is true.
         ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
         /// </returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool UnhookWindowsHookEx(IntPtr hhk);
@@ -3492,6 +3512,10 @@ namespace PInvoke
         ///     If the function succeeds, the return value is true.
         ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
         /// </returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool UnhookWinEvent(IntPtr hWinEventHook);

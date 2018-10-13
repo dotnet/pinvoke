@@ -4,7 +4,11 @@
 namespace PInvoke
 {
     using System;
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+    using System.Runtime.ConstrainedExecution;
+#endif
     using System.Runtime.InteropServices;
+    using System.Security;
     using Microsoft.Win32.SafeHandles;
     using static Kernel32;
 
@@ -1179,6 +1183,10 @@ namespace PInvoke
         /// If the function succeeds, the return value is <see cref="Win32ErrorCode.ERROR_SUCCESS" />.
         /// If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the FormatMessage function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
         /// </returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(api_ms_win_core_registry_l1_1_0)]
         internal static extern Win32ErrorCode RegCloseKey(IntPtr hKey);
 
@@ -1219,6 +1227,10 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
         private static extern bool CloseServiceHandle(IntPtr hSCObject);
 
@@ -1234,6 +1246,10 @@ namespace PInvoke
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.
         /// </returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport(nameof(AdvApi32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool CryptReleaseContext(IntPtr hProv, uint dwFlags);
