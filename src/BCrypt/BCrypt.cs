@@ -109,6 +109,54 @@ namespace PInvoke
             BCryptCreateHashFlags dwFlags);
 
         /// <summary>
+        /// The BCryptCreateMultiHash function creates a multi-hash state that allows for the parallel computation of multiple hash operations.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The algorithm handle used for all of the hash states in the multi-hash array.
+        /// The algorithm handle must have been opened with the <see cref="BCryptOpenAlgorithmProviderFlags.BCRYPT_MULTI_FLAG"/> passed to the <see cref="BCryptOpenAlgorithmProvider(out SafeAlgorithmHandle, string, string, BCryptOpenAlgorithmProviderFlags)"/> function.
+        /// </param>
+        /// <param name="phHash">
+        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the multi-hash state.
+        /// This handle is used in subsequent operations such as <see cref="BCryptProcessMultiOperations(SafeHashHandle, MultiOperationType, BCRYPT_MULTI_HASH_OPERATION[], int, int)"/>.
+        /// When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash(IntPtr)"/> function.
+        /// </param>
+        /// <param name="nHashes">
+        /// The number of elements in the array. The multi-hash state that this function creates is able to perform parallel computations on nHashes different hash states.
+        /// </param>
+        /// <param name="pbHashObject">
+        /// A pointer to a buffer that receives the multi-hash state.
+        /// If <paramref name="pbHashObject"/> is NULL and <paramref name="cbHashObject"/> has a value of zero (0), the object buffer is automatically allocated.
+        /// </param>
+        /// <param name="cbHashObject">
+        /// The size of the <paramref name="pbHashObject"/> buffer, or zero if <paramref name="pbHashObject"/> is NULL.
+        /// </param>
+        /// <param name="pbSecret">
+        /// A pointer to a buffer that contains the key to use for the hash or MAC.
+        /// The <paramref name="cbSecret"/> parameter contains the size of this buffer.
+        /// This key only applies to hash algorithms opened by the <see cref="BCryptOpenAlgorithmProvider(out SafeAlgorithmHandle, string, string, BCryptOpenAlgorithmProviderFlags)"/> function by using the <see cref="BCryptOpenAlgorithmProviderFlags.BCRYPT_ALG_HANDLE_HMAC_FLAG"/> flag
+        /// Otherwise, set this parameter to NULL.
+        /// The same key is used for all elements of the array.
+        /// </param>
+        /// <param name="cbSecret">
+        /// The size, in bytes, of the <paramref name="pbSecret"/> buffer. If no key is used, set this parameter to zero.
+        /// </param>
+        /// <param name="dwFlags">
+        /// Flags that modify the behavior of the function. This can be zero or the values below.
+        /// Multi-hash objects are always reusable and always behave as if the <see cref="BCryptCreateHashFlags.BCRYPT_HASH_REUSABLE_FLAG"/> was passed. This flag is supported here for consistency.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTSTATUS BCryptCreateMultiHash(
+            SafeAlgorithmHandle hAlgorithm,
+            out SafeHashHandle phHash,
+            int nHashes,
+            byte[] pbHashObject,
+            int cbHashObject,
+            byte[] pbSecret,
+            int cbSecret,
+            BCryptCreateHashFlags dwFlags);
+
+        /// <summary>
         /// Encrypts a block of data.
         /// </summary>
         /// <param name="hKey">
@@ -233,6 +281,37 @@ namespace PInvoke
             byte[] pbInput,
             int cbInput,
             BCryptHashDataFlags dwFlags = BCryptHashDataFlags.None);
+
+        /// <summary>
+        /// The BCryptProcessMultiOperations function processes a sequence of operations on a multi-object state.
+        /// </summary>
+        /// <param name="hHash">
+        /// The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte[], int, byte[], int, BCryptCreateHashFlags)"/> function.
+        /// </param>
+        /// <param name="operationType">
+        /// Currently the only defined value is <see cref="MultiOperationType.BCRYPT_OPERATION_TYPE_HASH"/>.
+        /// </param>
+        /// <param name="pOperations">
+        /// A pointer to an array of operation command structures  <see cref="BCRYPT_MULTI_HASH_OPERATION"/>.
+        /// </param>
+        /// <param name="cbOperations">
+        /// The size, in bytes, of the pOperations array.
+        /// </param>
+        /// <param name="dwFlags">
+        /// Specify a value of zero (0).
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// Each element of the pOperations array contains instructions for a particular computation to be performed on a single element of the multi-object state. The functional behavior of BCryptProcessMultiOperations is equivalent to performing, for each element in the multi-object state, the computations specified in the operations array for that element, one at a time, in order.
+        /// The relative order of two operations that operate on different elements of the array is not guaranteed.If an output buffer overlaps an input or output buffer the result is not deterministic.
+        /// </remarks>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern NTSTATUS BCryptProcessMultiOperations(
+            SafeHashHandle hHash,
+            MultiOperationType operationType,
+            BCRYPT_MULTI_HASH_OPERATION[] pOperations,
+            int cbOperations,
+            int dwFlags = 0);
 
         /// <summary>
         /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/>.
