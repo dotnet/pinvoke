@@ -380,7 +380,7 @@ namespace PInvoke
                 {
                     var varStatement = SyntaxFactory.VariableDeclaration(parameter.Type);
                     var declarator = SyntaxFactory.VariableDeclarator(localVarName.Identifier);
-                    if (parameter.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword)))
+                    if (parameter.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword) || m.IsKind(SyntaxKind.RefKeyword)))
                     {
                         var assignment = SyntaxFactory.AssignmentExpression(
                             SyntaxKind.SimpleAssignmentExpression,
@@ -391,7 +391,8 @@ namespace PInvoke
                                 null));
                         postlude.Add(SyntaxFactory.ExpressionStatement(assignment));
                     }
-                    else
+
+                    if (!parameter.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword)))
                     {
                         var voidStarPointer = SyntaxFactory.InvocationExpression(
                             SyntaxFactory.MemberAccessExpression(
