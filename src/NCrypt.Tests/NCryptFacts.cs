@@ -218,7 +218,7 @@ public class NCryptFacts
     }
 
     [Fact]
-    public unsafe void NCryptEnumKeys_Test()
+    public unsafe void NCryptEnumKeys_pointer_Test()
     {
         using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
@@ -241,6 +241,45 @@ public class NCryptFacts
 
                 NCryptFreeBuffer(keyName).ThrowOnError();
                 status = NCryptEnumKeys(provider, scope, out keyName, ref enumState);
+            }
+
+            if (enumState != null)
+            {
+                NCryptFreeBuffer(enumState).ThrowOnError();
+            }
+
+            if (status != SECURITY_STATUS.NTE_NO_MORE_ITEMS)
+            {
+                status.ThrowOnError();
+            }
+        }
+    }
+
+    [Fact]
+    public unsafe void NCryptEnumKeys_IntPtr_Test()
+    {
+        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        {
+            const string scope = null;
+            IntPtr ipkeyName;
+            IntPtr enumState = IntPtr.Zero;
+            SECURITY_STATUS status = NCryptEnumKeys(provider, scope, out ipkeyName, ref enumState);
+            while (status == SECURITY_STATUS.ERROR_SUCCESS)
+            {
+                var keyName = (NCryptKeyName*)ipkeyName.ToPointer();
+                this.logger.WriteLine($"{keyName->Name} ({keyName->Algid})");
+
+                if (keyName->Name.StartsWith("PclCrypto_"))
+                {
+                    using (var key = NCryptOpenKey(provider, *keyName))
+                    {
+                        NCryptDeleteKey(key).ThrowOnError();
+                        key.SetHandleAsInvalid();
+                    }
+                }
+
+                NCryptFreeBuffer(keyName).ThrowOnError();
+                status = NCryptEnumKeys(provider, scope, out ipkeyName, ref enumState);
             }
 
             if (enumState != null)
