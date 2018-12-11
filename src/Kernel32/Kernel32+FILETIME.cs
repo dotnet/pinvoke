@@ -31,6 +31,15 @@ namespace PInvoke
             /// Specifies the high 32 bits of the FILETIME.
             /// </summary>
             public int dwHighDateTime;
+
+            /// <summary>
+            /// Convert to <see cref="long"/> to ease interop with <see cref="System.TimeSpan"/> or <see cref="System.DateTime"/>
+            /// </summary>
+            /// <param name="fileTime"> The fileTime structure to be converted to long.</param>
+            public static implicit operator long(FILETIME fileTime)
+            {
+                return ((long)fileTime.dwHighDateTime << 32) + (uint)fileTime.dwLowDateTime;
+            }
         }
     }
 }
