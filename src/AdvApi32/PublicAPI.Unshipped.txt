@@ -1,0 +1,15 @@
+static extern PInvoke.AdvApi32.CryptAcquireContext(out System.IntPtr hProv, string pszContainer, string pszProvider, uint dwProvType, uint dwFlags) -> bool
+static extern PInvoke.AdvApi32.CryptCreateHash(System.IntPtr hProv, PInvoke.AdvApi32.ALG_ID algId, System.IntPtr hKey, uint dwFlags, ref System.IntPtr phHash) -> bool
+static extern PInvoke.AdvApi32.CryptHashData(System.IntPtr hHash, byte[] pbData, uint dataLen, uint flags) -> bool
+static extern PInvoke.AdvApi32.CryptGetHashParam(System.IntPtr hHash, PInvoke.AdvApi32.HashParameters dwParam, out byte[] pbData, ref uint pdwDataLen, uint dwFlags) -> bool
+static extern PInvoke.AdvApi32.CryptDestroyHash(System.IntPtr hHash) -> bool
+static extern PInvoke.AdvApi32.CryptReleaseContext(System.IntPtr hProv, uint dwFlags) -> bool
+static extern PInvoke.AdvApi32.RegCloseKey(System.IntPtr hKey) -> PInvoke.Win32ErrorCode
+static unsafe extern PInvoke.AdvApi32.ConvertSidToStringSid(System.IntPtr sid, ref char* sidString) -> bool
+static unsafe extern PInvoke.AdvApi32.ConvertStringSidToSid(string StringSid, ref void* sid) -> bool
+static extern PInvoke.AdvApi32.CloseServiceHandle(System.IntPtr hSCObject) -> bool
+PInvoke.AdvApi32.ALG_CLASS_HASH -> int
+PInvoke.AdvApi32.ALG_SID_SHA1 -> int
+PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_MD5 = 0x00008003 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SHA1 = PInvoke.AdvApi32.ALG_CLASS_HASH | PInvoke.AdvApi32.ALG_SID_SHA1 -> PInvoke.AdvApi32.ALG_ID

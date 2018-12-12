@@ -257,6 +257,41 @@ namespace PInvoke
         }
 
         /// <summary>
+        ///     Converts a file time to DateTime format.
+        /// </summary>
+        /// <param name="filetime">FILETIME structure</param>
+        /// <returns>DateTime structure</returns>
+        public static DateTime FileTimeToDateTime(FILETIME filetime)
+        {
+            var st = default(SYSTEMTIME);
+            FileTimeToSystemTime(ref filetime, ref st);
+            return new DateTime(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+        }
+
+        /// <summary>
+        ///     Converts a DateTime to file time format.
+        /// </summary>
+        /// <param name="datetime">DateTime structure</param>
+        /// <returns>FILETIME structure</returns>
+        public static FILETIME DateTimeToFileTime(DateTime datetime)
+        {
+            var st = new SYSTEMTIME
+            {
+                wYear = (short)datetime.Year,
+                wMonth = (short)datetime.Month,
+                wDay = (short)datetime.Day,
+                wHour = (short)datetime.Hour,
+                wMinute = (short)datetime.Minute,
+                wSecond = (short)datetime.Second,
+                wMilliseconds = (short)datetime.Millisecond
+            };
+
+            FILETIME filetime;
+            SystemTimeToFileTime(ref st, out filetime);
+            return filetime;
+        }
+
+        /// <summary>
         /// Tries to get the error message text using the supplied buffer.
         /// </summary>
         /// <param name="flags">

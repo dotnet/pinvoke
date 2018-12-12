@@ -17,3 +17,12 @@ static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartu
 static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
 static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
 static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
+static extern PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, out byte[] lpBuffer, int dwSize, out System.IntPtr lpNumberOfBytesRead) -> bool
+static extern PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, uint nSize, System.IntPtr lpNumberOfBytesWritten) -> bool
+static extern PInvoke.Kernel32.CompareFileTime(ref PInvoke.Kernel32.FILETIME lpFileTime1, ref PInvoke.Kernel32.FILETIME lpFileTime2) -> int
+static extern PInvoke.Kernel32.SystemTimeToFileTime(ref PInvoke.Kernel32.SYSTEMTIME lpSystemTime, out PInvoke.Kernel32.FILETIME lpFileTime) -> bool
+static extern PInvoke.Kernel32.FileTimeToSystemTime(ref PInvoke.Kernel32.FILETIME fileTime, ref PInvoke.Kernel32.SYSTEMTIME systemTime) -> bool
+static extern PInvoke.Kernel32.FreeLibrary(System.IntPtr hModule) -> bool
+static extern PInvoke.Kernel32.FindClose(System.IntPtr hFindFile) -> bool
+static PInvoke.Kernel32.FileTimeToDateTime(PInvoke.Kernel32.FILETIME filetime) -> System.DateTime
+static PInvoke.Kernel32.DateTimeToFileTime(System.DateTime datetime) -> PInvoke.Kernel32.FILETIME

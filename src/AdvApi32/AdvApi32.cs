@@ -1188,7 +1188,7 @@ namespace PInvoke
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
 #endif
         [DllImport(api_ms_win_core_registry_l1_1_0)]
-        internal static extern Win32ErrorCode RegCloseKey(IntPtr hKey);
+        public static extern Win32ErrorCode RegCloseKey(IntPtr hKey);
 
         /// <summary>
         /// The ConvertSidToStringSid function converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
@@ -1200,9 +1200,7 @@ namespace PInvoke
         /// <remarks>The ConvertSidToStringSid function uses the standard S-R-I-S-S… format for SID strings.</remarks>
         [DllImport(api_ms_win_security_sddl_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static unsafe extern bool ConvertSidToStringSid(
-            IntPtr sid,
-            ref char* sidString);
+        public static unsafe extern bool ConvertSidToStringSid(IntPtr sid, ref char* sidString);
 
         /// <summary>
         /// The ConvertStringSidToSid function converts a string-format security identifier (SID) into a valid, functional SID.
@@ -1213,7 +1211,7 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value is true, otherwise the return value is false.</returns>
         [DllImport(api_ms_win_security_sddl_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static unsafe extern bool ConvertStringSidToSid(string StringSid, ref void* sid);
+        public static unsafe extern bool ConvertStringSidToSid(string StringSid, ref void* sid);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.
@@ -1232,7 +1230,7 @@ namespace PInvoke
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
 #endif
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
-        private static extern bool CloseServiceHandle(IntPtr hSCObject);
+        public static extern bool CloseServiceHandle(IntPtr hSCObject);
 
         /// <summary>
         /// Releases the handle of a cryptographic service provider (CSP) and a key container. At each call to this function, the reference count on the CSP is reduced by one.
@@ -1252,6 +1250,64 @@ namespace PInvoke
 #endif
         [DllImport(nameof(AdvApi32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool CryptReleaseContext(IntPtr hProv, uint dwFlags);
+        public static extern bool CryptReleaseContext(IntPtr hProv, uint dwFlags);
+
+        /// <summary>
+        ///     Get Crypto Context
+        /// </summary>
+        /// <param name="hProv">Pointer to the crypto handler provider</param>
+        /// <param name="pszContainer">Container</param>
+        /// <param name="pszProvider">Provider</param>
+        /// <param name="dwProvType">The crypto provider type</param>
+        /// <param name="dwFlags">Crypto context flags</param>
+        /// <returns>Result of the acquire</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CryptAcquireContext(out IntPtr hProv, string pszContainer, string pszProvider, uint dwProvType, uint dwFlags);
+
+        /// <summary>
+        ///     Create a hashing provider
+        /// </summary>
+        /// <param name="hProv">Crypto provider</param>
+        /// <param name="algId">see HashAlgorithm</param>
+        /// <param name="hKey">The key to hash with</param>
+        /// <param name="dwFlags">Hashing flags</param>
+        /// <param name="phHash">A pointer the hashing provider output</param>
+        /// <returns>Result of the creation</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CryptCreateHash(IntPtr hProv, ALG_ID algId, IntPtr hKey, uint dwFlags, ref IntPtr phHash);
+
+        /// <summary>
+        ///     Create a new hash
+        /// </summary>
+        /// <param name="hHash">The hash provider to use</param>
+        /// <param name="pbData">The data to create the hash of</param>
+        /// <param name="dataLen">The length of the data</param>
+        /// <param name="flags">Hashing flags</param>
+        /// <returns>Result of the hash creation</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CryptHashData(IntPtr hHash, byte[] pbData, uint dataLen, uint flags);
+
+        /// <summary>
+        ///     Get parameters of a hash
+        /// </summary>
+        /// <param name="hHash">The hashing provider</param>
+        /// <param name="dwParam">The parameter to get</param>
+        /// <param name="pbData">The hash</param>
+        /// <param name="pdwDataLen">The length of the hash</param>
+        /// <param name="dwFlags">Get Parameter flags</param>
+        /// <returns>The result of getting the paramter</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        public static extern bool CryptGetHashParam(IntPtr hHash, HashParameters dwParam, out byte[] pbData, ref uint pdwDataLen, uint dwFlags);
+
+        /// <summary>
+        ///     Destroy a hashing provider
+        /// </summary>
+        /// <param name="hHash">The hashing provider to destroy</param>
+        /// <returns>The result of destroying the hash provider</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        public static extern bool CryptDestroyHash(IntPtr hHash);
     }
 }
