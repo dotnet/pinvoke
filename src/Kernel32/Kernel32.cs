@@ -654,7 +654,7 @@ namespace PInvoke
         ///     </para>
         /// </returns>
         [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
-        private static extern bool FindClose(IntPtr hFindFile);
+        public static extern bool FindClose(IntPtr hFindFile);
 
         /// <summary>
         ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count. When the
@@ -674,6 +674,39 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_libraryloader_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool FreeLibrary(IntPtr hModule);
+        public static extern bool FreeLibrary(IntPtr hModule);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool FileTimeToSystemTime(ref FILETIME fileTime, ref SYSTEMTIME systemTime);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool SystemTimeToFileTime(ref SYSTEMTIME lpSystemTime, out FILETIME lpFileTime);
+
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern int CompareFileTime(ref FILETIME lpFileTime1, ref FILETIME lpFileTime2);
+
+        /// <summary>
+        ///     Write to memory
+        /// </summary>
+        /// <param name="hProcess">The process to write the memory of</param>
+        /// <param name="lpBaseAddress">The address of the memory to write</param>
+        /// <param name="lpBuffer">The buffer to write to the memory</param>
+        /// <param name="nSize">The size of the lpBuffer</param>
+        /// <param name="lpNumberOfBytesWritten">A pointer to the number of written bytes</param>
+        /// <returns>The result of the write</returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, uint nSize, IntPtr lpNumberOfBytesWritten);
+
+        /// <summary>
+        ///     Read the memory
+        /// </summary>
+        /// <param name="hProcess">The process to read the memory of</param>
+        /// <param name="lpBaseAddress">The address of the memory to read</param>
+        /// <param name="lpBuffer">The buffer to read the data to</param>
+        /// <param name="dwSize">The size of the data to read</param>
+        /// <param name="lpNumberOfBytesRead">Pointer to the number of written bytes</param>
+        /// <returns>The result of the action</returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, out byte[] lpBuffer, int dwSize, out IntPtr lpNumberOfBytesRead);
     }
 }
