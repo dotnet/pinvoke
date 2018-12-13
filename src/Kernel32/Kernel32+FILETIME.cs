@@ -23,14 +23,14 @@ namespace PInvoke
         public struct FILETIME
         {
             /// <summary>
-            /// Specifies the high 32 bits of the FILETIME.
-            /// </summary>
-            public int dwHighDateTime;
-
-            /// <summary>
             /// Specifies the low 32 bits of the FILETIME.
             /// </summary>
             public int dwLowDateTime;
+
+            /// <summary>
+            /// Specifies the high 32 bits of the FILETIME.
+            /// </summary>
+            public int dwHighDateTime;
         }
     }
 }
