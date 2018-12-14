@@ -242,6 +242,7 @@ PInvoke.Kernel32.FILETIME
 PInvoke.Kernel32.FILETIME.FILETIME() -> void
 PInvoke.Kernel32.FILETIME.dwHighDateTime -> int
 PInvoke.Kernel32.FILETIME.dwLowDateTime -> int
+static PInvoke.Kernel32.FILETIME.implicit operator long(PInvoke.Kernel32.FILETIME fileTime) -> long
 PInvoke.Kernel32.FINDEX_INFO_LEVELS
 PInvoke.Kernel32.FINDEX_INFO_LEVELS.FindExInfoMaxInfoLevel = 1 -> PInvoke.Kernel32.FINDEX_INFO_LEVELS
 PInvoke.Kernel32.FINDEX_INFO_LEVELS.FindExInfoStandard = 0 -> PInvoke.Kernel32.FINDEX_INFO_LEVELS

@@ -248,6 +248,22 @@ public partial class Kernel32Facts
     }
 
     [Fact]
+    public void GetProcessTimes_CanGetCurrentProcessTimes()
+    {
+        var currentProcessId = GetCurrentProcessId();
+        var currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
+        using (currentProcess)
+        {
+            Kernel32.FILETIME create, exit, kernel, user;
+            var totalProcessTime = Process.GetCurrentProcess().TotalProcessorTime;
+            Assert.True(GetProcessTimes(currentProcess, out create, out exit, out kernel, out user));
+            var expected = Math.Truncate(totalProcessTime.TotalSeconds / 10);
+            var actual = Math.Truncate(new TimeSpan(kernel + user).TotalSeconds / 10);
+            Assert.Equal(expected, actual);
+        }
+    }
+
+    [Fact]
     public void QueryFullProcessImageName_CanGetForCurrentProcess()
     {
         var currentProcessId = GetCurrentProcessId();

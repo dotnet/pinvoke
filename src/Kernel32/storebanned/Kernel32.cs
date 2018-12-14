@@ -913,6 +913,37 @@ namespace PInvoke
             SafeObjectHandle hSnapshot,
             [Friendly(FriendlyFlags.Bidirectional)] MODULEENTRY32* lpme);
 
+        /// <summary>
+        /// Retrieves timing information for the specified process.
+        /// </summary>
+        /// <param name="handle">
+        /// A handle to the process whose timing information is sought.
+        /// The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION" /> or
+        /// <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION" /> access right.</param>
+        /// <param name="creation">A pointer to a <see cref="FILETIME"/> structure that receives the creation time of the process.</param>
+        /// <param name="exit">A pointer to a <see cref="FILETIME"/>  structure that receives the exit time of the process.
+        /// If the process has not exited, the content of this structure is undefined.</param>
+        /// <param name="kernel">A pointer to a <see cref="FILETIME"/> structure that receives the amount of time that the process
+        /// has executed in kernel mode.
+        /// The time that each of the threads of the process has executed in kernel mode is determined, and then all of those times
+        /// are summed together to obtain this value.</param>
+        /// <param name="user">A pointer to a <see cref="FILETIME"/> structure that receives the amount of time that the process
+        /// has executed in user mode.
+        /// The time that each of the threads of the process has executed in user mode is determined, and then all of those times
+        /// are summed together to obtain this value.
+        /// Note that this value can exceed the amount of real time elapsed (between creation and exit)
+        /// if the process executes across multiple CPU cores.</param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a nonzero value.
+        ///     <para>
+        ///         If the function fails, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError=true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetProcessTimes(SafeObjectHandle handle, out FILETIME creation, out FILETIME exit, out FILETIME kernel, out FILETIME user);
+
         /// <summary>Retrieves the full name of the executable image for the specified process.</summary>
         /// <param name="hProcess">
         /// A handle to the process. This handle must be created with the
