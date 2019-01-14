@@ -14,7 +14,7 @@ namespace PInvoke
         public enum CURSORINFOFlags
         {
             /// <summary>The cursor is hidden.</summary>
-            None = 0,
+            CURSOR_HIDDEN = 0,
 
             /// <summary>The cursor is showing.</summary>
             CURSOR_SHOWING = 1,

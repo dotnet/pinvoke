@@ -5,9 +5,9 @@ PInvoke.User32.CURSORINFO.flags -> PInvoke.User32.CURSORINFOFlags
 PInvoke.User32.CURSORINFO.hCursor -> System.IntPtr
 PInvoke.User32.CURSORINFO.ptScreenPos -> PInvoke.POINT
 PInvoke.User32.CURSORINFOFlags
+PInvoke.User32.CURSORINFOFlags.CURSOR_HIDDEN = 0 -> PInvoke.User32.CURSORINFOFlags
 PInvoke.User32.CURSORINFOFlags.CURSOR_SHOWING = 1 -> PInvoke.User32.CURSORINFOFlags
 PInvoke.User32.CURSORINFOFlags.CURSOR_SUPPRESSED = 2 -> PInvoke.User32.CURSORINFOFlags
-PInvoke.User32.CURSORINFOFlags.None = 0 -> PInvoke.User32.CURSORINFOFlags
 PInvoke.User32.Cursors
 PInvoke.User32.Cursors.IDC_APPSTARTING = 32650 -> PInvoke.User32.Cursors
 PInvoke.User32.Cursors.IDC_ARROW = 32512 -> PInvoke.User32.Cursors
