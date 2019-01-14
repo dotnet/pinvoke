@@ -981,8 +981,137 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, [MarshalAs(UnmanagedType.Bool)] bool bRevert);
 
+        /// <summary>
+        /// Loads the specified cursor resource from the executable (.EXE) file associated with an application instance.
+        /// </summary>
+        /// <param name="hInstance">A handle to an instance of the module whose executable file contains the cursor to be loaded.</param>
+        /// <param name="lpCursorName">
+        /// The name of the cursor resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word.
+        /// The <see cref="Kernel32.MAKEINTRESOURCE(int)"/> macro can also be used to create this value. To use one of the predefined cursors, the application must set the hInstance parameter to NULL and the lpCursorName parameter to one the values defined by <see cref="Cursors" />.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the handle to the newly loaded cursor.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError" />.
+        /// </returns>
+        /// <remarks>
+        /// Note: This function has been superseded by the LoadImage function.
+        /// </remarks>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr LoadCursor(IntPtr hInstance, IntPtr lpCursorName);
+        public static extern unsafe SafeCursorHandle LoadCursor(
+            IntPtr hInstance,
+            [Friendly(FriendlyFlags.Array)] char* lpCursorName);
+
+        /// <summary>
+        /// Retrieves a handle to the current cursor.
+        /// To get information on the global cursor, even if it is not owned by the current thread, use <see cref="GetCursorInfo(CURSORINFO*)" />.
+        /// </summary>
+        /// <returns>The return value is the handle to the current cursor. If there is no cursor, the return value is null.</returns>
+        [DllImport(nameof(User32))]
+        public static extern SafeCursorHandle GetCursor();
+
+        /// <summary>
+        /// Creates a cursor having the specified size, bit patterns, and hot spot.
+        /// </summary>
+        /// <param name="hInst">A handle to the current instance of the application creating the cursor.</param>
+        /// <param name="xHotspot">The horizontal position of the cursor's hot spot.</param>
+        /// <param name="yHotSpot">The vertical position of the cursor's hot spot.</param>
+        /// <param name="nWidth">The width of the cursor, in pixels.</param>
+        /// <param name="nHeight">The height of the cursor, in pixels.</param>
+        /// <param name="pvANDPlane">An array of bytes that contains the bit values for the AND mask of the cursor, as in a device-dependent monochrome bitmap.</param>
+        /// <param name="pvXORPlane">An array of bytes that contains the bit values for the XOR mask of the cursor, as in a device-dependent monochrome bitmap.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the cursor.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>
+        /// <para>The <paramref name="nWidth"/> and <paramref name="nHeight"/> parameters must specify a width and height that are supported by the current display driver, because the system cannot create cursors of other sizes. To determine the width and height supported by the display driver, use the GetSystemMetrics function, specifying the SM_CXCURSOR or SM_CYCURSOR value.</para>
+        /// <para>Before closing, an application must call the <see cref="DestroyCursor"/> function to free any system resources associated with the cursor.</para>
+        /// <para>This API does not participate in DPI virtualization. The output returned is in terms of physical coordinates, and is not affected by the DPI of the calling thread. Note that the cursor created may still be scaled to match the DPI of any given window it is drawn into.</para>
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe SafeCursorHandle CreateCursor(
+            IntPtr hInst,
+            int xHotspot,
+            int yHotSpot,
+            int nWidth,
+            int nHeight,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] byte* pvANDPlane,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] byte* pvXORPlane);
+
+        /// <summary>
+        /// Sets the cursor shape.
+        /// </summary>
+        /// <param name="hCursor">
+        /// A handle to the cursor. The cursor must have been created by the <see cref="CreateCursor(IntPtr, int, int, int, int, byte*, byte*)" /> function or loaded by the <see cref="LoadCursor(IntPtr, char*)" /> or <see cref="LoadImage(IntPtr, char*, ImageType, int, int, LoadImageFlags)" /> function. If this parameter is NULL, the cursor is removed from the screen.
+        /// </param>
+        /// <returns>
+        /// The return value is the handle to the previous cursor, if there was one.
+        /// If there was no previous cursor, the return value is NULL.
+        /// </returns>
+        /// <remarks>
+        /// <para>The cursor is set only if the new cursor is different from the previous cursor; otherwise, the function returns immediately.</para>
+        /// <para>The cursor is a shared resource. A window should set the cursor shape only when the cursor is in its client area or when the window is capturing mouse input. In systems without a mouse, the window should restore the previous cursor before the cursor leaves the client area or before it relinquishes control to another window.</para>
+        /// <para>If your application must set the cursor while it is in a window, make sure the class cursor for the specified window's class is set to NULL. If the class cursor is not NULL, the system restores the class cursor each time the mouse is moved.</para>
+        /// <para>The cursor is not shown on the screen if the internal cursor display count is less than zero. This occurs if the application uses the <see cref="ShowCursor" /> function to hide the cursor more times than to show the cursor.</para>
+        /// </remarks>
+        [DllImport(nameof(User32))]
+        public static extern SafeCursorHandle SetCursor(SafeCursorHandle hCursor);
+
+        /// <summary>
+        /// Retrieves information about the global cursor.
+        /// </summary>
+        /// <param name="pci">A pointer to a <see cref="CURSORINFO" /> structure that receives the information. Note that you must set the <see cref="CURSORINFO.cbSize" /> member to sizeof(CURSORINFO) before calling this function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError" />.
+        /// </returns>
+        [DllImport(nameof(User32))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetCursorInfo(
+            [Friendly(FriendlyFlags.Out)] CURSORINFO* pci);
+
+        /// <summary>
+        /// Displays or hides the cursor.
+        /// </summary>
+        /// <param name="bShow">
+        /// If bShow is TRUE, the display count is incremented by one. If bShow is FALSE, the display count is decremented by one.
+        /// </param>
+        /// <returns>The return value specifies the new display counter.</returns>
+        /// <remarks>
+        /// Windows 8: Call <see cref="GetCursorInfo(CURSORINFO*)"/> to determine the cursor visibility.
+        /// This function sets an internal display counter that determines whether the cursor should be displayed. The cursor is displayed only if the display count is greater than or equal to 0. If a mouse is installed, the initial display count is 0. If no mouse is installed, the display count is -1.
+        /// </remarks>
+        [DllImport(nameof(User32))]
+        public static extern int ShowCursor([MarshalAs(UnmanagedType.Bool)] bool bShow);
+
+        /// <summary>
+        /// Loads an icon, cursor, animated cursor, or bitmap.
+        /// </summary>
+        /// <param name="hInst">
+        /// A handle to the module of either a DLL or executable (.exe) that contains the image to be loaded. For more information, see <see cref="GetModuleHandle"/>. Note that as of 32-bit Windows, an instance handle (HINSTANCE), such as the application instance handle exposed by system function call of WinMain, and a module handle (HMODULE) are the same thing.
+        /// To load an OEM image, set this parameter to NULL.
+        /// To load a stand-alone resource (icon, cursor, or bitmap file)—for example, c:\myimage.bmp—set this parameter to NULL.
+        /// </param>
+        /// <param name="name">
+        /// The image to be loaded. If the hinst parameter is non-NULL and the fuLoad parameter omits LR_LOADFROMFILE, lpszName specifies the image resource in the hinst module. If the image resource is to be loaded by name from the module, the lpszName parameter is a pointer to a null-terminated string that contains the name of the image resource. If the image resource is to be loaded by ordinal from the module, use the MAKEINTRESOURCE macro to convert the image ordinal into a form that can be passed to the LoadImage function.
+        /// For more information, see the <see href="https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-loadimagew">Microsoft documentation</see>.
+        /// </param>
+        /// <param name="type">The type of image to be loaded.</param>
+        /// <param name="cx">The width, in pixels, of the icon or cursor. If this parameter is zero and the fuLoad parameter is LR_DEFAULTSIZE, the function uses the SM_CXICON or SM_CXCURSOR system metric value to set the width. If this parameter is zero and LR_DEFAULTSIZE is not used, the function uses the actual resource width.</param>
+        /// <param name="cy">The height, in pixels, of the icon or cursor. If this parameter is zero and the fuLoad parameter is LR_DEFAULTSIZE, the function uses the SM_CYICON or SM_CYCURSOR system metric value to set the height. If this parameter is zero and LR_DEFAULTSIZE is not used, the function uses the actual resource height.</param>
+        /// <param name="fuLoad">This parameter can be one or more of the values defined by the enum.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the handle of the newly loaded image.
+        /// If the function fails, the return value is NULL. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe IntPtr LoadImage(
+            IntPtr hInst,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* name,
+            ImageType type,
+            int cx,
+            int cy,
+            LoadImageFlags fuLoad);
 
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr LoadIcon(IntPtr hInstance, string lpIconName);
@@ -1296,7 +1425,7 @@ namespace PInvoke
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool EnumDisplayMonitors(IntPtr hdc, RECT* lprcClip, MONITORENUMPROC lpfnEnum, void* dwData);
+        public static extern unsafe bool EnumDisplayMonitors(IntPtr hdc, RECT* lprcClip, MONITORENUMPROC lpfnEnum, void* dwData);
 
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -1339,14 +1468,14 @@ namespace PInvoke
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool SystemParametersInfo(
+        public static extern unsafe bool SystemParametersInfo(
             SystemParametersInfoAction uiAction,
             uint uiParam,
             void* pvParam,
             SystemParametersInfoFlags fWinIni);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static unsafe extern int QueryDisplayConfig(
+        public static extern unsafe int QueryDisplayConfig(
             uint Flags,
             ref int pNumPathArrayElements,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] DISPLAYCONFIG_PATH_INFO* pPathInfoArray,
@@ -1380,10 +1509,10 @@ namespace PInvoke
             int cchMaxCount);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static unsafe extern void* GetClipboardData(int uFormat);
+        public static extern unsafe void* GetClipboardData(int uFormat);
 
         [DllImport(nameof(User32), SetLastError = true)]
-        public static unsafe extern void* SetClipboardData(int uFormat, void* hMem);
+        public static extern unsafe void* SetClipboardData(int uFormat, void* hMem);
 
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -1867,7 +1996,7 @@ namespace PInvoke
         /// </para>
         /// </remarks>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static unsafe extern SafeDesktopHandle CreateDesktopEx(
+        public static extern unsafe SafeDesktopHandle CreateDesktopEx(
            string lpszDesktop,
            IntPtr lpszDevice,
            IntPtr pDevmode,
@@ -1906,7 +2035,7 @@ namespace PInvoke
         /// </para>
         /// </remarks>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static unsafe extern SafeDesktopHandle CreateDesktop(
+        public static extern unsafe SafeDesktopHandle CreateDesktop(
             string lpszDesktop,
             string lpszDevice,
             IntPtr pDevmode,
@@ -1967,7 +2096,7 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value is true, if it fails, the return value is false.</returns>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool GetUserObjectInformation(IntPtr hObj, ObjectInformationType nIndex, void* pvInfo, uint nLength, uint* lpnLengthNeeded);
+        public static extern unsafe bool GetUserObjectInformation(IntPtr hObj, ObjectInformationType nIndex, void* pvInfo, uint nLength, uint* lpnLengthNeeded);
 
         /// <summary>
         /// Assigns the specified window station to the calling process.
@@ -2036,7 +2165,7 @@ namespace PInvoke
         /// </returns>
         /// <remarks>After you are done with the handle, you must call <see cref="CloseWindowStation"/> to free the handle.</remarks>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static unsafe extern SafeWindowStationHandle CreateWindowStation(
+        public static extern unsafe SafeWindowStationHandle CreateWindowStation(
             string lpwinsta,
             WindowStationCreationFlags dwFlags,
             ACCESS_MASK dwDesiredAccess,
@@ -2425,7 +2554,7 @@ namespace PInvoke
         ///     error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static unsafe extern int LoadString(IntPtr hInstance, uint uID, out char* lpBuffer, int cchBufferMax);
+        public static extern unsafe int LoadString(IntPtr hInstance, uint uID, out char* lpBuffer, int cchBufferMax);
 
         /// <summary>
         /// Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar).
@@ -2683,7 +2812,7 @@ namespace PInvoke
         /// </list>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static unsafe extern IntPtr CreateWindowEx(
+        public static extern unsafe IntPtr CreateWindowEx(
            WindowStylesEx dwExStyle,
            string lpClassName,
            string lpWindowName,
@@ -3150,7 +3279,7 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool SystemParametersInfoForDpi(
+        public static extern unsafe bool SystemParametersInfoForDpi(
             SystemParametersInfoAction uiAction,
             int uiParam,
             void* pvParam,
@@ -3377,8 +3506,8 @@ namespace PInvoke
         /// </para>
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
-        [return:MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool AdjustWindowRectEx(
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool AdjustWindowRectEx(
             RECT* lpRect,
             WindowStyles dwStyle,
             [MarshalAs(UnmanagedType.Bool)] bool bMenu,
@@ -3521,6 +3650,15 @@ namespace PInvoke
         private static extern bool UnhookWinEvent(IntPtr hWinEventHook);
 
         /// <summary>
+        /// Destroys a cursor and frees any memory the cursor occupied. Do not use this function to destroy a shared cursor.
+        /// </summary>
+        /// <param name="hCursor">A handle to the cursor to be destroyed. The cursor must not be in use.</param>
+        /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError" />.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool DestroyCursor(IntPtr hCursor);
+
+        /// <summary>
         /// Creates an overlapped, pop-up, or child window with an
         /// extended window style; otherwise, this function is identical to the CreateWindow function.
         /// </summary>
@@ -3628,7 +3766,7 @@ namespace PInvoke
         /// </list>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
-        private static unsafe extern IntPtr CreateWindowEx(
+        private static extern unsafe IntPtr CreateWindowEx(
            WindowStylesEx dwExStyle,
            IntPtr lpClassName,
            string lpWindowName,

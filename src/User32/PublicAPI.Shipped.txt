@@ -1914,7 +1914,6 @@ static extern PInvoke.User32.IsWindow(System.IntPtr hWnd) -> bool
 static extern PInvoke.User32.IsWindowUnicode(System.IntPtr hWnd) -> bool
 static extern PInvoke.User32.IsWindowVisible(System.IntPtr hWnd) -> bool
 static extern PInvoke.User32.IsZoomed(System.IntPtr hWnd) -> bool
-static extern PInvoke.User32.LoadCursor(System.IntPtr hInstance, System.IntPtr lpCursorName) -> System.IntPtr
 static extern PInvoke.User32.LoadIcon(System.IntPtr hInstance, System.IntPtr lpIconName) -> System.IntPtr
 static extern PInvoke.User32.LoadIcon(System.IntPtr hInstance, string lpIconName) -> System.IntPtr
 static extern PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, out char* lpBuffer, int cchBufferMax) -> int
