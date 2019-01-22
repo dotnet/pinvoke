@@ -120,3 +120,6 @@ public release of the library.
 [issues-closed-url]: http://www.issuestats.com/github/aarnott/pinvoke
 
 [PInvokeCoverageReport]: https://ci.appveyor.com/api/projects/aarnott/pinvoke/artifacts/coverage.html?branch=master
+
+## What if I need custom `uint` value not provided in `enum`?
+Cast any `uint` to specific `enum` type and pass as parameter.
