@@ -43,6 +43,9 @@ may be overloads that accept `struct*` and `struct?`. In some of these cases tha
 compiler errors if you pass in `null` because both `struct*` and `struct?` overloads can match.
 To resolve the issue, add a cast to your null: `(struct?)null` to resolve the ambiguity.
 
+### What if I need custom `uint` value not provided in `enum`?
+Cast any `uint` to specific `enum` type and pass as parameter.
+
 ## Design goals
 
 Provide a slightly higher than lowest level API for P/Invoke signatures.
@@ -120,6 +123,3 @@ public release of the library.
 [issues-closed-url]: http://www.issuestats.com/github/aarnott/pinvoke
 
 [PInvokeCoverageReport]: https://ci.appveyor.com/api/projects/aarnott/pinvoke/artifacts/coverage.html?branch=master
-
-## What if I need custom `uint` value not provided in `enum`?
-Cast any `uint` to specific `enum` type and pass as parameter.
