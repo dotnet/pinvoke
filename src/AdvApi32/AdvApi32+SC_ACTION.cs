@@ -25,7 +25,7 @@ namespace PInvoke
             /// <summary>
             /// The time to wait before performing the specified action, in milliseconds.
             /// </summary>
-            public int Delay;
+            public uint Delay;
         }
     }
 }

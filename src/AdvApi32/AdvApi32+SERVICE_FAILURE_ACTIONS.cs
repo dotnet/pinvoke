@@ -14,7 +14,8 @@ namespace PInvoke
         /// Represents the action the service controller should take on each failure of a service. A service is considered failed when it terminates without reporting a status of SERVICE_STOPPED to the service controller.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public struct SERVICE_FAILURE_ACTIONS
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct SERVICE_FAILURE_ACTIONS
         {
             /// <summary>
             /// The time after which to reset the failure count to zero if there are no failures, in seconds.
@@ -31,14 +32,14 @@ namespace PInvoke
             /// The string with identifier strID is loaded from dllname; the path is optional.For more information, see RegLoadMUIString.
             /// Windows Server 2003 and Windows XP:  Localized strings are not supported until Windows Vista.
             /// </summary>
-            public string lpRebootMsg;
+            public char* lpRebootMsg;
 
             /// <summary>
             /// The command line of the process for the CreateProcess function to execute in response to the <see cref="SC_ACTION_TYPE.SC_ACTION_RUN_COMMAND"/> service controller action.
             /// This process runs under the same account as the service. If this value is NULL, the command is unchanged.
             /// If the value is an empty string (""), the command is deleted and no program is run when the service fails.
             /// </summary>
-            public string lpCommand;
+            public char* lpCommand;
 
             /// <summary>
             /// The number of elements in the lpsaActions array.
@@ -50,7 +51,7 @@ namespace PInvoke
             /// A pointer to an array of <see cref="SC_ACTION"/> structures.
             /// If this value is NULL, the <see cref="cActions"/> and <see cref="dwResetPeriod"/> members are ignored.
             /// </summary>
-            public SC_ACTION[] lpsaActions;
+            public SC_ACTION* lpsaActions;
         }
     }
 }

@@ -1,1 +1,7 @@
 PInvoke.AdvApi32.SC_ACTION_TYPE.SC_ACTION_OWN_RESTART = 4 -> PInvoke.AdvApi32.SC_ACTION_TYPE
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpCommand_IntPtr.get -> System.IntPtr
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpCommand_IntPtr.set -> void
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpRebootMsg_IntPtr.get -> System.IntPtr
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpRebootMsg_IntPtr.set -> void
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpsaActions_IntPtr.get -> System.IntPtr
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpsaActions_IntPtr.set -> void

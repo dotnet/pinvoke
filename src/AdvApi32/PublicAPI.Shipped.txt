@@ -153,7 +153,7 @@ PInvoke.AdvApi32.ServiceControl.SERVICE_CONTROL_TIMECHANGE = 16 -> PInvoke.AdvAp
 PInvoke.AdvApi32.ServiceControl.SERVICE_CONTROL_TRIGGEREVENT = 32 -> PInvoke.AdvApi32.ServiceControl
 PInvoke.AdvApi32.ServiceControl.SERVICE_CONTROL_USERMODEREBOOT = 64 -> PInvoke.AdvApi32.ServiceControl
 PInvoke.AdvApi32.SC_ACTION
-PInvoke.AdvApi32.SC_ACTION.Delay -> int
+PInvoke.AdvApi32.SC_ACTION.Delay -> uint
 PInvoke.AdvApi32.SC_ACTION.SC_ACTION() -> void
 PInvoke.AdvApi32.SC_ACTION.Type -> PInvoke.AdvApi32.SC_ACTION_TYPE
 PInvoke.AdvApi32.SC_ACTION_TYPE
@@ -176,9 +176,9 @@ PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS
 PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.SERVICE_FAILURE_ACTIONS() -> void
 PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.cActions -> int
 PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.dwResetPeriod -> int
-PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpCommand -> string
-PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpRebootMsg -> string
-PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpsaActions -> PInvoke.AdvApi32.SC_ACTION[]
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpCommand -> char*
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpRebootMsg -> char*
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpsaActions -> PInvoke.AdvApi32.SC_ACTION*
 PInvoke.AdvApi32.ServiceInfoLevel
 PInvoke.AdvApi32.ServiceInfoLevel.SERVICE_CONFIG_DELAYED_AUTO_START_INFO = 3 -> PInvoke.AdvApi32.ServiceInfoLevel
 PInvoke.AdvApi32.ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION = 1 -> PInvoke.AdvApi32.ServiceInfoLevel
