@@ -4,14 +4,14 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="ServiceControlActionType"/> nested type.
+    /// Contains the <see cref="SC_ACTION_TYPE"/> nested type.
     /// </content>
     public static partial class AdvApi32
     {
         /// <summary>
-        /// Specifies action levels for the Type member of the <see cref="ServiceControlAction"/> struct.
+        /// Specifies action levels for the Type member of the <see cref="SC_ACTION"/> struct.
         /// </summary>
-        public enum ServiceControlActionType
+        public enum SC_ACTION_TYPE
         {
             /// <summary>
             /// No action.
@@ -31,7 +31,9 @@ namespace PInvoke
             /// <summary>
             /// Run a command.
             /// </summary>
-            SC_ACTION_RUN_COMMAND = 3
+            SC_ACTION_RUN_COMMAND = 3,
+
+            SC_ACTION_OWN_RESTART = 4,
         }
     }
 }

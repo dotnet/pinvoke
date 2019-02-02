@@ -6,12 +6,15 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Contains the <see cref="ServiceFailureActions"/> nested type.
+    /// Contains the <see cref="SERVICE_FAILURE_ACTIONS"/> nested type.
     /// </content>
     public static partial class AdvApi32
     {
+        /// <summary>
+        /// Represents the action the service controller should take on each failure of a service. A service is considered failed when it terminates without reporting a status of SERVICE_STOPPED to the service controller.
+        /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public struct ServiceFailureActions
+        public struct SERVICE_FAILURE_ACTIONS
         {
             /// <summary>
             /// The time after which to reset the failure count to zero if there are no failures, in seconds.
@@ -20,7 +23,7 @@ namespace PInvoke
             public int dwResetPeriod;
 
             /// <summary>
-            /// The message to be broadcast to server users before rebooting in response to the <see cref="ServiceControlActionType.SC_ACTION_REBOOT"/> service controller action.
+            /// The message to be broadcast to server users before rebooting in response to the <see cref="SC_ACTION_TYPE.SC_ACTION_REBOOT"/> service controller action.
             /// If this value is NULL, the reboot message is unchanged. If the value is an empty string (""), the reboot message is deleted and no message is broadcast.
             /// This member can specify a localized string using the following format:
             /// @[path\]
@@ -31,7 +34,7 @@ namespace PInvoke
             public string lpRebootMsg;
 
             /// <summary>
-            /// The command line of the process for the CreateProcess function to execute in response to the <see cref="ServiceControlActionType.SC_ACTION_RUN_COMMAND"/> service controller action.
+            /// The command line of the process for the CreateProcess function to execute in response to the <see cref="SC_ACTION_TYPE.SC_ACTION_RUN_COMMAND"/> service controller action.
             /// This process runs under the same account as the service. If this value is NULL, the command is unchanged.
             /// If the value is an empty string (""), the command is deleted and no program is run when the service fails.
             /// </summary>
@@ -44,10 +47,10 @@ namespace PInvoke
             public int cActions;
 
             /// <summary>
-            /// A pointer to an array of <see cref="ServiceControlAction"/> structures.
+            /// A pointer to an array of <see cref="SC_ACTION"/> structures.
             /// If this value is NULL, the <see cref="cActions"/> and <see cref="dwResetPeriod"/> members are ignored.
             /// </summary>
-            public ServiceControlAction[] lpsaActions;
+            public SC_ACTION[] lpsaActions;
         }
     }
 }
