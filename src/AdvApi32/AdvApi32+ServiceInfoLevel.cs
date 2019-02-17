@@ -19,8 +19,8 @@ namespace PInvoke
             SERVICE_CONFIG_DESCRIPTION = 1,
 
             /// <summary>
-            /// The lpInfo parameter is a pointer to a <see cref="ServiceFailureActions"/> structure.
-            /// If the service controller handles the <see cref="ServiceControlActionType.SC_ACTION_REBOOT"/> action, the caller must have the SE_SHUTDOWN_NAME privilege.
+            /// The lpInfo parameter is a pointer to a <see cref="SERVICE_FAILURE_ACTIONS"/> structure.
+            /// If the service controller handles the <see cref="SC_ACTION_TYPE.SC_ACTION_REBOOT"/> action, the caller must have the SE_SHUTDOWN_NAME privilege.
             /// </summary>
             SERVICE_CONFIG_FAILURE_ACTIONS = 2,
 
@@ -31,7 +31,7 @@ namespace PInvoke
             SERVICE_CONFIG_DELAYED_AUTO_START_INFO = 3,
 
             /// <summary>
-            /// The lpInfo parameter is a pointer to a <see cref="ServiceFailureActions"/> structure.
+            /// The lpInfo parameter is a pointer to a <see cref="SERVICE_FAILURE_ACTIONS"/> structure.
             /// Windows Server 2003 and Windows XP:  This value is not supported.
             /// </summary>
             SERVICE_CONFIG_FAILURE_ACTIONS_FLAG = 4,

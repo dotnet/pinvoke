@@ -44,4 +44,31 @@ public class AdvApi32Facts
             }
         }
     }
+
+    [Fact]
+    public unsafe void ChangeServiceConfig2_ErrorsProperly()
+    {
+        Assert.False(ChangeServiceConfig2(SafeServiceHandle.Null, ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION, null));
+
+        string rebootMessage = "Rebooting now.";
+        fixed (char* pRebootMessage = rebootMessage.ToCharArrayWithNullTerminator())
+        {
+            var actions = new SC_ACTION[]
+            {
+                new SC_ACTION { Type = SC_ACTION_TYPE.SC_ACTION_REBOOT, Delay = 2000 },
+                new SC_ACTION { Type = SC_ACTION_TYPE.SC_ACTION_REBOOT, Delay = 2000 },
+            };
+            fixed (SC_ACTION* pActions = &actions[0])
+            {
+                var failureActions = new SERVICE_FAILURE_ACTIONS
+                {
+                    lpRebootMsg = pRebootMessage,
+                    cActions = 2,
+                    lpsaActions = pActions,
+                };
+
+                Assert.False(ChangeServiceConfig2(SafeServiceHandle.Null, ServiceInfoLevel.SERVICE_CONFIG_FAILURE_ACTIONS_FLAG, &failureActions));
+            }
+        }
+    }
 }

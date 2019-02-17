@@ -273,7 +273,10 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_service_management_l2_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool ChangeServiceConfig2(SafeServiceHandle hService, ServiceInfoLevel dwInfoLevel, void* lpInfo);
+        public static unsafe extern bool ChangeServiceConfig2(
+            SafeServiceHandle hService,
+            ServiceInfoLevel dwInfoLevel,
+            void* lpInfo);
 
         /// <summary>
         /// Sends a control code to a service.

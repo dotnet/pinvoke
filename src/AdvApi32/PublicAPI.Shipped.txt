@@ -152,15 +152,15 @@ PInvoke.AdvApi32.ServiceControl.SERVICE_CONTROL_STOP = 1 -> PInvoke.AdvApi32.Ser
 PInvoke.AdvApi32.ServiceControl.SERVICE_CONTROL_TIMECHANGE = 16 -> PInvoke.AdvApi32.ServiceControl
 PInvoke.AdvApi32.ServiceControl.SERVICE_CONTROL_TRIGGEREVENT = 32 -> PInvoke.AdvApi32.ServiceControl
 PInvoke.AdvApi32.ServiceControl.SERVICE_CONTROL_USERMODEREBOOT = 64 -> PInvoke.AdvApi32.ServiceControl
-PInvoke.AdvApi32.ServiceControlAction
-PInvoke.AdvApi32.ServiceControlAction.Delay -> int
-PInvoke.AdvApi32.ServiceControlAction.ServiceControlAction() -> void
-PInvoke.AdvApi32.ServiceControlAction.Type -> PInvoke.AdvApi32.ServiceControlActionType
-PInvoke.AdvApi32.ServiceControlActionType
-PInvoke.AdvApi32.ServiceControlActionType.SC_ACTION_NONE = 0 -> PInvoke.AdvApi32.ServiceControlActionType
-PInvoke.AdvApi32.ServiceControlActionType.SC_ACTION_REBOOT = 2 -> PInvoke.AdvApi32.ServiceControlActionType
-PInvoke.AdvApi32.ServiceControlActionType.SC_ACTION_RESTART = 1 -> PInvoke.AdvApi32.ServiceControlActionType
-PInvoke.AdvApi32.ServiceControlActionType.SC_ACTION_RUN_COMMAND = 3 -> PInvoke.AdvApi32.ServiceControlActionType
+PInvoke.AdvApi32.SC_ACTION
+PInvoke.AdvApi32.SC_ACTION.Delay -> uint
+PInvoke.AdvApi32.SC_ACTION.SC_ACTION() -> void
+PInvoke.AdvApi32.SC_ACTION.Type -> PInvoke.AdvApi32.SC_ACTION_TYPE
+PInvoke.AdvApi32.SC_ACTION_TYPE
+PInvoke.AdvApi32.SC_ACTION_TYPE.SC_ACTION_NONE = 0 -> PInvoke.AdvApi32.SC_ACTION_TYPE
+PInvoke.AdvApi32.SC_ACTION_TYPE.SC_ACTION_REBOOT = 2 -> PInvoke.AdvApi32.SC_ACTION_TYPE
+PInvoke.AdvApi32.SC_ACTION_TYPE.SC_ACTION_RESTART = 1 -> PInvoke.AdvApi32.SC_ACTION_TYPE
+PInvoke.AdvApi32.SC_ACTION_TYPE.SC_ACTION_RUN_COMMAND = 3 -> PInvoke.AdvApi32.SC_ACTION_TYPE
 PInvoke.AdvApi32.ServiceDelayedAutoStartInfo
 PInvoke.AdvApi32.ServiceDelayedAutoStartInfo.ServiceDelayedAutoStartInfo() -> void
 PInvoke.AdvApi32.ServiceDelayedAutoStartInfo.fDelayedAutostart -> bool
@@ -172,13 +172,13 @@ PInvoke.AdvApi32.ServiceErrorControl.SERVICE_ERROR_CRITICAL = 3 -> PInvoke.AdvAp
 PInvoke.AdvApi32.ServiceErrorControl.SERVICE_ERROR_IGNORE = 0 -> PInvoke.AdvApi32.ServiceErrorControl
 PInvoke.AdvApi32.ServiceErrorControl.SERVICE_ERROR_NORMAL = 1 -> PInvoke.AdvApi32.ServiceErrorControl
 PInvoke.AdvApi32.ServiceErrorControl.SERVICE_ERROR_SEVERE = 2 -> PInvoke.AdvApi32.ServiceErrorControl
-PInvoke.AdvApi32.ServiceFailureActions
-PInvoke.AdvApi32.ServiceFailureActions.ServiceFailureActions() -> void
-PInvoke.AdvApi32.ServiceFailureActions.cActions -> int
-PInvoke.AdvApi32.ServiceFailureActions.dwResetPeriod -> int
-PInvoke.AdvApi32.ServiceFailureActions.lpCommand -> string
-PInvoke.AdvApi32.ServiceFailureActions.lpRebootMsg -> string
-PInvoke.AdvApi32.ServiceFailureActions.lpsaActions -> PInvoke.AdvApi32.ServiceControlAction[]
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.SERVICE_FAILURE_ACTIONS() -> void
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.cActions -> int
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.dwResetPeriod -> int
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpCommand -> char*
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpRebootMsg -> char*
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpsaActions -> PInvoke.AdvApi32.SC_ACTION*
 PInvoke.AdvApi32.ServiceInfoLevel
 PInvoke.AdvApi32.ServiceInfoLevel.SERVICE_CONFIG_DELAYED_AUTO_START_INFO = 3 -> PInvoke.AdvApi32.ServiceInfoLevel
 PInvoke.AdvApi32.ServiceInfoLevel.SERVICE_CONFIG_DESCRIPTION = 1 -> PInvoke.AdvApi32.ServiceInfoLevel
