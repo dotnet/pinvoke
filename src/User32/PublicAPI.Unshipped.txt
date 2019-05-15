@@ -131,7 +131,7 @@ static extern PInvoke.User32.GetDpiForSystem() -> int
 static extern PInvoke.User32.GetDpiForWindow(System.IntPtr hwnd) -> int
 static extern PInvoke.User32.GetDpiFromDpiAwarenessContext(System.IntPtr dpiAwarenessContext) -> int
 static extern PInvoke.User32.GetSystemDpiForProcess(PInvoke.Kernel32.SafeObjectHandle hProcess) -> int
-static extern PInvoke.User32.GetSystemMetricsForDpi(int nIndex, int dpi) -> bool
+static extern PInvoke.User32.GetSystemMetricsForDpi(int nIndex, int dpi) -> int
 static extern PInvoke.User32.GetThreadDpiAwarenessContext() -> System.IntPtr
 static extern PInvoke.User32.GetThreadDpiHostingBehavior() -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
 static extern PInvoke.User32.GetTopWindow(System.IntPtr hWnd) -> System.IntPtr
