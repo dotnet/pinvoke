@@ -3204,13 +3204,12 @@ namespace PInvoke
         /// <param name="nIndex">The system metric or configuration setting to be retrieved. See <see cref="GetSystemMetrics(SystemMetric)"/> for the possible values.</param>
         /// <param name="dpi">The DPI to use for scaling the metric.</param>
         /// <returns>
-        /// If the function succeeds, the return value is true.
-        /// If the function fails, the return value is false. To get extended error information, call <see cref="GetLastError"/>.
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         /// <remarks>This function returns the same result as <see cref="GetSystemMetrics(SystemMetric)"/> but scales it according to an arbitrary DPI you provide if appropriate.</remarks>
         [DllImport(nameof(User32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetSystemMetricsForDpi(
+        public static extern int GetSystemMetricsForDpi(
             int nIndex,
             int dpi);
 
