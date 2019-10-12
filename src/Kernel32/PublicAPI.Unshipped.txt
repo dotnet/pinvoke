@@ -1,3 +1,51 @@
+PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_EQUAL = 1 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_GREATER = 2 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_GREATER_EQUAL = 3 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_LESS = 4 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_LESS_EQUAL = 5 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_AND = 6 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_OR = 7 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_BUILDNUMBER = 4 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_MAJORVERSION = 2 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_MINORVERSION = 1 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_PLATFORMID = 8 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_PRODUCT_TYPE = 128 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMAJOR = 32 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMINOR = 16 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_SUITENAME = 64 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.OS_TYPE
+PInvoke.Kernel32.OS_TYPE.VER_NT_WORKSTATION = 1 -> PInvoke.Kernel32.OS_TYPE
+PInvoke.Kernel32.OS_TYPE.VER_NT_DOMAIN_CONTROLLER = 2 -> PInvoke.Kernel32.OS_TYPE
+PInvoke.Kernel32.OS_TYPE.VER_NT_SERVER = 3 -> PInvoke.Kernel32.OS_TYPE
+PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_BACKOFFICE = 4 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_BLADE = 1024 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_COMPUTE_SERVER = 16384 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_DATACENTER = 128 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_ENTERPRISE = 2 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_EMBEDDEDNT = 64 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_PERSONAL = 512 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_SINGLEUSERTS = 256 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_SMALLBUSINESS = 1 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_SMALLBUSINESS_RESTRICTED = 32 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_STORAGE_SERVER = 8192 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_TERMINAL = 16 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_WH_SERVER = -32768 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.OSVERSIONINFOEX
+PInvoke.Kernel32.OSVERSIONINFOEX.OSVERSIONINFOEX() -> void
+PInvoke.Kernel32.OSVERSIONINFOEX.dwOSVersionInfoSize -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.dwMajorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.dwMinorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.dwBuildNumber -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.dwPlatformId -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.szCSDVersion -> string
+PInvoke.Kernel32.OSVERSIONINFOEX.wServicePackMajor -> short
+PInvoke.Kernel32.OSVERSIONINFOEX.wServicePackMinor -> short
+PInvoke.Kernel32.OSVERSIONINFOEX.wSuiteMask -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.OSVERSIONINFOEX.wProductType -> PInvoke.Kernel32.OS_TYPE
+PInvoke.Kernel32.OSVERSIONINFOEX.wReserved -> byte
 PInvoke.Kernel32.STARTUPINFO.Desktop.get -> string
 PInvoke.Kernel32.STARTUPINFO.Title.get -> string
 PInvoke.Kernel32.STARTUPINFO.hStdError -> System.IntPtr
@@ -18,3 +66,5 @@ static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
 static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
 static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
 static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle handle, out PInvoke.Kernel32.FILETIME creation, out PInvoke.Kernel32.FILETIME exit, out PInvoke.Kernel32.FILETIME kernel, out PInvoke.Kernel32.FILETIME user) -> bool
+static extern PInvoke.Kernel32.VerSetConditionMask(long ConditionMask, PInvoke.Kernel32.VER_MASK TypeMask, PInvoke.Kernel32.VER_CONDITION Condition) -> long
+static extern PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
