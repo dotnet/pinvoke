@@ -9,7 +9,7 @@ namespace PInvoke
     public static partial class Kernel32
     {
         /// <summary>
-        /// The operator to be used for the comparison. The VerifyVersionInfo function uses this operator to compare a specified
+        /// The operator to be used for the comparison. The <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function uses this operator to compare a specified
         /// attribute value to the corresponding value for the currently running system.
         /// </summary>
         /// <remarks>

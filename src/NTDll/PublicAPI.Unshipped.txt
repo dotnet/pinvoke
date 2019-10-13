@@ -1,1 +1,3 @@
-static extern PInvoke.NTDll.RtlVerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
+static extern PInvoke.NTDll.RtlVerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlVerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlVerifyVersionInfo(System.IntPtr VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS

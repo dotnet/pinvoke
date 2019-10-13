@@ -35,12 +35,13 @@ PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_TERMINAL = 16 -> PInvoke.Kernel32.PRODU
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_WH_SERVER = -32768 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.OSVERSIONINFOEX
 PInvoke.Kernel32.OSVERSIONINFOEX.OSVERSIONINFOEX() -> void
+static PInvoke.Kernel32.OSVERSIONINFOEX.Create() -> PInvoke.Kernel32.OSVERSIONINFOEX
 PInvoke.Kernel32.OSVERSIONINFOEX.dwOSVersionInfoSize -> int
 PInvoke.Kernel32.OSVERSIONINFOEX.dwMajorVersion -> int
 PInvoke.Kernel32.OSVERSIONINFOEX.dwMinorVersion -> int
 PInvoke.Kernel32.OSVERSIONINFOEX.dwBuildNumber -> int
 PInvoke.Kernel32.OSVERSIONINFOEX.dwPlatformId -> int
-PInvoke.Kernel32.OSVERSIONINFOEX.szCSDVersion -> string
+PInvoke.Kernel32.OSVERSIONINFOEX.szCSDVersion -> char*
 PInvoke.Kernel32.OSVERSIONINFOEX.wServicePackMajor -> short
 PInvoke.Kernel32.OSVERSIONINFOEX.wServicePackMinor -> short
 PInvoke.Kernel32.OSVERSIONINFOEX.wSuiteMask -> PInvoke.Kernel32.PRODUCT_SUITE
@@ -67,4 +68,8 @@ static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpSt
 static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
 static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle handle, out PInvoke.Kernel32.FILETIME creation, out PInvoke.Kernel32.FILETIME exit, out PInvoke.Kernel32.FILETIME kernel, out PInvoke.Kernel32.FILETIME user) -> bool
 static extern PInvoke.Kernel32.VerSetConditionMask(long ConditionMask, PInvoke.Kernel32.VER_MASK TypeMask, PInvoke.Kernel32.VER_CONDITION Condition) -> long
-static extern PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
+static extern PInvoke.Kernel32.VerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.Kernel32.VerifyVersionInfo(System.IntPtr lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
+
+

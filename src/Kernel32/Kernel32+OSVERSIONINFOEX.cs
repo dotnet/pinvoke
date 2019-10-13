@@ -14,7 +14,7 @@ namespace PInvoke
         /// The RTL_OSVERSIONINFOEXW structure contains operating system version information.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public partial struct OSVERSIONINFOEX
+        public unsafe partial struct OSVERSIONINFOEX
         {
             /// <summary>
             /// The size, in bytes, of an RTL_OSVERSIONINFOEXW structure.
@@ -48,8 +48,7 @@ namespace PInvoke
             /// indicates the latest service pack installed on the system. If no service pack is installed, RtlGetVersion might not
             /// initialize this string. Initialize szCSDVersion to zero (empty string) before the call to RtlGetVersion.
             /// </summary>
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-            public string szCSDVersion;
+            public fixed char szCSDVersion[128];
 
             /// <summary>
             /// The major version number of the latest service pack installed on the system. For example, for Service Pack 3,
@@ -78,6 +77,20 @@ namespace PInvoke
             /// Reserved for future use.
             /// </summary>
             public byte wReserved;
+
+            /// <summary>
+            /// Helper method to create <see cref="OSVERSIONINFOEX"/> with
+            /// the right pre-initialization for <see cref="dwOSVersionInfoSize"/>
+            /// </summary>
+            /// <returns>A newly initialzed instance of <see cref="OSVERSIONINFOEX"/></returns>
+            public static OSVERSIONINFOEX Create() => new OSVERSIONINFOEX
+            {
+#if NETSTANDARD1_3_ORLATER
+                dwOSVersionInfoSize = Marshal.SizeOf<OSVERSIONINFOEX>()
+#else
+                dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))
+#endif
+            };
         }
     }
 }

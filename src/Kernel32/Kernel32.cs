@@ -544,15 +544,15 @@ namespace PInvoke
 
         /// <summary>
         /// Sets the bits of a 64-bit value to indicate the comparison operator to use for a specified operating system version
-        /// attribute. This function is used to build the dwlConditionMask parameter of the VerifyVersionInfo function.
+        /// attribute. This function is used to build the dwlConditionMask parameter of the <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function.
         /// </summary>
-        /// <param name="ConditionMask">A value to be passed as the dwlConditionMask parameter of the VerifyVersionInfo function.
+        /// <param name="ConditionMask">A value to be passed as the dwlConditionMask parameter of the <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function.
         /// The function stores the comparison information in the bits of this variable. Before the first call to <see cref="VerSetConditionMask(long, VER_MASK, VER_CONDITION)"/>,
         /// initialize this variable to zero. For subsequent calls, pass in the variable used in the previous call.</param>
         /// <param name="TypeMask">A mask that indicates the member of the <see cref="OSVERSIONINFOEX"/> structure whose comparison operator
         /// is being set. This value corresponds to one of the bits specified in the dwTypeMask parameter for the
-        /// VerifyVersionInfo function</param>
-        /// <param name="Condition">The operator to be used for the comparison. The VerifyVersionInfo function uses this
+        /// <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function</param>
+        /// <param name="Condition">The operator to be used for the comparison. The <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function uses this
         /// operator to compare a specified attribute value to the corresponding value for the currently running system.</param>
         /// <returns>The function returns the condition mask value.</returns>
         [DllImport(api_ms_win_core_sysinfo_l1_2_0)]
@@ -585,13 +585,13 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// <para>
-        /// The VerifyVersionInfo function retrieves version information about the currently running operating system and compares it to the valid
+        /// The <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function retrieves version information about the currently running operating system and compares it to the valid
         /// members of the <paramref name="lpVersionInformation"/> structure. This enables you to easily determine the presence of a required set of
-        /// operating system version conditions. It is preferable to use <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/> rather than
+        /// operating system version conditions. It is preferable to use <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> rather than
         /// calling the GetVersionEx function to perform your own comparisons.
         /// </para>
         /// <para>
-        /// Typically, <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/> returns a nonzero value only if all specified tests succeed.
+        /// Typically, <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> returns a nonzero value only if all specified tests succeed.
         /// However, major, minor, and service pack versions are tested in a hierarchical manner because the operating system version is a combination of
         /// these values. If a condition exists for the major version, it supersedes the conditions specified for minor version and service pack version.
         /// (You cannot test for major version greater than 5 and minor version less than or equal to 1. If you specify such a test, the function will
@@ -607,9 +607,9 @@ namespace PInvoke
         /// the specified version, so the testing stops.)
         /// </para>
         /// <para>
-        /// To verify a range of system versions, you must call <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/> twice.For example, to verify
-        /// that the system version is greater than 5.0 but less than or equal to 5.1, first call <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/> to
-        /// test that the major version is 5 and the minor version is greater than 0, then call <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/>
+        /// To verify a range of system versions, you must call <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> twice.For example, to verify
+        /// that the system version is greater than 5.0 but less than or equal to 5.1, first call <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> to
+        /// test that the major version is 5 and the minor version is greater than 0, then call <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/>
         /// again to test that the major version is 5 and the minor version is less than or equal to 1.
         /// </para>
         /// <para>
@@ -622,21 +622,24 @@ namespace PInvoke
         /// </para>
         /// <para>
         /// Windows 10:
-        ///     <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/> returns false when called by applications that do not have a
+        ///     <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> returns false when called by applications that do not have a
         ///     compatibility manifest for Windows 8.1 or Windows 10 if the <paramref name="lpVersionInformation"/> parameter is set so that it specifies
         ///     Windows 8.1 or Windows 10, even when the current operating system version is Windows 8.1 or Windows 10. Specifically,
-        ///     <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/> has the following behavior:
+        ///     <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> has the following behavior:
         ///
-        ///     If the application has no manifest, <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/> behaves as
+        ///     If the application has no manifest, <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> behaves as
         ///         if the operation system version is Windows 8 (6.2).
-        ///     If the application has a manifest that contains the GUID that corresponds to Windows 8.1, <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/>
+        ///     If the application has a manifest that contains the GUID that corresponds to Windows 8.1, <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/>
         ///         behaves as if the operation system version is Windows 8.1 (6.3).
-        ///     If the application has a manifest that contains the GUID that corresponds to Windows 10, <see cref="VerifyVersionInfo(ref OSVERSIONINFOEX, VER_MASK, long)"/>
+        ///     If the application has a manifest that contains the GUID that corresponds to Windows 10, <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/>
         ///         behaves as if the operation system version is Windows 10 (10.0).
         /// </para>
         /// </remarks>
         [DllImport(nameof(Kernel32))]
-        public static extern NTSTATUS VerifyVersionInfo(ref OSVERSIONINFOEX lpVersionInformation, VER_MASK dwTypeMask, long dwlConditionMask);
+        public static unsafe extern NTSTATUS VerifyVersionInfo(
+            [Friendly(FriendlyFlags.Bidirectional)] OSVERSIONINFOEX* lpVersionInformation,
+            VER_MASK dwTypeMask,
+            long dwlConditionMask);
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,

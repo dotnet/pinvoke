@@ -12,7 +12,7 @@ namespace PInvoke
     {
         /// <summary>
         /// A mask that indicates the member of the <see cref="OSVERSIONINFOEX"/> structure whose comparison operator is being set.
-        /// This value corresponds to one of the bits specified in the dwTypeMask parameter for the VerifyVersionInfo function.
+        /// This value corresponds to one of the bits specified in the dwTypeMask parameter for the <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function.
         /// </summary>
         [Flags]
         public enum VER_MASK : int

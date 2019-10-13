@@ -61,11 +61,11 @@ namespace PInvoke
             /// Microsoft Small Business Server was once installed on the system, but may have been upgraded to another version of Windows.
             /// </summary>
             /// <remarks>
-            ///  You should not rely solely on the VER_SUITE_SMALLBUSINESS flag to determine whether Small Business Server is currently installed.
-            ///  Both this flag and the VER_SUITE_SMALLBUSINESS_RESTRICTED flag are set when this product suite is installed. If you upgrade this
-            ///  installation to Windows Server, Standard Edition, the VER_SUITE_SMALLBUSINESS_RESTRICTED flag is cleared, but the
-            ///  VER_SUITE_SMALLBUSINESS flag remains set, which, in this case, indicates that Small Business Server was previously installed on
-            ///  this system. If this installation is further upgraded to Windows Server, Enterprise Edition, the VER_SUITE_SMALLBUSINESS flag
+            ///  You should not rely solely on the <see cref="VER_SUITE_SMALLBUSINESS"/> flag to determine whether Small Business Server is currently installed.
+            ///  Both this flag and the <see cref="VER_SUITE_SMALLBUSINESS_RESTRICTED"/> flag are set when this product suite is installed. If you upgrade this
+            ///  installation to Windows Server, Standard Edition, the <see cref="VER_SUITE_SMALLBUSINESS_RESTRICTED"/> flag is cleared, but the
+            ///  <see cref="VER_SUITE_SMALLBUSINESS"/> flag remains set, which, in this case, indicates that Small Business Server was previously installed on
+            ///  this system. If this installation is further upgraded to Windows Server, Enterprise Edition, the <see cref="VER_SUITE_SMALLBUSINESS"/> flag
             ///  remains set.
             /// </remarks>
             VER_SUITE_SMALLBUSINESS = 0x00000001,
@@ -82,7 +82,7 @@ namespace PInvoke
             VER_SUITE_STORAGE_SERVER = 0x00002000,
 
             /// <summary>
-            /// Terminal Services is installed. This value is always set. If VER_SUITE_TERMINAL is set but VER_SUITE_SINGLEUSERTS is not set,
+            /// Terminal Services is installed. This value is always set. If <see cref="VER_SUITE_TERMINAL"/> is set but <see cref="VER_SUITE_SINGLEUSERTS"/> is not set,
             /// the operating system is running in application server mode.
             /// </summary>
             VER_SUITE_TERMINAL = 0x00000010,
