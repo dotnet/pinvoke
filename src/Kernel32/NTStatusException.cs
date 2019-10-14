@@ -90,7 +90,7 @@ namespace PInvoke
                 : hexCode;
             string insert = $"NT_STATUS {GetSeverityString(status)}: {statusAsString}";
             string message = null;
-#if !WINDOWS8
+#if !WINDOWS8 && !WINDOWS_UWP
             message = status.GetMessage();
 #endif
 

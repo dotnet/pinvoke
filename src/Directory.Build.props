@@ -1,18 +1,23 @@
 ﻿<Project>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
-    <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutputPath>
+    <RepoRootPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</RepoRootPath>
+    <BaseIntermediateOutputPath>$(RepoRootPath)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\</BaseOutputPath>
+    <PackageOutputPath>$(RepoRootPath)bin\$(Configuration)\Packages\</PackageOutputPath>
 
-    <DesktopOnlyFrameworks>net45;net40;net20</DesktopOnlyFrameworks>
-    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);win8</PlatformSpecificFrameworks>
+    <LangVersion>8.0</LangVersion>
+    <!-- <Nullable>enable</Nullable> -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <DesktopOnlyFrameworks>net45;net20</DesktopOnlyFrameworks>
+    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0</PlatformSpecificFrameworks> <!-- win8 -->
     <!-- Target frameworks beyond .NET Standard 1.1 are added to individual projects on an as-needed basis. -->
-    <PortableOnlyFrameworks>netstandard1.1;portable-net40+win8+wpa81;portable-net45+win8+wpa81</PortableOnlyFrameworks>
+    <PortableOnlyFrameworks>netstandard1.1</PortableOnlyFrameworks>
     <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 
     <TargetPlatformMinVersion Condition=" '$(TargetFramework)' == 'win8' ">8.0</TargetPlatformMinVersion>
 
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Title>PInvoke.$(MSBuildProjectName)</Title>
     <Authors>Andrew Arnott</Authors>
     <Summary>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Summary>
@@ -20,13 +25,17 @@
     <PackageProjectUrl>https://github.com/AArnott/pinvoke</PackageProjectUrl>
     <Copyright>Copyright © $(Authors)</Copyright>
     <Tags>pinvoke .net pcl</Tags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-    <NoWarn>CS1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
-    <DebugType>portable</DebugType>
 
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
@@ -34,7 +43,8 @@
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
 
     <CodeGenerationPackageVersion>0.4.74</CodeGenerationPackageVersion>
-    <NerdbankGitVersioningPackageVersion>2.2.13</NerdbankGitVersioningPackageVersion>
+
+    <ProduceReferenceAssembly Condition=" '$(IsTestProject)' != 'true' ">true</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
@@ -43,62 +53,55 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\tests\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath>$(RepoRootPath)bin\$(Configuration)\tests\$(MSBuildProjectName)\</OutputPath>
     <RootNamespace />
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
-  <ItemGroup Condition=" '$(IsTestProject)' != 'true' ">
-    <PackageReference Include="SourceLink.Create.GitHub" Version="2.0.2" PrivateAssets="all" />
-    <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.0.2" />
-  </ItemGroup>
 
   <ItemDefinitionGroup>
     <Compile>
       <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
     </Compile>
+    <!-- We build all libraries to a common directory, so avoid trying to copy P2P refs to the directory
+         to avoid wasting time with file collisions and build warnings. -->
+    <ProjectReference Condition=" '$(IsTestProject)' != 'true' ">
+      <!-- Sadly, enabling this optimization breaks loading the assembly later for exporting p/invoke method coverage. -->
+      <!-- <Private>false</Private> -->
+    </ProjectReference>
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\bin\$(Configuration)\netstandard1.6\" />
+    <GeneratorAssemblySearchPaths Include="$(RepoRootPath)bin\$(Configuration)\netstandard1.6\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
     <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="$(NerdbankGitVersioningPackageVersion)" PrivateAssets="all" />
+    <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4" PrivateAssets="all" /> -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.0.26" PrivateAssets="all" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
     <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
     <DotNetCliToolReference Include="dotnet-codegen" Version="$(CodeGenerationPackageVersion)" />
-    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all">
+      <Private>false</Private>
+    </ProjectReference>
     <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
       <UndefineProperties>TargetFramework</UndefineProperties>
+      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <PackageReference Include="xunit" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.console" Version="2.2.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.6.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="xunit.runner.console" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
-
-  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' == 'true' ">
-    <Import Project="$(UserProfile)\.nuget\packages\nerdbank.gitversioning\$(NerdbankGitVersioningPackageVersion)\buildCrossTargeting\Nerdbank.GitVersioning.targets"
-            Condition="Exists('$(UserProfile)\.nuget\packages\nerdbank.gitversioning\$(NerdbankGitVersioningPackageVersion)\buildCrossTargeting\Nerdbank.GitVersioning.targets')" />
-  </ImportGroup>
-  <Target Name="FixUpVersion"
-      BeforeTargets="_GenerateRestoreProjectSpec"
-      DependsOnTargets="GetBuildVersion"
-      Condition=" '$(NerdbankGitVersioningTasksPath)' != '' " />
-
-  <Target Name="SetNuSpecProperties" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
-    <PropertyGroup>
-      <PackageLicenseUrl>https://raw.githubusercontent.com/AArnott/pinvoke/$(GitCommitIdShort)/LICENSE</PackageLicenseUrl>
-    </PropertyGroup>
-  </Target>
 </Project>

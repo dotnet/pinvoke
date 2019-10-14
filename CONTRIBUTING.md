@@ -1,5 +1,4 @@
-Contributing
-============
+# Contributing
 
 There are many thousands of Win32 APIs and this library is not complete.
 Please send pull requests to add what you've come up with.
@@ -8,11 +7,12 @@ Please send pull requests to add what you've come up with.
 
 ### Required
 
-* [Visual Studio 2017](https://www.visualstudio.com/en-us) with the following workloads:
-  * Desktop development with C++
-  * .NET desktop development
-  * .NET Core cross-platform development
-    * plus the optional component ".NET Core 1.0 - 1.1 development tools for Desktop"
+* [Visual Studio 2019](https://www.visualstudio.com) with the workloads/components
+  specified in the src\.vsconfig file. This is a configuration you can import using the VS installer in order to quickly get the required components installed.
+* The version of the .NET Core SDK specified in [global.json](global.json). This will be installed by the `init.ps1` script.
+  Use the `-InstallLocality Machine` parameter when invoking that script to install the .NET Core SDK at the machine-wide location
+  so that Visual Studio can reliably find it and load the projects.
+* [Windows 8 SDK](https://go.microsoft.com/fwlink/p/?LinkId=226658)
 
 ## Guidelines
 
@@ -24,9 +24,7 @@ With the appropriate switch, this script will perform a subset of these function
 ### Important notices when developing with Visual Studio
 
 Consider using Visual Studio Code or Visual Studio's Open Folder feature instead of opening
-the PInvoke.sln in Visual Studio 2017. In exchange for fewer features, you'll have a more responsive UI.
-
-Use Visual Studio 2017 Update 3 (15.3) or later to get several important fixes.
+the PInvoke.sln in Visual Studio 2019. In exchange for fewer features, you'll have a more responsive UI.
 
 If you proceed to open the solution in Visual Studio, the following workarounds are necessary:
 
@@ -55,13 +53,6 @@ at the root of the repo, from the Visual Studio Developer Command Prompt:
 ```
 .\build -Restore
 ```
-
-#### Consider use of "Lightweight solution load" carefully
-
-Lightweight Solution Load is a new feature in VS 2017 and *may* be used with PInvoke.sln,
-but it seems to cause issues with package restore and Intellisense at least in some cases.
-
-![Screenshot of Visual Studio's options page with lightweight solution load highlighted](doc/LightweightSolutionLoadOption.PNG)
 
 #### Workaround Intellisense errors
 
@@ -328,48 +319,18 @@ When you remove a member of the public API, build error RS0017 occurs.
 When you add a member to the public API, build warning RS0016 lets you know you need to
 update the PublicAPI.Unshipped.txt file with your new member. This is so that if your
 new API is removed later, it can generate an RS0017 error.
-Use the analyzer's automatic code fix in Visual Studio 2017 to update the file and
+Use the analyzer's automatic code fix in Visual Studio 2019 to update the file and
 include that file change in your commit.
 
 ### SafeHandles
 
-Safe handles should follow a few rules :
+Safe handles should follow a few rules:
+
 * They should have an empty constructor that does nothing. (The marshaller will use this one when it need to create a SafeHandle)
 * They should have a constructor allowing to reuse pre-existing handles.
 * They should have a static field for each invalid values for easy access.
 
 A good example would be [`SafeHookHandle.cs`](src/User32.Desktop/User32+SafeHookHandle.cs).
-
-## Self-service releases for contributors
-
-As soon as you send a pull request, a build is executed and updated NuGet packages
-are published to this Package Feed:
-
-    https://ci.appveyor.com/nuget/pinvoke
-
-By adding this URL to your package sources you can immediately install your version
-of the NuGet packages to your project. This can be done by adding a nuget.config file
-with the following content to the root of your project's repo:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-    <packageSources>
-        <add key="PInvoke CI" value="https://ci.appveyor.com/nuget/pinvoke" />
-    </packageSources>
-</configuration>
-```
-
-You can then install the package(s) while you have your new "PInvoke CI" package source selected:
-
-```powershell
-Install-Package PInvoke.BCrypt -Pre -Version 0.1.41-beta-g02f355c05d
-```
-
-Take care to set the package version such that it exactly matches the AppVeyor build
-for your pull request. You can get the version number by reviewing the result of the
-validation build for your pull request, clicking ARTIFACTS, and noting the version
-of the produced packages.
 
 [SigImp]: http://blogs.msdn.com/b/vbteam/archive/2008/03/14/making-pinvoke-easy.aspx
 [APISets]: https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx

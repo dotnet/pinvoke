@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net46</TargetFrameworks>
+    <TargetFrameworks>net472</TargetFrameworks>
     <ResolveComReferenceSilent>true</ResolveComReferenceSilent>
   </PropertyGroup>
   <ItemGroup>
@@ -9,7 +9,7 @@
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\metahost.tlb">
+    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.7.2\Lib\um\x86\metahost.tlb">
       <Visible>false</Visible>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMFileReference>

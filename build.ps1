@@ -24,7 +24,7 @@ Param(
     [switch]$Build,
     [switch]$Test,
     [Parameter()][ValidateSet('debug', 'release')]
-    [string]$Configuration = $env:configuration,
+    [string]$Configuration = $env:BUILDCONFIGURATION,
     [switch]$WarnAsError = $true,
     [switch]$GeneratePInvokesTxt,
     [switch]$NoParallelTests
@@ -51,13 +51,13 @@ $ToolsFolder = Join-Path $ProjectRoot tools
 $BinFolder = Join-Path $ProjectRoot "bin"
 $BinConfigFolder = Join-Path $BinFolder $Configuration
 $BinTestsFolder = Join-Path $BinConfigFolder "tests"
-$PackageRestoreRoot = Join-Path $env:userprofile '.nuget/packages/'
+$PackageRestoreRoot = if ($env:NUGET_PACKAGES) { $env:NUGET_PACKAGES } else { Join-Path $env:userprofile '.nuget/packages/' }
 
 # Set script scope for external tool variables.
 $MSBuildCommand = Get-Command MSBuild.exe -ErrorAction SilentlyContinue
 
 Function Get-ExternalTools {
-    if (!$MSBuildCommand) {
+    if ($Build -and !$MSBuildCommand) {
         Write-Error "Unable to find MSBuild.exe. Make sure you're running in a VS Developer Prompt."
         exit 1;
     }
@@ -67,13 +67,14 @@ Get-ExternalTools
 
 if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "Restore packages")) {
     Write-Output "Restoring NuGet packages..."
-    & $MSBuildCommand.Path /t:restore /nologo /m $SolutionFile
+    & "$PSScriptRoot\init.ps1"
 }
 
 if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
     $buildArgs = @()
     $buildArgs += $SolutionFile,'/nologo','/nr:false','/m','/v:minimal','/t:build,pack'
     $buildArgs += "/p:Configuration=$Configuration"
+    $buildArgs += "/clp:ForceNoAlign;Summary"
     $buildArgs += '/fl','/flp:verbosity=normal;logfile=msbuild.log','/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal','/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal'
     if ($GeneratePInvokesTxt) {
         $buildArgs += '/p:GeneratePInvokesTxt=true'
@@ -109,9 +110,9 @@ if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
 }
 
 if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
-    $TestAssemblies = Get-ChildItem -Recurse "$BinTestsFolder\*.Tests.dll"
+    $TestAssemblies = Get-ChildItem -Recurse "$BinTestsFolder\*.Tests.dll" |? { $_.Directory -notlike '*netcoreapp*' }
     Write-Output "Testing..."
-    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.2.0/tools/xunit.console.x86.exe'
+    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.1/tools/net472/xunit.console.x86.exe'
     $xunitArgs = @()
     $xunitArgs += $TestAssemblies
     $xunitArgs += "-html","$BinTestsFolder\testresults.html","-xml","$BinTestsFolder\testresults.xml"

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(PlatformAndPortableFrameworks);netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks);net40;netstandard1.6</TargetFrameworks>
     <StoreBanned>true</StoreBanned>
   </PropertyGroup>
   <ItemGroup>

@@ -1,14 +1,12 @@
-P/Invoke
-=======
+# P/Invoke
 
-[![Build status](https://ci.appveyor.com/api/projects/status/idu56hy4jwytxd3x?branch=master&svg=true)](https://ci.appveyor.com/project/AArnott/pinvoke)
 [![Build Status](https://andrewarnott.visualstudio.com/OSS/_apis/build/status/PInvoke)](https://andrewarnott.visualstudio.com/OSS/_build/latest?definitionId=6)
 [![Join the chat at https://gitter.im/AArnott/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AArnott/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Issue Stats][pull-requests-img]][pull-requests-url] [![Issue Stats][issues-closed-img]][issues-closed-url]
 
 A collection of libraries intended to contain all P/Invoke method signatures for popular operating systems.
-Think of it as http://pinvoke.net, but proven to compile and work properly, and often
+Think of it as https://pinvoke.net, but proven to compile and work properly, and often
 with sample usage in the form of unit tests.
 
 Each library is exposed as its own NuGet package, and may include .NET Portable libraries as applicable,
@@ -44,6 +42,7 @@ compiler errors if you pass in `null` because both `struct*` and `struct?` overl
 To resolve the issue, add a cast to your null: `(struct?)null` to resolve the ambiguity.
 
 ### What if I need custom `uint` value not provided in `enum`?
+
 Cast any `uint` to specific `enum` type and pass as parameter.
 
 ## Design goals
@@ -122,4 +121,4 @@ public release of the library.
 [issues-closed-img]: http://www.issuestats.com/github/aarnott/pinvoke/badge/issue
 [issues-closed-url]: http://www.issuestats.com/github/aarnott/pinvoke
 
-[PInvokeCoverageReport]: https://ci.appveyor.com/api/projects/aarnott/pinvoke/artifacts/coverage.html?branch=master
+[PInvokeCoverageReport]: https://github.com/AArnott/pinvoke/wiki/coverage
