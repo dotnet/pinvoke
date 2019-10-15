@@ -60,6 +60,7 @@ public partial class User32Facts
 
     [Fact]
     [Trait("skiponcloud", "true")]
+    [Trait("TestCategory", "FailsInCloudTest")]
     public void GetWindowTextHelper_WithNonzeroLastError()
     {
         IntPtr hwnd = CreateWindow(

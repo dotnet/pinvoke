@@ -24,6 +24,8 @@ if (!$NoBuild) {
 
 $Shields = & "$PSScriptRoot\Get-Shields.ps1" -Directory "$PSScriptRoot\..\bin\$Configuration"
 
+$version = & (& "$PSScriptRoot\..\azure-pipelines\Get-nbgv.ps1") get-version -p "$PSScriptRoot\..\src" -v SemVer2
+$commit = & (& "$PSScriptRoot\..\azure-pipelines\Get-nbgv.ps1") get-version -p "$PSScriptRoot\..\src" -v GitCommitId
 $report = "# P/Invoke coverage report
 
 Coverage  | Package
@@ -35,6 +37,10 @@ $Shields |% {
 	$report += "$($_.MarkDown) | [$($_.Subject)](https://www.nuget.org/packages/$NuPkgId)
 "
 }
+
+$report += "
+Produced for v$version ($commit)
+"
 
 if ($OutFile) {
     Set-Content -Path $OutFile -Value $report

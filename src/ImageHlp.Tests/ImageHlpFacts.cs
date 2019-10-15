@@ -9,7 +9,9 @@ using static PInvoke.ImageHlp;
 
 public class ImageHlpFacts
 {
-    [Fact(Skip = "Fails on appveyor")]
+    [Fact]
+    [Trait("skiponcloud", "true")]
+    [Trait("TestCategory", "FailsInCloudTest")]
     public void MapAndLoadTest()
     {
         LOADED_IMAGE imageData;

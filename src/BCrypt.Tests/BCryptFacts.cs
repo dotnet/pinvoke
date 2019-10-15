@@ -280,7 +280,7 @@ public class BCryptFacts
                     new byte[keyMaterial.Length],
                     BCryptEncryptFlags.BCRYPT_BLOCK_PADDING);
 
-                Assert.Equal(0, plainText.Count);
+                Assert.Empty(plainText);
             }
         }
     }

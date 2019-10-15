@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <RootNamespace Condition=" '$(IsTestProject)' == 'true' " />
-    <ExcludeStoreBannedAPIs Condition=" '$(TargetPlatformIdentifier)' == 'Windows' and '$(TargetPlatformVersion)' >= 8.0 ">true</ExcludeStoreBannedAPIs>
+    <ExcludeStoreBannedAPIs Condition=" ('$(TargetPlatformIdentifier)' == 'Windows' or '$(TargetPlatformIdentifier)' == 'UAP') and '$(TargetPlatformVersion)' >= 8.0 ">true</ExcludeStoreBannedAPIs>
     <DefineConstants Condition=" '$(ExcludeStoreBannedAPIs)' != 'true' ">$(DefineConstants);IncludeStoreBannedAPIs</DefineConstants>
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' or ('$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 2.0) ">$(DefineConstants);Serialization</DefineConstants>
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 1.3 ">$(DefineConstants);NETSTANDARD1_3_ORLATER</DefineConstants>
@@ -11,6 +11,13 @@
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(_TargetFrameworkVersionWithoutV)' >= 4.5 ">$(DefineConstants);NET45_ORLATER</DefineConstants>
 
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' != '.NETFramework' ">$(DefineConstants);APISets</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
+    <CoverletOutputFormat>cobertura</CoverletOutputFormat>
+    <Exclude>[xunit.*]*</Exclude>
+    <!-- Ensure we preserve each coverlet output file per target framework: https://github.com/tonerdo/coverlet/issues/177 -->
+    <CoverletOutput>$(OutputPath)/</CoverletOutput>
   </PropertyGroup>
 
   <ItemGroup>

@@ -707,7 +707,11 @@ namespace PInvoke
                 }
                 finally
                 {
+#if NETFX_CORE
+                    Marshal.DestroyStructure<T>(new IntPtr(valueBuffer));
+#else
                     Marshal.DestroyStructure(new IntPtr(valueBuffer), typeof(T));
+#endif
                 }
             }
         }
@@ -745,7 +749,11 @@ namespace PInvoke
                 fixed (byte* pValue = value.Array)
                 {
                     IntPtr pValuePtr = new IntPtr(pValue + value.Offset);
+#if NETSTANDARD1_3_ORLATER || NETFX_CORE
+                    return Marshal.PtrToStructure<T>(pValuePtr);
+#else
                     return (T)Marshal.PtrToStructure(pValuePtr, typeof(T));
+#endif
                 }
             }
         }

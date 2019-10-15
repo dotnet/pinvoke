@@ -8,11 +8,11 @@
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\mscoree.tlb">
+    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.7.2\Lib\um\x86\mscoree.tlb">
       <Visible>false</Visible>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMFileReference>
-    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.6.1\Lib\um\x86\cordebug.tlb">
+    <COMFileReference Include="$(MSBuildProgramFiles32)\Windows Kits\NETFXSDK\4.7.2\Lib\um\x86\cordebug.tlb">
       <Visible>false</Visible>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMFileReference>

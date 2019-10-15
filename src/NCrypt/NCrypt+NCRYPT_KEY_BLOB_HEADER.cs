@@ -57,7 +57,11 @@ namespace PInvoke
             {
                 return new NCRYPT_KEY_BLOB_HEADER
                 {
+#if NETSTANDARD1_3_ORLATER || NETFX_CORE
+                    cbSize = Marshal.SizeOf<NCRYPT_KEY_BLOB_HEADER>(),
+#else
                     cbSize = Marshal.SizeOf(typeof(NCRYPT_KEY_BLOB_HEADER)),
+#endif
                 };
             }
         }

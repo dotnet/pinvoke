@@ -49,7 +49,7 @@ namespace PInvoke
             {
                 return new SECURITY_ATTRIBUTES
                 {
-#if NETSTANDARD1_3_ORLATER
+#if NETSTANDARD1_3_ORLATER || NETFX_CORE
                     nLength = Marshal.SizeOf<SECURITY_ATTRIBUTES>(),
 #else
                     nLength = Marshal.SizeOf(typeof(SECURITY_ATTRIBUTES)),
