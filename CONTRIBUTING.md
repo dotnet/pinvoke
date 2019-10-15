@@ -12,7 +12,6 @@ Please send pull requests to add what you've come up with.
 * The version of the .NET Core SDK specified in [global.json](global.json). This will be installed by the `init.ps1` script.
   Use the `-InstallLocality Machine` parameter when invoking that script to install the .NET Core SDK at the machine-wide location
   so that Visual Studio can reliably find it and load the projects.
-* [Windows 8 SDK](https://go.microsoft.com/fwlink/p/?LinkId=226658)
 
 ## Guidelines
 
