@@ -71,5 +71,3 @@ static extern PInvoke.Kernel32.VerSetConditionMask(long ConditionMask, PInvoke.K
 static extern PInvoke.Kernel32.VerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
 static PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
 static PInvoke.Kernel32.VerifyVersionInfo(System.IntPtr lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
-
-
