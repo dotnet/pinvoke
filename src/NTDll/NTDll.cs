@@ -43,6 +43,34 @@ namespace PInvoke
             [Friendly(FriendlyFlags.In)] OBJECT_ATTRIBUTES* objectAttributes);
 
         /// <summary>
+        /// The <see cref="RtlVerifyVersionInfo(Kernel32.OSVERSIONINFOEX*, Kernel32.VER_MASK, long)"/> routine compares a specified set of operating system version requirements to the
+        /// corresponding attributes of the currently running version of the operating system.
+        /// </summary>
+        /// <param name="VersionInfo">Pointer to an <see cref="Kernel32.OSVERSIONINFOEX"/> structure that specifies the
+        /// operating system version requirements to compare to the corresponding attributes of the currently running
+        /// version of the operating system.</param>
+        /// <param name="TypeMask">Specifies which members of VersionInfo to compare with the corresponding attributes of
+        /// the currently running version of the operating system. </param>
+        /// <param name="ConditionMask">Specifies how to compare each VersionInfo member. To set the value of ConditionMask,
+        /// a caller should use the <see cref="Kernel32.VerSetConditionMask(long, Kernel32.VER_MASK, Kernel32.VER_CONDITION)"/> function.</param>
+        /// <returns>
+        ///     <see cref="NTSTATUS.Code.STATUS_SUCCESS"/> when the specified version matches the currently running version of the operating system.
+        ///     <see cref="NTSTATUS.Code.STATUS_INVALID_PARAMETER"/> when the input parameters are not valid.
+        ///     <see cref="NTSTATUS.Code.STATUS_REVISION_MISMATCH"/> when the specified version does not match the currently running version of the operating system.
+        /// </returns>
+        /// <remarks>
+        ///     See remarks in <see cref="Kernel32.VerifyVersionInfo(Kernel32.OSVERSIONINFOEX*, Kernel32.VER_MASK, long)"/>.
+        ///
+        ///     Unmanifested applications that call <see cref="RtlVerifyVersionInfo(Kernel32.OSVERSIONINFOEX*, Kernel32.VER_MASK, long)"/> are not
+        ///     suspectible to version-lies by the OS.
+        /// </remarks>
+        [DllImport(nameof(NTDll))]
+        public static unsafe extern NTSTATUS RtlVerifyVersionInfo(
+            [Friendly(FriendlyFlags.Bidirectional)]Kernel32.OSVERSIONINFOEX* VersionInfo,
+            Kernel32.VER_MASK TypeMask,
+            long ConditionMask);
+
+        /// <summary>
         /// The NtClose routine closes an object handle.
         /// </summary>
         /// <param name="handle">Handle to an object of any type.</param>
