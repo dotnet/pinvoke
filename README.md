@@ -1,6 +1,6 @@
 # P/Invoke
 
-[![Build Status](https://andrewarnott.visualstudio.com/OSS/_apis/build/status/PInvoke)](https://andrewarnott.visualstudio.com/OSS/_build/latest?definitionId=6)
+[![Build Status](https://dev.azure.com/andrewarnott/OSS/_apis/build/status/PInvoke)](https://dev.azure.com/andrewarnott/OSS/_build/latest?definitionId=6)
 [![Join the chat at https://gitter.im/AArnott/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AArnott/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Issue Stats][pull-requests-img]][pull-requests-url] [![Issue Stats][issues-closed-img]][issues-closed-url]
