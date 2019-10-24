@@ -439,6 +439,64 @@ namespace PInvoke
         [DllImport(api_ms_win_core_handle_l1_1_0, SetLastError = true)]
         public static extern bool CloseHandle(IntPtr hObject);
 
+        /// <summary>
+        /// Sets certain properties of an object handle.
+        /// </summary>
+        /// <param name="hObject">
+        /// <para>
+        /// A handle to an object whose information is to be set.
+        /// </para>
+        /// <para>
+        /// You can specify a handle to one of the following types of objects: access token, console input buffer, console screen buffer, event, file, file mapping, job, mailslot, mutex, pipe, printer, process, registry key, semaphore, serial communication device, socket, thread, or waitable timer.
+        /// </para>
+        /// </param>
+        /// <param name="dwMask">
+        /// A mask that specifies the bit flags to be changed. Use the same constants shown in the description of <paramref name="dwFlags"/>.
+        /// </param>
+        /// <param name="dwFlags">
+        /// Set of bit flags that specifies properties of the object handle. This parameter can be 0 or one or more of the values of <see cref="HandleFlags"/>.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the function succeeds, the return value is nonzero.
+        /// </para>
+        /// <para>
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        /// </para>
+        /// </returns>
+        /// <remarks>
+        /// To set or clear the associated bit flag in <paramref name="dwFlags"/>, you must set a change mask bit flag in <paramref name="dwMask"/>.
+        /// </remarks>
+        [DllImport(api_ms_win_core_handle_l1_1_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetHandleInformation([In] SafeHandle hObject, HandleFlags dwMask, HandleFlags dwFlags);
+
+        /// <summary>
+        /// Retrieves certain properties of an object handle.
+        /// </summary>
+        /// <param name="hObject">
+        /// <para>
+        /// A handle to an object whose information is to be retrieved.
+        /// </para>
+        /// <para>
+        /// You can specify a handle to one of the following types of objects: access token, console input buffer, console screen buffer, event, file, file mapping, job, mailslot, mutex, pipe, printer, process, registry key, semaphore, serial communication device, socket, thread, or waitable timer.
+        /// </para>
+        /// </param>
+        /// <param name="lpdwFlags">
+        /// A pointer to a variable that receives a set of bit flags that specify properties of the object handle or 0. The values are defined at <see cref="HandleFlags"/>.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the function succeeds, the return value is nonzero.
+        /// </para>
+        /// <para>
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        /// </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_handle_l1_1_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetHandleInformation([In] SafeHandle hObject, [Out] out HandleFlags* lpdwFlags);
+
         /// <summary>Flushes the buffers of a specified file and causes all buffered data to be written to a file.</summary>
         /// <param name="hFile">
         ///     A handle to the open file.
