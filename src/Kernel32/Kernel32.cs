@@ -469,7 +469,7 @@ namespace PInvoke
         /// </remarks>
         [DllImport(api_ms_win_core_handle_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetHandleInformation([In] SafeHandle hObject, HandleFlags dwMask, HandleFlags dwFlags);
+        public static extern bool SetHandleInformation(SafeHandle hObject, HandleFlags dwMask, HandleFlags dwFlags);
 
         /// <summary>
         /// Retrieves certain properties of an object handle.
@@ -495,7 +495,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_handle_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool GetHandleInformation([In] SafeHandle hObject, [Out] out HandleFlags* lpdwFlags);
+        public static extern unsafe bool GetHandleInformation(SafeHandle hObject, [Friendly(FriendlyFlags.Out)] HandleFlags* lpdwFlags);
 
         /// <summary>Flushes the buffers of a specified file and causes all buffered data to be written to a file.</summary>
         /// <param name="hFile">
