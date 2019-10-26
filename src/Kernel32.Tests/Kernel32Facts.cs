@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
@@ -38,5 +39,22 @@ public partial class Kernel32Facts
         GetStartupInfo(ref startupInfo);
         Assert.NotNull(startupInfo.Title);
         Assert.NotEqual(0, startupInfo.Title.Length);
+    }
+
+    [Fact]
+    public void GetHandleInformation_DoesNotThrow()
+    {
+        var manualResetEvent = new ManualResetEvent(false);
+        GetHandleInformation(manualResetEvent.SafeWaitHandle, out var lpdwFlags);
+    }
+
+    [Fact]
+    public void SetHandleInformation_DoesNotThrow()
+    {
+        var manualResetEvent = new ManualResetEvent(false);
+        SetHandleInformation(
+            manualResetEvent.SafeWaitHandle,
+            HandleFlags.HANDLE_FLAG_INHERIT | HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE,
+            HandleFlags.HANDLE_FLAG_NONE);
     }
 }
