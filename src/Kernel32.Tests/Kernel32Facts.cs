@@ -40,21 +40,4 @@ public partial class Kernel32Facts
         Assert.NotNull(startupInfo.Title);
         Assert.NotEqual(0, startupInfo.Title.Length);
     }
-
-    [Fact]
-    public void GetHandleInformation_DoesNotThrow()
-    {
-        var manualResetEvent = new ManualResetEvent(false);
-        GetHandleInformation(manualResetEvent.SafeWaitHandle, out var lpdwFlags);
-    }
-
-    [Fact]
-    public void SetHandleInformation_DoesNotThrow()
-    {
-        var manualResetEvent = new ManualResetEvent(false);
-        SetHandleInformation(
-            manualResetEvent.SafeWaitHandle,
-            HandleFlags.HANDLE_FLAG_INHERIT | HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE,
-            HandleFlags.HANDLE_FLAG_NONE);
-    }
 }
