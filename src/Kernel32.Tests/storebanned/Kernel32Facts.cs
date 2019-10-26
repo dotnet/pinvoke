@@ -931,17 +931,17 @@ public partial class Kernel32Facts
     public void GetHandleInformation_DoesNotThrow()
     {
         var manualResetEvent = new ManualResetEvent(false);
-        GetHandleInformation(manualResetEvent.SafeWaitHandle, out var lpdwFlags);
+        Assert.True(GetHandleInformation(manualResetEvent.SafeWaitHandle, out var lpdwFlags));
     }
 
     [Fact]
     public void SetHandleInformation_DoesNotThrow()
     {
         var manualResetEvent = new ManualResetEvent(false);
-        SetHandleInformation(
+        Assert.True(SetHandleInformation(
             manualResetEvent.SafeWaitHandle,
             HandleFlags.HANDLE_FLAG_INHERIT | HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE,
-            HandleFlags.HANDLE_FLAG_NONE);
+            HandleFlags.HANDLE_FLAG_NONE));
     }
 
     private ArraySegment<byte> GetRandomSegment(int size)
