@@ -61,6 +61,10 @@ PInvoke.Kernel32.STARTUPINFO.lpReserved_IntPtr.set -> void
 PInvoke.Kernel32.STARTUPINFO.lpTitle -> char*
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.get -> System.IntPtr
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.set -> void
+PInvoke.Kernel32.HandleFlags
+PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_NONE = 0 -> PInvoke.Kernel32.HandleFlags
+PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_INHERIT = 1 -> PInvoke.Kernel32.HandleFlags
+PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE = 2 -> PInvoke.Kernel32.HandleFlags
 static PInvoke.Kernel32.GetStartupInfo(System.IntPtr lpStartupInfo) -> void
 static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
 static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
@@ -71,3 +75,7 @@ static extern PInvoke.Kernel32.VerSetConditionMask(long ConditionMask, PInvoke.K
 static extern PInvoke.Kernel32.VerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
 static PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
 static PInvoke.Kernel32.VerifyVersionInfo(System.IntPtr lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
+static extern PInvoke.Kernel32.SetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags dwMask, PInvoke.Kernel32.HandleFlags dwFlags) -> bool
+static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool
+static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, System.IntPtr lpdwFlags) -> bool
+static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, out PInvoke.Kernel32.HandleFlags lpdwFlags) -> bool

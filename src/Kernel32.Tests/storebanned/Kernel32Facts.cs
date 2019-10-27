@@ -927,6 +927,23 @@ public partial class Kernel32Facts
         Assert.Equal(0x0409, MAKELANGID(LANGID.PrimaryLanguage.LANG_ENGLISH, LANGID.SubLanguage.SUBLANG_ENGLISH_US).Data);
     }
 
+    [Fact]
+    public void GetHandleInformation_DoesNotThrow()
+    {
+        var manualResetEvent = new ManualResetEvent(false);
+        Assert.True(GetHandleInformation(manualResetEvent.SafeWaitHandle, out var lpdwFlags));
+    }
+
+    [Fact]
+    public void SetHandleInformation_DoesNotThrow()
+    {
+        var manualResetEvent = new ManualResetEvent(false);
+        Assert.True(SetHandleInformation(
+            manualResetEvent.SafeWaitHandle,
+            HandleFlags.HANDLE_FLAG_INHERIT | HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE,
+            HandleFlags.HANDLE_FLAG_NONE));
+    }
+
     private ArraySegment<byte> GetRandomSegment(int size)
     {
         var result = new ArraySegment<byte>(new byte[size]);

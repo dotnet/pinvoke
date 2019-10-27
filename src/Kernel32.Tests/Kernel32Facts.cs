@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
