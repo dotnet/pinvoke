@@ -76,10 +76,10 @@ namespace PInvoke
             /// </summary>
             MF_UNCHECKED = 0x00000000,
 
-            /// <summary>Indicates that the menu item is identified by it's command.</summary>
+            /// <summary>Indicates that the menu item is identified by its command.</summary>
             MF_BYCOMMAND = 0x00000000,
 
-            /// <summary>Indicates that the menu item is identified by it's zero-based relative position.</summary>
+            /// <summary>Indicates that the menu item is identified by its zero-based relative position.</summary>
             MF_BYPOSITION = 0x00000400,
 
             /// <summary>Removes highlighting from the menu item.</summary>
