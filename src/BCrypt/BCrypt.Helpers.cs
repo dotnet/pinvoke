@@ -83,7 +83,7 @@ namespace PInvoke
         /// </param>
         /// <param name="flags">Flags that modify the behavior of the function.</param>
         /// <returns>
-        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <see cref="BCryptHashData"/> function. When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash"/> function.
+        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <see cref="BCryptHashData(SafeHashHandle, byte*, int, BCryptHashDataFlags)"/> function. When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash"/> function.
         /// </returns>
         public static SafeHashHandle BCryptCreateHash(
             SafeAlgorithmHandle algorithm,
@@ -126,7 +126,7 @@ namespace PInvoke
                 key,
                 exportKey,
                 blobType,
-                null,
+                IntPtr.Zero,
                 0,
                 out length,
                 0).ThrowOnError();
@@ -726,7 +726,7 @@ namespace PInvoke
         public static ArraySegment<byte> BCryptGetProperty(SafeHandle hObject, string propertyName, BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None)
         {
             int length;
-            BCryptGetProperty(hObject, propertyName, null, 0, out length, flags).ThrowOnError();
+            BCryptGetProperty(hObject, propertyName, IntPtr.Zero, 0, out length, flags).ThrowOnError();
             byte[] result = new byte[length];
             BCryptGetProperty(hObject, propertyName, result, result.Length, out length, flags).ThrowOnError();
             return new ArraySegment<byte>(result, 0, length);

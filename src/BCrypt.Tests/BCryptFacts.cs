@@ -393,7 +393,7 @@ public class BCryptFacts
             int sha256HashSize = expectedHash.Length;
             int parallelism = 1;
             SafeHashHandle hash;
-            BCryptCreateMultiHash(algorithm, out hash, parallelism, null, 0, null, 0, BCryptCreateHashFlags.BCRYPT_HASH_REUSABLE_FLAG).ThrowOnError();
+            BCryptCreateMultiHash(algorithm, out hash, parallelism, IntPtr.Zero, 0, IntPtr.Zero, 0, BCryptCreateHashFlags.BCRYPT_HASH_REUSABLE_FLAG).ThrowOnError();
             using (hash)
             {
                 var ops = new BCRYPT_MULTI_HASH_OPERATION[parallelism];
