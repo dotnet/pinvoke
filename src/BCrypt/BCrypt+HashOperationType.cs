@@ -10,7 +10,14 @@ namespace PInvoke
     {
         public enum HashOperationType
         {
+            /// <summary>
+            /// Equivalent to calling the <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/> function.
+            /// </summary>
             BCRYPT_HASH_OPERATION_HASH_DATA = 1,
+
+            /// <summary>
+            /// Equivalent to calling the <see cref="BCryptFinishHash(SafeHashHandle, byte[], int, BCryptFinishHashFlags)"/> function.
+            /// </summary>
             BCRYPT_HASH_OPERATION_FINISH_HASH = 2,
         }
     }

@@ -109,7 +109,7 @@ namespace PInvoke
             BCryptCreateHashFlags dwFlags);
 
         /// <summary>
-        /// The BCryptCreateMultiHash function creates a multi-hash state that allows for the parallel computation of multiple hash operations.
+        /// The <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte*, int, byte*, int, BCryptCreateHashFlags)"/> function creates a multi-hash state that allows for the parallel computation of multiple hash operations.
         /// </summary>
         /// <param name="hAlgorithm">
         /// The algorithm handle used for all of the hash states in the multi-hash array.
@@ -117,11 +117,11 @@ namespace PInvoke
         /// </param>
         /// <param name="phHash">
         /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the multi-hash state.
-        /// This handle is used in subsequent operations such as <see cref="BCryptProcessMultiOperations(SafeHashHandle, MultiOperationType, BCRYPT_MULTI_HASH_OPERATION[], int, int)"/>.
+        /// This handle is used in subsequent operations such as <see cref="BCryptProcessMultiOperations(SafeHashHandle, BCRYPT_MULTI_OPERATION_TYPE, BCRYPT_MULTI_HASH_OPERATION*, int, int)"/>.
         /// When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash(IntPtr)"/> function.
         /// </param>
         /// <param name="nHashes">
-        /// The number of elements in the array. The multi-hash state that this function creates is able to perform parallel computations on nHashes different hash states.
+        /// The number of elements in the array. The multi-hash state that this function creates is able to perform parallel computations on <paramref name="nHashes"/> different hash states.
         /// </param>
         /// <param name="pbHashObject">
         /// A pointer to a buffer that receives the multi-hash state.
@@ -146,13 +146,13 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTSTATUS BCryptCreateMultiHash(
+        public static extern unsafe NTSTATUS BCryptCreateMultiHash(
             SafeAlgorithmHandle hAlgorithm,
             out SafeHashHandle phHash,
             int nHashes,
-            byte[] pbHashObject,
+            byte* pbHashObject,
             int cbHashObject,
-            byte[] pbSecret,
+            byte* pbSecret,
             int cbSecret,
             BCryptCreateHashFlags dwFlags);
 
@@ -286,10 +286,10 @@ namespace PInvoke
         /// The BCryptProcessMultiOperations function processes a sequence of operations on a multi-object state.
         /// </summary>
         /// <param name="hHash">
-        /// The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte[], int, byte[], int, BCryptCreateHashFlags)"/> function.
+        /// The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte*, int, byte*, int, BCryptCreateHashFlags)"/> function.
         /// </param>
         /// <param name="operationType">
-        /// Currently the only defined value is <see cref="MultiOperationType.BCRYPT_OPERATION_TYPE_HASH"/>.
+        /// Currently the only defined value is <see cref="BCRYPT_MULTI_OPERATION_TYPE.BCRYPT_OPERATION_TYPE_HASH"/>.
         /// </param>
         /// <param name="pOperations">
         /// A pointer to an array of operation command structures  <see cref="BCRYPT_MULTI_HASH_OPERATION"/>.
@@ -306,12 +306,12 @@ namespace PInvoke
         /// The relative order of two operations that operate on different elements of the array is not guaranteed.If an output buffer overlaps an input or output buffer the result is not deterministic.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTSTATUS BCryptProcessMultiOperations(
+        public static extern unsafe NTSTATUS BCryptProcessMultiOperations(
             SafeHashHandle hHash,
-            MultiOperationType operationType,
-            BCRYPT_MULTI_HASH_OPERATION[] pOperations,
+            BCRYPT_MULTI_OPERATION_TYPE operationType,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] BCRYPT_MULTI_HASH_OPERATION* pOperations,
             int cbOperations,
-            int dwFlags = 0);
+            int dwFlags);
 
         /// <summary>
         /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/>.

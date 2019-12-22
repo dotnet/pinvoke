@@ -36,7 +36,7 @@ namespace PInvoke
             BCRYPT_HASH_REUSABLE_FLAG = 0x20,
 
             /// <summary>
-            /// Needed for use with <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte[], int, byte[], int, BCryptCreateHashFlags)"/>.
+            /// Needed for use with <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte*, int, byte*, int, BCryptCreateHashFlags)"/>.
             /// </summary>
             BCRYPT_MULTI_FLAG = 0x40,
         }

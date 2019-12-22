@@ -408,7 +408,7 @@ public class BCryptFacts
                         ops[i].cbBuffer = data.Length;
                     }
 
-                    BCryptProcessMultiOperations(hash, MultiOperationType.BCRYPT_OPERATION_TYPE_HASH, ops, opsSize).ThrowOnError();
+                    BCryptProcessMultiOperations(hash, BCRYPT_MULTI_OPERATION_TYPE.BCRYPT_OPERATION_TYPE_HASH, ops, opsSize).ThrowOnError();
                 }
 
                 byte[] results = new byte[sha256HashSize * parallelism];
@@ -424,7 +424,7 @@ public class BCryptFacts
                         thisResult += sha256HashSize;
                     }
 
-                    BCryptProcessMultiOperations(hash, MultiOperationType.BCRYPT_OPERATION_TYPE_HASH, ops, opsSize).ThrowOnError();
+                    BCryptProcessMultiOperations(hash, BCRYPT_MULTI_OPERATION_TYPE.BCRYPT_OPERATION_TYPE_HASH, ops, opsSize).ThrowOnError();
                 }
 
                 for (int i = 0; i < ops.Length; i++)
