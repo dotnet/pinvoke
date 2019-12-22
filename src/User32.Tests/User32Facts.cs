@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using PInvoke;
 using Xunit;
@@ -146,5 +147,14 @@ public partial class User32Facts
                 DestroyWindow(hwnd);
             }
         }
+    }
+
+    [Fact]
+    public void MENUBARINFO_MarshalSizeAsExpected()
+    {
+        MENUBARINFO info = default;
+        int expectedSize = IntPtr.Size == 4 ? 0x20 : 0x30;
+        Assert.Equal(expectedSize, Marshal.SizeOf(info));
+        Assert.Equal(expectedSize, MENUBARINFO.Create().cbSize);
     }
 }

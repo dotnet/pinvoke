@@ -276,7 +276,7 @@ PInvoke.User32.MENUITEMINFO.MENUITEMINFO() -> void
 PInvoke.User32.MENUITEMINFO.cbSize -> int
 PInvoke.User32.MENUITEMINFO.cch -> int
 PInvoke.User32.MENUITEMINFO.dwItemData -> System.IntPtr
-PInvoke.User32.MENUITEMINFO.dwTypeData -> string
+PInvoke.User32.MENUITEMINFO.dwTypeData -> char*
 PInvoke.User32.MENUITEMINFO.fMask -> PInvoke.User32.MenuMembersMask
 PInvoke.User32.MENUITEMINFO.fState -> PInvoke.User32.MenuItemState
 PInvoke.User32.MENUITEMINFO.fType -> PInvoke.User32.MenuItemType
@@ -1884,7 +1884,7 @@ static extern PInvoke.User32.GetCursorPos(out PInvoke.POINT lpPoint) -> bool
 static extern PInvoke.User32.GetDesktopWindow() -> System.IntPtr
 static extern PInvoke.User32.GetForegroundWindow() -> System.IntPtr
 static extern PInvoke.User32.GetKeyState(int nVirtKey) -> short
-static extern PInvoke.User32.GetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, ref PInvoke.User32.MENUITEMINFO lpmii) -> bool
+static extern PInvoke.User32.GetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, PInvoke.User32.MENUITEMINFO* lpmii) -> bool
 static extern PInvoke.User32.GetMessage(PInvoke.User32.MSG* lpMsg, System.IntPtr hWnd, PInvoke.User32.WindowMessage wMsgFilterMin, PInvoke.User32.WindowMessage wMsgFilterMax) -> int
 static extern PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, PInvoke.User32.MONITORINFO* lpmi) -> bool
 static extern PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, PInvoke.User32.MONITORINFOEX* lpmi) -> bool
@@ -1957,7 +1957,7 @@ static extern PInvoke.User32.SetCapture(System.IntPtr hWnd) -> System.IntPtr
 static extern PInvoke.User32.SetClipboardData(int uFormat, void* hMem) -> void*
 static extern PInvoke.User32.SetCursorPos(int X, int Y) -> bool
 static extern PInvoke.User32.SetForegroundWindow(System.IntPtr hWnd) -> bool
-static extern PInvoke.User32.SetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, ref PInvoke.User32.MENUITEMINFO lpmii) -> bool
+static extern PInvoke.User32.SetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, PInvoke.User32.MENUITEMINFO* lpmii) -> bool
 static extern PInvoke.User32.SetParent(System.IntPtr hWndChild, System.IntPtr hWndNewParent) -> System.IntPtr
 static extern PInvoke.User32.SetProcessDPIAware() -> bool
 static extern PInvoke.User32.SetProcessWindowStation(PInvoke.User32.SafeWindowStationHandle hWinSta) -> bool

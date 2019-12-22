@@ -19,7 +19,8 @@ namespace PInvoke
 #else
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 #endif
-        public struct MENUITEMINFO
+        [OfferIntPtrPropertyAccessors]
+        public unsafe partial struct MENUITEMINFO
         {
             /// <summary>The size of the structure, in bytes.</summary>
             public int cbSize;
@@ -74,14 +75,14 @@ namespace PInvoke
             ///         To retrieve a menu item of type <see cref="MenuItemType.MFT_STRING" />, first find the size of the string by
             ///         setting the <see cref="dwTypeData" />
             ///         member of <see cref="MENUITEMINFO" /> to <see cref="IntPtr.Zero" /> and then calling
-            ///         <see cref="GetMenuItemInfo" />. The value of <see cref="cch" />+1 is the size needed. Then allocate a buffer of
+            ///         <see cref="GetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)" />. The value of <see cref="cch" />+1 is the size needed. Then allocate a buffer of
             ///         this size, place the pointer to the buffer in dwTypeData, increment cch, and call
-            ///         <see cref="GetMenuItemInfo" /> once again to fill the buffer with the string. If the retrieved menu item is of
-            ///         some other type, then <see cref="GetMenuItemInfo" /> sets the <see cref="dwTypeData" /> member to a value whose
+            ///         <see cref="GetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)" /> once again to fill the buffer with the string. If the retrieved menu item is of
+            ///         some other type, then <see cref="GetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)" /> sets the <see cref="dwTypeData" /> member to a value whose
             ///         type is specified by the <see cref="fType" /> member.
             ///     </para>
             ///     <para>
-            ///         When using with the <see cref="SetMenuItemInfo" /> function, this member should contain a value whose type is
+            ///         When using with the <see cref="SetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)" /> function, this member should contain a value whose type is
             ///         specified by the <see cref="fType" /> member.
             ///     </para>
             ///     <para>
@@ -89,20 +90,20 @@ namespace PInvoke
             ///         <see cref="fMask" /> member
             ///     </para>
             /// </summary>
-            public string dwTypeData;
+            public char* dwTypeData;
 
             /// <summary>
             ///     The length of the menu item text, in characters, when information is received about a menu item of the
             ///     <see cref="MenuItemType.MFT_STRING" />
             ///     type. However, <see cref="cch" /> is used only if the <see cref="MenuMembersMask.MIIM_TYPE" /> flag is set in the
             ///     <see cref="fMask" /> member and is zero otherwise. Also, <see cref="cch" />
-            ///     is ignored when the content of a menu item is set by calling <see cref="SetMenuItemInfo" />.
+            ///     is ignored when the content of a menu item is set by calling <see cref="SetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)" />.
             ///     <para>
-            ///         Note that, before calling <see cref="GetMenuItemInfo" />, the application must set <see cref="cch" /> to the
+            ///         Note that, before calling <see cref="GetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)" />, the application must set <see cref="cch" /> to the
             ///         length of the buffer pointed to by the <see cref="dwTypeData" /> member. If the retrieved menu item is of type
             ///         <see cref="MenuItemType.MFT_STRING" /> (as indicated by the <see cref="fType" />
-            ///         member), then <see cref="GetMenuItemInfo" /> changes <see cref="cch" /> to the length of the menu item text. If
-            ///         the retrieved menu item is of some other type, <see cref="GetMenuItemInfo" /> sets the <see cref="cch" /> field
+            ///         member), then <see cref="GetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)" /> changes <see cref="cch" /> to the length of the menu item text. If
+            ///         the retrieved menu item is of some other type, <see cref="GetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)" /> sets the <see cref="cch" /> field
             ///         to zero.
             ///     </para>
             ///     <para>

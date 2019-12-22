@@ -43,6 +43,12 @@ PInvoke.User32.DPI_HOSTING_BEHAVIOR
 PInvoke.User32.DPI_HOSTING_BEHAVIOR.DPI_HOSTING_BEHAVIOR_DEFAULT = 0 -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
 PInvoke.User32.DPI_HOSTING_BEHAVIOR.DPI_HOSTING_BEHAVIOR_INVALID = -1 -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
 PInvoke.User32.DPI_HOSTING_BEHAVIOR.DPI_HOSTING_BEHAVIOR_MIXED = 1 -> PInvoke.User32.DPI_HOSTING_BEHAVIOR
+PInvoke.User32.GetMenuDefaultItemFlags
+PInvoke.User32.GetMenuDefaultItemFlags.GMDI_GOINTOPOPUPS = 2 -> PInvoke.User32.GetMenuDefaultItemFlags
+PInvoke.User32.GetMenuDefaultItemFlags.GMDI_USEDISABLED = 1 -> PInvoke.User32.GetMenuDefaultItemFlags
+PInvoke.User32.GetMenuStateFlags
+PInvoke.User32.GetMenuStateFlags.MF_BYCOMMAND = 0 -> PInvoke.User32.GetMenuStateFlags
+PInvoke.User32.GetMenuStateFlags.MF_BYPOSITION = 1024 -> PInvoke.User32.GetMenuStateFlags
 PInvoke.User32.GetNextWindowCommands
 PInvoke.User32.GetNextWindowCommands.GW_HWNDNEXT = 2 -> PInvoke.User32.GetNextWindowCommands
 PInvoke.User32.GetNextWindowCommands.GW_HWNDPREV = 3 -> PInvoke.User32.GetNextWindowCommands
@@ -68,6 +74,46 @@ PInvoke.User32.LoadImageFlags.LR_LOADTRANSPARENT = 32 -> PInvoke.User32.LoadImag
 PInvoke.User32.LoadImageFlags.LR_MONOCHROME = 1 -> PInvoke.User32.LoadImageFlags
 PInvoke.User32.LoadImageFlags.LR_SHARED = 32768 -> PInvoke.User32.LoadImageFlags
 PInvoke.User32.LoadImageFlags.LR_VGACOLOR = 128 -> PInvoke.User32.LoadImageFlags
+PInvoke.User32.MENUBARINFO
+PInvoke.User32.MENUBARINFO.MENUBARINFO() -> void
+PInvoke.User32.MENUBARINFO.cbSize -> int
+PInvoke.User32.MENUBARINFO.fBarFocused.get -> bool
+PInvoke.User32.MENUBARINFO.fBarFocused.set -> void
+PInvoke.User32.MENUBARINFO.fFocused.get -> bool
+PInvoke.User32.MENUBARINFO.fFocused.set -> void
+PInvoke.User32.MENUBARINFO.hMenu -> System.IntPtr
+PInvoke.User32.MENUBARINFO.hwndMenu -> System.IntPtr
+PInvoke.User32.MENUBARINFO.rcBar -> PInvoke.RECT
+PInvoke.User32.MENUINFO
+PInvoke.User32.MENUINFO.Create() -> PInvoke.User32.MENUINFO
+PInvoke.User32.MENUINFO.MENUINFO() -> void
+PInvoke.User32.MENUINFO.cbSize -> int
+PInvoke.User32.MENUINFO.cyMax -> uint
+PInvoke.User32.MENUINFO.dwContextHelpID -> uint
+PInvoke.User32.MENUINFO.dwMenuData -> System.UIntPtr
+PInvoke.User32.MENUINFO.dwStyle -> PInvoke.User32.MenuInfoStyle
+PInvoke.User32.MENUINFO.fMask -> PInvoke.User32.MenuInfoMask
+PInvoke.User32.MENUINFO.hbrBack -> System.IntPtr
+PInvoke.User32.MENUITEMINFO.dwTypeData_IntPtr.get -> System.IntPtr
+PInvoke.User32.MENUITEMINFO.dwTypeData_IntPtr.set -> void
+PInvoke.User32.MenuInfoMask
+PInvoke.User32.MenuInfoMask.MIM_APPLYTOSUBMENUS = 2147483648 -> PInvoke.User32.MenuInfoMask
+PInvoke.User32.MenuInfoMask.MIM_BACKGROUND = 2 -> PInvoke.User32.MenuInfoMask
+PInvoke.User32.MenuInfoMask.MIM_HELPID = 4 -> PInvoke.User32.MenuInfoMask
+PInvoke.User32.MenuInfoMask.MIM_MAXHEIGHT = 1 -> PInvoke.User32.MenuInfoMask
+PInvoke.User32.MenuInfoMask.MIM_MENUDATA = 8 -> PInvoke.User32.MenuInfoMask
+PInvoke.User32.MenuInfoMask.MIM_STYLE = 16 -> PInvoke.User32.MenuInfoMask
+PInvoke.User32.MenuInfoStyle
+PInvoke.User32.MenuInfoStyle.MNS_AUTODISMISS = 268435456 -> PInvoke.User32.MenuInfoStyle
+PInvoke.User32.MenuInfoStyle.MNS_CHECKORBMP = 67108864 -> PInvoke.User32.MenuInfoStyle
+PInvoke.User32.MenuInfoStyle.MNS_DRAGDROP = 536870912 -> PInvoke.User32.MenuInfoStyle
+PInvoke.User32.MenuInfoStyle.MNS_MODELESS = 1073741824 -> PInvoke.User32.MenuInfoStyle
+PInvoke.User32.MenuInfoStyle.MNS_NOCHECK = 2147483648 -> PInvoke.User32.MenuInfoStyle
+PInvoke.User32.MenuInfoStyle.MNS_NOTIFYBYPOS = 134217728 -> PInvoke.User32.MenuInfoStyle
+PInvoke.User32.MenuObject
+PInvoke.User32.MenuObject.OBJID_CLIENT = 4294967292 -> PInvoke.User32.MenuObject
+PInvoke.User32.MenuObject.OBJID_MENU = 4294967293 -> PInvoke.User32.MenuObject
+PInvoke.User32.MenuObject.OBJID_SYSMENU = 4294967295 -> PInvoke.User32.MenuObject
 PInvoke.User32.SafeCursorHandle
 PInvoke.User32.SafeCursorHandle.SafeCursorHandle() -> void
 PInvoke.User32.SafeCursorHandle.SafeCursorHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
@@ -107,11 +153,21 @@ static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, sh
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, void* lpParam) -> System.IntPtr
 static PInvoke.User32.GetCursorInfo(System.IntPtr pci) -> bool
 static PInvoke.User32.GetCursorInfo(out PInvoke.User32.CURSORINFO pci) -> bool
+static PInvoke.User32.GetMenuBarInfo(System.IntPtr hwnd, PInvoke.User32.MenuObject idObject, int idItem, System.IntPtr pmbi) -> bool
+static PInvoke.User32.GetMenuInfo(System.IntPtr hMenu, System.IntPtr lpMenuInfo) -> bool
+static PInvoke.User32.GetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, System.IntPtr lpmii) -> bool
+static PInvoke.User32.GetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, ref PInvoke.User32.MENUITEMINFO lpmii) -> bool
+static PInvoke.User32.GetMenuItemRect(System.IntPtr hWnd, System.IntPtr hMenu, uint uItem, System.IntPtr lprcItem) -> bool
+static PInvoke.User32.GetMenuString(System.IntPtr hMenu, uint uIDItem, System.IntPtr lpString, int cchMax, PInvoke.User32.GetMenuStateFlags flags) -> int
+static PInvoke.User32.GetMenuString(System.IntPtr hMenu, uint uIDItem, char[] lpString, int cchMax, PInvoke.User32.GetMenuStateFlags flags) -> int
 static PInvoke.User32.GetNextWindow(System.IntPtr hWnd, PInvoke.User32.GetNextWindowCommands wCmd) -> System.IntPtr
 static PInvoke.User32.LoadCursor(System.IntPtr hInstance, System.IntPtr lpCursorName) -> PInvoke.User32.SafeCursorHandle
 static PInvoke.User32.LoadCursor(System.IntPtr hInstance, char[] lpCursorName) -> PInvoke.User32.SafeCursorHandle
 static PInvoke.User32.LoadImage(System.IntPtr hInst, System.IntPtr name, PInvoke.User32.ImageType type, int cx, int cy, PInvoke.User32.LoadImageFlags fuLoad) -> System.IntPtr
 static PInvoke.User32.LoadImage(System.IntPtr hInst, char[] name, PInvoke.User32.ImageType type, int cx, int cy, PInvoke.User32.LoadImageFlags fuLoad) -> System.IntPtr
+static PInvoke.User32.MENUBARINFO.Create() -> PInvoke.User32.MENUBARINFO
+static PInvoke.User32.SetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, PInvoke.User32.MENUITEMINFO lpmii) -> bool
+static PInvoke.User32.SetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, System.IntPtr lpmii) -> bool
 static PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, System.IntPtr dwNewLong) -> System.IntPtr
 static PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, void* dwNewLong) -> void*
 static PInvoke.User32.SystemParametersInfoForDpi(PInvoke.User32.SystemParametersInfoAction uiAction, int uiParam, System.IntPtr pvParam, PInvoke.User32.SystemParametersInfoFlags fWinIni, int dpi) -> bool
@@ -130,6 +186,18 @@ static extern PInvoke.User32.GetDialogDpiChangeBehavior(System.IntPtr hDlg) -> P
 static extern PInvoke.User32.GetDpiForSystem() -> int
 static extern PInvoke.User32.GetDpiForWindow(System.IntPtr hwnd) -> int
 static extern PInvoke.User32.GetDpiFromDpiAwarenessContext(System.IntPtr dpiAwarenessContext) -> int
+static extern PInvoke.User32.GetMenu(System.IntPtr hWnd) -> System.IntPtr
+static extern PInvoke.User32.GetMenuBarInfo(System.IntPtr hwnd, PInvoke.User32.MenuObject idObject, int idItem, PInvoke.User32.MENUBARINFO* pmbi) -> bool
+static extern PInvoke.User32.GetMenuCheckMarkDimensions() -> int
+static extern PInvoke.User32.GetMenuContextHelpId(System.IntPtr hMenu) -> uint
+static extern PInvoke.User32.GetMenuDefaultItem(System.IntPtr hMenu, uint fByPos, PInvoke.User32.GetMenuDefaultItemFlags gmdiFlags) -> uint
+static extern PInvoke.User32.GetMenuInfo(System.IntPtr hMenu, PInvoke.User32.MENUINFO* lpMenuInfo) -> bool
+static extern PInvoke.User32.GetMenuItemCount(System.IntPtr hMenu) -> int
+static extern PInvoke.User32.GetMenuItemId(System.IntPtr hMenu, int nPos) -> uint
+static extern PInvoke.User32.GetMenuItemRect(System.IntPtr hWnd, System.IntPtr hMenu, uint uItem, PInvoke.RECT* lprcItem) -> bool
+static extern PInvoke.User32.GetMenuState(System.IntPtr hMenu, uint uId, PInvoke.User32.GetMenuStateFlags uFlags) -> uint
+static extern PInvoke.User32.GetMenuString(System.IntPtr hMenu, uint uIDItem, char* lpString, int cchMax, PInvoke.User32.GetMenuStateFlags flags) -> int
+static extern PInvoke.User32.GetSubMenu(System.IntPtr hMenu, int nPos) -> System.IntPtr
 static extern PInvoke.User32.GetSystemDpiForProcess(PInvoke.Kernel32.SafeObjectHandle hProcess) -> int
 static extern PInvoke.User32.GetSystemMetricsForDpi(int nIndex, int dpi) -> int
 static extern PInvoke.User32.GetThreadDpiAwarenessContext() -> System.IntPtr
@@ -146,6 +214,7 @@ static extern PInvoke.User32.SetCursor(PInvoke.User32.SafeCursorHandle hCursor) 
 static extern PInvoke.User32.SetDialogControlDpiChangeBehavior(System.IntPtr hwnd, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS values) -> bool
 static extern PInvoke.User32.SetDialogDpiChangeBehavior(System.IntPtr hDlg, PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_DPI_CHANGE_BEHAVIORS values) -> bool
 static extern PInvoke.User32.SetLastErrorEx(uint dwErrCode, uint dwType) -> void
+static extern PInvoke.User32.SetMenuContextHelpId(System.IntPtr hMenu, uint helpId) -> uint
 static extern PInvoke.User32.SetProcessDpiAwarenessContext(System.IntPtr dpiAWarenessContext) -> bool
 static extern PInvoke.User32.SetThreadDpiAwarenessContext(System.IntPtr dpiContext) -> System.IntPtr
 static extern PInvoke.User32.SetThreadDpiHostingBehavior(PInvoke.User32.DPI_HOSTING_BEHAVIOR dpiHostingBehavior) -> PInvoke.User32.DPI_HOSTING_BEHAVIOR

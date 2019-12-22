@@ -978,7 +978,7 @@ namespace PInvoke
         ///     If the bRevert parameter is FALSE, the return value is a handle to a copy of the window menu. If the bRevert
         ///     parameter is TRUE, the return value is NULL.
         /// </returns>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32))]
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, [MarshalAs(UnmanagedType.Bool)] bool bRevert);
 
         /// <summary>
@@ -1190,11 +1190,97 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetMenuItemInfo(
+        public static extern unsafe bool SetMenuItemInfo(
             IntPtr hMenu,
             uint uItem,
             [MarshalAs(UnmanagedType.Bool)] bool fByPosition,
-            [In] ref MENUITEMINFO lpmii);
+            [Friendly(FriendlyFlags.In)] MENUITEMINFO* lpmii);
+
+        /// <summary>
+        /// Retrieves a handle to the menu assigned to the specified window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose menu handle is to be retrieved.</param>
+        /// <returns>The return value is a handle to the menu. If the specified window has no menu, the return value is <see cref="IntPtr.Zero"/>. If the window is a child window, the return value is undefined.</returns>
+        /// <remarks>
+        /// <see cref="GetMenu"/> does not work on floating menu bars. Floating menu bars are custom controls that mimic standard menus; they are not menus. To get the handle on a floating menu bar, use the Active Accessibility APIs.
+        /// </remarks>
+        [DllImport(nameof(User32))]
+        public static extern IntPtr GetMenu(IntPtr hWnd);
+
+        /// <summary>
+        /// Retrieves information about the specified menu bar.
+        /// </summary>
+        /// <param name="hwnd">A handle to the window (menu bar) whose information is to be retrieved.</param>
+        /// <param name="idObject">The menu object</param>
+        /// <param name="idItem">The item for which to retrieve information. If this parameter is zero, the function retrieves information about the menu itself. If this parameter is 1, the function retrieves information about the first item on the menu, and so on.</param>
+        /// <param name="pmbi">A pointer to a <see cref="MENUBARINFO"/> structure that receives the information. Note that you must set the <see cref="MENUBARINFO.cbSize"/> member to sizeof(MENUBARINFO) before calling this function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetMenuBarInfo(
+            IntPtr hwnd,
+            MenuObject idObject,
+            int idItem,
+            MENUBARINFO* pmbi);
+
+        /// <summary>
+        /// Retrieves the dimensions of the default check-mark bitmap.
+        /// The system displays this bitmap next to selected menu items.
+        /// Before calling the SetMenuItemBitmaps function to replace the default check-mark bitmap for a menu item,
+        /// an application must determine the correct bitmap size by calling <see cref="GetMenuCheckMarkDimensions"/>.
+        /// </summary>
+        /// <returns>
+        /// The return value specifies the height and width, in pixels, of the default check-mark bitmap. The high-order word contains the height; the low-order word contains the width.
+        /// </returns>
+        [DllImport(nameof(User32))]
+        [Obsolete("The GetMenuCheckMarkDimensions function is included only for compatibility with 16-bit versions of Windows. Applications should use the GetSystemMetrics function with the CXMENUCHECK and CYMENUCHECK values to retrieve the bitmap dimensions.")]
+        public static extern int GetMenuCheckMarkDimensions();
+
+        /// <summary>
+        /// Determines the default menu item on the specified menu.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu for which to retrieve the default menu item.</param>
+        /// <param name="fByPos">Indicates whether to retrieve the menu item's identifier or its position. If this parameter is 0, the identifier is returned. Otherwise, the position is returned.</param>
+        /// <param name="gmdiFlags">Indicates how the function should search for menu items.</param>
+        /// <returns>If the function succeeds, the return value is the identifier or position of the menu item. If the function fails, the return value is -1. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern uint GetMenuDefaultItem(
+            IntPtr hMenu,
+            uint fByPos,
+            GetMenuDefaultItemFlags gmdiFlags);
+
+        /// <summary>
+        /// Retrieves information about a specified menu.
+        /// </summary>
+        /// <param name="hMenu">A handle on a menu.</param>
+        /// <param name="lpMenuInfo">A pointer to a <see cref="MENUINFO"/> structure containing information for the menu. Note that you must set the <see cref="MENUINFO.cbSize"/> member to sizeof(MENUINFO) before calling this function.</param>
+        /// <returns>If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern unsafe bool GetMenuInfo(
+            IntPtr hMenu,
+            MENUINFO* lpMenuInfo);
+
+        /// <summary>
+        /// Determines the number of items in the specified menu.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu to be examined.</param>
+        /// <returns>If the function succeeds, the return value specifies the number of items in the menu.
+        /// If the function fails, the return value is -1. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int GetMenuItemCount(IntPtr hMenu);
+
+        /// <summary>
+        /// Retrieves the menu item identifier of a menu item located at the specified position in a menu.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu that contains the item whose identifier is to be retrieved.</param>
+        /// <param name="nPos">The zero-based relative position of the menu item whose identifier is to be retrieved.</param>
+        /// <returns>The return value is the identifier of the specified menu item. If the menu item identifier is NULL or if the specified item opens a submenu, the return value is -1.</returns>
+        [DllImport(nameof(User32))]
+        public static extern uint GetMenuItemId(IntPtr hMenu, int nPos);
 
         /// <summary>Retrieves information about a menu item.</summary>
         /// <param name="hMenu">A handle to the menu that contains the menu item.</param>
@@ -1213,15 +1299,109 @@ namespace PInvoke
         /// </param>
         /// <returns>
         ///     If the function succeeds, the return value is true.
-        ///     <para>If the function fails, the return value is false. To get extended error information, call GetLastError.</para>
+        ///     <para>If the function fails, the return value is false. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</para>
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetMenuItemInfo(
+        public static extern unsafe bool GetMenuItemInfo(
             IntPtr hMenu,
             uint uItem,
             [MarshalAs(UnmanagedType.Bool)] bool fByPosition,
-            ref MENUITEMINFO lpmii);
+            [Friendly(FriendlyFlags.Bidirectional)] MENUITEMINFO* lpmii);
+
+        /// <summary>
+        /// Retrieves the bounding rectangle for the specified menu item.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window containing the menu. If this value is NULL and the <paramref name="hMenu"/> parameter represents a popup menu, the function will find the menu window.</param>
+        /// <param name="hMenu">A handle to a menu.</param>
+        /// <param name="uItem">The zero-based position of the menu item.</param>
+        /// <param name="lprcItem">A pointer to a <see cref="RECT"/> structure that receives the bounding rectangle of the specified menu item expressed in screen coordinates.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, use the <see cref="Marshal.GetLastWin32Error"/> function.
+        /// </returns>
+        /// <remarks>
+        /// In order for the returned rectangle to be meaningful, the menu must be popped up if a popup menu or attached to a window if a menu bar. Menu item positions are not determined until the menu is displayed.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetMenuItemRect(
+            IntPtr hWnd,
+            IntPtr hMenu,
+            uint uItem,
+            RECT* lprcItem);
+
+        /// <summary>
+        /// Retrieves the menu flags associated with the specified menu item. If the menu item opens a submenu, this function also returns the number of items in the submenu.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu that contains the menu item whose flags are to be retrieved.</param>
+        /// <param name="uId">The menu item for which the menu flags are to be retrieved, as determined by the <paramref name="uFlags" /> parameter.</param>
+        /// <param name="uFlags">Indicates how the uId parameter is interpreted.</param>
+        /// <returns>
+        /// If the specified item does not exist, the return value is -1.
+        /// If the menu item opens a submenu, the low-order byte of the return value contains the menu flags associated with the item, and the high-order byte contains the number of items in the submenu opened by the item.
+        /// Otherwise, the return value is a mask (Bitwise OR) of the menu flags.
+        /// Menu flags associated with the menu item are a subset of those defined in <see cref="MenuItemFlags"/>.
+        /// </returns>
+        /// <remarks>
+        /// The <see cref="GetMenuState"/> function has been superseded by the <see cref="GetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)"/>.
+        /// You can still use <see cref="GetMenuState"/>, however, if you do not need any of the extended features of <see cref="GetMenuItemInfo(IntPtr, uint, bool, MENUITEMINFO*)"/>.
+        /// </remarks>
+        [DllImport(nameof(User32))]
+        public static extern uint GetMenuState(
+            IntPtr hMenu,
+            uint uId,
+            GetMenuStateFlags uFlags);
+
+        /// <summary>
+        /// Copies the text string of the specified menu item into the specified buffer.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu.</param>
+        /// <param name="uIDItem">The menu item to be changed, as determined by the <paramref name="flags"/> parameter.</param>
+        /// <param name="lpString">The buffer that receives the null-terminated string. If the string is as long or longer than <paramref name="lpString" />, the string is truncated and the terminating null character is added. If <paramref name="lpString" /> is NULL, the function returns the length of the menu string.</param>
+        /// <param name="cchMax">The maximum length, in characters, of the string to be copied. If the string is longer than the maximum specified in the <paramref name="cchMax" /> parameter, the extra characters are truncated. If <paramref name="cchMax" /> is 0, the function returns the length of the menu string.</param>
+        /// <param name="flags">Indicates how the <paramref name="uIDItem"/> parameter is interpreted.</param>
+        /// <returns>
+        /// If the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.
+        /// If the function fails, the return value is zero.
+        /// If the specified item is not of type <see cref="MenuMembersMask.MIIM_STRING"/> or <see cref="MenuItemType.MFT_STRING"/>, then the return value is zero.
+        /// </returns>
+        [DllImport(nameof(User32))]
+        [Obsolete("The GetMenuString function has been superseded. Use the GetMenuItemInfo function to retrieve the menu item text.")]
+        public static extern unsafe int GetMenuString(
+            IntPtr hMenu,
+            uint uIDItem,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpString,
+            int cchMax,
+            GetMenuStateFlags flags);
+
+        /// <summary>
+        /// Retrieves a handle to the drop-down menu or submenu activated by the specified menu item.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu.</param>
+        /// <param name="nPos">The zero-based relative position in the specified menu of an item that activates a drop-down menu or submenu.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the drop-down menu or submenu activated by the menu item. If the menu item does not activate a drop-down menu or submenu, the return value is NULL.</returns>
+        [DllImport(nameof(User32))]
+        public static extern IntPtr GetSubMenu(
+            IntPtr hMenu,
+            int nPos);
+
+        /// <summary>
+        /// Retrieves the Help context identifier associated with the specified menu.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu for which the Help context identifier is to be retrieved.</param>
+        /// <returns>Returns the Help context identifier if the menu has one, or zero otherwise.</returns>
+        [DllImport(nameof(User32))]
+        public static extern uint GetMenuContextHelpId(IntPtr hMenu);
+
+        /// <summary>
+        /// Associates a Help context identifier with a menu.
+        /// </summary>
+        /// <param name="hMenu">A handle to the menu with which to associate the Help context identifier.</param>
+        /// <param name="helpId">The help context identifier.</param>
+        /// <returns>Returns nonzero if successful, or zero otherwise. To retrieve extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern uint SetMenuContextHelpId(IntPtr hMenu, uint helpId);
 
         /// <summary>
         ///     Translates (maps) a virtual-key code into a scan code or character value, or translates a scan code into a
