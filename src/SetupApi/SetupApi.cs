@@ -103,6 +103,7 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool SetupDiEnumDeviceInterfaces(
             SafeDeviceInfoSetHandle deviceInfoSet,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
@@ -149,6 +150,7 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool SetupDiGetDeviceInterfaceDetail(
             SafeDeviceInfoSetHandle deviceInfoSet,
             ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData,
@@ -176,10 +178,46 @@ namespace PInvoke
         /// <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport(nameof(SetupApi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool SetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
             int memberIndex,
             SP_DEVINFO_DATA* deviceInfoData);
+
+        /// <summary>
+        /// Retrieves a device instance property.
+        /// </summary>
+        /// <param name="deviceInfoSet">A handle to a <see href="https://docs.microsoft.com/windows-hardware/drivers/install/device-information-sets">device information set</see>
+        /// that contains a device instance for which to retrieve a device instance property.</param>
+        /// <param name="deviceInfoData">A pointer to the <see cref="SP_DEVINFO_DATA"/> structure that represents the device instance for which to retrieve a device instance property.</param>
+        /// <param name="propertyKey">A pointer to a <see cref="DEVPROPKEY"/> structure that represents the device property key of the requested device instance property.</param>
+        /// <param name="propertyType">A pointer to a uint-typed variable that receives the property-data-type identifier of the requested device instance property, where the property-data-type
+        /// identifier is the bitwise OR between a base-data-type identifier and, if the base-data type is modified, a property-data-type modifier.</param>
+        /// <param name="propertyBuffer">
+        /// A pointer to a buffer that receives the requested device instance property.
+        /// <see cref="SetupDiGetDeviceProperty(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DEVPROPKEY*, uint*, byte*, uint, uint*, SetupDiGetDevicePropertyFlags)"/> retrieves the requested property
+        /// only if the buffer is large enough to hold all the property value data. The pointer can be NULL. If the pointer is set to NULL and RequiredSize is supplied,
+        /// <see cref="SetupDiGetDeviceProperty(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DEVPROPKEY*, uint*, byte*, uint, uint*, SetupDiGetDevicePropertyFlags)"/> returns the size of the property,
+        /// in bytes, in <paramref name="requiredSize"/>.</param>
+        /// <param name="propertyBufferSize">The size, in bytes, of the <paramref name="propertyBuffer"/> buffer. If <paramref name="propertyBuffer"/> is set to NULL, <paramref name="propertyBufferSize"/> must be set to zero.</param>
+        /// <param name="requiredSize">
+        /// A pointer to a DWORD-typed variable that receives the size, in bytes, of either the device instance property if the property is retrieved or the required buffer size if the buffer is not large enough. This pointer can be set to NULL.
+        /// </param>
+        /// <param name="flags">This parameter must be set to zero.</param>
+        /// <returns>
+        /// Returns TRUE if it is successful. Otherwise, it returns FALSE, and the logged error can be retrieved by calling <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(nameof(SetupApi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool SetupDiGetDeviceProperty(
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            SP_DEVINFO_DATA* deviceInfoData,
+            DEVPROPKEY* propertyKey,
+            uint* propertyType,
+            byte* propertyBuffer,
+            uint propertyBufferSize,
+            uint* requiredSize,
+            SetupDiGetDevicePropertyFlags flags);
 
         /// <summary>
         /// Deletes a device information set and frees all associated memory.
@@ -195,6 +233,7 @@ namespace PInvoke
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
 #endif
         [DllImport(nameof(SetupApi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetupDiDestroyDeviceInfoList(IntPtr deviceInfoSet);
     }
 }

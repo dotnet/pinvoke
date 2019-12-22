@@ -1,0 +1,10 @@
+PInvoke.SetupApi.DEVPROPKEY
+PInvoke.SetupApi.DEVPROPKEY.DEVPROPKEY() -> void
+PInvoke.SetupApi.DEVPROPKEY.fmtid -> System.Guid
+PInvoke.SetupApi.DEVPROPKEY.pid -> uint
+PInvoke.SetupApi.SetupDiGetDevicePropertyFlags
+PInvoke.SetupApi.SetupDiGetDevicePropertyFlags.None = 0 -> PInvoke.SetupApi.SetupDiGetDevicePropertyFlags
+static PInvoke.SetupApi.SetupDiGetDeviceProperty(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.DEVPROPKEY* propertyKey, uint* propertyType, byte[] propertyBuffer, uint propertyBufferSize, uint* requiredSize, PInvoke.SetupApi.SetupDiGetDevicePropertyFlags flags) -> bool
+static PInvoke.SetupApi.SetupDiGetDeviceProperty(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, System.IntPtr deviceInfoData, System.IntPtr propertyKey, System.IntPtr propertyType, System.IntPtr propertyBuffer, uint propertyBufferSize, System.IntPtr requiredSize, PInvoke.SetupApi.SetupDiGetDevicePropertyFlags flags) -> bool
+static PInvoke.SetupApi.SetupDiGetDeviceProperty(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, System.IntPtr deviceInfoData, System.IntPtr propertyKey, System.IntPtr propertyType, byte[] propertyBuffer, uint propertyBufferSize, System.IntPtr requiredSize, PInvoke.SetupApi.SetupDiGetDevicePropertyFlags flags) -> bool
+static extern PInvoke.SetupApi.SetupDiGetDeviceProperty(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.DEVPROPKEY* propertyKey, uint* propertyType, byte* propertyBuffer, uint propertyBufferSize, uint* requiredSize, PInvoke.SetupApi.SetupDiGetDevicePropertyFlags flags) -> bool
