@@ -2281,7 +2281,7 @@ namespace PInvoke
         /// If the source and destination blocks overlap, the results are undefined.
         /// For overlapped blocks, use the <see cref="MoveMemory(void*, void*, IntPtr)"/> function.
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = false)]
+        [DllImport(nameof(Kernel32), EntryPoint = "RtlCopyMemory", SetLastError = false)]
         public static unsafe extern void CopyMemory(void* Destination, void* Source, IntPtr Length);
 
         /// <summary>
@@ -2304,7 +2304,7 @@ namespace PInvoke
         /// Be aware that the last parameter, <paramref name="Length"/>, is the number of bytes to copy into <paramref name="Destination"/>, not the size of the <paramref name="Destination"/>.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = false)]
+        [DllImport(nameof(Kernel32), EntryPoint = "RtlMoveMemory", SetLastError = false)]
         public static unsafe extern void MoveMemory(void* Destination, void* Source, IntPtr Length);
 
         /// <summary>
