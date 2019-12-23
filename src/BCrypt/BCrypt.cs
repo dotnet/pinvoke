@@ -77,7 +77,7 @@ namespace PInvoke
         /// The handle of an algorithm provider created by using the <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/> function. The algorithm that was specified when the provider was created must support the hash interface.
         /// </param>
         /// <param name="phHash">
-        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <see cref="BCryptHashData"/> function. When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash"/> function.
+        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <see cref="BCryptHashData(SafeHashHandle, byte*, int, BCryptHashDataFlags)"/> function. When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash"/> function.
         /// </param>
         /// <param name="pbHashObject">
         /// A pointer to a buffer that receives the hash or MAC object. The <paramref name="cbHashObject"/> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/> function to get the <see cref="PropertyNames.BCRYPT_OBJECT_LENGTH"/> property. This will provide the size of the hash or MAC object for the specified algorithm.
@@ -99,12 +99,60 @@ namespace PInvoke
         /// <param name="dwFlags">Flags that modify the behavior of the function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTSTATUS BCryptCreateHash(
+        public static extern unsafe NTSTATUS BCryptCreateHash(
             SafeAlgorithmHandle hAlgorithm,
             out SafeHashHandle phHash,
-            byte[] pbHashObject,
+            byte* pbHashObject,
             int cbHashObject,
-            byte[] pbSecret,
+            byte* pbSecret,
+            int cbSecret,
+            BCryptCreateHashFlags dwFlags);
+
+        /// <summary>
+        /// The <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte*, int, byte*, int, BCryptCreateHashFlags)"/> function creates a multi-hash state that allows for the parallel computation of multiple hash operations.
+        /// </summary>
+        /// <param name="hAlgorithm">
+        /// The algorithm handle used for all of the hash states in the multi-hash array.
+        /// The algorithm handle must have been opened with the <see cref="BCryptOpenAlgorithmProviderFlags.BCRYPT_MULTI_FLAG"/> passed to the <see cref="BCryptOpenAlgorithmProvider(out SafeAlgorithmHandle, string, string, BCryptOpenAlgorithmProviderFlags)"/> function.
+        /// </param>
+        /// <param name="phHash">
+        /// A pointer to a <see cref="SafeHashHandle"/> value that receives a handle that represents the multi-hash state.
+        /// This handle is used in subsequent operations such as <see cref="BCryptProcessMultiOperations(SafeHashHandle, BCRYPT_MULTI_OPERATION_TYPE, BCRYPT_MULTI_HASH_OPERATION*, int, int)"/>.
+        /// When you have finished using this handle, release it by passing it to the <see cref="BCryptDestroyHash(IntPtr)"/> function.
+        /// </param>
+        /// <param name="nHashes">
+        /// The number of elements in the array. The multi-hash state that this function creates is able to perform parallel computations on <paramref name="nHashes"/> different hash states.
+        /// </param>
+        /// <param name="pbHashObject">
+        /// A pointer to a buffer that receives the multi-hash state.
+        /// If <paramref name="pbHashObject"/> is NULL and <paramref name="cbHashObject"/> has a value of zero (0), the object buffer is automatically allocated.
+        /// </param>
+        /// <param name="cbHashObject">
+        /// The size of the <paramref name="pbHashObject"/> buffer, or zero if <paramref name="pbHashObject"/> is NULL.
+        /// </param>
+        /// <param name="pbSecret">
+        /// A pointer to a buffer that contains the key to use for the hash or MAC.
+        /// The <paramref name="cbSecret"/> parameter contains the size of this buffer.
+        /// This key only applies to hash algorithms opened by the <see cref="BCryptOpenAlgorithmProvider(out SafeAlgorithmHandle, string, string, BCryptOpenAlgorithmProviderFlags)"/> function by using the <see cref="BCryptOpenAlgorithmProviderFlags.BCRYPT_ALG_HANDLE_HMAC_FLAG"/> flag
+        /// Otherwise, set this parameter to NULL.
+        /// The same key is used for all elements of the array.
+        /// </param>
+        /// <param name="cbSecret">
+        /// The size, in bytes, of the <paramref name="pbSecret"/> buffer. If no key is used, set this parameter to zero.
+        /// </param>
+        /// <param name="dwFlags">
+        /// Flags that modify the behavior of the function. This can be zero or the values below.
+        /// Multi-hash objects are always reusable and always behave as if the <see cref="BCryptCreateHashFlags.BCRYPT_HASH_REUSABLE_FLAG"/> was passed. This flag is supported here for consistency.
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern unsafe NTSTATUS BCryptCreateMultiHash(
+            SafeAlgorithmHandle hAlgorithm,
+            out SafeHashHandle phHash,
+            int nHashes,
+            byte* pbHashObject,
+            int cbHashObject,
+            byte* pbSecret,
             int cbSecret,
             BCryptCreateHashFlags dwFlags);
 
@@ -215,7 +263,7 @@ namespace PInvoke
         /// Performs a one way hash or Message Authentication Code (MAC) on a data buffer.
         /// </summary>
         /// <param name="hHash">
-        /// The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <see cref="BCryptCreateHash(SafeAlgorithmHandle, out SafeHashHandle, byte[], int, byte[], int, BCryptCreateHashFlags)"/> function.
+        /// The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <see cref="BCryptCreateHash(SafeAlgorithmHandle, out SafeHashHandle, byte*, int, byte*, int, BCryptCreateHashFlags)"/> function.
         /// </param>
         /// <param name="pbInput">
         /// A pointer to a buffer that contains the data to process. The <paramref name="cbInput"/> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
@@ -224,18 +272,49 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         /// <remarks>
-        /// To combine more than one buffer into the hash or MAC, you can call this function multiple times, passing a different buffer each time. To obtain the hash or MAC value, call the <see cref="BCryptFinishHash(SafeHashHandle, byte[], int, BCryptFinishHashFlags)"/> function.
-        /// After the <see cref="BCryptFinishHash(SafeHashHandle, byte[], int, BCryptFinishHashFlags)"/> function has been called for a specified handle, that handle cannot be reused.
+        /// To combine more than one buffer into the hash or MAC, you can call this function multiple times, passing a different buffer each time. To obtain the hash or MAC value, call the <see cref="BCryptFinishHash(SafeHashHandle, byte*, int, BCryptFinishHashFlags)"/> function.
+        /// After the <see cref="BCryptFinishHash(SafeHashHandle, byte*, int, BCryptFinishHashFlags)"/> function has been called for a specified handle, that handle cannot be reused.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTSTATUS BCryptHashData(
+        public static extern unsafe NTSTATUS BCryptHashData(
             SafeHashHandle hHash,
-            byte[] pbInput,
+            byte* pbInput,
             int cbInput,
             BCryptHashDataFlags dwFlags = BCryptHashDataFlags.None);
 
         /// <summary>
-        /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte[], int, BCryptHashDataFlags)"/>.
+        /// The BCryptProcessMultiOperations function processes a sequence of operations on a multi-object state.
+        /// </summary>
+        /// <param name="hHash">
+        /// The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte*, int, byte*, int, BCryptCreateHashFlags)"/> function.
+        /// </param>
+        /// <param name="operationType">
+        /// Currently the only defined value is <see cref="BCRYPT_MULTI_OPERATION_TYPE.BCRYPT_OPERATION_TYPE_HASH"/>.
+        /// </param>
+        /// <param name="pOperations">
+        /// A pointer to an array of operation command structures  <see cref="BCRYPT_MULTI_HASH_OPERATION"/>.
+        /// </param>
+        /// <param name="cbOperations">
+        /// The size, in bytes, of the pOperations array.
+        /// </param>
+        /// <param name="dwFlags">
+        /// Specify a value of zero (0).
+        /// </param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        /// <remarks>
+        /// Each element of the pOperations array contains instructions for a particular computation to be performed on a single element of the multi-object state. The functional behavior of BCryptProcessMultiOperations is equivalent to performing, for each element in the multi-object state, the computations specified in the operations array for that element, one at a time, in order.
+        /// The relative order of two operations that operate on different elements of the array is not guaranteed.If an output buffer overlaps an input or output buffer the result is not deterministic.
+        /// </remarks>
+        [DllImport(nameof(BCrypt), SetLastError = true)]
+        public static extern unsafe NTSTATUS BCryptProcessMultiOperations(
+            SafeHashHandle hHash,
+            BCRYPT_MULTI_OPERATION_TYPE operationType,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] BCRYPT_MULTI_HASH_OPERATION* pOperations,
+            int cbOperations,
+            int dwFlags = 0);
+
+        /// <summary>
+        /// Retrieves the hash or Message Authentication Code (MAC) value for the data accumulated from prior calls to <see cref="BCryptHashData(SafeHashHandle, byte*, int, BCryptHashDataFlags)"/>.
         /// </summary>
         /// <param name="hHash">
         /// The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <see cref="BCryptCreateHash(SafeAlgorithmHandle, byte[], byte[], BCryptCreateHashFlags)"/> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <see cref="BCryptDestroyHash"/>.
@@ -250,9 +329,9 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTSTATUS BCryptFinishHash(
+        public static extern unsafe NTSTATUS BCryptFinishHash(
             SafeHashHandle hHash,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbOutput,
+            byte* pbOutput,
             int cbOutput,
             BCryptFinishHashFlags dwFlags = BCryptFinishHashFlags.None);
 
@@ -285,15 +364,15 @@ namespace PInvoke
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         /// <remarks>
-        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature(SafeKeyHandle, void*, byte[], int, byte[], int, BCryptSignHashFlags)"/> function with an identical key and an identical hash of the original data.
+        /// To later verify that the signature is valid, call the <see cref="BCryptVerifySignature(SafeKeyHandle, void*, byte*, int, byte*, int, BCryptSignHashFlags)"/> function with an identical key and an identical hash of the original data.
         /// </remarks>
         [DllImport(nameof(BCrypt), SetLastError = true)]
         public static unsafe extern NTSTATUS BCryptSignHash(
             SafeKeyHandle hKey,
             void* pPaddingInfo,
-            byte[] pbInput,
+            byte* pbInput,
             int cbInput,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] pbOutput,
+            byte* pbOutput,
             int cbOutput,
             out int pcbResult,
             BCryptSignHashFlags dwFlags);
@@ -332,9 +411,9 @@ namespace PInvoke
         public static unsafe extern NTSTATUS BCryptVerifySignature(
             SafeKeyHandle hKey,
             void* pPaddingInfo,
-            byte[] pbHash,
+            byte* pbHash,
             int cbHash,
-            byte[] pbSignature,
+            byte* pbSignature,
             int cbSignature,
             BCryptSignHashFlags dwFlags = BCryptSignHashFlags.None);
 
@@ -386,12 +465,12 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTSTATUS BCryptGenerateSymmetricKey(
+        public static extern unsafe NTSTATUS BCryptGenerateSymmetricKey(
             SafeAlgorithmHandle hAlgorithm,
             out SafeKeyHandle phKey,
-            byte[] pbKeyObject,
+            byte* pbKeyObject,
             int cbKeyObject,
-            byte[] pbSecret,
+            byte* pbSecret,
             int cbSecret,
             BCryptGenerateSymmetricKeyFlags flags = BCryptGenerateSymmetricKeyFlags.None);
 
@@ -448,14 +527,14 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTSTATUS BCryptImportKey(
+        public static extern unsafe NTSTATUS BCryptImportKey(
             SafeAlgorithmHandle hAlgorithm,
             SafeKeyHandle hImportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
             out SafeKeyHandle phKey,
-            byte[] pbKeyObject,
+            byte* pbKeyObject,
             int cbKeyObject,
-            byte[] pbInput,
+            byte* pbInput,
             int cbInput,
             BCryptImportKeyFlags dwFlags = BCryptImportKeyFlags.None);
 
@@ -471,12 +550,12 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTSTATUS BCryptImportKeyPair(
+        public static extern unsafe NTSTATUS BCryptImportKeyPair(
             SafeAlgorithmHandle hAlgorithm,
             SafeKeyHandle hImportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
             out SafeKeyHandle phKey,
-            byte[] pbInput,
+            byte* pbInput,
             int cbInput,
             BCryptImportKeyPairFlags dwFlags);
 
@@ -508,11 +587,11 @@ namespace PInvoke
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTSTATUS BCryptExportKey(
+        public static extern unsafe NTSTATUS BCryptExportKey(
             SafeKeyHandle hKey,
             SafeKeyHandle hExportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pbOutput,
+            byte* pbOutput,
             int cbOutput,
             out int pcbResult,
             BCryptExportKeyFlags dwFlags = BCryptExportKeyFlags.None);
@@ -578,13 +657,13 @@ namespace PInvoke
         /// Returns a status code that indicates the success or failure of the function.
         /// </returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTSTATUS BCryptDeriveKey(
+        public static extern unsafe NTSTATUS BCryptDeriveKey(
             SafeSecretHandle sharedSecret,
             string keyDerivationFunction,
-            [In] ref BCryptBufferDesc kdfParameters,
-            [Out, MarshalAs(UnmanagedType.LPArray)] byte[] derivedKey,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] BCryptBufferDesc* kdfParameters,
+            byte* derivedKey,
             int derivedKeySize,
-            [Out] out int resultSize,
+            out int resultSize,
             BCryptDeriveKeyFlags flags);
 
         /// <summary>
@@ -636,10 +715,10 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. No flags are defined for this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern NTSTATUS BCryptGetProperty(
+        public static extern unsafe NTSTATUS BCryptGetProperty(
             SafeHandle hObject,
             string property,
-            [Out, MarshalAs(UnmanagedType.LPArray)] byte[] output,
+            byte* output,
             int outputSize,
             out int resultSize,
             BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None);
@@ -659,9 +738,9 @@ namespace PInvoke
         /// <param name="flags">A set of flags that modify the behavior of this function. </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
-        public static extern NTSTATUS BCryptGenRandom(
+        public static extern unsafe NTSTATUS BCryptGenRandom(
             SafeAlgorithmHandle hAlgorithm,
-            byte[] pbBuffer,
+            byte* pbBuffer,
             int cbBuffer,
             BCryptGenRandomFlags flags = BCryptGenRandomFlags.None);
 
@@ -686,7 +765,7 @@ namespace PInvoke
         /// <summary>
         /// Destroys a hash or Message Authentication Code (MAC) object.
         /// </summary>
-        /// <param name="hHash">The handle of the hash or MAC object to destroy. This handle is obtained by using the <see cref="BCryptCreateHash(SafeAlgorithmHandle, out SafeHashHandle, byte[], int, byte[], int, BCryptCreateHashFlags)"/> function.</param>
+        /// <param name="hHash">The handle of the hash or MAC object to destroy. This handle is obtained by using the <see cref="BCryptCreateHash(SafeAlgorithmHandle, out SafeHashHandle, byte*, int, byte*, int, BCryptCreateHashFlags)"/> function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), SetLastError = true)]
         private static extern NTSTATUS BCryptDestroyHash(IntPtr hHash);

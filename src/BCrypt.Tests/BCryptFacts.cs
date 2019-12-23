@@ -383,6 +383,60 @@ public class BCryptFacts
     }
 
     [Fact]
+    public unsafe void MultiHash()
+    {
+        byte[] data = Enumerable.Range(0, 1024).Select(i => (byte)(i % 256)).ToArray();
+        byte[] expectedHash = SHA256.Create().ComputeHash(data);
+
+        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM, dwFlags: BCryptOpenAlgorithmProviderFlags.BCRYPT_MULTI_FLAG))
+        {
+            int sha256HashSize = expectedHash.Length;
+            int parallelism = 1;
+            SafeHashHandle hash;
+            BCryptCreateMultiHash(algorithm, out hash, parallelism, IntPtr.Zero, 0, IntPtr.Zero, 0, BCryptCreateHashFlags.BCRYPT_HASH_REUSABLE_FLAG).ThrowOnError();
+            using (hash)
+            {
+                var ops = new BCRYPT_MULTI_HASH_OPERATION[parallelism];
+                int opsSize = parallelism * Marshal.SizeOf<BCRYPT_MULTI_HASH_OPERATION>();
+                fixed (byte* dataPtr = data)
+                {
+                    for (int i = 0; i < ops.Length; i++)
+                    {
+                        ops[i].iHash = i;
+                        ops[i].hashOperation = HashOperationType.BCRYPT_HASH_OPERATION_HASH_DATA;
+                        ops[i].pbBuffer = dataPtr;
+                        ops[i].cbBuffer = data.Length;
+                    }
+
+                    BCryptProcessMultiOperations(hash, BCRYPT_MULTI_OPERATION_TYPE.BCRYPT_OPERATION_TYPE_HASH, ops, opsSize).ThrowOnError();
+                }
+
+                byte[] results = new byte[sha256HashSize * parallelism];
+                fixed (byte* resultsPtr = results)
+                {
+                    byte* thisResult = resultsPtr;
+                    for (int i = 0; i < ops.Length; i++)
+                    {
+                        ops[i].iHash = i;
+                        ops[i].hashOperation = HashOperationType.BCRYPT_HASH_OPERATION_FINISH_HASH;
+                        ops[i].pbBuffer = thisResult;
+                        ops[i].cbBuffer = sha256HashSize;
+                        thisResult += sha256HashSize;
+                    }
+
+                    BCryptProcessMultiOperations(hash, BCRYPT_MULTI_OPERATION_TYPE.BCRYPT_OPERATION_TYPE_HASH, ops, opsSize).ThrowOnError();
+                }
+
+                for (int i = 0; i < ops.Length; i++)
+                {
+                    byte[] actualHash = results.Skip(i * sha256HashSize).Take(sha256HashSize).ToArray();
+                    Assert.Equal(expectedHash, actualHash);
+                }
+            }
+        }
+    }
+
+    [Fact]
     public unsafe void SignHash()
     {
         using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
