@@ -117,6 +117,7 @@ PInvoke.User32.MenuObject.OBJID_SYSMENU = 4294967295 -> PInvoke.User32.MenuObjec
 PInvoke.User32.SafeCursorHandle
 PInvoke.User32.SafeCursorHandle.SafeCursorHandle() -> void
 PInvoke.User32.SafeCursorHandle.SafeCursorHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.User32.SafeDCHandle.SafeDCHandle() -> void
 PInvoke.User32.SendMessageTimeoutFlags
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_ABORTIFHUNG = 2 -> PInvoke.User32.SendMessageTimeoutFlags
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_BLOCK = 1 -> PInvoke.User32.SendMessageTimeoutFlags

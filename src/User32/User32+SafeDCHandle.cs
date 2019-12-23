@@ -24,6 +24,14 @@ namespace PInvoke
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeDCHandle"/> class.
             /// </summary>
+            public SafeDCHandle()
+                : base(IntPtr.Zero, true)
+            {
+            }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SafeDCHandle"/> class.
+            /// </summary>
             /// <param name="hWnd">The HWND this handle is associated with and must be released with.</param>
             /// <param name="hDC">The handle to the DC.</param>
             /// <param name="ownsHandle">
