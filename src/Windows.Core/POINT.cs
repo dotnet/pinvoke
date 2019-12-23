@@ -20,5 +20,11 @@ namespace PInvoke
         /// The x-coordinate of the point.
         /// </summary>
         public int y;
+
+#if !NETSTANDARD1_1
+        public static implicit operator System.Drawing.Point(POINT point) => new System.Drawing.Point(point.x, point.y);
+
+        public static implicit operator POINT(System.Drawing.Point point) => new POINT { x = point.X, y = point.Y };
+#endif
     }
 }
