@@ -239,7 +239,6 @@ PInvoke.Kernel32.EXECUTION_STATE.None = 0 -> PInvoke.Kernel32.EXECUTION_STATE
 PInvoke.Kernel32.EnumResLangProc
 PInvoke.Kernel32.EnumResNameProc
 PInvoke.Kernel32.FILETIME
-PInvoke.Kernel32.FILETIME.FILETIME() -> void
 PInvoke.Kernel32.FILETIME.dwHighDateTime -> int
 PInvoke.Kernel32.FILETIME.dwLowDateTime -> int
 static PInvoke.Kernel32.FILETIME.implicit operator long(PInvoke.Kernel32.FILETIME fileTime) -> long
@@ -1234,9 +1233,6 @@ static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, System
 static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, int nNumberOfBytesToRead) -> System.ArraySegment<byte>
 static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead) -> int
 static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead, ref int? lpNumberOfBytesRead, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
-static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.IntPtr nSize, System.IntPtr lpNumberOfBytesRead) -> bool
-static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.IntPtr nSize, ref System.IntPtr? lpNumberOfBytesRead) -> bool
-static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.IntPtr nSize, ref System.IntPtr? lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.SECURITY_ATTRIBUTES.Create() -> PInvoke.Kernel32.SECURITY_ATTRIBUTES
 static PInvoke.Kernel32.STARTUPINFO.Create() -> PInvoke.Kernel32.STARTUPINFO
 static PInvoke.Kernel32.STARTUPINFOEX.Create() -> PInvoke.Kernel32.STARTUPINFOEX
@@ -1262,9 +1258,6 @@ static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, Syste
 static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, System.IntPtr lpBuffer, int nNumberOfBytesToWrite, ref int? lpNumberOfBytesWritten, System.IntPtr lpOverlapped) -> bool
 static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite) -> int
 static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite, ref int? lpNumberOfBytesWritten, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
-static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.IntPtr nSize, System.IntPtr lpNumberOfBytesWritten) -> bool
-static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.IntPtr nSize, ref System.IntPtr? lpNumberOfBytesWritten) -> bool
-static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.IntPtr nSize, ref System.IntPtr? lpNumberOfBytesWritten) -> bool
 static PInvoke.Kernel32Extensions.GetMessage(this PInvoke.NTSTATUS status) -> string
 static PInvoke.Kernel32Extensions.GetMessage(this PInvoke.Win32ErrorCode error) -> string
 static PInvoke.Kernel32Extensions.ThrowOnError(this PInvoke.NTSTATUS status) -> void
@@ -1383,7 +1376,6 @@ static extern PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, void* lp
 static extern PInvoke.Kernel32.ReadConsoleInput(System.IntPtr hConsoleInput, out PInvoke.Kernel32.INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsRead) -> bool
 static extern PInvoke.Kernel32.ReadConsoleOutput(System.IntPtr hConsoleOutput, out PInvoke.Kernel32.CHAR_INFO lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, ref PInvoke.SMALL_RECT lpReadRegion) -> bool
 static extern PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead, int* lpNumberOfBytesRead, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
-static extern PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.IntPtr nSize, System.IntPtr* lpNumberOfBytesRead) -> bool
 static extern PInvoke.Kernel32.ResumeThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> int
 static extern PInvoke.Kernel32.ScrollConsoleScreenBuffer(System.IntPtr hConsoleOutput, PInvoke.SMALL_RECT* lpScrollRectangle, PInvoke.SMALL_RECT* lpClipRectangle, PInvoke.COORD dwDestinationOrigin, PInvoke.Kernel32.CHAR_INFO* lpFill) -> bool
 static extern PInvoke.Kernel32.SetConsoleActiveScreenBuffer(System.IntPtr hConsoleOutput) -> bool
@@ -1415,7 +1407,6 @@ static extern PInvoke.Kernel32.WriteConsole(System.IntPtr hConsoleOutput, void* 
 static extern PInvoke.Kernel32.WriteConsoleInput(System.IntPtr hConsoleInput, PInvoke.Kernel32.INPUT_RECORD* lpBuffer, int nLength, int* lpNumberOfEventsWritten) -> bool
 static extern PInvoke.Kernel32.WriteConsoleOutput(System.IntPtr hConsoleOutput, PInvoke.Kernel32.CHAR_INFO* lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, PInvoke.SMALL_RECT* lpWriteRegion) -> bool
 static extern PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite, int* lpNumberOfBytesWritten, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
-static extern PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.IntPtr nSize, System.IntPtr* lpNumberOfBytesWritten) -> bool
 static readonly PInvoke.Kernel32.INVALID_HANDLE_VALUE -> System.IntPtr
 static readonly PInvoke.Kernel32.RT_ACCELERATOR -> char*
 static readonly PInvoke.Kernel32.RT_ANICURSOR -> char*

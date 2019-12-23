@@ -3,6 +3,7 @@
 
 namespace PInvoke
 {
+    using System;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -162,6 +163,27 @@ namespace PInvoke
             /// The millisecond. The valid values for this member are 0 through 999.
             /// </summary>
             public short wMilliseconds;
+
+            /// <summary>
+            /// Converts a <see cref="SYSTEMTIME"/> value to a <see cref="DateTime"/> value.
+            /// </summary>
+            /// <param name="st">The value to be converted.</param>
+            public static implicit operator DateTime(SYSTEMTIME st) => new DateTime(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+
+            /// <summary>
+            /// Converts a <see cref="DateTime"/> value to a <see cref="SYSTEMTIME"/> value.
+            /// </summary>
+            /// <param name="dt">The value to be converted.</param>
+            public static implicit operator SYSTEMTIME(DateTime dt) => new SYSTEMTIME
+            {
+                wYear = (short)dt.Year,
+                wMonth = (short)dt.Month,
+                wDay = (short)dt.Day,
+                wHour = (short)dt.Hour,
+                wMinute = (short)dt.Minute,
+                wSecond = (short)dt.Second,
+                wMilliseconds = (short)dt.Millisecond
+            };
         }
     }
 }

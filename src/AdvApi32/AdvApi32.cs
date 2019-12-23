@@ -1167,7 +1167,7 @@ namespace PInvoke
         /// <param name="TokenType">pecifies one of the following values from the <see cref="TOKEN_TYPE"/> enumeration.</param>
         /// <param name="phNewToken">A pointer to a <see cref="SafeObjectHandle"/> variable that receives the new token.</param>
         /// <returns>If the function succeeds, the function returns a nonzero value.
-        /// If the function fails, it returns zero.To get extended error information, call GetLastError.</returns>
+        /// If the function fails, it returns zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
         [DllImport(api_ms_win_security_base_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool DuplicateTokenEx(
@@ -1177,6 +1177,112 @@ namespace PInvoke
             SECURITY_IMPERSONATION_LEVEL ImpersonationLevel,
             TOKEN_TYPE TokenType,
             out SafeObjectHandle phNewToken);
+
+        /// <summary>
+        /// The <see cref="CryptAcquireContext"/> function is used to acquire a handle to a particular key container within a particular cryptographic service provider (CSP).
+        /// This returned handle is used in calls to CryptoAPI functions that use the selected CSP.
+        /// </summary>
+        /// <param name="hProv">A pointer to a handle of a CSP. When you have finished using the CSP, release the handle by calling the <see cref="CryptReleaseContext"/> function.</param>
+        /// <param name="pszContainer">
+        /// The key container name. This is a null-terminated string that identifies the key container to the CSP. This name is independent of the method used to store the keys. Some CSPs store their key containers internally (in hardware), some use the system registry, and others use the file system. In most cases, when <paramref name="dwFlags"/> is set to CRYPT_VERIFYCONTEXT, <paramref name="pszContainer"/> must be set to NULL. However, for hardware-based CSPs, such as a smart card CSP, can be access publically available information in the specfied container.
+        /// </param>
+        /// <param name="pszProvider">
+        /// A null-terminated string that contains the name of the CSP to be used.
+        /// If this parameter is NULL, the user default provider is used. For more information, see Cryptographic Service Provider Contexts. For a list of available cryptographic providers, see Cryptographic Provider Names.
+        /// An application can obtain the name of the CSP in use by using the CryptGetProvParam function to read the PP_NAME CSP value in the dwParam parameter.
+        /// The default CSP can change between operating system releases. To ensure interoperability on different operating system platforms, the CSP should be explicitly set by using this parameter instead of using the default CSP.
+        /// </param>
+        /// <param name="dwProvType">Specifies the type of provider to acquire. Defined provider types are discussed in Cryptographic Provider Types.</param>
+        /// <param name="dwFlags">Flag values. This parameter is usually set to zero, but some applications set one or more of the allowed flags.</param>
+        /// <returns>If the function succeeds, the function returns a nonzero value.
+        /// If the function fails, it returns zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        /// <remarks>
+        /// This function first attempts to find a CSP with the characteristics described in the <paramref name="dwProvType" /> and <paramref name="pszProvider" /> parameters.
+        /// If the CSP is found, the function attempts to find a key container within the CSP that matches the name specified by the <paramref name="pszContainer"/> parameter.
+        /// To acquire the context and the key container of a private key associated with the public key of a certificate, use CryptAcquireCertificatePrivateKey.
+        /// With the appropriate setting of <paramref name="dwFlags"/>, this function can also create and destroy key containers and can provide access to a CSP with a
+        /// temporary key container if access to a private key is not required.
+        /// </remarks>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool CryptAcquireContext(
+            out SafeCryptographicProviderHandle hProv,
+            string pszContainer,
+            string pszProvider,
+            ProviderType dwProvType,
+            CryptAcquireContextFlags dwFlags);
+
+        /// <summary>
+        /// The <see cref="CryptCreateHash"/> function initiates the hashing of a stream of data. It creates and returns to the calling application a handle to a cryptographic service provider (CSP) hash object.
+        /// This handle is used in subsequent calls to <see cref="CryptHashData(SafeHashHandle, byte*, int, CryptHashDataFlags)"/> and CryptHashSessionKey to hash session keys and other streams of data.
+        /// </summary>
+        /// <param name="hProv">A handle to a CSP created by a call to <see cref="CryptAcquireContext"/>.</param>
+        /// <param name="algId">
+        /// An <see cref="ALG_ID"/> value that identifies the hash algorithm to use.
+        /// Valid values for this parameter vary, depending on the CSP that is used. For a list of default algorithms, see Remarks
+        /// </param>
+        /// <param name="hKey">
+        /// If the type of hash algorithm is a keyed hash, such as the Hash-Based Message Authentication Code (HMAC) or Message Authentication Code (MAC) algorithm, the key for the hash is passed in this parameter.
+        /// For nonkeyed algorithms, this parameter must be set to zero.
+        /// For keyed algorithms, the key must be to a block cipher key, such as RC2, that has a cipher mode of Cipher Block Chaining (CBC).
+        /// </param>
+        /// <param name="dwFlags">Hashing flags</param>
+        /// <param name="phHash">
+        /// The address to which the function copies a handle to the new hash object. When you have finished using the hash object, dispose the safe handle.
+        /// </param>
+        /// <returns>If the function succeeds, the function returns a nonzero value.
+        /// If the function fails, it returns zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [Obsolete("This API is deprecated. New and existing software should start using BCrypt. Microsoft may remove this API in future releases.")]
+        public static extern bool CryptCreateHash(
+            SafeCryptographicProviderHandle hProv,
+            ALG_ID algId,
+            SafeHashHandle hKey,
+            CryptCreateHashFlags dwFlags,
+            out SafeHashHandle phHash);
+
+        /// <summary>
+        /// The <see cref="CryptHashData(SafeHashHandle, byte*, int, CryptHashDataFlags)"/> function adds data to a specified hash object.
+        /// This function and CryptHashSessionKey can be called multiple times to compute the hash of long or discontinuous data streams.
+        /// </summary>
+        /// <param name="hHash">Handle of the hash object.</param>
+        /// <param name="pbData">A pointer to a buffer that contains the data to be added to the hash object.</param>
+        /// <param name="dataLen">Number of bytes of data to be added. This must be zero if the <see cref="CryptHashDataFlags.CRYPT_USERDATA" /> flag is set.</param>
+        /// <param name="flags">Hashing flags</param>
+        /// <returns>If the function succeeds, the function returns a nonzero value.
+        /// If the function fails, it returns zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool CryptHashData(
+            SafeHashHandle hHash,
+            byte* pbData,
+            int dataLen,
+            CryptHashDataFlags flags);
+
+        /// <summary>
+        ///     Get parameters of a hash
+        /// </summary>
+        /// <param name="hHash">Handle of the hash object to be queried.</param>
+        /// <param name="dwParam">Query type.</param>
+        /// <param name="pbData">
+        /// A pointer to a buffer that receives the specified value data. The form of this data varies, depending on the value number.
+        /// This parameter can be NULL to determine the memory size required.
+        /// </param>
+        /// <param name="pdwDataLen">
+        /// A pointer to a DWORD value specifying the size, in bytes, of the <paramref name="pbData"/> buffer. When the function returns, the DWORD value contains the number of bytes stored in the buffer.
+        /// If <paramref name="pbData"/> is NULL, set the value of <paramref name="pdwDataLen" /> to zero.
+        /// </param>
+        /// <param name="dwFlags">Reserved for future use and must be zero.</param>
+        /// <returns>If the function succeeds, the function returns a nonzero value.
+        /// If the function fails, it returns zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        public static extern unsafe bool CryptGetHashParam(
+            SafeHashHandle hHash,
+            CryptGetHashParamFlags dwParam,
+            byte* pbData,
+            [Friendly(FriendlyFlags.Bidirectional)] int* pdwDataLen,
+            uint dwFlags);
 
         /// <summary>
         /// Closes a handle to the specified registry key.
@@ -1191,7 +1297,19 @@ namespace PInvoke
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
 #endif
         [DllImport(api_ms_win_core_registry_l1_1_0)]
-        public static extern Win32ErrorCode RegCloseKey(IntPtr hKey);
+        internal static extern Win32ErrorCode RegCloseKey(IntPtr hKey);
+
+        /// <summary>
+        ///     Destroy a hashing provider
+        /// </summary>
+        /// <param name="hHash">The hashing provider to destroy</param>
+        /// <returns>The result of destroying the hash provider</returns>
+#if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
+        [SuppressUnmanagedCodeSecurity]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        private static extern bool CryptDestroyHash(IntPtr hHash);
 
         /// <summary>
         /// The ConvertSidToStringSid function converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
@@ -1203,7 +1321,7 @@ namespace PInvoke
         /// <remarks>The ConvertSidToStringSid function uses the standard S-R-I-S-S… format for SID strings.</remarks>
         [DllImport(api_ms_win_security_sddl_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool ConvertSidToStringSid(IntPtr sid, ref char* sidString);
+        private static unsafe extern bool ConvertSidToStringSid(IntPtr sid, ref char* sidString);
 
         /// <summary>
         /// The ConvertStringSidToSid function converts a string-format security identifier (SID) into a valid, functional SID.
@@ -1214,7 +1332,7 @@ namespace PInvoke
         /// <returns>If the function succeeds, the return value is true, otherwise the return value is false.</returns>
         [DllImport(api_ms_win_security_sddl_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool ConvertStringSidToSid(string StringSid, ref void* sid);
+        private static unsafe extern bool ConvertStringSidToSid(string StringSid, ref void* sid);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.
@@ -1233,7 +1351,7 @@ namespace PInvoke
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
 #endif
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
-        public static extern bool CloseServiceHandle(IntPtr hSCObject);
+        private static extern bool CloseServiceHandle(IntPtr hSCObject);
 
         /// <summary>
         /// Releases the handle of a cryptographic service provider (CSP) and a key container. At each call to this function, the reference count on the CSP is reduced by one.
@@ -1253,64 +1371,6 @@ namespace PInvoke
 #endif
         [DllImport(nameof(AdvApi32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CryptReleaseContext(IntPtr hProv, uint dwFlags);
-
-        /// <summary>
-        ///     Get Crypto Context
-        /// </summary>
-        /// <param name="hProv">Pointer to the crypto handler provider</param>
-        /// <param name="pszContainer">Container</param>
-        /// <param name="pszProvider">Provider</param>
-        /// <param name="dwProvType">The crypto provider type</param>
-        /// <param name="dwFlags">Crypto context flags</param>
-        /// <returns>Result of the acquire</returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CryptAcquireContext(out IntPtr hProv, string pszContainer, string pszProvider, uint dwProvType, uint dwFlags);
-
-        /// <summary>
-        ///     Create a hashing provider
-        /// </summary>
-        /// <param name="hProv">Crypto provider</param>
-        /// <param name="algId">see HashAlgorithm</param>
-        /// <param name="hKey">The key to hash with</param>
-        /// <param name="dwFlags">Hashing flags</param>
-        /// <param name="phHash">A pointer the hashing provider output</param>
-        /// <returns>Result of the creation</returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CryptCreateHash(IntPtr hProv, ALG_ID algId, IntPtr hKey, uint dwFlags, ref IntPtr phHash);
-
-        /// <summary>
-        ///     Create a new hash
-        /// </summary>
-        /// <param name="hHash">The hash provider to use</param>
-        /// <param name="pbData">The data to create the hash of</param>
-        /// <param name="dataLen">The length of the data</param>
-        /// <param name="flags">Hashing flags</param>
-        /// <returns>Result of the hash creation</returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CryptHashData(IntPtr hHash, byte[] pbData, uint dataLen, uint flags);
-
-        /// <summary>
-        ///     Get parameters of a hash
-        /// </summary>
-        /// <param name="hHash">The hashing provider</param>
-        /// <param name="dwParam">The parameter to get</param>
-        /// <param name="pbData">The hash</param>
-        /// <param name="pdwDataLen">The length of the hash</param>
-        /// <param name="dwFlags">Get Parameter flags</param>
-        /// <returns>The result of getting the paramter</returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern bool CryptGetHashParam(IntPtr hHash, HashParameters dwParam, out byte[] pbData, ref uint pdwDataLen, uint dwFlags);
-
-        /// <summary>
-        ///     Destroy a hashing provider
-        /// </summary>
-        /// <param name="hHash">The hashing provider to destroy</param>
-        /// <returns>The result of destroying the hash provider</returns>
-        [DllImport(nameof(AdvApi32), SetLastError = true)]
-        public static extern bool CryptDestroyHash(IntPtr hHash);
+        private static extern bool CryptReleaseContext(IntPtr hProv, uint dwFlags);
     }
 }

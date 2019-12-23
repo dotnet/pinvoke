@@ -3,6 +3,7 @@
 
 namespace PInvoke
 {
+    using System;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -33,12 +34,41 @@ namespace PInvoke
             public int dwHighDateTime;
 
             /// <summary>
+            /// Initializes a new instance of the <see cref="FILETIME"/> struct.
+            /// </summary>
+            /// <param name="dateTime">The DateTime to initialize to.</param>
+            public FILETIME(DateTime dateTime)
+            {
+                if (!SystemTimeToFileTime(dateTime, out FILETIME temp))
+                {
+                    throw new Win32Exception();
+                }
+
+                this.dwLowDateTime = temp.dwLowDateTime;
+                this.dwHighDateTime = temp.dwHighDateTime;
+            }
+
+            /// <summary>
             /// Convert to <see cref="long"/> to ease interop with <see cref="System.TimeSpan"/> or <see cref="System.DateTime"/>
             /// </summary>
             /// <param name="fileTime"> The fileTime structure to be converted to long.</param>
             public static implicit operator long(FILETIME fileTime)
             {
                 return ((long)fileTime.dwHighDateTime << 32) + (uint)fileTime.dwLowDateTime;
+            }
+
+            /// <summary>
+            /// Creates a <see cref="DateTime"/> value that represents the same time as this value.
+            /// </summary>
+            /// <param name="fileTime">The value to be converted.</param>
+            public static explicit operator DateTime(FILETIME fileTime)
+            {
+                if (!FileTimeToSystemTime(fileTime, out SYSTEMTIME st))
+                {
+                    throw new Win32Exception();
+                }
+
+                return new DateTime(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
             }
         }
     }
