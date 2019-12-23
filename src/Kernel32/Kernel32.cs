@@ -642,6 +642,56 @@ namespace PInvoke
             long dwlConditionMask);
 
         /// <summary>
+        /// Converts a file time to system time format. System time is based on Coordinated Universal Time (UTC).
+        /// </summary>
+        /// <param name="lpFileTime">
+        /// A pointer to a <see cref="FILETIME"/> structure containing the file time to be converted to system (UTC) date and time format.
+        /// This value must be less than 0x8000000000000000. Otherwise, the function fails.
+        /// </param>
+        /// <param name="lpSystemTime">A pointer to a <see cref="SYSTEMTIME"/> structure to receive the converted file time.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe bool FileTimeToSystemTime(
+            [Friendly(FriendlyFlags.In)] FILETIME* lpFileTime,
+            [Friendly(FriendlyFlags.Out)] SYSTEMTIME* lpSystemTime);
+
+        /// <summary>
+        /// Converts a system time to file time format. System time is based on Coordinated Universal Time (UTC).
+        /// </summary>
+        /// <param name="lpSystemTime">
+        /// A pointer to a <see cref="SYSTEMTIME"/> structure that contains the system time to be converted from UTC to file time format.
+        /// The <see cref="SYSTEMTIME.wDayOfWeek"/> member of the <see cref="SYSTEMTIME"/> structure is ignored.
+        /// </param>
+        /// <param name="lpFileTime">A pointer to a <see cref="FILETIME"/> structure to receive the converted system time.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe bool SystemTimeToFileTime(
+            [Friendly(FriendlyFlags.In)] SYSTEMTIME* lpSystemTime,
+            [Friendly(FriendlyFlags.Out)] FILETIME* lpFileTime);
+
+        /// <summary>
+        /// Compares two file times.
+        /// </summary>
+        /// <param name="lpFileTime1">A pointer to a <see cref="FILETIME"/> structure that specifies the first file time.</param>
+        /// <param name="lpFileTime2">A pointer to a <see cref="FILETIME"/> structure that specifies the second file time.</param>
+        /// <returns>
+        /// The return value is one of the following values.
+        /// -1: First file time is earlier than second file time.
+        /// 0: First file time is equal to second file time.
+        /// 1: First file time is later than second file time.
+        /// </returns>
+        [DllImport(nameof(Kernel32))]
+        public static extern unsafe int CompareFileTime(
+            [Friendly(FriendlyFlags.In)] FILETIME* lpFileTime1,
+            [Friendly(FriendlyFlags.In)] FILETIME* lpFileTime2);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>

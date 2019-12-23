@@ -2764,10 +2764,10 @@ namespace PInvoke
         /// <param name="lpBaseAddress">A pointer to the base address in the specified process to which data is written. Before data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for write access, and if it is not accessible, the function fails.</param>
         /// <param name="lpBuffer">A pointer to the buffer that contains data to be written in the address space of the specified process.</param>
         /// <param name="nSize">The number of bytes to be written to the specified process.</param>
-        /// <param name="lpNumberOfBytesWritten">A pointer to a variable that receives the number of bytes transferred into the specified process. This parameter is optional. If <paramref name="lpNumberOfBytesWritten"/> is NULL, the parameter is ignored.</param>
+        /// <param name="lpNumberOfBytesWritten">A variable that receives the number of bytes transferred into the specified process.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is 0 (zero). To get extended error information, call GetLastError. The function fails if the requested write operation crosses into an area of the process that is inaccessible.
+        /// If the function fails, the return value is 0 (zero). To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>. The function fails if the requested write operation crosses into an area of the process that is inaccessible.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -2775,8 +2775,8 @@ namespace PInvoke
             IntPtr hProcess,
             void* lpBaseAddress,
             void* lpBuffer,
-            IntPtr nSize,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] IntPtr* lpNumberOfBytesWritten);
+            UIntPtr nSize,
+            out UIntPtr lpNumberOfBytesWritten);
 
         /// <summary>
         /// Reads data from an area of memory in a specified process. The entire area to be read must be accessible or the operation fails.
@@ -2785,10 +2785,10 @@ namespace PInvoke
         /// <param name="lpBaseAddress">A pointer to the base address in the specified process from which to read. Before any data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for read access, and if it is not accessible the function fails.</param>
         /// <param name="lpBuffer">A pointer to a buffer that receives the contents from the address space of the specified process.</param>
         /// <param name="nSize">The number of bytes to be read from the specified process.</param>
-        /// <param name="lpNumberOfBytesRead">A pointer to a variable that receives the number of bytes transferred into the specified buffer. If <paramref name="lpNumberOfBytesRead"/> is NULL, the parameter is ignored.</param>
+        /// <param name="lpNumberOfBytesRead">A variable that receives the number of bytes transferred into the specified buffer.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is 0 (zero). To get extended error information, call GetLastError.
+        /// If the function fails, the return value is 0 (zero). To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
         /// The function fails if the requested read operation crosses into an area of the process that is inaccessible.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
@@ -2797,8 +2797,8 @@ namespace PInvoke
             IntPtr hProcess,
             void* lpBaseAddress,
             void* lpBuffer,
-            IntPtr nSize,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] IntPtr* lpNumberOfBytesRead);
+            UIntPtr nSize,
+            out UIntPtr lpNumberOfBytesRead);
 
         /// <summary>
         /// Retrieves a handle to the specified standard device (standard input, standard output, or standard error).

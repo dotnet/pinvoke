@@ -1,31 +1,32 @@
-PInvoke.Kernel32.VER_CONDITION
-PInvoke.Kernel32.VER_CONDITION.VER_EQUAL = 1 -> PInvoke.Kernel32.VER_CONDITION
-PInvoke.Kernel32.VER_CONDITION.VER_GREATER = 2 -> PInvoke.Kernel32.VER_CONDITION
-PInvoke.Kernel32.VER_CONDITION.VER_GREATER_EQUAL = 3 -> PInvoke.Kernel32.VER_CONDITION
-PInvoke.Kernel32.VER_CONDITION.VER_LESS = 4 -> PInvoke.Kernel32.VER_CONDITION
-PInvoke.Kernel32.VER_CONDITION.VER_LESS_EQUAL = 5 -> PInvoke.Kernel32.VER_CONDITION
-PInvoke.Kernel32.VER_CONDITION.VER_AND = 6 -> PInvoke.Kernel32.VER_CONDITION
-PInvoke.Kernel32.VER_CONDITION.VER_OR = 7 -> PInvoke.Kernel32.VER_CONDITION
-PInvoke.Kernel32.VER_MASK
-PInvoke.Kernel32.VER_MASK.VER_BUILDNUMBER = 4 -> PInvoke.Kernel32.VER_MASK
-PInvoke.Kernel32.VER_MASK.VER_MAJORVERSION = 2 -> PInvoke.Kernel32.VER_MASK
-PInvoke.Kernel32.VER_MASK.VER_MINORVERSION = 1 -> PInvoke.Kernel32.VER_MASK
-PInvoke.Kernel32.VER_MASK.VER_PLATFORMID = 8 -> PInvoke.Kernel32.VER_MASK
-PInvoke.Kernel32.VER_MASK.VER_PRODUCT_TYPE = 128 -> PInvoke.Kernel32.VER_MASK
-PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMAJOR = 32 -> PInvoke.Kernel32.VER_MASK
-PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMINOR = 16 -> PInvoke.Kernel32.VER_MASK
-PInvoke.Kernel32.VER_MASK.VER_SUITENAME = 64 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.FILETIME.FILETIME(System.DateTime dateTime) -> void
+PInvoke.Kernel32.HandleFlags
+PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_INHERIT = 1 -> PInvoke.Kernel32.HandleFlags
+PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_NONE = 0 -> PInvoke.Kernel32.HandleFlags
+PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE = 2 -> PInvoke.Kernel32.HandleFlags
+PInvoke.Kernel32.OSVERSIONINFOEX
+PInvoke.Kernel32.OSVERSIONINFOEX.OSVERSIONINFOEX() -> void
+PInvoke.Kernel32.OSVERSIONINFOEX.dwBuildNumber -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.dwMajorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.dwMinorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.dwOSVersionInfoSize -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.dwPlatformId -> int
+PInvoke.Kernel32.OSVERSIONINFOEX.szCSDVersion -> char*
+PInvoke.Kernel32.OSVERSIONINFOEX.wProductType -> PInvoke.Kernel32.OS_TYPE
+PInvoke.Kernel32.OSVERSIONINFOEX.wReserved -> byte
+PInvoke.Kernel32.OSVERSIONINFOEX.wServicePackMajor -> short
+PInvoke.Kernel32.OSVERSIONINFOEX.wServicePackMinor -> short
+PInvoke.Kernel32.OSVERSIONINFOEX.wSuiteMask -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.OS_TYPE
-PInvoke.Kernel32.OS_TYPE.VER_NT_WORKSTATION = 1 -> PInvoke.Kernel32.OS_TYPE
 PInvoke.Kernel32.OS_TYPE.VER_NT_DOMAIN_CONTROLLER = 2 -> PInvoke.Kernel32.OS_TYPE
 PInvoke.Kernel32.OS_TYPE.VER_NT_SERVER = 3 -> PInvoke.Kernel32.OS_TYPE
+PInvoke.Kernel32.OS_TYPE.VER_NT_WORKSTATION = 1 -> PInvoke.Kernel32.OS_TYPE
 PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_BACKOFFICE = 4 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_BLADE = 1024 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_COMPUTE_SERVER = 16384 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_DATACENTER = 128 -> PInvoke.Kernel32.PRODUCT_SUITE
-PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_ENTERPRISE = 2 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_EMBEDDEDNT = 64 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_ENTERPRISE = 2 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_PERSONAL = 512 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_SINGLEUSERTS = 256 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_SMALLBUSINESS = 1 -> PInvoke.Kernel32.PRODUCT_SUITE
@@ -33,20 +34,6 @@ PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_SMALLBUSINESS_RESTRICTED = 32 -> PInvok
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_STORAGE_SERVER = 8192 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_TERMINAL = 16 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_WH_SERVER = -32768 -> PInvoke.Kernel32.PRODUCT_SUITE
-PInvoke.Kernel32.OSVERSIONINFOEX
-PInvoke.Kernel32.OSVERSIONINFOEX.OSVERSIONINFOEX() -> void
-static PInvoke.Kernel32.OSVERSIONINFOEX.Create() -> PInvoke.Kernel32.OSVERSIONINFOEX
-PInvoke.Kernel32.OSVERSIONINFOEX.dwOSVersionInfoSize -> int
-PInvoke.Kernel32.OSVERSIONINFOEX.dwMajorVersion -> int
-PInvoke.Kernel32.OSVERSIONINFOEX.dwMinorVersion -> int
-PInvoke.Kernel32.OSVERSIONINFOEX.dwBuildNumber -> int
-PInvoke.Kernel32.OSVERSIONINFOEX.dwPlatformId -> int
-PInvoke.Kernel32.OSVERSIONINFOEX.szCSDVersion -> char*
-PInvoke.Kernel32.OSVERSIONINFOEX.wServicePackMajor -> short
-PInvoke.Kernel32.OSVERSIONINFOEX.wServicePackMinor -> short
-PInvoke.Kernel32.OSVERSIONINFOEX.wSuiteMask -> PInvoke.Kernel32.PRODUCT_SUITE
-PInvoke.Kernel32.OSVERSIONINFOEX.wProductType -> PInvoke.Kernel32.OS_TYPE
-PInvoke.Kernel32.OSVERSIONINFOEX.wReserved -> byte
 PInvoke.Kernel32.STARTUPINFO.Desktop.get -> string
 PInvoke.Kernel32.STARTUPINFO.Title.get -> string
 PInvoke.Kernel32.STARTUPINFO.hStdError -> System.IntPtr
@@ -61,21 +48,51 @@ PInvoke.Kernel32.STARTUPINFO.lpReserved_IntPtr.set -> void
 PInvoke.Kernel32.STARTUPINFO.lpTitle -> char*
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.get -> System.IntPtr
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.set -> void
-PInvoke.Kernel32.HandleFlags
-PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_NONE = 0 -> PInvoke.Kernel32.HandleFlags
-PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_INHERIT = 1 -> PInvoke.Kernel32.HandleFlags
-PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE = 2 -> PInvoke.Kernel32.HandleFlags
-static PInvoke.Kernel32.GetStartupInfo(System.IntPtr lpStartupInfo) -> void
-static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
-static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
-static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
-static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
-static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle handle, out PInvoke.Kernel32.FILETIME creation, out PInvoke.Kernel32.FILETIME exit, out PInvoke.Kernel32.FILETIME kernel, out PInvoke.Kernel32.FILETIME user) -> bool
-static extern PInvoke.Kernel32.VerSetConditionMask(long ConditionMask, PInvoke.Kernel32.VER_MASK TypeMask, PInvoke.Kernel32.VER_CONDITION Condition) -> long
-static extern PInvoke.Kernel32.VerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
-static PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
-static PInvoke.Kernel32.VerifyVersionInfo(System.IntPtr lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
-static extern PInvoke.Kernel32.SetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags dwMask, PInvoke.Kernel32.HandleFlags dwFlags) -> bool
-static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool
+PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_AND = 6 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_EQUAL = 1 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_GREATER = 2 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_GREATER_EQUAL = 3 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_LESS = 4 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_LESS_EQUAL = 5 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_CONDITION.VER_OR = 7 -> PInvoke.Kernel32.VER_CONDITION
+PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_BUILDNUMBER = 4 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_MAJORVERSION = 2 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_MINORVERSION = 1 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_PLATFORMID = 8 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_PRODUCT_TYPE = 128 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMAJOR = 32 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMINOR = 16 -> PInvoke.Kernel32.VER_MASK
+PInvoke.Kernel32.VER_MASK.VER_SUITENAME = 64 -> PInvoke.Kernel32.VER_MASK
+static PInvoke.Kernel32.CompareFileTime(PInvoke.Kernel32.FILETIME lpFileTime1, PInvoke.Kernel32.FILETIME lpFileTime2) -> int
+static PInvoke.Kernel32.CompareFileTime(System.IntPtr lpFileTime1, System.IntPtr lpFileTime2) -> int
+static PInvoke.Kernel32.FILETIME.explicit operator System.DateTime(PInvoke.Kernel32.FILETIME fileTime) -> System.DateTime
+static PInvoke.Kernel32.FileTimeToSystemTime(PInvoke.Kernel32.FILETIME lpFileTime, out PInvoke.Kernel32.SYSTEMTIME lpSystemTime) -> bool
+static PInvoke.Kernel32.FileTimeToSystemTime(System.IntPtr lpFileTime, System.IntPtr lpSystemTime) -> bool
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, System.IntPtr lpdwFlags) -> bool
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, out PInvoke.Kernel32.HandleFlags lpdwFlags) -> bool
+static PInvoke.Kernel32.GetStartupInfo(System.IntPtr lpStartupInfo) -> void
+static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
+static PInvoke.Kernel32.OSVERSIONINFOEX.Create() -> PInvoke.Kernel32.OSVERSIONINFOEX
+static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
+static PInvoke.Kernel32.SYSTEMTIME.implicit operator PInvoke.Kernel32.SYSTEMTIME(System.DateTime dt) -> PInvoke.Kernel32.SYSTEMTIME
+static PInvoke.Kernel32.SYSTEMTIME.implicit operator System.DateTime(PInvoke.Kernel32.SYSTEMTIME st) -> System.DateTime
+static PInvoke.Kernel32.SystemTimeToFileTime(PInvoke.Kernel32.SYSTEMTIME lpSystemTime, out PInvoke.Kernel32.FILETIME lpFileTime) -> bool
+static PInvoke.Kernel32.SystemTimeToFileTime(System.IntPtr lpSystemTime, System.IntPtr lpFileTime) -> bool
+static PInvoke.Kernel32.VerifyVersionInfo(System.IntPtr lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesWritten) -> bool
+static extern PInvoke.Kernel32.CompareFileTime(PInvoke.Kernel32.FILETIME* lpFileTime1, PInvoke.Kernel32.FILETIME* lpFileTime2) -> int
+static extern PInvoke.Kernel32.FileTimeToSystemTime(PInvoke.Kernel32.FILETIME* lpFileTime, PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> bool
+static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool
+static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
+static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle handle, out PInvoke.Kernel32.FILETIME creation, out PInvoke.Kernel32.FILETIME exit, out PInvoke.Kernel32.FILETIME kernel, out PInvoke.Kernel32.FILETIME user) -> bool
+static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
+static extern PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
+static extern PInvoke.Kernel32.SetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags dwMask, PInvoke.Kernel32.HandleFlags dwFlags) -> bool
+static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
+static extern PInvoke.Kernel32.SystemTimeToFileTime(PInvoke.Kernel32.SYSTEMTIME* lpSystemTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
+static extern PInvoke.Kernel32.VerSetConditionMask(long ConditionMask, PInvoke.Kernel32.VER_MASK TypeMask, PInvoke.Kernel32.VER_CONDITION Condition) -> long
+static extern PInvoke.Kernel32.VerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
+static extern PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesWritten) -> bool

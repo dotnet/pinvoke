@@ -180,16 +180,19 @@ anything else found in native header files for these reasons:
    types that vary with architecture. An [exhaustive list of equivalent types are available on MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/aa383751).
    Some helpful translations are included in the following table:
 
-| C/C++ type  | C# type  |
-| ----------- | -------- |
-| `int`       | `int`    |
-| `long`      | `int`    |
-| `long long` | `long`   |
-| `LONG_PTR`  | `IntPtr` |
-| `LPARAM`    | `IntPtr` |
-| `LRESULT`   | `IntPtr` |
-| `WPARAM`    | `IntPtr` |
-| `UINT_PTR`  | `IntPtr` |
+| C/C++ type  | C# type   |
+| ----------- | --------- |
+| `int`       | `int`     |
+| `long`      | `int`     |
+| `long long` | `long`    |
+| `LONG_PTR`  | `IntPtr`  |
+| `UINT_PTR`  | `UIntPtr` |
+| `SIZE_T`    | `UIntPtr` |
+| `SSIZE_T`   | `IntPtr`  |
+| `LPARAM`    | `IntPtr`  |
+| `WPARAM`    | `IntPtr`  |
+| `LRESULT`   | `IntPtr`  |
+
 
 ### Struct field types
 
