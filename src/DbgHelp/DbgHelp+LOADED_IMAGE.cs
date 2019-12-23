@@ -4,7 +4,12 @@
 namespace PInvoke
 {
     using System;
+    using System.Diagnostics;
     using System.Runtime.InteropServices;
+
+#pragma warning disable SA1623 // Property summary documentation must match accessors
+#pragma warning disable SA1300 // Element must begin with upper-case letter
+#pragma warning disable SA1202 // Elements must be ordered by access
 
     /// <content>
     /// Contains the <see cref="LOADED_IMAGE"/> nested type.
@@ -59,24 +64,14 @@ namespace PInvoke
             /// </summary>
             public Characteristics Characteristics;
 
-            /// <summary>
-            /// If the image is a kernel mode executable image, this value is TRUE.
-            /// </summary>
-            [MarshalAs(UnmanagedType.Bool)]
-            public bool fSystemImage;
+            [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+            private byte fSystemImageByte;
 
-            /// <summary>
-            /// If the image is a 16-bit executable image, this value is TRUE.
-            /// </summary>
-            [MarshalAs(UnmanagedType.Bool)]
-            public bool fDOSImage;
+            [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+            private byte fDOSImageByte;
 
-            /// <summary>
-            /// If the image is read-only, this value is TRUE.
-            /// Prior to Windows Vista:  This member is not included in the structure.
-            /// </summary>
-            [MarshalAs(UnmanagedType.Bool)]
-            public bool fReadOnly;
+            [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+            private byte fReadOnlyByte;
 
             /// <summary>
             /// The version string.
@@ -92,7 +87,35 @@ namespace PInvoke
             /// <summary>
             /// The size of the image, in bytes.
             /// </summary>
-            public int SizeOfImage;
+            public uint SizeOfImage;
+
+            /// <summary>
+            /// If the image is a kernel mode executable image, this value is TRUE.
+            /// </summary>
+            public bool fSystemImage
+            {
+                get => this.fSystemImageByte != 0;
+                set => this.fSystemImageByte = value ? (byte)1 : (byte)0;
+            }
+
+            /// <summary>
+            /// If the image is a 16-bit executable image, this value is TRUE.
+            /// </summary>
+            public bool fDOSImage
+            {
+                get => this.fDOSImageByte != 0;
+                set => this.fDOSImageByte = value ? (byte)1 : (byte)0;
+            }
+
+            /// <summary>
+            /// If the image is read-only, this value is TRUE.
+            /// Prior to Windows Vista:  This member is not included in the structure.
+            /// </summary>
+            public bool fReadOnly
+            {
+                get => this.fReadOnlyByte != 0;
+                set => this.fReadOnlyByte = value ? (byte)1 : (byte)0;
+            }
         }
     }
 }
