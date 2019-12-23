@@ -8,6 +8,7 @@
     <!-- This package is just a wrapper -->
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <IncludeSymbols>false</IncludeSymbols>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" />
