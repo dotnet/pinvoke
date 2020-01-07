@@ -334,7 +334,7 @@ Safe handles should follow a few rules:
 
 A good example would be [`SafeHookHandle.cs`](src/User32.Desktop/User32+SafeHookHandle.cs).
 
-[SigImp]: http://blogs.msdn.com/b/vbteam/archive/2008/03/14/making-pinvoke-easy.aspx
+[SigImp]: https://devblogs.microsoft.com/vbteam/making-pinvoke-easy/
 [APISets]: https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx
 [APISets8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn505783(v=vs.85).aspx
 
