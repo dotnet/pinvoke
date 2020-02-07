@@ -692,6 +692,16 @@ namespace PInvoke
             [Friendly(FriendlyFlags.In)] FILETIME* lpFileTime2);
 
         /// <summary>
+        ///     Controls whether the system will handle the specified types of serious errors or whether the process will handle them.
+        /// </summary>
+        /// <param name="uMode">The process error mode.</param>
+        /// <returns>
+        ///     The return value is the previous state of the error-mode bit flags.
+        /// </returns>
+        [DllImport(nameof(Kernel32))]
+        public static extern ErrorModes SetErrorMode(ErrorModes uMode);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>
