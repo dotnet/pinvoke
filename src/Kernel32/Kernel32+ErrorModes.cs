@@ -16,7 +16,7 @@ namespace PInvoke
             /// <summary>
             /// Use the system default, which is to display all error dialog boxes.
             /// </summary>
-            SYSTEM_DEFAULT = 0x00000000,
+            SEM_DEFAULT = 0x00000000,
 
             /// <summary>
             /// <para>
@@ -52,7 +52,7 @@ namespace PInvoke
             /// The OpenFile function does not display a message box when it fails to find a file.
             /// Instead, the error is returned to the caller. This error mode overrides the OF_PROMPT flag.
             /// </summary>
-            SEM_NOOPENFILEERRORBOX = 0x8000
+            SEM_NOOPENFILEERRORBOX = 0x8000,
         }
     }
 }

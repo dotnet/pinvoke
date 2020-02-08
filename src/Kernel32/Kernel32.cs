@@ -698,7 +698,7 @@ namespace PInvoke
         /// <returns>
         ///     The return value is the previous state of the error-mode bit flags.
         /// </returns>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_errorhandling_l1_1_1)]
         public static extern ErrorModes SetErrorMode(ErrorModes uMode);
 
         /// <summary>
