@@ -33,6 +33,12 @@ public partial class Kernel32Facts
     }
 
     [Fact]
+    public void SetErrorMode_Works()
+    {
+        ErrorModes oldMode = SetErrorMode(ErrorModes.SEM_DEFAULT);
+    }
+
+    [Fact]
     public unsafe void GetStartupInfo_Title()
     {
         var startupInfo = STARTUPINFO.Create();

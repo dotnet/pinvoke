@@ -1,3 +1,9 @@
+PInvoke.Kernel32.ErrorModes
+PInvoke.Kernel32.ErrorModes.SEM_DEFAULT = 0 -> PInvoke.Kernel32.ErrorModes
+PInvoke.Kernel32.ErrorModes.SEM_FAILCRITICALERRORS = 1 -> PInvoke.Kernel32.ErrorModes
+PInvoke.Kernel32.ErrorModes.SEM_NOALIGNMENTFAULTEXCEPT = 4 -> PInvoke.Kernel32.ErrorModes
+PInvoke.Kernel32.ErrorModes.SEM_NOGPFAULTERRORBOX = 2 -> PInvoke.Kernel32.ErrorModes
+PInvoke.Kernel32.ErrorModes.SEM_NOOPENFILEERRORBOX = 32768 -> PInvoke.Kernel32.ErrorModes
 PInvoke.Kernel32.FILETIME.FILETIME(System.DateTime dateTime) -> void
 PInvoke.Kernel32.HandleFlags
 PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_INHERIT = 1 -> PInvoke.Kernel32.HandleFlags
@@ -90,6 +96,7 @@ static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
 static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle handle, out PInvoke.Kernel32.FILETIME creation, out PInvoke.Kernel32.FILETIME exit, out PInvoke.Kernel32.FILETIME kernel, out PInvoke.Kernel32.FILETIME user) -> bool
 static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
 static extern PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
+static extern PInvoke.Kernel32.SetErrorMode(PInvoke.Kernel32.ErrorModes uMode) -> PInvoke.Kernel32.ErrorModes
 static extern PInvoke.Kernel32.SetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags dwMask, PInvoke.Kernel32.HandleFlags dwFlags) -> bool
 static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
 static extern PInvoke.Kernel32.SystemTimeToFileTime(PInvoke.Kernel32.SYSTEMTIME* lpSystemTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
