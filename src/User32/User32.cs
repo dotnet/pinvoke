@@ -1472,7 +1472,7 @@ namespace PInvoke
         /// <param name="hWndParent">A handle to the parent window.</param>
         /// <param name="hWnd">A handle to the window to be tested.</param>
         /// <returns>If the window is a child or descendant window of the specified parent window, the return value is true, otherwise it is false.</returns>
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsChild(IntPtr hWndParent, IntPtr hWnd);
 
