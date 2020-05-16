@@ -114,6 +114,11 @@ PInvoke.User32.MenuObject
 PInvoke.User32.MenuObject.OBJID_CLIENT = 4294967292 -> PInvoke.User32.MenuObject
 PInvoke.User32.MenuObject.OBJID_MENU = 4294967293 -> PInvoke.User32.MenuObject
 PInvoke.User32.MenuObject.OBJID_SYSMENU = 4294967295 -> PInvoke.User32.MenuObject
+PInvoke.User32.MsgWaitForMultipleObjectsExFlags
+PInvoke.User32.MsgWaitForMultipleObjectsExFlags.MWMO_ALERTABLE = 2 -> PInvoke.User32.MsgWaitForMultipleObjectsExFlags
+PInvoke.User32.MsgWaitForMultipleObjectsExFlags.MWMO_INPUTAVAILABLE = 4 -> PInvoke.User32.MsgWaitForMultipleObjectsExFlags
+PInvoke.User32.MsgWaitForMultipleObjectsExFlags.MWMO_WAITALL = 1 -> PInvoke.User32.MsgWaitForMultipleObjectsExFlags
+PInvoke.User32.MsgWaitForMultipleObjectsExFlags.None = 0 -> PInvoke.User32.MsgWaitForMultipleObjectsExFlags
 PInvoke.User32.SafeCursorHandle
 PInvoke.User32.SafeCursorHandle.SafeCursorHandle() -> void
 PInvoke.User32.SafeCursorHandle.SafeCursorHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
@@ -124,6 +129,21 @@ PInvoke.User32.SendMessageTimeoutFlags.SMTO_BLOCK = 1 -> PInvoke.User32.SendMess
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_ERRORONEXIT = 32 -> PInvoke.User32.SendMessageTimeoutFlags
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_NORMAL = 0 -> PInvoke.User32.SendMessageTimeoutFlags
 PInvoke.User32.SendMessageTimeoutFlags.SMTO_NOTIMEOUTIFNOTHUNG = 8 -> PInvoke.User32.SendMessageTimeoutFlags
+PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_ALLEVENTS = PInvoke.User32.WakeMask.QS_POSTMESSAGE | PInvoke.User32.WakeMask.QS_TIMER | PInvoke.User32.WakeMask.QS_PAINT | PInvoke.User32.WakeMask.QS_HOTKEY | PInvoke.User32.WakeMask.QS_INPUT -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_ALLINPUT = PInvoke.User32.WakeMask.QS_SENDMESSAGE | PInvoke.User32.WakeMask.QS_ALLEVENTS -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_ALLPOSTMESSAGE = 256 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_HOTKEY = 128 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_INPUT = PInvoke.User32.WakeMask.QS_KEY | PInvoke.User32.WakeMask.QS_MOUSE | PInvoke.User32.WakeMask.QS_RAWINPUT -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_KEY = 1 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_MOUSE = PInvoke.User32.WakeMask.QS_MOUSEMOVE | PInvoke.User32.WakeMask.QS_MOUSEBUTTON -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_MOUSEBUTTON = 4 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_MOUSEMOVE = 2 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_PAINT = 32 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_POSTMESSAGE = 8 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_RAWINPUT = 1024 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_SENDMESSAGE = 64 -> PInvoke.User32.WakeMask
+PInvoke.User32.WakeMask.QS_TIMER = 16 -> PInvoke.User32.WakeMask
 PInvoke.User32.WindowLongIndexFlags.GWLP_ID = PInvoke.User32.WindowLongIndexFlags.GWL_STYLE | PInvoke.User32.WindowLongIndexFlags.DWLP_DLGPROC -> PInvoke.User32.WindowLongIndexFlags
 PInvoke.User32.WindowLongIndexFlags.GWLP_USERDATA = -21 -> PInvoke.User32.WindowLongIndexFlags
 PInvoke.User32.WindowLongIndexFlags.GWLP_WNDPROC = PInvoke.User32.WindowLongIndexFlags.GWL_STYLE | PInvoke.User32.WindowLongIndexFlags.DWLP_DLGPROC | PInvoke.User32.WindowLongIndexFlags.DWLP_USER -> PInvoke.User32.WindowLongIndexFlags
@@ -143,6 +163,14 @@ PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_RIGHTUP = 16 -> PInvoke.User32.mouse
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_WHEEL = 2048 -> PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_XDOWN = 128 -> PInvoke.User32.mouse_eventFlags
 PInvoke.User32.mouse_eventFlags.MOUSEEVENTF_XUP = 256 -> PInvoke.User32.mouse_eventFlags
+const PInvoke.User32.STATUS_ABANDONED_WAIT_0 = 128 -> uint
+const PInvoke.User32.STATUS_USER_APC = 192 -> uint
+const PInvoke.User32.STATUS_WAIT_0 = 0 -> uint
+const PInvoke.User32.WAIT_ABANDONED_0 = 128 -> uint
+const PInvoke.User32.WAIT_FAILED = 4294967295 -> uint
+const PInvoke.User32.WAIT_IO_COMPLETION = 192 -> uint
+const PInvoke.User32.WAIT_OBJECT_0 = 0 -> uint
+const PInvoke.User32.WAIT_TIMEOUT = 258 -> uint
 override PInvoke.User32.SafeCursorHandle.IsInvalid.get -> bool
 override PInvoke.User32.SafeCursorHandle.ReleaseHandle() -> bool
 static PInvoke.User32.AdjustWindowRectEx(System.IntPtr lpRect, PInvoke.User32.WindowStyles dwStyle, bool bMenu, PInvoke.User32.WindowStylesEx dwExStyle) -> bool
@@ -167,6 +195,8 @@ static PInvoke.User32.LoadCursor(System.IntPtr hInstance, char[] lpCursorName) -
 static PInvoke.User32.LoadImage(System.IntPtr hInst, System.IntPtr name, PInvoke.User32.ImageType type, int cx, int cy, PInvoke.User32.LoadImageFlags fuLoad) -> System.IntPtr
 static PInvoke.User32.LoadImage(System.IntPtr hInst, char[] name, PInvoke.User32.ImageType type, int cx, int cy, PInvoke.User32.LoadImageFlags fuLoad) -> System.IntPtr
 static PInvoke.User32.MENUBARINFO.Create() -> PInvoke.User32.MENUBARINFO
+static PInvoke.User32.MsgWaitForMultipleObjectsEx(uint nCount, System.IntPtr pHandles, uint dwMilliseconds, PInvoke.User32.WakeMask dwWakeMask, PInvoke.User32.MsgWaitForMultipleObjectsExFlags dwFlags) -> uint
+static PInvoke.User32.MsgWaitForMultipleObjectsEx(uint nCount, System.IntPtr[] pHandles, uint dwMilliseconds, PInvoke.User32.WakeMask dwWakeMask, PInvoke.User32.MsgWaitForMultipleObjectsExFlags dwFlags) -> uint
 static PInvoke.User32.SetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, PInvoke.User32.MENUITEMINFO lpmii) -> bool
 static PInvoke.User32.SetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, System.IntPtr lpmii) -> bool
 static PInvoke.User32.SetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex, System.IntPtr dwNewLong) -> System.IntPtr
@@ -210,6 +240,7 @@ static extern PInvoke.User32.GetWindowDpiHostingBehavior(System.IntPtr hwnd) -> 
 static extern PInvoke.User32.IsValidDpiAwarenessContext(System.IntPtr dpiAwarenessContext) -> bool
 static extern PInvoke.User32.LoadCursor(System.IntPtr hInstance, char* lpCursorName) -> PInvoke.User32.SafeCursorHandle
 static extern PInvoke.User32.LoadImage(System.IntPtr hInst, char* name, PInvoke.User32.ImageType type, int cx, int cy, PInvoke.User32.LoadImageFlags fuLoad) -> System.IntPtr
+static extern PInvoke.User32.MsgWaitForMultipleObjectsEx(uint nCount, System.IntPtr* pHandles, uint dwMilliseconds, PInvoke.User32.WakeMask dwWakeMask, PInvoke.User32.MsgWaitForMultipleObjectsExFlags dwFlags) -> uint
 static extern PInvoke.User32.SendMessageTimeout(System.IntPtr hWnd, PInvoke.User32.WindowMessage msg, System.IntPtr wParam, System.IntPtr lParam, PInvoke.User32.SendMessageTimeoutFlags flags, int timeout, out System.IntPtr pdwResult) -> System.IntPtr
 static extern PInvoke.User32.SetCursor(PInvoke.User32.SafeCursorHandle hCursor) -> PInvoke.User32.SafeCursorHandle
 static extern PInvoke.User32.SetDialogControlDpiChangeBehavior(System.IntPtr hwnd, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS mask, PInvoke.User32.DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS values) -> bool
