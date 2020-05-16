@@ -12,6 +12,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Text;
+    using System.Threading;
     using PInvoke;
     using static PInvoke.Kernel32;
 
@@ -45,6 +46,22 @@ namespace PInvoke
         /// Size of a font name or a font family name
         /// </summary>
         public const int LF_FACESIZE = 32;
+
+        public const uint STATUS_WAIT_0 = 0;
+
+        public const uint WAIT_OBJECT_0 = STATUS_WAIT_0 + 0;
+
+        public const uint STATUS_ABANDONED_WAIT_0 = 0x80;
+
+        public const uint WAIT_ABANDONED_0 = STATUS_ABANDONED_WAIT_0 + 0;
+
+        public const uint STATUS_USER_APC = 0x000000C0;
+
+        public const uint WAIT_IO_COMPLETION = STATUS_USER_APC;
+
+        public const uint WAIT_TIMEOUT = 258;
+
+        public const uint WAIT_FAILED = 0xFFFFFFFF;
 
         /// <summary>
         ///     A bitmap that is drawn by the window that owns the menu. The application must process the WM_MEASUREITEM and
@@ -1731,7 +1748,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hProcess">A handle to the process. If this process is a console application or does not have a message queue, WaitForInputIdle returns immediately.</param>
         /// <param name="dwMilliseconds">The time-out interval, in milliseconds. If dwMilliseconds is INFINITE, the function does not return until the process is idle.</param>
-        /// <returns>0 if the wait was satisfied successfully., WAIT_TIMEOUT if the wait was terminated because the time-out interval elapsed, and WAIT_FAILED if an error occurred.</returns>
+        /// <returns>0 if the wait was satisfied successfully., <see cref="WAIT_TIMEOUT" /> if the wait was terminated because the time-out interval elapsed, and <see cref="WAIT_FAILED"/> if an error occurred.</returns>
         /// <remarks>Raymond Chen has a series of articles that give a bit more depth to how this function was intended to be used.
         /// <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/03/25/9984720.aspx">Here</a> and <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/03/26/9985422.aspx">here</a>.
         /// The jist of it is that this function should have been really called WaitForProcessStartupComplete, as this is all it does.</remarks>
@@ -3691,6 +3708,36 @@ namespace PInvoke
             WindowStyles dwStyle,
             [MarshalAs(UnmanagedType.Bool)] bool bMenu,
             WindowStylesEx dwExStyle);
+
+        /// <summary>
+        /// Waits until one or all of the specified objects are in the signaled state,
+        /// an I/O completion routine or asynchronous procedure call (APC) is queued to the thread,
+        /// or the time-out interval elapses. The array of objects can include input event objects,
+        /// which you specify using the <paramref name="dwWakeMask"/> parameter.
+        /// </summary>
+        /// <param name="nCount">The number of object handles in the array pointed to by pHandles. The maximum number of object handles is MAXIMUM_WAIT_OBJECTS minus one. If this parameter has the value zero, then the function waits only for an input event.</param>
+        /// <param name="pHandles">
+        /// An array of object handles. For a list of the object types whose handles you can specify, see the Remarks section later in this topic. The array can contain handles to multiple types of objects. It may not contain multiple copies of the same handle.
+        /// If one of these handles is closed while the wait is still pending, the function's behavior is undefined.
+        /// The handles must have the SYNCHRONIZE access right. For more information, see Standard Access Rights.
+        /// </param>
+        /// <param name="dwMilliseconds">
+        /// The time-out interval, in milliseconds. If a nonzero value is specified, the function waits until the specified objects are signaled,
+        /// an I/O completion routine or APC is queued, or the interval elapses.
+        /// If dwMilliseconds is zero, the function does not enter a wait state if the criteria is not met; it always returns immediately.
+        /// If dwMilliseconds is <see cref="Timeout.Infinite"/>, the function will return only when the specified objects are signaled or
+        /// an I/O completion routine or APC is queued.
+        /// </param>
+        /// <param name="dwWakeMask">The input types for which an input event object handle will be added to the array of object handles.</param>
+        /// <param name="dwFlags">The wait type.</param>
+        /// <returns>If the function succeeds, the return value indicates the event that caused the function to return. See docs for values.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static unsafe extern uint MsgWaitForMultipleObjectsEx(
+            uint nCount,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] IntPtr* pHandles,
+            uint dwMilliseconds,
+            WakeMask dwWakeMask,
+            MsgWaitForMultipleObjectsExFlags dwFlags);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
