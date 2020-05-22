@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>$(PortableOnlyFrameworks);net20;netstandard2.0</TargetFrameworks>
     <Summary>P/Invoke types for common Windows APIs.</Summary>
