@@ -22,7 +22,7 @@
     <Authors>Andrew Arnott</Authors>
     <Summary>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Summary>
     <Description>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Description>
-    <PackageProjectUrl>https://github.com/AArnott/pinvoke</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/dotnet/pinvoke</PackageProjectUrl>
     <Copyright>Copyright © .NET Foundation and Contributors</Copyright>
     <Tags>pinvoke .net pcl</Tags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

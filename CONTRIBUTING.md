@@ -33,7 +33,7 @@ If you proceed to open the solution in Visual Studio, the following workarounds 
 #### Workaround [NuGet/Home#4764](https://github.com/NuGet/Home/issues/4764)
 
 The NuGet package restore functionality in Visual Studio does not work for this project,
-and the relevant bugs in VS are tracked at https://github.com/AArnott/pinvoke/issues/314.
+and the relevant bugs in VS are tracked at https://github.com/dotnet/pinvoke/issues/314.
 You should disable automatic package restore on build in Visual Studio in order to build
 successfully and have a useful Error List while developing.
 
@@ -341,5 +341,5 @@ A good example would be [`SafeHookHandle.cs`](src/User32.Desktop/User32+SafeHook
 [APISets]: https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx
 [APISets8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn505783(v=vs.85).aspx
 
-[PROCESSENTRY32]: https://github.com/AArnott/pinvoke/blob/master/src/Kernel32.Desktop/Kernel32%2BPROCESSENTRY32.cs
-[BCRYPT_ALGORITHM_IDENTIFIER]: https://github.com/AArnott/pinvoke/blob/master/src/BCrypt.Shared/BCrypt%2BBCRYPT_ALGORITHM_IDENTIFIER.cs
+[PROCESSENTRY32]: https://github.com/dotnet/pinvoke/blob/master/src/Kernel32.Desktop/Kernel32%2BPROCESSENTRY32.cs
+[BCRYPT_ALGORITHM_IDENTIFIER]: https://github.com/dotnet/pinvoke/blob/master/src/BCrypt.Shared/BCrypt%2BBCRYPT_ALGORITHM_IDENTIFIER.cs
