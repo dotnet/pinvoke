@@ -1,5 +1,8 @@
 # Contributing
 
+This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.
+For more information see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
+
 There are many thousands of Win32 APIs and this library is not complete.
 Please send pull requests to add what you've come up with.
 

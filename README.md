@@ -12,6 +12,8 @@ with sample usage in the form of unit tests.
 Each library is exposed as its own NuGet package, and may include .NET Portable libraries as applicable,
 exposing those APIs that are available only on Desktop, or Store, or both as appropriate.
 
+This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
+
 ## Usage
 
 Install the NuGet package(s) for the DLLs you want to P/Invoke into.
