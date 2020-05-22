@@ -9,10 +9,9 @@
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <COMFileReference Include="$(RepoRootPath)lib\metahost.tlb">
-      <Visible>false</Visible>
+    <Reference Include="$(RepoRootPath)lib\Interop.CLRMetaHost.dll">
       <EmbedInteropTypes>true</EmbedInteropTypes>
-    </COMFileReference>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Keys\*.snk" />

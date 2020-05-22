@@ -9,9 +9,8 @@
     <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <COMFileReference Include="$(RepoRootPath)lib\metahost.tlb">
-      <Visible>false</Visible>
+    <Reference Include="$(RepoRootPath)lib\Interop.CLRMetaHost.dll">
       <EmbedInteropTypes>true</EmbedInteropTypes>
-    </COMFileReference>
+    </Reference>
   </ItemGroup>
 </Project>

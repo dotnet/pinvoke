@@ -8,13 +8,11 @@
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <COMFileReference Include="$(RepoRootPath)lib\mscoree.tlb">
-      <Visible>false</Visible>
+    <Reference Include="$(RepoRootPath)lib\Interop.mscoree.dll">
       <EmbedInteropTypes>true</EmbedInteropTypes>
-    </COMFileReference>
-    <COMFileReference Include="$(RepoRootPath)lib\cordebug.tlb">
-      <Visible>false</Visible>
+    </Reference>
+    <Reference Include="$(RepoRootPath)lib\Interop.CORDBLib.dll">
       <EmbedInteropTypes>true</EmbedInteropTypes>
-    </COMFileReference>
+    </Reference>
   </ItemGroup>
 </Project>
