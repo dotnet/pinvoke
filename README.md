@@ -3,8 +3,6 @@
 [![Build Status](https://dev.azure.com/andrewarnott/OSS/_apis/build/status/PInvoke)](https://dev.azure.com/andrewarnott/OSS/_build/latest?definitionId=6)
 [![Join the chat at https://gitter.im/dotnet/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dotnet/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Issue Stats][pull-requests-img]][pull-requests-url] [![Issue Stats][issues-closed-img]][issues-closed-url]
-
 A collection of libraries intended to contain all P/Invoke method signatures for popular operating systems.
 Think of it as https://pinvoke.net, but proven to compile and work properly, and often
 with sample usage in the form of unit tests.
@@ -116,11 +114,5 @@ public release of the library.
 [NetApi32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa370680.aspx
 [Shell32]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773177.aspx
 [WtsApi32]: https://msdn.microsoft.com/en-us/library/aa383468(v=vs.85).aspx
-
-[pull-requests-img]: http://www.issuestats.com/github/dotnet/pinvoke/badge/pr
-[pull-requests-url]: http://www.issuestats.com/github/dotnet/pinvoke
-
-[issues-closed-img]: http://www.issuestats.com/github/dotnet/pinvoke/badge/issue
-[issues-closed-url]: http://www.issuestats.com/github/dotnet/pinvoke
 
 [PInvokeCoverageReport]: https://github.com/dotnet/pinvoke/wiki/coverage
