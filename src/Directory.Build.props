@@ -107,7 +107,7 @@
 
   <Target Name="PrepareReleaseNotes" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
     <PropertyGroup>
-      <PackageReleaseNotes>https://github.com/aarnott/pinvoke/releases/tag/v$(Version)</PackageReleaseNotes>
+      <PackageReleaseNotes>https://github.com/dotnet/pinvoke/releases/tag/v$(Version)</PackageReleaseNotes>
     </PropertyGroup>
   </Target>
 </Project>
