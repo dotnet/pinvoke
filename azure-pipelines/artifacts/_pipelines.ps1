@@ -30,9 +30,9 @@ function Create-SymbolicLink {
     if (!(Test-Path $LinkContainer)) { mkdir $LinkContainer }
     Write-Verbose "Linking $Link to $Target"
     if ($IsMacOS -or $IsLinux) {
-        ln $Target $Link
+        ln $Target $Link | Out-Null
     } else {
-        cmd /c mklink $Link $Target
+        cmd /c "mklink `"$Link`" `"$Target`"" | Out-Null
     }
 }
 

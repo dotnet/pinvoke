@@ -1,9 +1,7 @@
 # P/Invoke
 
 [![Build Status](https://dev.azure.com/andrewarnott/OSS/_apis/build/status/PInvoke)](https://dev.azure.com/andrewarnott/OSS/_build/latest?definitionId=6)
-[![Join the chat at https://gitter.im/AArnott/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AArnott/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Issue Stats][pull-requests-img]][pull-requests-url] [![Issue Stats][issues-closed-img]][issues-closed-url]
+[![Join the chat at https://gitter.im/dotnet/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dotnet/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A collection of libraries intended to contain all P/Invoke method signatures for popular operating systems.
 Think of it as https://pinvoke.net, but proven to compile and work properly, and often
@@ -11,6 +9,8 @@ with sample usage in the form of unit tests.
 
 Each library is exposed as its own NuGet package, and may include .NET Portable libraries as applicable,
 exposing those APIs that are available only on Desktop, or Store, or both as appropriate.
+
+This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
 
 ## Usage
 
@@ -115,10 +115,4 @@ public release of the library.
 [Shell32]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773177.aspx
 [WtsApi32]: https://msdn.microsoft.com/en-us/library/aa383468(v=vs.85).aspx
 
-[pull-requests-img]: http://www.issuestats.com/github/aarnott/pinvoke/badge/pr
-[pull-requests-url]: http://www.issuestats.com/github/aarnott/pinvoke
-
-[issues-closed-img]: http://www.issuestats.com/github/aarnott/pinvoke/badge/issue
-[issues-closed-url]: http://www.issuestats.com/github/aarnott/pinvoke
-
-[PInvokeCoverageReport]: https://github.com/AArnott/pinvoke/wiki/coverage
+[PInvokeCoverageReport]: https://github.com/dotnet/pinvoke/wiki/coverage
