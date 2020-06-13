@@ -101,6 +101,9 @@ Please consider [contributing](CONTRIBUTING.md) more P/Invoke method signatures 
 Once you contribute, you can immediately consume your additions without waiting for another
 public release of the library.
 
+This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.
+For more information see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
+
 [CNG]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa376210
 [Crypt32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa380256
 [DwmApi]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa969540.aspx
