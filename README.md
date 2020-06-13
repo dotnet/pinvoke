@@ -1,6 +1,6 @@
 # P/Invoke
 
-[![Build Status](https://dev.azure.com/andrewarnott/OSS/_apis/build/status/PInvoke)](https://dev.azure.com/andrewarnott/OSS/_build/latest?definitionId=6)
+[![Build Status](https://dev.azure.com/andrewarnott/OSS/_apis/build/status/dotnet.pinvoke?branchName=master)](https://dev.azure.com/andrewarnott/OSS/_build?definitionId=39&branchName=master)
 [![Join the chat at https://gitter.im/dotnet/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dotnet/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A collection of libraries intended to contain all P/Invoke method signatures for popular operating systems.
