@@ -10,6 +10,21 @@ steps:
 - powershell: .\build.ps1 -Test
   displayName: Test
 
+- pwsh: >
+    dotnet tool install --tool-path obj SignClient
+
+    obj/SignClient sign
+    --baseDirectory '$(System.DefaultWorkingDirectory)/bin/$(BuildConfiguration)/Packages'
+    --input '**/*'
+    --config '$(System.DefaultWorkingDirectory)/azure-pipelines/SignClient.json'
+    --filelist '$(System.DefaultWorkingDirectory)/azure-pipelines/signfiles.txt'
+    --user '$(codesign_username)'
+    --secret '$(codesign_secret)'
+    --name 'PInvoke'
+    --descriptionUrl 'https://github.com/dotnet/pinvoke'
+  displayName: Code sign
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
 - task: PowerShell@2
   inputs:
     filePath: azure-pipelines/variables/_pipelines.ps1

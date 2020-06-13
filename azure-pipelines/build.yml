@@ -4,6 +4,8 @@ parameters:
 jobs:
 - job: Windows
   pool: ${{ parameters.windowsPool }}
+  variables:
+  - group: pinvoke code signing
   steps:
   - checkout: self
     clean: true
