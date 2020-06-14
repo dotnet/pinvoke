@@ -253,6 +253,7 @@ static extern PInvoke.User32.SetThreadDpiHostingBehavior(PInvoke.User32.DPI_HOST
 static extern PInvoke.User32.SetWindowText(System.IntPtr hWnd, string lpString) -> bool
 static extern PInvoke.User32.ShowCursor(bool bShow) -> int
 static extern PInvoke.User32.SystemParametersInfoForDpi(PInvoke.User32.SystemParametersInfoAction uiAction, int uiParam, void* pvParam, PInvoke.User32.SystemParametersInfoFlags fWinIni, int dpi) -> bool
+static extern PInvoke.User32.UnregisterClass(string lpClassName, System.IntPtr hInstance) -> bool
 static extern PInvoke.User32.mouse_event(PInvoke.User32.mouse_eventFlags dwFlags, int dx, int dy, int dwData, void* dwExtraInfo) -> void
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE -> System.IntPtr
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 -> System.IntPtr
