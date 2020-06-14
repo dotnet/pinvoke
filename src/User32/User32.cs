@@ -170,7 +170,7 @@ namespace PInvoke
         /// The hook function processes the event notifications as required. Clients install the hook function and request specific types
         /// of event notifications by calling <see cref="SetWinEventHook(WindowsEventHookType, WindowsEventHookType, IntPtr, IntPtr, int, int, WindowsEventHookFlags)"/>.
         /// </summary>
-        /// <param name="hWinEventHook">Handle to an event hook function. This value is returned by SetWinEventHook when the hook function
+        /// <param name="hWinEventHook">Handle to an event hook function. This value is returned by <see cref="SetWinEventHook(WindowsEventHookType, WindowsEventHookType, IntPtr, IntPtr, int, int, WindowsEventHookFlags)"/> when the hook function
         /// is installed and is specific to each instance of the hook function.</param>
         /// <param name="event">Specifies the event that occurred. This value is one of the <see cref="WindowsEventHookType"/> constants.</param>
         /// <param name="hwnd">Handle to the window that generates the event, or NULL if no window is associated with the event.
