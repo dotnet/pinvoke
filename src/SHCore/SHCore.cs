@@ -45,7 +45,7 @@ namespace PInvoke
         /// <item><see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/>: The actual DPI value set by the user for that display</item>
         /// </list>
         /// </remarks>
-        [DllImport(nameof(SHCore), SetLastError = true)]
+        [DllImport(nameof(SHCore))]
         public static extern HResult GetDpiForMonitor(IntPtr hmonitor, MONITOR_DPI_TYPE dpiType, out int dpiX, out int dpiY);
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace PInvoke
         /// <item><see cref="HResult.Code.E_ACCESSDENIED"/>: The application does not have sufficient privileges</item>
         /// </list>
         /// </returns>
-        [DllImport(nameof(SHCore), SetLastError = true)]
+        [DllImport(nameof(SHCore))]
         public static extern HResult GetProcessDpiAwareness(IntPtr hprocess, out PROCESS_DPI_AWARENESS value);
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace PInvoke
         /// If the DPI awareness level is not set, the default value is <see cref="PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE"/>.
         /// </para>
         /// </remarks>
-        [DllImport(nameof(SHCore), SetLastError = true)]
+        [DllImport(nameof(SHCore))]
         public static extern HResult SetProcessDpiAwareness(PROCESS_DPI_AWARENESS value);
 
         /// <summary>
@@ -98,7 +98,41 @@ namespace PInvoke
         /// </summary>
         /// <param name="component">The type of shell component</param>
         /// <returns>The DPI required for an icon of this type</returns>
-        [DllImport(nameof(SHCore), SetLastError = true)]
-        public static extern int GetDpiForShellUiComponent(SHELL_UI_COMPONENT component);
+        [DllImport(nameof(SHCore))]
+        public static extern int GetDpiForShellUIComponent(SHELL_UI_COMPONENT component);
+
+        /// <summary>
+        /// Gets the scale factor of a specific monitor. This function replaces GetScaleFactorForDevice.
+        /// </summary>
+        /// <param name="hMon">The monitor's handle.</param>
+        /// <param name="pScale">
+        /// When this function returns successfully, this value points to one of the <see cref="DEVICE_SCALE_FACTOR"/> values that specify the scale factor of the specified monitor.
+        /// If the function call fails, this value points to a valid scale factor so that apps can opt to continue on with incorrectly sized resources.
+        /// </param>
+        /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(SHCore))]
+        public static extern HResult GetScaleFactorForMonitor(IntPtr hMon, out DEVICE_SCALE_FACTOR pScale);
+
+        /// <summary>
+        /// Registers for an event that is triggered when the scale has possibly changed.
+        /// This function replaces RegisterScaleChangeNotifications.
+        /// </summary>
+        /// <param name="hEvent">Handle of the event to register for scale change notifications.</param>
+        /// <param name="pdwCookie">
+        /// When this function returns successfully, this value receives the address of a pointer to a cookie that can be used later to unregister for the scale change notifications through <see cref="UnregisterScaleChangeEvent"/>.
+        /// </param>
+        /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(SHCore))]
+        public static extern HResult RegisterScaleChangeEvent(
+            IntPtr hEvent,
+            out IntPtr pdwCookie);
+
+        /// <summary>
+        /// Unregisters for the scale change event registered through <see cref="RegisterScaleChangeEvent"/>. This function replaces RevokeScaleChangeNotifications.
+        /// </summary>
+        /// <param name="dwCookie">A pointer to the cookie retrieved in the call to <see cref="RegisterScaleChangeEvent"/>.</param>
+        /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(SHCore))]
+        public static extern HResult UnregisterScaleChangeEvent(IntPtr dwCookie);
     }
 }
