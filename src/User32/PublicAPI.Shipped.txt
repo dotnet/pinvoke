@@ -271,7 +271,7 @@ PInvoke.User32.LookupIconIdFromDirectoryExFlags
 PInvoke.User32.LookupIconIdFromDirectoryExFlags.LR_DEFAULTCOLOR = 0 -> PInvoke.User32.LookupIconIdFromDirectoryExFlags
 PInvoke.User32.LookupIconIdFromDirectoryExFlags.LR_MONOCHROME = 1 -> PInvoke.User32.LookupIconIdFromDirectoryExFlags
 PInvoke.User32.MENUITEMINFO
-PInvoke.User32.MENUITEMINFO.Create() -> PInvoke.User32.MENUITEMINFO
+static PInvoke.User32.MENUITEMINFO.Create() -> PInvoke.User32.MENUITEMINFO
 PInvoke.User32.MENUITEMINFO.MENUITEMINFO() -> void
 PInvoke.User32.MENUITEMINFO.cbSize -> int
 PInvoke.User32.MENUITEMINFO.cch -> int
