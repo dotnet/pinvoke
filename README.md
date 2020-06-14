@@ -7,8 +7,11 @@ A collection of libraries intended to contain all P/Invoke method signatures for
 Think of it as https://pinvoke.net, but proven to compile and work properly, and often
 with sample usage in the form of unit tests.
 
-Each library is exposed as its own NuGet package, and may include .NET Portable libraries as applicable,
-exposing those APIs that are available only on Desktop, or Store, or both as appropriate.
+A unique C# project wraps each native library.
+The C# project may multi-target in order to support many versions of .NET Framework, .NET Core and .NET Standard.
+
+Win32 APIs for all Windows versions are welcome.
+Special Windows Store targeted assemblies omit p/invoke signatures to banned APIs so your Store apps can depend on these libraries without getting rejected by the Store certification process.
 
 This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
 
