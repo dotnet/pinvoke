@@ -155,7 +155,7 @@ namespace PInvoke
             /// Create a new instance of <see cref="MENUITEMINFO"/> with <see cref="cbSize"/> set to the correct value.
             /// </summary>
             /// <returns>A new instance of <see cref="MENUITEMINFO"/> with <see cref="cbSize"/> set to the correct value.</returns>
-            public MENUITEMINFO Create()
+            public static MENUITEMINFO Create()
             {
                 return new MENUITEMINFO
                 {
