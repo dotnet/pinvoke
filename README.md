@@ -98,6 +98,12 @@ WtsApi32.dll |`PInvoke.WtsApi32`| [![NuGet](https://buildstats.info/nuget/PInvok
 
 Check out the [P/Invoke coverage][PInvokeCoverageReport] we have for each library.
 
+If you need a P/Invoke that is in our source code but not yet released to nuget.org, you can consume the packages directly from our CI feed by adding this package source to your nuget.config file
+
+```xml
+<add key="PInvoke" value="https://pkgs.dev.azure.com/andrewarnott/OSS/_packaging/PublicCI/nuget/v3/index.json" />
+```
+
 ## Contribution
 
 Please consider [contributing](CONTRIBUTING.md) more P/Invoke method signatures to this project.
