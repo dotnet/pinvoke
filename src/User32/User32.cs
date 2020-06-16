@@ -170,7 +170,7 @@ namespace PInvoke
         /// The hook function processes the event notifications as required. Clients install the hook function and request specific types
         /// of event notifications by calling <see cref="SetWinEventHook(WindowsEventHookType, WindowsEventHookType, IntPtr, IntPtr, int, int, WindowsEventHookFlags)"/>.
         /// </summary>
-        /// <param name="hWinEventHook">Handle to an event hook function. This value is returned by SetWinEventHook when the hook function
+        /// <param name="hWinEventHook">Handle to an event hook function. This value is returned by <see cref="SetWinEventHook(WindowsEventHookType, WindowsEventHookType, IntPtr, IntPtr, int, int, WindowsEventHookFlags)"/> when the hook function
         /// is installed and is specific to each instance of the hook function.</param>
         /// <param name="event">Specifies the event that occurred. This value is one of the <see cref="WindowsEventHookType"/> constants.</param>
         /// <param name="hwnd">Handle to the window that generates the event, or NULL if no window is associated with the event.
@@ -1686,6 +1686,27 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.U2)]
         public static extern short RegisterClassEx(ref WNDCLASSEX lpwcx);
+
+        /// <summary>
+        /// Unregisters a window class, freeing the memory required for the class.
+        /// </summary>
+        /// <param name="lpClassName">
+        /// A null-terminated string or a class atom. If lpClassName is a string, it specifies the window class name.
+        /// This class name must have been registered by a previous call to the <see cref="RegisterClass"/> or <see cref="RegisterClassEx"/> function.
+        /// System classes, such as dialog box controls, cannot be unregistered.
+        /// If this parameter is an atom, it must be a class atom created by a previous call to the <see cref="RegisterClass"/> or <see cref="RegisterClassEx"/> function.
+        /// The atom must be in the low-order word of lpClassName; the high-order word must be zero.
+        /// </param>
+        /// <param name="hInstance">A handle to the instance of the module that created the class.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the class could not be found or if a window still exists that was created with the class, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool UnregisterClass(
+            string lpClassName,
+            IntPtr hInstance);
 
         /// <summary>
         /// Retrieves the name of the format from the clipboard.

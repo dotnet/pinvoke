@@ -1,0 +1,3 @@
+static extern PInvoke.SHCore.GetScaleFactorForMonitor(System.IntPtr hMon, out PInvoke.DEVICE_SCALE_FACTOR pScale) -> PInvoke.HResult
+static extern PInvoke.SHCore.RegisterScaleChangeEvent(System.IntPtr hEvent, out System.IntPtr pdwCookie) -> PInvoke.HResult
+static extern PInvoke.SHCore.UnregisterScaleChangeEvent(System.IntPtr dwCookie) -> PInvoke.HResult

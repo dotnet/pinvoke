@@ -9,5 +9,6 @@ namespace PInvoke
     [OfferFriendlyOverloads]
     public partial class ShellScalingApi
     {
+        // SHCore functions are defined in the SHCore library.
     }
 }
