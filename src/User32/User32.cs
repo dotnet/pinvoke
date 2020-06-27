@@ -143,6 +143,18 @@ namespace PInvoke
         public static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = new IntPtr(-4);
 
         /// <summary>
+        /// DPI unaware with improved quality of GDI-based content. This mode behaves similarly to <see cref="DPI_AWARENESS_CONTEXT_UNAWARE" />,
+        /// but also enables the system to automatically improve the rendering quality of text and other GDI-based primitives when
+        /// the window is displayed on a high-DPI monitor.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED" /> was introduced in the October 2018 update
+        /// of Windows 10 (also known as version 1809).
+        /// For more details, see <see href="https://blogs.windows.com/buildingapps/2017/05/19/improving-high-dpi-experience-gdi-based-desktop-apps/#Uwv9gY1SvpbgQ4dK.97">Improving the high-DPI experience in GDI-based Desktop apps</see>
+        /// </remarks>
+        public static readonly IntPtr DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED = new IntPtr(-5);
+
+        /// <summary>
         /// A special windows handle used to indicate to <see cref="SendMessage(IntPtr, WindowMessage, IntPtr, IntPtr)" />
         /// that the message is sent to all top-level windows in the system, including disabled or invisible unowned windows,
         /// overlapped windows, and pop-up windows.
