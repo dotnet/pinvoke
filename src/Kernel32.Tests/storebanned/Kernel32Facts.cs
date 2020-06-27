@@ -971,7 +971,7 @@ public partial class Kernel32Facts
         try
         {
             var dwNewThreadId = 0;
-            var hThread =
+            using var hThread =
                     Kernel32.CreateThread(
                         &secAttrs,
                         SIZE_T.Zero,
@@ -1021,7 +1021,7 @@ public partial class Kernel32Facts
         try
         {
             var dwNewThreadId = 0;
-            var hThread =
+            using var hThread =
                     Kernel32.CreateRemoteThread(
                         hProcess.DangerousGetHandle(),
                         &secAttrs,
@@ -1072,7 +1072,7 @@ public partial class Kernel32Facts
         try
         {
             var dwNewThreadId = 0;
-            var hThread =
+            using var hThread =
                     Kernel32.CreateRemoteThreadEx(
                         hProcess.DangerousGetHandle(),
                         &secAttrs,
