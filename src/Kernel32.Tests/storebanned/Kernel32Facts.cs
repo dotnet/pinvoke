@@ -944,6 +944,80 @@ public partial class Kernel32Facts
             HandleFlags.HANDLE_FLAG_NONE));
     }
 
+    /// <summary>
+    /// Basic validation for <see cref="Kernel32.CreateThread(SECURITY_ATTRIBUTES*, SIZE_T, THREAD_START_ROUTINE, IntPtr, CreateProcessFlags, int*)"/>
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(IntPtr)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateThread_Test()
+    {
+        Kernel32.SECURITY_ATTRIBUTES secAttrs = new Kernel32.SECURITY_ATTRIBUTES
+        {
+            bInheritHandle = 1,
+            lpSecurityDescriptor = IntPtr.Zero,
+            nLength = Marshal.SizeOf<Kernel32.SECURITY_ATTRIBUTES>()
+        };
+
+        int dwThreadId = Kernel32.GetCurrentThreadId();
+
+        bool result = false;
+        var gcHandle = GCHandle.Alloc(result);
+        try
+        {
+            int dwNewThreadId = 0;
+            var hThread =
+                    Kernel32.CreateThread(
+                    &secAttrs,
+                    SIZE_T.Zero,
+                    CreateThread_Test_ThreadMain,
+                    GCHandle.ToIntPtr(gcHandle),
+                    Kernel32.CreateProcessFlags.None,
+                    &dwNewThreadId);
+            Kernel32.WaitForSingleObject(hThread, -1);
+
+            result = (bool)gcHandle.Target;
+            Assert.True(result);
+            Assert.NotEqual(dwThreadId, dwNewThreadId);
+        }
+        finally
+        {
+            gcHandle.Free();
+        }
+    }
+
+    /// <summary>
+    /// Helper for <see cref="CreateThread_Test"/> test.
+    /// </summary>
+    /// <param name="data">
+    /// Data passed by <see cref="CreateThread_Test"/>. This is a pinned <see cref="GCHandle"/> to a <see cref="bool"/>
+    /// which will be updated to <code>true</code> in this method.
+    /// </param>
+    /// <returns>
+    /// Returns 1 on successfully updating the <see cref="GCHandle"/> associated with
+    /// <paramref name="data"/>, otherwise returns 0
+    /// </returns>
+    /// <remarks>See <see cref=" Kernel32.THREAD_START_ROUTINE"/> for general documentation</remarks>
+    private static int CreateThread_Test_ThreadMain(IntPtr data)
+    {
+        var gcHandle = GCHandle.FromIntPtr(data);
+        try
+        {
+            gcHandle.Target = true;
+        }
+        catch (Exception e) when (e is InvalidCastException || e is InvalidOperationException)
+        {
+            return 0;
+        }
+
+        return 1;
+    }
+
     private ArraySegment<byte> GetRandomSegment(int size)
     {
         var result = new ArraySegment<byte>(new byte[size]);
