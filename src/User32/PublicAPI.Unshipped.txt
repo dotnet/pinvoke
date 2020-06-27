@@ -259,4 +259,5 @@ static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE -> System
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 -> System.IntPtr
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_SYSTEM_AWARE -> System.IntPtr
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_UNAWARE -> System.IntPtr
+static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED -> System.IntPtr
 static readonly PInvoke.User32.SafeCursorHandle.Null -> PInvoke.User32.SafeCursorHandle
