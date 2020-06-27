@@ -957,28 +957,28 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void CreateThread_Test()
     {
-        Kernel32.SECURITY_ATTRIBUTES secAttrs = new Kernel32.SECURITY_ATTRIBUTES
+        var secAttrs = new Kernel32.SECURITY_ATTRIBUTES
         {
             bInheritHandle = 1,
             lpSecurityDescriptor = IntPtr.Zero,
             nLength = Marshal.SizeOf<Kernel32.SECURITY_ATTRIBUTES>()
         };
 
-        int dwThreadId = Kernel32.GetCurrentThreadId();
+        var dwThreadId = Kernel32.GetCurrentThreadId();
 
-        bool result = false;
+        var result = false;
         var gcHandle = GCHandle.Alloc(result);
         try
         {
-            int dwNewThreadId = 0;
+            var dwNewThreadId = 0;
             var hThread =
                     Kernel32.CreateThread(
-                    &secAttrs,
-                    SIZE_T.Zero,
-                    CreateThread_Test_ThreadMain,
-                    GCHandle.ToIntPtr(gcHandle),
-                    Kernel32.CreateProcessFlags.None,
-                    &dwNewThreadId);
+                        &secAttrs,
+                        SIZE_T.Zero,
+                        new Kernel32.THREAD_START_ROUTINE(CreateThread_Test_ThreadMain),
+                        GCHandle.ToIntPtr(gcHandle),
+                        Kernel32.CreateProcessFlags.None,
+                        &dwNewThreadId);
             Kernel32.WaitForSingleObject(hThread, -1);
 
             result = (bool)gcHandle.Target;
@@ -992,10 +992,114 @@ public partial class Kernel32Facts
     }
 
     /// <summary>
-    /// Helper for <see cref="CreateThread_Test"/> test.
+    /// Basic validation for <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, SIZE_T, THREAD_START_ROUTINE, IntPtr, CreateProcessFlags, int*)"/>
+    /// Note that this test DOES NOT create a true REMOTE thread in a foreign process; it just leverages this function to create a thread in the current (i.e, the test) procrss.
+    /// Nevertheless, this approach provides modest confidence that the P/Invoke definition is well-formed.
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(IntPtr)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateRemoteThread_PseudoTest()
+    {
+        var secAttrs = new Kernel32.SECURITY_ATTRIBUTES
+        {
+            bInheritHandle = 1,
+            lpSecurityDescriptor = IntPtr.Zero,
+            nLength = Marshal.SizeOf<Kernel32.SECURITY_ATTRIBUTES>()
+        };
+
+        var dwThreadId = Kernel32.GetCurrentThreadId();
+        using var hProcess = Kernel32.GetCurrentProcess();
+
+        var result = false;
+        var gcHandle = GCHandle.Alloc(result);
+        try
+        {
+            var dwNewThreadId = 0;
+            var hThread =
+                    Kernel32.CreateRemoteThread(
+                        hProcess.DangerousGetHandle(),
+                        &secAttrs,
+                        SIZE_T.Zero,
+                        new Kernel32.THREAD_START_ROUTINE(CreateThread_Test_ThreadMain),
+                        GCHandle.ToIntPtr(gcHandle),
+                        Kernel32.CreateProcessFlags.None,
+                        &dwNewThreadId);
+            Kernel32.WaitForSingleObject(hThread, -1);
+
+            result = (bool)gcHandle.Target;
+            Assert.True(result);
+            Assert.NotEqual(dwThreadId, dwNewThreadId);
+        }
+        finally
+        {
+            gcHandle.Free();
+        }
+    }
+
+    /// <summary>
+    /// Basic validation for <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, SIZE_T, THREAD_START_ROUTINE, IntPtr, CreateProcessFlags, PROC_THREAD_ATTRIBUTE_LIST*, int*)"/>
+    /// Note that this test DOES NOT create a true REMOTE thread in a foreign process; it just leverages this function to create a thread in the current (i.e, the test) procrss.
+    /// Nevertheless, this approach provides modest confidence that the P/Invoke definition is well-formed.
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(IntPtr)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateRemoteThreadEx_PseudoTest()
+    {
+        var secAttrs = new Kernel32.SECURITY_ATTRIBUTES
+        {
+            bInheritHandle = 1,
+            lpSecurityDescriptor = IntPtr.Zero,
+            nLength = Marshal.SizeOf<Kernel32.SECURITY_ATTRIBUTES>()
+        };
+
+        var dwThreadId = Kernel32.GetCurrentThreadId();
+        using var hProcess = Kernel32.GetCurrentProcess();
+
+        var result = false;
+        var gcHandle = GCHandle.Alloc(result);
+        try
+        {
+            var dwNewThreadId = 0;
+            var hThread =
+                    Kernel32.CreateRemoteThreadEx(
+                        hProcess.DangerousGetHandle(),
+                        &secAttrs,
+                        SIZE_T.Zero,
+                        new Kernel32.THREAD_START_ROUTINE(CreateThread_Test_ThreadMain),
+                        GCHandle.ToIntPtr(gcHandle),
+                        Kernel32.CreateProcessFlags.None,
+                        null,
+                        &dwNewThreadId);
+            Kernel32.WaitForSingleObject(hThread, -1);
+
+            result = (bool)gcHandle.Target;
+            Assert.True(result);
+            Assert.NotEqual(dwThreadId, dwNewThreadId);
+        }
+        finally
+        {
+            gcHandle.Free();
+        }
+    }
+
+    /// <summary>
+    /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and
+    /// <see cref="CreateRemoteThreadEx_PseudoTest"/> tests.
     /// </summary>
     /// <param name="data">
-    /// Data passed by <see cref="CreateThread_Test"/>. This is a pinned <see cref="GCHandle"/> to a <see cref="bool"/>
+    /// Data passed by the test. This is a pinned <see cref="GCHandle"/> to a <see cref="bool"/>
     /// which will be updated to <code>true</code> in this method.
     /// </param>
     /// <returns>
