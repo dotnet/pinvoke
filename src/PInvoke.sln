@@ -146,6 +146,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cabinet", "Cabinet\Cabinet.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cabinet.Tests", "Cabinet.Tests\Cabinet.Tests.csproj", "{12C7FC54-61AA-413E-A53F-B7AD5D738C70}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPHlpApi", "IPHlpApi\IPHlpApi.csproj", "{F00E1C9E-300A-4D42-9128-DDF6307AF0B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPHlpApi.Tests", "IPHlpApi.Tests\IPHlpApi.Tests.csproj", "{4E6F62D4-F647-4DB5-B68F-32D74B1DA3AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -384,6 +388,14 @@ Global
 		{12C7FC54-61AA-413E-A53F-B7AD5D738C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12C7FC54-61AA-413E-A53F-B7AD5D738C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12C7FC54-61AA-413E-A53F-B7AD5D738C70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F00E1C9E-300A-4D42-9128-DDF6307AF0B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F00E1C9E-300A-4D42-9128-DDF6307AF0B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F00E1C9E-300A-4D42-9128-DDF6307AF0B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F00E1C9E-300A-4D42-9128-DDF6307AF0B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E6F62D4-F647-4DB5-B68F-32D74B1DA3AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E6F62D4-F647-4DB5-B68F-32D74B1DA3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E6F62D4-F647-4DB5-B68F-32D74B1DA3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E6F62D4-F647-4DB5-B68F-32D74B1DA3AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
