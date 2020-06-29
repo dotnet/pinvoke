@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 using static PInvoke.NTDll;
@@ -41,6 +43,25 @@ public class NTDllFacts
             SafeNTObjectHandle hObject;
             NTSTATUS status = NtOpenSection(out hObject, Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_READ, attrs);
             Assert.Equal<NTSTATUS>(NTSTATUS.Code.STATUS_ACCESS_DENIED, status);
+        }
+    }
+
+    [Fact]
+    public void NtQueryInformationProcess_Test()
+    {
+        var desiredAccess = new Kernel32.ACCESS_MASK(Kernel32.ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION);
+        using (var process = Kernel32.OpenProcess(desiredAccess, false, Process.GetCurrentProcess().Id))
+        {
+            PROCESS_BASIC_INFORMATION pbi = default;
+
+            var result = NtQueryInformationProcess(
+                    process,
+                    PROCESSINFOCLASS.ProcessBasicInformation,
+                    ref pbi,
+                    Marshal.SizeOf(pbi),
+                    IntPtr.Zero);
+
+            Assert.Equal(NTSTATUS.Code.STATUS_SUCCESS, result.Value);
         }
     }
 }

@@ -71,6 +71,34 @@ namespace PInvoke
             long ConditionMask);
 
         /// <summary>
+        /// Retrieves information about the specified process.
+        /// </summary>
+        /// <param name="ProcessHandle">
+        /// A handle to the process for which information is to be retrieved.
+        /// </param>
+        /// <param name="ProcessInformationClass">
+        /// The type of process information to be retrieved.
+        /// </param>
+        /// <param name="ProcessInformation">
+        /// A pointer to a buffer supplied by the calling application into which the function writes the requested information.
+        /// </param>
+        /// <param name="ProcessInformationLength">
+        /// The size of the buffer pointed to by the <paramref name="ProcessInformation"/> parameter, in bytes.
+        /// </param>
+        /// <param name="ReturnLength">
+        /// A pointer to a variable in which the function returns the size of the requested information. If the function
+        /// was successful, this is the size of the information written to the buffer pointed to by the
+        /// ProcessInformation parameter, but if the buffer was too small, this is the minimum size of buffer needed
+        /// to receive the information successfully.
+        /// </param>
+        /// <returns>
+        /// The function returns an NTSTATUS success or error code.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684280(v=vs.85).aspx"/>
+        [DllImport(nameof(NTDll))]
+        public static extern NTSTATUS NtQueryInformationProcess(Kernel32.SafeObjectHandle ProcessHandle, PROCESSINFOCLASS ProcessInformationClass, ref PROCESS_BASIC_INFORMATION ProcessInformation, int ProcessInformationLength, IntPtr ReturnLength);
+
+        /// <summary>
         /// The NtClose routine closes an object handle.
         /// </summary>
         /// <param name="handle">Handle to an object of any type.</param>
