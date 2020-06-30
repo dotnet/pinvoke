@@ -245,25 +245,25 @@ namespace PInvoke
             IntPtr hwndParent);
 
         /// <summary>
-        /// The <see cref="SetupDiOpenDeviceInfo"/> function adds a device information element for a device instance to a device information set,
+        /// The <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> function adds a device information element for a device instance to a device information set,
         /// if one does not already exist in the device information set, and retrieves information that identifies the device information element
         /// for the device instance in the device information set.
         /// </summary>
         /// <param name="deviceInfoSet">
-        /// A handle to the device information set to which <see cref="SetupDiOpenDeviceInfo"/> adds a device information element, if one does
+        /// A handle to the device information set to which <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> adds a device information element, if one does
         /// not already exist, for the device instance that is specified by <paramref name="deviceInstanceId"/>.
         /// </param>
         /// <param name="deviceInstanceId">
         /// A <see cref="string"/> that supplies the device instance identifier of a device (for example, <c>Root\*PNP0500\0000</c>). If
-        /// <paramref name="deviceInstanceId"/> is <see langword="null"/> or <see cref="string.Empty"/>, <see cref="SetupDiOpenDeviceInfo"/> adds a
+        /// <paramref name="deviceInstanceId"/> is <see langword="null"/> or <see cref="string.Empty"/>, <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> adds a
         /// device information element to the supplied device information set, if one does not already exist, for the root device in the device tree.
         /// </param>
         /// <param name="parent">
         /// The handle to the top-level window to use for any user interface related to installing the device.
-        /// A <see cref="SetupDiOpenDeviceInfo"/> that controls how the device information element is opened.
+        /// A <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> that controls how the device information element is opened.
         /// </param>
         /// <param name="openFlags">
-        /// A variable of <see cref="SetupDiOpenDeviceInfo"/> that controls how the device information element is opened.
+        /// A variable of <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> that controls how the device information element is opened.
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to a caller-supplied <see cref="SP_DEVINFO_DATA"/> structure that receives information about the device information
@@ -282,7 +282,7 @@ namespace PInvoke
             string deviceInstanceId,
             IntPtr parent,
             SetupDiOpenDeviceInfoFlags openFlags,
-            ref SP_DEVINFO_DATA deviceInfoData);
+            [Friendly(FriendlyFlags.Bidirectional)] SP_DEVINFO_DATA* deviceInfoData);
 
         /// <summary>
         /// The <see cref="SetupDiSetSelectedDevice(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*)"/> function sets a device information element as the selected member of a device information set.
