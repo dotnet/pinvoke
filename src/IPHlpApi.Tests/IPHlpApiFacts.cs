@@ -11,42 +11,45 @@ using Xunit;
 public class IPHlpApiFacts
 {
     [Fact]
-    public void GetExtendedTcpTableTest()
+    public void StructSizeTest()
     {
-        IntPtr tcpTable = IntPtr.Zero;
+        Assert.Equal(0x04, Marshal.SizeOf<IPHlpApi.MIB_TCPTABLE_OWNER_PID>());
+        Assert.Equal(0x18, Marshal.SizeOf<IPHlpApi.MIB_TCPROW_OWNER_PID>());
+    }
+
+    [Fact]
+    public unsafe void GetExtendedTcpTableTest()
+    {
+        IntPtr tcpTablePtr = IntPtr.Zero;
         int tcpTableLength = 0;
 
-        if (IPHlpApi.GetExtendedTcpTable(tcpTable, ref tcpTableLength, sort: true, AddressFamily.InterNetwork, IPHlpApi.TcpTableType.OwnerPidAll, 0) == Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
+        if (IPHlpApi.GetExtendedTcpTable(tcpTablePtr, ref tcpTableLength, bOrder: true, AddressFamily.InterNetwork, IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_PID_ALL, 0) == Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
         {
             try
             {
-                tcpTable = Marshal.AllocHGlobal(tcpTableLength);
+                tcpTablePtr = Marshal.AllocHGlobal(tcpTableLength);
 
-                if (IPHlpApi.GetExtendedTcpTable(tcpTable, ref tcpTableLength, sort: true, AddressFamily.InterNetwork, IPHlpApi.TcpTableType.OwnerPidAll, 0) == Win32ErrorCode.ERROR_SUCCESS)
+                if (IPHlpApi.GetExtendedTcpTable(tcpTablePtr, ref tcpTableLength, bOrder: true, AddressFamily.InterNetwork, IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_PID_ALL, 0) == Win32ErrorCode.ERROR_SUCCESS)
                 {
-                    byte[] data = new byte[tcpTableLength];
-                    Marshal.Copy(tcpTable, data, 0, tcpTableLength);
+                    IPHlpApi.MIB_TCPTABLE_OWNER_PID* tcpTable = (IPHlpApi.MIB_TCPTABLE_OWNER_PID*)tcpTablePtr;
+                    var tableSize = Marshal.SizeOf<IPHlpApi.MIB_TCPTABLE_OWNER_PID>();
 
-                    int offset = 0;
+                    IPHlpApi.MIB_TCPROW_OWNER_PID* tcpRow = (IPHlpApi.MIB_TCPROW_OWNER_PID*)(tcpTablePtr + tableSize);
 
-                    var table = Marshal.PtrToStructure<IPHlpApi.MIB_TCPTABLE_OWNER_PID>(tcpTable + offset);
-                    offset += Marshal.SizeOf<IPHlpApi.MIB_TCPTABLE_OWNER_PID>();
-
-                    for (int i = 0; i < table.Length; ++i)
+                    for (int i = 0; i < tcpTable->dwNumEntries; ++i)
                     {
-                        var row = Marshal.PtrToStructure<IPHlpApi.MIB_TCPROW_OWNER_PID>(tcpTable + offset);
-                        offset += Marshal.SizeOf<IPHlpApi.MIB_TCPROW_OWNER_PID>();
+                        Assert.InRange(tcpRow->LocalPort, 0, 65535);
+                        Assert.True(Enum.IsDefined(typeof(TcpState), tcpRow->dwState));
 
-                        Assert.NotEqual(0, row.LocalPort);
-                        Assert.True(Enum.IsDefined(typeof(TcpState), row.State));
+                        tcpRow++;
                     }
                 }
             }
             finally
             {
-                if (tcpTable != IntPtr.Zero)
+                if (tcpTablePtr != IntPtr.Zero)
                 {
-                    Marshal.FreeHGlobal(tcpTable);
+                    Marshal.FreeHGlobal(tcpTablePtr);
                 }
             }
         }

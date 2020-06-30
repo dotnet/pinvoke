@@ -15,13 +15,12 @@ namespace PInvoke
         /// IP v4 TCP links that are context bound to these PIDs.
         /// </summary>
         /// <seealso href="http://msdn2.microsoft.com/en-us/library/aa366921.aspx"/>
-        [StructLayout(LayoutKind.Sequential)]
         public struct MIB_TCPTABLE_OWNER_PID
         {
             /// <summary>
-            /// The number of MIB_TCPROW_OWNER_PID elements in the table.
+            /// The number of <see cref="MIB_TCPROW_OWNER_PID"/> elements in the table.
             /// </summary>
-            public uint Length;
+            public uint dwNumEntries;
         }
     }
 }

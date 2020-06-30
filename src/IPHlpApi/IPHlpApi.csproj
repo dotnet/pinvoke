@@ -1,7 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
-    <StoreBanned>true</StoreBanned>
+    <TargetFrameworks>$(PlatformSpecificFrameworks);netstandard2.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
