@@ -1632,6 +1632,31 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowDisplayAffinity(IntPtr hWnd, out int dwAffinity);
 
+        /// <summary>
+        /// Enumerates display monitors (including invisible pseudo-monitors associated with the mirroring drivers)
+        /// that intersect a region formed by the intersection of a specified clipping rectangle and the visible region of a device context.
+        /// EnumDisplayMonitors calls an application-defined <see cref="MONITORENUMPROC"/> callback function once for each monitor that is enumerated. Note that <see cref="GetSystemMetrics(SystemMetric)"/> counts only the display monitors.
+        /// </summary>
+        /// <param name="hdc">
+        /// A handle to a display device context that defines the visible region of interest.
+        /// If this parameter is NULL, the hdcMonitor parameter passed to the callback function will be NULL,
+        /// and the visible region of interest is the virtual screen that encompasses all the displays on the desktop.
+        /// </param>
+        /// <param name="lprcClip">
+        /// A pointer to a RECT structure that specifies a clipping rectangle.
+        /// The region of interest is the intersection of the clipping rectangle with the visible region specified by hdc.
+        /// If hdc is non-NULL, the coordinates of the clipping rectangle are relative to the origin of the hdc.If hdc is NULL, the coordinates are virtual-screen coordinates.
+        /// This parameter can be NULL if you don't want to clip the region specified by hdc.
+        /// </param>
+        /// <param name="lpfnEnum">A pointer to a <see cref="MONITORENUMPROC"/> application-defined callback function.</param>
+        /// <param name="dwData">Application-defined data that EnumDisplayMonitors passes directly to the MonitorEnumProc function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        /// <remarks>
+        /// See: https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumdisplaymonitors#remarks
+        /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EnumDisplayMonitors(IntPtr hdc, RECT* lprcClip, MONITORENUMPROC lpfnEnum, void* dwData);
