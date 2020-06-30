@@ -1655,11 +1655,45 @@ namespace PInvoke
         /// If the function fails, the return value is zero.
         /// </returns>
         /// <remarks>
-        /// See: https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumdisplaymonitors#remarks
+        /// See: https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumdisplaymonitors#remarks.
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EnumDisplayMonitors(IntPtr hdc, RECT* lprcClip, MONITORENUMPROC lpfnEnum, void* dwData);
+
+        /// <summary>
+        /// Lets you obtain information about the display devices in the current session.
+        /// </summary>
+        /// <param name="lpDevice">A pointer to the device name. If <c>NULL</c>, function returns information for the display adapter(s) on the machine, based on <paramref name="iDevNum"/>.</param>
+        /// <param name="iDevNum">
+        /// An index value that specifies the display device of interest.
+        /// The operating system identifies each display device in the current session with an index value.
+        /// The index values are consecutive integers, starting at 0. If the current session has three display devices, for example, they are specified by the index values 0, 1, and 2.
+        /// </param>
+        /// <param name="lpDisplayDevice">
+        /// A pointer to a <see cref="DISPLAY_DEVICE"/> structure that receives information about the display device specified by <paramref name="iDevNum"/>.
+        /// Before calling <see cref="EnumDisplayDevices(string, uint, DISPLAY_DEVICE*, EnumDisplayDevicesFlags)"/>, you must initialize the member <see cref="DISPLAY_DEVICE.cb"/> to the size, in bytes, of <see cref="DISPLAY_DEVICE"/>.
+        /// </param>
+        /// <param name="dwFlags">
+        /// Set this flag to <see cref="EnumDisplayDevicesFlags.EDD_GET_DEVICE_INTERFACE_NAME"/> to retrieve the device interface name for <c>GUID_DEVINTERFACE_MONITOR</c>, which is registered by the operating system on a per monitor basis.
+        /// The value is placed in the <see cref="DISPLAY_DEVICE.DeviceID"/> structure returned in <paramref name="lpDisplayDevice"/>.
+        /// The resulting device interface name can be used with SetupAPI functions and serves as a link between GDI monitor devices and SetupAPI monitor devices.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// The function fails if <paramref name="iDevNum"/> is greater than the largest device index.
+        /// </returns>
+        /// <remarks>
+        /// See https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumdisplaydevicesa#remarks.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode, EntryPoint = "EnumDisplayDevicesW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool EnumDisplayDevices(
+            [MarshalAs(UnmanagedType.LPWStr)] string lpDevice,
+            uint iDevNum,
+            [Friendly(FriendlyFlags.Bidirectional)] DISPLAY_DEVICE* lpDisplayDevice,
+            EnumDisplayDevicesFlags dwFlags);
 
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]

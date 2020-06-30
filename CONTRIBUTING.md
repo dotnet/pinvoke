@@ -20,6 +20,8 @@ Please send pull requests to add what you've come up with.
 
 ### How to build
 
+Run the init script at the root of the repo. Run `init -installlocality machine` from an elevated prompt.
+
 The `build.ps1` script at the root of this project will restore packages, build, and run tests.
 With the appropriate switch, this script will perform a subset of these functions.
 
