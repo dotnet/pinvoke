@@ -97,6 +97,7 @@ static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
 static extern PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static extern PInvoke.Kernel32.SetErrorMode(PInvoke.Kernel32.ErrorModes uMode) -> PInvoke.Kernel32.ErrorModes
+static extern PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, long liDistanceToMove, out long lpNewFilePointer, System.IO.SeekOrigin dwMoveMethod) -> bool
 static extern PInvoke.Kernel32.SetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags dwMask, PInvoke.Kernel32.HandleFlags dwFlags) -> bool
 static extern PInvoke.Kernel32.SetLastError(uint dwErrCode) -> void
 static extern PInvoke.Kernel32.SystemTimeToFileTime(PInvoke.Kernel32.SYSTEMTIME* lpSystemTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
