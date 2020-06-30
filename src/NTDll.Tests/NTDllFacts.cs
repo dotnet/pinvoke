@@ -59,7 +59,7 @@ public class NTDllFacts
                     PROCESSINFOCLASS.ProcessBasicInformation,
                     ref pbi,
                     Marshal.SizeOf(pbi),
-                    IntPtr.Zero);
+                    out int _);
 
             Assert.Equal(NTSTATUS.Code.STATUS_SUCCESS, result.Value);
         }
