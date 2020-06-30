@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 
-public unsafe class CabinetFacts
+public unsafe class CabinetFacts : IDisposable
 {
     private readonly Cabinet.FNALLOC fdiAllocMemDelegate;
     private readonly Cabinet.FNFREE fdiFreeMemDelegate;
@@ -21,6 +21,8 @@ public unsafe class CabinetFacts
 
     public CabinetFacts()
     {
+        this.erf = (Cabinet.ERF*)Marshal.AllocHGlobal(sizeof(Cabinet.ERF));
+
         this.fdiAllocMemDelegate = this.AllocMem;
         this.fdiFreeMemDelegate = this.FreeMem;
         this.fdiOpenStreamDelegate = this.Open;
@@ -45,6 +47,11 @@ public unsafe class CabinetFacts
             this.erf);
 
         handle.Dispose();
+    }
+
+    public void Dispose()
+    {
+        Marshal.FreeHGlobal((IntPtr)this.erf);
     }
 
     private IntPtr AllocMem(int byteCount) => Marshal.AllocHGlobal((IntPtr)byteCount);
