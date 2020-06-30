@@ -17,13 +17,12 @@ namespace PInvoke
         /// information element or associated globally with a device information set.
         /// </summary>
         /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff552346(v=vs.85).aspx"/>
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct SP_DEVINSTALL_PARAMS
+        public unsafe struct SP_DEVINSTALL_PARAMS
         {
             /// <summary>
             /// The size, in bytes, of the <seealso cref="SP_DEVINSTALL_PARAMS"/> structure.
             /// </summary>
-            public int Size;
+            public int cbSize;
 
             /// <summary>
             /// Flags that control installation and user interface operations. Some flags can be set before sending the device installation request
@@ -58,7 +57,7 @@ namespace PInvoke
             /// A handle to a caller-supplied file queue where file operations should be queued but not committed.
             /// </para>
             /// <para>
-            /// If you associate a file queue with a device information set (<see cref="SetupApi.SetupDiSetDeviceInstallParams"/>),
+            /// If you associate a file queue with a device information set (<see cref="SetupApi.SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/>),
             /// you must disassociate the queue from the device information set before you delete the device information set. If you fail to
             /// disassociate the file queue, Windows cannot decrement its reference count on the device information set and cannot free the memory.
             /// </para>
@@ -81,19 +80,32 @@ namespace PInvoke
             /// <summary>
             /// This path is used by the <see cref="SetupApi.SetupDiBuildDriverInfoList(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType)"/> function.
             /// </summary>
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-            public string DriverPath;
+            public fixed char DriverPath[260];
+
+            /// <summary>
+            /// Gets the driver path.
+            /// </summary>
+            public string DriverPathString
+            {
+                get
+                {
+                    fixed (char* driverPath = this.DriverPath)
+                    {
+                        return new string(driverPath);
+                    }
+                }
+            }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SP_DEVINSTALL_PARAMS" /> struct
-            /// with <see cref="Size" /> set to the correct value.
+            /// with <see cref="cbSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DEVINSTALL_PARAMS"/>.</returns>
             public static SP_DEVINSTALL_PARAMS Create()
             {
                 return new SP_DEVINSTALL_PARAMS
                 {
-                    Size = Marshal.SizeOf(typeof(SP_DEVINSTALL_PARAMS)),
+                    cbSize = Marshal.SizeOf(typeof(SP_DEVINSTALL_PARAMS)),
                 };
             }
         }

@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
     using FileTime = System.Runtime.InteropServices.ComTypes.FILETIME;
 
@@ -19,12 +20,12 @@ namespace PInvoke
         /// </summary>
         /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff553287(v=vs.85).aspx"/>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 4)]
-        public struct SP_DRVINFO_DATA
+        public unsafe struct SP_DRVINFO_DATA
         {
             /// <summary>
             /// The size, in bytes, of the <see cref="SP_DRVINFO_DATA"/> structure.
             /// </summary>
-            public int Size;
+            public int cbSize;
 
             /// <summary>
             /// The type of driver represented by this structure.
@@ -39,21 +40,18 @@ namespace PInvoke
             /// <summary>
             /// A <see cref="string"/> that describes the device supported by this driver.
             /// </summary>
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = LineLength)]
-            public string Description;
+            public fixed char Description[LINE_LEN];
 
             /// <summary>
             /// A <see cref="string"/> that contains the name of the manufacturer of the device supported by this driver.
             /// </summary>
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = LineLength)]
-            public string MfgName;
+            public fixed char MfgName[LINE_LEN];
 
             /// <summary>
             /// A <see cref="string"/> giving the provider of this driver. This is typically the name of the organization that
             /// creates the driver or INF file. <see cref="ProviderName"/> can be an empty string.
             /// </summary>
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = LineLength)]
-            public string ProviderName;
+            public fixed char ProviderName[LINE_LEN];
 
             /// <summary>
             /// Date of the driver. From the <c>DriverVer</c> entry in the INF file.
@@ -68,25 +66,68 @@ namespace PInvoke
             /// <summary>
             /// The length of the strings that are part of this structure.
             /// </summary>
-            private const int LineLength = 256;
+            private const int LINE_LEN = 256;
+
+            /// <summary>
+            /// Gets a <see cref="string"/> that describes the device supported by this driver.
+            /// </summary>
+            public string DescriptionString
+            {
+                get
+                {
+                    fixed (char* description = this.Description)
+                    {
+                        return new string(description);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Gets a <see cref="string"/> that contains the name of the manufacturer of the device supported by this driver.
+            /// </summary>
+            public string MfgNameString
+            {
+                get
+                {
+                    fixed (char* description = this.MfgName)
+                    {
+                        return new string(description);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Gets a <see cref="string"/> giving the provider of this driver. This is typically the name of the organization that
+            /// creates the driver or INF file. <see cref="ProviderNameString"/> can be an empty string.
+            /// </summary>
+            public string ProviderNameString
+            {
+                get
+                {
+                    fixed (char* description = this.ProviderName)
+                    {
+                        return new string(description);
+                    }
+                }
+            }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SP_DRVINFO_DATA" /> struct
-            /// with <see cref="Size" /> set to the correct value.
+            /// with <see cref="cbSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DRVINFO_DATA"/>.</returns>
             public static SP_DRVINFO_DATA Create()
             {
                 return new SP_DRVINFO_DATA
                 {
-                    Size = Marshal.SizeOf(typeof(SP_DRVINFO_DATA)),
+                    cbSize = Marshal.SizeOf(typeof(SP_DRVINFO_DATA)),
                 };
             }
 
             /// <inheritdoc />
             public override string ToString()
             {
-                return this.Description;
+                return this.DescriptionString;
             }
         }
     }

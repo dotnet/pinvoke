@@ -15,7 +15,7 @@ namespace PInvoke
         /// Controls how the device information element is opened.
         /// </summary>
         [Flags]
-        public enum OpenFlags : uint
+        public enum SetupDiOpenDeviceInfoFlags : uint
         {
             None = 0,
 
