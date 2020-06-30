@@ -307,7 +307,7 @@ namespace PInvoke
             [Friendly(FriendlyFlags.In)] SP_DEVINFO_DATA* deviceInfoData);
 
         /// <summary>
-        /// The <see cref="SetupDiGetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/> function retrieves device installation parameters for a device information
+        /// The <see cref="SetupDiGetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/> function retrieves device installation parameters for a device information
         /// set or a particular device information element.
         /// </summary>
         /// <param name="deviceInfoSet">
@@ -315,7 +315,7 @@ namespace PInvoke
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure that specifies the device information element in <paramref name="deviceInfoSet"/>.
-        /// This parameter is optional and can be <see langword="null"/>. If this parameter is specified, <see cref="SetupDiGetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/>
+        /// This parameter is optional and can be <see langword="null"/>. If this parameter is specified, <see cref="SetupDiGetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/>
         /// retrieves the installation parameters for the specified device. If this parameter is <see langword="null"/>, the function retrieves
         /// the global device installation parameters that are associated with <paramref name="deviceInfoSet"/>.
         /// </param>
@@ -333,7 +333,7 @@ namespace PInvoke
         public static unsafe extern bool SetupDiGetDeviceInstallParams(
             SafeDeviceInfoSetHandle deviceInfoSet,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
-            ref SP_DEVINSTALL_PARAMS deviceInstallParams);
+            [Friendly(FriendlyFlags.Bidirectional)] SP_DEVINSTALL_PARAMS* deviceInstallParams);
 
         /// <summary>
         /// The <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/> function sets device installation parameters for a device information set
