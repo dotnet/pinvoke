@@ -15,7 +15,6 @@ namespace PInvoke
         /// Contains basic information about a process.
         /// </summary>
         /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684280(v=vs.85).aspx"/>
-        [StructLayout(LayoutKind.Sequential)]
         public struct PROCESS_BASIC_INFORMATION
         {
             /// <summary>
