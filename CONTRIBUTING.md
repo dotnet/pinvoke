@@ -175,6 +175,10 @@ anything else found in native header files for these reasons:
  * When a native method accepts a pointer to a single value, you may optionally add this attribute to the
    parameter with more or less flags: `[Friendly(FriendlyFlags.In | FriendlyFlags.Optional)]` which leads
    to the code generator producing `struct?`, `ref struct`, or `ref struct?` overloads for that parameter.
+ * When using `bool`, remember that .NET defaults to treating that as a 4-byte integer,
+   which is equivalent to explicitly specifying `[MarshalAs(UnmanagedType.Bool)]` and is appropriate for the native `BOOL` type.
+   Use `UnmanagedType.U1` when native code uses just 1-byte for its boolean value.
+   [Learn more](https://docs.microsoft.com/en-us/visualstudio/code-quality/ca1414?view=vs-2019).
  * Prefer `enum` types over `int` or `uint` for flags. Generally, name flags enums as `METHODNAMEFlags`.
    For example: `CreateFileFlags` for the flags that are passed to `CreateFile`.
  * Use `IntPtr` for integers that change size based on process architecture (32-bit vs. 64-bit).
