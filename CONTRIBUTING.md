@@ -341,5 +341,5 @@ A good example would be [`SafeHookHandle.cs`](src/User32.Desktop/User32+SafeHook
 [APISets]: https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx
 [APISets8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn505783(v=vs.85).aspx
 
-[PROCESSENTRY32]: https://github.com/dotnet/pinvoke/blob/master/src/Kernel32.Desktop/Kernel32%2BPROCESSENTRY32.cs
-[BCRYPT_ALGORITHM_IDENTIFIER]: https://github.com/dotnet/pinvoke/blob/master/src/BCrypt.Shared/BCrypt%2BBCRYPT_ALGORITHM_IDENTIFIER.cs
+[PROCESSENTRY32]: https://github.com/dotnet/pinvoke/blob/b0cb7c1698d92193c58ce32209de5236a4f6bc9d/src/Kernel32/storebanned/Kernel32%2BPROCESSENTRY32.cs#L81
+[BCRYPT_ALGORITHM_IDENTIFIER]: https://github.com/dotnet/pinvoke/blob/b0cb7c1698d92193c58ce32209de5236a4f6bc9d/src/BCrypt/BCrypt%2BBCRYPT_ALGORITHM_IDENTIFIER.cs#L18
