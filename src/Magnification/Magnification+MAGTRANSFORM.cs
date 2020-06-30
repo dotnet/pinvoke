@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Describes a transformation matrix that a magnifier control uses to magnify screen content.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public unsafe struct MAGTRANSFORM
         {
             /// <summary>

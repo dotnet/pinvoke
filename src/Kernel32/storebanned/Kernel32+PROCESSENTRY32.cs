@@ -16,7 +16,6 @@ namespace PInvoke
         /// <summary>
         /// Describes an entry from a list of the processes residing in the system address space when a snapshot was taken.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [SuppressMessage(
             "StyleCop.CSharp.MaintainabilityRules",
             "SA1401:Fields must be private",

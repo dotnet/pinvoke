@@ -8,7 +8,6 @@ namespace PInvoke
     /// <summary>
     /// The COORD structure defines the X- and Y- coordinates of a point.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
     public struct COORD
     {
         /// <summary>

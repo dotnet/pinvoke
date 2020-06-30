@@ -8,7 +8,6 @@ namespace PInvoke
     /// <summary>
     /// The POINT structure defines the x- and y- coordinates of a point.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
     public struct POINT
     {
         /// <summary>

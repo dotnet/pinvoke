@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about the placement of a window on the screen.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct WINDOWPLACEMENT
         {
             /// <summary>

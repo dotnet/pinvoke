@@ -17,7 +17,6 @@ namespace PInvoke
         /// <summary>
         /// Describes an entry from a list of the modules belonging to the specified process.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [SuppressMessage(
             "StyleCop.CSharp.MaintainabilityRules",
             "SA1401:Fields must be private",

@@ -15,7 +15,6 @@ namespace PInvoke
         /// The USER_INFO_1 structure contains information about a user account, including account name, password data, privilege level, and the path to the user's home directory.
         /// </summary>
         [OfferIntPtrPropertyAccessors]
-        [StructLayout(LayoutKind.Sequential)]
         public unsafe partial struct USER_INFO_1
         {
             /// <summary>

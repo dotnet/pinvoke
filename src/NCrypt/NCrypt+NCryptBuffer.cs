@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// The NCryptBuffer structure is used to identify a variable-length memory buffer.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct NCryptBuffer
         {

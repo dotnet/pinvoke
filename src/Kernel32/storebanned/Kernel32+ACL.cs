@@ -10,7 +10,6 @@ namespace PInvoke
     /// </content>
     public partial class Kernel32
     {
-        [StructLayout(LayoutKind.Sequential)]
         public struct ACL
         {
             public byte AclRevision;

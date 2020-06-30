@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// The CRYPT_KEY_PROV_INFO structure contains information about a key container within a cryptographic service provider (CSP).
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct CRYPT_KEY_PROV_INFO
         {

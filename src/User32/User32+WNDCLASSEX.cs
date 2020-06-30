@@ -15,7 +15,6 @@ namespace PInvoke
         /// Contains window class information. It is used with the <see cref="RegisterClassEx"/> and <see cref="GetClassInfoEx"/> functions.
         /// The <see cref="WNDCLASSEX"/> structure is similar to the <see cref="WNDCLASS"/> structure. There are two differences. <see cref="WNDCLASSEX"/> includes the <see cref="cbSize"/> member, which specifies the size of the structure, and the <see cref="hIconSm"/> member, which contains a handle to a small icon associated with the window class.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct WNDCLASSEX
         {

@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about an assembly that is registered in the global assembly cache.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct ASSEMBLY_INFO
         {

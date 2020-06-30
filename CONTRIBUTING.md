@@ -196,8 +196,13 @@ anything else found in native header files for these reasons:
 | `WPARAM`    | `IntPtr`  |
 | `LRESULT`   | `IntPtr`  |
 
+### Structs
 
-### Struct field types
+Tip: Avoid adding `[StructLayout(LayoutKind.Sequential)]` to your structs,
+as [this is the default in C#](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.structlayoutattribute?view=netcore-3.1#remarks) and thus just more verbose than necessary.
+You may need the attribute to add additional properties however, such as forcing a particular `Pack` property or `CharSet`.
+
+#### Field types
 
 When defining a struct, we should take care to make sure the struct is 'pinnable' (i.e. all fields must be
 value types rather than reference types.) Benefits of structs being pinnable include:

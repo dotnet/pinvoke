@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// A structure is used with the <see cref="KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY"/> property to contain length information for a key.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct NCRYPT_SUPPORTED_LENGTHS : IEnumerable<int>
         {
             /// <summary>

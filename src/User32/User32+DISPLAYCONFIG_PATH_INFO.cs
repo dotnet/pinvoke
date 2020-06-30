@@ -11,7 +11,6 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
         public struct DISPLAYCONFIG_PATH_INFO
         {
             public DISPLAYCONFIG_PATH_SOURCE_INFO sourceInfo;

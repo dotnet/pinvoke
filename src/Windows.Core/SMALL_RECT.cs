@@ -12,7 +12,6 @@ namespace PInvoke
     /// This structure is used by console functions to specify rectangular areas of console screen buffers,
     /// where the coordinates specify the rows and columns of screen-buffer character cells.
     /// </remarks>
-    [StructLayout(LayoutKind.Sequential)]
     public struct SMALL_RECT
     {
         /// <summary>

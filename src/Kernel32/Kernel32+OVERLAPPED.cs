@@ -33,7 +33,6 @@ namespace PInvoke
         /// using the WaitForMultipleObjects function.
         /// </para>
         /// </remarks>
-        [StructLayout(LayoutKind.Sequential)]
         public struct OVERLAPPED
         {
             /// <summary>

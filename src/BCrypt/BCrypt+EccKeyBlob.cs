@@ -11,7 +11,6 @@ namespace PInvoke
     /// </content>
     public partial class BCrypt
     {
-        [StructLayout(LayoutKind.Sequential)]
         public struct EccKeyBlob
         {
             /// <summary>

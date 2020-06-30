@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         ///     Contains information about a client session on a Remote Desktop Session Host (RD Session Host) server.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct WTS_SESSION_INFO
         {

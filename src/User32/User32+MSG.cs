@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains message information from a thread's message queue.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct MSG
         {
             /// <summary>
