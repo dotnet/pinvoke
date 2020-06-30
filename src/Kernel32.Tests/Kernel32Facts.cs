@@ -51,22 +51,23 @@ public partial class Kernel32Facts
     [Fact]
     public void GetVolumeInformationTest()
     {
-        StringBuilder volumeNameBuffer = new StringBuilder(261);
-        StringBuilder fileSystemNameBuffer = new StringBuilder(261);
-        uint serialNumber, maxlen;
-        FileSystemFeature flags;
+        char[] volumeNameBuffer = new char[261];
+        char[] fileSystemNameBuffer = new char[261];
+        uint serialNumber;
+        int maxlen;
+        FileSystemFlags flags;
 
         var systemDrive = Path.GetPathRoot(Environment.SystemDirectory);
 
-        if (!Kernel32.GetVolumeInformation(systemDrive, volumeNameBuffer, volumeNameBuffer.Capacity, out serialNumber, out maxlen, out flags, fileSystemNameBuffer, fileSystemNameBuffer.Capacity))
+        if (!Kernel32.GetVolumeInformation(systemDrive, volumeNameBuffer, volumeNameBuffer.Length, out serialNumber, out maxlen, out flags, fileSystemNameBuffer, fileSystemNameBuffer.Length))
         {
             Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
         }
 
-        Assert.NotEmpty(volumeNameBuffer.ToString());
+        Assert.NotEmpty(new string(volumeNameBuffer));
         Assert.NotEqual(0u, serialNumber);
-        Assert.NotEqual(0u, maxlen);
-        Assert.NotEqual((FileSystemFeature)0, flags);
-        Assert.NotEmpty(fileSystemNameBuffer.ToString());
+        Assert.NotEqual(0, maxlen);
+        Assert.NotEqual((FileSystemFlags)0, flags);
+        Assert.NotEmpty(new string(fileSystemNameBuffer));
     }
 }

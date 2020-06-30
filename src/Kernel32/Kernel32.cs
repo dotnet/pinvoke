@@ -768,14 +768,14 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetVolumeInformation(
+        public static unsafe extern bool GetVolumeInformation(
             string lpRootPathName,
-            StringBuilder lpVolumeNameBuffer,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpVolumeNameBuffer,
             int nVolumeNameSize,
             out uint lpVolumeSerialNumber,
-            out uint lpMaximumComponentLength,
-            out FileSystemFeature lpFileSystemFlags,
-            StringBuilder lpFileSystemNameBuffer,
+            out int lpMaximumComponentLength,
+            out FileSystemFlags lpFileSystemFlags,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFileSystemNameBuffer,
             int nFileSystemNameSize);
 
         /// <summary>
