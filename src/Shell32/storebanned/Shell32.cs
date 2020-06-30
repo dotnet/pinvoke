@@ -157,5 +157,25 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(Shell32))]
         public static extern unsafe void ILFree(void* pidl);
+
+        /// <summary>
+        /// Parses a Unicode command line string and returns an array of pointers to the command line arguments,
+        /// along with a count of such arguments, in a way that is similar to the standard C run-time <c>argv</c>
+        /// and <c>argc</c> values.
+        /// </summary>
+        /// <param name="lpCmdLine">
+        /// Pointer to a <see cref="string"/> that contains the full command line. If this parameter is an empty string the
+        /// function returns the path to the current executable file.
+        /// </param>
+        /// <param name="pNumArgs">
+        /// An <see cref="int"/> that receives the number of array elements returned, similar to <c>argc</c>.
+        /// </param>
+        /// <returns>
+        /// A pointer to an array of <see cref="string"/> values, similar to <c>argv</c>.
+        /// If the function fails, the return value is <see cref="IntPtr.Zero"/>.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb776391(v=vs.85).aspx"/>
+        [DllImport(nameof(Shell32), SetLastError = true)]
+        public static unsafe extern char** CommandLineToArgvW(string lpCmdLine, out int pNumArgs);
     }
 }
