@@ -75,15 +75,16 @@ Library      | Package name     | NuGet       | Description
 -------------|------------------|-------------|-------------
 advapi32.dll |`PInvoke.AdvApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.AdvApi32)](https://www.nuget.org/packages/PInvoke.AdvApi32)|Windows Advanced Services
 bcrypt.dll   |`PInvoke.BCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.BCrypt)](https://www.nuget.org/packages/PInvoke.BCrypt)|[Windows Cryptography API: Next Generation][CNG]
+cabinet.dll  |`PInvoke.Cabinet` | [![NuGet](https://buildstats.info/nuget/PInvoke.Cabinet)](https://www.nuget.org/packages/PInvoke.Cabinet)|[Cabinet API Functions][Cabinet]
 crypt32.dll  |`PInvoke.Crypt32` | [![NuGet](https://buildstats.info/nuget/PInvoke.Crypt32)](https://www.nuget.org/packages/PInvoke.Crypt32)|[Windows Cryptography API][Crypt32]
 DwmApi.dll   |`PInvoke.DwmApi`  | [![NuGet](https://buildstats.info/nuget/PInvoke.DwmApi)](https://www.nuget.org/packages/PInvoke.DwmApi)|[Desktop Window Manager][DwmApi]
+fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://buildstats.info/nuget/PInvoke.Fusion)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
 gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://buildstats.info/nuget/PInvoke.Gdi32)](https://www.nuget.org/packages/PInvoke.Gdi32)|[Windows Graphics Device Interface][Gdi]
 hid.dll      |`PInvoke.Hid`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Hid)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
 kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://buildstats.info/nuget/PInvoke.Kernel32)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
 magnification.dll |`PInvoke.Magnification`| [![NuGet](https://buildstats.info/nuget/PInvoke.Magnification)](https://www.nuget.org/packages/PInvoke.Magnification)|[Windows Magnification API][Magnification]
 mscoree.dll  |`PInvoke.MSCorEE` | [![NuGet](https://buildstats.info/nuget/PInvoke.MSCorEE)](https://www.nuget.org/packages/PInvoke.MSCorEE)|.NET Framework CLR host
 msi.dll      |`PInvoke.Msi`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Msi)](https://www.nuget.org/packages/PInvoke.Msi)|[Microsoft Installer][Msi]
-fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://buildstats.info/nuget/PInvoke.Fusion)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
 ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.NCrypt)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
 netapi32.dll |`PInvoke.NetApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.NetApi32)](https://www.nuget.org/packages/PInvoke.NetApi32)|[Network Management][NetApi32]
 ntdll.dll    |`PInvoke.NTDll`   | [![NuGet](https://buildstats.info/nuget/PInvoke.NTDll)](https://www.nuget.org/packages/PInvoke.NTDll)|Windows NTDll
@@ -95,7 +96,6 @@ user32.dll   |`PInvoke.User32`  | [![NuGet](https://buildstats.info/nuget/PInvok
 userenv.dll  |`PInvoke.Userenv` | [![NuGet](https://buildstats.info/nuget/PInvoke.Userenv)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
 uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://buildstats.info/nuget/PInvoke.UxTheme)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
 WtsApi32.dll |`PInvoke.WtsApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.WtsApi32)](https://www.nuget.org/packages/PInvoke.WtsApi32)|[Windows Remote Desktop Services][WtsApi32]
-cabinet.dll  |`PInvoke.Cabinet` | [![NuGet](https://buildstats.info/nuget/PInvoke.Cabinet)](https://www.nuget.org/packages/PInvoke.Cabinet)|[Cabinet API Functions][Cabinet]
 
 Check out the [P/Invoke coverage][PInvokeCoverageReport] we have for each library.
 

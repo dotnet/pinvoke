@@ -119,8 +119,20 @@ namespace PInvoke
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate uint FNSEEK(int hf, int dist, SeekOrigin seektype);
 
+        /// <summary>
+        /// The <see cref="FNFDINOTIFY"/> macro provides the declaration for the application-defined callback notification function to update the application on the status of the decoder.
+        /// </summary>
+        /// <param name="fdint">
+        /// The type of notification.
+        /// </param>
+        /// <param name="fdin">
+        /// The notification.
+        /// </param>
+        /// <returns>
+        /// The return value, which is passed from the application to the Cabinet API.
+        /// </returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate int PFNNOTIFY(NOTIFICATIONTYPE fdint, NOTIFICATION fdin);
+        public delegate int FNFDINOTIFY(NOTIFICATIONTYPE fdint, NOTIFICATION fdin);
 
         /// <summary>
         /// The FDICreate function creates an FDI context.
@@ -204,7 +216,7 @@ namespace PInvoke
             string pszCabinet,
             string pszCabPath,
             int flags,
-            PFNNOTIFY pfnfdin,
+            FNFDINOTIFY pfnfdin,
             void* pfnfdid,
             void* pvUser);
 
