@@ -10,10 +10,10 @@
     <!-- <Nullable>enable</Nullable> -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <DesktopOnlyFrameworks>net45;net20</DesktopOnlyFrameworks>
+    <DesktopOnlyFrameworks>net45</DesktopOnlyFrameworks>
     <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0</PlatformSpecificFrameworks> <!-- win8 -->
-    <!-- Target frameworks beyond .NET Standard 1.1 are added to individual projects on an as-needed basis. -->
-    <PortableOnlyFrameworks>netstandard1.1</PortableOnlyFrameworks>
+    <!-- Target frameworks beyond .NET Standard 2.0 are added to individual projects on an as-needed basis. -->
+    <PortableOnlyFrameworks>netstandard2.0</PortableOnlyFrameworks>
     <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 
     <TargetPlatformMinVersion Condition=" '$(TargetFramework)' == 'win8' ">8.0</TargetPlatformMinVersion>

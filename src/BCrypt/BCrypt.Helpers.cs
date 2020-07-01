@@ -749,7 +749,7 @@ namespace PInvoke
                 fixed (byte* pValue = value.Array)
                 {
                     IntPtr pValuePtr = new IntPtr(pValue + value.Offset);
-#if NETSTANDARD1_3_ORLATER || NETFX_CORE
+#if NETSTANDARD2_0_ORLATER || NETFX_CORE
                     return Marshal.PtrToStructure<T>(pValuePtr);
 #else
                     return (T)Marshal.PtrToStructure(pValuePtr, typeof(T));

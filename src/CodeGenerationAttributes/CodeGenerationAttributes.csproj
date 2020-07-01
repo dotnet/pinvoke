@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(PortableOnlyFrameworks);net20</TargetFrameworks>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
     <AssemblyName>CodeGenerationAttributes</AssemblyName>
   </PropertyGroup>
   <ItemGroup>

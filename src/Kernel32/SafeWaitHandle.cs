@@ -1,7 +1,7 @@
 ﻿// Copyright © .NET Foundation and Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#if NETSTANDARD1_1 || NETPORTABLE || WINDOWS8 || WINDOWS_UWP
+#if NETPORTABLE || WINDOWS8 || WINDOWS_UWP
 
 namespace Microsoft.Win32.SafeHandles
 {
