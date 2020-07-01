@@ -240,8 +240,7 @@ namespace PInvoke
         /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff550956(v=vs.85).aspx"/>
         [DllImport(nameof(SetupApi), SetLastError = true)]
         public static unsafe extern SafeDeviceInfoSetHandle SetupDiCreateDeviceInfoList(
-            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)]
-            Guid* classGuid,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Guid* classGuid,
             IntPtr hwndParent);
 
         /// <summary>
@@ -336,7 +335,7 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Bidirectional)] SP_DEVINSTALL_PARAMS* deviceInstallParams);
 
         /// <summary>
-        /// The <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/> function sets device installation parameters for a device information set
+        /// The <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/> function sets device installation parameters for a device information set
         /// or a particular device information element.
         /// </summary>
         /// <param name="deviceInfoSet">
@@ -344,8 +343,8 @@ namespace PInvoke
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure that specifies a device information element in <paramref name="deviceInfoSet"/>.
-        /// This parameter is optional and can be set to <see langword="null"/>. If this parameter is specified, <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/>
-        /// sets the installation parameters for the specified device. If this parameter is <see langword="null"/>, <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/>
+        /// This parameter is optional and can be set to <see langword="null"/>. If this parameter is specified, <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/>
+        /// sets the installation parameters for the specified device. If this parameter is <see langword="null"/>, <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/>
         /// sets the installation parameters that are associated with the global class driver list for <paramref name="deviceInfoSet"/>.
         /// </param>
         /// <param name="deviceInstallParams">
@@ -362,7 +361,7 @@ namespace PInvoke
         public static unsafe extern bool SetupDiSetDeviceInstallParams(
             SafeDeviceInfoSetHandle deviceInfoSet,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
-            ref SP_DEVINSTALL_PARAMS deviceInstallParams);
+            [Friendly(FriendlyFlags.In)] SP_DEVINSTALL_PARAMS* deviceInstallParams);
 
         /// <summary>
         /// The <see cref="SetupDiBuildDriverInfoList(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType)"/> function builds a list of drivers that is associated with a specific device or with the

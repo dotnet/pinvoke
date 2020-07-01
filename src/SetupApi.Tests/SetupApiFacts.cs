@@ -104,10 +104,10 @@ public unsafe class SetupApiFacts
 
             SP_DEVINSTALL_PARAMS deviceInstallParams = SP_DEVINSTALL_PARAMS.Create();
 
-            Assert.True(SetupApi.SetupDiSetDeviceInstallParams(deviceInfoSet, deviceInfoData, ref deviceInstallParams));
+            Assert.True(SetupApi.SetupDiSetDeviceInstallParams(deviceInfoSet, deviceInfoData, deviceInstallParams));
 
             deviceInfoData = SP_DEVINFO_DATA.Create();
-            Assert.False(SetupApi.SetupDiSetDeviceInstallParams(deviceInfoSet, deviceInfoData, ref deviceInstallParams));
+            Assert.False(SetupApi.SetupDiSetDeviceInstallParams(deviceInfoSet, deviceInfoData, deviceInstallParams));
         }
     }
 
