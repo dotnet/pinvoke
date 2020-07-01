@@ -17,7 +17,6 @@ namespace PInvoke
         /// rather than copied around because it is just the header to a native buffer.
         /// </summary>
         /// <remarks>Used by <see cref="ITEMIDLIST"/></remarks>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct SHITEMID
         {

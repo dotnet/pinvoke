@@ -19,7 +19,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about the loaded image.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct LOADED_IMAGE
         {

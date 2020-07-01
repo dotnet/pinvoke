@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         ///  Contains information for an application. This information can be used to paint the client area of a window owned by that application.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public unsafe struct PAINTSTRUCT
         {
             /// <summary>

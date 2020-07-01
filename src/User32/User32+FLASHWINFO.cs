@@ -13,7 +13,6 @@ namespace PInvoke
         ///     Contains the flash status for a window and the number of times the system should flash the window. Used in
         ///     <see cref="FlashWindowEx" />.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct FLASHWINFO
         {
             /// <summary>The size of the structure, in bytes.</summary>

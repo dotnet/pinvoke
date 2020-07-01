@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Returned by the <see cref="GetThemeMargins(SafeThemeHandle, User32.SafeDCHandle, int, int, int, RECT*, out MARGINS)"/> function to define the margins of windows that have visual styles applied.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct MARGINS
         {
             /// <summary>

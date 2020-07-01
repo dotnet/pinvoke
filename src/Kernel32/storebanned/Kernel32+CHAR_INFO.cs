@@ -14,7 +14,6 @@ namespace PInvoke
         /// Specifies a Unicode or ANSI character and its attributes.
         /// This structure is used by console functions to read from and write to a console screen buffer.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct CHAR_INFO
         {
             /// <summary>

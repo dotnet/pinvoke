@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a window station or desktop handle.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct USEROBJECTFLAGS
         {
             /// <summary>

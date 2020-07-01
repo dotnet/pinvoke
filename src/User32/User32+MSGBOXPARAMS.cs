@@ -11,7 +11,6 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
         public unsafe struct MSGBOXPARAMS
         {
             public int cbSize;

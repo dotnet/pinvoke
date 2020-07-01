@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Represents a reference that an application makes to an assembly that the application has installed in the global assembly cache.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct FUSION_INSTALL_REFERENCE
         {

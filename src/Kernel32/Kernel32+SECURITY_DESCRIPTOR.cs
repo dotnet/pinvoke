@@ -11,7 +11,6 @@ namespace PInvoke
     /// </content>
     public partial class Kernel32
     {
-        [StructLayout(LayoutKind.Sequential)]
         public struct SECURITY_DESCRIPTOR
         {
             public byte Revision;

@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Represents the preferred node on which to run a service.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServicePreferredNodeInfo
         {
             /// <summary>

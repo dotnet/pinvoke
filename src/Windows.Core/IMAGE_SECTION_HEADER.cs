@@ -8,7 +8,6 @@ namespace PInvoke
     /// <summary>
     /// Represents the image section header format.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
     public unsafe partial struct IMAGE_SECTION_HEADER
     {
         /// <summary>

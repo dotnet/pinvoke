@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Used to receive a collection of <see cref="NCryptBuffer"/> structures.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct NCryptBufferDesc
         {

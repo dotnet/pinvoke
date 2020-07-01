@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Specifies Desktop Window Manager (DWM) blur-behind properties. Used by the <see cref="DwmEnableBlurBehindWindow(IntPtr, DWM_BLURBEHIND*)"/> function.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public partial struct DWM_BLURBEHIND
         {
             /// <summary>

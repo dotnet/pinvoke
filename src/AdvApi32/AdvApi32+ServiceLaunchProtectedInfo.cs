@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Indicates a service protection type.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServiceLaunchProtectedInfo
         {
             /// <summary>

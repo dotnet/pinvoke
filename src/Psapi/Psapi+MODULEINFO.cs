@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// The MODULEINFO structure specifies processmodules properties.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct MODULEINFO
         {

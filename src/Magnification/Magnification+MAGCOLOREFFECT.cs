@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Describes a color transformation matrix that a magnifier control uses to apply a color effect to magnified screen content.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public unsafe struct MAGCOLOREFFECT
         {
             /// <summary>

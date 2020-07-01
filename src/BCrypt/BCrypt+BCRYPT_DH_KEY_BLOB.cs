@@ -14,7 +14,6 @@ namespace PInvoke
         /// A key blob format for transporting DH keys.
         /// Used as a header for a Diffie-Hellman public key or private key BLOB in memory.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_DH_KEY_BLOB
         {
             /// <summary>

@@ -16,7 +16,6 @@ namespace PInvoke
         /// <summary>
         /// Specifies the window station, desktop, standard handles, and appearance of the main window for a process at creation time.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct STARTUPINFO
         {

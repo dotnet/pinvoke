@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// The BCRYPT_PKCS1_PADDING_INFO structure is used to provide options for the PKCS #1 padding scheme.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct BCRYPT_PKCS1_PADDING_INFO
         {

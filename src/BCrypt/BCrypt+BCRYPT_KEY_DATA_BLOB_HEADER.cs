@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Used to contain information about a key data BLOB. The key data BLOB must immediately follow this structure in memory.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_KEY_DATA_BLOB_HEADER
         {
             /// <summary>

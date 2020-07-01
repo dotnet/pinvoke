@@ -14,7 +14,6 @@ namespace PInvoke
         /// Contains the name of a service in a service control manager database and information about that service.
         /// It is used by the EnumDependentServices and EnumServicesStatus functions.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct ENUM_SERVICE_STATUS
         {
             /// <summary>

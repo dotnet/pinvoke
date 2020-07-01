@@ -14,11 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a menu item.
         /// </summary>
-#if NETPORTABLE
-        [StructLayout(LayoutKind.Sequential)]
-#else
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-#endif
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct MENUITEMINFO
         {

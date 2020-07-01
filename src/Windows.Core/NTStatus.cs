@@ -33,7 +33,6 @@ namespace PInvoke
     /// The success status codes 0 - 63 are reserved for wait completion status.
     /// </remarks>
     [DebuggerDisplay("{Value}")]
-    [StructLayout(LayoutKind.Sequential)]
     public partial struct NTSTATUS : IComparable, IComparable<NTSTATUS>, IEquatable<NTSTATUS>, IFormattable
     {
         /// <summary>

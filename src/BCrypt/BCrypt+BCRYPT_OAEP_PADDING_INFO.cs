@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// The BCRYPT_OAEP_PADDING_INFO structure is used to provide options for the Optimal Asymmetric Encryption Padding (OAEP) scheme.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct BCRYPT_OAEP_PADDING_INFO
         {

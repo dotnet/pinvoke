@@ -15,7 +15,6 @@ namespace PInvoke
         /// Contains trigger-specific data for a service trigger event.
         /// This structure is used by the <see cref="ServiceTrigger"/> structure for <see cref="ServiceTriggerType.SERVICE_TRIGGER_TYPE_CUSTOM"/>, <see cref="ServiceTriggerType.SERVICE_TRIGGER_TYPE_DEVICE_INTERFACE_ARRIVAL"/>, <see cref="ServiceTriggerType.SERVICE_TRIGGER_TYPE_FIREWALL_PORT_EVENT"/>, or <see cref="ServiceTriggerType.SERVICE_TRIGGER_TYPE_NETWORK_ENDPOINT"/> trigger events.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct SERVICE_TRIGGER_SPECIFIC_DATA_ITEM
         {
             /// <summary>

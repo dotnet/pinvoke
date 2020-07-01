@@ -14,7 +14,6 @@ namespace PInvoke
     /// For example, when RECT is passed to the FillRect function, the rectangle is filled up to, but not including,
     /// the right column and bottom row of pixels. This structure is identical to the RECTL structure.
     /// </remarks>
-    [StructLayout(LayoutKind.Sequential)]
     public struct RECT
     {
         /// <summary>

@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains a service description.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServiceDescription
         {
             /// <summary>

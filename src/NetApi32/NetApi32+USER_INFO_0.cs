@@ -14,7 +14,6 @@ namespace PInvoke
         /// The USER_INFO_0 structure contains a user account name.
         /// </summary>
         [OfferIntPtrPropertyAccessors]
-        [StructLayout(LayoutKind.Sequential)]
         public unsafe partial struct USER_INFO_0
         {
             /// <summary>
