@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Msi\Msi.csproj" />
     <ProjectReference Include="..\NCrypt\NCrypt.csproj" />
     <ProjectReference Include="..\NetApi32\NetApi32.csproj" />
+    <ProjectReference Include="..\NewDev\NewDev.csproj" />
     <ProjectReference Include="..\NTDll\NTDll.csproj" />
     <ProjectReference Include="..\Ole32\Ole32.csproj" />
     <ProjectReference Include="..\Psapi\Psapi.csproj" />
