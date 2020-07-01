@@ -81,6 +81,7 @@ DwmApi.dll   |`PInvoke.DwmApi`  | [![NuGet](https://buildstats.info/nuget/PInvok
 fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://buildstats.info/nuget/PInvoke.Fusion)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
 gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://buildstats.info/nuget/PInvoke.Gdi32)](https://www.nuget.org/packages/PInvoke.Gdi32)|[Windows Graphics Device Interface][Gdi]
 hid.dll      |`PInvoke.Hid`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Hid)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
+iphlpapi.dll |`PInvoke.IPHlpApi`| [![NuGet](https://buildstats.info/nuget/PInvoke.IPHlpApi)](https://www.nuget.org/packages/PInvoke.IPHlpApi)|[IP Helper](IPHlpApi)
 kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://buildstats.info/nuget/PInvoke.Kernel32)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
 magnification.dll |`PInvoke.Magnification`| [![NuGet](https://buildstats.info/nuget/PInvoke.Magnification)](https://www.nuget.org/packages/PInvoke.Magnification)|[Windows Magnification API][Magnification]
 mscoree.dll  |`PInvoke.MSCorEE` | [![NuGet](https://buildstats.info/nuget/PInvoke.MSCorEE)](https://www.nuget.org/packages/PInvoke.MSCorEE)|.NET Framework CLR host
@@ -118,6 +119,7 @@ For more information see the [.NET Foundation Code of Conduct](https://dotnetfou
 [Crypt32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa380256
 [DwmApi]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa969540.aspx
 [Hid]: https://msdn.microsoft.com/en-us/library/windows/hardware/ff538865
+[IPHlpApi]: https://docs.microsoft.com/en-us/windows/win32/api/_iphlp/
 [Magnification]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms692162
 [Msi]: https://msdn.microsoft.com/en-us/library/aa372860.aspx
 [SetupApi]: https://msdn.microsoft.com/en-us/library/windows/hardware/ff550855
