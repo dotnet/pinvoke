@@ -1,0 +1,2 @@
+static PInvoke.Shell32.CommandLineToArgvW_IntPtr(string lpCmdLine, out int pNumArgs) -> System.IntPtr
+static extern PInvoke.Shell32.CommandLineToArgvW(string lpCmdLine, out int pNumArgs) -> char**
