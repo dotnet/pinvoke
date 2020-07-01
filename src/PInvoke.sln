@@ -150,6 +150,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDev", "NewDev\NewDev.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDev.Tests", "NewDev.Tests\NewDev.Tests.csproj", "{AC073C9F-A06E-49F5-A7E8-D0BECF0AD30D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUsb", "WinUsb\WinUsb.csproj", "{7E3C9790-DF5F-4B77-B8D0-1389612FB6A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUsb.Tests", "WinUsb.Tests\WinUsb.Tests.csproj", "{1F5458CE-CD32-41FA-B946-A3D9983C57E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -396,6 +400,14 @@ Global
 		{AC073C9F-A06E-49F5-A7E8-D0BECF0AD30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC073C9F-A06E-49F5-A7E8-D0BECF0AD30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC073C9F-A06E-49F5-A7E8-D0BECF0AD30D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E3C9790-DF5F-4B77-B8D0-1389612FB6A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E3C9790-DF5F-4B77-B8D0-1389612FB6A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E3C9790-DF5F-4B77-B8D0-1389612FB6A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E3C9790-DF5F-4B77-B8D0-1389612FB6A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F5458CE-CD32-41FA-B946-A3D9983C57E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F5458CE-CD32-41FA-B946-A3D9983C57E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F5458CE-CD32-41FA-B946-A3D9983C57E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F5458CE-CD32-41FA-B946-A3D9983C57E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
