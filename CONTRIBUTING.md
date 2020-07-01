@@ -328,8 +328,11 @@ When you remove a member of the public API, build error RS0017 occurs.
 When you add a member to the public API, build warning RS0016 lets you know you need to
 update the PublicAPI.Unshipped.txt file with your new member. This is so that if your
 new API is removed later, it can generate an RS0017 error.
+
 Use the analyzer's automatic code fix in Visual Studio 2019 to update the file and
 include that file change in your commit.
+You must have `net20` selected as the target framework in the Visual Studio editor for the
+code fix to be offered.
 
 ### SafeHandles
 
