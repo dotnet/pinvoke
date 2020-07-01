@@ -26,7 +26,7 @@ namespace PInvoke
             /// The size, in bytes, of the <see cref="SP_DEVINFO_DATA" /> structure. The constructor set this value automatically
             /// to the correct size.
             /// </summary>
-            public int Size;
+            public int cbSize;
 
             /// <summary>
             /// The GUID of the device's setup class.
@@ -50,14 +50,14 @@ namespace PInvoke
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SP_DEVINFO_DATA" /> struct
-            /// with <see cref="Size" /> set to the correct value.
+            /// with <see cref="cbSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DEVINFO_DATA"/>.</returns>
             public static SP_DEVINFO_DATA Create()
             {
                 return new SP_DEVINFO_DATA
                 {
-                    Size = Marshal.SizeOf(typeof(SP_DEVINFO_DATA)),
+                    cbSize = Marshal.SizeOf(typeof(SP_DEVINFO_DATA)),
                 };
             }
         }
