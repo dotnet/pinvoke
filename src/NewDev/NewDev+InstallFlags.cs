@@ -30,7 +30,7 @@ namespace PInvoke
             ReadOnly = 0x2,
 
             /// <summary>
-            /// If this flag is set, the function will return FALSE when any attempt to display UI is
+            /// If this flag is set, the function will return <see langword="false"/> when any attempt to display UI is
             /// detected. Set this flag only if the function will be called from a component (such as a
             /// service) that cannot display UI.
             /// </summary>

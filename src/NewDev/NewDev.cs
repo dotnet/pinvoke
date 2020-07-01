@@ -18,10 +18,10 @@ namespace PInvoke
     public static partial class NewDev
     {
         /// <summary>
-        /// The <see cref="DiInstallDevice"/> function installs a specified driver on a specified device that is present in the system.
+        /// The <see cref="DiInstallDevice(IntPtr, SetupApi.SafeDeviceInfoSetHandle, SetupApi.SP_DEVINFO_DATA*, SetupApi.SP_DRVINFO_DATA*, InstallDeviceFlags, out bool)"/> function installs a specified driver on a specified device that is present in the system.
         /// </summary>
-        /// <param name="parent">
-        /// A handle to the top-level window that <see cref="DiInstallDevice"/> uses to display any user interface component that is associated
+        /// <param name="hwndParent">
+        /// A handle to the top-level window that <see cref="DiInstallDevice(IntPtr, SetupApi.SafeDeviceInfoSetHandle, SetupApi.SP_DEVINFO_DATA*, SetupApi.SP_DRVINFO_DATA*, InstallDeviceFlags, out bool)"/> uses to display any user interface component that is associated
         /// with installing the device. This parameter is optional and can be set to <see cref="IntPtr.Zero"/>.
         /// </param>
         /// <param name="deviceInfoSet">
@@ -32,35 +32,35 @@ namespace PInvoke
         /// </param>
         /// <param name="driverInfoData">
         /// An pointer to an <see cref="SetupApi.SP_DRVINFO_DATA"/> structure that specifies the driver to install on the specified device.
-        /// This parameter is optional and can be set to <see langword="null"/>. If this parameter is <see langword="null"/>, <see cref="DiInstallDevice"/>
+        /// This parameter is optional and can be set to <see langword="null"/>. If this parameter is <see langword="null"/>, <see cref="DiInstallDevice(IntPtr, SetupApi.SafeDeviceInfoSetHandle, SetupApi.SP_DEVINFO_DATA*, SetupApi.SP_DRVINFO_DATA*, InstallDeviceFlags, out bool)"/>
         /// searches the drivers preinstalled in the driver store for the driver that is the best match to the specified device, and, if one is found,
         /// installs the driver on the specified device.
         /// </param>
         /// <param name="flags">
         /// Flags that specify how to install the driver.
         /// </param>
-        /// <param name="NeedReboot">
-        /// A reference to a value of type <see cref="bool"/> that <see cref="DiInstallDevice"/> sets to indicate whether a system restart is required
+        /// <param name="needReboot">
+        /// A reference to a value of type <see cref="bool"/> that <see cref="DiInstallDevice(IntPtr, SetupApi.SafeDeviceInfoSetHandle, SetupApi.SP_DEVINFO_DATA*, SetupApi.SP_DRVINFO_DATA*, InstallDeviceFlags, out bool)"/> sets to indicate whether a system restart is required
         /// to complete the installation. This parameter is optional and can be set to <see cref="IntPtr.Zero"/>. If this parameter is supplied and a
-        /// system restart is required to complete the installation, <see cref="DiInstallDevice"/> sets the value to <see langword="true"/>.
+        /// system restart is required to complete the installation, <see cref="DiInstallDevice(IntPtr, SetupApi.SafeDeviceInfoSetHandle, SetupApi.SP_DEVINFO_DATA*, SetupApi.SP_DRVINFO_DATA*, InstallDeviceFlags, out bool)"/> sets the value to <see langword="true"/>.
         /// In this case, the caller is responsible for restarting the system. If this parameter is supplied and a system restart is not required,
-        /// <see cref="DiInstallDevice"/> sets this parameter to <see langword="false"/>. If this parameter is <see cref="IntPtr.Zero"/> and a system
-        /// restart is required to complete the installation, <see cref="DiInstallDevice"/> displays a system restart dialog box.
+        /// <see cref="DiInstallDevice(IntPtr, SetupApi.SafeDeviceInfoSetHandle, SetupApi.SP_DEVINFO_DATA*, SetupApi.SP_DRVINFO_DATA*, InstallDeviceFlags, out bool)"/> sets this parameter to <see langword="false"/>. If this parameter is <see cref="IntPtr.Zero"/> and a system
+        /// restart is required to complete the installation, <see cref="DiInstallDevice(IntPtr, SetupApi.SafeDeviceInfoSetHandle, SetupApi.SP_DEVINFO_DATA*, SetupApi.SP_DRVINFO_DATA*, InstallDeviceFlags, out bool)"/> displays a system restart dialog box.
         /// </param>
         /// <returns>
         /// The function returns <see langword="true"/> if it is successful.
         /// Otherwise, it returns <see langword="false"/> and the logged error can be retrieved with a call to <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
         /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff544710(v=vs.85).aspx"/>
-        [DllImport(nameof(NewDev), SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(NewDev), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool DiInstallDevice(
-            IntPtr parent,
+        public static extern unsafe bool DiInstallDevice(
+            IntPtr hwndParent,
             SetupApi.SafeDeviceInfoSetHandle deviceInfoSet,
-            ref SetupApi.SP_DEVINFO_DATA deviceInfoData,
-            ref SetupApi.SP_DRVINFO_DATA driverInfoData,
+            [Friendly(FriendlyFlags.In)] SetupApi.SP_DEVINFO_DATA* deviceInfoData,
+            [Friendly(FriendlyFlags.In)] SetupApi.SP_DRVINFO_DATA* driverInfoData,
             InstallDeviceFlags flags,
-            out bool NeedReboot);
+            out bool needReboot);
 
         /// <summary>
         /// Given an INF file and a hardware ID, the <see cref="UpdateDriverForPlugAndPlayDevices"/> function installs
@@ -83,7 +83,7 @@ namespace PInvoke
         /// <param name="installFlags">
         /// A caller-supplied value created by using OR to combine zero or more of the <see cref="InstallFlags"/> values.
         /// </param>
-        /// <param name="rebootRequired">
+        /// <param name="bRebootRequired">
         /// A pointer to a BOOL-typed variable that indicates whether a restart is required and who
         /// should prompt for it. This pointer is optional and can be <see cref="IntPtr.Zero"/>.
         /// </param>
@@ -102,7 +102,7 @@ namespace PInvoke
             [MarshalAs(UnmanagedType.LPWStr)] string hardwareId,
             [MarshalAs(UnmanagedType.LPWStr)] string fullInfPath,
             InstallFlags installFlags,
-            out bool rebootRequired);
+            out bool bRebootRequired);
 
         /// <summary>
         /// The DiUninstallDevice function uninstalls a device and removes its device node (devnode) from the system.
