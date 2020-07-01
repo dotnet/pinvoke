@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.IO;
 #if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
     using System.Runtime.ConstrainedExecution;
 #endif
@@ -374,6 +375,35 @@ namespace PInvoke
             int nNumberOfBytesToWrite,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] int* lpNumberOfBytesWritten,
             OVERLAPPED* lpOverlapped);
+
+        /// <summary>
+        /// Moves the file pointer of the specified file.
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file.
+        /// The file handle must be created with the GENERIC_READ or GENERIC_WRITE access right.
+        /// </param>
+        /// <param name="liDistanceToMove">
+        /// The number of bytes to move the file pointer. A positive value moves the pointer forward in the file and a negative value moves the file pointer backward.
+        /// </param>
+        /// <param name="lpNewFilePointer">
+        /// A pointer to a variable to receive the new file pointer. If this parameter is <see langword="null"/>, the new file pointer is not returned.
+        /// </param>
+        /// <param name="dwMoveMethod">
+        /// The starting point for the file pointer move.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-setfilepointerex"/>
+        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetFilePointerEx(
+            SafeObjectHandle hFile,
+            long liDistanceToMove,
+            out long lpNewFilePointer,
+            SeekOrigin dwMoveMethod);
 
         /// <summary>
         /// Suspends the specified thread.
