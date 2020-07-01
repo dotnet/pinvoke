@@ -99,7 +99,7 @@ namespace PInvoke
         public static unsafe extern NTSTATUS NtQueryInformationProcess(
             Kernel32.SafeObjectHandle ProcessHandle,
             PROCESSINFOCLASS ProcessInformationClass,
-            [Friendly(FriendlyFlags.Out)] void* ProcessInformation,
+            void* ProcessInformation,
             int ProcessInformationLength,
             out int ReturnLength);
 
