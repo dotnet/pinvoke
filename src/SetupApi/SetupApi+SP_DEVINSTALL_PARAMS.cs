@@ -57,7 +57,7 @@ namespace PInvoke
             /// A handle to a caller-supplied file queue where file operations should be queued but not committed.
             /// </para>
             /// <para>
-            /// If you associate a file queue with a device information set (<see cref="SetupApi.SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/>),
+            /// If you associate a file queue with a device information set (<see cref="SetupApi.SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/>),
             /// you must disassociate the queue from the device information set before you delete the device information set. If you fail to
             /// disassociate the file queue, Windows cannot decrement its reference count on the device information set and cannot free the memory.
             /// </para>
