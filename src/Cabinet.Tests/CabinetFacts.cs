@@ -90,7 +90,7 @@ public unsafe class CabinetFacts : IDisposable
 
     private uint Seek(int streamHandle, int offset, SeekOrigin seekOrigin)
     {
-        return Kernel32.SetFilePointer(
+        return Kernel32.SetFilePointerEx(
             new Kernel32.SafeObjectHandle(new IntPtr(streamHandle)),
             offset,
             out long _,

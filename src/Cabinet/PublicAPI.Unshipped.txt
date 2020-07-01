@@ -54,6 +54,7 @@ PInvoke.Cabinet.NOTIFICATIONTYPE.ENUMERATE = 5 -> PInvoke.Cabinet.NOTIFICATIONTY
 PInvoke.Cabinet.NOTIFICATIONTYPE.NEXT_CABINET = 4 -> PInvoke.Cabinet.NOTIFICATIONTYPE
 PInvoke.Cabinet.NOTIFICATIONTYPE.PARTIAL_FILE = 1 -> PInvoke.Cabinet.NOTIFICATIONTYPE
 override PInvoke.Cabinet.FdiHandle.ReleaseHandle() -> bool
+static PInvoke.Cabinet.FDICopy(PInvoke.Cabinet.FdiHandle hfdi, string pszCabinet, string pszCabPath, int flags, PInvoke.Cabinet.FNFDINOTIFY pfnfdin, System.IntPtr pfnfdid, System.IntPtr pvUser) -> bool
 static PInvoke.Cabinet.FDICreate(PInvoke.Cabinet.FNALLOC pfnalloc, PInvoke.Cabinet.FNFREE pfnfree, PInvoke.Cabinet.FNOPEN pfnopen, PInvoke.Cabinet.FNREAD pfnread, PInvoke.Cabinet.FNWRITE pfnwrite, PInvoke.Cabinet.FNCLOSE pfnclose, PInvoke.Cabinet.FNSEEK pfnseek, PInvoke.Cabinet.CpuType cpuType, System.IntPtr perf) -> PInvoke.Cabinet.FdiHandle
 static PInvoke.Cabinet.FDICreate(PInvoke.Cabinet.FNALLOC pfnalloc, PInvoke.Cabinet.FNFREE pfnfree, PInvoke.Cabinet.FNOPEN pfnopen, PInvoke.Cabinet.FNREAD pfnread, PInvoke.Cabinet.FNWRITE pfnwrite, PInvoke.Cabinet.FNCLOSE pfnclose, PInvoke.Cabinet.FNSEEK pfnseek, PInvoke.Cabinet.CpuType cpuType, out PInvoke.Cabinet.ERF perf) -> PInvoke.Cabinet.FdiHandle
 static extern PInvoke.Cabinet.FDICopy(PInvoke.Cabinet.FdiHandle hfdi, string pszCabinet, string pszCabPath, int flags, PInvoke.Cabinet.FNFDINOTIFY pfnfdin, void* pfnfdid, void* pvUser) -> bool
