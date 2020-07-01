@@ -177,8 +177,7 @@ namespace PInvoke
             FNCLOSE pfnclose,
             FNSEEK pfnseek,
             CpuType cpuType,
-            [Friendly(FriendlyFlags.Out)]
-            ERF* perf);
+            [Friendly(FriendlyFlags.Out)] ERF* perf);
 
         /// <summary>
         /// The FDICopy function extracts files from cabinets.
