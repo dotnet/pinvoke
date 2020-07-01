@@ -20,7 +20,7 @@
     <ProjectReference Include="..\Gdi32\Gdi32.csproj" />
     <ProjectReference Include="..\Hid\Hid.csproj" />
     <ProjectReference Include="..\ImageHlp\ImageHlp.csproj" />
-    <ProjectReference Include="..\IPHlpApi\IPHlpApi.csproj" />
+    <ProjectReference Include="..\IPHlpApi\IPHlpApi.csproj" Condition="$(TargetFramework) != 'netstandard1.1'" />
     <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
     <ProjectReference Include="..\Msi\Msi.csproj" />
     <ProjectReference Include="..\NCrypt\NCrypt.csproj" />
