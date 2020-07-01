@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System;
+
     /// <content>
     /// Contains the <see cref="CM_NOTIFY_FILTER_TYPE"/> nested enum.
     /// </content>

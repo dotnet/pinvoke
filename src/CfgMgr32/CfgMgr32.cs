@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <content>
-    /// Exported functions from the NTDll.dll Windows library
+    /// Exported functions from the CfgMgr32.dll Windows library
     /// that are available to Desktop apps only.
     /// </content>
     [OfferFriendlyOverloads]
@@ -32,20 +32,20 @@ namespace PInvoke
         /// The size of the callback data struct.
         /// </param>
         /// <returns>
-        /// If responding to a <see cref="CM_NOTIFY_ACTION.DEVICEQUERYREMOVE"/> notification,
-        /// the <see cref="CM_NOTIFY_CALLBACK"/> callback should return either <c>ERROR_SUCCESS</c> or <c>ERROR_CANCELLED</c>,
-        /// as appropriate. Otherwise, the callback should return <c>ERROR_SUCCESS</c>.
+        /// If responding to a <see cref="CM_NOTIFY_ACTION.CM_NOTIFY_ACTION_DEVICEQUERYREMOVE"/> notification,
+        /// the <see cref="CM_NOTIFY_CALLBACK"/> callback should return either <see cref="Win32ErrorCode.ERROR_SUCCESS"/> or <see cref="Win32ErrorCode.ERROR_CANCELLED"/>,
+        /// as appropriate. Otherwise, the callback should return <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
         /// The callback should not return any other values.
         /// </returns>
-        public delegate uint CM_NOTIFY_CALLBACK(
-            IntPtr notify,
-            IntPtr context,
+        public unsafe delegate Win32ErrorCode CM_NOTIFY_CALLBACK(
+            SafeNotificationHandle notify,
+            void* context,
             CM_NOTIFY_ACTION action,
             IntPtr eventData,
             uint eventDataSize);
 
         /// <summary>
-        /// The <see cref="CM_Register_Notification"/> function registers an application callback routine to be called when a PnP event of the specified type occurs.
+        /// The <see cref="CM_Register_Notification(IntPtr, void*, IntPtr, out SafeNotificationHandle)"/> function registers an application callback routine to be called when a PnP event of the specified type occurs.
         /// </summary>
         /// <param name="pFilter">
         /// Pointer to a <see cref="CM_NOTIFY_FILTER"/> structure.
@@ -64,24 +64,24 @@ namespace PInvoke
         /// Otherwise, it returns one of the error codes defined in <see cref="CONFIGRET"/>.
         /// </returns>
         [DllImport(nameof(CfgMgr32), ExactSpelling = true)]
-        public static extern CONFIGRET CM_Register_Notification(
+        public static unsafe extern CONFIGRET CM_Register_Notification(
             IntPtr pFilter,
-            IntPtr pContext,
+            void* pContext,
             IntPtr pCallback,
-            out IntPtr pNotifyContext);
+            out SafeNotificationHandle pNotifyContext);
 
         /// <summary>
         /// The <see cref="CM_Unregister_Notification"/> function closes the specified <c>HCMNOTIFICATION</c> handle.
         /// </summary>
         /// <param name="pNotifyContext">
-        /// The <c>HCMNOTIFICATION</c> handle returned by the <see cref="CM_Register_Notification"/> function.
+        /// The <c>HCMNOTIFICATION</c> handle returned by the <see cref="CM_Register_Notification(IntPtr, void*, IntPtr, out SafeNotificationHandle)"/> function.
         /// </param>
         /// <returns>
         /// If the operation succeeds, the function returns <see cref="CONFIGRET.CR_SUCCESS"/>.
         /// Otherwise, it returns one of the error codes defined in <see cref="CONFIGRET"/>.
         /// </returns>
         [DllImport(nameof(CfgMgr32), ExactSpelling = true)]
-        public static extern CONFIGRET CM_Unregister_Notification(
+        private static extern CONFIGRET CM_Unregister_Notification(
             IntPtr pNotifyContext);
     }
 }

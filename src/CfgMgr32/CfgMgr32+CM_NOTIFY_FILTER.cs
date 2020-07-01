@@ -21,7 +21,7 @@ namespace PInvoke
             /// The size of the structure.
             /// </summary>
             [FieldOffset(0)]
-            public uint Size;
+            public uint cbSize;
 
             /// <summary>
             /// A combination of flags which define the behavior of the filter type.

@@ -20,7 +20,7 @@ namespace PInvoke
             /// For this value, set <see cref="CM_NOTIFY_FILTER.FilterType"/>
             /// to CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE. This action indicates that a device interface that meets your filter criteria has been enabled.
             /// </summary>
-            DEVICEINTERFACEARRIVAL = 0,
+            CM_NOTIFY_ACTION_DEVICEINTERFACEARRIVAL = 0,
 
             /// <summary>
             /// This action indicates that a device interface that meets your filter criteria has been disabled.
@@ -28,7 +28,7 @@ namespace PInvoke
             /// <remarks>
             /// For this value, set <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE"/>.
             /// </remarks>
-            DEVICEINTERFACEREMOVAL,
+            CM_NOTIFY_ACTION_DEVICEINTERFACEREMOVAL,
 
             /* Filter type: CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE */
 
@@ -45,46 +45,46 @@ namespace PInvoke
             /// <remarks>
             /// For this value, set  <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE"/>.
             /// </remarks>
-            DEVICEQUERYREMOVE,
+            CM_NOTIFY_ACTION_DEVICEQUERYREMOVE,
 
             /// <summary>
             /// This action indicates that the query remove of a device was failed. If you closed the handle to this device during a previous notification of
-            /// <see cref="CM_NOTIFY_ACTION.DEVICEQUERYREMOVE"/>, open a new handle to the device to continue sending I/O requests to it.
+            /// <see cref="CM_NOTIFY_ACTION.CM_NOTIFY_ACTION_DEVICEQUERYREMOVE"/>, open a new handle to the device to continue sending I/O requests to it.
             /// </summary>
             /// <remarks>
             /// For this value, set  <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE"/>.
             /// </remarks>
-            DEVICEQUERYREMOVEFAILED,
+            CM_NOTIFY_ACTION_DEVICEQUERYREMOVEFAILED,
 
             /// <summary>
             /// <para>
             /// The device will be removed. If you still have an open handle to the device, call CloseHandle to close the device handle.
             /// </para>
             /// <para>
-            /// The system may send a <see cref="CM_NOTIFY_ACTION.DEVICEREMOVEPENDING"/> notification without sending
-            /// a corresponding <see cref="CM_NOTIFY_ACTION.DEVICEQUERYREMOVE"/> message.
+            /// The system may send a <see cref="CM_NOTIFY_ACTION.CM_NOTIFY_ACTION_DEVICEREMOVEPENDING"/> notification without sending
+            /// a corresponding <see cref="CM_NOTIFY_ACTION.CM_NOTIFY_ACTION_DEVICEQUERYREMOVE"/> message.
             /// In such cases, the applications and drivers must recover from the loss of the device as best they can.
             /// </para>
             /// </summary>
             /// <remarks>
             /// For this value, set  <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE"/>.
             /// </remarks>
-            DEVICEREMOVEPENDING,
+            CM_NOTIFY_ACTION_DEVICEREMOVEPENDING,
 
             /// <summary>
             /// <para>
             /// The device has been removed. If you still have an open handle to the device, call CloseHandle to close the device handle.
             /// </para>
             /// <para>
-            /// The system may send a <see cref="CM_NOTIFY_ACTION.DEVICEREMOVECOMPLETE"/> notification without sending
-            /// corresponding <see cref="CM_NOTIFY_ACTION.DEVICEQUERYREMOVE"/> or <see cref="CM_NOTIFY_ACTION.DEVICEREMOVEPENDING"/>
+            /// The system may send a <see cref="CM_NOTIFY_ACTION.CM_NOTIFY_ACTION_DEVICEREMOVECOMPLETE"/> notification without sending
+            /// corresponding <see cref="CM_NOTIFY_ACTION.CM_NOTIFY_ACTION_DEVICEQUERYREMOVE"/> or <see cref="CM_NOTIFY_ACTION.CM_NOTIFY_ACTION_DEVICEREMOVEPENDING"/>
             /// messages. In such cases, the applications and drivers must recover from the loss of the device as best they can.
             /// </para>
             /// </summary>
             /// <remarks>
             /// For this value, set <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE"/>.
             /// </remarks>
-            DEVICEREMOVECOMPLETE,
+            CM_NOTIFY_ACTION_DEVICEREMOVECOMPLETE,
 
             /// <summary>
             /// This action is sent when a driver-defined custom event has occurred.
@@ -92,7 +92,7 @@ namespace PInvoke
             /// <remarks>
             /// For this value, set <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE"/>.
             /// </remarks>
-            DEVICECUSTOMEVENT,
+            CM_NOTIFY_ACTION_DEVICECUSTOMEVENT,
 
             /* Filter type: CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE */
 
@@ -102,7 +102,7 @@ namespace PInvoke
             /// <remarks>
             /// For this value, set <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE"/>.
             /// </remarks>
-            DEVICEINSTANCEENUMERATED,
+            CM_NOTIFY_ACTION_DEVICEINSTANCEENUMERATED,
 
             /// <summary>
             /// This action is sent when a device instance that meets your filter criteria becomes started.
@@ -110,7 +110,7 @@ namespace PInvoke
             /// <remarks>
             /// For this value, set <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE"/>.
             /// </remarks>
-            DEVICEINSTANCESTARTED,
+            CM_NOTIFY_ACTION_DEVICEINSTANCESTARTED,
 
             /// <summary>
             /// This action is sent when a device instance that meets your filter criteria is no longer present.
@@ -118,7 +118,7 @@ namespace PInvoke
             /// <remarks>
             /// For this value, set <see cref="CM_NOTIFY_FILTER.FilterType"/> to <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE"/>.
             /// </remarks>
-            DEVICEINSTANCEREMOVED,
+            CM_NOTIFY_ACTION_DEVICEINSTANCEREMOVED,
 
             /// <summary>
             /// Do not use.
