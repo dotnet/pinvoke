@@ -54,7 +54,11 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(WinUsb), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool WinUsb_QueryPipe(SafeUsbHandle interfaceHandle, byte alternateInterfaceNumber, byte pipeIndex, out WINUSB_PIPE_INFORMATION pipeInformation);
+        public static unsafe extern bool WinUsb_QueryPipe(
+            SafeUsbHandle interfaceHandle,
+            byte alternateInterfaceNumber,
+            byte pipeIndex,
+            [Friendly(FriendlyFlags.Out)] WINUSB_PIPE_INFORMATION* pipeInformation);
 
         /// <summary>
         /// Writes data to a pipe.
@@ -84,7 +88,13 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(WinUsb), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool WinUsb_WritePipe(SafeUsbHandle interfaceHandle, byte pipeID, void* buffer, int bufferLength, out int lengthTransferred, NativeOverlapped* overlapped);
+        public static unsafe extern bool WinUsb_WritePipe(
+            SafeUsbHandle interfaceHandle,
+            byte pipeID,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] byte* buffer,
+            int bufferLength,
+            out int lengthTransferred,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] NativeOverlapped* overlapped);
 
         /// <summary>
         /// Reads data from the specified pipe.
@@ -105,9 +115,9 @@ namespace PInvoke
         /// A pointer to a ULONG variable that receives the actual number of bytes that were copied into <paramref name="buffer"/>.
         /// </param>
         /// <param name="overlapped">
-        ///  An optional pointer to an <see cref="NativeOverlapped"/> structure that is used for asynchronous operations.
-        ///  If this parameter is specified, <see cref="WinUsb_ReadPipe"/> returns immediately rather than waiting synchronously for the operation to complete before returning.
-        ///  An event is signaled when the operation is complete.
+        /// An optional pointer to an <see cref="NativeOverlapped"/> structure that is used for asynchronous operations.
+        /// If this parameter is specified, <see cref="WinUsb_ReadPipe"/> returns immediately rather than waiting synchronously for the operation to complete before returning.
+        /// An event is signaled when the operation is complete.
         ///  </param>
         /// <returns>
         /// <see cref="WinUsb_ReadPipe"/> returns <see langword="true"/> if the operation succeeds.
@@ -115,7 +125,13 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(WinUsb), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool WinUsb_ReadPipe(SafeUsbHandle interfaceHandle, byte pipeID, void* buffer, int bufferLength, out int lengthTransferred, NativeOverlapped* overlapped);
+        public static extern unsafe bool WinUsb_ReadPipe(
+            SafeUsbHandle interfaceHandle,
+            byte pipeID,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] byte* buffer,
+            int bufferLength,
+            out int lengthTransferred,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] NativeOverlapped* overlapped);
 
         /// <summary>
         /// Resets the data toggle and clears the stall condition on a pipe.
@@ -132,6 +148,7 @@ namespace PInvoke
         /// Otherwise, this function returns <see langword="false"/>, and the caller can retrieve the logged error by calling <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
         [DllImport(nameof(WinUsb), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool WinUsb_ResetPipe(SafeUsbHandle handle, byte pipeID);
 
         /// <summary>
@@ -149,6 +166,7 @@ namespace PInvoke
         /// Otherwise, this function returns <see langword="false"/>, and the caller can retrieve the logged error by calling <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
         [DllImport(nameof(WinUsb), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool WinUsb_AbortPipe(SafeUsbHandle handle, byte pipeID);
 
         /// <summary>
@@ -162,6 +180,6 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(WinUsb), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool WinUsb_Free(IntPtr handle);
+        private static extern bool WinUsb_Free(IntPtr handle);
     }
 }

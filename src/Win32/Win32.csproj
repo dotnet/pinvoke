@@ -35,7 +35,7 @@
     <ProjectReference Include="..\UxTheme\UxTheme.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
     <ProjectReference Include="..\Windows.ShellScalingApi\Windows.ShellScalingApi.csproj" />
-    <ProjectReference Include="..\WinUsb\WinUsb.csproj" />
+    <ProjectReference Include="..\WinUsb\WinUsb.csproj" Condition="$(TargetFramework) != 'netstandard1.1'" />
     <ProjectReference Include="..\WtsApi32\WtsApi32.csproj" />
     <ProjectReference Include="..\Magnification\Magnification.csproj" />
   </ItemGroup>
