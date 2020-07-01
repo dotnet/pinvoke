@@ -3,6 +3,7 @@
 
 namespace PInvoke
 {
+    using System;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -15,7 +16,7 @@ namespace PInvoke
         /// </summary>
         /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/cfgmgr32/ns-cfgmgr32-cm_notify_filter"/>
         [StructLayout(LayoutKind.Explicit)]
-        public struct CM_NOTIFY_FILTER
+        public unsafe struct CM_NOTIFY_FILTER
         {
             /// <summary>
             /// The size of the structure.
@@ -46,24 +47,21 @@ namespace PInvoke
             /// the device instance ID of the device to receive notifications for.
             /// </summary>
             [FieldOffset(16)]
-            [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 2 * 200)]
-            public byte[] InstanceId;
+            public fixed char InstanceId[CfgMgr32.MAX_DEVICE_ID_LEN];
 
-            // Adding this value to the struct causes marshalling to fail.
-            // /// <summary>
-            // /// When <see cref="FilterType"/> is <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE"/>,
-            // /// a handle to the device to receive notifications for.
-            // /// </summary>
-            // [FieldOffset(16)]
-            // public IntPtr Target;
+            /// <summary>
+            /// When <see cref="FilterType"/> is <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE"/>,
+            /// a handle to the device to receive notifications for.
+            /// </summary>
+            [FieldOffset(16)]
+            public IntPtr Target;
 
             /// <summary>
             /// When <see cref="FilterType"/> is <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE"/>,
             /// the GUID of the device interface class to receive notifications for.
             /// </summary>
             [FieldOffset(16)]
-            [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 16)]
-            public byte[] ClassGuid;
+            public Guid ClassGuid;
         }
     }
 }

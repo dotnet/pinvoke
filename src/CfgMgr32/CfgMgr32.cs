@@ -13,6 +13,8 @@ namespace PInvoke
     [OfferFriendlyOverloads]
     public static partial class CfgMgr32
     {
+        private const int MAX_DEVICE_ID_LEN = 200;
+
         /// <summary>
         /// The callback routine invoked by the Configuration Manager when listening for events.
         /// </summary>
@@ -37,11 +39,12 @@ namespace PInvoke
         /// as appropriate. Otherwise, the callback should return <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.
         /// The callback should not return any other values.
         /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_notification#remarks"/>
         public unsafe delegate Win32ErrorCode CM_NOTIFY_CALLBACK(
             SafeNotificationHandle notify,
             void* context,
             CM_NOTIFY_ACTION action,
-            IntPtr eventData,
+            CM_NOTIFY_EVENT_DATA* eventData,
             uint eventDataSize);
 
         /// <summary>
