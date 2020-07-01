@@ -702,6 +702,83 @@ namespace PInvoke
         public static extern ErrorModes SetErrorMode(ErrorModes uMode);
 
         /// <summary>
+        /// Retrieves information about the file system and volume associated with the specified root directory.
+        /// </summary>
+        /// <param name="lpRootPathName">
+        /// <para>
+        /// A pointer to a string that contains the root directory of the volume to be described.
+        /// </para>
+        /// <para>
+        /// If this parameter is NULL, the root of the current directory is used. A trailing backslash is required.
+        /// For example, you specify <c>\\MyServer\MyShare</c> as <c>"\\MyServer\MyShare\"</c>, or the C drive as
+        /// <c>"C:\"</c>.
+        /// </para>
+        /// </param>
+        /// <param name="lpVolumeNameBuffer">
+        /// A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the nVolumeNameSize parameter.
+        /// </param>
+        /// <param name="nVolumeNameSize">
+        /// The length of a volume name buffer, in TCHARs. The maximum buffer size is MAX_PATH+1.
+        /// This parameter is ignored if the volume name buffer is not supplied.
+        /// </param>
+        /// <param name="lpVolumeSerialNumber">
+        /// <para>
+        /// A pointer to a variable that receives the volume serial number.
+        /// </para>
+        /// <para>
+        /// This parameter can be NULL if the serial number is not required.
+        /// </para>
+        /// <para>
+        /// This function returns the volume serial number that the operating system assigns when a hard disk i
+        /// formatted. To programmatically obtain the hard disk's serial number that the manufacturer assigns, use
+        /// the Windows Management Instrumentation (WMI) Win32_PhysicalMedia property SerialNumber.
+        /// </para>
+        /// </param>
+        /// <param name="lpMaximumComponentLength">
+        /// <para>
+        /// A pointer to a variable that receives the maximum length, in TCHARs, of a file name component that a specified file system supports.
+        /// </para>
+        /// <para>
+        /// A file name component is the portion of a file name between backslashes.
+        /// </para>
+        /// <para>
+        /// The value that is stored in the variable that *lpMaximumComponentLength points to is used to indicate
+        /// that a specified file system supports long names. For example, for a FAT file system that supports long
+        /// names, the function stores the value 255, rather than the previous 8.3 indicator. Long names can also be
+        /// supported on systems that use the NTFS file system.
+        /// </para>
+        /// </param>
+        /// <param name="lpFileSystemFlags">
+        /// A pointer to a variable that receives flags associated with the specified file system.
+        /// </param>
+        /// <param name="lpFileSystemNameBuffer">
+        /// A pointer to a buffer that receives the name of the file system, for example, the FAT file system or
+        /// the NTFS file system. The buffer size is specified by the nFileSystemNameSize parameter.
+        /// </param>
+        /// <param name="nFileSystemNameSize">
+        /// <para>
+        /// The length of the file system name buffer, in TCHARs. The maximum buffer size is MAX_PATH+1.
+        /// </para>
+        /// <para>
+        /// This parameter is ignored if the file system name buffer is not supplied.
+        /// </para>
+        /// </param>
+        /// <returns>
+        /// If all the requested information is retrieved, the return value is nonzero.
+        /// </returns>
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetVolumeInformation(
+            string lpRootPathName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpVolumeNameBuffer,
+            int nVolumeNameSize,
+            out uint lpVolumeSerialNumber,
+            out int lpMaximumComponentLength,
+            out FileSystemFlags lpFileSystemFlags,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFileSystemNameBuffer,
+            int nFileSystemNameSize);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>

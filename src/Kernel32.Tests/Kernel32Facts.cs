@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using PInvoke;
 using Xunit;
@@ -45,5 +46,28 @@ public partial class Kernel32Facts
         GetStartupInfo(ref startupInfo);
         Assert.NotNull(startupInfo.Title);
         Assert.NotEqual(0, startupInfo.Title.Length);
+    }
+
+    [Fact]
+    public void GetVolumeInformationTest()
+    {
+        char[] volumeNameBuffer = new char[261];
+        char[] fileSystemNameBuffer = new char[261];
+        uint serialNumber;
+        int maxlen;
+        FileSystemFlags flags;
+
+        var systemDrive = Path.GetPathRoot(Environment.SystemDirectory);
+
+        if (!Kernel32.GetVolumeInformation(systemDrive, volumeNameBuffer, volumeNameBuffer.Length, out serialNumber, out maxlen, out flags, fileSystemNameBuffer, fileSystemNameBuffer.Length))
+        {
+            Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+        }
+
+        Assert.NotEmpty(new string(volumeNameBuffer));
+        Assert.NotEqual(0u, serialNumber);
+        Assert.NotEqual(0, maxlen);
+        Assert.NotEqual((FileSystemFlags)0, flags);
+        Assert.NotEmpty(new string(fileSystemNameBuffer));
     }
 }

@@ -5,6 +5,27 @@ PInvoke.Kernel32.ErrorModes.SEM_NOALIGNMENTFAULTEXCEPT = 4 -> PInvoke.Kernel32.E
 PInvoke.Kernel32.ErrorModes.SEM_NOGPFAULTERRORBOX = 2 -> PInvoke.Kernel32.ErrorModes
 PInvoke.Kernel32.ErrorModes.SEM_NOOPENFILEERRORBOX = 32768 -> PInvoke.Kernel32.ErrorModes
 PInvoke.Kernel32.FILETIME.FILETIME(System.DateTime dateTime) -> void
+PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_CASE_PRESERVED_NAMES = 2 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_CASE_SENSITIVE_SEARCH = 1 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_DAX_VOLUME = 536870912 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_FILE_COMPRESSION = 16 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_NAMED_STREAMS = 262144 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_PERSISTENT_ACLS = 8 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_READ_ONLY_VOLUME = 524288 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SEQUENTIAL_WRITE_ONCE = 1048576 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_ENCRYPTION = 131072 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_EXTENDED_ATTRIBUTES = 8388608 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_HARD_LINKS = 4194304 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_OBJECT_IDS = 65536 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_OPEN_BY_FILE_ID = 16777216 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_REPARSE_POINTS = 128 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_SPARSE_FILES = 64 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_TRANSACTIONS = 2097152 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_USN_JOURNAL = 33554432 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_UNICODE_ON_DISK = 4 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_VOLUME_IS_COMPRESSED = 32768 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_VOLUME_QUOTAS = 32 -> PInvoke.Kernel32.FileSystemFlags
 PInvoke.Kernel32.HandleFlags
 PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_INHERIT = 1 -> PInvoke.Kernel32.HandleFlags
 PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_NONE = 0 -> PInvoke.Kernel32.HandleFlags
@@ -80,6 +101,8 @@ static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.Safe
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, out PInvoke.Kernel32.HandleFlags lpdwFlags) -> bool
 static PInvoke.Kernel32.GetStartupInfo(System.IntPtr lpStartupInfo) -> void
 static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
+static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char[] lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char[] lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static PInvoke.Kernel32.OSVERSIONINFOEX.Create() -> PInvoke.Kernel32.OSVERSIONINFOEX
 static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.SYSTEMTIME.implicit operator PInvoke.Kernel32.SYSTEMTIME(System.DateTime dt) -> PInvoke.Kernel32.SYSTEMTIME
@@ -95,6 +118,7 @@ static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServic
 static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
 static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle handle, out PInvoke.Kernel32.FILETIME creation, out PInvoke.Kernel32.FILETIME exit, out PInvoke.Kernel32.FILETIME kernel, out PInvoke.Kernel32.FILETIME user) -> bool
 static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
+static extern PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char* lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char* lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static extern PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static extern PInvoke.Kernel32.SetErrorMode(PInvoke.Kernel32.ErrorModes uMode) -> PInvoke.Kernel32.ErrorModes
 static extern PInvoke.Kernel32.SetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags dwMask, PInvoke.Kernel32.HandleFlags dwFlags) -> bool
