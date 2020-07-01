@@ -171,9 +171,14 @@ namespace PInvoke
         /// An <see cref="int"/> that receives the number of array elements returned, similar to <c>argc</c>.
         /// </param>
         /// <returns>
-        /// A pointer to an array of <see cref="string"/> values, similar to <c>argv</c>.
+        /// A pointer to an array of <c>LPWSTR</c> values, similar to <c>argv</c>.
         /// If the function fails, the return value is <see cref="IntPtr.Zero"/>.
         /// </returns>
+        /// <remarks>
+        /// <see cref="CommandLineToArgvW"/> allocates a block of contiguous memory for pointers to the argument strings,
+        /// and for the argument strings themselves; the calling application must free the memory used by the argument list
+        /// when it is no longer needed. To free the memory, use a single call to the <see cref="Kernel32.LocalFree(void*)"/> function.
+        /// </remarks>
         /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb776391(v=vs.85).aspx"/>
         [DllImport(nameof(Shell32), SetLastError = true)]
         public static unsafe extern char** CommandLineToArgvW(string lpCmdLine, out int pNumArgs);
