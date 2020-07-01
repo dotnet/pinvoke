@@ -1,0 +1,15 @@
+﻿PInvoke.NewDev
+PInvoke.NewDev.InstallDeviceFlags
+PInvoke.NewDev.InstallDeviceFlags.DIIDFLAG_INSTALLNULLDRIVER = 4 -> PInvoke.NewDev.InstallDeviceFlags
+PInvoke.NewDev.InstallDeviceFlags.DIIDFLAG_NOFINISHINSTALLUI = 2 -> PInvoke.NewDev.InstallDeviceFlags
+PInvoke.NewDev.InstallDeviceFlags.DIIDFLAG_SHOWSEARCHUI = 1 -> PInvoke.NewDev.InstallDeviceFlags
+PInvoke.NewDev.InstallDeviceFlags.None = 0 -> PInvoke.NewDev.InstallDeviceFlags
+PInvoke.NewDev.InstallFlags
+PInvoke.NewDev.InstallFlags.Force = 1 -> PInvoke.NewDev.InstallFlags
+PInvoke.NewDev.InstallFlags.NonInteractive = 4 -> PInvoke.NewDev.InstallFlags
+PInvoke.NewDev.InstallFlags.ReadOnly = 2 -> PInvoke.NewDev.InstallFlags
+static PInvoke.NewDev.DiInstallDevice(System.IntPtr hwndParent, PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA deviceInfoData, PInvoke.SetupApi.SP_DRVINFO_DATA driverInfoData, PInvoke.NewDev.InstallDeviceFlags flags, out bool needReboot) -> bool
+static PInvoke.NewDev.DiInstallDevice(System.IntPtr hwndParent, PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, System.IntPtr deviceInfoData, System.IntPtr driverInfoData, PInvoke.NewDev.InstallDeviceFlags flags, out bool needReboot) -> bool
+static extern PInvoke.NewDev.DiInstallDevice(System.IntPtr hwndParent, PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.SP_DRVINFO_DATA* driverInfoData, PInvoke.NewDev.InstallDeviceFlags flags, out bool needReboot) -> bool
+static extern PInvoke.NewDev.DiUninstallDevice(System.IntPtr hwndParent, PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, ref PInvoke.SetupApi.SP_DEVINFO_DATA deviceInfoData, int flags, out bool needReboot) -> bool
+static extern PInvoke.NewDev.UpdateDriverForPlugAndPlayDevices(System.IntPtr hwndParent, string hardwareId, string fullInfPath, PInvoke.NewDev.InstallFlags installFlags, out bool bRebootRequired) -> bool
