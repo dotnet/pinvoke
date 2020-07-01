@@ -142,6 +142,8 @@ Windows 8 as it does on newer Windows versions.
    Where no enum name is given, we prefer to create an enum called *MethodName*Flags.
    When the enum may be used by multiple p/invoke methods, give it a name that captures its scope
    so that it makes sense to be used in any method that uses it.
+   If the names of the relevant constants all share a prefix, consider using that prefix as the
+   basis for the enum name.
 
 There is a tension between keeping names consistent between native and managed code,
 and conforming to common .NET naming patterns such as camelCase and PascalCase.
