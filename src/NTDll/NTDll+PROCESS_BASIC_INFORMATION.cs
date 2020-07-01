@@ -15,37 +15,37 @@ namespace PInvoke
         /// Contains basic information about a process.
         /// </summary>
         /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684280(v=vs.85).aspx"/>
-        public struct PROCESS_BASIC_INFORMATION
+        public unsafe struct PROCESS_BASIC_INFORMATION
         {
             /// <summary>
             /// This value is reserved.
             /// </summary>
-            public IntPtr Reserved1;
+            public void* Reserved1;
 
             /// <summary>
             /// The base address of the PEB structure in the process memory.
             /// </summary>
-            public IntPtr PebBaseAddress;
+            public void* PebBaseAddress;
 
             /// <summary>
             /// This value is reserved.
             /// </summary>
-            public IntPtr Reserved2a;
+            public void* Reserved2a;
 
             /// <summary>
             /// This value is reserved.
             /// </summary>
-            public IntPtr Reserved2b;
+            public void* Reserved2b;
 
             /// <summary>
             /// The process ID.
             /// </summary>
-            public IntPtr UniqueProcessId;
+            public void* UniqueProcessId;
 
             /// <summary>
             /// This value is reserved.
             /// </summary>
-            public IntPtr Reserved3;
+            public void* Reserved3;
         }
     }
 }

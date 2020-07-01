@@ -96,7 +96,12 @@ namespace PInvoke
         /// </returns>
         /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684280(v=vs.85).aspx"/>
         [DllImport(nameof(NTDll))]
-        public static extern NTSTATUS NtQueryInformationProcess(Kernel32.SafeObjectHandle ProcessHandle, PROCESSINFOCLASS ProcessInformationClass, ref PROCESS_BASIC_INFORMATION ProcessInformation, int ProcessInformationLength, out int ReturnLength);
+        public static unsafe extern NTSTATUS NtQueryInformationProcess(
+            Kernel32.SafeObjectHandle ProcessHandle,
+            PROCESSINFOCLASS ProcessInformationClass,
+            [Friendly(FriendlyFlags.Out)] void* ProcessInformation,
+            int ProcessInformationLength,
+            out int ReturnLength);
 
         /// <summary>
         /// The NtClose routine closes an object handle.
