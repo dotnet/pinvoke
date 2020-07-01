@@ -4,15 +4,13 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains the <see cref="MonitorOptions"/> nested type.
+    /// Contains the <see cref="EnumDisplayDevicesFlags"/> nested type.
     /// </content>
     public partial class User32
     {
-        public enum MonitorOptions : uint
+        public enum EnumDisplayDevicesFlags : uint
         {
-            MONITOR_DEFAULTTONULL = 0x00000000,
-            MONITOR_DEFAULTTOPRIMARY = 0x00000001,
-            MONITOR_DEFAULTTONEAREST = 0x00000002
+            EDD_GET_DEVICE_INTERFACE_NAME = 0x00000001,
         }
     }
 }
