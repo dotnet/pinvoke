@@ -88,6 +88,7 @@ mscoree.dll  |`PInvoke.MSCorEE` | [![NuGet](https://buildstats.info/nuget/PInvok
 msi.dll      |`PInvoke.Msi`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Msi)](https://www.nuget.org/packages/PInvoke.Msi)|[Microsoft Installer][Msi]
 ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.NCrypt)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
 netapi32.dll |`PInvoke.NetApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.NetApi32)](https://www.nuget.org/packages/PInvoke.NetApi32)|[Network Management][NetApi32]
+newdev.dll   |`PInvoke.NewDev`  | [![NuGet](https://buildstats.info/nuget/PInvoke.NewDev)](https://www.nuget.org/packages/PInvoke.NewDev)|[Device and Driver Installation][NewDev]
 ntdll.dll    |`PInvoke.NTDll`   | [![NuGet](https://buildstats.info/nuget/PInvoke.NTDll)](https://www.nuget.org/packages/PInvoke.NTDll)|Windows NTDll
 psapi.dll    |`PInvoke.Psapi`   | [![NuGet](https://buildstats.info/nuget/PInvoke.Psapi)](https://www.nuget.org/packages/PInvoke.Psapi)|[Windows Process Status API][Psapi]
 setupapi.dll |`PInvoke.SetupApi`| [![NuGet](https://buildstats.info/nuget/PInvoke.SetupApi)](https://www.nuget.org/packages/PInvoke.SetupApi)|[Windows setup API][SetupApi]
@@ -96,6 +97,7 @@ shell32.dll  |`PInvoke.Shell32` | [![NuGet](https://buildstats.info/nuget/PInvok
 user32.dll   |`PInvoke.User32`  | [![NuGet](https://buildstats.info/nuget/PInvoke.User32)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
 userenv.dll  |`PInvoke.Userenv` | [![NuGet](https://buildstats.info/nuget/PInvoke.Userenv)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
 uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://buildstats.info/nuget/PInvoke.UxTheme)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
+winusb.dll   |`PInvoke.WinUsb`  | [![NuGet](https://buildstats.info/nuget/PInvoke.WinUsb)](https://www.nuget.org/packages/PInvoke.WinUsb)|[USB Driver][WinUsb]
 WtsApi32.dll |`PInvoke.WtsApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.WtsApi32)](https://www.nuget.org/packages/PInvoke.WtsApi32)|[Windows Remote Desktop Services][WtsApi32]
 
 Check out the [P/Invoke coverage][PInvokeCoverageReport] we have for each library.
@@ -127,7 +129,9 @@ For more information see the [.NET Foundation Code of Conduct](https://dotnetfou
 [Psapi]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms684884.aspx
 [UxTheme]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773187.aspx
 [NetApi32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa370680.aspx
+[NewDev]: https://docs.microsoft.com/en-us/windows/win32/api/newdev/
 [Shell32]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773177.aspx
+[WinUsb]: https://docs.microsoft.com/en-us/windows/win32/api/winusb/
 [WtsApi32]: https://msdn.microsoft.com/en-us/library/aa383468(v=vs.85).aspx
 [Cabinet]: https://docs.microsoft.com/en-us/windows/win32/devnotes/cabinet-api-functions
 

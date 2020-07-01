@@ -1,0 +1,22 @@
+PInvoke.WinUsb
+PInvoke.WinUsb.SafeUsbHandle
+PInvoke.WinUsb.SafeUsbHandle.SafeUsbHandle() -> void
+PInvoke.WinUsb.SafeUsbHandle.SafeUsbHandle(System.IntPtr handle) -> void
+PInvoke.WinUsb.USBD_PIPE_TYPE
+PInvoke.WinUsb.USBD_PIPE_TYPE.Bulk = 2 -> PInvoke.WinUsb.USBD_PIPE_TYPE
+PInvoke.WinUsb.USBD_PIPE_TYPE.Control = 0 -> PInvoke.WinUsb.USBD_PIPE_TYPE
+PInvoke.WinUsb.USBD_PIPE_TYPE.Interrupt = 3 -> PInvoke.WinUsb.USBD_PIPE_TYPE
+PInvoke.WinUsb.USBD_PIPE_TYPE.Isochronous = 1 -> PInvoke.WinUsb.USBD_PIPE_TYPE
+PInvoke.WinUsb.WINUSB_PIPE_INFORMATION
+PInvoke.WinUsb.WINUSB_PIPE_INFORMATION.Interval -> byte
+PInvoke.WinUsb.WINUSB_PIPE_INFORMATION.MaximumPacketSize -> ushort
+PInvoke.WinUsb.WINUSB_PIPE_INFORMATION.PipeId -> byte
+PInvoke.WinUsb.WINUSB_PIPE_INFORMATION.PipeType -> PInvoke.WinUsb.USBD_PIPE_TYPE
+PInvoke.WinUsb.WINUSB_PIPE_INFORMATION.WINUSB_PIPE_INFORMATION() -> void
+override PInvoke.WinUsb.SafeUsbHandle.ReleaseHandle() -> bool
+static extern PInvoke.WinUsb.WinUsb_AbortPipe(PInvoke.WinUsb.SafeUsbHandle handle, byte pipeID) -> bool
+static extern PInvoke.WinUsb.WinUsb_Initialize(PInvoke.Kernel32.SafeObjectHandle deviceHandle, out PInvoke.WinUsb.SafeUsbHandle interfaceHandle) -> bool
+static extern PInvoke.WinUsb.WinUsb_QueryPipe(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte alternateInterfaceNumber, byte pipeIndex, PInvoke.WinUsb.WINUSB_PIPE_INFORMATION* pipeInformation) -> bool
+static extern PInvoke.WinUsb.WinUsb_ReadPipe(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte pipeID, byte* buffer, int bufferLength, out int lengthTransferred, System.Threading.NativeOverlapped* overlapped) -> bool
+static extern PInvoke.WinUsb.WinUsb_ResetPipe(PInvoke.WinUsb.SafeUsbHandle handle, byte pipeID) -> bool
+static extern PInvoke.WinUsb.WinUsb_WritePipe(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte pipeID, byte* buffer, int bufferLength, out int lengthTransferred, System.Threading.NativeOverlapped* overlapped) -> bool
