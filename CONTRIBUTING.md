@@ -138,6 +138,10 @@ Windows 8 as it does on newer Windows versions.
    searches for method names as they are found in the native libraries' documentation
    will always turn up results if they are defined by these packages.
  * Preserve the original parameter names.
+ * For flags used in parameters, use the same enum name as the docs/header file if it defined.
+   Where no enum name is given, we prefer to create an enum called *MethodName*Flags.
+   When the enum may be used by multiple p/invoke methods, give it a name that captures its scope
+   so that it makes sense to be used in any method that uses it.
 
 There is a tension between keeping names consistent between native and managed code,
 and conforming to common .NET naming patterns such as camelCase and PascalCase.
