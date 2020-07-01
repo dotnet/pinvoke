@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" />
     <ProjectReference Include="..\BCrypt\BCrypt.csproj" />
+    <ProjectReference Include="..\Cabinet\Cabinet.csproj" />
     <ProjectReference Include="..\Crypt32\Crypt32.csproj" />
     <ProjectReference Include="..\DbgHelp\DbgHelp.csproj" />
     <ProjectReference Include="..\DwmApi\DwmApi.csproj" />

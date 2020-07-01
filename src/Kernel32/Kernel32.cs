@@ -399,7 +399,7 @@ namespace PInvoke
         /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-setfilepointerex"/>
         [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetFilePointer(
+        public static extern bool SetFilePointerEx(
             SafeObjectHandle hFile,
             long liDistanceToMove,
             out long lpNewFilePointer,

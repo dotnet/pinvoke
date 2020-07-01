@@ -156,7 +156,17 @@ namespace PInvoke
         /// If the function succeeds, it returns a non-<see cref="IntPtr.Zero"/> HFDI context pointer; otherwise, it returns <see cref="IntPtr.Zero"/>.
         /// </returns>
         [DllImport(nameof(Cabinet), CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern FdiHandle FDICreate(FNALLOC pfnalloc, FNFREE pfnfree, FNOPEN pfnopen, FNREAD pfnread, FNWRITE pfnwrite, FNCLOSE pfnclose, FNSEEK pfnseek, CpuType cpuType, ERF* perf);
+        public static unsafe extern FdiHandle FDICreate(
+            FNALLOC pfnalloc,
+            FNFREE pfnfree,
+            FNOPEN pfnopen,
+            FNREAD pfnread,
+            FNWRITE pfnwrite,
+            FNCLOSE pfnclose,
+            FNSEEK pfnseek,
+            CpuType cpuType,
+            [Friendly(FriendlyFlags.Out)]
+            ERF* perf);
 
         /// <summary>
         /// The FDICopy function extracts files from cabinets.
@@ -179,7 +189,7 @@ namespace PInvoke
         /// An application-defined callback notification function to update the application on the status of the decoder.
         /// </param>
         /// <param name="pfnfdid">
-        /// Not currently used by FDI. This parameter should be set to <see cref="IntPtr.Zero"/>.
+        /// Not currently used by FDI. This parameter should be set to <see langword="null"/>.
         /// </param>
         /// <param name="pvUser">
         /// Pointer to an application-specified value to pass to the notification function.
@@ -189,7 +199,14 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Cabinet), CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool FDICopy(FdiHandle hfdi, string pszCabinet, string pszCabPath, int flags, PFNNOTIFY pfnfdin, IntPtr pfnfdid, IntPtr pvUser);
+        public static unsafe extern bool FDICopy(
+            FdiHandle hfdi,
+            string pszCabinet,
+            string pszCabPath,
+            int flags,
+            PFNNOTIFY pfnfdin,
+            void* pfnfdid,
+            void* pvUser);
 
         /// <summary>
         /// The FDIDestroy function deletes an open FDI context.
@@ -202,6 +219,6 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Cabinet), CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool FDIDestroy(IntPtr hfdi);
+        private static extern bool FDIDestroy(IntPtr hfdi);
     }
 }

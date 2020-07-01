@@ -14,7 +14,6 @@ namespace PInvoke
         /// In the 16-bit version of FDI, specifies the CPU type and can be any of the following values.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element must begin with upper-case letter", Justification = "Native naming convention")]
-
         public enum CpuType : int
         {
             /// <summary>

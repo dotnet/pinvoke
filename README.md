@@ -95,6 +95,7 @@ user32.dll   |`PInvoke.User32`  | [![NuGet](https://buildstats.info/nuget/PInvok
 userenv.dll  |`PInvoke.Userenv` | [![NuGet](https://buildstats.info/nuget/PInvoke.Userenv)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
 uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://buildstats.info/nuget/PInvoke.UxTheme)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
 WtsApi32.dll |`PInvoke.WtsApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.WtsApi32)](https://www.nuget.org/packages/PInvoke.WtsApi32)|[Windows Remote Desktop Services][WtsApi32]
+cabinet.dll  |`PInvoke.Cabinet` | [![NuGet](https://buildstats.info/nuget/PInvoke.Cabinet)](https://www.nuget.org/packages/PInvoke.Cabinet)|[Cabinet API Functions][Cabinet]
 
 Check out the [P/Invoke coverage][PInvokeCoverageReport] we have for each library.
 
@@ -126,5 +127,6 @@ For more information see the [.NET Foundation Code of Conduct](https://dotnetfou
 [NetApi32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa370680.aspx
 [Shell32]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773177.aspx
 [WtsApi32]: https://msdn.microsoft.com/en-us/library/aa383468(v=vs.85).aspx
+[Cabinet]: https://docs.microsoft.com/en-us/windows/win32/devnotes/cabinet-api-functions
 
 [PInvokeCoverageReport]: https://github.com/dotnet/pinvoke/wiki/coverage
