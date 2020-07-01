@@ -18,7 +18,7 @@ namespace PInvoke
         public enum DevInstallFlags : uint
         {
             /// <summary>
-            /// Set to use the Class Install parameters. <see cref="SetupApi.SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, ref SP_DEVINSTALL_PARAMS)"/> sets this flag when the caller
+            /// Set to use the Class Install parameters. <see cref="SetupApi.SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/> sets this flag when the caller
             /// specifies parameters and clears the flag when the caller specifies a <see cref="IntPtr.Zero"/> parameters pointer.
             /// </summary>
             DI_CLASSINSTALLPARAMS = 0x00100000,
