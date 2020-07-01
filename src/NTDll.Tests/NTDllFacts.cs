@@ -47,7 +47,7 @@ public class NTDllFacts
     }
 
     [Fact]
-    public void NtQueryInformationProcess_Test()
+    public unsafe void NtQueryInformationProcess_Test()
     {
         var desiredAccess = new Kernel32.ACCESS_MASK(Kernel32.ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION);
         using (var process = Kernel32.OpenProcess(desiredAccess, false, Process.GetCurrentProcess().Id))
@@ -57,8 +57,8 @@ public class NTDllFacts
             var result = NtQueryInformationProcess(
                     process,
                     PROCESSINFOCLASS.ProcessBasicInformation,
-                    ref pbi,
-                    Marshal.SizeOf(pbi),
+                    &pbi,
+                    sizeof(PROCESS_BASIC_INFORMATION),
                     out int _);
 
             Assert.Equal(NTSTATUS.Code.STATUS_SUCCESS, result.Value);
