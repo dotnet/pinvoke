@@ -3092,7 +3092,7 @@ namespace PInvoke
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         public static extern unsafe SafeObjectHandle CreateThread(
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpThreadAttributes,
-            UIntPtr dwStackSize,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
             void* lpParameter,
             CreateProcessFlags dwCreationFlags,
@@ -3148,7 +3148,7 @@ namespace PInvoke
         public static extern unsafe SafeObjectHandle CreateRemoteThread(
             IntPtr hProcess,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpThreadAttributes,
-            UIntPtr dwStackSize,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
             void* lpParameter,
             CreateProcessFlags dwCreationFlags,
@@ -3200,7 +3200,7 @@ namespace PInvoke
         public static extern unsafe SafeObjectHandle CreateRemoteThreadEx(
             IntPtr hProcess,
             [Friendly(FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpThreadAttributes,
-            UIntPtr dwStackSize,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
             void* lpParameter,
             CreateProcessFlags dwCreationFlags,
