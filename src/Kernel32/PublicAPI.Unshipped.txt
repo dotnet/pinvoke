@@ -1,3 +1,6 @@
+PInvoke.Kernel32.CreatePseudoConsoleFlags
+PInvoke.Kernel32.CreatePseudoConsoleFlags.None = 0 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
+PInvoke.Kernel32.CreatePseudoConsoleFlags.PSEUDOCONSOLE_INHERIT_CURSOR = 1 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.ErrorModes
 PInvoke.Kernel32.ErrorModes.SEM_DEFAULT = 0 -> PInvoke.Kernel32.ErrorModes
 PInvoke.Kernel32.ErrorModes.SEM_FAILCRITICALERRORS = 1 -> PInvoke.Kernel32.ErrorModes
@@ -75,6 +78,9 @@ PInvoke.Kernel32.STARTUPINFO.lpReserved_IntPtr.set -> void
 PInvoke.Kernel32.STARTUPINFO.lpTitle -> char*
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.get -> System.IntPtr
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.set -> void
+PInvoke.Kernel32.SafePseudoConsoleHandle
+PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle() -> void
+PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
 PInvoke.Kernel32.VER_CONDITION
 PInvoke.Kernel32.VER_CONDITION.VER_AND = 6 -> PInvoke.Kernel32.VER_CONDITION
 PInvoke.Kernel32.VER_CONDITION.VER_EQUAL = 1 -> PInvoke.Kernel32.VER_CONDITION
@@ -92,6 +98,8 @@ PInvoke.Kernel32.VER_MASK.VER_PRODUCT_TYPE = 128 -> PInvoke.Kernel32.VER_MASK
 PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMAJOR = 32 -> PInvoke.Kernel32.VER_MASK
 PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMINOR = 16 -> PInvoke.Kernel32.VER_MASK
 PInvoke.Kernel32.VER_MASK.VER_SUITENAME = 64 -> PInvoke.Kernel32.VER_MASK
+override PInvoke.Kernel32.SafePseudoConsoleHandle.IsInvalid.get -> bool
+override PInvoke.Kernel32.SafePseudoConsoleHandle.ReleaseHandle() -> bool
 static PInvoke.Kernel32.CompareFileTime(PInvoke.Kernel32.FILETIME lpFileTime1, PInvoke.Kernel32.FILETIME lpFileTime2) -> int
 static PInvoke.Kernel32.CompareFileTime(System.IntPtr lpFileTime1, System.IntPtr lpFileTime2) -> int
 static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, System.IntPtr lpFileTime) -> bool
@@ -117,6 +125,7 @@ static PInvoke.Kernel32.VerifyVersionInfo(System.IntPtr lpVersionInformation, PI
 static PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
 static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesWritten) -> bool
 static extern PInvoke.Kernel32.CompareFileTime(PInvoke.Kernel32.FILETIME* lpFileTime1, PInvoke.Kernel32.FILETIME* lpFileTime2) -> int
+static extern PInvoke.Kernel32.CreatePseudoConsole(PInvoke.COORD size, PInvoke.Kernel32.SafeObjectHandle hInput, PInvoke.Kernel32.SafeObjectHandle hOutput, PInvoke.Kernel32.CreatePseudoConsoleFlags dwFlags, out PInvoke.Kernel32.SafePseudoConsoleHandle phPC) -> PInvoke.HResult
 static extern PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
 static extern PInvoke.Kernel32.FileTimeToSystemTime(PInvoke.Kernel32.FILETIME* lpFileTime, PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> bool
 static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool
@@ -125,6 +134,7 @@ static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetStartupInfo(PInvoke.Kernel32.STARTUPINFO* lpStartupInfo) -> void
 static extern PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char* lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char* lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static extern PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
+static extern PInvoke.Kernel32.ResizePseudoConsole(PInvoke.Kernel32.SafePseudoConsoleHandle hPC, PInvoke.COORD size) -> PInvoke.HResult
 static extern PInvoke.Kernel32.SetErrorMode(PInvoke.Kernel32.ErrorModes uMode) -> PInvoke.Kernel32.ErrorModes
 static extern PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, int* lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static extern PInvoke.Kernel32.SetFilePointerEx(PInvoke.Kernel32.SafeObjectHandle hFile, long liDistanceToMove, out long lpNewFilePointer, System.IO.SeekOrigin dwMoveMethod) -> bool
@@ -134,3 +144,4 @@ static extern PInvoke.Kernel32.SystemTimeToFileTime(PInvoke.Kernel32.SYSTEMTIME*
 static extern PInvoke.Kernel32.VerSetConditionMask(long ConditionMask, PInvoke.Kernel32.VER_MASK TypeMask, PInvoke.Kernel32.VER_CONDITION Condition) -> long
 static extern PInvoke.Kernel32.VerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
 static extern PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesWritten) -> bool
+static readonly PInvoke.Kernel32.SafePseudoConsoleHandle.Invalid -> PInvoke.Kernel32.SafePseudoConsoleHandle

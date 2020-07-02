@@ -3028,6 +3028,38 @@ namespace PInvoke
         public static extern unsafe bool GetHandleInformation(SafeHandle hObject, [Friendly(FriendlyFlags.Out)] HandleFlags* lpdwFlags);
 
         /// <summary>
+        /// Creates a new pseudoconsole object for the calling process.
+        /// </summary>
+        /// <param name="size">The dimensions of the window/buffer in count of characters that will be used on initial creation of the pseudoconsole. This can be adjusted later with <see cref="ResizePseudoConsole"/>.</param>
+        /// <param name="hInput">An open handle to a stream of data that represents user input to the device. This is currently restricted to <see href="https://docs.microsoft.com/en-us/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">synchronous</see> I/O.</param>
+        /// <param name="hOutput">An open handle to a stream of data that represents application output from the device. This is currently restricted to <see href="https://docs.microsoft.com/en-us/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">synchronous</see> I/O.</param>
+        /// <param name="dwFlags">The value can be one of the values of the enum.</param>
+        /// <param name="phPC">Pointer to a location that will receive a handle to the new pseudoconsole device.</param>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(Kernel32), CallingConvention = CallingConvention.Winapi)]
+        public static extern HResult CreatePseudoConsole(
+            COORD size,
+            SafeObjectHandle hInput,
+            SafeObjectHandle hOutput,
+            CreatePseudoConsoleFlags dwFlags,
+            out SafePseudoConsoleHandle phPC);
+
+        /// <summary>
+        /// Resizes the internal buffers for a pseudoconsole to the given size.
+        /// </summary>
+        /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>
+        /// <param name="size">The dimensions of the window/buffer in count of characters that will be used for the internal buffer of this pseudoconsole.</param>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        /// <remarks>
+        /// This function can resize the internal buffers in the pseudoconsole session to match the window/buffer size being used for display on the terminal end.
+        /// This ensures that attached Command-Line Interface (CUI) applications using the Console Functions to communicate will have the correct dimensions returned in their calls.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), CallingConvention = CallingConvention.Winapi)]
+        public static extern HResult ResizePseudoConsole(
+            SafePseudoConsoleHandle hPC,
+            COORD size);
+
+        /// <summary>
         /// Converts MS-DOS date and time values to a file time.
         /// </summary>
         /// <param name="wFatDate">
@@ -3050,5 +3082,12 @@ namespace PInvoke
             ushort wFatDate,
             ushort wFatTime,
             [Friendly(FriendlyFlags.Out)] FILETIME* lpFileTime);
+
+        /// <summary>
+        /// Closes a pseudoconsole from the given handle.
+        /// </summary>
+        /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>
+        [DllImport(nameof(Kernel32), CallingConvention = CallingConvention.Winapi)]
+        private static extern void ClosePseudoConsole(IntPtr hPC);
     }
 }
