@@ -40,18 +40,18 @@ namespace PInvoke
             /// <summary>
             /// A <see cref="string"/> that describes the device supported by this driver.
             /// </summary>
-            public fixed char Description[LINE_LEN];
+            public fixed char Description[SetupApi.LINE_LEN];
 
             /// <summary>
             /// A <see cref="string"/> that contains the name of the manufacturer of the device supported by this driver.
             /// </summary>
-            public fixed char MfgName[LINE_LEN];
+            public fixed char MfgName[SetupApi.LINE_LEN];
 
             /// <summary>
             /// A <see cref="string"/> giving the provider of this driver. This is typically the name of the organization that
             /// creates the driver or INF file. <see cref="ProviderName"/> can be an empty string.
             /// </summary>
-            public fixed char ProviderName[LINE_LEN];
+            public fixed char ProviderName[SetupApi.LINE_LEN];
 
             /// <summary>
             /// Date of the driver. From the <c>DriverVer</c> entry in the INF file.
@@ -62,11 +62,6 @@ namespace PInvoke
             /// Version of the driver. From the <c>DriverVer</c> entry in the INF file.
             /// </summary>
             public ulong DriverVersion;
-
-            /// <summary>
-            /// The length of the strings that are part of this structure.
-            /// </summary>
-            private const int LINE_LEN = 256;
 
             /// <summary>
             /// Gets a <see cref="string"/> that describes the device supported by this driver.
@@ -104,9 +99,9 @@ namespace PInvoke
             {
                 get
                 {
-                    fixed (char* description = this.ProviderName)
+                    fixed (char* providerName = this.ProviderName)
                     {
-                        return new string(description);
+                        return new string(providerName);
                     }
                 }
             }

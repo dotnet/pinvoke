@@ -159,4 +159,63 @@ public unsafe class SetupApiFacts
             Assert.Equal("Microsoft", loopbackDriver.ProviderNameString);
         }
     }
+
+    [Fact]
+    public unsafe void SetupDiGetDriverInfoDetailTest()
+    {
+        Guid usbDeviceId = SetupApi.DeviceSetupClass.Net;
+
+        using (var deviceInfoSet = SetupApi.SetupDiCreateDeviceInfoList(&usbDeviceId, IntPtr.Zero))
+        {
+            Assert.True(SetupApi.SetupDiBuildDriverInfoList(deviceInfoSet, (SP_DEVINFO_DATA*)null, DriverType.SPDIT_CLASSDRIVER));
+
+            uint i = 0;
+
+            SP_DRVINFO_DATA driverInfoData = SP_DRVINFO_DATA.Create();
+
+            Collection<SP_DRVINFO_DATA> driverInfos = new Collection<SP_DRVINFO_DATA>();
+
+            while (SetupApi.SetupDiEnumDriverInfo(deviceInfoSet, null, DriverType.SPDIT_CLASSDRIVER, i, ref driverInfoData))
+            {
+                driverInfos.Add(driverInfoData);
+                i += 1;
+            }
+
+            // We should have enumerated at least one driver
+            Assert.NotEmpty(driverInfos);
+
+            var loopbackDrivers =
+                driverInfos
+                .Where(d => d.DescriptionString.IndexOf("loopback", StringComparison.OrdinalIgnoreCase) >= 0).ToArray();
+
+            var loopbackDriver = Assert.Single(loopbackDrivers);
+
+            byte[] buffer = new byte[0x1000];
+            fixed (byte* ptr = buffer)
+            {
+                Marshal.StructureToPtr(SP_DRVINFO_DETAIL_DATA.Create(), (IntPtr)ptr, false);
+
+                if (!SetupDiGetDriverInfoDetail(
+                    deviceInfoSet,
+                    null,
+                    &loopbackDriver,
+                    ptr,
+                    buffer.Length,
+                    out int requiredSize))
+                {
+                    throw new Win32Exception();
+                }
+
+                var drvInfoDetailData = (SP_DRVINFO_DETAIL_DATA*)ptr;
+                Assert.Equal(0, (int)drvInfoDetailData->CompatIDsLength);
+                Assert.Equal(0x8, drvInfoDetailData->CompatIDsOffset);
+                Assert.Equal("Microsoft KM-TEST Loopback Adapter", new string(drvInfoDetailData->DrvDescription));
+                Assert.NotEqual(0, drvInfoDetailData->InfDate.dwHighDateTime);
+                Assert.NotEqual(0, drvInfoDetailData->InfDate.dwLowDateTime);
+                Assert.Equal(@"C:\WINDOWS\INF\netloop.inf", new string(drvInfoDetailData->InfFileName));
+                Assert.Equal("kmloop.ndi", new string(drvInfoDetailData->SectionName));
+                Assert.Equal("*msloop", new string(drvInfoDetailData->HardwareID));
+            }
+        }
+    }
 }
