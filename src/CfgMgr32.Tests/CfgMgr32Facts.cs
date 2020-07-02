@@ -134,12 +134,12 @@ public class CfgMgr32Facts
                 break;
 
             case CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE:
-                var instanceId = CM_NOTIFY_EVENT_DATA.GetInstanceId(eventData, eventDataSize);
+                var instanceId = eventData->GetInstanceId();
                 Debug.WriteLine($"Received a notification for device instance {instanceId}: {action}");
                 break;
 
             case CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE:
-                var symbolicLink = CM_NOTIFY_EVENT_DATA.GetSymbolicLink(eventData, eventDataSize);
+                var symbolicLink = eventData->GetSymbolicLink();
                 Debug.WriteLine($"Received a notification for device interface with Class Guid {eventData->ClassGuid} at {symbolicLink}: {action}");
                 break;
         }
