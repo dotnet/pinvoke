@@ -46,7 +46,7 @@ namespace PInvoke
             /// The first character of the symbolic link path of the device interface to which the notification event data pertains.
             /// Use <see cref="GetSymbolicLink(CM_NOTIFY_EVENT_DATA*, int)"/> to retrieve this value.
             /// </summary>
-            [FieldOffset(SymbolicLinkOffset)]
+            [FieldOffset(24)]
             public fixed char SymbolicLink[1];
 
             // DeviceHandle
@@ -81,11 +81,8 @@ namespace PInvoke
             /// The first character of the device instance ID of the device to which the notification event data pertains.
             /// Use <see cref="GetInstanceId(CM_NOTIFY_EVENT_DATA*, int)"/> to retrieve this value.
             /// </summary>
-            [FieldOffset(InstanceIdOffset)]
+            [FieldOffset(8)]
             public fixed char InstanceId[1];
-
-            private const int SymbolicLinkOffset = 24;
-            private const int InstanceIdOffset = 8;
 
             /// <summary>
             /// Gets the symbolic link path of the device interface to which the notification event data pertains.
@@ -106,9 +103,10 @@ namespace PInvoke
                     throw new InvalidOperationException();
                 }
 
-                // Offset and count are represented in characters. Each character is 2 bytes wide.
-                // Trim the terminating \0 character at the end.
-                return new string((char*)eventData, SymbolicLinkOffset / sizeof(char), ((eventDataSize - SymbolicLinkOffset) / sizeof(char)) - 1);
+                int byteOffset = (int)((byte*)eventData->SymbolicLink - (byte*)eventData);
+                int byteLength = eventDataSize - byteOffset;
+                int charLength = byteLength / sizeof(char);
+                return new string(eventData->SymbolicLink, 0, charLength - 1); // trim the trailing \0 character
             }
 
             /// <summary>
@@ -130,9 +128,10 @@ namespace PInvoke
                     throw new InvalidOperationException();
                 }
 
-                // Offset and count are represented in characters. Each character is 2 bytes wide.
-                // Trim the terminating \0 character at the end.
-                return new string((char*)eventData, InstanceIdOffset / sizeof(char), ((eventDataSize - InstanceIdOffset) / sizeof(char)) - 1);
+                int byteOffset = (int)((byte*)eventData->InstanceId - (byte*)eventData);
+                int byteLength = eventDataSize - byteOffset;
+                int charLength = byteLength / sizeof(char);
+                return new string(eventData->InstanceId, 0, charLength - 1); // trim the trailing \0 character
             }
         }
     }

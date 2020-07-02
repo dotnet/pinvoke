@@ -5,6 +5,7 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Text;
 
     /// <content>
     /// Contains the <see cref="CM_NOTIFY_FILTER"/> nested enum.
@@ -164,7 +165,7 @@ namespace PInvoke
 
                 if (instanceId.Length > CfgMgr32.MAX_DEVICE_ID_LEN)
                 {
-                    throw new ArgumentException("The length of instanceId cannot exceed MAX_DEVICE_ID_LEN", nameof(instanceId));
+                    throw new ArgumentException("The length of instanceId cannot exceed " + nameof(MAX_DEVICE_ID_LEN), nameof(instanceId));
                 }
 
                 var filter = new CM_NOTIFY_FILTER()
@@ -173,7 +174,12 @@ namespace PInvoke
                     FilterType = CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE,
                 };
 
-                Marshal.Copy(instanceId.ToCharArray(), 0, (IntPtr)filter.InstanceId, instanceId.Length);
+                fixed (char* pInstanceId = instanceId)
+                {
+                    int cbSource = instanceId.Length * 2; // char to byte length
+                    int cbTarget = MAX_DEVICE_ID_LEN * 2; // char to byte length
+                    Buffer.MemoryCopy(pInstanceId, filter.InstanceId, cbTarget, cbSource);
+                }
 
                 return filter;
             }
