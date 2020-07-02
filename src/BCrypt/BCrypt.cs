@@ -109,6 +109,26 @@ namespace PInvoke
             BCryptCreateHashFlags dwFlags);
 
         /// <summary>
+        /// Derives a key without requiring a secret agreement. It is similar in functionality to <see cref="BCryptDeriveKey(SafeSecretHandle, string, BCryptBufferDesc*, byte*, int, out int, BCryptDeriveKeyFlags)"/>
+        /// but does not require a BCRYPT_SECRET_HANDLE value as input.
+        /// </summary>
+        /// <param name="hKey">Handle of the input key.</param>
+        /// <param name="pParameterList">Pointer to a BCryptBufferDesc structure that contains the KDF parameters. This parameter is optional and can be NULL if it is not needed. The parameters can be specific to a key derivation function (KDF) or generic. See <see href="https://docs.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptkeyderivation">online docs</see> for more information.</param>
+        /// <param name="pbDerivedKey">Address of a buffer that receives the key. The <paramref name="cbDerivedKey"/> parameter contains the size of this buffer.</param>
+        /// <param name="cbDerivedKey">Size, in bytes, of the buffer pointed to by the <paramref name="pbDerivedKey" /> parameter.</param>
+        /// <param name="pcbResult">Pointer to a variable that receives the number of bytes that were copied to the buffer pointed to by the <paramref name="pbDerivedKey"/> parameter.</param>
+        /// <param name="dwFlags">Flags that modify the behavior of this function. <see cref="BCryptKeyDerivationFlags.BCRYPT_CAPI_AES_FLAG"/> may be used with the Microsoft Primitive provider.</param>
+        /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [DllImport(nameof(BCrypt))]
+        public static extern unsafe NTSTATUS BCryptKeyDerivation(
+            SafeKeyHandle hKey,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] BCryptBufferDesc* pParameterList,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] byte* pbDerivedKey,
+            int cbDerivedKey,
+            out int pcbResult,
+            BCryptKeyDerivationFlags dwFlags);
+
+        /// <summary>
         /// The <see cref="BCryptCreateMultiHash(SafeAlgorithmHandle, out SafeHashHandle, int, byte*, int, byte*, int, BCryptCreateHashFlags)"/> function creates a multi-hash state that allows for the parallel computation of multiple hash operations.
         /// </summary>
         /// <param name="hAlgorithm">
