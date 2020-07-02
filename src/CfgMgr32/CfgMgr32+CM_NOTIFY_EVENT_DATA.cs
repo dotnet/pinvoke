@@ -1,6 +1,9 @@
 ﻿// Copyright © .NET Foundation and Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+// StyleCop wants us to write `ref public unsafe struct`, which doesn't make much sense
+#pragma warning disable SA1206
+
 namespace PInvoke
 {
     using System;
@@ -16,7 +19,7 @@ namespace PInvoke
         /// </summary>
         /// <seealso hcref="https://docs.microsoft.com/en-us/windows/win32/api/cfgmgr32/ns-cfgmgr32-cm_notify_event_data"/>
         [StructLayout(LayoutKind.Explicit)]
-        public unsafe struct CM_NOTIFY_EVENT_DATA
+        public unsafe ref struct CM_NOTIFY_EVENT_DATA
         {
             /// <summary>
             /// The <see cref="CM_NOTIFY_FILTER_TYPE"/> from the <see cref="CM_NOTIFY_FILTER"/> structure that was used in
@@ -43,8 +46,8 @@ namespace PInvoke
             /// The first character of the symbolic link path of the device interface to which the notification event data pertains.
             /// Use <see cref="GetSymbolicLink(CM_NOTIFY_EVENT_DATA*, int)"/> to retrieve this value.
             /// </summary>
-            [FieldOffset(24)]
-            public char SymbolicLink;
+            [FieldOffset(SymbolicLinkOffset)]
+            public fixed char SymbolicLink[1];
 
             // DeviceHandle
 
@@ -67,10 +70,10 @@ namespace PInvoke
             public int DataSize;
 
             /// <summary>
-            /// The first bit of optional binary data. Usage depends on the contract for the EventGuid.
+            /// The first byte of optional binary data. Usage depends on the contract for the EventGuid.
             /// </summary>
             [FieldOffset(32)]
-            public byte Data;
+            public fixed byte Data[1];
 
             // DeviceInstance
 
@@ -78,8 +81,11 @@ namespace PInvoke
             /// The first character of the device instance ID of the device to which the notification event data pertains.
             /// Use <see cref="GetInstanceId(CM_NOTIFY_EVENT_DATA*, int)"/> to retrieve this value.
             /// </summary>
-            [FieldOffset(8)]
-            public char InstanceId;
+            [FieldOffset(InstanceIdOffset)]
+            public fixed char InstanceId[1];
+
+            private const int SymbolicLinkOffset = 24;
+            private const int InstanceIdOffset = 8;
 
             /// <summary>
             /// Gets the symbolic link path of the device interface to which the notification event data pertains.
@@ -102,7 +108,7 @@ namespace PInvoke
 
                 // Offset and count are represented in characters. Each character is 2 bytes wide.
                 // Trim the terminating \0 character at the end.
-                return new string((char*)eventData, 24 / 2, ((eventDataSize - 24) / 2) - 1);
+                return new string((char*)eventData, SymbolicLinkOffset / sizeof(char), ((eventDataSize - SymbolicLinkOffset) / sizeof(char)) - 1);
             }
 
             /// <summary>
@@ -126,7 +132,7 @@ namespace PInvoke
 
                 // Offset and count are represented in characters. Each character is 2 bytes wide.
                 // Trim the terminating \0 character at the end.
-                return new string((char*)eventData, 8 / 2, ((eventDataSize - 8) / 2) - 1);
+                return new string((char*)eventData, InstanceIdOffset / sizeof(char), ((eventDataSize - InstanceIdOffset) / sizeof(char)) - 1);
             }
         }
     }

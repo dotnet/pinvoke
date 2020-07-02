@@ -101,6 +101,21 @@ public class CfgMgr32Facts
         GC.KeepAlive(callback);
     }
 
+    [Fact]
+    public unsafe void RegisterErrorTest()
+    {
+        var callback = new CM_NOTIFY_CALLBACK(this.ProcessNotification);
+        var filter = CM_NOTIFY_FILTER.Create(@"__INVALID__");
+
+        Assert.Equal(CONFIGRET.CR_FAILURE, CM_Register_Notification(
+            &filter,
+            null,
+            callback,
+            out SafeNotificationHandle context));
+
+        Assert.True(context.IsInvalid);
+    }
+
     private unsafe Win32ErrorCode ProcessNotification(
             IntPtr notify,
             void* context,

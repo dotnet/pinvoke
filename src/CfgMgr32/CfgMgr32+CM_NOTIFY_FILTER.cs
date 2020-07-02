@@ -164,7 +164,7 @@ namespace PInvoke
 
                 if (instanceId.Length > CfgMgr32.MAX_DEVICE_ID_LEN)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(instanceId));
+                    throw new ArgumentException("The length of instanceId cannot exceed MAX_DEVICE_ID_LEN", nameof(instanceId));
                 }
 
                 var filter = new CM_NOTIFY_FILTER()

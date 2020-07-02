@@ -15,7 +15,7 @@ PInvoke.CfgMgr32.CM_NOTIFY_CALLBACK
 PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA
 PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.CM_NOTIFY_EVENT_DATA() -> void
 PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.ClassGuid -> System.Guid
-PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.Data -> byte*
+PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.Data -> byte
 PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.DataSize -> int
 PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.EventGuid -> System.Guid
 PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.FilterType -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER_TYPE
@@ -30,8 +30,8 @@ PInvoke.CfgMgr32.CM_NOTIFY_FILTER.FilterType -> PInvoke.CfgMgr32.CM_NOTIFY_FILTE
 PInvoke.CfgMgr32.CM_NOTIFY_FILTER.Flags -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER_FLAG
 PInvoke.CfgMgr32.CM_NOTIFY_FILTER.InstanceId -> char*
 PInvoke.CfgMgr32.CM_NOTIFY_FILTER.Reserved -> uint
-PInvoke.CfgMgr32.CM_NOTIFY_FILTER.Target -> System.IntPtr
-PInvoke.CfgMgr32.CM_NOTIFY_FILTER.cbSize -> uint
+PInvoke.CfgMgr32.CM_NOTIFY_FILTER.cbSize -> int
+PInvoke.CfgMgr32.CM_NOTIFY_FILTER.hTarget -> System.IntPtr
 PInvoke.CfgMgr32.CM_NOTIFY_FILTER_FLAG
 PInvoke.CfgMgr32.CM_NOTIFY_FILTER_FLAG.ALL_DEVICE_INSTANCES = 2 -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER_FLAG
 PInvoke.CfgMgr32.CM_NOTIFY_FILTER_FLAG.ALL_INTERFACE_CLASSES = 1 -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER_FLAG
@@ -102,5 +102,15 @@ PInvoke.CfgMgr32.CONFIGRET.CR_WRONG_TYPE = 38 -> PInvoke.CfgMgr32.CONFIGRET
 PInvoke.CfgMgr32.SafeNotificationHandle
 PInvoke.CfgMgr32.SafeNotificationHandle.SafeNotificationHandle() -> void
 override PInvoke.CfgMgr32.SafeNotificationHandle.ReleaseHandle() -> bool
-static PInvoke.CfgMgr32.CM_Register_Notification(System.IntPtr pFilter, System.IntPtr pContext, System.IntPtr pCallback, out PInvoke.CfgMgr32.SafeNotificationHandle pNotifyContext) -> PInvoke.CfgMgr32.CONFIGRET
-static extern PInvoke.CfgMgr32.CM_Register_Notification(System.IntPtr pFilter, void* pContext, System.IntPtr pCallback, out PInvoke.CfgMgr32.SafeNotificationHandle pNotifyContext) -> PInvoke.CfgMgr32.CONFIGRET
+static PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.GetInstanceId(PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA* eventData, int eventDataSize) -> string
+static PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA.GetSymbolicLink(PInvoke.CfgMgr32.CM_NOTIFY_EVENT_DATA* eventData, int eventDataSize) -> string
+static PInvoke.CfgMgr32.CM_NOTIFY_FILTER.AllDevices.get -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER
+static PInvoke.CfgMgr32.CM_NOTIFY_FILTER.AllInterfaces.get -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER
+static PInvoke.CfgMgr32.CM_NOTIFY_FILTER.Create() -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER
+static PInvoke.CfgMgr32.CM_NOTIFY_FILTER.Create(System.Guid classGuid) -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER
+static PInvoke.CfgMgr32.CM_NOTIFY_FILTER.Create(System.IntPtr target) -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER
+static PInvoke.CfgMgr32.CM_NOTIFY_FILTER.Create(string instanceId) -> PInvoke.CfgMgr32.CM_NOTIFY_FILTER
+static PInvoke.CfgMgr32.CM_Register_Notification(PInvoke.CfgMgr32.CM_NOTIFY_FILTER pFilter, System.IntPtr pContext, PInvoke.CfgMgr32.CM_NOTIFY_CALLBACK pCallback, out PInvoke.CfgMgr32.SafeNotificationHandle pNotifyContext) -> PInvoke.CfgMgr32.CONFIGRET
+static PInvoke.CfgMgr32.CM_Register_Notification(PInvoke.CfgMgr32.CM_NOTIFY_FILTER pFilter, void* pContext, PInvoke.CfgMgr32.CM_NOTIFY_CALLBACK pCallback, out PInvoke.CfgMgr32.SafeNotificationHandle pNotifyContext) -> PInvoke.CfgMgr32.CONFIGRET
+static PInvoke.CfgMgr32.CM_Register_Notification(System.IntPtr pFilter, System.IntPtr pContext, PInvoke.CfgMgr32.CM_NOTIFY_CALLBACK pCallback, out PInvoke.CfgMgr32.SafeNotificationHandle pNotifyContext) -> PInvoke.CfgMgr32.CONFIGRET
+static extern PInvoke.CfgMgr32.CM_Register_Notification(PInvoke.CfgMgr32.CM_NOTIFY_FILTER* pFilter, void* pContext, PInvoke.CfgMgr32.CM_NOTIFY_CALLBACK pCallback, out PInvoke.CfgMgr32.SafeNotificationHandle pNotifyContext) -> PInvoke.CfgMgr32.CONFIGRET

@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System;
+    using System.Runtime.InteropServices;
     using Microsoft.Win32.SafeHandles;
 
     /// <content>
@@ -10,13 +12,23 @@ namespace PInvoke
     /// </content>
     public static partial class CfgMgr32
     {
-        public class SafeNotificationHandle : SafeHandleZeroOrMinusOneIsInvalid
+        /// <summary>
+        /// A handle which represents a notification context.
+        /// </summary>
+        public class SafeNotificationHandle : SafeHandle
         {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SafeNotificationHandle"/> class.
+            /// </summary>
             public SafeNotificationHandle()
-                : base(true)
+                : base(IntPtr.Zero, true)
             {
             }
 
+            /// <inheritdoc/>
+            public override bool IsInvalid => this.handle == IntPtr.Zero;
+
+            /// <inheritdoc/>
             protected override bool ReleaseHandle()
             {
                 return CfgMgr32.CM_Unregister_Notification(this.handle) == CONFIGRET.CR_SUCCESS;

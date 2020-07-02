@@ -19,7 +19,7 @@ namespace PInvoke
         /// The callback routine invoked by the Configuration Manager when listening for events.
         /// </summary>
         /// <param name="notify">
-        /// The handle of the notification context which invoked the callback.
+        /// The handle of the notification context which invoked the callback. This is a SafeNotificationHandle, but safe handles cannot be marshalled.
         /// </param>
         /// <param name="context">
         /// A user-provided callback context.
@@ -41,7 +41,7 @@ namespace PInvoke
         /// </returns>
         /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_notification#remarks"/>
         public unsafe delegate Win32ErrorCode CM_NOTIFY_CALLBACK(
-            IntPtr notify, // This is a SafeNotificationHandle, but safe handles cannot be marshalled
+            IntPtr notify,
             void* context,
             CM_NOTIFY_ACTION action,
             CM_NOTIFY_EVENT_DATA* eventData,
