@@ -208,7 +208,7 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, it returns <see langword="true"/>; otherwise, <see langword="false"/>.
         /// </returns>
-        [DllImport(nameof(Cabinet), CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(nameof(Cabinet), CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool FDICopy(
             FdiHandle hfdi,
