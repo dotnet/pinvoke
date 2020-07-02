@@ -53,28 +53,11 @@ public unsafe class CabinetFacts : IDisposable
         handle.Dispose();
     }
 
-    [Fact (Skip = "Currently fails on 32-bit Windows")]
+    [Fact(Skip = "Currently fails on 32-bit Windows")]
     public void ExtractCabinetFileTest()
     {
-        var enterprisePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), @"Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\IntelliTrace\");
-        var communityPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), @"Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\IntelliTrace\");
-
-        string sampleCabinetPath = null;
-
-        if (Directory.Exists(enterprisePath))
-        {
-            sampleCabinetPath = enterprisePath;
-        }
-        else if (Directory.Exists(communityPath))
-        {
-            sampleCabinetPath = communityPath;
-        }
-        else
-        {
-            throw new Exception("Could not find Visual Studio 2019 Enterprise or Community.");
-        }
-
-        string sampleCabinetName = "IntelliTraceCollection.cab";
+        string sampleCabinetPath = Environment.CurrentDirectory + "\\";
+        string sampleCabinetName = "demo.CAB";
 
         using (var handle = Cabinet.FDICreate(
             this.fdiAllocMemDelegate,
