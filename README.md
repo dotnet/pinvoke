@@ -76,6 +76,7 @@ Library      | Package name     | NuGet       | Description
 advapi32.dll |`PInvoke.AdvApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.AdvApi32)](https://www.nuget.org/packages/PInvoke.AdvApi32)|Windows Advanced Services
 bcrypt.dll   |`PInvoke.BCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.BCrypt)](https://www.nuget.org/packages/PInvoke.BCrypt)|[Windows Cryptography API: Next Generation][CNG]
 cabinet.dll  |`PInvoke.Cabinet` | [![NuGet](https://buildstats.info/nuget/PInvoke.Cabinet)](https://www.nuget.org/packages/PInvoke.Cabinet)|[Cabinet API Functions][Cabinet]
+cfgmgr32.dll |`PInvoke.CfgMgr32`| [![NuGet](https://buildstats.info/nuget/PInvoke.CfgMgr32)](https://www.nuget.org/packages/PInvoke.CfgMgr32)|[Device and Driver Installation][CfgMgr32]
 crypt32.dll  |`PInvoke.Crypt32` | [![NuGet](https://buildstats.info/nuget/PInvoke.Crypt32)](https://www.nuget.org/packages/PInvoke.Crypt32)|[Windows Cryptography API][Crypt32]
 DwmApi.dll   |`PInvoke.DwmApi`  | [![NuGet](https://buildstats.info/nuget/PInvoke.DwmApi)](https://www.nuget.org/packages/PInvoke.DwmApi)|[Desktop Window Manager][DwmApi]
 fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://buildstats.info/nuget/PInvoke.Fusion)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
@@ -117,6 +118,7 @@ public release of the library.
 This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.
 For more information see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
 
+[CfgMgr32]: https://docs.microsoft.com/en-us/windows/win32/api/cfgmgr32/
 [CNG]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa376210
 [Crypt32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa380256
 [DwmApi]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa969540.aspx
