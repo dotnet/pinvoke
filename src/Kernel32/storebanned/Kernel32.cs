@@ -174,7 +174,7 @@ namespace PInvoke
         /// Code that does this is common, but it can crash on 64-bit Windows.
         /// </remarks>
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-        public delegate int THREAD_START_ROUTINE([In] IntPtr lpThreadParameter);
+        public unsafe delegate uint THREAD_START_ROUTINE(void* lpThreadParameter);
 
         /// <summary>
         /// Generates simple tones on the speaker. The function is synchronous; it performs an alertable wait and does not return control to its caller until the sound finishes.
@@ -3062,7 +3062,7 @@ namespace PInvoke
         /// come from the primary token of the creator.
         /// </param>
         /// <param name="dwStackSize">The initial size of the stack, in bytes. The system rounds
-        /// this value to the nearest page. If this parameter is 0 (<see cref="SIZE_T.Zero"/>), the new thread uses the default size
+        /// this value to the nearest page. If this parameter is 0 (<see cref="UIntPtr.Zero"/>), the new thread uses the default size
         /// for the executable.</param>
         /// <param name="lpStartAddress">A pointer to the application-defined function to be executed
         /// by the thread. This pointer represents the starting address of the thread. For more
@@ -3082,7 +3082,7 @@ namespace PInvoke
         /// <see cref="GetLastError"/>.
         /// </returns>
         /// <remarks>
-        /// Note that <see cref="CreateThread(SECURITY_ATTRIBUTES*, SIZE_T, THREAD_START_ROUTINE, IntPtr, CreateProcessFlags, int*)"/>
+        /// Note that <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, uint*)"/>
         /// may succeed even if <paramref name="lpStartAddress"/> points to data, code, or is not accessible.
         /// If the start address is invalid when the thread runs, an exception occurs, and the thread terminates.
         /// Thread termination due to a invalid start address is handled as an error exit for the thread's process. This behavior
@@ -3090,17 +3090,17 @@ namespace PInvoke
         /// where the process is created even if it refers to invalid or missing dynamic-link libraries (DLLs).
         /// </remarks>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
-        public static extern unsafe SafeThreadHandle CreateThread(
-            [Friendly(FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpThreadAttributes,
-            SIZE_T dwStackSize,
+        public static extern unsafe SafeObjectHandle CreateThread(
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpThreadAttributes,
+            UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
-            IntPtr lpParameter,
+            void* lpParameter,
             CreateProcessFlags dwCreationFlags,
-            [Friendly(FriendlyFlags.Out)] int* lpThreadId);
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
 
         /// <summary>
         /// Creates a thread that runs in the virtual address space of another process.
-        /// Use the <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, SIZE_T, THREAD_START_ROUTINE, IntPtr, CreateProcessFlags, PROC_THREAD_ATTRIBUTE_LIST*, int*)"/>
+        /// Use the <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, PROC_THREAD_ATTRIBUTE_LIST*, uint*)"/>
         /// function to create a thread that runs in the virtual address space of another process and optionally specify extended attributes.
         /// </summary>
         /// <param name="hProcess">
@@ -3117,7 +3117,7 @@ namespace PInvoke
         /// with Windows XP with SP2 and Windows Server 2003.
         /// </param>
         /// <param name="dwStackSize">
-        /// The initial size of the stack, in bytes. The system rounds this value to the nearest page. If this parameter is 0 (<see cref="SIZE_T.Zero"/>),
+        /// The initial size of the stack, in bytes. The system rounds this value to the nearest page. If this parameter is 0 (<see cref="UIntPtr.Zero"/>),
         /// the new thread uses the default size for the executable.
         /// </param>
         /// <param name="lpStartAddress">
@@ -3138,21 +3138,21 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, the return value is a handle to the new thread.
         /// If the function fails, the return value is null.To get extended error information, call <see cref="GetLastError"/>.
-        /// Note that <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, SIZE_T, THREAD_START_ROUTINE, IntPtr, CreateProcessFlags, int*)"/> may
+        /// Note that <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, uint*)"/> may
         /// succeed even if <paramref name="lpStartAddress"/> points to data, code, or is not accessible. If the start address is invalid when the thread
         /// runs, an exception occurs, and the thread terminates. Thread termination due to a invalid start address is handled as an error exit for the thread's
         /// process. This behavior is similar to the asynchronous nature of <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/>, where
         /// the process is created even if it refers to invalid or missing dynamic-link libraries (DLL).
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern unsafe SafeThreadHandle CreateRemoteThread(
+        public static extern unsafe SafeObjectHandle CreateRemoteThread(
             IntPtr hProcess,
-            [Friendly(FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpThreadAttributes,
-            SIZE_T dwStackSize,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpThreadAttributes,
+            UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
-            IntPtr lpParameter,
+            void* lpParameter,
             CreateProcessFlags dwCreationFlags,
-            int* lpThreadId);
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
 
         /// <summary>
         /// Creates a thread that runs in the virtual address space of another process and optionally specifies extended attributes such as processor
@@ -3170,7 +3170,7 @@ namespace PInvoke
         /// cannot be inherited. The access control lists (ACL) in the default security descriptor for a thread come from the primary token of the creator.
         /// </param>
         /// <param name="dwStackSize">
-        /// The initial size of the stack, in bytes. The system rounds this value to the nearest page. If this parameter is 0 (<see cref="SIZE_T.Zero"/>),
+        /// The initial size of the stack, in bytes. The system rounds this value to the nearest page. If this parameter is 0 (<see cref="UIntPtr.Zero"/>),
         /// the new thread uses the default size for the executable.
         /// </param>
         /// <param name="lpStartAddress">
@@ -3197,14 +3197,14 @@ namespace PInvoke
         /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        public static extern unsafe SafeThreadHandle CreateRemoteThreadEx(
+        public static extern unsafe SafeObjectHandle CreateRemoteThreadEx(
             IntPtr hProcess,
             [Friendly(FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpThreadAttributes,
-            SIZE_T dwStackSize,
+            UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
-            IntPtr lpParameter,
+            void* lpParameter,
             CreateProcessFlags dwCreationFlags,
             PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList,
-            int* lpThreadId);
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
     }
 }

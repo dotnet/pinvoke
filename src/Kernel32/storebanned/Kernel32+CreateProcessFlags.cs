@@ -128,7 +128,7 @@ namespace PInvoke
             PROFILE_SERVER = 0x40000000,
 
             /// <summary>
-            /// The dwStackSize parameter in <see cref="CreateThread(SECURITY_ATTRIBUTES*, SIZE_T, THREAD_START_ROUTINE, IntPtr, CreateProcessFlags, int*)"/>
+            /// The dwStackSize parameter in <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, uint*)"/>
             /// specifies the initial reserve size of the stack. If this flag is not specified,
             /// dwStackSize specifies the commit size.
             /// </summary>
