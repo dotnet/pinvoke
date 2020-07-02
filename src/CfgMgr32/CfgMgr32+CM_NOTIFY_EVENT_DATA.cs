@@ -40,10 +40,11 @@ namespace PInvoke
             public Guid ClassGuid;
 
             /// <summary>
-            /// The symbolic link path of the device interface to which the notification event data pertains.
+            /// The first character of the symbolic link path of the device interface to which the notification event data pertains.
+            /// Use <see cref="GetSymbolicLink(CM_NOTIFY_EVENT_DATA*, int)"/> to retrieve this value.
             /// </summary>
             [FieldOffset(24)]
-            public char* SymbolicLink;
+            public char SymbolicLink;
 
             // DeviceHandle
 
@@ -66,18 +67,67 @@ namespace PInvoke
             public int DataSize;
 
             /// <summary>
-            /// Optional binary data. Usage depends on the contract for the EventGuid.
+            /// The first bit of optional binary data. Usage depends on the contract for the EventGuid.
             /// </summary>
             [FieldOffset(32)]
-            public byte* Data;
+            public byte Data;
 
             // DeviceInstance
 
             /// <summary>
-            /// The device instance ID of the device to which the notification event data pertains.
+            /// The first character of the device instance ID of the device to which the notification event data pertains.
+            /// Use <see cref="GetInstanceId(CM_NOTIFY_EVENT_DATA*, int)"/> to retrieve this value.
             /// </summary>
             [FieldOffset(8)]
-            public char* InstanceId;
+            public char InstanceId;
+
+            /// <summary>
+            /// Gets the symbolic link path of the device interface to which the notification event data pertains.
+            /// </summary>
+            /// <param name="eventData">
+            /// The event notification.
+            /// </param>
+            /// <param name="eventDataSize">
+            /// The event notification size.
+            /// </param>
+            /// <returns>
+            /// The symbolic link path of the device interface to which the notification event data pertains
+            /// </returns>
+            public static string GetSymbolicLink(CM_NOTIFY_EVENT_DATA* eventData, int eventDataSize)
+            {
+                if (eventData->FilterType != CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                // Offset and count are represented in characters. Each character is 2 bytes wide.
+                // Trim the terminating \0 character at the end.
+                return new string((char*)eventData, 24 / 2, ((eventDataSize - 24) / 2) - 1);
+            }
+
+            /// <summary>
+            /// Gets the device instance ID of the device to which the notification event data pertains.
+            /// </summary>
+            /// <param name="eventData">
+            /// The event notification.
+            /// </param>
+            /// <param name="eventDataSize">
+            /// The event notification size.
+            /// </param>
+            /// <returns>
+            /// The device instance ID of the device to which the notification event data pertains.
+            /// </returns>
+            public static string GetInstanceId(CM_NOTIFY_EVENT_DATA* eventData, int eventDataSize)
+            {
+                if (eventData->FilterType != CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                // Offset and count are represented in characters. Each character is 2 bytes wide.
+                // Trim the terminating \0 character at the end.
+                return new string((char*)eventData, 8 / 2, ((eventDataSize - 8) / 2) - 1);
+            }
         }
     }
 }

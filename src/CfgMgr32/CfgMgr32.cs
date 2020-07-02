@@ -41,14 +41,14 @@ namespace PInvoke
         /// </returns>
         /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_notification#remarks"/>
         public unsafe delegate Win32ErrorCode CM_NOTIFY_CALLBACK(
-            SafeNotificationHandle notify,
+            IntPtr notify, // This is a SafeNotificationHandle, but safe handles cannot be marshalled
             void* context,
             CM_NOTIFY_ACTION action,
             CM_NOTIFY_EVENT_DATA* eventData,
-            uint eventDataSize);
+            int eventDataSize);
 
         /// <summary>
-        /// The <see cref="CM_Register_Notification(IntPtr, void*, IntPtr, out SafeNotificationHandle)"/> function registers an application callback routine to be called when a PnP event of the specified type occurs.
+        /// The <see cref="CM_Register_Notification(CM_NOTIFY_FILTER*, void*, CM_NOTIFY_CALLBACK, out SafeNotificationHandle)"/> function registers an application callback routine to be called when a PnP event of the specified type occurs.
         /// </summary>
         /// <param name="pFilter">
         /// Pointer to a <see cref="CM_NOTIFY_FILTER"/> structure.
@@ -68,16 +68,16 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(CfgMgr32), ExactSpelling = true)]
         public static unsafe extern CONFIGRET CM_Register_Notification(
-            IntPtr pFilter,
+            [Friendly(FriendlyFlags.In)] CM_NOTIFY_FILTER* pFilter,
             void* pContext,
-            IntPtr pCallback,
+            CM_NOTIFY_CALLBACK pCallback,
             out SafeNotificationHandle pNotifyContext);
 
         /// <summary>
         /// The <see cref="CM_Unregister_Notification"/> function closes the specified <c>HCMNOTIFICATION</c> handle.
         /// </summary>
         /// <param name="pNotifyContext">
-        /// The <c>HCMNOTIFICATION</c> handle returned by the <see cref="CM_Register_Notification(IntPtr, void*, IntPtr, out SafeNotificationHandle)"/> function.
+        /// The <c>HCMNOTIFICATION</c> handle returned by the <see cref="CM_Register_Notification(CM_NOTIFY_FILTER*, void*, CM_NOTIFY_CALLBACK, out SafeNotificationHandle)"/> function.
         /// </param>
         /// <returns>
         /// If the operation succeeds, the function returns <see cref="CONFIGRET.CR_SUCCESS"/>.
