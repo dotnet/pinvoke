@@ -21,17 +21,17 @@ namespace PInvoke
             public int cb;
 
             /// <summary>
-            /// A null-terminated string.
+            /// A null-terminated ANSI string.
             /// </summary>
             public sbyte* psz1;
 
             /// <summary>
-            /// A null-terminated string.
+            /// A null-terminated ANSI string.
             /// </summary>
             public sbyte* psz2;
 
             /// <summary>
-            /// A null-terminated string.
+            /// A null-terminated ANSI string.
             /// </summary>
             public sbyte* psz3;
 

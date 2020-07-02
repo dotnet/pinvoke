@@ -110,6 +110,7 @@ static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr 
 static PInvoke.Kernel32.SYSTEMTIME.implicit operator PInvoke.Kernel32.SYSTEMTIME(System.DateTime dt) -> PInvoke.Kernel32.SYSTEMTIME
 static PInvoke.Kernel32.SYSTEMTIME.implicit operator System.DateTime(PInvoke.Kernel32.SYSTEMTIME st) -> System.DateTime
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, System.IntPtr lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
+static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, ref int? lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static PInvoke.Kernel32.SystemTimeToFileTime(PInvoke.Kernel32.SYSTEMTIME lpSystemTime, out PInvoke.Kernel32.FILETIME lpFileTime) -> bool
 static PInvoke.Kernel32.SystemTimeToFileTime(System.IntPtr lpSystemTime, System.IntPtr lpFileTime) -> bool
 static PInvoke.Kernel32.VerifyVersionInfo(System.IntPtr lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS

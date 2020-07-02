@@ -447,7 +447,7 @@ namespace PInvoke
         public static unsafe extern int SetFilePointer(
             SafeObjectHandle hFile,
             int lDistanceToMove,
-            int* lpDistanceToMoveHigh,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpDistanceToMoveHigh,
             SeekOrigin dwMoveMethod);
 
         /// <summary>
