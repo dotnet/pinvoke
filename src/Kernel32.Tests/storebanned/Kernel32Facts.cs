@@ -15,6 +15,7 @@ using static PInvoke.Kernel32;
 
 public partial class Kernel32Facts
 {
+    private static unsafe Kernel32.THREAD_START_ROUTINE threadProc = new THREAD_START_ROUTINE(CreateThread_Test_ThreadMain);
     private readonly Random random = new Random();
 
     [Fact]
@@ -959,13 +960,12 @@ public partial class Kernel32Facts
     {
         var result = false;
         var dwNewThreadId = 0u;
-        var threadProc = new Kernel32.THREAD_START_ROUTINE(CreateThread_Test_ThreadMain);
 
         using var hThread =
                 Kernel32.CreateThread(
                     null,
                     UIntPtr.Zero,
-                    threadProc,
+                    Kernel32Facts.threadProc,
                     &result,
                     Kernel32.CreateThreadFlags.None,
                     &dwNewThreadId);
@@ -992,7 +992,6 @@ public partial class Kernel32Facts
     {
         var result = false;
         var dwNewThreadId = 0u;
-        var threadProc = new Kernel32.THREAD_START_ROUTINE(CreateThread_Test_ThreadMain);
 
         using var hProcess = Kernel32.GetCurrentProcess();
         using var hThread =
@@ -1000,7 +999,7 @@ public partial class Kernel32Facts
                     hProcess.DangerousGetHandle(),
                     null,
                     UIntPtr.Zero,
-                    threadProc,
+                    Kernel32Facts.threadProc,
                     &result,
                     Kernel32.CreateThreadFlags.None,
                     &dwNewThreadId);
@@ -1027,7 +1026,6 @@ public partial class Kernel32Facts
     {
         var result = false;
         var dwNewThreadId = 0u;
-        var threadProc = new Kernel32.THREAD_START_ROUTINE(CreateThread_Test_ThreadMain);
 
         using var hProcess = Kernel32.GetCurrentProcess();
         using var hThread =
@@ -1035,7 +1033,7 @@ public partial class Kernel32Facts
                     hProcess.DangerousGetHandle(),
                     null,
                     UIntPtr.Zero,
-                    threadProc,
+                    Kernel32Facts.threadProc,
                     &result,
                     Kernel32.CreateThreadFlags.None,
                     null,
