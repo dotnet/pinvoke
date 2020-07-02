@@ -53,7 +53,7 @@ public unsafe class CabinetFacts : IDisposable
         handle.Dispose();
     }
 
-    [Fact(Skip = "Currently fails on 32-bit Windows")]
+    [Fact]
     public void ExtractCabinetFileTest()
     {
         string sampleCabinetPath = Environment.CurrentDirectory + "\\";
@@ -89,7 +89,7 @@ public unsafe class CabinetFacts : IDisposable
         Marshal.FreeHGlobal((IntPtr)this.erf);
     }
 
-    private int ExtractNotify(Cabinet.NOTIFICATIONTYPE notificationType, Cabinet.NOTIFICATION notification)
+    private int ExtractNotify(Cabinet.NOTIFICATIONTYPE notificationType, Cabinet.NOTIFICATION* notification)
     {
         switch (notificationType)
         {
@@ -102,10 +102,10 @@ public unsafe class CabinetFacts : IDisposable
 
             case Cabinet.NOTIFICATIONTYPE.COPY_FILE:
                 {
-                    string filename = new string(notification.psz1);
-                    var date = notification.date;
-                    var time = notification.time;
-                    var attribs = notification.attribs;
+                    string filename = new string(notification->psz1);
+                    var date = notification->date;
+                    var time = notification->time;
+                    var attribs = notification->attribs;
 
                     filename = Path.Combine(Environment.CurrentDirectory, filename);
 
@@ -130,18 +130,18 @@ public unsafe class CabinetFacts : IDisposable
 
             case Cabinet.NOTIFICATIONTYPE.CLOSE_FILE_INFO:
                 {
-                    var handle = this.handles[notification.hf.ToInt32()];
+                    var handle = this.handles[notification->hf.ToInt32()];
                     handle.Dispose();
-                    this.handles.Remove(notification.hf.ToInt32());
+                    this.handles.Remove(notification->hf.ToInt32());
 
-                    string filename = new string(notification.psz1);
+                    string filename = new string(notification->psz1);
 
                     // FILETIME really is just long
                     long filetime;
-                    if (Kernel32.DosDateTimeToFileTime(notification.date, notification.time, (Kernel32.FILETIME*)&filetime))
+                    if (Kernel32.DosDateTimeToFileTime(notification->date, notification->time, (Kernel32.FILETIME*)&filetime))
                     {
                         var dateTime = DateTime.FromFileTimeUtc(filetime);
-                        var attributes = (FileAttributes)notification.attribs &
+                        var attributes = (FileAttributes)notification->attribs &
                             (FileAttributes.Archive | FileAttributes.Hidden | FileAttributes.ReadOnly | FileAttributes.System);
 
                         File.SetLastWriteTimeUtc(Path.Combine(Environment.CurrentDirectory, filename), dateTime);

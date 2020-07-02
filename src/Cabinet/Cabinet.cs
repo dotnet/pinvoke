@@ -132,7 +132,7 @@ namespace PInvoke
         /// The return value, which is passed from the application to the Cabinet API.
         /// </returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate int FNFDINOTIFY(NOTIFICATIONTYPE fdint, NOTIFICATION fdin);
+        public unsafe delegate int FNFDINOTIFY(NOTIFICATIONTYPE fdint, NOTIFICATION* fdin);
 
         /// <summary>
         /// The FDICreate function creates an FDI context.
