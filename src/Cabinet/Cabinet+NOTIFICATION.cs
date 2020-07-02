@@ -21,19 +21,19 @@ namespace PInvoke
             public int cb;
 
             /// <summary>
-            /// A null-terminated string.
+            /// A null-terminated ANSI string.
             /// </summary>
-            public char* psz1;
+            public sbyte* psz1;
 
             /// <summary>
-            /// A null-terminated string.
+            /// A null-terminated ANSI string.
             /// </summary>
-            public char* psz2;
+            public sbyte* psz2;
 
             /// <summary>
-            /// A null-terminated string.
+            /// A null-terminated ANSI string.
             /// </summary>
-            public char* psz3;
+            public sbyte* psz3;
 
             /// <summary>
             /// Pointer to an application-defined value.

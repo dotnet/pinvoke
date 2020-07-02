@@ -406,6 +406,51 @@ namespace PInvoke
             SeekOrigin dwMoveMethod);
 
         /// <summary>
+        /// Moves the file pointer of the specified file.
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file.
+        /// </param>
+        /// <param name="lDistanceToMove">
+        /// The low order 32-bits of a signed value that specifies the number of bytes to move the file pointer.
+        /// </param>
+        /// <param name="lpDistanceToMoveHigh">
+        /// A pointer to the high order 32-bits of the signed 64-bit distance to move.
+        /// If you do not need the high order 32-bits, this pointer must be set to <see langword="null"/>.
+        /// When not <see langword="null"/>, this parameter also receives the high order DWORD of the new value of the file pointer.
+        /// </param>
+        /// <param name="dwMoveMethod">
+        /// The starting point for the file pointer move.
+        /// </param>
+        /// <returns>
+        /// <para>
+        ///     If the function succeeds and <paramref name="lpDistanceToMoveHigh"/> is <see langword="null"/>,
+        ///     the return value is the low-order DWORD of the new file pointer.
+        ///     If the function returns a value other than INVALID_SET_FILE_POINTER, the call to <see cref="SetFilePointer(SafeObjectHandle, int, int*, SeekOrigin)"/> has succeeded.
+        ///     You do not need to call <see cref="GetLastError"/>.
+        /// </para>
+        /// <para>
+        ///     If function succeeds and <paramref name="lpDistanceToMoveHigh"/> is not <see langword="null"/>, the return value is the low-order DWORD
+        ///     of the new file pointer and <paramref name="lpDistanceToMoveHigh "/> contains the high order DWORD of the new file pointer.
+        /// </para>
+        /// <para>
+        ///     If the function fails, the return value is INVALID_SET_FILE_POINTER. To get extended error information, call <see cref="GetLastError"/>.
+        /// </para>
+        /// <para>
+        ///     If a new file pointer is a negative value, the function fails, the file pointer is not moved, and the code returned by <see cref="GetLastError"/> is ERROR_NEGATIVE_SEEK.
+        /// </para>
+        /// <para>
+        ///     If <paramref name="lpDistanceToMoveHigh"/> is <see langword="null"/> and the new file position does not fit in a 32-bit value, the function fails and returns INVALID_SET_FILE_POINTER.
+        /// </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        public static unsafe extern int SetFilePointer(
+            SafeObjectHandle hFile,
+            int lDistanceToMove,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpDistanceToMoveHigh,
+            SeekOrigin dwMoveMethod);
+
+        /// <summary>
         /// Suspends the specified thread.
         /// A 64-bit application can suspend a WOW64 thread using the Wow64SuspendThread function (desktop only).
         /// </summary>

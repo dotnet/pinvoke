@@ -3026,5 +3026,29 @@ namespace PInvoke
         [DllImport(api_ms_win_core_handle_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool GetHandleInformation(SafeHandle hObject, [Friendly(FriendlyFlags.Out)] HandleFlags* lpdwFlags);
+
+        /// <summary>
+        /// Converts MS-DOS date and time values to a file time.
+        /// </summary>
+        /// <param name="wFatDate">
+        /// The portion of the MS-DOS date which contains the date part.
+        /// </param>
+        /// <param name="wFatTime">
+        /// The portion of the MS-DOS date which contains the time part.
+        /// </param>
+        /// <param name="lpFileTime">
+        /// A pointer to a FILETIME structure that receives the converted file time.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-dosdatetimetofiletime"/>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool DosDateTimeToFileTime(
+            ushort wFatDate,
+            ushort wFatTime,
+            [Friendly(FriendlyFlags.Out)] FILETIME* lpFileTime);
     }
 }

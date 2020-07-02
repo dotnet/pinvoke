@@ -40,9 +40,9 @@ PInvoke.Cabinet.NOTIFICATION.fdie -> PInvoke.Cabinet.FdiError
 PInvoke.Cabinet.NOTIFICATION.hf -> System.IntPtr
 PInvoke.Cabinet.NOTIFICATION.iCabinet -> short
 PInvoke.Cabinet.NOTIFICATION.iFolder -> short
-PInvoke.Cabinet.NOTIFICATION.psz1 -> char*
-PInvoke.Cabinet.NOTIFICATION.psz2 -> char*
-PInvoke.Cabinet.NOTIFICATION.psz3 -> char*
+PInvoke.Cabinet.NOTIFICATION.psz1 -> sbyte*
+PInvoke.Cabinet.NOTIFICATION.psz2 -> sbyte*
+PInvoke.Cabinet.NOTIFICATION.psz3 -> sbyte*
 PInvoke.Cabinet.NOTIFICATION.pv -> System.IntPtr
 PInvoke.Cabinet.NOTIFICATION.setID -> short
 PInvoke.Cabinet.NOTIFICATION.time -> ushort

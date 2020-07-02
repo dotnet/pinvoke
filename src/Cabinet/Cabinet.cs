@@ -69,7 +69,7 @@ namespace PInvoke
         /// The number of bytes read.
         /// </returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public unsafe delegate int FNREAD(int hf, void* pv, int cb);
+        public unsafe delegate int FNREAD(int hf, byte* pv, int cb);
 
         /// <summary>
         /// The <see cref="FNWRITE"/> macro provides the declaration for the application-defined callback function to write data to a file in an FDI context.
@@ -87,7 +87,7 @@ namespace PInvoke
         /// If successful, _write returns the number of bytes written.
         /// </returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public unsafe delegate int FNWRITE(int hf, void* pv, int cb);
+        public unsafe delegate int FNWRITE(int hf, byte* pv, int cb);
 
         /// <summary>
         /// The <see cref="FNCLOSE"/> macro provides the declaration for the application-defined callback function to close a file in an FDI context.
@@ -132,7 +132,7 @@ namespace PInvoke
         /// The return value, which is passed from the application to the Cabinet API.
         /// </returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate int FNFDINOTIFY(NOTIFICATIONTYPE fdint, NOTIFICATION fdin);
+        public unsafe delegate int FNFDINOTIFY(NOTIFICATIONTYPE fdint, NOTIFICATION* fdin);
 
         /// <summary>
         /// The FDICreate function creates an FDI context.
@@ -208,7 +208,7 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, it returns <see langword="true"/>; otherwise, <see langword="false"/>.
         /// </returns>
-        [DllImport(nameof(Cabinet), CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(nameof(Cabinet), CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool FDICopy(
             FdiHandle hfdi,
