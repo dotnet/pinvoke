@@ -126,13 +126,6 @@ namespace PInvoke
             PROFILE_USER = 0x10000000,
             PROFILE_KERNEL = 0x20000000,
             PROFILE_SERVER = 0x40000000,
-
-            /// <summary>
-            /// The dwStackSize parameter in <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, uint*)"/>
-            /// specifies the initial reserve size of the stack. If this flag is not specified,
-            /// dwStackSize specifies the commit size.
-            /// </summary>
-            STACK_SIZE_PARAM_IS_A_RESERVATION = 0x00010000,
         }
     }
 }

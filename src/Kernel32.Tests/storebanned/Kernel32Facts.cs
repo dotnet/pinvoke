@@ -945,7 +945,7 @@ public partial class Kernel32Facts
     }
 
     /// <summary>
-    /// Basic validation for <see cref="Kernel32.CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, uint*)"/>
+    /// Basic validation for <see cref="Kernel32.CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
     ///
     /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(void*)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
     /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
@@ -967,7 +967,7 @@ public partial class Kernel32Facts
                     UIntPtr.Zero,
                     threadProc,
                     &result,
-                    Kernel32.CreateProcessFlags.None,
+                    Kernel32.CreateThreadFlags.None,
                     &dwNewThreadId);
         Kernel32.WaitForSingleObject(hThread, -1);
 
@@ -976,7 +976,7 @@ public partial class Kernel32Facts
     }
 
     /// <summary>
-    /// Basic validation for <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, uint*)"/>
+    /// Basic validation for <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
     /// Note that this test DOES NOT create a true REMOTE thread in a foreign process; it just leverages this function to create a thread in the current (i.e, the test) procrss.
     /// Nevertheless, this approach provides modest confidence that the P/Invoke definition is well-formed.
     ///
@@ -1002,7 +1002,7 @@ public partial class Kernel32Facts
                     UIntPtr.Zero,
                     threadProc,
                     &result,
-                    Kernel32.CreateProcessFlags.None,
+                    Kernel32.CreateThreadFlags.None,
                     &dwNewThreadId);
         Kernel32.WaitForSingleObject(hThread, -1);
 
@@ -1011,7 +1011,7 @@ public partial class Kernel32Facts
     }
 
     /// <summary>
-    /// Basic validation for <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, PROC_THREAD_ATTRIBUTE_LIST*, uint*)"/>
+    /// Basic validation for <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, PROC_THREAD_ATTRIBUTE_LIST*, uint*)"/>
     /// Note that this test DOES NOT create a true REMOTE thread in a foreign process; it just leverages this function to create a thread in the current (i.e, the test) procrss.
     /// Nevertheless, this approach provides modest confidence that the P/Invoke definition is well-formed.
     ///
@@ -1037,7 +1037,7 @@ public partial class Kernel32Facts
                     UIntPtr.Zero,
                     threadProc,
                     &result,
-                    Kernel32.CreateProcessFlags.None,
+                    Kernel32.CreateThreadFlags.None,
                     null,
                     &dwNewThreadId);
         Kernel32.WaitForSingleObject(hThread, -1);

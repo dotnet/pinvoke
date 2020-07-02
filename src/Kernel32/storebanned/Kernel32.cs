@@ -3070,8 +3070,8 @@ namespace PInvoke
         /// <param name="lpParameter">A pointer to a variable to be passed to the thread.</param>
         /// <param name="dwCreationFlags">
         /// The flags that control the creation of the thread.
-        /// <see cref="CreateProcessFlags.None"/>, <see cref="CreateProcessFlags.CREATE_SUSPENDED"/>
-        /// and <see cref="CreateProcessFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
+        /// <see cref="CreateThreadFlags.None"/>, <see cref="CreateThreadFlags.CREATE_SUSPENDED"/>
+        /// and <see cref="CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
         /// values for this parameter.
         /// </param>
         /// <param name="lpThreadId">A pointer to a variable that receives the thread identifier. If this
@@ -3082,7 +3082,7 @@ namespace PInvoke
         /// <see cref="GetLastError"/>.
         /// </returns>
         /// <remarks>
-        /// Note that <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, uint*)"/>
+        /// Note that <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
         /// may succeed even if <paramref name="lpStartAddress"/> points to data, code, or is not accessible.
         /// If the start address is invalid when the thread runs, an exception occurs, and the thread terminates.
         /// Thread termination due to a invalid start address is handled as an error exit for the thread's process. This behavior
@@ -3095,12 +3095,12 @@ namespace PInvoke
             [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
             void* lpParameter,
-            CreateProcessFlags dwCreationFlags,
+            CreateThreadFlags dwCreationFlags,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
 
         /// <summary>
         /// Creates a thread that runs in the virtual address space of another process.
-        /// Use the <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, PROC_THREAD_ATTRIBUTE_LIST*, uint*)"/>
+        /// Use the <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, PROC_THREAD_ATTRIBUTE_LIST*, uint*)"/>
         /// function to create a thread that runs in the virtual address space of another process and optionally specify extended attributes.
         /// </summary>
         /// <param name="hProcess">
@@ -3127,8 +3127,8 @@ namespace PInvoke
         /// <param name="lpParameter">A pointer to a variable to be passed to the thread function.</param>
         /// <param name="dwCreationFlags">
         /// The flags that control the creation of the thread.
-        /// <see cref="CreateProcessFlags.None"/>, <see cref="CreateProcessFlags.CREATE_SUSPENDED"/>
-        /// and <see cref="CreateProcessFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
+        /// <see cref="CreateThreadFlags.None"/>, <see cref="CreateThreadFlags.CREATE_SUSPENDED"/>
+        /// and <see cref="CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
         /// values for this parameter.
         /// </param>
         /// <param name="lpThreadId">
@@ -3138,7 +3138,7 @@ namespace PInvoke
         /// <returns>
         /// If the function succeeds, the return value is a handle to the new thread.
         /// If the function fails, the return value is null.To get extended error information, call <see cref="GetLastError"/>.
-        /// Note that <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateProcessFlags, uint*)"/> may
+        /// Note that <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/> may
         /// succeed even if <paramref name="lpStartAddress"/> points to data, code, or is not accessible. If the start address is invalid when the thread
         /// runs, an exception occurs, and the thread terminates. Thread termination due to a invalid start address is handled as an error exit for the thread's
         /// process. This behavior is similar to the asynchronous nature of <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/>, where
@@ -3151,7 +3151,7 @@ namespace PInvoke
             [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
             void* lpParameter,
-            CreateProcessFlags dwCreationFlags,
+            CreateThreadFlags dwCreationFlags,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
 
         /// <summary>
@@ -3181,8 +3181,8 @@ namespace PInvoke
         /// parameter can be null.</param>
         /// <param name="dwCreationFlags">
         /// The flags that control the creation of the thread.
-        /// <see cref="CreateProcessFlags.None"/>, <see cref="CreateProcessFlags.CREATE_SUSPENDED"/>
-        /// and <see cref="CreateProcessFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
+        /// <see cref="CreateThreadFlags.None"/>, <see cref="CreateThreadFlags.CREATE_SUSPENDED"/>
+        /// and <see cref="CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
         /// values for this parameter.
         /// </param>
         /// <param name="lpAttributeList">
@@ -3203,7 +3203,7 @@ namespace PInvoke
             [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
             THREAD_START_ROUTINE lpStartAddress,
             void* lpParameter,
-            CreateProcessFlags dwCreationFlags,
+            CreateThreadFlags dwCreationFlags,
             PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
     }
