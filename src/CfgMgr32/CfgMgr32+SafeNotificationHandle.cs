@@ -15,18 +15,15 @@ namespace PInvoke
         /// <summary>
         /// A handle which represents a notification context.
         /// </summary>
-        public class SafeNotificationHandle : SafeHandle
+        public class SafeNotificationHandle : SafeHandleZeroOrMinusOneIsInvalid
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="SafeNotificationHandle"/> class.
             /// </summary>
             public SafeNotificationHandle()
-                : base(IntPtr.Zero, true)
+                : base(true)
             {
             }
-
-            /// <inheritdoc/>
-            public override bool IsInvalid => this.handle == IntPtr.Zero;
 
             /// <inheritdoc/>
             protected override bool ReleaseHandle()
