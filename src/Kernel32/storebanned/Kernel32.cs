@@ -3295,11 +3295,30 @@ namespace PInvoke
         ///
         /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
         ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the <see cref="CloseHandle(IntPtr)"/> function with a
+        /// pseudo-handle, the function has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentThreadEffectiveToken();
+
+        /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the impersonation token that was assigned to the current thread.
+        /// </summary>
+        /// <returns>A pseudo-handle that you can use as a shorthand way to refer to the impersonation token that was assigned to the current thread.</returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the impersonation token for the current thread. The calling thread can use a
+        /// pseudo-handle to specify the impersonation token for that thread whenever a token handle is required. Child processes do not inherit
+        /// pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        ///
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
         /// You do not need to close the pseudo-handle when you no longer need it.If you call the CloseHandle function with a pseudo-handle, the function
         /// has no effect.
         /// </remarks>
         [DllImport(nameof(Kernel32))]
-        public static extern SafeObjectHandle GetCurrentThreadEffectiveToken();
+        public static extern SafeObjectHandle GetCurrentThreadToken();
 
         /// <summary>
         /// Closes a pseudoconsole from the given handle.
