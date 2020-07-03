@@ -125,7 +125,7 @@ namespace PInvoke
             PROCESS_MODE_BACKGROUND_END = 0x00200000,
             PROFILE_USER = 0x10000000,
             PROFILE_KERNEL = 0x20000000,
-            PROFILE_SERVER = 0x40000000
+            PROFILE_SERVER = 0x40000000,
         }
     }
 }

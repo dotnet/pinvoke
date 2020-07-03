@@ -15,6 +15,7 @@ using static PInvoke.Kernel32;
 
 public partial class Kernel32Facts
 {
+    private static unsafe Kernel32.THREAD_START_ROUTINE threadProc = new THREAD_START_ROUTINE(CreateThread_Test_ThreadMain);
     private readonly Random random = new Random();
 
     [Fact]
@@ -942,6 +943,124 @@ public partial class Kernel32Facts
             manualResetEvent.SafeWaitHandle,
             HandleFlags.HANDLE_FLAG_INHERIT | HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE,
             HandleFlags.HANDLE_FLAG_NONE));
+    }
+
+    /// <summary>
+    /// Basic validation for <see cref="Kernel32.CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(void*)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateThread_Test()
+    {
+        var result = false;
+        var dwNewThreadId = 0u;
+
+        using var hThread =
+                Kernel32.CreateThread(
+                    null,
+                    UIntPtr.Zero,
+                    Kernel32Facts.threadProc,
+                    &result,
+                    Kernel32.CreateThreadFlags.None,
+                    &dwNewThreadId);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.True(result);
+        Assert.NotEqual((uint)Kernel32.GetCurrentThreadId(), dwNewThreadId);
+    }
+
+    /// <summary>
+    /// Basic validation for <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
+    /// Note that this test DOES NOT create a true REMOTE thread in a foreign process; it just leverages this function to create a thread in the current (i.e, the test) procrss.
+    /// Nevertheless, this approach provides modest confidence that the P/Invoke definition is well-formed.
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(void*)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateRemoteThread_PseudoTest()
+    {
+        var result = false;
+        var dwNewThreadId = 0u;
+
+        using var hProcess = Kernel32.GetCurrentProcess();
+        using var hThread =
+                Kernel32.CreateRemoteThread(
+                    hProcess.DangerousGetHandle(),
+                    null,
+                    UIntPtr.Zero,
+                    Kernel32Facts.threadProc,
+                    &result,
+                    Kernel32.CreateThreadFlags.None,
+                    &dwNewThreadId);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.True(result);
+        Assert.NotEqual((uint)Kernel32.GetCurrentThreadId(), dwNewThreadId);
+    }
+
+    /// <summary>
+    /// Basic validation for <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, PROC_THREAD_ATTRIBUTE_LIST*, uint*)"/>
+    /// Note that this test DOES NOT create a true REMOTE thread in a foreign process; it just leverages this function to create a thread in the current (i.e, the test) procrss.
+    /// Nevertheless, this approach provides modest confidence that the P/Invoke definition is well-formed.
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(void*)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateRemoteThreadEx_PseudoTest()
+    {
+        var result = false;
+        var dwNewThreadId = 0u;
+
+        using var hProcess = Kernel32.GetCurrentProcess();
+        using var hThread =
+                Kernel32.CreateRemoteThreadEx(
+                    hProcess.DangerousGetHandle(),
+                    null,
+                    UIntPtr.Zero,
+                    Kernel32Facts.threadProc,
+                    &result,
+                    Kernel32.CreateThreadFlags.None,
+                    null,
+                    &dwNewThreadId);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.True(result);
+        Assert.NotEqual((uint)Kernel32.GetCurrentThreadId(), dwNewThreadId);
+    }
+
+    /// <summary>
+    /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and
+    /// <see cref="CreateRemoteThreadEx_PseudoTest"/> tests.
+    ///
+    /// Updates the boolean data pasesed in to true.
+    /// </summary>
+    /// <param name="data">
+    /// Data passed by the test. Contains a pointer to a boolean value.
+    /// </param>
+    /// <returns>
+    /// Returns 1.
+    /// </returns>
+    /// <remarks>See <see cref=" Kernel32.THREAD_START_ROUTINE"/> for general documentation</remarks>
+    private static unsafe uint CreateThread_Test_ThreadMain(void* data)
+    {
+        *(bool*)data = true;
+        return 1;
     }
 
     private ArraySegment<byte> GetRandomSegment(int size)

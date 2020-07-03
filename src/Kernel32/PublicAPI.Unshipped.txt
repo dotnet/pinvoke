@@ -1,6 +1,10 @@
 PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.CreatePseudoConsoleFlags.None = 0 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.CreatePseudoConsoleFlags.PSEUDOCONSOLE_INHERIT_CURSOR = 1 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
+PInvoke.Kernel32.CreateThreadFlags
+PInvoke.Kernel32.CreateThreadFlags.CREATE_SUSPENDED = 4 -> PInvoke.Kernel32.CreateThreadFlags
+PInvoke.Kernel32.CreateThreadFlags.None = 0 -> PInvoke.Kernel32.CreateThreadFlags
+PInvoke.Kernel32.CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION = 65536 -> PInvoke.Kernel32.CreateThreadFlags
 PInvoke.Kernel32.ErrorModes
 PInvoke.Kernel32.ErrorModes.SEM_DEFAULT = 0 -> PInvoke.Kernel32.ErrorModes
 PInvoke.Kernel32.ErrorModes.SEM_FAILCRITICALERRORS = 1 -> PInvoke.Kernel32.ErrorModes
@@ -81,6 +85,7 @@ PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.set -> void
 PInvoke.Kernel32.SafePseudoConsoleHandle
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle() -> void
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.Kernel32.THREAD_START_ROUTINE
 PInvoke.Kernel32.VER_CONDITION
 PInvoke.Kernel32.VER_CONDITION.VER_AND = 6 -> PInvoke.Kernel32.VER_CONDITION
 PInvoke.Kernel32.VER_CONDITION.VER_EQUAL = 1 -> PInvoke.Kernel32.VER_CONDITION
@@ -102,6 +107,15 @@ override PInvoke.Kernel32.SafePseudoConsoleHandle.IsInvalid.get -> bool
 override PInvoke.Kernel32.SafePseudoConsoleHandle.ReleaseHandle() -> bool
 static PInvoke.Kernel32.CompareFileTime(PInvoke.Kernel32.FILETIME lpFileTime1, PInvoke.Kernel32.FILETIME lpFileTime2) -> int
 static PInvoke.Kernel32.CompareFileTime(System.IntPtr lpFileTime1, System.IntPtr lpFileTime2) -> int
+static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, System.IntPtr lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpAttributeList, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, System.IntPtr lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpAttributeList, System.IntPtr lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateThread(System.IntPtr lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
 static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, System.IntPtr lpFileTime) -> bool
 static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, out PInvoke.Kernel32.FILETIME lpFileTime) -> bool
 static PInvoke.Kernel32.FILETIME.explicit operator System.DateTime(PInvoke.Kernel32.FILETIME fileTime) -> System.DateTime
@@ -126,6 +140,9 @@ static PInvoke.Kernel32.VerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX l
 static PInvoke.Kernel32.WriteProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesWritten) -> bool
 static extern PInvoke.Kernel32.CompareFileTime(PInvoke.Kernel32.FILETIME* lpFileTime1, PInvoke.Kernel32.FILETIME* lpFileTime2) -> int
 static extern PInvoke.Kernel32.CreatePseudoConsole(PInvoke.COORD size, PInvoke.Kernel32.SafeObjectHandle hInput, PInvoke.Kernel32.SafeObjectHandle hOutput, PInvoke.Kernel32.CreatePseudoConsoleFlags dwFlags, out PInvoke.Kernel32.SafePseudoConsoleHandle phPC) -> PInvoke.HResult
+static extern PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
 static extern PInvoke.Kernel32.FileTimeToSystemTime(PInvoke.Kernel32.FILETIME* lpFileTime, PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> bool
 static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool
