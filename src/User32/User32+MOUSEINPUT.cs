@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a simulated mouse event.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct MOUSEINPUT
         {

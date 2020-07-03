@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Represents an action that the service control manager can perform.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct SC_ACTION
         {
             /// <summary>

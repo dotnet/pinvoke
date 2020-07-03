@@ -1,0 +1,61 @@
+﻿PInvoke.Cabinet
+PInvoke.Cabinet.CpuType
+PInvoke.Cabinet.CpuType.Unknown = -1 -> PInvoke.Cabinet.CpuType
+PInvoke.Cabinet.CpuType._80286 = 0 -> PInvoke.Cabinet.CpuType
+PInvoke.Cabinet.CpuType._80386 = 1 -> PInvoke.Cabinet.CpuType
+PInvoke.Cabinet.ERF
+PInvoke.Cabinet.ERF.ERF() -> void
+PInvoke.Cabinet.ERF.Error -> int
+PInvoke.Cabinet.ERF.Oper -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.ERF.Type -> int
+PInvoke.Cabinet.FNALLOC
+PInvoke.Cabinet.FNCLOSE
+PInvoke.Cabinet.FNFDINOTIFY
+PInvoke.Cabinet.FNFREE
+PInvoke.Cabinet.FNOPEN
+PInvoke.Cabinet.FNREAD
+PInvoke.Cabinet.FNSEEK
+PInvoke.Cabinet.FNWRITE
+PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_ALLOC_FAIL = 5 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_BAD_COMPR_TYPE = 6 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_CABINET_NOT_FOUND = 1 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_CORRUPT_CABINET = 4 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_MDI_FAIL = 7 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_NONE = 0 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_NOT_A_CABINET = 2 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_RESERVE_MISMATCH = 9 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_TARGET_FILE = 8 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_UNKNOWN_CABINET_VERSION = 3 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_USER_ABORT = 11 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiError.FDIERROR_WRONG_CABINET = 10 -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.FdiHandle
+PInvoke.Cabinet.FdiHandle.FdiHandle() -> void
+PInvoke.Cabinet.NOTIFICATION
+PInvoke.Cabinet.NOTIFICATION.NOTIFICATION() -> void
+PInvoke.Cabinet.NOTIFICATION.attribs -> short
+PInvoke.Cabinet.NOTIFICATION.cb -> int
+PInvoke.Cabinet.NOTIFICATION.date -> ushort
+PInvoke.Cabinet.NOTIFICATION.fdie -> PInvoke.Cabinet.FdiError
+PInvoke.Cabinet.NOTIFICATION.hf -> System.IntPtr
+PInvoke.Cabinet.NOTIFICATION.iCabinet -> short
+PInvoke.Cabinet.NOTIFICATION.iFolder -> short
+PInvoke.Cabinet.NOTIFICATION.psz1 -> sbyte*
+PInvoke.Cabinet.NOTIFICATION.psz2 -> sbyte*
+PInvoke.Cabinet.NOTIFICATION.psz3 -> sbyte*
+PInvoke.Cabinet.NOTIFICATION.pv -> System.IntPtr
+PInvoke.Cabinet.NOTIFICATION.setID -> short
+PInvoke.Cabinet.NOTIFICATION.time -> ushort
+PInvoke.Cabinet.NOTIFICATIONTYPE
+PInvoke.Cabinet.NOTIFICATIONTYPE.CABINET_INFO = 0 -> PInvoke.Cabinet.NOTIFICATIONTYPE
+PInvoke.Cabinet.NOTIFICATIONTYPE.CLOSE_FILE_INFO = 3 -> PInvoke.Cabinet.NOTIFICATIONTYPE
+PInvoke.Cabinet.NOTIFICATIONTYPE.COPY_FILE = 2 -> PInvoke.Cabinet.NOTIFICATIONTYPE
+PInvoke.Cabinet.NOTIFICATIONTYPE.ENUMERATE = 5 -> PInvoke.Cabinet.NOTIFICATIONTYPE
+PInvoke.Cabinet.NOTIFICATIONTYPE.NEXT_CABINET = 4 -> PInvoke.Cabinet.NOTIFICATIONTYPE
+PInvoke.Cabinet.NOTIFICATIONTYPE.PARTIAL_FILE = 1 -> PInvoke.Cabinet.NOTIFICATIONTYPE
+override PInvoke.Cabinet.FdiHandle.ReleaseHandle() -> bool
+static PInvoke.Cabinet.FDICopy(PInvoke.Cabinet.FdiHandle hfdi, string pszCabinet, string pszCabPath, int flags, PInvoke.Cabinet.FNFDINOTIFY pfnfdin, System.IntPtr pfnfdid, System.IntPtr pvUser) -> bool
+static PInvoke.Cabinet.FDICreate(PInvoke.Cabinet.FNALLOC pfnalloc, PInvoke.Cabinet.FNFREE pfnfree, PInvoke.Cabinet.FNOPEN pfnopen, PInvoke.Cabinet.FNREAD pfnread, PInvoke.Cabinet.FNWRITE pfnwrite, PInvoke.Cabinet.FNCLOSE pfnclose, PInvoke.Cabinet.FNSEEK pfnseek, PInvoke.Cabinet.CpuType cpuType, System.IntPtr perf) -> PInvoke.Cabinet.FdiHandle
+static PInvoke.Cabinet.FDICreate(PInvoke.Cabinet.FNALLOC pfnalloc, PInvoke.Cabinet.FNFREE pfnfree, PInvoke.Cabinet.FNOPEN pfnopen, PInvoke.Cabinet.FNREAD pfnread, PInvoke.Cabinet.FNWRITE pfnwrite, PInvoke.Cabinet.FNCLOSE pfnclose, PInvoke.Cabinet.FNSEEK pfnseek, PInvoke.Cabinet.CpuType cpuType, out PInvoke.Cabinet.ERF perf) -> PInvoke.Cabinet.FdiHandle
+static extern PInvoke.Cabinet.FDICopy(PInvoke.Cabinet.FdiHandle hfdi, string pszCabinet, string pszCabPath, int flags, PInvoke.Cabinet.FNFDINOTIFY pfnfdin, void* pfnfdid, void* pvUser) -> bool
+static extern PInvoke.Cabinet.FDICreate(PInvoke.Cabinet.FNALLOC pfnalloc, PInvoke.Cabinet.FNFREE pfnfree, PInvoke.Cabinet.FNOPEN pfnopen, PInvoke.Cabinet.FNREAD pfnread, PInvoke.Cabinet.FNWRITE pfnwrite, PInvoke.Cabinet.FNCLOSE pfnclose, PInvoke.Cabinet.FNSEEK pfnseek, PInvoke.Cabinet.CpuType cpuType, PInvoke.Cabinet.ERF* perf) -> PInvoke.Cabinet.FdiHandle

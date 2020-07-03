@@ -8,6 +8,9 @@ PInvoke.BCrypt.BCRYPT_MULTI_HASH_OPERATION.pbBuffer_IntPtr.get -> System.IntPtr
 PInvoke.BCrypt.BCRYPT_MULTI_HASH_OPERATION.pbBuffer_IntPtr.set -> void
 PInvoke.BCrypt.BCRYPT_MULTI_OPERATION_TYPE
 PInvoke.BCrypt.BCRYPT_MULTI_OPERATION_TYPE.BCRYPT_OPERATION_TYPE_HASH = 1 -> PInvoke.BCrypt.BCRYPT_MULTI_OPERATION_TYPE
+PInvoke.BCrypt.BCryptKeyDerivationFlags
+PInvoke.BCrypt.BCryptKeyDerivationFlags.BCRYPT_CAPI_AES_FLAG = 16 -> PInvoke.BCrypt.BCryptKeyDerivationFlags
+PInvoke.BCrypt.BCryptKeyDerivationFlags.None = 0 -> PInvoke.BCrypt.BCryptKeyDerivationFlags
 PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags.BCRYPT_MULTI_FLAG = 64 -> PInvoke.BCrypt.BCryptOpenAlgorithmProviderFlags
 PInvoke.BCrypt.HashOperationType
 PInvoke.BCrypt.HashOperationType.BCRYPT_HASH_OPERATION_FINISH_HASH = 2 -> PInvoke.BCrypt.HashOperationType
@@ -27,6 +30,8 @@ static PInvoke.BCrypt.BCryptGetProperty(System.Runtime.InteropServices.SafeHandl
 static PInvoke.BCrypt.BCryptHashData(PInvoke.BCrypt.SafeHashHandle hHash, System.IntPtr pbInput, int cbInput, PInvoke.BCrypt.BCryptHashDataFlags dwFlags = PInvoke.BCrypt.BCryptHashDataFlags.None) -> PInvoke.NTSTATUS
 static PInvoke.BCrypt.BCryptImportKey(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, PInvoke.BCrypt.SafeKeyHandle hImportKey, string pszBlobType, out PInvoke.BCrypt.SafeKeyHandle phKey, System.IntPtr pbKeyObject, int cbKeyObject, System.IntPtr pbInput, int cbInput, PInvoke.BCrypt.BCryptImportKeyFlags dwFlags = PInvoke.BCrypt.BCryptImportKeyFlags.None) -> PInvoke.NTSTATUS
 static PInvoke.BCrypt.BCryptImportKeyPair(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, PInvoke.BCrypt.SafeKeyHandle hImportKey, string pszBlobType, out PInvoke.BCrypt.SafeKeyHandle phKey, System.IntPtr pbInput, int cbInput, PInvoke.BCrypt.BCryptImportKeyPairFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptKeyDerivation(PInvoke.BCrypt.SafeKeyHandle hKey, PInvoke.BCrypt.BCryptBufferDesc? pParameterList, byte[] pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.BCrypt.BCryptKeyDerivationFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptKeyDerivation(PInvoke.BCrypt.SafeKeyHandle hKey, System.IntPtr pParameterList, System.IntPtr pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.BCrypt.BCryptKeyDerivationFlags dwFlags) -> PInvoke.NTSTATUS
 static PInvoke.BCrypt.BCryptProcessMultiOperations(PInvoke.BCrypt.SafeHashHandle hHash, PInvoke.BCrypt.BCRYPT_MULTI_OPERATION_TYPE operationType, PInvoke.BCrypt.BCRYPT_MULTI_HASH_OPERATION[] pOperations, int cbOperations, int dwFlags = 0) -> PInvoke.NTSTATUS
 static PInvoke.BCrypt.BCryptProcessMultiOperations(PInvoke.BCrypt.SafeHashHandle hHash, PInvoke.BCrypt.BCRYPT_MULTI_OPERATION_TYPE operationType, System.IntPtr pOperations, int cbOperations, int dwFlags = 0) -> PInvoke.NTSTATUS
 static PInvoke.BCrypt.BCryptSignHash(PInvoke.BCrypt.SafeKeyHandle hKey, System.IntPtr pPaddingInfo, System.IntPtr pbInput, int cbInput, System.IntPtr pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptSignHashFlags dwFlags) -> PInvoke.NTSTATUS
@@ -42,6 +47,7 @@ static extern PInvoke.BCrypt.BCryptGetProperty(System.Runtime.InteropServices.Sa
 static extern PInvoke.BCrypt.BCryptHashData(PInvoke.BCrypt.SafeHashHandle hHash, byte* pbInput, int cbInput, PInvoke.BCrypt.BCryptHashDataFlags dwFlags = PInvoke.BCrypt.BCryptHashDataFlags.None) -> PInvoke.NTSTATUS
 static extern PInvoke.BCrypt.BCryptImportKey(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, PInvoke.BCrypt.SafeKeyHandle hImportKey, string pszBlobType, out PInvoke.BCrypt.SafeKeyHandle phKey, byte* pbKeyObject, int cbKeyObject, byte* pbInput, int cbInput, PInvoke.BCrypt.BCryptImportKeyFlags dwFlags = PInvoke.BCrypt.BCryptImportKeyFlags.None) -> PInvoke.NTSTATUS
 static extern PInvoke.BCrypt.BCryptImportKeyPair(PInvoke.BCrypt.SafeAlgorithmHandle hAlgorithm, PInvoke.BCrypt.SafeKeyHandle hImportKey, string pszBlobType, out PInvoke.BCrypt.SafeKeyHandle phKey, byte* pbInput, int cbInput, PInvoke.BCrypt.BCryptImportKeyPairFlags dwFlags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptKeyDerivation(PInvoke.BCrypt.SafeKeyHandle hKey, PInvoke.BCrypt.BCryptBufferDesc* pParameterList, byte* pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.BCrypt.BCryptKeyDerivationFlags dwFlags) -> PInvoke.NTSTATUS
 static extern PInvoke.BCrypt.BCryptProcessMultiOperations(PInvoke.BCrypt.SafeHashHandle hHash, PInvoke.BCrypt.BCRYPT_MULTI_OPERATION_TYPE operationType, PInvoke.BCrypt.BCRYPT_MULTI_HASH_OPERATION* pOperations, int cbOperations, int dwFlags = 0) -> PInvoke.NTSTATUS
 static extern PInvoke.BCrypt.BCryptSignHash(PInvoke.BCrypt.SafeKeyHandle hKey, void* pPaddingInfo, byte* pbInput, int cbInput, byte* pbOutput, int cbOutput, out int pcbResult, PInvoke.BCrypt.BCryptSignHashFlags dwFlags) -> PInvoke.NTSTATUS
 static extern PInvoke.BCrypt.BCryptVerifySignature(PInvoke.BCrypt.SafeKeyHandle hKey, void* pPaddingInfo, byte* pbHash, int cbHash, byte* pbSignature, int cbSignature, PInvoke.BCrypt.BCryptSignHashFlags dwFlags = PInvoke.BCrypt.BCryptSignHashFlags.None) -> PInvoke.NTSTATUS

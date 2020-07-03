@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Values to pass to the <see cref="DrawTextEx(SafeDCHandle, char*, int, RECT*, uint, DRAWTEXTPARAMS*)"/> method describing extended formatting options for the text.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct DRAWTEXTPARAMS
         {
             /// <summary>

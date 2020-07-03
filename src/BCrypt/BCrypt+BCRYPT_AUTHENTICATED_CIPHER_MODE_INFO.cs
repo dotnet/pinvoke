@@ -15,7 +15,6 @@ namespace PInvoke
         /// Used with the <see cref="BCryptEncrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> and <see cref="BCryptDecrypt(SafeKeyHandle, byte[], void*, byte[], BCryptEncryptFlags)"/> functions
         /// to contain additional information related to authenticated cipher modes.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO
         {

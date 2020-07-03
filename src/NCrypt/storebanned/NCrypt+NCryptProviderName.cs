@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains the name of a CNG key storage provider. This structure is used with the <see cref="NCryptEnumStorageProviders(out int, out NCryptProviderName*, NCryptEnumStorageProvidersFlags)"/> function to return the names of the registered CNG key storage providers.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct NCryptProviderName
         {

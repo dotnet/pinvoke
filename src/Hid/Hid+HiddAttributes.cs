@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// The HIDD_ATTRIBUTES structure contains vendor information about a HIDClass device.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct HiddAttributes
         {
             /// <summary>

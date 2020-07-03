@@ -8,7 +8,6 @@ namespace PInvoke
     /// <summary>
     /// Represents the PE header format.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
     public struct IMAGE_NT_HEADERS
     {
         /// <summary>

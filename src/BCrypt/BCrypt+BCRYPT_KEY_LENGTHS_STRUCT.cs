@@ -15,7 +15,6 @@ namespace PInvoke
         /// Defines the range of key sizes that are supported by the provider.
         /// This structure is used with the <see cref="PropertyNames.BCRYPT_KEY_LENGTHS"/> property.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_KEY_LENGTHS_STRUCT : IEnumerable<int>
         {
             /// <summary>

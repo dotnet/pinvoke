@@ -16,7 +16,6 @@ namespace PInvoke
         /// rather than copied around because it is just the header to a native buffer.
         /// </summary>
         /// <remarks>Used by <see cref="SHGetKnownFolderIDList(System.Guid, KNOWN_FOLDER_FLAG, System.IntPtr, out ITEMIDLIST*)"/> and <see cref="SHGetFolderLocation(System.IntPtr, CSIDL, System.IntPtr, int, out ITEMIDLIST*)"/></remarks>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ITEMIDLIST
         {
             /// <summary>

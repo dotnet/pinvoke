@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// defines the range of tag sizes that are supported by the provider. This structure is used with the <see cref="PropertyNames.BCRYPT_AUTH_TAG_LENGTH"/> property.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_AUTH_TAG_LENGTHS_STRUCT : IEnumerable<int>
         {
             /// <summary>

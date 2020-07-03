@@ -13,16 +13,19 @@
   <ItemGroup>
     <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" />
     <ProjectReference Include="..\BCrypt\BCrypt.csproj" />
+    <ProjectReference Include="..\Cabinet\Cabinet.csproj" />
     <ProjectReference Include="..\Crypt32\Crypt32.csproj" />
     <ProjectReference Include="..\DbgHelp\DbgHelp.csproj" />
     <ProjectReference Include="..\DwmApi\DwmApi.csproj" />
     <ProjectReference Include="..\Gdi32\Gdi32.csproj" />
     <ProjectReference Include="..\Hid\Hid.csproj" />
     <ProjectReference Include="..\ImageHlp\ImageHlp.csproj" />
+    <ProjectReference Include="..\IPHlpApi\IPHlpApi.csproj" Condition="$(TargetFramework) != 'netstandard1.1'" />
     <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
     <ProjectReference Include="..\Msi\Msi.csproj" />
     <ProjectReference Include="..\NCrypt\NCrypt.csproj" />
     <ProjectReference Include="..\NetApi32\NetApi32.csproj" />
+    <ProjectReference Include="..\NewDev\NewDev.csproj" />
     <ProjectReference Include="..\NTDll\NTDll.csproj" />
     <ProjectReference Include="..\Ole32\Ole32.csproj" />
     <ProjectReference Include="..\Psapi\Psapi.csproj" />
@@ -34,6 +37,7 @@
     <ProjectReference Include="..\UxTheme\UxTheme.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
     <ProjectReference Include="..\Windows.ShellScalingApi\Windows.ShellScalingApi.csproj" />
+    <ProjectReference Include="..\WinUsb\WinUsb.csproj" Condition="$(TargetFramework) != 'netstandard1.1'" />
     <ProjectReference Include="..\WtsApi32\WtsApi32.csproj" />
     <ProjectReference Include="..\Magnification\Magnification.csproj" />
   </ItemGroup>

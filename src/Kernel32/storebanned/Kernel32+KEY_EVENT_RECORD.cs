@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Describes a keyboard input event in a console <see cref="INPUT_RECORD"/> structure.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct KEY_EVENT_RECORD
         {
             /// <summary>

@@ -106,8 +106,11 @@ static PInvoke.AdvApi32.CryptGetHashParam(PInvoke.AdvApi32.SafeHashHandle hHash,
 static PInvoke.AdvApi32.CryptGetHashParam(PInvoke.AdvApi32.SafeHashHandle hHash, PInvoke.AdvApi32.CryptGetHashParamFlags dwParam, byte[] pbData, ref int pdwDataLen, uint dwFlags) -> bool
 static PInvoke.AdvApi32.CryptHashData(PInvoke.AdvApi32.SafeHashHandle hHash, System.IntPtr pbData, int dataLen, PInvoke.AdvApi32.CryptHashDataFlags flags) -> bool
 static PInvoke.AdvApi32.CryptHashData(PInvoke.AdvApi32.SafeHashHandle hHash, byte[] pbData, int dataLen, PInvoke.AdvApi32.CryptHashDataFlags flags) -> bool
+static PInvoke.AdvApi32.LookupPrivilegeValue(System.IntPtr lpSystemName, System.IntPtr lpName, System.IntPtr lpLuid) -> bool
+static PInvoke.AdvApi32.LookupPrivilegeValue(char[] lpSystemName, char[] lpName, out PInvoke.User32.LUID lpLuid) -> bool
 static extern PInvoke.AdvApi32.CryptAcquireContext(out PInvoke.AdvApi32.SafeCryptographicProviderHandle hProv, string pszContainer, string pszProvider, PInvoke.AdvApi32.ProviderType dwProvType, PInvoke.AdvApi32.CryptAcquireContextFlags dwFlags) -> bool
 static extern PInvoke.AdvApi32.CryptCreateHash(PInvoke.AdvApi32.SafeCryptographicProviderHandle hProv, PInvoke.AdvApi32.ALG_ID algId, PInvoke.AdvApi32.SafeHashHandle hKey, PInvoke.AdvApi32.CryptCreateHashFlags dwFlags, out PInvoke.AdvApi32.SafeHashHandle phHash) -> bool
 static extern PInvoke.AdvApi32.CryptGetHashParam(PInvoke.AdvApi32.SafeHashHandle hHash, PInvoke.AdvApi32.CryptGetHashParamFlags dwParam, byte* pbData, int* pdwDataLen, uint dwFlags) -> bool
 static extern PInvoke.AdvApi32.CryptHashData(PInvoke.AdvApi32.SafeHashHandle hHash, byte* pbData, int dataLen, PInvoke.AdvApi32.CryptHashDataFlags flags) -> bool
+static extern PInvoke.AdvApi32.LookupPrivilegeValue(char* lpSystemName, char* lpName, PInvoke.User32.LUID* lpLuid) -> bool
 static readonly PInvoke.AdvApi32.SafeHashHandle.Null -> PInvoke.AdvApi32.SafeHashHandle

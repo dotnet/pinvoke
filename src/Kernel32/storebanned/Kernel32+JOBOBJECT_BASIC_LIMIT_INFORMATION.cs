@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains basic limit information for a job object.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct JOBOBJECT_BASIC_LIMIT_INFORMATION
         {
             /// <summary>

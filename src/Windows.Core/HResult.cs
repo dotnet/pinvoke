@@ -45,7 +45,6 @@ namespace PInvoke
     ///
     /// </remarks>
     [DebuggerDisplay("{Value}")]
-    [StructLayout(LayoutKind.Sequential)]
     public partial struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
     {
         /// <summary>

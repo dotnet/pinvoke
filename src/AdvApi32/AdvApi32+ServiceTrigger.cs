@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Represents a service trigger event. This structure is used by the <see cref="ServiceTriggerInfo"/> structure.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServiceTrigger
         {
             /// <summary>

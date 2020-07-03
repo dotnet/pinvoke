@@ -16,7 +16,6 @@ namespace PInvoke
         /// <summary>
         /// Contains a key BLOB. This structure is used by the <see cref="NCryptExportKey(SafeKeyHandle, SafeKeyHandle, string, NCryptBufferDesc*, byte[], int, out int, NCryptExportKeyFlags)"/> and <see cref="NCryptImportKey(SafeProviderHandle, SafeKeyHandle, string, NCryptBufferDesc*, out SafeKeyHandle, byte*, int, NCryptExportKeyFlags)"/> functions.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct NCRYPT_KEY_BLOB_HEADER
         {
             /// <summary>

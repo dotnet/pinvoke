@@ -22,7 +22,6 @@ namespace PInvoke
             DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM = 0x00000010,
         }
 
-        [StructLayout(LayoutKind.Sequential)]
         public struct DISPLAYCONFIG_PATH_TARGET_INFO
         {
             public LUID adapterId;

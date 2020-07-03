@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Describes a change in the size of the screen buffer in a console <see cref="INPUT_RECORD"/> structure.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct WINDOW_BUFFER_SIZE_RECORD
         {
             /// <summary>

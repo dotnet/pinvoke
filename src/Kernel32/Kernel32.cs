@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.IO;
 #if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
     using System.Runtime.ConstrainedExecution;
 #endif
@@ -376,6 +377,80 @@ namespace PInvoke
             OVERLAPPED* lpOverlapped);
 
         /// <summary>
+        /// Moves the file pointer of the specified file.
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file.
+        /// The file handle must be created with the GENERIC_READ or GENERIC_WRITE access right.
+        /// </param>
+        /// <param name="liDistanceToMove">
+        /// The number of bytes to move the file pointer. A positive value moves the pointer forward in the file and a negative value moves the file pointer backward.
+        /// </param>
+        /// <param name="lpNewFilePointer">
+        /// A pointer to a variable to receive the new file pointer. If this parameter is <see langword="null"/>, the new file pointer is not returned.
+        /// </param>
+        /// <param name="dwMoveMethod">
+        /// The starting point for the file pointer move.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-setfilepointerex"/>
+        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetFilePointerEx(
+            SafeObjectHandle hFile,
+            long liDistanceToMove,
+            out long lpNewFilePointer,
+            SeekOrigin dwMoveMethod);
+
+        /// <summary>
+        /// Moves the file pointer of the specified file.
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file.
+        /// </param>
+        /// <param name="lDistanceToMove">
+        /// The low order 32-bits of a signed value that specifies the number of bytes to move the file pointer.
+        /// </param>
+        /// <param name="lpDistanceToMoveHigh">
+        /// A pointer to the high order 32-bits of the signed 64-bit distance to move.
+        /// If you do not need the high order 32-bits, this pointer must be set to <see langword="null"/>.
+        /// When not <see langword="null"/>, this parameter also receives the high order DWORD of the new value of the file pointer.
+        /// </param>
+        /// <param name="dwMoveMethod">
+        /// The starting point for the file pointer move.
+        /// </param>
+        /// <returns>
+        /// <para>
+        ///     If the function succeeds and <paramref name="lpDistanceToMoveHigh"/> is <see langword="null"/>,
+        ///     the return value is the low-order DWORD of the new file pointer.
+        ///     If the function returns a value other than INVALID_SET_FILE_POINTER, the call to <see cref="SetFilePointer(SafeObjectHandle, int, int*, SeekOrigin)"/> has succeeded.
+        ///     You do not need to call <see cref="GetLastError"/>.
+        /// </para>
+        /// <para>
+        ///     If function succeeds and <paramref name="lpDistanceToMoveHigh"/> is not <see langword="null"/>, the return value is the low-order DWORD
+        ///     of the new file pointer and <paramref name="lpDistanceToMoveHigh "/> contains the high order DWORD of the new file pointer.
+        /// </para>
+        /// <para>
+        ///     If the function fails, the return value is INVALID_SET_FILE_POINTER. To get extended error information, call <see cref="GetLastError"/>.
+        /// </para>
+        /// <para>
+        ///     If a new file pointer is a negative value, the function fails, the file pointer is not moved, and the code returned by <see cref="GetLastError"/> is ERROR_NEGATIVE_SEEK.
+        /// </para>
+        /// <para>
+        ///     If <paramref name="lpDistanceToMoveHigh"/> is <see langword="null"/> and the new file position does not fit in a 32-bit value, the function fails and returns INVALID_SET_FILE_POINTER.
+        /// </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        public static unsafe extern int SetFilePointer(
+            SafeObjectHandle hFile,
+            int lDistanceToMove,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpDistanceToMoveHigh,
+            SeekOrigin dwMoveMethod);
+
+        /// <summary>
         /// Suspends the specified thread.
         /// A 64-bit application can suspend a WOW64 thread using the Wow64SuspendThread function (desktop only).
         /// </summary>
@@ -700,6 +775,83 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_errorhandling_l1_1_1)]
         public static extern ErrorModes SetErrorMode(ErrorModes uMode);
+
+        /// <summary>
+        /// Retrieves information about the file system and volume associated with the specified root directory.
+        /// </summary>
+        /// <param name="lpRootPathName">
+        /// <para>
+        /// A pointer to a string that contains the root directory of the volume to be described.
+        /// </para>
+        /// <para>
+        /// If this parameter is NULL, the root of the current directory is used. A trailing backslash is required.
+        /// For example, you specify <c>\\MyServer\MyShare</c> as <c>"\\MyServer\MyShare\"</c>, or the C drive as
+        /// <c>"C:\"</c>.
+        /// </para>
+        /// </param>
+        /// <param name="lpVolumeNameBuffer">
+        /// A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the nVolumeNameSize parameter.
+        /// </param>
+        /// <param name="nVolumeNameSize">
+        /// The length of a volume name buffer, in TCHARs. The maximum buffer size is MAX_PATH+1.
+        /// This parameter is ignored if the volume name buffer is not supplied.
+        /// </param>
+        /// <param name="lpVolumeSerialNumber">
+        /// <para>
+        /// A pointer to a variable that receives the volume serial number.
+        /// </para>
+        /// <para>
+        /// This parameter can be NULL if the serial number is not required.
+        /// </para>
+        /// <para>
+        /// This function returns the volume serial number that the operating system assigns when a hard disk i
+        /// formatted. To programmatically obtain the hard disk's serial number that the manufacturer assigns, use
+        /// the Windows Management Instrumentation (WMI) Win32_PhysicalMedia property SerialNumber.
+        /// </para>
+        /// </param>
+        /// <param name="lpMaximumComponentLength">
+        /// <para>
+        /// A pointer to a variable that receives the maximum length, in TCHARs, of a file name component that a specified file system supports.
+        /// </para>
+        /// <para>
+        /// A file name component is the portion of a file name between backslashes.
+        /// </para>
+        /// <para>
+        /// The value that is stored in the variable that *lpMaximumComponentLength points to is used to indicate
+        /// that a specified file system supports long names. For example, for a FAT file system that supports long
+        /// names, the function stores the value 255, rather than the previous 8.3 indicator. Long names can also be
+        /// supported on systems that use the NTFS file system.
+        /// </para>
+        /// </param>
+        /// <param name="lpFileSystemFlags">
+        /// A pointer to a variable that receives flags associated with the specified file system.
+        /// </param>
+        /// <param name="lpFileSystemNameBuffer">
+        /// A pointer to a buffer that receives the name of the file system, for example, the FAT file system or
+        /// the NTFS file system. The buffer size is specified by the nFileSystemNameSize parameter.
+        /// </param>
+        /// <param name="nFileSystemNameSize">
+        /// <para>
+        /// The length of the file system name buffer, in TCHARs. The maximum buffer size is MAX_PATH+1.
+        /// </para>
+        /// <para>
+        /// This parameter is ignored if the file system name buffer is not supplied.
+        /// </para>
+        /// </param>
+        /// <returns>
+        /// If all the requested information is retrieved, the return value is nonzero.
+        /// </returns>
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetVolumeInformation(
+            string lpRootPathName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpVolumeNameBuffer,
+            int nVolumeNameSize,
+            out uint lpVolumeSerialNumber,
+            out int lpMaximumComponentLength,
+            out FileSystemFlags lpFileSystemFlags,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFileSystemNameBuffer,
+            int nFileSystemNameSize);
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,

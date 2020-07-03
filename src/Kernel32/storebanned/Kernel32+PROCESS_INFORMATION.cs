@@ -15,7 +15,6 @@ namespace PInvoke
         /// Contains information about a newly created process and its primary thread. It is used with the <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/>,
         /// <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/>, CreateProcessWithLogonW, or CreateProcessWithTokenW function.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct PROCESS_INFORMATION
         {
             /// <summary>

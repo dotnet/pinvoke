@@ -10,7 +10,6 @@ namespace PInvoke
     /// </content>
     public partial class Kernel32
     {
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct WIN32_FIND_DATA
         {
             /// <summary>

@@ -15,7 +15,6 @@ namespace PInvoke
         /// <summary>
         /// Used by <see cref="SendInput(int, INPUT*, int)"/> to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct INPUT
         {
             /// <summary>

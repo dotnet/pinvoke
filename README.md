@@ -75,25 +75,29 @@ Library      | Package name     | NuGet       | Description
 -------------|------------------|-------------|-------------
 advapi32.dll |`PInvoke.AdvApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.AdvApi32)](https://www.nuget.org/packages/PInvoke.AdvApi32)|Windows Advanced Services
 bcrypt.dll   |`PInvoke.BCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.BCrypt)](https://www.nuget.org/packages/PInvoke.BCrypt)|[Windows Cryptography API: Next Generation][CNG]
+cabinet.dll  |`PInvoke.Cabinet` | [![NuGet](https://buildstats.info/nuget/PInvoke.Cabinet)](https://www.nuget.org/packages/PInvoke.Cabinet)|[Cabinet API Functions][Cabinet]
 crypt32.dll  |`PInvoke.Crypt32` | [![NuGet](https://buildstats.info/nuget/PInvoke.Crypt32)](https://www.nuget.org/packages/PInvoke.Crypt32)|[Windows Cryptography API][Crypt32]
 DwmApi.dll   |`PInvoke.DwmApi`  | [![NuGet](https://buildstats.info/nuget/PInvoke.DwmApi)](https://www.nuget.org/packages/PInvoke.DwmApi)|[Desktop Window Manager][DwmApi]
+fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://buildstats.info/nuget/PInvoke.Fusion)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
 gdi32.dll    |`PInvoke.Gdi32`   | [![NuGet](https://buildstats.info/nuget/PInvoke.Gdi32)](https://www.nuget.org/packages/PInvoke.Gdi32)|[Windows Graphics Device Interface][Gdi]
 hid.dll      |`PInvoke.Hid`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Hid)](https://www.nuget.org/packages/PInvoke.Hid)|[Windows Human Interface Devices][Hid]
+iphlpapi.dll |`PInvoke.IPHlpApi`| [![NuGet](https://buildstats.info/nuget/PInvoke.IPHlpApi)](https://www.nuget.org/packages/PInvoke.IPHlpApi)|[IP Helper](IPHlpApi)
 kernel32.dll |`PInvoke.Kernel32`| [![NuGet](https://buildstats.info/nuget/PInvoke.Kernel32)](https://www.nuget.org/packages/PInvoke.Kernel32)|Windows Kernel API
 magnification.dll |`PInvoke.Magnification`| [![NuGet](https://buildstats.info/nuget/PInvoke.Magnification)](https://www.nuget.org/packages/PInvoke.Magnification)|[Windows Magnification API][Magnification]
 mscoree.dll  |`PInvoke.MSCorEE` | [![NuGet](https://buildstats.info/nuget/PInvoke.MSCorEE)](https://www.nuget.org/packages/PInvoke.MSCorEE)|.NET Framework CLR host
 msi.dll      |`PInvoke.Msi`     | [![NuGet](https://buildstats.info/nuget/PInvoke.Msi)](https://www.nuget.org/packages/PInvoke.Msi)|[Microsoft Installer][Msi]
-fusion.dll   |`PInvoke.Fusion`  | [![NuGet](https://buildstats.info/nuget/PInvoke.Fusion)](https://www.nuget.org/packages/PInvoke.Fusion)|.NET Framework Fusion
 ncrypt.dll   |`PInvoke.NCrypt`  | [![NuGet](https://buildstats.info/nuget/PInvoke.NCrypt)](https://www.nuget.org/packages/PInvoke.NCrypt)|[Windows Cryptography API: Next Generation][CNG]
 netapi32.dll |`PInvoke.NetApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.NetApi32)](https://www.nuget.org/packages/PInvoke.NetApi32)|[Network Management][NetApi32]
+newdev.dll   |`PInvoke.NewDev`  | [![NuGet](https://buildstats.info/nuget/PInvoke.NewDev)](https://www.nuget.org/packages/PInvoke.NewDev)|[Device and Driver Installation][NewDev]
 ntdll.dll    |`PInvoke.NTDll`   | [![NuGet](https://buildstats.info/nuget/PInvoke.NTDll)](https://www.nuget.org/packages/PInvoke.NTDll)|Windows NTDll
 psapi.dll    |`PInvoke.Psapi`   | [![NuGet](https://buildstats.info/nuget/PInvoke.Psapi)](https://www.nuget.org/packages/PInvoke.Psapi)|[Windows Process Status API][Psapi]
 setupapi.dll |`PInvoke.SetupApi`| [![NuGet](https://buildstats.info/nuget/PInvoke.SetupApi)](https://www.nuget.org/packages/PInvoke.SetupApi)|[Windows setup API][SetupApi]
-shell32.dll  |`PInvoke.Shell32` | [![NuGet](https://buildstats.info/nuget/PInvoke.Shell32)](https://www.nuget.org/packages/PInvoke.Shell32)|[Windows Shell][Shell32]
 SHCore.dll   |`PInvoke.SHCore`  | [![NuGet](https://buildstats.info/nuget/PInvoke.SHCore)](https://www.nuget.org/packages/PInvoke.SHCore)|[Windows Shell][Shell32]
+shell32.dll  |`PInvoke.Shell32` | [![NuGet](https://buildstats.info/nuget/PInvoke.Shell32)](https://www.nuget.org/packages/PInvoke.Shell32)|[Windows Shell][Shell32]
 user32.dll   |`PInvoke.User32`  | [![NuGet](https://buildstats.info/nuget/PInvoke.User32)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
 userenv.dll  |`PInvoke.Userenv` | [![NuGet](https://buildstats.info/nuget/PInvoke.Userenv)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
 uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://buildstats.info/nuget/PInvoke.UxTheme)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
+winusb.dll   |`PInvoke.WinUsb`  | [![NuGet](https://buildstats.info/nuget/PInvoke.WinUsb)](https://www.nuget.org/packages/PInvoke.WinUsb)|[USB Driver][WinUsb]
 WtsApi32.dll |`PInvoke.WtsApi32`| [![NuGet](https://buildstats.info/nuget/PInvoke.WtsApi32)](https://www.nuget.org/packages/PInvoke.WtsApi32)|[Windows Remote Desktop Services][WtsApi32]
 
 Check out the [P/Invoke coverage][PInvokeCoverageReport] we have for each library.
@@ -117,6 +121,7 @@ For more information see the [.NET Foundation Code of Conduct](https://dotnetfou
 [Crypt32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa380256
 [DwmApi]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa969540.aspx
 [Hid]: https://msdn.microsoft.com/en-us/library/windows/hardware/ff538865
+[IPHlpApi]: https://docs.microsoft.com/en-us/windows/win32/api/_iphlp/
 [Magnification]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms692162
 [Msi]: https://msdn.microsoft.com/en-us/library/aa372860.aspx
 [SetupApi]: https://msdn.microsoft.com/en-us/library/windows/hardware/ff550855
@@ -124,7 +129,10 @@ For more information see the [.NET Foundation Code of Conduct](https://dotnetfou
 [Psapi]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms684884.aspx
 [UxTheme]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773187.aspx
 [NetApi32]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa370680.aspx
+[NewDev]: https://docs.microsoft.com/en-us/windows/win32/api/newdev/
 [Shell32]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773177.aspx
+[WinUsb]: https://docs.microsoft.com/en-us/windows/win32/api/winusb/
 [WtsApi32]: https://msdn.microsoft.com/en-us/library/aa383468(v=vs.85).aspx
+[Cabinet]: https://docs.microsoft.com/en-us/windows/win32/devnotes/cabinet-api-functions
 
 [PInvokeCoverageReport]: https://github.com/dotnet/pinvoke/wiki/coverage

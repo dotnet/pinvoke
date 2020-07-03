@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains global cursor information.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct CURSORINFO
         {
             /// <summary>

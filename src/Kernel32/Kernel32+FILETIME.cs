@@ -20,7 +20,6 @@ namespace PInvoke
         /// Xamarin.Android and Xamarin.iOS omit the type and it causes link failures.
         /// See https://github.com/dotnet/pinvoke/issues/232
         /// </remarks>
-        [StructLayout(LayoutKind.Sequential)]
         public struct FILETIME
         {
             /// <summary>

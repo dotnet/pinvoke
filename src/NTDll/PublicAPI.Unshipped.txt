@@ -1,3 +1,20 @@
-static extern PInvoke.NTDll.RtlVerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
-static PInvoke.NTDll.RtlVerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
+PInvoke.NTDll.PROCESSINFOCLASS
+PInvoke.NTDll.PROCESSINFOCLASS.ProcessBasicInformation = 0 -> PInvoke.NTDll.PROCESSINFOCLASS
+PInvoke.NTDll.PROCESSINFOCLASS.ProcessBreakOnTermination = 29 -> PInvoke.NTDll.PROCESSINFOCLASS
+PInvoke.NTDll.PROCESSINFOCLASS.ProcessDebugPort = 7 -> PInvoke.NTDll.PROCESSINFOCLASS
+PInvoke.NTDll.PROCESSINFOCLASS.ProcessImageFileName = 27 -> PInvoke.NTDll.PROCESSINFOCLASS
+PInvoke.NTDll.PROCESSINFOCLASS.ProcessSubsystemInformation = 75 -> PInvoke.NTDll.PROCESSINFOCLASS
+PInvoke.NTDll.PROCESSINFOCLASS.ProcessWow64Information = 26 -> PInvoke.NTDll.PROCESSINFOCLASS
+PInvoke.NTDll.PROCESS_BASIC_INFORMATION
+PInvoke.NTDll.PROCESS_BASIC_INFORMATION.PROCESS_BASIC_INFORMATION() -> void
+PInvoke.NTDll.PROCESS_BASIC_INFORMATION.PebBaseAddress -> void*
+PInvoke.NTDll.PROCESS_BASIC_INFORMATION.Reserved1 -> void*
+PInvoke.NTDll.PROCESS_BASIC_INFORMATION.Reserved2a -> void*
+PInvoke.NTDll.PROCESS_BASIC_INFORMATION.Reserved2b -> void*
+PInvoke.NTDll.PROCESS_BASIC_INFORMATION.Reserved3 -> void*
+PInvoke.NTDll.PROCESS_BASIC_INFORMATION.UniqueProcessId -> void*
+static PInvoke.NTDll.NtQueryInformationProcess(PInvoke.Kernel32.SafeObjectHandle ProcessHandle, PInvoke.NTDll.PROCESSINFOCLASS ProcessInformationClass, System.IntPtr ProcessInformation, int ProcessInformationLength, out int ReturnLength) -> PInvoke.NTSTATUS
 static PInvoke.NTDll.RtlVerifyVersionInfo(System.IntPtr VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlVerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
+static extern PInvoke.NTDll.NtQueryInformationProcess(PInvoke.Kernel32.SafeObjectHandle ProcessHandle, PInvoke.NTDll.PROCESSINFOCLASS ProcessInformationClass, void* ProcessInformation, int ProcessInformationLength, out int ReturnLength) -> PInvoke.NTSTATUS
+static extern PInvoke.NTDll.RtlVerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS

@@ -17,7 +17,6 @@ namespace PInvoke
         /// <remarks>
         /// The structure applies to DSA keys that exceed 1024 bits in length but are less than or equal to 3072 bits.
         /// </remarks>
-        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_DSA_KEY_BLOB_V2
         {
             /// <summary>

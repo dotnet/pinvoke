@@ -15,7 +15,6 @@ namespace PInvoke
         /// For a job object, the counters include all operations performed by all processes that have ever been associated with the job,
         /// in addition to all processes currently associated with the job.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct IO_COUNTERS
         {
             /// <summary>

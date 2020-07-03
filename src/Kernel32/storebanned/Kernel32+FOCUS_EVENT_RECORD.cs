@@ -17,7 +17,6 @@ namespace PInvoke
         /// <remarks>
         /// These events are used internally and should be ignored.
         /// </remarks>
-        [StructLayout(LayoutKind.Sequential)]
         public struct FOCUS_EVENT_RECORD
         {
             /// <summary>

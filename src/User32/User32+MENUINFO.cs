@@ -14,11 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a menu.
         /// </summary>
-#if NETPORTABLE
-        [StructLayout(LayoutKind.Sequential)]
-#else
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-#endif
         public struct MENUINFO
         {
             /// <summary>The size of the structure, in bytes.</summary>

@@ -3,9 +3,6 @@
 
 namespace PInvoke
 {
-    using System;
-    using System.Runtime.InteropServices;
-
     /// <content>
     /// Contains the <see cref="MonitorOptions"/> nested type.
     /// </content>

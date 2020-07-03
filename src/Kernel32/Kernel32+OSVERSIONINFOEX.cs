@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// The RTL_OSVERSIONINFOEXW structure contains operating system version information.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public unsafe partial struct OSVERSIONINFOEX
         {
             /// <summary>

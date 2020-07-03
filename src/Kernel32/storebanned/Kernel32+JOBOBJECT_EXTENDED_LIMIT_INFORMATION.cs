@@ -19,7 +19,6 @@ namespace PInvoke
         /// <para>Note that the job memory and process memory limits are very similar in operation, but they are independent. You could set a job-wide limit of 100 MB with a per-process limit of 10 MB. In this scenario, no single process could commit more than 10 MB, and the set of processes associated with a job could never exceed 100 MB.</para>
         /// <para>To register for notifications that a job has exceeded its peak memory limit while allowing processes to continue to commit memory, use the SetInformationJobObject function with the JobObjectNotificationLimitInformation information class.</para>
         /// </remarks>
-        [StructLayout(LayoutKind.Sequential)]
         public struct JOBOBJECT_EXTENDED_LIMIT_INFORMATION
         {
             /// <summary>

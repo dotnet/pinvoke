@@ -15,7 +15,6 @@ namespace PInvoke
         /// The ControlService, EnumDependentServices, EnumServicesStatus, and QueryServiceStatus functions use this structure.
         /// A service uses this structure in the <see cref="SetServiceStatus"/> function to report its current status to the service control manager.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct SERVICE_STATUS_PROCESS
         {
             /// <summary>

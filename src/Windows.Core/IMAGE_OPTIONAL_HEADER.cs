@@ -17,7 +17,6 @@ namespace PInvoke
     /// </para>
     /// <para>The number of directories is not fixed. Check the NumberOfRvaAndSizes member before looking for a specific directory.</para>
     /// </remarks>
-    [StructLayout(LayoutKind.Sequential)]
     public unsafe partial struct IMAGE_OPTIONAL_HEADER
     {
         /// <summary>
