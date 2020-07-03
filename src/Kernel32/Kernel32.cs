@@ -881,7 +881,7 @@ namespace PInvoke
         /// The function generates an interprocessor interrupt (IPI) to all processors that are part of the current process affinity.
         /// It guarantees the visibility of write operations performed on one processor to the other processors.
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static extern void FlushProcessWriteBuffers();
 
         /// <summary>
@@ -894,7 +894,7 @@ namespace PInvoke
         /// group to which the logical processor is assigned.Use the <see cref="GetCurrentProcessorNumberEx(PROCESSOR_NUMBER*)"/> function to retrieve the processor group and number of the
         /// current processor.
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static extern uint GetCurrentProcessorNumber();
 
         /// <summary>
@@ -911,7 +911,7 @@ namespace PInvoke
         /// To compile an application that uses this function in C/C++, set _WIN32_WINNT >= 0x0601. This corresponds to a min. platform target
         /// of Windows 7/Windows Server 2008 R2 for this function to be available.
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static unsafe extern void GetCurrentProcessorNumberEx(
             [Friendly(FriendlyFlags.Out)] PROCESSOR_NUMBER* ProcNumber);
 
@@ -939,7 +939,7 @@ namespace PInvoke
         /// rights to itself when calling GetCurrentThread.The access rights granted this thread will be derived from the access rights the impersonated user
         /// has to the process.Some access rights including THREAD_SET_THREAD_TOKEN and THREAD_GET_CONTEXT may not be present, leading to unexpected failures.
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static extern SafeObjectHandle GetCurrentThread();
 
         /// <summary>
@@ -954,7 +954,7 @@ namespace PInvoke
         /// To compile an application (C, C++) that uses this function, set _WIN32_WINNT >= 0x0602. This corresponds to a min. platform
         /// requirement of Windows 8/Windows Server 2012 for using this function.
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static unsafe extern void GetCurrentThreadStackLimits(
             [Friendly(FriendlyFlags.Out)] ulong* LowLimit,
             [Friendly(FriendlyFlags.Out)] ulong* HighLimit);
@@ -987,7 +987,7 @@ namespace PInvoke
         ///
         /// Priority class is maintained by the executive, so all processes have a priority class that can be queried.
         /// </remarks>
-        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         public static extern ProcessPriorityClass GetPriorityClass(SafeObjectHandle hProcess);
 
         /// <summary>
