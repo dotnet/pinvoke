@@ -16,12 +16,12 @@ namespace PInvoke
         [Flags]
         public enum CreateThreadFlags
         {
-            None = 0x0,
+            None = CreateProcessFlags.None,
 
             /// <summary>
             /// The primary thread of the new process is created in a suspended state, and does not run until the <see cref="ResumeThread"/> function is called.
             /// </summary>
-            CREATE_SUSPENDED = 0x00000004,
+            CREATE_SUSPENDED = CreateProcessFlags.CREATE_SUSPENDED,
 
             /// <summary>
             /// The dwStackSize parameter in <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
