@@ -5,13 +5,17 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
+#if Serialization
     using System.Runtime.Serialization;
+#endif
     using static Kernel32;
 
     /// <summary>
     /// An exception thrown for a failure described by a <see cref="Win32ErrorCode"/>.
     /// </summary>
+#if Serialization
     [Serializable]
+#endif
     public class Win32Exception
         : System.ComponentModel.Win32Exception
     {
@@ -51,6 +55,7 @@ namespace PInvoke
         {
         }
 
+#if Serialization
         /// <summary>
         /// Initializes a new instance of the <see cref="Win32Exception"/> class
         /// for deserialization.
@@ -61,6 +66,7 @@ namespace PInvoke
             : base(info, context)
         {
         }
+#endif
 
         /// <summary>
         /// Gets the Win32 error code associated with this exception.
