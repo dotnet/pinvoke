@@ -943,6 +943,23 @@ namespace PInvoke
         public static extern SafeObjectHandle GetCurrentThread();
 
         /// <summary>
+        /// Retrieves the boundaries of the stack that was allocated by the system for the current thread.
+        /// </summary>
+        /// <param name="LowLimit">A pointer variable that receives the lower boundary of the current thread stack.</param>
+        /// <param name="HighLimit">A pointer variable that receives the upper boundary of the current thread stack.</param>
+        /// <remarks>
+        /// It is possible for user-mode code to execute in stack memory that is outside the region allocated by the system when the thread was created.
+        /// Callers can use the GetCurrentThreadStackLimits function to verify that the current stack pointer is within the returned limits.
+        ///
+        /// To compile an application (C, C++) that uses this function, set _WIN32_WINNT >= 0x0602. This corresponds to a min. platform
+        /// requirement of Windows 8/Windows Server 2012 for using this function.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static unsafe extern void GetCurrentThreadStackLimits(
+            [Friendly(FriendlyFlags.Out)] ulong* LowLimit,
+            [Friendly(FriendlyFlags.Out)] ulong* HighLimit);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>
