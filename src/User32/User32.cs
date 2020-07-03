@@ -13,7 +13,6 @@ namespace PInvoke
     using System.Security;
     using System.Text;
     using System.Threading;
-    using PInvoke;
     using static PInvoke.Kernel32;
 
 #pragma warning disable SA1300 // Elements must begin with an uppercase letter
