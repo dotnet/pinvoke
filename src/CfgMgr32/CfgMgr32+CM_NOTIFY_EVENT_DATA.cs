@@ -44,7 +44,7 @@ namespace PInvoke
 
             /// <summary>
             /// A pointer to a null-terminated symbolic link path of the device interface to which the notification event data pertains.
-            /// Use <see cref="GetSymbolicLink()"/> to retrieve this value as a <see cref="string"/>.
+            /// Convert this to a string using <c>new string(eventData->SymbolicLink)</c>.
             /// </summary>
             [FieldOffset(24)]
             public fixed char SymbolicLink[1];
@@ -79,54 +79,10 @@ namespace PInvoke
 
             /// <summary>
             /// A pointer to a null-terminated device instance ID of the device to which the notification event data pertains.
-            /// Use <see cref="GetInstanceId()"/> to retrieve this value as a <see cref="string"/>.
+            /// Convert this to a string using <c>new string(eventData->InstanceId)</c>.
             /// </summary>
             [FieldOffset(8)]
             public fixed char InstanceId[1];
-
-            /// <summary>
-            /// Gets the symbolic link path of the device interface to which the notification event data pertains.
-            /// </summary>
-            /// <returns>The symbolic link path of the device interface to which the notification event data pertains.</returns>
-            /// <remarks>
-            /// It is critical that this method only be called on the original struct provided to the <see cref="CM_NOTIFY_CALLBACK"/> delegate and not a copy,
-            /// Since the data read here is from memory that follows the struct and is not part of the struct itself.
-            /// </remarks>
-            /// <exception cref="InvalidOperationException">Thrown if <see cref="FilterType"/> is not <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE"/>.</exception>
-            public string GetSymbolicLink()
-            {
-                if (this.FilterType != CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE)
-                {
-                    throw new InvalidOperationException();
-                }
-
-                fixed (char* pSymbolicLink = this.SymbolicLink)
-                {
-                    return new string(pSymbolicLink);
-                }
-            }
-
-            /// <summary>
-            /// Gets the device instance ID of the device to which the notification event data pertains.
-            /// </summary>
-            /// <returns>The device instance ID of the device to which the notification event data pertains.</returns>
-            /// <remarks>
-            /// It is critical that this method only be called on the original struct provided to the <see cref="CM_NOTIFY_CALLBACK"/> delegate and not a copy,
-            /// Since the data read here is from memory that follows the struct and is not part of the struct itself.
-            /// </remarks>
-            /// <exception cref="InvalidOperationException">Thrown if <see cref="FilterType"/> is not <see cref="CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE"/>.</exception>
-            public string GetInstanceId()
-            {
-                if (this.FilterType != CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE)
-                {
-                    throw new InvalidOperationException();
-                }
-
-                fixed (char* pInstanceId = this.InstanceId)
-                {
-                    return new string(pInstanceId);
-                }
-            }
         }
     }
 }
