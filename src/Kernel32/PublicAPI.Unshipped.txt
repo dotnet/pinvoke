@@ -98,6 +98,21 @@ PInvoke.Kernel32.SafePseudoConsoleHandle
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle() -> void
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
 PInvoke.Kernel32.THREAD_START_ROUTINE
+PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.SYNCHRONIZE = 1048576 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_ALL_ACCESS = 2097151 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_ALL_ACCESS_WINXP = 2032639 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_DIRECT_IMPERSONATION = 512 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_GET_CONTEXT = 8 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_IMPERSONATE = 256 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_QUERY_INFORMATION = 64 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_QUERY_LIMITED_INFORMATION = 2048 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SET_CONTEXT = 16 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SET_INFORMATION = 32 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SET_LIMITED_INFORMATION = 1024 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SET_THREAD_TOKEN = 128 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SUSPEND_RESUME = 2 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_TERMINATE = 1 -> PInvoke.Kernel32.ThreadAccess
 PInvoke.Kernel32.VER_CONDITION
 PInvoke.Kernel32.VER_CONDITION.VER_AND = 6 -> PInvoke.Kernel32.VER_CONDITION
 PInvoke.Kernel32.VER_CONDITION.VER_EQUAL = 1 -> PInvoke.Kernel32.VER_CONDITION
