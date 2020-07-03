@@ -854,6 +854,37 @@ namespace PInvoke
             int nFileSystemNameSize);
 
         /// <summary>
+        /// Retrieves the number of the processor the current thread was running on during the call to this function.
+        /// </summary>
+        /// <returns>The function returns the current processor number.</returns>
+        /// <remarks>
+        /// This function is used to provide information for estimating process performance.
+        /// On systems with more than 64 logical processors, the <see cref="GetCurrentProcessorNumber"/> function returns the processor number within the processor
+        /// group to which the logical processor is assigned.Use the <see cref="GetCurrentProcessorNumberEx(PROCESSOR_NUMBER*)"/> function to retrieve the processor group and number of the
+        /// current processor.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern uint GetCurrentProcessorNumber();
+
+        /// <summary>
+        /// Retrieves the processor group and number of the logical processor in which the calling thread is running.
+        /// </summary>
+        /// <param name="ProcNumber">
+        /// A pointer to a <see cref="PROCESSOR_NUMBER"/> structure that receives the processor group to which the logical
+        /// processor is assigned and the number of the logical processor within its group
+        /// </param>
+        /// <remarks>
+        /// If the function succeeds, the <paramref name="ProcNumber"/> parameter contains the group and processor number of the processor on which
+        /// the calling thread is running.
+        ///
+        /// To compile an application that uses this function in C/C++, set _WIN32_WINNT >= 0x0601. This corresponds to a min. platform target
+        /// of Windows 7/Windows Server 2008 R2 for this function to be available.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static unsafe extern void GetCurrentProcessorNumberEx(
+            [Friendly(FriendlyFlags.Out)] PROCESSOR_NUMBER* ProcNumber);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>
