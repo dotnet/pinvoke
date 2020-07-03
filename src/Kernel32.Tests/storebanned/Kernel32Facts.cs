@@ -1044,6 +1044,52 @@ public partial class Kernel32Facts
         Assert.NotEqual((uint)Kernel32.GetCurrentThreadId(), dwNewThreadId);
     }
 
+    [Fact]
+    public unsafe void GetCurrentThreadStackLimitsTest()
+    {
+        // Returns the low and high stack-limits of the running thread
+        //
+        // The parameter 'data' is assumed to be allocated by the caller and capable of
+        // carrying two ulong values.
+        unsafe uint ThreadStackLimitsThreadProc(void* data)
+        {
+            ulong lowLimit = 0u;
+            ulong highLimit = 0u;
+            Kernel32.GetCurrentThreadStackLimits(&lowLimit, &highLimit);
+
+            ulong* limits = (ulong*)data;
+            limits[0] = lowLimit;
+            limits[1] = highLimit;
+
+            return 1;
+        }
+
+        const uint ThreadStackSize = 512 * 1024u;
+
+        var threadStartRoutine = new THREAD_START_ROUTINE(ThreadStackLimitsThreadProc);
+
+        var gcHandle = GCHandle.Alloc(threadStartRoutine); // Prevent premature GC of the delegate
+        try
+        {
+            ulong* limits = stackalloc ulong[2] { 0, 0 };
+            var hThread =
+                Kernel32.CreateThread(
+                    null,
+                    new UIntPtr(ThreadStackSize),
+                    threadStartRoutine,
+                    limits,
+                    CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION,
+                    null);
+            Kernel32.WaitForSingleObject(hThread, -1);
+
+            Assert.Equal(ThreadStackSize, limits[1] - limits[0]);
+        }
+        finally
+        {
+            gcHandle.Free();
+        }
+    }
+
     /// <summary>
     /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and
     /// <see cref="CreateRemoteThreadEx_PseudoTest"/> tests.
