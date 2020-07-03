@@ -182,7 +182,7 @@ namespace PInvoke
         public static extern unsafe bool SetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
             int memberIndex,
-            SP_DEVINFO_DATA* deviceInfoData);
+            [Friendly(FriendlyFlags.Bidirectional)] SP_DEVINFO_DATA* deviceInfoData);
 
         /// <summary>
         /// Retrieves a device instance property.
