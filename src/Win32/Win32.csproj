@@ -14,6 +14,7 @@
     <ProjectReference Include="..\AdvApi32\AdvApi32.csproj" />
     <ProjectReference Include="..\BCrypt\BCrypt.csproj" />
     <ProjectReference Include="..\Cabinet\Cabinet.csproj" />
+    <ProjectReference Include="..\CfgMgr32\CfgMgr32.csproj" Condition="$(TargetFramework) == 'netstandard2.0'" />
     <ProjectReference Include="..\Crypt32\Crypt32.csproj" />
     <ProjectReference Include="..\DbgHelp\DbgHelp.csproj" />
     <ProjectReference Include="..\DwmApi\DwmApi.csproj" />
