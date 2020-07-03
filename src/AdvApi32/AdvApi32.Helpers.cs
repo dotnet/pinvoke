@@ -6,9 +6,7 @@ namespace PInvoke
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
-#if !NETPORTABLE
     using System.Security.AccessControl;
-#endif
     using static Kernel32;
 
     /// <content>

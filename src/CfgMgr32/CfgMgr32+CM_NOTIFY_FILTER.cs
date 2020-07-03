@@ -102,7 +102,7 @@ namespace PInvoke
             {
                 return new CM_NOTIFY_FILTER()
                 {
-                    cbSize = Marshal.SizeOf<CM_NOTIFY_FILTER>(),
+                    cbSize = sizeof(CM_NOTIFY_FILTER),
                 };
             }
 
@@ -120,7 +120,7 @@ namespace PInvoke
             {
                 return new CM_NOTIFY_FILTER()
                 {
-                    cbSize = Marshal.SizeOf<CM_NOTIFY_FILTER>(),
+                    cbSize = sizeof(CM_NOTIFY_FILTER),
                     ClassGuid = classGuid,
                     FilterType = CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE,
                 };
@@ -140,7 +140,7 @@ namespace PInvoke
             {
                 return new CM_NOTIFY_FILTER()
                 {
-                    cbSize = Marshal.SizeOf<CM_NOTIFY_FILTER>(),
+                    cbSize = sizeof(CM_NOTIFY_FILTER),
                     hTarget = target,
                     FilterType = CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEHANDLE,
                 };
@@ -170,15 +170,16 @@ namespace PInvoke
 
                 var filter = new CM_NOTIFY_FILTER()
                 {
-                    cbSize = Marshal.SizeOf<CM_NOTIFY_FILTER>(),
+                    cbSize = sizeof(CM_NOTIFY_FILTER),
                     FilterType = CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE,
                 };
 
                 fixed (char* pInstanceId = instanceId)
                 {
-                    int cbSource = instanceId.Length * 2; // char to byte length
-                    int cbTarget = MAX_DEVICE_ID_LEN * 2; // char to byte length
-                    Buffer.MemoryCopy(pInstanceId, filter.InstanceId, cbTarget, cbSource);
+                    for (int i = 0; i < instanceId.Length; i++)
+                    {
+                        filter.InstanceId[i] = pInstanceId[i];
+                    }
                 }
 
                 return filter;

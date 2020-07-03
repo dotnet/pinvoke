@@ -1,5 +1,3 @@
-Microsoft.Win32.SafeHandles.SafeRegistryHandle
-Microsoft.Win32.SafeHandles.SafeRegistryHandle.SafeRegistryHandle(System.IntPtr preexistingHandle, bool ownsHandle) -> void
 PInvoke.AdvApi32
 PInvoke.AdvApi32.CryptGetProvParamQuery
 PInvoke.AdvApi32.CryptGetProvParamQuery.PP_ADMIN_PIN = 31 -> PInvoke.AdvApi32.CryptGetProvParamQuery
