@@ -3321,6 +3321,35 @@ namespace PInvoke
         public static extern SafeObjectHandle GetCurrentThreadToken();
 
         /// <summary>
+        /// Retrieves the number of open handles that belong to the specified process.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process whose handle count is being requested. The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> or
+        /// <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION"/> access right. For more information, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        ///
+        /// Windows Server 2003 and Windows XP:  The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> access right.
+        /// </param>
+        /// <param name="pdwHandleCount">A pointer to a variable that receives the number of open handles that belong to the specified process.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// This function retrieves information about the executive objects for the process. For more information, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/SysInfo/kernel-objects">Kernel Object</a>
+        ///
+        /// To compile an application (C, C++0 that uses this function, define _WIN32_WINNT as 0x0501 or later. This corresponds to a min. supported
+        /// platform version of Windows XP/Windows Server 2003 required to use this function.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetProcessHandleCount(
+            SafeObjectHandle hProcess,
+            [Friendly(FriendlyFlags.Out)] uint* pdwHandleCount);
+
+        /// <summary>
         /// Closes a pseudoconsole from the given handle.
         /// </summary>
         /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>

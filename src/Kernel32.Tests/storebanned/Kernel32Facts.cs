@@ -1090,6 +1090,16 @@ public partial class Kernel32Facts
         }
     }
 
+    [Fact]
+    public unsafe void GetProcessHandleCountTest()
+    {
+        using var hProcess = Kernel32.GetCurrentProcess();
+
+        uint handleCount = 0;
+        Assert.True(Kernel32.GetProcessHandleCount(hProcess, &handleCount));
+        Assert.NotEqual(0u, handleCount);
+    }
+
     /// <summary>
     /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and
     /// <see cref="CreateRemoteThreadEx_PseudoTest"/> tests.
