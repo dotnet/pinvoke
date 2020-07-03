@@ -155,6 +155,7 @@ static extern PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFa
 static extern PInvoke.Kernel32.FileTimeToSystemTime(PInvoke.Kernel32.FILETIME* lpFileTime, PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> bool
 static extern PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpcBaseAddress, System.UIntPtr dwSize) -> bool
 static extern PInvoke.Kernel32.FlushProcessWriteBuffers() -> void
+static extern PInvoke.Kernel32.GetCurrentProcessToken() -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetCurrentProcessorNumber() -> uint
 static extern PInvoke.Kernel32.GetCurrentProcessorNumberEx(PInvoke.Kernel32.PROCESSOR_NUMBER* ProcNumber) -> void
 static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool

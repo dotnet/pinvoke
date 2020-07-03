@@ -3264,6 +3264,23 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Out)] FILETIME* lpFileTime);
 
         /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the access token associated with a process.
+        /// </summary>
+        /// <returns>A pseudo-handle that you can use as a shorthand way to refer to the access token associated with a process.</returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the access token for the current process. The calling process can use a pseudo-handle
+        /// to specify the access token for that process whenever a token handle is required. Child processes do not inherit pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the <see cref="CloseHandle(IntPtr)"/> function with a
+        /// pseudo-handle, the function has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentProcessToken();
+
+        /// <summary>
         /// Closes a pseudoconsole from the given handle.
         /// </summary>
         /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>
