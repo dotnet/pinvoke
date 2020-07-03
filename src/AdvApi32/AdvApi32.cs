@@ -1285,6 +1285,19 @@ namespace PInvoke
             uint dwFlags);
 
         /// <summary>
+        /// Retrieves the locally unique identifier (LUID) used on a specified system to locally represent the specified privilege name.
+        /// </summary>
+        /// <param name="lpSystemName">A pointer to a null-terminated string that specifies the name of the system on which the privilege name is retrieved. If a null string is specified, the function attempts to find the privilege name on the local system.</param>
+        /// <param name="lpName">A pointer to a null-terminated string that specifies the name of the privilege, as defined in the Winnt.h header file. For example, this parameter could specify the constant, SE_SECURITY_NAME, or its corresponding string, "SeSecurityPrivilege".</param>
+        /// <param name="lpLuid">A pointer to a variable that receives the LUID by which the privilege is known on the system specified by the lpSystemName parameter.</param>
+        /// <returns>If the function succeeds, the function returns nonzero. If the function fails, it returns zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+        [DllImport(nameof(AdvApi32), SetLastError = true)]
+        public static extern unsafe bool LookupPrivilegeValue(
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* lpSystemName,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* lpName,
+            [Friendly(FriendlyFlags.Out)] User32.LUID* lpLuid);
+
+        /// <summary>
         /// Closes a handle to the specified registry key.
         /// </summary>
         /// <param name="hKey">A handle to the open key to be closed. The handle must have been opened by the RegCreateKeyEx, RegCreateKeyTransacted, RegOpenKeyEx, RegOpenKeyTransacted, or RegConnectRegistry function.</param>

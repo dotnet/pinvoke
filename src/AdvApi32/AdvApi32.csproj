@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
+    <ProjectReference Include="..\User32\User32.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
