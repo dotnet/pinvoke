@@ -3285,6 +3285,16 @@ namespace PInvoke
             [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwSize);
 
         /// <summary>
+        /// Flushes the write queue of each processor that is running a thread of the current process.
+        /// </summary>
+        /// <remarks>
+        /// The function generates an interprocessor interrupt (IPI) to all processors that are part of the current process affinity.
+        /// It guarantees the visibility of write operations performed on one processor to the other processors.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern void FlushProcessWriteBuffers();
+
+        /// <summary>
         /// Closes a pseudoconsole from the given handle.
         /// </summary>
         /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>

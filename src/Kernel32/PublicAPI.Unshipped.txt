@@ -147,6 +147,7 @@ static extern PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES
 static extern PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
 static extern PInvoke.Kernel32.FileTimeToSystemTime(PInvoke.Kernel32.FILETIME* lpFileTime, PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> bool
 static extern PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpcBaseAddress, System.UIntPtr dwSize) -> bool
+static extern PInvoke.Kernel32.FlushProcessWriteBuffers() -> void
 static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool
 static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
 static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle handle, out PInvoke.Kernel32.FILETIME creation, out PInvoke.Kernel32.FILETIME exit, out PInvoke.Kernel32.FILETIME kernel, out PInvoke.Kernel32.FILETIME user) -> bool
