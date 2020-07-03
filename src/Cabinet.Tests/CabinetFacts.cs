@@ -21,7 +21,7 @@ public unsafe class CabinetFacts
     private readonly Cabinet.FNSEEK fdiSeekStreamDelegate;
 
     private readonly Dictionary<int, Kernel32.SafeObjectHandle> handles = new Dictionary<int, Kernel32.SafeObjectHandle>();
-    private readonly Random handleGenerator = new Random();
+    private int nextHandle;
 
     private Cabinet.ERF erf;
 
@@ -109,7 +109,7 @@ public unsafe class CabinetFacts
                         throw new Win32Exception();
                     }
 
-                    int value = this.handleGenerator.Next();
+                    int value = this.nextHandle++;
                     this.handles.Add(value, handle);
                     return value;
                 }
@@ -158,7 +158,7 @@ public unsafe class CabinetFacts
             throw new Win32Exception();
         }
 
-        var value = this.handleGenerator.Next();
+        var value = this.nextHandle++;
         this.handles.Add(value, handle);
         return value;
     }
