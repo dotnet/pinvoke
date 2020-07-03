@@ -19,8 +19,8 @@ namespace PInvoke
         /// round-robin fashion at each priority level, and only when there are no executable threads at a higher level will scheduling of threads at a
         /// lower level take place.
         ///
-        /// For a table that shows the base priority levels for each combination of priority class and thread priority value,
-        /// <seealso cref="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/scheduling-priorities"/>
+        /// For a table that shows the base priority levels for each combination of priority class and thread priority value, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>
         ///
         /// Priority class is maintained by the executive, so all processes have a priority class that can be queried.
         /// </remarks>
