@@ -10,6 +10,8 @@ using Xunit;
 
 public unsafe class CabinetFacts : IDisposable
 {
+    private static readonly string SampleCabinetPath = Path.GetDirectoryName(typeof(CabinetFacts).Assembly.Location) + "\\";
+
     private readonly Cabinet.FNALLOC fdiAllocMemDelegate;
     private readonly Cabinet.FNFREE fdiFreeMemDelegate;
     private readonly Cabinet.FNOPEN fdiOpenStreamDelegate;
@@ -56,7 +58,6 @@ public unsafe class CabinetFacts : IDisposable
     [Fact]
     public void ExtractCabinetFileTest()
     {
-        string sampleCabinetPath = Environment.CurrentDirectory + "\\";
         string sampleCabinetName = "demo.CAB";
 
         using (var handle = Cabinet.FDICreate(
@@ -73,7 +74,7 @@ public unsafe class CabinetFacts : IDisposable
             if (!Cabinet.FDICopy(
                 handle,
                 sampleCabinetName,
-                sampleCabinetPath,
+                SampleCabinetPath,
                 0,
                 this.ExtractNotify,
                 IntPtr.Zero,
@@ -107,15 +108,7 @@ public unsafe class CabinetFacts : IDisposable
                     var time = notification->time;
                     var attribs = notification->attribs;
 
-                    filename = Path.Combine(Environment.CurrentDirectory, filename);
-
-                    var directory = Path.GetDirectoryName(filename);
-
-                    if (!Directory.Exists(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-
+                    filename = Path.Combine(SampleCabinetPath, filename);
                     var handle = Kernel32.CreateFile(filename, Kernel32.ACCESS_MASK.GenericRight.GENERIC_WRITE, Kernel32.FileShare.None, IntPtr.Zero, Kernel32.CreationDisposition.CREATE_ALWAYS, Kernel32.CreateFileFlags.FILE_ATTRIBUTE_NORMAL, Kernel32.SafeObjectHandle.Null);
 
                     if (handle.IsInvalid)
@@ -144,8 +137,8 @@ public unsafe class CabinetFacts : IDisposable
                         var attributes = (FileAttributes)notification->attribs &
                             (FileAttributes.Archive | FileAttributes.Hidden | FileAttributes.ReadOnly | FileAttributes.System);
 
-                        File.SetLastWriteTimeUtc(Path.Combine(Environment.CurrentDirectory, filename), dateTime);
-                        File.SetAttributes(Path.Combine(Environment.CurrentDirectory, filename), attributes);
+                        File.SetLastWriteTimeUtc(Path.Combine(SampleCabinetPath, filename), dateTime);
+                        File.SetAttributes(Path.Combine(SampleCabinetPath, filename), attributes);
                     }
 
                     return 1; /* TRUE to continue */
