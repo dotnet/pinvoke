@@ -3281,6 +3281,27 @@ namespace PInvoke
         public static extern SafeObjectHandle GetCurrentProcessToken();
 
         /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread,
+        /// which is the thread token if one exists and the process token otherwise.
+        /// </summary>
+        /// <returns>
+        /// A pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread.
+        /// </returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the effective token for the current thread. The calling thread can use a pseudo-handle
+        /// to specify the effective token for that thread whenever a token handle is required. Child processes do not inherit pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        ///
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the CloseHandle function with a pseudo-handle, the function
+        /// has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentThreadEffectiveToken();
+
+        /// <summary>
         /// Closes a pseudoconsole from the given handle.
         /// </summary>
         /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>
