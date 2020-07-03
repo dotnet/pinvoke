@@ -18,6 +18,11 @@ namespace PInvoke
     public static partial class SetupApi
     {
         /// <summary>
+        /// The line length of the strings that are used by <see cref="SetupApi"/>.
+        /// </summary>
+        private const int LINE_LEN = 256;
+
+        /// <summary>
         /// The SetupDiGetClassDevs function returns a <see cref="SafeDeviceInfoSetHandle" /> handle to a device information set
         /// that contains requested device information elements for a local computer.
         /// </summary>
@@ -484,6 +489,55 @@ namespace PInvoke
             SafeDeviceInfoSetHandle deviceInfoSet,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
             [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] SP_DRVINFO_DATA* driverInfoData);
+
+        /// <summary>
+        /// Retrieves driver information detail for a device information set or a particular device information element in the device information set.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to a device information set that contains a driver information element for which to retrieve driver information.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure that specifies a device information element that represents the device
+        /// for which to retrieve driver information. This parameter is optional and can be <see langword="null"/>.
+        /// If this parameter is specified, <see cref="SetupDiGetDriverInfoDetail(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DRVINFO_DATA*, byte*, int, out int)"/> retrieves information about a driver in a driver list
+        /// for the specified device.
+        /// If this parameter is <see langword="null"/>, SetupDiGetDriverInfoDetail retrieves information about a driver that is a member of
+        /// the global class driver list for <paramref name="deviceInfoSet"/>.
+        /// </param>
+        /// <param name="driverInfoData">
+        /// A pointer to an <see cref="SP_DRVINFO_DATA"/> structure that specifies the driver information element that represents the driver
+        /// for which to retrieve details. If DeviceInfoData is specified, the driver must be a member of the driver list for the device that
+        /// is specified by <paramref name="deviceInfoData"/>. Otherwise, the driver must be a member of the global class driver list for
+        /// <paramref name="deviceInfoSet"/>.
+        /// </param>
+        /// <param name="driverInfoDetailData">
+        /// A pointer to an <see cref="SP_DRVINFO_DETAIL_DATA"/> structure that receives detailed information about the specified driver.
+        /// If this parameter is not specified, <paramref name="driverInfoDetailDataSize"/> must be zero.
+        /// If this parameter is specified, <see cref="SP_DRVINFO_DETAIL_DATA.cbSize"/> must be set to the value of <c>sizeof(SP_DRVINFO_DETAIL_DATA)</c>
+        /// before it calls SetupDiGetDriverInfoDetail.
+        /// </param>
+        /// <param name="driverInfoDetailDataSize">
+        /// The size, in bytes, of the <paramref name="driverInfoDetailData"/> buffer.
+        /// </param>
+        /// <param name="requiredSize">
+        /// A pointer to a variable that receives the number of bytes required to store the detailed driver information.
+        /// This value includes both the size of the structure and the additional bytes required for the variable-length character buffer at the
+        /// end that holds the hardware ID list and the compatible ID list. The lists are in REG_MULTI_SZ format.
+        /// </param>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/>and the logged error can be retrieved by making a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/setupapi/nf-setupapi-setupdigetdriverinfodetaila"/>
+        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiGetDriverInfoDetail(
+           SafeDeviceInfoSetHandle deviceInfoSet,
+           [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
+           [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DRVINFO_DATA* driverInfoData,
+           [Friendly(FriendlyFlags.Bidirectional)] byte* driverInfoDetailData,
+           int driverInfoDetailDataSize,
+           out int requiredSize);
 
         /// <summary>
         /// Deletes a device information set and frees all associated memory.
