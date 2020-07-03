@@ -10,6 +10,7 @@ namespace PInvoke
     /// <summary>
     /// Exported functions from the WinUsb.dll Windows library.
     /// </summary>
+    [OfferFriendlyOverloads]
     public static partial class WinUsb
     {
         /// <summary>
@@ -80,7 +81,7 @@ namespace PInvoke
         /// </param>
         /// <param name="overlapped">
         /// An optional pointer to an <see cref="NativeOverlapped"/> structure, which is used for asynchronous operations.
-        /// If this parameter is specified, <see cref="WinUsb_WritePipe"/> immediately returns, and the event is signaled when the operation is complete.
+        /// If this parameter is specified, <see cref="WinUsb_WritePipe(SafeUsbHandle, byte, byte*, int, out int, NativeOverlapped*)"/> immediately returns, and the event is signaled when the operation is complete.
         /// </param>
         /// <returns>
         /// Returns <see langword="true"/> if the operation succeeds. Otherwise, this routine returns <see langword="false"/>,
@@ -116,11 +117,11 @@ namespace PInvoke
         /// </param>
         /// <param name="overlapped">
         /// An optional pointer to an <see cref="NativeOverlapped"/> structure that is used for asynchronous operations.
-        /// If this parameter is specified, <see cref="WinUsb_ReadPipe"/> returns immediately rather than waiting synchronously for the operation to complete before returning.
+        /// If this parameter is specified, <see cref="WinUsb_ReadPipe(SafeUsbHandle, byte, byte*, int, out int, NativeOverlapped*)"/> returns immediately rather than waiting synchronously for the operation to complete before returning.
         /// An event is signaled when the operation is complete.
         ///  </param>
         /// <returns>
-        /// <see cref="WinUsb_ReadPipe"/> returns <see langword="true"/> if the operation succeeds.
+        /// <see cref="WinUsb_ReadPipe(SafeUsbHandle, byte, byte*, int, out int, NativeOverlapped*)"/> returns <see langword="true"/> if the operation succeeds.
         /// Otherwise, this function returns <see langword="false"/>, and the caller can retrieve the logged error by calling <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
         [DllImport(nameof(WinUsb), SetLastError = true)]
