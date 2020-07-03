@@ -854,6 +854,37 @@ namespace PInvoke
             int nFileSystemNameSize);
 
         /// <summary>
+        /// Flushes the instruction cache for the specified process.
+        /// </summary>
+        /// <param name="hProcess">A handle to a process whose instruction cache is to be flushed.</param>
+        /// <param name="lpcBaseAddress">A pointer to the base of the region to be flushed. This parameter can be null.</param>
+        /// <param name="dwSize">The size of the region to be flushed if the <paramref name="lpcBaseAddress"/> parameter is not null, in bytes.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// Applications should call <see cref="FlushInstructionCache(SafeObjectHandle, void*, UIntPtr)"/> if they generate or modify code in memory.
+        /// The CPU cannot detect the change, and may execute the old code it cached.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool FlushInstructionCache(
+            SafeObjectHandle hProcess,
+            void* lpcBaseAddress,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwSize);
+
+        /// <summary>
+        /// Flushes the write queue of each processor that is running a thread of the current process.
+        /// </summary>
+        /// <remarks>
+        /// The function generates an interprocessor interrupt (IPI) to all processors that are part of the current process affinity.
+        /// It guarantees the visibility of write operations performed on one processor to the other processors.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern void FlushProcessWriteBuffers();
+
+        /// <summary>
         /// Retrieves the number of the processor the current thread was running on during the call to this function.
         /// </summary>
         /// <returns>The function returns the current processor number.</returns>
