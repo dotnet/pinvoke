@@ -11,7 +11,7 @@ namespace PInvoke
     public static partial class WinUsb
     {
         /// <summary>
-        /// Contains pipe information that the <see cref="WinUsb.WinUsb_QueryPipe"/> routine retrieves.
+        /// Contains pipe information that the <see cref="WinUsb.WinUsb_QueryPipe(SafeUsbHandle, byte, byte, WINUSB_PIPE_INFORMATION*)"/> routine retrieves.
         /// </summary>
         /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/winusbio/ns-winusbio-winusb_pipe_information"/>
         public struct WINUSB_PIPE_INFORMATION
