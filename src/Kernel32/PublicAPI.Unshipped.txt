@@ -121,6 +121,7 @@ static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, 
 static PInvoke.Kernel32.FILETIME.explicit operator System.DateTime(PInvoke.Kernel32.FILETIME fileTime) -> System.DateTime
 static PInvoke.Kernel32.FileTimeToSystemTime(PInvoke.Kernel32.FILETIME lpFileTime, out PInvoke.Kernel32.SYSTEMTIME lpSystemTime) -> bool
 static PInvoke.Kernel32.FileTimeToSystemTime(System.IntPtr lpFileTime, System.IntPtr lpSystemTime) -> bool
+static PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpcBaseAddress, System.UIntPtr dwSize) -> bool
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, System.IntPtr lpdwFlags) -> bool
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, out PInvoke.Kernel32.HandleFlags lpdwFlags) -> bool
 static PInvoke.Kernel32.GetStartupInfo(System.IntPtr lpStartupInfo) -> void
@@ -145,6 +146,7 @@ static extern PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInv
 static extern PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
 static extern PInvoke.Kernel32.FileTimeToSystemTime(PInvoke.Kernel32.FILETIME* lpFileTime, PInvoke.Kernel32.SYSTEMTIME* lpSystemTime) -> bool
+static extern PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpcBaseAddress, System.UIntPtr dwSize) -> bool
 static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool
 static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
 static extern PInvoke.Kernel32.GetProcessTimes(PInvoke.Kernel32.SafeObjectHandle handle, out PInvoke.Kernel32.FILETIME creation, out PInvoke.Kernel32.FILETIME exit, out PInvoke.Kernel32.FILETIME kernel, out PInvoke.Kernel32.FILETIME user) -> bool
