@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 
-public unsafe class CabinetFacts : IDisposable
+public unsafe class CabinetFacts
 {
     private static readonly string SampleCabinetPath = Path.GetDirectoryName(typeof(CabinetFacts).Assembly.Location) + "\\";
 
@@ -20,15 +20,13 @@ public unsafe class CabinetFacts : IDisposable
     private readonly Cabinet.FNCLOSE fdiCloseStreamDelegate;
     private readonly Cabinet.FNSEEK fdiSeekStreamDelegate;
 
-    private readonly Cabinet.ERF* erf;
-
     private readonly Dictionary<int, Kernel32.SafeObjectHandle> handles = new Dictionary<int, Kernel32.SafeObjectHandle>();
     private readonly Random handleGenerator = new Random();
 
+    private Cabinet.ERF erf;
+
     public CabinetFacts()
     {
-        this.erf = (Cabinet.ERF*)Marshal.AllocHGlobal(sizeof(Cabinet.ERF));
-
         this.fdiAllocMemDelegate = this.AllocMem;
         this.fdiFreeMemDelegate = this.FreeMem;
         this.fdiOpenStreamDelegate = this.Open;
@@ -50,7 +48,7 @@ public unsafe class CabinetFacts : IDisposable
             this.fdiCloseStreamDelegate,
             this.fdiSeekStreamDelegate,
             Cabinet.CpuType.Unknown,
-            this.erf);
+            out this.erf);
 
         handle.Dispose();
     }
@@ -69,7 +67,7 @@ public unsafe class CabinetFacts : IDisposable
             this.fdiCloseStreamDelegate,
             this.fdiSeekStreamDelegate,
             Cabinet.CpuType.Unknown,
-            this.erf))
+            out this.erf))
         {
             if (!Cabinet.FDICopy(
                 handle,
@@ -80,14 +78,9 @@ public unsafe class CabinetFacts : IDisposable
                 IntPtr.Zero,
                 IntPtr.Zero))
             {
-                throw new Exception($"Failed to extract the cabinet: {this.erf->Oper}");
+                throw new Exception($"Failed to extract the cabinet: {this.erf.Oper}");
             }
         }
-    }
-
-    public void Dispose()
-    {
-        Marshal.FreeHGlobal((IntPtr)this.erf);
     }
 
     private int ExtractNotify(Cabinet.NOTIFICATIONTYPE notificationType, Cabinet.NOTIFICATION* notification)
