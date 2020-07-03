@@ -8,8 +8,10 @@ using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 
-public unsafe class CabinetFacts : IDisposable
+public unsafe class CabinetFacts
 {
+    private static readonly string SampleCabinetPath = Path.GetDirectoryName(typeof(CabinetFacts).Assembly.Location) + "\\";
+
     private readonly Cabinet.FNALLOC fdiAllocMemDelegate;
     private readonly Cabinet.FNFREE fdiFreeMemDelegate;
     private readonly Cabinet.FNOPEN fdiOpenStreamDelegate;
@@ -18,15 +20,13 @@ public unsafe class CabinetFacts : IDisposable
     private readonly Cabinet.FNCLOSE fdiCloseStreamDelegate;
     private readonly Cabinet.FNSEEK fdiSeekStreamDelegate;
 
-    private readonly Cabinet.ERF* erf;
-
     private readonly Dictionary<int, Kernel32.SafeObjectHandle> handles = new Dictionary<int, Kernel32.SafeObjectHandle>();
-    private readonly Random handleGenerator = new Random();
+    private int nextHandle;
+
+    private Cabinet.ERF erf;
 
     public CabinetFacts()
     {
-        this.erf = (Cabinet.ERF*)Marshal.AllocHGlobal(sizeof(Cabinet.ERF));
-
         this.fdiAllocMemDelegate = this.AllocMem;
         this.fdiFreeMemDelegate = this.FreeMem;
         this.fdiOpenStreamDelegate = this.Open;
@@ -48,7 +48,7 @@ public unsafe class CabinetFacts : IDisposable
             this.fdiCloseStreamDelegate,
             this.fdiSeekStreamDelegate,
             Cabinet.CpuType.Unknown,
-            this.erf);
+            out this.erf);
 
         handle.Dispose();
     }
@@ -56,7 +56,6 @@ public unsafe class CabinetFacts : IDisposable
     [Fact]
     public void ExtractCabinetFileTest()
     {
-        string sampleCabinetPath = Environment.CurrentDirectory + "\\";
         string sampleCabinetName = "demo.CAB";
 
         using (var handle = Cabinet.FDICreate(
@@ -68,25 +67,20 @@ public unsafe class CabinetFacts : IDisposable
             this.fdiCloseStreamDelegate,
             this.fdiSeekStreamDelegate,
             Cabinet.CpuType.Unknown,
-            this.erf))
+            out this.erf))
         {
             if (!Cabinet.FDICopy(
                 handle,
                 sampleCabinetName,
-                sampleCabinetPath,
+                SampleCabinetPath,
                 0,
                 this.ExtractNotify,
                 IntPtr.Zero,
                 IntPtr.Zero))
             {
-                throw new Exception($"Failed to extract the cabinet: {this.erf->Oper}");
+                throw new Exception($"Failed to extract the cabinet: {this.erf.Oper}");
             }
         }
-    }
-
-    public void Dispose()
-    {
-        Marshal.FreeHGlobal((IntPtr)this.erf);
     }
 
     private int ExtractNotify(Cabinet.NOTIFICATIONTYPE notificationType, Cabinet.NOTIFICATION* notification)
@@ -107,15 +101,7 @@ public unsafe class CabinetFacts : IDisposable
                     var time = notification->time;
                     var attribs = notification->attribs;
 
-                    filename = Path.Combine(Environment.CurrentDirectory, filename);
-
-                    var directory = Path.GetDirectoryName(filename);
-
-                    if (!Directory.Exists(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-
+                    filename = Path.Combine(SampleCabinetPath, filename);
                     var handle = Kernel32.CreateFile(filename, Kernel32.ACCESS_MASK.GenericRight.GENERIC_WRITE, Kernel32.FileShare.None, IntPtr.Zero, Kernel32.CreationDisposition.CREATE_ALWAYS, Kernel32.CreateFileFlags.FILE_ATTRIBUTE_NORMAL, Kernel32.SafeObjectHandle.Null);
 
                     if (handle.IsInvalid)
@@ -123,7 +109,7 @@ public unsafe class CabinetFacts : IDisposable
                         throw new Win32Exception();
                     }
 
-                    int value = this.handleGenerator.Next();
+                    int value = this.nextHandle++;
                     this.handles.Add(value, handle);
                     return value;
                 }
@@ -144,8 +130,8 @@ public unsafe class CabinetFacts : IDisposable
                         var attributes = (FileAttributes)notification->attribs &
                             (FileAttributes.Archive | FileAttributes.Hidden | FileAttributes.ReadOnly | FileAttributes.System);
 
-                        File.SetLastWriteTimeUtc(Path.Combine(Environment.CurrentDirectory, filename), dateTime);
-                        File.SetAttributes(Path.Combine(Environment.CurrentDirectory, filename), attributes);
+                        File.SetLastWriteTimeUtc(Path.Combine(SampleCabinetPath, filename), dateTime);
+                        File.SetAttributes(Path.Combine(SampleCabinetPath, filename), attributes);
                     }
 
                     return 1; /* TRUE to continue */
@@ -172,7 +158,7 @@ public unsafe class CabinetFacts : IDisposable
             throw new Win32Exception();
         }
 
-        var value = this.handleGenerator.Next();
+        var value = this.nextHandle++;
         this.handles.Add(value, handle);
         return value;
     }
