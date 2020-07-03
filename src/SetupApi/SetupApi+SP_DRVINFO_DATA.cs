@@ -51,6 +51,7 @@ namespace PInvoke
             /// A <see cref="string"/> giving the provider of this driver. This is typically the name of the organization that
             /// creates the driver or INF file. <see cref="ProviderName"/> can be an empty string.
             /// </summary>
+            /// <remarks>Convert this to a string by passing its value to <see cref="String(char*)"/>.</remarks>
             public fixed char ProviderName[SetupApi.LINE_LEN];
 
             /// <summary>
@@ -64,66 +65,11 @@ namespace PInvoke
             public ulong DriverVersion;
 
             /// <summary>
-            /// Gets a <see cref="string"/> that describes the device supported by this driver.
-            /// </summary>
-            public string DescriptionString
-            {
-                get
-                {
-                    fixed (char* description = this.Description)
-                    {
-                        return new string(description);
-                    }
-                }
-            }
-
-            /// <summary>
-            /// Gets a <see cref="string"/> that contains the name of the manufacturer of the device supported by this driver.
-            /// </summary>
-            public string MfgNameString
-            {
-                get
-                {
-                    fixed (char* description = this.MfgName)
-                    {
-                        return new string(description);
-                    }
-                }
-            }
-
-            /// <summary>
-            /// Gets a <see cref="string"/> giving the provider of this driver. This is typically the name of the organization that
-            /// creates the driver or INF file. <see cref="ProviderNameString"/> can be an empty string.
-            /// </summary>
-            public string ProviderNameString
-            {
-                get
-                {
-                    fixed (char* providerName = this.ProviderName)
-                    {
-                        return new string(providerName);
-                    }
-                }
-            }
-
-            /// <summary>
             /// Initializes a new instance of the <see cref="SP_DRVINFO_DATA" /> struct
             /// with <see cref="cbSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DRVINFO_DATA"/>.</returns>
-            public static SP_DRVINFO_DATA Create()
-            {
-                return new SP_DRVINFO_DATA
-                {
-                    cbSize = Marshal.SizeOf(typeof(SP_DRVINFO_DATA)),
-                };
-            }
-
-            /// <inheritdoc />
-            public override string ToString()
-            {
-                return this.DescriptionString;
-            }
+            public static SP_DRVINFO_DATA Create() => new SP_DRVINFO_DATA { cbSize = Marshal.SizeOf(typeof(SP_DRVINFO_DATA)) };
         }
     }
 }

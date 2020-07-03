@@ -44,8 +44,8 @@ namespace PInvoke
 
             /// <summary>
             /// A pointer to a null-terminated symbolic link path of the device interface to which the notification event data pertains.
-            /// Convert this to a string using <c>new string(eventData->SymbolicLink)</c>.
             /// </summary>
+            /// <remarks>Convert this to a string by passing its value to <see cref="String(char*)"/>.</remarks>
             [FieldOffset(24)]
             public fixed char SymbolicLink[1];
 
@@ -79,8 +79,8 @@ namespace PInvoke
 
             /// <summary>
             /// A pointer to a null-terminated device instance ID of the device to which the notification event data pertains.
-            /// Convert this to a string using <c>new string(eventData->InstanceId)</c>.
             /// </summary>
+            /// <remarks>Convert this to a string by passing its value to <see cref="String(char*)"/>.</remarks>
             [FieldOffset(8)]
             public fixed char InstanceId[1];
         }

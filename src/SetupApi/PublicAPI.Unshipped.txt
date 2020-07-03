@@ -65,14 +65,11 @@ PInvoke.SetupApi.SP_DEVINSTALL_PARAMS.cbSize -> int
 PInvoke.SetupApi.SP_DEVINSTALL_PARAMS.hwndParent -> System.IntPtr
 PInvoke.SetupApi.SP_DRVINFO_DATA
 PInvoke.SetupApi.SP_DRVINFO_DATA.Description -> char*
-PInvoke.SetupApi.SP_DRVINFO_DATA.DescriptionString.get -> string
 PInvoke.SetupApi.SP_DRVINFO_DATA.DriverDate -> System.Runtime.InteropServices.ComTypes.FILETIME
 PInvoke.SetupApi.SP_DRVINFO_DATA.DriverType -> PInvoke.SetupApi.DriverType
 PInvoke.SetupApi.SP_DRVINFO_DATA.DriverVersion -> ulong
 PInvoke.SetupApi.SP_DRVINFO_DATA.MfgName -> char*
-PInvoke.SetupApi.SP_DRVINFO_DATA.MfgNameString.get -> string
 PInvoke.SetupApi.SP_DRVINFO_DATA.ProviderName -> char*
-PInvoke.SetupApi.SP_DRVINFO_DATA.ProviderNameString.get -> string
 PInvoke.SetupApi.SP_DRVINFO_DATA.Reserved -> System.UIntPtr
 PInvoke.SetupApi.SP_DRVINFO_DATA.SP_DRVINFO_DATA() -> void
 PInvoke.SetupApi.SP_DRVINFO_DATA.cbSize -> int
@@ -93,7 +90,6 @@ PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags
 PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags.DIOD_CANCEL_REMOVE = 4 -> PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags
 PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags.DIOD_INHERIT_CLASSDRVS = 2 -> PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags
 PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags.None = 0 -> PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags
-override PInvoke.SetupApi.SP_DRVINFO_DATA.ToString() -> string
 static PInvoke.SetupApi.DeviceSetupClass.Avc.get -> System.Guid
 static PInvoke.SetupApi.DeviceSetupClass.Battery.get -> System.Guid
 static PInvoke.SetupApi.DeviceSetupClass.Biometric.get -> System.Guid

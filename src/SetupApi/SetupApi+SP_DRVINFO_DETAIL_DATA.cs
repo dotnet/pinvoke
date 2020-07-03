@@ -17,7 +17,6 @@ namespace PInvoke
         /// Contains detailed information about a particular driver information structure.
         /// </summary>
         /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/setupapi/ns-setupapi-sp_drvinfo_detail_data_w"/>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public unsafe struct SP_DRVINFO_DETAIL_DATA
         {
             /// <summary>
@@ -87,24 +86,13 @@ namespace PInvoke
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SP_DRVINFO_DETAIL_DATA" /> struct
-            /// with <see cref="SP_DRVINFO_DETAIL_DATA.cbSize" /> set to the correct value.
+            /// with <see cref="cbSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DRVINFO_DETAIL_DATA"/>.</returns>
-            public static SP_DRVINFO_DETAIL_DATA Create()
-            {
-                var size = Marshal.SizeOf(typeof(SP_DRVINFO_DETAIL_DATA));
-
-                if (IntPtr.Size == 4)
-                {
-                    // On 32-bit Windows
-                     size -= 2;
-                }
-
-                return new SP_DRVINFO_DETAIL_DATA()
-                {
-                    cbSize = size,
-                };
-            }
+            /// <devremarks>
+            /// The numbers are hard-coded because due to alignment issues, .NET reports 2 bytes more than the Win32 API is expecting and it won't accept a struct that is too large.
+            /// </devremarks>
+            public static SP_DRVINFO_DETAIL_DATA Create() => new SP_DRVINFO_DETAIL_DATA { cbSize = IntPtr.Size == 4 ? 0x622 : 0x630 };
         }
     }
 }

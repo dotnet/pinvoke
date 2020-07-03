@@ -499,7 +499,7 @@ namespace PInvoke
         /// <param name="deviceInfoData">
         /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure that specifies a device information element that represents the device
         /// for which to retrieve driver information. This parameter is optional and can be <see langword="null"/>.
-        /// If this parameter is specified, <see cref="SetupDiGetDriverInfoDetail(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DRVINFO_DATA*, IntPtr, int, out int)"/> retrieves information about a driver in a driver list
+        /// If this parameter is specified, <see cref="SetupDiGetDriverInfoDetail(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DRVINFO_DATA*, byte*, int, out int)"/> retrieves information about a driver in a driver list
         /// for the specified device.
         /// If this parameter is <see langword="null"/>, SetupDiGetDriverInfoDetail retrieves information about a driver that is a member of
         /// the global class driver list for <paramref name="deviceInfoSet"/>.
