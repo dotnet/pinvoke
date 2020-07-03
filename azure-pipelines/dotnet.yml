@@ -9,6 +9,7 @@ steps:
 
 - powershell: .\build.ps1 -Test
   displayName: Test
+  failOnStderr: true
 
 - pwsh: >
     dotnet tool install --tool-path obj SignClient
