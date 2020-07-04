@@ -3264,6 +3264,110 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Out)] FILETIME* lpFileTime);
 
         /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the access token associated with a process.
+        /// </summary>
+        /// <returns>A pseudo-handle that you can use as a shorthand way to refer to the access token associated with a process.</returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the access token for the current process. The calling process can use a pseudo-handle
+        /// to specify the access token for that process whenever a token handle is required. Child processes do not inherit pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the <see cref="CloseHandle(IntPtr)"/> function with a
+        /// pseudo-handle, the function has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentProcessToken();
+
+        /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread,
+        /// which is the thread token if one exists and the process token otherwise.
+        /// </summary>
+        /// <returns>
+        /// A pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread.
+        /// </returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the effective token for the current thread. The calling thread can use a pseudo-handle
+        /// to specify the effective token for that thread whenever a token handle is required. Child processes do not inherit pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        ///
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the <see cref="CloseHandle(IntPtr)"/> function with a
+        /// pseudo-handle, the function has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentThreadEffectiveToken();
+
+        /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the impersonation token that was assigned to the current thread.
+        /// </summary>
+        /// <returns>A pseudo-handle that you can use as a shorthand way to refer to the impersonation token that was assigned to the current thread.</returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the impersonation token for the current thread. The calling thread can use a
+        /// pseudo-handle to specify the impersonation token for that thread whenever a token handle is required. Child processes do not inherit
+        /// pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        ///
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the CloseHandle function with a pseudo-handle, the function
+        /// has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentThreadToken();
+
+        /// <summary>
+        /// Retrieves the number of open handles that belong to the specified process.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process whose handle count is being requested. The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> or
+        /// <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION"/> access right. For more information, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        ///
+        /// Windows Server 2003 and Windows XP:  The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> access right.
+        /// </param>
+        /// <param name="pdwHandleCount">A pointer to a variable that receives the number of open handles that belong to the specified process.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// This function retrieves information about the executive objects for the process. For more information, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/SysInfo/kernel-objects">Kernel Object</a>
+        ///
+        /// To compile an application (C, C++0 that uses this function, define _WIN32_WINNT as 0x0501 or later. This corresponds to a min. supported
+        /// platform version of Windows XP/Windows Server 2003 required to use this function.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetProcessHandleCount(
+            SafeObjectHandle hProcess,
+            out uint pdwHandleCount);
+
+        /// <summary>
+        /// Retrieves the process identifier of the process associated with the specified thread.
+        /// </summary>
+        /// <param name="hThread">
+        /// A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or
+        /// THREAD_QUERY_LIMITED_INFORMATION access right. For more information, see Thread Security and Access Rights.
+        ///
+        /// Windows Server 2003:  The handle must have the THREAD_QUERY_INFORMATION access right.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the process identifier of the process associated with the specified
+        /// thread.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        public static extern uint GetProcessIdOfThread(SafeObjectHandle hThread);
+
+        /// <summary>
         /// Closes a pseudoconsole from the given handle.
         /// </summary>
         /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>

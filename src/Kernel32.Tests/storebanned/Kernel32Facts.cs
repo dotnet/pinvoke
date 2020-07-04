@@ -1044,6 +1044,92 @@ public partial class Kernel32Facts
         Assert.NotEqual((uint)Kernel32.GetCurrentThreadId(), dwNewThreadId);
     }
 
+    [Fact]
+    public unsafe void GetCurrentThreadStackLimitsTest()
+    {
+        // Returns the low and high stack-limits of the running thread
+        //
+        // The parameter 'data' is assumed to be allocated by the caller and capable of
+        // carrying two ulong values.
+        unsafe uint ThreadStackLimitsThreadProc(void* data)
+        {
+            Kernel32.GetCurrentThreadStackLimits(out UIntPtr lowLimit, out UIntPtr highLimit);
+
+            ulong* limits = (ulong*)data;
+            limits[0] = (ulong)lowLimit;
+            limits[1] = (ulong)highLimit;
+
+            return 1;
+        }
+
+        const uint ThreadStackSize = 512 * 1024u;
+
+        var threadStartRoutine = new THREAD_START_ROUTINE(ThreadStackLimitsThreadProc);
+
+        var gcHandle = GCHandle.Alloc(threadStartRoutine); // Prevent premature GC of the delegate
+        try
+        {
+            ulong* limits = stackalloc ulong[2] { 0, 0 };
+            using var hThread =
+                Kernel32.CreateThread(
+                    null,
+                    new UIntPtr(ThreadStackSize),
+                    threadStartRoutine,
+                    limits,
+                    CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION,
+                    null);
+            Kernel32.WaitForSingleObject(hThread, -1);
+
+            Assert.Equal(ThreadStackSize, limits[1] - limits[0]);
+        }
+        finally
+        {
+            gcHandle.Free();
+        }
+    }
+
+    [Fact]
+    public unsafe void GetProcessHandleCountTest()
+    {
+        using var hProcess = Kernel32.GetCurrentProcess();
+
+        Assert.True(Kernel32.GetProcessHandleCount(hProcess, out uint handleCount));
+        Assert.NotEqual(0u, handleCount);
+    }
+
+    [Fact]
+    public unsafe void GetProcessIdOfThreadTest()
+    {
+        // Calls into GetProcessIdOfThread and returns the process-id
+        // Assumes that data contains enough allocated memory to
+        // return the process-id (i.e., a uint value)
+        unsafe uint GetProcessIdThreadProc(void* data)
+        {
+            using var hThread = Kernel32.GetCurrentThread();
+            var processId = Kernel32.GetProcessIdOfThread(hThread);
+
+            *(uint*)data = processId;
+
+            return 1;
+        }
+
+        var threadStartRoutine = new Kernel32.THREAD_START_ROUTINE(GetProcessIdThreadProc);
+
+        uint processId = 0;
+        using var hThread = Kernel32.CreateThread(
+            null,
+            UIntPtr.Zero,
+            threadStartRoutine,
+            &processId,
+            CreateThreadFlags.None,
+            null);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.Equal((uint)Process.GetCurrentProcess().Id, processId);
+
+        GC.KeepAlive(threadStartRoutine); // Make sure that the delegate stays alive until the test is done
+    }
+
     /// <summary>
     /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and
     /// <see cref="CreateRemoteThreadEx_PseudoTest"/> tests.

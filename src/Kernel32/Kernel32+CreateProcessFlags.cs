@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Flags that may be passed to the <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/> function.
+        /// Flags that may be passed to the CreateProcess function.
         /// </summary>
         [Flags]
         public enum CreateProcessFlags
@@ -98,13 +98,13 @@ namespace PInvoke
             DEBUG_PROCESS = 0x00000001,
 
             /// <summary>
-            /// For console processes, the new process does not inherit its parent's console (the default). The new process can call the <see cref="AllocConsole"/> function at a later time to create a console. For more information, see Creation of a Console.
+            /// For console processes, the new process does not inherit its parent's console (the default). The new process can call the AllocConsole function at a later time to create a console. For more information, see Creation of a Console.
             /// This value cannot be used with <see cref="CREATE_NEW_CONSOLE"/>.
             /// </summary>
             DETACHED_PROCESS = 0x00000008,
 
             /// <summary>
-            /// The process is created with extended startup information; the lpStartupInfo parameter specifies a <see cref="STARTUPINFOEX"/> structure.
+            /// The process is created with extended startup information; the lpStartupInfo parameter specifies a STARTUPINFOEX structure.
             /// Windows Server 2003 and Windows XP:  This value is not supported.
             /// </summary>
             EXTENDED_STARTUPINFO_PRESENT = 0x00080000,

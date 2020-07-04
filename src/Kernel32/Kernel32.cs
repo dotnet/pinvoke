@@ -854,6 +854,143 @@ namespace PInvoke
             int nFileSystemNameSize);
 
         /// <summary>
+        /// Flushes the instruction cache for the specified process.
+        /// </summary>
+        /// <param name="hProcess">A handle to a process whose instruction cache is to be flushed.</param>
+        /// <param name="lpcBaseAddress">A pointer to the base of the region to be flushed. This parameter can be null.</param>
+        /// <param name="dwSize">The size of the region to be flushed if the <paramref name="lpcBaseAddress"/> parameter is not null, in bytes.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// Applications should call <see cref="FlushInstructionCache(SafeObjectHandle, void*, UIntPtr)"/> if they generate or modify code in memory.
+        /// The CPU cannot detect the change, and may execute the old code it cached.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool FlushInstructionCache(
+            SafeObjectHandle hProcess,
+            void* lpcBaseAddress,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwSize);
+
+        /// <summary>
+        /// Flushes the write queue of each processor that is running a thread of the current process.
+        /// </summary>
+        /// <remarks>
+        /// The function generates an interprocessor interrupt (IPI) to all processors that are part of the current process affinity.
+        /// It guarantees the visibility of write operations performed on one processor to the other processors.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static extern void FlushProcessWriteBuffers();
+
+        /// <summary>
+        /// Retrieves the number of the processor the current thread was running on during the call to this function.
+        /// </summary>
+        /// <returns>The function returns the current processor number.</returns>
+        /// <remarks>
+        /// This function is used to provide information for estimating process performance.
+        /// On systems with more than 64 logical processors, the <see cref="GetCurrentProcessorNumber"/> function returns the processor number within the processor
+        /// group to which the logical processor is assigned.Use the <see cref="GetCurrentProcessorNumberEx(PROCESSOR_NUMBER*)"/> function to retrieve the processor group and number of the
+        /// current processor.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static extern uint GetCurrentProcessorNumber();
+
+        /// <summary>
+        /// Retrieves the processor group and number of the logical processor in which the calling thread is running.
+        /// </summary>
+        /// <param name="ProcNumber">
+        /// A pointer to a <see cref="PROCESSOR_NUMBER"/> structure that receives the processor group to which the logical
+        /// processor is assigned and the number of the logical processor within its group
+        /// </param>
+        /// <remarks>
+        /// If the function succeeds, the <paramref name="ProcNumber"/> parameter contains the group and processor number of the processor on which
+        /// the calling thread is running.
+        ///
+        /// To compile an application that uses this function in C/C++, set _WIN32_WINNT >= 0x0601. This corresponds to a min. platform target
+        /// of Windows 7/Windows Server 2008 R2 for this function to be available.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static unsafe extern void GetCurrentProcessorNumberEx(
+            [Friendly(FriendlyFlags.Out)] PROCESSOR_NUMBER* ProcNumber);
+
+        /// <summary>
+        /// Retrieves a pseudo handle for the calling thread.
+        /// </summary>
+        /// <returns>The return value is a pseudo handle for the current thread.</returns>
+        /// <remarks>
+        /// A pseudo handle is a special constant that is interpreted as the current thread handle. The calling thread can use this handle to specify itself
+        /// whenever a thread handle is required. Pseudo handles are not inherited by child processes.
+        ///
+        /// This handle has the THREAD_ALL_ACCESS access right to the thread object.
+        ///
+        /// Windows Server 2003 and Windows XP:  This handle has the maximum access allowed by the security descriptor of the thread to the primary token of
+        /// the process.
+        ///
+        /// The function cannot be used by one thread to create a handle that can be used by other threads to refer to the first thread.The handle is always
+        /// interpreted as referring to the thread that is using it.A thread can create a "real" handle to itself that can be used by other threads, or
+        /// inherited by other processes, by specifying the pseudo handle as the source handle in a call to the DuplicateHandle function.
+        ///
+        /// The pseudo handle need not be closed when it is no longer needed.Calling the <see cref="CloseHandle(IntPtr)"/> function with this handle has no effect. If the pseudo
+        /// handle is duplicated by DuplicateHandle, the duplicate handle must be closed.
+        ///
+        /// Do not create a thread while impersonating a security context. The call will succeed, however the newly created thread will have reduced access
+        /// rights to itself when calling GetCurrentThread.The access rights granted this thread will be derived from the access rights the impersonated user
+        /// has to the process.Some access rights including THREAD_SET_THREAD_TOKEN and THREAD_GET_CONTEXT may not be present, leading to unexpected failures.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static extern SafeObjectHandle GetCurrentThread();
+
+        /// <summary>
+        /// Retrieves the boundaries of the stack that was allocated by the system for the current thread.
+        /// </summary>
+        /// <param name="LowLimit">A pointer variable that receives the lower boundary of the current thread stack.</param>
+        /// <param name="HighLimit">A pointer variable that receives the upper boundary of the current thread stack.</param>
+        /// <remarks>
+        /// It is possible for user-mode code to execute in stack memory that is outside the region allocated by the system when the thread was created.
+        /// Callers can use the GetCurrentThreadStackLimits function to verify that the current stack pointer is within the returned limits.
+        ///
+        /// To compile an application (C, C++) that uses this function, set _WIN32_WINNT >= 0x0602. This corresponds to a min. platform
+        /// requirement of Windows 8/Windows Server 2012 for using this function.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static unsafe extern void GetCurrentThreadStackLimits(
+            [Friendly(FriendlyFlags.NativeInt)] out UIntPtr LowLimit,
+            [Friendly(FriendlyFlags.NativeInt)] out UIntPtr HighLimit);
+
+        /// <summary>
+        /// Retrieves the priority class for the specified process. This value, together with the priority value of each thread of the process,
+        /// determines each thread's base priority level.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process.
+        ///
+        /// The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> or <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION"/> access
+        /// right.For more information,see  <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+        ///
+        /// Windows Server 2003 and Windows XP:  The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> access right.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the priority class of the specified process.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// Every thread has a base priority level determined by the thread's priority value and the priority class of its process. The operating system
+        /// uses the base priority level of all executable threads to determine which thread gets the next slice of CPU time. Threads are scheduled in a
+        /// round-robin fashion at each priority level, and only when there are no executable threads at a higher level will scheduling of threads at a
+        /// lower level take place.
+        ///
+        /// For a table that shows the base priority levels for each combination of priority class and thread priority value, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>
+        ///
+        /// Priority class is maintained by the executive, so all processes have a priority class that can be queried.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        public static extern ProcessPriorityClass GetPriorityClass(SafeObjectHandle hProcess);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>
