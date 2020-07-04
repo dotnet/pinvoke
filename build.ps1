@@ -129,6 +129,7 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
     & $xunitRunner $xunitArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Error "x86 test run returned exit code $LASTEXITCODE"
+        $testsFailed = $true
     }
 
     Write-Host "Testing x64..." -ForegroundColor Yellow
@@ -136,5 +137,10 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
     & $xunitRunner $xunitArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Error "x64 test run returned exit code $LASTEXITCODE"
+        $testsFailed = $true
+    }
+
+    if ($testsFailed) {
+        exit 4
     }
 }
