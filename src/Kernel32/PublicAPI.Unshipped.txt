@@ -37,6 +37,13 @@ PInvoke.Kernel32.HandleFlags
 PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_INHERIT = 1 -> PInvoke.Kernel32.HandleFlags
 PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_NONE = 0 -> PInvoke.Kernel32.HandleFlags
 PInvoke.Kernel32.HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE = 2 -> PInvoke.Kernel32.HandleFlags
+PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_BELOW_NORMAL = 4 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_LOW = 2 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_LOWEST = 0 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_MEDIUM = 3 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_NORMAL = 5 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_VERY_LOW = 1 -> PInvoke.Kernel32.MemoryPriority
 PInvoke.Kernel32.OSVERSIONINFOEX
 PInvoke.Kernel32.OSVERSIONINFOEX.OSVERSIONINFOEX() -> void
 PInvoke.Kernel32.OSVERSIONINFOEX.dwBuildNumber -> int
