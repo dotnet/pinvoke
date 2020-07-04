@@ -1095,8 +1095,7 @@ public partial class Kernel32Facts
     {
         using var hProcess = Kernel32.GetCurrentProcess();
 
-        uint handleCount = 0;
-        Assert.True(Kernel32.GetProcessHandleCount(hProcess, &handleCount));
+        Assert.True(Kernel32.GetProcessHandleCount(hProcess, out uint handleCount));
         Assert.NotEqual(0u, handleCount);
     }
 
@@ -1130,7 +1129,7 @@ public partial class Kernel32Facts
 
         Assert.Equal((uint)Process.GetCurrentProcess().Id, processId);
 
-        GC.KeepAlive(threadStartRoutine); // Make sure that the delegate stays alive until the test
+        GC.KeepAlive(threadStartRoutine); // Make sure that the delegate stays alive until the test is done
     }
 
     /// <summary>

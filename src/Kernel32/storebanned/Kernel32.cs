@@ -3345,9 +3345,9 @@ namespace PInvoke
         /// </remarks>
         [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static unsafe extern bool GetProcessHandleCount(
+        public static extern bool GetProcessHandleCount(
             SafeObjectHandle hProcess,
-            [Friendly(FriendlyFlags.Out)] uint* pdwHandleCount);
+            out uint pdwHandleCount);
 
         /// <summary>
         /// Retrieves the process identifier of the process associated with the specified thread.
