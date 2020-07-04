@@ -220,7 +220,7 @@ namespace PInvoke
             {
                 fixed (byte* pValue = value)
                 {
-#if NETSTANDARD1_3_ORLATER || NETFX_CORE
+#if NETSTANDARD2_0_ORLATER || NETFX_CORE
                     return Marshal.PtrToStructure<T>(new IntPtr(pValue));
 #else
                     return (T)Marshal.PtrToStructure(new IntPtr(pValue), typeof(T));

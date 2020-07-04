@@ -4,10 +4,7 @@
     <ExcludeStoreBannedAPIs Condition=" ('$(TargetPlatformIdentifier)' == 'Windows' or '$(TargetPlatformIdentifier)' == 'UAP') and '$(TargetPlatformVersion)' >= 8.0 ">true</ExcludeStoreBannedAPIs>
     <DefineConstants Condition=" '$(ExcludeStoreBannedAPIs)' != 'true' ">$(DefineConstants);IncludeStoreBannedAPIs</DefineConstants>
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' or ('$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 2.0) ">$(DefineConstants);Serialization</DefineConstants>
-    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 1.3 ">$(DefineConstants);NETSTANDARD1_3_ORLATER</DefineConstants>
-    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 1.6 ">$(DefineConstants);NETSTANDARD1_6_ORLATER</DefineConstants>
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 2.0 ">$(DefineConstants);NETSTANDARD2_0_ORLATER</DefineConstants>
-    <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(_TargetFrameworkVersionWithoutV)' >= 4.0 ">$(DefineConstants);NET40_ORLATER</DefineConstants>
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(_TargetFrameworkVersionWithoutV)' >= 4.5 ">$(DefineConstants);NET45_ORLATER</DefineConstants>
 
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' != '.NETFramework' ">$(DefineConstants);APISets</DefineConstants>
@@ -23,12 +20,10 @@
   <ItemGroup>
     <Compile Remove="storebanned\**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' " />
     <Compile Remove="**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' and '$(StoreBanned)' == 'true' " />
-    <Compile Include="$(MSBuildThisFileDirectory)net20Helpers\*.cs"
-             Condition=" '$(TargetFramework)' == 'net20' and '$(MSBuildProjectName)' != 'CodeGenerationAttributes' " />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAttributes.cs" Condition=" '$(IsPInvokeProject)' == 'true' " />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(IsPInvokeProject)' == 'true' and '$(MSBuildProjectName)' != 'Win32' and '$(TargetFramework)' == 'net20' ">
+  <ItemGroup Condition=" '$(IsPInvokeProject)' == 'true' and '$(MSBuildProjectName)' != 'Win32' and '$(TargetFramework)' == 'net45' ">
     <PackageReference Include="Roslyn.Diagnostics.Analyzers" Version="1.2.0-beta2" PrivateAssets="all" />
     <AdditionalFiles Include="PublicAPI.Shipped.txt" />
     <AdditionalFiles Include="PublicAPI.Unshipped.txt" />

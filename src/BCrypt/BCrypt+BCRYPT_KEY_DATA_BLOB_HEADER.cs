@@ -78,7 +78,7 @@ namespace PInvoke
 
             private byte[] AddHeaderToKey(byte[] keyMaterial)
             {
-#if NETSTANDARD1_3_ORLATER || NETFX_CORE
+#if NETSTANDARD2_0_ORLATER || NETFX_CORE
                 int headerLength = Marshal.SizeOf<BCRYPT_KEY_DATA_BLOB_HEADER>();
 #else
                 int headerLength = Marshal.SizeOf(typeof(BCRYPT_KEY_DATA_BLOB_HEADER));

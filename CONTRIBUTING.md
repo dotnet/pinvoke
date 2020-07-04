@@ -344,7 +344,7 @@ new API is removed later, it can generate an RS0017 error.
 
 Use the analyzer's automatic code fix in Visual Studio 2019 to update the file and
 include that file change in your commit.
-You must have `net20` selected as the target framework in the Visual Studio editor for the
+You must have `net45` selected as the target framework in the Visual Studio editor for the
 code fix to be offered.
 
 ### SafeHandles

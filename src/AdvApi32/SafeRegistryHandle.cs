@@ -1,16 +1,7 @@
 // Copyright © .NET Foundation and Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#if NET40_ORLATER || NETSTANDARD1_6_ORLATER
-
-// We must type forward so that folks who compiled against a PInvoke library that defines this type,
-// it can still run when linking against a PInvoke library at runtime that doesn't define it.
-using System.Runtime.CompilerServices;
-using Microsoft.Win32.SafeHandles;
-
-[assembly: TypeForwardedTo(typeof(SafeRegistryHandle))]
-
-#else
+#if WINDOWS8 || WINDOWS_UWP
 
 namespace Microsoft.Win32.SafeHandles
 {

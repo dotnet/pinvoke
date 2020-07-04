@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(PlatformAndPortableFrameworks);net40;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
     <StoreBanned>true</StoreBanned>
   </PropertyGroup>
   <ItemGroup>
@@ -8,7 +8,7 @@
     <ProjectReference Include="..\User32\User32.csproj" />
     <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
     <PackageReference Include="System.Security.AccessControl" Version="4.5.0" />
   </ItemGroup>
