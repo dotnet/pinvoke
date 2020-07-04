@@ -3350,6 +3350,24 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Out)] uint* pdwHandleCount);
 
         /// <summary>
+        /// Retrieves the process identifier of the process associated with the specified thread.
+        /// </summary>
+        /// <param name="hThread">
+        /// A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or
+        /// THREAD_QUERY_LIMITED_INFORMATION access right. For more information, see Thread Security and Access Rights.
+        ///
+        /// Windows Server 2003:  The handle must have the THREAD_QUERY_INFORMATION access right.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the process identifier of the process associated with the specified
+        /// thread.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        public static extern uint GetProcessIdOfThread(SafeObjectHandle hThread);
+
+        /// <summary>
         /// Closes a pseudoconsole from the given handle.
         /// </summary>
         /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>

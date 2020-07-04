@@ -1072,7 +1072,7 @@ public partial class Kernel32Facts
         try
         {
             ulong* limits = stackalloc ulong[2] { 0, 0 };
-            var hThread =
+            using var hThread =
                 Kernel32.CreateThread(
                     null,
                     new UIntPtr(ThreadStackSize),
@@ -1098,6 +1098,39 @@ public partial class Kernel32Facts
         uint handleCount = 0;
         Assert.True(Kernel32.GetProcessHandleCount(hProcess, &handleCount));
         Assert.NotEqual(0u, handleCount);
+    }
+
+    [Fact]
+    public unsafe void GetProcessIdOfThreadTest()
+    {
+        // Calls into GetProcessIdOfThread and returns the process-id
+        // Assumes that data contains enough allocated memory to
+        // return the process-id (i.e., a uint value)
+        unsafe uint GetProcessIdThreadProc(void* data)
+        {
+            using var hThread = Kernel32.GetCurrentThread();
+            var processId = Kernel32.GetProcessIdOfThread(hThread);
+
+            *(uint*)data = processId;
+
+            return 1;
+        }
+
+        var threadStartRoutine = new Kernel32.THREAD_START_ROUTINE(GetProcessIdThreadProc);
+
+        uint processId = 0;
+        using var hThread = Kernel32.CreateThread(
+            null,
+            UIntPtr.Zero,
+            threadStartRoutine,
+            &processId,
+            CreateThreadFlags.None,
+            null);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.Equal((uint)Process.GetCurrentProcess().Id, processId);
+
+        GC.KeepAlive(threadStartRoutine); // Make sure that the delegate stays alive until the test
     }
 
     /// <summary>
