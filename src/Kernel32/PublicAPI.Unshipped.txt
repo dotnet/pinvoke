@@ -1,3 +1,9 @@
+PInvoke.Kernel32.APP_MEMORY_INFORMATION
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.APP_MEMORY_INFORMATION() -> void
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.AvailableCommit -> ulong
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.PeakPrivateCommitUsage -> ulong
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.PrivateCommitUsage -> ulong
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.TotalCommitUsage -> ulong
 PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.CreatePseudoConsoleFlags.None = 0 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.CreatePseudoConsoleFlags.PSEUDOCONSOLE_INHERIT_CURSOR = 1 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
