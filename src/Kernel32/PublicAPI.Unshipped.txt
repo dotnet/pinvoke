@@ -69,6 +69,12 @@ PInvoke.Kernel32.PROCESSOR_NUMBER.Group -> ushort
 PInvoke.Kernel32.PROCESSOR_NUMBER.Number -> byte
 PInvoke.Kernel32.PROCESSOR_NUMBER.PROCESSOR_NUMBER() -> void
 PInvoke.Kernel32.PROCESSOR_NUMBER.Reserved -> byte
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PROCESS_MEMORY_EXHAUSTION_INFO() -> void
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Reserved -> ushort
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Type -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Value -> System.UIntPtr
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Version -> ushort
 PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
 PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure = 0 -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
 PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeMax = 1 -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
@@ -143,6 +149,7 @@ PInvoke.Kernel32.VER_MASK.VER_PRODUCT_TYPE = 128 -> PInvoke.Kernel32.VER_MASK
 PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMAJOR = 32 -> PInvoke.Kernel32.VER_MASK
 PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMINOR = 16 -> PInvoke.Kernel32.VER_MASK
 PInvoke.Kernel32.VER_MASK.VER_SUITENAME = 64 -> PInvoke.Kernel32.VER_MASK
+const PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_CURRENT_VERSION = 1 -> ushort
 override PInvoke.Kernel32.SafePseudoConsoleHandle.IsInvalid.get -> bool
 override PInvoke.Kernel32.SafePseudoConsoleHandle.ReleaseHandle() -> bool
 static PInvoke.Kernel32.CompareFileTime(PInvoke.Kernel32.FILETIME lpFileTime1, PInvoke.Kernel32.FILETIME lpFileTime2) -> int
@@ -171,6 +178,9 @@ static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartu
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char[] lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char[] lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static PInvoke.Kernel32.OSVERSIONINFOEX.Create() -> PInvoke.Kernel32.OSVERSIONINFOEX
+static PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Create(PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE pmeType, bool enable) -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO
+static PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_FAILFAST_ON_COMMIT_FAIL_DISABLE -> System.UIntPtr
+static PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_FAILFAST_ON_COMMIT_FAIL_ENABLE -> System.UIntPtr
 static PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.ReadProcessMemory(System.IntPtr hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.SYSTEMTIME.implicit operator PInvoke.Kernel32.SYSTEMTIME(System.DateTime dt) -> PInvoke.Kernel32.SYSTEMTIME
