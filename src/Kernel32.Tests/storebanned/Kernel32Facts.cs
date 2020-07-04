@@ -1053,13 +1053,11 @@ public partial class Kernel32Facts
         // carrying two ulong values.
         unsafe uint ThreadStackLimitsThreadProc(void* data)
         {
-            ulong lowLimit = 0u;
-            ulong highLimit = 0u;
-            Kernel32.GetCurrentThreadStackLimits(&lowLimit, &highLimit);
+            Kernel32.GetCurrentThreadStackLimits(out UIntPtr lowLimit, out UIntPtr highLimit);
 
             ulong* limits = (ulong*)data;
-            limits[0] = lowLimit;
-            limits[1] = highLimit;
+            limits[0] = (ulong)lowLimit;
+            limits[1] = (ulong)highLimit;
 
             return 1;
         }

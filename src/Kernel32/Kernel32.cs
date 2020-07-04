@@ -956,8 +956,8 @@ namespace PInvoke
         /// </remarks>
         [DllImport(api_ms_win_core_processthreads_l1_1_1)]
         public static unsafe extern void GetCurrentThreadStackLimits(
-            [Friendly(FriendlyFlags.Out)] ulong* LowLimit,
-            [Friendly(FriendlyFlags.Out)] ulong* HighLimit);
+            [Friendly(FriendlyFlags.NativeInt)] out UIntPtr LowLimit,
+            [Friendly(FriendlyFlags.NativeInt)] out UIntPtr HighLimit);
 
         /// <summary>
         /// Retrieves the priority class for the specified process. This value, together with the priority value of each thread of the process,
