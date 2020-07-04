@@ -27,12 +27,7 @@ namespace PInvoke
 
             public uint dwLanguageId;
 
-            public static MSGBOXPARAMS Create()
-            {
-                var nw = default(MSGBOXPARAMS);
-                nw.cbSize = Marshal.SizeOf(typeof(MSGBOXPARAMS));
-                return nw;
-            }
+            public static MSGBOXPARAMS Create() => new MSGBOXPARAMS { cbSize = Marshal.SizeOf(typeof(MSGBOXPARAMS)) };
         }
     }
 }

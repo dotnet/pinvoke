@@ -397,7 +397,7 @@ public class BCryptFacts
             using (hash)
             {
                 var ops = new BCRYPT_MULTI_HASH_OPERATION[parallelism];
-                int opsSize = parallelism * Marshal.SizeOf<BCRYPT_MULTI_HASH_OPERATION>();
+                int opsSize = parallelism * sizeof(BCRYPT_MULTI_HASH_OPERATION);
                 fixed (byte* dataPtr = data)
                 {
                     for (int i = 0; i < ops.Length; i++)

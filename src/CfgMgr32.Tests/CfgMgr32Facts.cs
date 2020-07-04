@@ -17,7 +17,7 @@ public class CfgMgr32Facts
     [Fact]
     public void CM_NOTIFY_FILTER_Test()
     {
-        Assert.Equal(0x1a0, Marshal.SizeOf<CM_NOTIFY_FILTER>());
+        Assert.Equal(0x1a0, CM_NOTIFY_FILTER.Create().cbSize);
     }
 
     [Fact]

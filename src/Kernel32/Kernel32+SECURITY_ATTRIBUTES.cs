@@ -44,17 +44,7 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="SECURITY_ATTRIBUTES"/> struct.
             /// </summary>
             /// <returns>A new instance of <see cref="SECURITY_ATTRIBUTES"/>.</returns>
-            public static SECURITY_ATTRIBUTES Create()
-            {
-                return new SECURITY_ATTRIBUTES
-                {
-#if NETSTANDARD2_0_ORLATER || NETFX_CORE
-                    nLength = Marshal.SizeOf<SECURITY_ATTRIBUTES>(),
-#else
-                    nLength = Marshal.SizeOf(typeof(SECURITY_ATTRIBUTES)),
-#endif
-                };
-            }
+            public static unsafe SECURITY_ATTRIBUTES Create() => new SECURITY_ATTRIBUTES { nLength = sizeof(SECURITY_ATTRIBUTES) };
         }
     }
 }

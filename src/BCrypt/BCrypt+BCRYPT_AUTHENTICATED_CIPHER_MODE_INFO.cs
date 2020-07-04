@@ -129,11 +129,7 @@ namespace PInvoke
             {
                 return new BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO
                 {
-#if NETSTANDARD2_0_ORLATER || NETFX_CORE
-                    cbSize = Marshal.SizeOf<BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO>(),
-#else
-                    cbSize = Marshal.SizeOf(typeof(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO)),
-#endif
+                    cbSize = sizeof(BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO),
                     dwInfoVersion = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION,
                 };
             }

@@ -108,13 +108,7 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="OBJECT_ATTRIBUTES"/> structure.
             /// </summary>
             /// <returns>An <see cref="OBJECT_ATTRIBUTES"/> instance with <see cref="Length"/> initialized.</returns>
-            public static OBJECT_ATTRIBUTES Create()
-            {
-                return new OBJECT_ATTRIBUTES
-                {
-                    Length = Marshal.SizeOf(typeof(OBJECT_ATTRIBUTES)),
-                };
-            }
+            public static OBJECT_ATTRIBUTES Create() => new OBJECT_ATTRIBUTES { Length = sizeof(OBJECT_ATTRIBUTES) };
         }
     }
 }

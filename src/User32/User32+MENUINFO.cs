@@ -49,7 +49,7 @@ namespace PInvoke
             /// Create a new instance of <see cref="MENUINFO"/> with <see cref="cbSize"/> set to the correct value.
             /// </summary>
             /// <returns>A new instance of <see cref="MENUINFO"/> with <see cref="cbSize"/> set to the correct value.</returns>
-            public MENUINFO Create() => new MENUINFO { cbSize = Marshal.SizeOf(typeof(MENUINFO)) };
+            public static unsafe MENUINFO Create() => new MENUINFO { cbSize = sizeof(MENUINFO) };
         }
     }
 }

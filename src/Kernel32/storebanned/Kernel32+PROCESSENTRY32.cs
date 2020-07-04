@@ -104,17 +104,7 @@ namespace PInvoke
             /// with <see cref="dwSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="PROCESSENTRY32"/>.</returns>
-            public static PROCESSENTRY32 Create()
-            {
-                return new PROCESSENTRY32
-                {
-#if NETSTANDARD2_0_ORLATER
-                    dwSize = Marshal.SizeOf<PROCESSENTRY32>(),
-#else
-                    dwSize = Marshal.SizeOf(typeof(PROCESSENTRY32)),
-#endif
-                };
-            }
+            public static PROCESSENTRY32 Create() => new PROCESSENTRY32 { dwSize = sizeof(PROCESSENTRY32) };
         }
     }
 }

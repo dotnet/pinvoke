@@ -92,12 +92,7 @@ namespace PInvoke
             /// with the <see cref="cbSize"/> preset as required.
             /// </summary>
             /// <returns>The newly initialized instance.</returns>
-            public static MENUBARINFO Create()
-            {
-                var result = default(MENUBARINFO);
-                result.cbSize = Marshal.SizeOf(result);
-                return result;
-            }
+            public static unsafe MENUBARINFO Create() => new MENUBARINFO { cbSize = sizeof(MENUBARINFO) };
         }
     }
 }

@@ -111,11 +111,7 @@ namespace PInvoke
             {
                 return new MODULEENTRY32
                 {
-#if NETSTANDARD2_0_ORLATER
-                    dwSize = Marshal.SizeOf<MODULEENTRY32>(),
-#else
-                    dwSize = Marshal.SizeOf(typeof(MODULEENTRY32)),
-#endif
+                    dwSize = sizeof(MODULEENTRY32),
                     th32ModuleID = 1,
                 };
             }

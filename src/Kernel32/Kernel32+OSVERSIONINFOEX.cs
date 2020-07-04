@@ -82,14 +82,7 @@ namespace PInvoke
             /// the right pre-initialization for <see cref="dwOSVersionInfoSize"/>
             /// </summary>
             /// <returns>A newly initialzed instance of <see cref="OSVERSIONINFOEX"/></returns>
-            public static OSVERSIONINFOEX Create() => new OSVERSIONINFOEX
-            {
-#if NETSTANDARD2_0_ORLATER || NETFX_CORE
-                dwOSVersionInfoSize = Marshal.SizeOf<OSVERSIONINFOEX>()
-#else
-                dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))
-#endif
-            };
+            public static OSVERSIONINFOEX Create() => new OSVERSIONINFOEX { dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX) };
         }
     }
 }

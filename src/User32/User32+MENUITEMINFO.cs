@@ -150,13 +150,7 @@ namespace PInvoke
             /// Create a new instance of <see cref="MENUITEMINFO"/> with <see cref="cbSize"/> set to the correct value.
             /// </summary>
             /// <returns>A new instance of <see cref="MENUITEMINFO"/> with <see cref="cbSize"/> set to the correct value.</returns>
-            public static MENUITEMINFO Create()
-            {
-                return new MENUITEMINFO
-                {
-                    cbSize = Marshal.SizeOf(typeof(MENUITEMINFO))
-                };
-            }
+            public static MENUITEMINFO Create() => new MENUITEMINFO { cbSize = sizeof(MENUITEMINFO) };
         }
     }
 }

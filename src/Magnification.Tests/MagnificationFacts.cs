@@ -17,9 +17,12 @@ public class MagnificationFacts
     }
 
     [Fact]
-    public void MAGCOLOREFFECT_IsRightSize()
+    public unsafe void MAGCOLOREFFECT_IsRightSize()
     {
         Assert.Equal(sizeof(float) * 5 * 5, Marshal.SizeOf<MAGCOLOREFFECT>());
+#pragma warning disable xUnit2000 // Constants and literals should be the expected argument
+        Assert.Equal(sizeof(float) * 5 * 5, sizeof(MAGCOLOREFFECT));
+#pragma warning restore xUnit2000 // Constants and literals should be the expected argument
     }
 
     [Fact]
@@ -43,9 +46,12 @@ public class MagnificationFacts
     }
 
     [Fact]
-    public void MAGTRANSFORM_IsRightSize()
+    public unsafe void MAGTRANSFORM_IsRightSize()
     {
         Assert.Equal(sizeof(float) * 3 * 3, Marshal.SizeOf<MAGTRANSFORM>());
+#pragma warning disable xUnit2000 // Constants and literals should be the expected argument
+        Assert.Equal(sizeof(float) * 3 * 3, sizeof(MAGTRANSFORM));
+#pragma warning restore xUnit2000 // Constants and literals should be the expected argument
     }
 
     [Fact]

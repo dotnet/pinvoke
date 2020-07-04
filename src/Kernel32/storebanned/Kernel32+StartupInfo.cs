@@ -134,17 +134,7 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="STARTUPINFO"/> struct.
             /// </summary>
             /// <returns>An initialized instance of the struct.</returns>
-            public static STARTUPINFO Create()
-            {
-                return new STARTUPINFO
-                {
-#if NETSTANDARD2_0_ORLATER
-                    cb = Marshal.SizeOf<STARTUPINFO>(),
-#else
-                    cb = Marshal.SizeOf(typeof(STARTUPINFO)),
-#endif
-                };
-            }
+            public static STARTUPINFO Create() => new STARTUPINFO { cb = sizeof(STARTUPINFO) };
         }
     }
 }

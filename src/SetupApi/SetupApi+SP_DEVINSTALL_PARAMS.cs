@@ -101,13 +101,7 @@ namespace PInvoke
             /// with <see cref="cbSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DEVINSTALL_PARAMS"/>.</returns>
-            public static SP_DEVINSTALL_PARAMS Create()
-            {
-                return new SP_DEVINSTALL_PARAMS
-                {
-                    cbSize = Marshal.SizeOf(typeof(SP_DEVINSTALL_PARAMS)),
-                };
-            }
+            public static SP_DEVINSTALL_PARAMS Create() => new SP_DEVINSTALL_PARAMS { cbSize = sizeof(SP_DEVINSTALL_PARAMS) };
         }
     }
 }

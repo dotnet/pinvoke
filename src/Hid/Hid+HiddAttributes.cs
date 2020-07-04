@@ -35,12 +35,7 @@ namespace PInvoke
             /// </summary>
             public ushort VersionNumber;
 
-            public static HiddAttributes Create()
-            {
-                var result = default(HiddAttributes);
-                result.Size = Marshal.SizeOf(result);
-                return result;
-            }
+            public static unsafe HiddAttributes Create() => new HiddAttributes { Size = sizeof(HiddAttributes) };
         }
     }
 }
