@@ -23,12 +23,7 @@ namespace PInvoke
             public ushort atomWindowType;
             public ushort wCreatorVersion;
 
-            public static WINDOWINFO Create()
-            {
-                var nw = default(WINDOWINFO);
-                nw.cbSize = (uint)Marshal.SizeOf(typeof(WINDOWINFO));
-                return nw;
-            }
+            public static unsafe WINDOWINFO Create() => new WINDOWINFO { cbSize = (uint)sizeof(WINDOWINFO) };
         }
     }
 }

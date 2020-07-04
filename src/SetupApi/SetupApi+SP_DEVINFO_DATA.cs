@@ -53,13 +53,7 @@ namespace PInvoke
             /// with <see cref="cbSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DEVINFO_DATA"/>.</returns>
-            public static SP_DEVINFO_DATA Create()
-            {
-                return new SP_DEVINFO_DATA
-                {
-                    cbSize = Marshal.SizeOf(typeof(SP_DEVINFO_DATA)),
-                };
-            }
+            public static unsafe SP_DEVINFO_DATA Create() => new SP_DEVINFO_DATA { cbSize = sizeof(SP_DEVINFO_DATA) };
         }
     }
 }

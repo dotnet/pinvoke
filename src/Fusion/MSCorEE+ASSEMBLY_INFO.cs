@@ -46,13 +46,7 @@ namespace PInvoke
             /// with the <see cref="cbAssemblyInfo"/> field initialized.
             /// </summary>
             /// <returns>The newly initialized struct.</returns>
-            public static ASSEMBLY_INFO Create()
-            {
-                return new ASSEMBLY_INFO
-                {
-                    cbAssemblyInfo = (uint)Marshal.SizeOf(typeof(ASSEMBLY_INFO)),
-                };
-            }
+            public static ASSEMBLY_INFO Create() => new ASSEMBLY_INFO { cbAssemblyInfo = (uint)sizeof(ASSEMBLY_INFO) };
         }
     }
 }

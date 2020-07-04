@@ -76,13 +76,9 @@ namespace PInvoke
                 return header.AddHeaderToKey(keyMaterial);
             }
 
-            private byte[] AddHeaderToKey(byte[] keyMaterial)
+            private unsafe byte[] AddHeaderToKey(byte[] keyMaterial)
             {
-#if NETSTANDARD2_0_ORLATER || NETFX_CORE
-                int headerLength = Marshal.SizeOf<BCRYPT_KEY_DATA_BLOB_HEADER>();
-#else
-                int headerLength = Marshal.SizeOf(typeof(BCRYPT_KEY_DATA_BLOB_HEADER));
-#endif
+                int headerLength = sizeof(BCRYPT_KEY_DATA_BLOB_HEADER);
                 byte[] keyWithHeader = new byte[headerLength + keyMaterial.Length];
                 Array.Copy(BitConverter.GetBytes((uint)this.dwMagic), keyWithHeader, sizeof(uint));
                 Array.Copy(BitConverter.GetBytes(this.dwVersion), 0, keyWithHeader, sizeof(uint), sizeof(uint));

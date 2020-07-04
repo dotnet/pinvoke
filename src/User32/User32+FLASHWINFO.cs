@@ -37,13 +37,7 @@ namespace PInvoke
             /// Create a new instance of <see cref="FLASHWINFO"/> with <see cref="cbSize"/> set to the correct value.
             /// </summary>
             /// <returns>A new instance of <see cref="FLASHWINFO"/> with <see cref="cbSize"/> set to the correct value.</returns>
-            public static FLASHWINFO Create()
-            {
-                return new FLASHWINFO
-                {
-                    cbSize = Marshal.SizeOf(typeof(FLASHWINFO))
-                };
-            }
+            public static unsafe FLASHWINFO Create() => new FLASHWINFO { cbSize = sizeof(FLASHWINFO) };
         }
     }
 }

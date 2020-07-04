@@ -20,7 +20,7 @@ namespace PInvoke
             public uint dwContextId;
             public POINT MousePos;
 
-            public static HELPINFO Create() => new HELPINFO { cbSize = Marshal.SizeOf(typeof(HELPINFO)) };
+            public static unsafe HELPINFO Create() => new HELPINFO { cbSize = sizeof(HELPINFO) };
         }
     }
 }

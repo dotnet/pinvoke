@@ -54,13 +54,7 @@ namespace PInvoke
             /// </summary>
             public fixed char DeviceName[CCHDEVICENAME];
 
-            public static MONITORINFOEX Create()
-            {
-                var monitorIfo = default(MONITORINFOEX);
-                monitorIfo.cbSize = Marshal.SizeOf(typeof(MONITORINFOEX));
-
-                return monitorIfo;
-            }
+            public static MONITORINFOEX Create() => new MONITORINFOEX { cbSize = sizeof(MONITORINFOEX) };
         }
     }
 }

@@ -69,7 +69,7 @@ namespace PInvoke
             /// with <see cref="cbSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DRVINFO_DATA"/>.</returns>
-            public static SP_DRVINFO_DATA Create() => new SP_DRVINFO_DATA { cbSize = Marshal.SizeOf(typeof(SP_DRVINFO_DATA)) };
+            public static SP_DRVINFO_DATA Create() => new SP_DRVINFO_DATA { cbSize = sizeof(SP_DRVINFO_DATA) };
         }
     }
 }

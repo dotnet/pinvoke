@@ -52,7 +52,7 @@ namespace PInvoke
             /// <returns>
             /// An instance of the structure.
             /// </returns>
-            public static DISPLAY_DEVICE Create() => new DISPLAY_DEVICE { cb = (uint)Marshal.SizeOf(typeof(DISPLAY_DEVICE)) };
+            public static DISPLAY_DEVICE Create() => new DISPLAY_DEVICE { cb = (uint)sizeof(DISPLAY_DEVICE) };
         }
     }
 }

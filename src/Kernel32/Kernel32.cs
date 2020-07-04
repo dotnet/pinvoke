@@ -639,8 +639,9 @@ namespace PInvoke
         /// </summary>
         /// <param name="lpVersionInformation">
         /// A pointer to an OSVERSIONINFOEX structure containing the operating system version requirements to compare. The <paramref name="dwTypeMask"/>
-        /// parameter indicates the members of this structure that contain information to compare.You must set the
-        /// <see cref="OSVERSIONINFOEX.dwOSVersionInfoSize"/> member of this structure to <code>Marshal.SizeOf(typeof(OSVERSIONINFOEX))</code>. You must
+        /// parameter indicates the members of this structure that contain information to compare. You must set the
+        /// <see cref="OSVERSIONINFOEX.dwOSVersionInfoSize"/> member of this structure to <code>Marshal.SizeOf(typeof(OSVERSIONINFOEX))</code>
+        /// or create it with <see cref="OSVERSIONINFOEX.Create"/>. You must
         /// also specify valid data for the members indicated by <paramref name="dwTypeMask"/>. The function ignores structure members for which the
         /// corresponding <paramref name="dwTypeMask"/> bit is not set
         /// </param>

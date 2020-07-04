@@ -52,17 +52,7 @@ namespace PInvoke
             /// with the <see cref="cbSize"/> field set appropriately.
             /// </summary>
             /// <returns>An initialized instance of the struct.</returns>
-            public static NCRYPT_KEY_BLOB_HEADER Create()
-            {
-                return new NCRYPT_KEY_BLOB_HEADER
-                {
-#if NETSTANDARD2_0_ORLATER || NETFX_CORE
-                    cbSize = Marshal.SizeOf<NCRYPT_KEY_BLOB_HEADER>(),
-#else
-                    cbSize = Marshal.SizeOf(typeof(NCRYPT_KEY_BLOB_HEADER)),
-#endif
-                };
-            }
+            public static unsafe NCRYPT_KEY_BLOB_HEADER Create() => new NCRYPT_KEY_BLOB_HEADER { cbSize = sizeof(NCRYPT_KEY_BLOB_HEADER) };
         }
     }
 }
