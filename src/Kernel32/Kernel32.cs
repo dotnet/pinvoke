@@ -992,6 +992,52 @@ namespace PInvoke
         public static extern ProcessPriorityClass GetPriorityClass(SafeObjectHandle hProcess);
 
         /// <summary>
+        /// Retrieves information about the specified process
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process. This handle must have the <see cref="ProcessAccess.PROCESS_SET_INFORMATION"/> access right.
+        /// For more information, see <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        /// </param>
+        /// <param name="ProcessInformationClass">
+        /// A member of the <see cref="PROCESS_INFORMATION_CLASS"/> enumeration specifying the kind of information to retrieve.
+        /// </param>
+        /// <param name="ProcessInformation">
+        /// Pointer to an object to receive the type of information specified by the <paramref name="ProcessInformationClass"/> parameter
+        /// </param>
+        /// <param name="ProcessInformationSize">
+        /// The size in bytes of the structure specified by the <paramref name="ProcessInformation"/> parameter.
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessMemoryPriority"/>,
+        /// this parameter must be <code>sizeof(<see cref="MEMORY_PRIORITY_INFORMATION"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessPowerThrottling"/>,
+        /// this parameter must be <code>sizeof(<see cref="PROCESS_POWER_THROTTLING_STATE"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessProtectionLevelInfo"/>,
+        /// this parameter must be <code>sizeof(<see cref="PROCESS_PROTECTION_LEVEL_INFORMATION"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo"/>,
+        /// this parameter must be <code>sizeof(<see cref="PROCESS_LEAP_SECOND_INFO"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessAppMemoryInfo"/>,
+        /// this parameter must be <code>sizeof(<see cref="APP_MEMORY_INFORMATION"/>)</code>
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+#pragma warning disable IDE1006 // Naming Styles
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetProcessInformation(
+            SafeObjectHandle hProcess,
+            PROCESS_INFORMATION_CLASS ProcessInformationClass,
+            void* ProcessInformation,
+            uint ProcessInformationSize);
+#pragma warning restore IDE1006 // Naming Styles
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>

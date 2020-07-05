@@ -257,6 +257,86 @@ namespace PInvoke
         }
 
         /// <summary>
+        /// Retrieves information about the specified process
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process. This handle must have the <see cref="ProcessAccess.PROCESS_SET_INFORMATION"/> access right.
+        /// For more information, see <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        /// </param>
+        /// <param name="ProcessInformationClass">
+        /// A member of the <see cref="PROCESS_INFORMATION_CLASS"/> enumeration specifying the kind of information to retrieve.
+        /// </param>
+        /// <param name="ProcessInformation">
+        /// Pointer to an object to receive the type of information specified by the <paramref name="ProcessInformationClass"/> parameter
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// In most situations, the size of payload in <paramref name="ProcessInformation"/> can be correctly inferred based on
+        /// the value of <paramref name="ProcessInformationClass"/>. This helper is intended to make it simply to call into
+        /// <see cref="GetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)"/>.
+        /// </remarks>
+#pragma warning disable IDE1006 // Naming Styles
+        public static unsafe bool GetProcessInformation(
+            SafeObjectHandle hProcess,
+            PROCESS_INFORMATION_CLASS ProcessInformationClass,
+            void* ProcessInformation)
+#pragma warning restore IDE1006 // Naming Styles
+        {
+            uint processInformationSize = 0;
+
+            switch (ProcessInformationClass)
+            {
+                case PROCESS_INFORMATION_CLASS.ProcessMemoryPriority:
+                    processInformationSize = (uint)sizeof(MEMORY_PRIORITY_INFORMATION);
+                    break;
+                case PROCESS_INFORMATION_CLASS.ProcessMemoryExhaustionInfo:
+                    // PROCESS_MEMORY_EXHAUSTION_INFO is non-blittable - it has UIntPtr members; use Marshal.SizeOf
+                    // to compute struct-size instead of `sizeof`
+#if NET45
+                    processInformationSize = (uint)Marshal.SizeOf(typeof(PROCESS_MEMORY_EXHAUSTION_INFO));
+#else
+                    processInformationSize = (uint)Marshal.SizeOf<PROCESS_MEMORY_EXHAUSTION_INFO>();
+#endif
+                    break;
+                case PROCESS_INFORMATION_CLASS.ProcessAppMemoryInfo:
+                    processInformationSize = (uint)sizeof(APP_MEMORY_INFORMATION);
+                    break;
+                case PROCESS_INFORMATION_CLASS.ProcessPowerThrottling:
+                    processInformationSize = (uint)sizeof(PROCESS_POWER_THROTTLING_STATE);
+                    break;
+                case PROCESS_INFORMATION_CLASS.ProcessProtectionLevelInfo:
+                    processInformationSize = (uint)sizeof(PROCESS_PROTECTION_LEVEL_INFORMATION);
+                    break;
+                case PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo:
+                    processInformationSize = (uint)sizeof(PROCESS_LEAP_SECOND_INFO);
+                    break;
+
+                case PROCESS_INFORMATION_CLASS.ProcessTelemetryCoverageInfo:
+                case PROCESS_INFORMATION_CLASS.ProcessReservedValue1:
+                case PROCESS_INFORMATION_CLASS.ProcessInPrivateInfo:
+                case PROCESS_INFORMATION_CLASS.ProcessInformationClassMax:
+                default:
+                    if (ProcessInformation != null)
+                    {
+                        // processInformationSize cannot be inferred
+                        throw new ArgumentException(string.Empty, nameof(ProcessInformation));
+                    }
+
+                    break;
+            }
+
+            return GetProcessInformation(
+                hProcess,
+                ProcessInformationClass,
+                ProcessInformation,
+                processInformationSize);
+        }
+
+        /// <summary>
         /// Tries to get the error message text using the supplied buffer.
         /// </summary>
         /// <param name="flags">
