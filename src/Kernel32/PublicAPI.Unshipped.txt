@@ -84,6 +84,11 @@ PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Version -> ushort
 PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
 PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure = 0 -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
 PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeMax = 1 -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.ControlMask -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.PROCESS_POWER_THROTTLING_STATE() -> void
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.StateMask -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.Version -> uint
 PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_BACKOFFICE = 4 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_BLADE = 1024 -> PInvoke.Kernel32.PRODUCT_SUITE
@@ -159,6 +164,7 @@ PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMAJOR = 32 -> PInvoke.Kernel32.VER_MASK
 PInvoke.Kernel32.VER_MASK.VER_SERVICEPACKMINOR = 16 -> PInvoke.Kernel32.VER_MASK
 PInvoke.Kernel32.VER_MASK.VER_SUITENAME = 64 -> PInvoke.Kernel32.VER_MASK
 const PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_CURRENT_VERSION = 1 -> ushort
+const PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.PROCESS_POWER_THROTTLING_CURRENT_VERSION = 1 -> uint
 override PInvoke.Kernel32.SafePseudoConsoleHandle.IsInvalid.get -> bool
 override PInvoke.Kernel32.SafePseudoConsoleHandle.ReleaseHandle() -> bool
 static PInvoke.Kernel32.CompareFileTime(PInvoke.Kernel32.FILETIME lpFileTime1, PInvoke.Kernel32.FILETIME lpFileTime2) -> int
