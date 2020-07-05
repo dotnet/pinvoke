@@ -106,6 +106,9 @@ PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_SMALLBUSINESS_RESTRICTED = 32 -> PInvok
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_STORAGE_SERVER = 8192 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_TERMINAL = 16 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_WH_SERVER = -32768 -> PInvoke.Kernel32.PRODUCT_SUITE
+PInvoke.Kernel32.ProcessLeapSecondInfoFlags
+PInvoke.Kernel32.ProcessLeapSecondInfoFlags.None = 0 -> PInvoke.Kernel32.ProcessLeapSecondInfoFlags
+PInvoke.Kernel32.ProcessLeapSecondInfoFlags.PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND = 1 -> PInvoke.Kernel32.ProcessLeapSecondInfoFlags
 PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.ABOVE_NORMAL_PRIORITY_CLASS = 32768 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.BELOW_NORMAL_PRIORITY_CLASS = 16384 -> PInvoke.Kernel32.ProcessPriorityClass
