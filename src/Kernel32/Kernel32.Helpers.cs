@@ -276,7 +276,7 @@ namespace PInvoke
         /// </returns>
         /// <remarks>
         /// In most situations, the size of payload in <paramref name="ProcessInformation"/> can be correctly inferred based on
-        /// the value of <paramref name="ProcessInformationClass"/>. This helper is intended to make it simply to call into
+        /// the value of <paramref name="ProcessInformationClass"/>. This helper is intended to make it simple to call into
         /// <see cref="GetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)"/>.
         /// </remarks>
 #pragma warning disable IDE1006 // Naming Styles
@@ -330,6 +330,92 @@ namespace PInvoke
             }
 
             return GetProcessInformation(
+                hProcess,
+                ProcessInformationClass,
+                ProcessInformation,
+                processInformationSize);
+        }
+
+        /// <summary>
+        /// Sets information for the specified process
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process. This handle must have the <see cref="ProcessAccess.PROCESS_SET_INFORMATION"/> access right.
+        ///
+        /// For more information, see <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        /// </param>
+        /// <param name="ProcessInformationClass">Specifies the kind of information to be set</param>
+        /// <param name="ProcessInformation">
+        /// Pointer to an object that contains the type of information specified by the <paramref name="ProcessInformationClass"/>
+        /// parameter
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessMemoryPriority"/>, this
+        /// parameter must point to a <see cref="MEMORY_PRIORITY_INFORMATION"/> structure.
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is  <see cref="PROCESS_INFORMATION_CLASS.ProcessPowerThrottling"/>, this
+        /// parameter must point to a <see cref="PROCESS_POWER_THROTTLING_STATE"/> structure.
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo"/>, this
+        /// parameter must point to a <see cref="PROCESS_LEAP_SECOND_INFO"/> structure.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// To help improve system performance, applications should use the SetProcessInformation function with
+        /// <see cref="PROCESS_INFORMATION_CLASS.ProcessMemoryPriority"/> to lower the default memory priority of threads that perform
+        /// background operations or access files and data that are not expected to be accessed again soon. For example, a file indexing
+        /// application might set a lower default priority for the process that performs the indexing task.
+        ///
+        /// Memory priority helps to determine how long pages remain in the working set of a process before they are trimmed.A process's
+        /// memory priority determines the default priority of the physical pages that are added to the process working set by the threads
+        /// of that process. When the memory manager trims the working set, it trims lower priority pages before higher priority pages.
+        /// This improves overall system performance because higher priority pages are less likely to be trimmed from the working set and
+        /// then trigger a page fault when they are accessed again.
+        ///
+        /// In most situations, the size of payload in <paramref name="ProcessInformation"/> can be correctly inferred based on
+        /// the value of <paramref name="ProcessInformationClass"/>. This helper is intended to make it simple to call into
+        /// <see cref="SetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)" />
+        /// </remarks>
+#pragma warning disable IDE1006 // Naming Styles
+        public static unsafe bool SetProcessInformation(
+            SafeObjectHandle hProcess,
+            PROCESS_INFORMATION_CLASS ProcessInformationClass,
+            void* ProcessInformation)
+#pragma warning restore IDE1006 // Naming Styles
+        {
+            uint processInformationSize = 0;
+
+            switch (ProcessInformationClass)
+            {
+                case PROCESS_INFORMATION_CLASS.ProcessMemoryPriority:
+                    processInformationSize = (uint)sizeof(MEMORY_PRIORITY_INFORMATION);
+                    break;
+                case PROCESS_INFORMATION_CLASS.ProcessPowerThrottling:
+                    processInformationSize = (uint)sizeof(PROCESS_POWER_THROTTLING_STATE);
+                    break;
+                case PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo:
+                    processInformationSize = (uint)sizeof(PROCESS_LEAP_SECOND_INFO);
+                    break;
+                case PROCESS_INFORMATION_CLASS.ProcessReservedValue1:
+                case PROCESS_INFORMATION_CLASS.ProcessTelemetryCoverageInfo:
+                case PROCESS_INFORMATION_CLASS.ProcessProtectionLevelInfo:
+                case PROCESS_INFORMATION_CLASS.ProcessMemoryExhaustionInfo:
+                case PROCESS_INFORMATION_CLASS.ProcessAppMemoryInfo:
+                case PROCESS_INFORMATION_CLASS.ProcessInPrivateInfo:
+                case PROCESS_INFORMATION_CLASS.ProcessInformationClassMax:
+                default:
+                    if (ProcessInformation != null)
+                    {
+                        // processInformationSize cannot be inferred
+                        throw new ArgumentException(string.Empty, nameof(ProcessInformation));
+                    }
+
+                    break;
+            }
+
+            return SetProcessInformation(
                 hProcess,
                 ProcessInformationClass,
                 ProcessInformation,
