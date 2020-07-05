@@ -110,6 +110,18 @@ PInvoke.Kernel32.ProcessPriorityClass.HIGH_PRIORITY_CLASS = 128 -> PInvoke.Kerne
 PInvoke.Kernel32.ProcessPriorityClass.IDLE_PRIORITY_CLASS = 64 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.NORMAL_PRIORITY_CLASS = 32 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.REALTIME_PRIORITY_CLASS = 256 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_ANTIMALWARE_LIGHT = 3 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_AUTHENTICODE = 7 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_CODEGEN_LIGHT = 6 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_LSA_LIGHT = 4 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_NONE = 4294967294 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_PPL_APP = 8 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_SAME = 4294967295 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_WINDOWS = 1 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_WINDOWS_LIGHT = 2 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_WINTCB = 5 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_WINTCB_LIGHT = 0 -> PInvoke.Kernel32.ProcessProtectionLevel
 PInvoke.Kernel32.ProcessorPowerThrottlingFlags
 PInvoke.Kernel32.ProcessorPowerThrottlingFlags.None = 0 -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
 PInvoke.Kernel32.ProcessorPowerThrottlingFlags.PROCESS_POWER_THROTTLING_EXECUTION_SPEED = 1 -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
