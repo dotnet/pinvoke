@@ -105,6 +105,9 @@ PInvoke.Kernel32.ProcessPriorityClass.HIGH_PRIORITY_CLASS = 128 -> PInvoke.Kerne
 PInvoke.Kernel32.ProcessPriorityClass.IDLE_PRIORITY_CLASS = 64 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.NORMAL_PRIORITY_CLASS = 32 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.REALTIME_PRIORITY_CLASS = 256 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessorPowerThrottlingFlags
+PInvoke.Kernel32.ProcessorPowerThrottlingFlags.None = 0 -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
+PInvoke.Kernel32.ProcessorPowerThrottlingFlags.PROCESS_POWER_THROTTLING_EXECUTION_SPEED = 1 -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
 PInvoke.Kernel32.STARTUPINFO.Desktop.get -> string
 PInvoke.Kernel32.STARTUPINFO.Title.get -> string
 PInvoke.Kernel32.STARTUPINFO.hStdError -> System.IntPtr
