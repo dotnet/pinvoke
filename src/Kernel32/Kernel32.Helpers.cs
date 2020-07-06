@@ -6,6 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
+    using System.Threading;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -254,6 +255,293 @@ namespace PInvoke
 
             var bytesRead = ReadFile(hFile, segment);
             return new ArraySegment<byte>(buffer, 0, bytesRead);
+        }
+
+        /// <summary>
+        ///     Marks any outstanding I/O operations for the specified file handle. The function only cancels I/O operations
+        ///     in the current process, regardless of which thread created the I/O operation.
+        /// </summary>
+        /// <param name="hFile">A handle to the file.</param>
+        /// <param name="lpOverlapped">
+        ///     A pointer to an <see cref="NativeOverlapped" /> data structure that contains the data used for asynchronous I/O.
+        ///     <para>If this parameter is NULL, all I/O requests for the hFile parameter are canceled.</para>
+        ///     <para>
+        ///         If this parameter is not NULL, only those specific I/O requests that were issued for the file with the
+        ///         specified
+        ///         <paramref name="lpOverlapped" /> overlapped structure are marked as canceled, meaning that you can cancel one
+        ///         or more requests, while the CancelIo function cancels all outstanding requests on a file handle.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is nonzero. The cancel operation for all pending I/O operations issued
+        ///     by the calling process for the specified file handle was successfully requested. The application must not free or
+        ///     reuse the <see cref="NativeOverlapped" /> structure associated with the canceled I/O operations until they have
+        ///     completed. The thread can use the GetOverlappedResult function to determine when the I/O operations themselves have
+        ///     been completed.
+        ///     <para>
+        ///         If the function fails, the return value is 0 (zero). To get extended error information, call the
+        ///         <see cref="GetLastError" /> function.
+        ///     </para>
+        ///     <para>
+        ///         If this function cannot find a request to cancel, the return value is 0 (zero), and
+        ///         <see cref="GetLastError" />
+        ///         returns <see cref="Win32ErrorCode.ERROR_NOT_FOUND" />.
+        ///     </para>
+        /// </returns>
+        [NoFriendlyOverloads]
+        public static unsafe bool CancelIoEx(
+            SafeObjectHandle hFile,
+            NativeOverlapped* lpOverlapped)
+        {
+            return CancelIoEx(hFile, (OVERLAPPED*)lpOverlapped);
+        }
+
+        /// <summary>
+        ///     Reads data from the specified file or input/output (I/O) device. Reads occur at the position specified by the file
+        ///     pointer if supported by the device.
+        ///     <para>
+        ///         This function is designed for both synchronous and asynchronous operations. For a similar function designed
+        ///         solely for asynchronous operation, see ReadFileEx.
+        ///     </para>
+        /// </summary>
+        /// <param name="hFile">
+        ///     A handle to the device (for example, a file, file stream, physical disk, volume, console buffer, tape drive,
+        ///     socket, communications resource, mailslot, or pipe).
+        ///     <para>The hFile parameter must have been created with read access.</para>
+        ///     <para>
+        ///         For asynchronous read operations, hFile can be any handle that is opened with the FILE_FLAG_OVERLAPPED flag
+        ///         by the CreateFile function, or a socket handle returned by the socket or accept function.
+        ///     </para>
+        /// </param>
+        /// <param name="lpBuffer">
+        ///     A pointer to the buffer that receives the data read from a file or device.
+        ///     <para>
+        ///         This buffer must remain valid for the duration of the read operation. The caller must not use this buffer
+        ///         until the read operation is completed.
+        ///     </para>
+        /// </param>
+        /// <param name="nNumberOfBytesToRead">The maximum number of bytes to be read.</param>
+        /// <param name="lpNumberOfBytesRead">
+        ///     A pointer to the variable that receives the number of bytes read when using a synchronous hFile parameter. ReadFile
+        ///     sets this value to zero before doing any work or error checking. Use <see langword="null" /> for this parameter if
+        ///     this is an asynchronous operation to avoid potentially erroneous results.
+        ///     <para>
+        ///         This parameter can be <see langword="null" /> only when the <paramref name="lpOverlapped" /> parameter is not
+        ///         <see langword="null" />.
+        ///     </para>
+        /// </param>
+        /// <param name="lpOverlapped">
+        ///     A pointer to an <see cref="NativeOverlapped" /> structure is required if the hFile parameter was opened with
+        ///     FILE_FLAG_OVERLAPPED, otherwise it can be <see langword="null" />.
+        ///     <para>
+        ///         If hFile is opened with FILE_FLAG_OVERLAPPED, the <paramref name="lpOverlapped" /> parameter must point to a
+        ///         valid and unique <see cref="NativeOverlapped" /> structure, otherwise the function can incorrectly report that the
+        ///         read operation is complete.
+        ///     </para>
+        ///     <para>
+        ///         For an hFile that supports byte offsets, if you use this parameter you must specify a byte offset at which to
+        ///         start reading from the file or device. This offset is specified by setting the Offset and OffsetHigh members of
+        ///         the <see cref="NativeOverlapped" /> structure. For an hFile that does not support byte offsets, Offset and OffsetHigh
+        ///         are ignored.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is <see langword="true" />.
+        ///     <para>
+        ///         If the function fails, or is completing asynchronously, the return value is <see langword="false" />. To get
+        ///         extended error information, call the GetLastError function.
+        ///     </para>
+        ///     <para>
+        ///         Note: The <see cref="GetLastError" /> code <see cref="Win32ErrorCode.ERROR_IO_PENDING" /> is not a failure;
+        ///         it designates the read operation is pending completion asynchronously.
+        ///     </para>
+        /// </returns>
+        [NoFriendlyOverloads]
+        public static unsafe bool ReadFile(
+            SafeObjectHandle hFile,
+            void* lpBuffer,
+            int nNumberOfBytesToRead,
+            int* lpNumberOfBytesRead,
+            NativeOverlapped* lpOverlapped)
+        {
+            return ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, (OVERLAPPED*)lpOverlapped);
+        }
+
+        /// <summary>
+        ///     Writes data to the specified file or input/output (I/O) device.
+        ///     <para>
+        ///         This function is designed for both synchronous and asynchronous operation. For a similar function designed
+        ///         solely for asynchronous operation, see WriteFileEx.
+        ///     </para>
+        /// </summary>
+        /// <param name="hFile">
+        ///     A handle to the file or I/O device (for example, a file, file stream, physical disk, volume, console buffer, tape
+        ///     drive, socket, communications resource, mailslot, or pipe).
+        ///     <para>
+        ///         The hFile parameter must have been created with the write access. For more information, see Generic Access
+        ///         Rights and File Security and Access Rights.
+        ///     </para>
+        ///     <para>
+        ///         For asynchronous write operations, hFile can be any handle opened with the CreateFile function using the
+        ///         FILE_FLAG_OVERLAPPED flag or a socket handle returned by the socket or accept function.
+        ///     </para>
+        /// </param>
+        /// <param name="lpBuffer">
+        ///     A pointer to the buffer containing the data to be written to the file or device.
+        ///     <para>
+        ///         This buffer must remain valid for the duration of the write operation. The caller must not use this buffer
+        ///         until the write operation is completed.
+        ///     </para>
+        /// </param>
+        /// <param name="nNumberOfBytesToWrite">
+        ///     The number of bytes to be written to the file or device.
+        ///     <para>
+        ///         A value of zero specifies a null write operation. The behavior of a null write operation depends on the
+        ///         underlying file system or communications technology.
+        ///     </para>
+        /// </param>
+        /// <param name="lpNumberOfBytesWritten">
+        ///     A pointer to the variable that receives the number of bytes written when using a synchronous hFile parameter.
+        ///     WriteFile sets this value to zero before doing any work or error checking. Use <see langword="null" />
+        ///     for this parameter if this is an asynchronous operation to avoid potentially erroneous results.
+        ///     <para>
+        ///         This parameter can be NULL only when the <paramref name="lpOverlapped" /> parameter is not
+        ///         <see langword="null" />.
+        ///     </para>
+        /// </param>
+        /// <param name="lpOverlapped">
+        ///     A pointer to an <see cref="NativeOverlapped" /> structure is required if the hFile parameter was opened with
+        ///     FILE_FLAG_OVERLAPPED, otherwise this parameter can be NULL.
+        ///     <para>
+        ///         For an hFile that supports byte offsets, if you use this parameter you must specify a byte offset at which to
+        ///         start writing to the file or device. This offset is specified by setting the Offset and OffsetHigh members of
+        ///         the <see cref="NativeOverlapped" /> structure. For an hFile that does not support byte offsets, Offset and OffsetHigh
+        ///         are ignored.
+        ///     </para>
+        ///     <para>
+        ///         To write to the end of file, specify both the Offset and OffsetHigh members of the <see cref="NativeOverlapped" />
+        ///         structure as 0xFFFFFFFF. This is functionally equivalent to previously calling the CreateFile function to open
+        ///         hFile using FILE_APPEND_DATA access.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is <see langword="true" />.
+        ///     <para>
+        ///         If the function fails, or is completing asynchronously, the return value is <see langword="false" />. To get
+        ///         extended error information, call the GetLastError function.
+        ///     </para>
+        ///     <para>
+        ///         Note: The <see cref="GetLastError" /> code <see cref="Win32ErrorCode.ERROR_IO_PENDING" /> is not a failure;
+        ///         it designates the write operation is pending completion asynchronously.
+        ///     </para>
+        /// </returns>
+        [NoFriendlyOverloads]
+        public static unsafe bool WriteFile(
+            SafeObjectHandle hFile,
+            void* lpBuffer,
+            int nNumberOfBytesToWrite,
+            int* lpNumberOfBytesWritten,
+            NativeOverlapped* lpOverlapped)
+        {
+            return WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, (OVERLAPPED*)lpOverlapped);
+        }
+
+        /// <summary>
+        ///     Sends a control code directly to a specified device driver, causing the corresponding device to perform the
+        ///     corresponding operation.
+        /// </summary>
+        /// <param name="hDevice">
+        ///     A handle to the device on which the operation is to be performed. The device is typically a
+        ///     volume, directory, file, or stream. To retrieve a device handle, use the CreateFile function.
+        /// </param>
+        /// <param name="dwIoControlCode">
+        ///     The control code for the operation. This value identifies the specific operation to be performed and the type of
+        ///     device on which to perform it.
+        ///     <para>
+        ///         For a list of the control codes, see Remarks. The documentation for each control code provides usage details
+        ///         for the <paramref name="inBuffer" />, <paramref name="nInBufferSize" />, <paramref name="outBuffer" />, and
+        ///         <paramref name="nOutBufferSize" /> parameters.
+        ///     </para>
+        /// </param>
+        /// <param name="inBuffer">
+        ///     A pointer to the input buffer that contains the data required to perform the operation. The format of this data
+        ///     depends on the value of the <paramref name="dwIoControlCode" /> parameter.
+        ///     <para>
+        ///         This parameter can be NULL if <paramref name="dwIoControlCode" /> specifies an operation that does not
+        ///         require input data.
+        ///     </para>
+        /// </param>
+        /// <param name="nInBufferSize">The size of the input buffer, in bytes.</param>
+        /// <param name="outBuffer">
+        ///     A pointer to the output buffer that is to receive the data returned by the operation. The format of this data
+        ///     depends on the value of the <paramref name="dwIoControlCode" /> parameter.
+        ///     <para>
+        ///         This parameter can be NULL if <paramref name="dwIoControlCode" /> specifies an operation that does not return
+        ///         data.
+        ///     </para>
+        /// </param>
+        /// <param name="nOutBufferSize">The size of the output buffer, in bytes.</param>
+        /// <param name="pBytesReturned">
+        ///     A pointer to a variable that receives the size of the data stored in the output buffer, in bytes.
+        ///     <para>
+        ///         If the output buffer is too small to receive any data, the call fails, <see cref="GetLastError" /> returns
+        ///         <see cref="Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER" />, and lpBytesReturned is zero.
+        ///     </para>
+        ///     <para>
+        ///         If the output buffer is too small to hold all of the data but can hold some entries, some drivers will return
+        ///         as much data as fits. In this case, the call fails, <see cref="GetLastError" /> returns
+        ///         <see cref="Win32ErrorCode.ERROR_MORE_DATA" />, and lpBytesReturned indicates the amount of data received. Your
+        ///         application should call DeviceIoControl again with the same operation, specifying a new starting point.
+        ///     </para>
+        ///     <para>
+        ///         If <paramref name="lpOverlapped" /> is NULL, lpBytesReturned cannot be NULL. Even when an operation returns
+        ///         no output data and lpOutBuffer is NULL, DeviceIoControl makes use of lpBytesReturned. After such an operation,
+        ///         the value of lpBytesReturned is meaningless.
+        ///     </para>
+        ///     <para>
+        ///         If <paramref name="lpOverlapped" /> is not NULL, lpBytesReturned can be NULL. If this parameter is not NULL
+        ///         and the operation returns data, lpBytesReturned is meaningless until the overlapped operation has completed. To
+        ///         retrieve the number of bytes returned, call GetOverlappedResult. If hDevice is associated with an I/O
+        ///         completion port, you can retrieve the number of bytes returned by calling GetQueuedCompletionStatus.
+        ///     </para>
+        /// </param>
+        /// <param name="lpOverlapped">
+        ///     A pointer to an <see cref="NativeOverlapped"/> structure.
+        ///     <para>
+        ///         If hDevice was opened without specifying <see cref="CreateFileFlags.FILE_FLAG_OVERLAPPED" />, lpOverlapped is
+        ///         ignored.
+        ///     </para>
+        ///     <para>
+        ///         If hDevice was opened with the <see cref="CreateFileFlags.FILE_FLAG_OVERLAPPED" /> flag, the operation is
+        ///         performed as an overlapped (asynchronous) operation. In this case, lpOverlapped must point to a valid
+        ///         <see cref="NativeOverlapped"/> structure that contains a handle to an event object. Otherwise, the function fails in unpredictable
+        ///         ways.
+        ///     </para>
+        ///     <para>
+        ///         For overlapped operations, DeviceIoControl returns immediately, and the event object is signaled when the
+        ///         operation has been completed. Otherwise, the function does not return until the operation has been completed or
+        ///         an error occurs.
+        ///     </para>
+        /// </param>
+        /// <returns>
+        ///     If the operation completes successfully, the return value is nonzero.
+        ///     <para>
+        ///         If the operation fails or is pending, the return value is zero. To get extended error information, call
+        ///         <see cref="GetLastError" />.
+        ///     </para>
+        /// </returns>
+        [NoFriendlyOverloads]
+        public static unsafe bool DeviceIoControl(
+            SafeObjectHandle hDevice,
+            int dwIoControlCode,
+            void* inBuffer,
+            int nInBufferSize,
+            void* outBuffer,
+            int nOutBufferSize,
+            out int pBytesReturned,
+            NativeOverlapped* lpOverlapped)
+        {
+            return DeviceIoControl(hDevice, dwIoControlCode, inBuffer, nInBufferSize, outBuffer, nOutBufferSize, out pBytesReturned, (OVERLAPPED*)lpOverlapped);
         }
 
         /// <summary>
