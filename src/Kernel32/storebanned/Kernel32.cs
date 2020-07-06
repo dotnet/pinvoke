@@ -2812,8 +2812,31 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [Obsolete("Use ReadProcessMemory(SafeObjectHandle, ...) instead")]
         public static unsafe extern bool ReadProcessMemory(
             IntPtr hProcess,
+            void* lpBaseAddress,
+            void* lpBuffer,
+            UIntPtr nSize,
+            out UIntPtr lpNumberOfBytesRead);
+
+        /// <summary>
+        /// Reads data from an area of memory in a specified process. The entire area to be read must be accessible or the operation fails.
+        /// </summary>
+        /// <param name="hProcess">A handle to the process with memory that is being read. The handle must have <see cref="ProcessAccess.PROCESS_VM_READ"/> access to the process.</param>
+        /// <param name="lpBaseAddress">A pointer to the base address in the specified process from which to read. Before any data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for read access, and if it is not accessible the function fails.</param>
+        /// <param name="lpBuffer">A pointer to a buffer that receives the contents from the address space of the specified process.</param>
+        /// <param name="nSize">The number of bytes to be read from the specified process.</param>
+        /// <param name="lpNumberOfBytesRead">A variable that receives the number of bytes transferred into the specified buffer.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is 0 (zero). To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// The function fails if the requested read operation crosses into an area of the process that is inaccessible.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool ReadProcessMemory(
+            SafeObjectHandle hProcess,
             void* lpBaseAddress,
             void* lpBuffer,
             UIntPtr nSize,
