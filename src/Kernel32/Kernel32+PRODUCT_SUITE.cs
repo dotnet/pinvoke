@@ -90,7 +90,22 @@ namespace PInvoke
             /// <summary>
             /// Windows Home Server is installed.
             /// </summary>
-            VER_SUITE_WH_SERVER = unchecked((short)0x00008000)
+            VER_SUITE_WH_SERVER = unchecked((short)0x00008000),
+
+            /// <summary>
+            /// AppServer mode is enabled.
+            /// </summary>
+            VER_SUITE_MULTIUSERTS = unchecked((short)0x00020000),
+
+            /// <summary>
+            /// Windows NT server is installed.
+            /// </summary>
+            VER_SERVER_NT = unchecked((short)0x80000000),
+
+            /// <summary>
+            /// Windows NT Workstation is installed.
+            /// </summary>
+            VER_WORKSTATION_NT = unchecked((short)0x40000000),
         }
     }
 }
