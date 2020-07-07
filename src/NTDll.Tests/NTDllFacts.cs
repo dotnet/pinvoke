@@ -74,7 +74,6 @@ public class NTDllFacts
         Assert.Equal(2, versionInfoEx.dwPlatformId); // VER_PLATFORM_WIN32_NT
         Assert.NotEqual(0, versionInfoEx.dwMajorVersion);
         Assert.NotEqual(0, versionInfoEx.dwBuildNumber);
-        Assert.True(Enum.IsDefined(typeof(Kernel32.PRODUCT_SUITE), versionInfoEx.wSuiteMask), $"Unexpected PRODUCT_SUITE value: 0x{(int)versionInfoEx.wSuiteMask:X}");
         Assert.True(Enum.IsDefined(typeof(Kernel32.OS_TYPE), versionInfoEx.wProductType), $"Unexpected OS_TYPE value: 0x{(int)versionInfoEx.wProductType:X}");
     }
 
