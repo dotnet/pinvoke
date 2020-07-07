@@ -104,6 +104,20 @@ namespace PInvoke
             out int ReturnLength);
 
         /// <summary>
+        /// The RtlGetVersion routine returns version information about the currently running operating system.
+        /// </summary>
+        /// <param name="versionInformation">
+        /// A RTL_OSVERSIONINFOEXW structure that contains the version information about the currently running operating system.
+        /// </param>
+        /// <returns>
+        /// RtlGetVersion returns STATUS_SUCCESS.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlgetversion"/>
+        [DllImport(nameof(NTDll), SetLastError = true)]
+        public static unsafe extern NTSTATUS RtlGetVersion(
+            [Friendly(FriendlyFlags.Bidirectional)] Kernel32.OSVERSIONINFOEX* versionInformation);
+
+        /// <summary>
         /// The NtClose routine closes an object handle.
         /// </summary>
         /// <param name="handle">Handle to an object of any type.</param>
