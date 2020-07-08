@@ -45,7 +45,6 @@ PInvoke.SetupApi.DriverType
 PInvoke.SetupApi.DriverType.SPDIT_CLASSDRIVER = 1 -> PInvoke.SetupApi.DriverType
 PInvoke.SetupApi.DriverType.SPDIT_COMPATDRIVER = 2 -> PInvoke.SetupApi.DriverType
 PInvoke.SetupApi.DriverType.SPDIT_NODRIVER = 0 -> PInvoke.SetupApi.DriverType
-PInvoke.SetupApi.SP_DEVINFO_DATA.cbSize -> int
 PInvoke.SetupApi.SP_DEVINSTALL_PARAMS
 PInvoke.SetupApi.SP_DEVINSTALL_PARAMS.ClassInstallReserved -> System.IntPtr
 PInvoke.SetupApi.SP_DEVINSTALL_PARAMS.DriverPath -> char*
