@@ -109,7 +109,7 @@ PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.get -> System.IntPtr
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.set -> void
 PInvoke.Kernel32.SYSTEM_INFO
 PInvoke.Kernel32.SYSTEM_INFO.SYSTEM_INFO() -> void
-PInvoke.Kernel32.SYSTEM_INFO.dwActiveProcessorMask -> int*
+PInvoke.Kernel32.SYSTEM_INFO.dwActiveProcessorMask -> System.IntPtr
 PInvoke.Kernel32.SYSTEM_INFO.dwAllocationGranularity -> int
 PInvoke.Kernel32.SYSTEM_INFO.dwNumberOfProcessors -> int
 PInvoke.Kernel32.SYSTEM_INFO.dwPageSize -> int
@@ -117,9 +117,9 @@ PInvoke.Kernel32.SYSTEM_INFO.dwProcessorType -> PInvoke.Kernel32.ProcessorType
 PInvoke.Kernel32.SYSTEM_INFO.lpMaximumApplicationAddress -> void*
 PInvoke.Kernel32.SYSTEM_INFO.lpMinimumApplicationAddress -> void*
 PInvoke.Kernel32.SYSTEM_INFO.wProcessorArchitecture -> PInvoke.Kernel32.ProcessorArchitecture
-PInvoke.Kernel32.SYSTEM_INFO.wProcessorLevel -> short
-PInvoke.Kernel32.SYSTEM_INFO.wProcessorRevision -> short
-PInvoke.Kernel32.SYSTEM_INFO.wReserved -> short
+PInvoke.Kernel32.SYSTEM_INFO.wProcessorLevel -> ushort
+PInvoke.Kernel32.SYSTEM_INFO.wProcessorRevision -> ushort
+PInvoke.Kernel32.SYSTEM_INFO.wReserved -> ushort
 PInvoke.Kernel32.SafePseudoConsoleHandle
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle() -> void
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void

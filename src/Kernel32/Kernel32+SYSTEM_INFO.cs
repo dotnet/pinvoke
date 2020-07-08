@@ -3,6 +3,8 @@
 
 namespace PInvoke
 {
+    using System;
+
     /// <content>
     /// Contains the <see cref="SYSTEM_INFO"/> nested type.
     /// </content>
@@ -22,7 +24,7 @@ namespace PInvoke
             /// <summary>
             /// This member is reserved for future use.
             /// </summary>
-            public short wReserved;
+            public ushort wReserved;
 
             /// <summary>
             /// The page size and the granularity of page protection and commitment.
@@ -44,7 +46,7 @@ namespace PInvoke
             /// A mask representing the set of processors configured into the system.
             /// Bit 0 is processor 0; bit 31 is processor 31.
             /// </summary>
-            public int* dwActiveProcessorMask;
+            public IntPtr dwActiveProcessorMask;
 
             /// <summary>
             /// The number of logical processors in the current group.
@@ -64,12 +66,12 @@ namespace PInvoke
             /// <summary>
             /// The architecture-dependent processor level. It should be used only for display purposes.
             /// </summary>
-            public short wProcessorLevel;
+            public ushort wProcessorLevel;
 
             /// <summary>
             /// The architecture-dependent processor revision.
             /// </summary>
-            public short wProcessorRevision;
+            public ushort wProcessorRevision;
         }
     }
 }
