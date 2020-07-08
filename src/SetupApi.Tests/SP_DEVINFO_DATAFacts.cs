@@ -14,11 +14,11 @@ public class SP_DEVINFO_DATAFacts
 
         if (Environment.Is64BitProcess)
         {
-            Assert.Equal(0x20, value.cbSize);
+            Assert.Equal(0x20, value.Size);
         }
         else
         {
-            Assert.Equal(0x1c, value.cbSize);
+            Assert.Equal(0x1c, value.Size);
         }
     }
 }

@@ -444,3 +444,116 @@ static readonly PInvoke.AdvApi32.SafeServiceHandle.Null -> PInvoke.AdvApi32.Safe
 PInvoke.AdvApi32.ServiceErrorControl.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceErrorControl
 PInvoke.AdvApi32.ServiceStartType.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceStartType
 PInvoke.AdvApi32.ServiceType.SERVICE_NO_CHANGE = 4294967295 -> PInvoke.AdvApi32.ServiceType
+PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_3DES = 26115 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_3DES_112 = 26121 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_AES = 26129 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_AES_128 = 26126 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_AES_192 = 26127 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_AES_256 = 26128 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_AGREEDKEY_ANY = 43523 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_CYLINK_MEK = 26124 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_DES = 26113 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_DESX = 26116 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_DH_EPHEM = 43522 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_DH_SF = 43521 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_DSS_SIGN = 8704 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_ECDH = 43525 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_ECDH_EPHEM = 44550 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_ECDSA = 8707 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_ECMQV = 40961 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_HASH_REPLACE_OWF = 32779 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_HMAC = 32777 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_HUGHES_MD5 = 40963 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_KEA_KEYX = 43524 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_MAC = 32773 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_MD2 = 32769 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_MD4 = 32770 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_MD5 = 32771 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_NO_SIGN = 8192 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_NULLCIPHER = 24576 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_PCT1_MASTER = 19460 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_RC2 = 26114 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_RC4 = 26625 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_RC5 = 26125 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_RSA_KEYX = 41984 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_RSA_SIGN = 9216 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SCHANNEL_ENC_KEY = 19463 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SCHANNEL_MAC_KEY = 19459 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SCHANNEL_MASTER_HASH = 19458 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SEAL = 26626 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SHA = 32772 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SHA1 = 32772 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SHA_256 = 32780 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SHA_384 = 32781 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SHA_512 = 32782 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SKIPJACK = 26122 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SSL2_MASTER = 19461 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SSL3_MASTER = 19457 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_SSL3_SHAMD5 = 32776 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_TEK = 26123 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_THIRDPARTY_CIPHER = 28672 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_THIRDPARTY_HASH = 36864 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_THIRDPARTY_KEY_EXCHANGE = 45056 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_THIRDPARTY_SIGNATURE = 12288 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_TLS1PRF = 32778 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.ALG_ID.CALG_TLS1_MASTER = 19462 -> PInvoke.AdvApi32.ALG_ID
+PInvoke.AdvApi32.CryptAcquireContextFlags
+PInvoke.AdvApi32.CryptAcquireContextFlags.CRYPT_DEFAULT_CONTAINER_OPTIONAL = 128 -> PInvoke.AdvApi32.CryptAcquireContextFlags
+PInvoke.AdvApi32.CryptAcquireContextFlags.CRYPT_DELETEKEYSET = 16 -> PInvoke.AdvApi32.CryptAcquireContextFlags
+PInvoke.AdvApi32.CryptAcquireContextFlags.CRYPT_MACHINE_KEYSET = 32 -> PInvoke.AdvApi32.CryptAcquireContextFlags
+PInvoke.AdvApi32.CryptAcquireContextFlags.CRYPT_NEWKEYSET = 8 -> PInvoke.AdvApi32.CryptAcquireContextFlags
+PInvoke.AdvApi32.CryptAcquireContextFlags.CRYPT_SILENT = 64 -> PInvoke.AdvApi32.CryptAcquireContextFlags
+PInvoke.AdvApi32.CryptAcquireContextFlags.CRYPT_VERIFYCONTEXT = 4026531840 -> PInvoke.AdvApi32.CryptAcquireContextFlags
+PInvoke.AdvApi32.CryptAcquireContextFlags.None = 0 -> PInvoke.AdvApi32.CryptAcquireContextFlags
+PInvoke.AdvApi32.CryptCreateHashFlags
+PInvoke.AdvApi32.CryptCreateHashFlags.CRYPT_SECRETDIGEST = 1 -> PInvoke.AdvApi32.CryptCreateHashFlags
+PInvoke.AdvApi32.CryptCreateHashFlags.None = 0 -> PInvoke.AdvApi32.CryptCreateHashFlags
+PInvoke.AdvApi32.CryptGetHashParamFlags
+PInvoke.AdvApi32.CryptGetHashParamFlags.HP_ALGID = 1 -> PInvoke.AdvApi32.CryptGetHashParamFlags
+PInvoke.AdvApi32.CryptGetHashParamFlags.HP_HASHSIZE = 4 -> PInvoke.AdvApi32.CryptGetHashParamFlags
+PInvoke.AdvApi32.CryptGetHashParamFlags.HP_HASHVAL = 2 -> PInvoke.AdvApi32.CryptGetHashParamFlags
+PInvoke.AdvApi32.CryptHashDataFlags
+PInvoke.AdvApi32.CryptHashDataFlags.CRYPT_OWF_REPL_LM_HASH = 1 -> PInvoke.AdvApi32.CryptHashDataFlags
+PInvoke.AdvApi32.CryptHashDataFlags.CRYPT_USERDATA = 1 -> PInvoke.AdvApi32.CryptHashDataFlags
+PInvoke.AdvApi32.CryptHashDataFlags.None = 0 -> PInvoke.AdvApi32.CryptHashDataFlags
+PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_DH_SCHANNEL = 18 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_DSS = 3 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_DSS_DH = 13 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_EC_ECDSA_FULL = 16 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_EC_ECDSA_SIG = 14 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_EC_ECNRA_FULL = 17 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_EC_ECNRA_SIG = 15 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_FORTEZZA = 4 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_INTEL_SEC = 22 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_MS_EXCHANGE = 5 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_REPLACE_OWF = 23 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_RNG = 21 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_RSA_AES = 24 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_RSA_FULL = 1 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_RSA_SCHANNEL = 12 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_RSA_SIG = 2 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_SPYRUS_LYNKS = 20 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.ProviderType.PROV_SSL = 6 -> PInvoke.AdvApi32.ProviderType
+PInvoke.AdvApi32.SC_ACTION_TYPE.SC_ACTION_OWN_RESTART = 4 -> PInvoke.AdvApi32.SC_ACTION_TYPE
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpCommand_IntPtr.get -> System.IntPtr
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpCommand_IntPtr.set -> void
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpRebootMsg_IntPtr.get -> System.IntPtr
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpRebootMsg_IntPtr.set -> void
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpsaActions_IntPtr.get -> System.IntPtr
+PInvoke.AdvApi32.SERVICE_FAILURE_ACTIONS.lpsaActions_IntPtr.set -> void
+PInvoke.AdvApi32.SafeHashHandle
+PInvoke.AdvApi32.SafeHashHandle.SafeHashHandle() -> void
+PInvoke.AdvApi32.SafeHashHandle.SafeHashHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+override PInvoke.AdvApi32.SafeHashHandle.IsInvalid.get -> bool
+override PInvoke.AdvApi32.SafeHashHandle.ReleaseHandle() -> bool
+static PInvoke.AdvApi32.CryptGetHashParam(PInvoke.AdvApi32.SafeHashHandle hHash, PInvoke.AdvApi32.CryptGetHashParamFlags dwParam, System.IntPtr pbData, System.IntPtr pdwDataLen, uint dwFlags) -> bool
+static PInvoke.AdvApi32.CryptGetHashParam(PInvoke.AdvApi32.SafeHashHandle hHash, PInvoke.AdvApi32.CryptGetHashParamFlags dwParam, byte[] pbData, ref int pdwDataLen, uint dwFlags) -> bool
+static PInvoke.AdvApi32.CryptHashData(PInvoke.AdvApi32.SafeHashHandle hHash, System.IntPtr pbData, int dataLen, PInvoke.AdvApi32.CryptHashDataFlags flags) -> bool
+static PInvoke.AdvApi32.CryptHashData(PInvoke.AdvApi32.SafeHashHandle hHash, byte[] pbData, int dataLen, PInvoke.AdvApi32.CryptHashDataFlags flags) -> bool
+static extern PInvoke.AdvApi32.CryptAcquireContext(out PInvoke.AdvApi32.SafeCryptographicProviderHandle hProv, string pszContainer, string pszProvider, PInvoke.AdvApi32.ProviderType dwProvType, PInvoke.AdvApi32.CryptAcquireContextFlags dwFlags) -> bool
+static extern PInvoke.AdvApi32.CryptCreateHash(PInvoke.AdvApi32.SafeCryptographicProviderHandle hProv, PInvoke.AdvApi32.ALG_ID algId, PInvoke.AdvApi32.SafeHashHandle hKey, PInvoke.AdvApi32.CryptCreateHashFlags dwFlags, out PInvoke.AdvApi32.SafeHashHandle phHash) -> bool
+static extern PInvoke.AdvApi32.CryptGetHashParam(PInvoke.AdvApi32.SafeHashHandle hHash, PInvoke.AdvApi32.CryptGetHashParamFlags dwParam, byte* pbData, int* pdwDataLen, uint dwFlags) -> bool
+static extern PInvoke.AdvApi32.CryptHashData(PInvoke.AdvApi32.SafeHashHandle hHash, byte* pbData, int dataLen, PInvoke.AdvApi32.CryptHashDataFlags flags) -> bool
+static readonly PInvoke.AdvApi32.SafeHashHandle.Null -> PInvoke.AdvApi32.SafeHashHandle

@@ -1,7 +1,3 @@
-PInvoke.SetupApi.DEVPROPKEY
-PInvoke.SetupApi.DEVPROPKEY.DEVPROPKEY() -> void
-PInvoke.SetupApi.DEVPROPKEY.fmtid -> System.Guid
-PInvoke.SetupApi.DEVPROPKEY.pid -> uint
 PInvoke.SetupApi.DevInstallFlags
 PInvoke.SetupApi.DevInstallFlags.DI_CLASSINSTALLPARAMS = 1048576 -> PInvoke.SetupApi.DevInstallFlags
 PInvoke.SetupApi.DevInstallFlags.DI_COMPAT_FROM_CLASS = 524288 -> PInvoke.SetupApi.DevInstallFlags
@@ -49,7 +45,6 @@ PInvoke.SetupApi.DriverType
 PInvoke.SetupApi.DriverType.SPDIT_CLASSDRIVER = 1 -> PInvoke.SetupApi.DriverType
 PInvoke.SetupApi.DriverType.SPDIT_COMPATDRIVER = 2 -> PInvoke.SetupApi.DriverType
 PInvoke.SetupApi.DriverType.SPDIT_NODRIVER = 0 -> PInvoke.SetupApi.DriverType
-PInvoke.SetupApi.SP_DEVINFO_DATA.cbSize -> int
 PInvoke.SetupApi.SP_DEVINSTALL_PARAMS
 PInvoke.SetupApi.SP_DEVINSTALL_PARAMS.ClassInstallReserved -> System.IntPtr
 PInvoke.SetupApi.SP_DEVINSTALL_PARAMS.DriverPath -> char*
@@ -84,8 +79,6 @@ PInvoke.SetupApi.SP_DRVINFO_DETAIL_DATA.Reserved -> System.UIntPtr
 PInvoke.SetupApi.SP_DRVINFO_DETAIL_DATA.SP_DRVINFO_DETAIL_DATA() -> void
 PInvoke.SetupApi.SP_DRVINFO_DETAIL_DATA.SectionName -> char*
 PInvoke.SetupApi.SP_DRVINFO_DETAIL_DATA.cbSize -> int
-PInvoke.SetupApi.SetupDiGetDevicePropertyFlags
-PInvoke.SetupApi.SetupDiGetDevicePropertyFlags.None = 0 -> PInvoke.SetupApi.SetupDiGetDevicePropertyFlags
 PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags
 PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags.DIOD_CANCEL_REMOVE = 4 -> PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags
 PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags.DIOD_INHERIT_CLASSDRVS = 2 -> PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags
@@ -152,9 +145,6 @@ static PInvoke.SetupApi.SetupDiEnumDriverInfo(PInvoke.SetupApi.SafeDeviceInfoSet
 static PInvoke.SetupApi.SetupDiEnumDriverInfo(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, System.IntPtr deviceInfoData, PInvoke.SetupApi.DriverType driverType, uint memberIndex, System.IntPtr driverInfoData) -> bool
 static PInvoke.SetupApi.SetupDiGetDeviceInstallParams(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA? deviceInfoData, ref PInvoke.SetupApi.SP_DEVINSTALL_PARAMS deviceInstallParams) -> bool
 static PInvoke.SetupApi.SetupDiGetDeviceInstallParams(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, System.IntPtr deviceInfoData, System.IntPtr deviceInstallParams) -> bool
-static PInvoke.SetupApi.SetupDiGetDeviceProperty(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.DEVPROPKEY* propertyKey, uint* propertyType, byte[] propertyBuffer, uint propertyBufferSize, uint* requiredSize, PInvoke.SetupApi.SetupDiGetDevicePropertyFlags flags) -> bool
-static PInvoke.SetupApi.SetupDiGetDeviceProperty(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, System.IntPtr deviceInfoData, System.IntPtr propertyKey, System.IntPtr propertyType, System.IntPtr propertyBuffer, uint propertyBufferSize, System.IntPtr requiredSize, PInvoke.SetupApi.SetupDiGetDevicePropertyFlags flags) -> bool
-static PInvoke.SetupApi.SetupDiGetDeviceProperty(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, System.IntPtr deviceInfoData, System.IntPtr propertyKey, System.IntPtr propertyType, byte[] propertyBuffer, uint propertyBufferSize, System.IntPtr requiredSize, PInvoke.SetupApi.SetupDiGetDevicePropertyFlags flags) -> bool
 static PInvoke.SetupApi.SetupDiGetDriverInfoDetail(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA? deviceInfoData, PInvoke.SetupApi.SP_DRVINFO_DATA? driverInfoData, ref byte driverInfoDetailData, int driverInfoDetailDataSize, out int requiredSize) -> bool
 static PInvoke.SetupApi.SetupDiGetDriverInfoDetail(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, System.IntPtr deviceInfoData, System.IntPtr driverInfoData, System.IntPtr driverInfoDetailData, int driverInfoDetailDataSize, out int requiredSize) -> bool
 static PInvoke.SetupApi.SetupDiOpenDeviceInfo(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, string deviceInstanceId, System.IntPtr parent, PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags openFlags, System.IntPtr deviceInfoData) -> bool
@@ -169,7 +159,6 @@ static extern PInvoke.SetupApi.SetupDiBuildDriverInfoList(PInvoke.SetupApi.SafeD
 static extern PInvoke.SetupApi.SetupDiCreateDeviceInfoList(System.Guid* classGuid, System.IntPtr hwndParent) -> PInvoke.SetupApi.SafeDeviceInfoSetHandle
 static extern PInvoke.SetupApi.SetupDiEnumDriverInfo(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.DriverType driverType, uint memberIndex, PInvoke.SetupApi.SP_DRVINFO_DATA* driverInfoData) -> bool
 static extern PInvoke.SetupApi.SetupDiGetDeviceInstallParams(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.SP_DEVINSTALL_PARAMS* deviceInstallParams) -> bool
-static extern PInvoke.SetupApi.SetupDiGetDeviceProperty(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.DEVPROPKEY* propertyKey, uint* propertyType, byte* propertyBuffer, uint propertyBufferSize, uint* requiredSize, PInvoke.SetupApi.SetupDiGetDevicePropertyFlags flags) -> bool
 static extern PInvoke.SetupApi.SetupDiGetDriverInfoDetail(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.SP_DRVINFO_DATA* driverInfoData, byte* driverInfoDetailData, int driverInfoDetailDataSize, out int requiredSize) -> bool
 static extern PInvoke.SetupApi.SetupDiOpenDeviceInfo(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, string deviceInstanceId, System.IntPtr parent, PInvoke.SetupApi.SetupDiOpenDeviceInfoFlags openFlags, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData) -> bool
 static extern PInvoke.SetupApi.SetupDiSetDeviceInstallParams(PInvoke.SetupApi.SafeDeviceInfoSetHandle deviceInfoSet, PInvoke.SetupApi.SP_DEVINFO_DATA* deviceInfoData, PInvoke.SetupApi.SP_DEVINSTALL_PARAMS* deviceInstallParams) -> bool

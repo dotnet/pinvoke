@@ -43,3 +43,4 @@ static extern PInvoke.DwmApi.DwmEnableComposition(PInvoke.DwmApi.DwmEnableCompos
 static extern PInvoke.DwmApi.DwmFlush() -> PInvoke.HResult
 static extern PInvoke.DwmApi.DwmGetColorizationColor(out uint pcrColorization, out bool pfOpaqueBlend) -> PInvoke.HResult
 static extern PInvoke.DwmApi.DwmGetWindowAttribute(System.IntPtr hwnd, PInvoke.DwmApi.DWMWINDOWATTRIBUTE dwAttribute, out void* pvAttribute, int cbAttribute) -> PInvoke.HResult
+static extern PInvoke.DwmApi.DwmExtendFrameIntoClientArea(System.IntPtr hWnd, PInvoke.UxTheme.MARGINS margins) -> PInvoke.HResult
