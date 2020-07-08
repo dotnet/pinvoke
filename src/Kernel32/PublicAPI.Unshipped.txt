@@ -80,6 +80,19 @@ PInvoke.Kernel32.ProcessPriorityClass.HIGH_PRIORITY_CLASS = 128 -> PInvoke.Kerne
 PInvoke.Kernel32.ProcessPriorityClass.IDLE_PRIORITY_CLASS = 64 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.NORMAL_PRIORITY_CLASS = 32 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.REALTIME_PRIORITY_CLASS = 256 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_AMD64 = 9 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_ARM = 5 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_ARM64 = 12 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_IA64 = 6 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_INTEL = 0 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_UNKNOWN = 65535 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_AMD_X8664 = 8664 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_386 = 386 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_486 = 486 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_IA64 = 2200 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_PENTIUM = 586 -> PInvoke.Kernel32.ProcessorType
 PInvoke.Kernel32.STARTUPINFO.Desktop.get -> string
 PInvoke.Kernel32.STARTUPINFO.Title.get -> string
 PInvoke.Kernel32.STARTUPINFO.hStdError -> System.IntPtr
@@ -94,6 +107,19 @@ PInvoke.Kernel32.STARTUPINFO.lpReserved_IntPtr.set -> void
 PInvoke.Kernel32.STARTUPINFO.lpTitle -> char*
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.get -> System.IntPtr
 PInvoke.Kernel32.STARTUPINFO.lpTitle_IntPtr.set -> void
+PInvoke.Kernel32.SYSTEM_INFO
+PInvoke.Kernel32.SYSTEM_INFO.SYSTEM_INFO() -> void
+PInvoke.Kernel32.SYSTEM_INFO.dwActiveProcessorMask -> System.IntPtr
+PInvoke.Kernel32.SYSTEM_INFO.dwAllocationGranularity -> int
+PInvoke.Kernel32.SYSTEM_INFO.dwNumberOfProcessors -> int
+PInvoke.Kernel32.SYSTEM_INFO.dwPageSize -> int
+PInvoke.Kernel32.SYSTEM_INFO.dwProcessorType -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.SYSTEM_INFO.lpMaximumApplicationAddress -> void*
+PInvoke.Kernel32.SYSTEM_INFO.lpMinimumApplicationAddress -> void*
+PInvoke.Kernel32.SYSTEM_INFO.wProcessorArchitecture -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.SYSTEM_INFO.wProcessorLevel -> ushort
+PInvoke.Kernel32.SYSTEM_INFO.wProcessorRevision -> ushort
+PInvoke.Kernel32.SYSTEM_INFO.wReserved -> ushort
 PInvoke.Kernel32.SafePseudoConsoleHandle
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle() -> void
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
@@ -153,6 +179,8 @@ static PInvoke.Kernel32.GetCurrentProcessorNumberEx(System.IntPtr ProcNumber) ->
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(out PInvoke.Kernel32.PROCESSOR_NUMBER ProcNumber) -> void
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, System.IntPtr lpdwFlags) -> bool
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, out PInvoke.Kernel32.HandleFlags lpdwFlags) -> bool
+static PInvoke.Kernel32.GetNativeSystemInfo(System.IntPtr lpSystemInfo) -> void
+static PInvoke.Kernel32.GetNativeSystemInfo(out PInvoke.Kernel32.SYSTEM_INFO lpSystemInfo) -> void
 static PInvoke.Kernel32.GetStartupInfo(System.IntPtr lpStartupInfo) -> void
 static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
@@ -186,6 +214,7 @@ static extern PInvoke.Kernel32.GetCurrentThreadEffectiveToken() -> PInvoke.Kerne
 static extern PInvoke.Kernel32.GetCurrentThreadStackLimits(out System.UIntPtr LowLimit, out System.UIntPtr HighLimit) -> void
 static extern PInvoke.Kernel32.GetCurrentThreadToken() -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, PInvoke.Kernel32.HandleFlags* lpdwFlags) -> bool
+static extern PInvoke.Kernel32.GetNativeSystemInfo(PInvoke.Kernel32.SYSTEM_INFO* lpSystemInfo) -> void
 static extern PInvoke.Kernel32.GetPriorityClass(PInvoke.Kernel32.SafeObjectHandle hProcess) -> PInvoke.Kernel32.ProcessPriorityClass
 static extern PInvoke.Kernel32.GetProcessHandleCount(PInvoke.Kernel32.SafeObjectHandle hProcess, out uint pdwHandleCount) -> bool
 static extern PInvoke.Kernel32.GetProcessId(System.IntPtr Process) -> int
