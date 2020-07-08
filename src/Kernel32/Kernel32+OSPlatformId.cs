@@ -6,14 +6,14 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Contains the <see cref="PLATFORM_ID"/> nested type.
+    /// Contains the <see cref="OSPlatformId"/> nested type.
     /// </summary>
     public static partial class Kernel32
     {
         /// <summary>
-        /// The <see cref="PLATFORM_ID"/> structure contains operating system version information.
+        /// The <see cref="OSPlatformId"/> structure contains operating system version information.
         /// </summary>
-        public enum PLATFORM_ID
+        public enum OSPlatformId
         {
             /// <summary>
             /// The operating system is Microsoft Windows 3.1.

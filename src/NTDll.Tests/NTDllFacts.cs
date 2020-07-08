@@ -3,7 +3,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using PInvoke;
 using Xunit;
 using static PInvoke.NTDll;
@@ -66,25 +65,25 @@ public class NTDllFacts
     }
 
     [Fact]
-    public void RtlGetVersion_OSVERSIONINFOEX_Test()
+    public void RtlGetVersion_OSVERSIONINFO_Test()
+    {
+        var versionInfo = Kernel32.OSVERSIONINFO.Create();
+
+        Assert.Equal(NTSTATUS.Code.STATUS_SUCCESS, RtlGetVersion(ref versionInfo).Value);
+        Assert.Equal(Kernel32.OSPlatformId.VER_PLATFORM_WIN32_NT, versionInfo.dwPlatformId);
+        Assert.NotEqual(0, versionInfo.dwMajorVersion);
+        Assert.NotEqual(0, versionInfo.dwBuildNumber);
+    }
+
+    [Fact]
+    public unsafe void RtlGetVersion_OSVERSIONINFOEX_Test()
     {
         var versionInfoEx = Kernel32.OSVERSIONINFOEX.Create();
 
-        Assert.Equal(NTSTATUS.Code.STATUS_SUCCESS, RtlGetVersion(ref versionInfoEx).Value);
+        Assert.Equal(NTSTATUS.Code.STATUS_SUCCESS, RtlGetVersion((Kernel32.OSVERSIONINFO*)&versionInfoEx).Value);
         Assert.Equal(2, versionInfoEx.dwPlatformId); // VER_PLATFORM_WIN32_NT
         Assert.NotEqual(0, versionInfoEx.dwMajorVersion);
         Assert.NotEqual(0, versionInfoEx.dwBuildNumber);
         Assert.True(Enum.IsDefined(typeof(Kernel32.OS_TYPE), versionInfoEx.wProductType), $"Unexpected OS_TYPE value: 0x{(int)versionInfoEx.wProductType:X}");
-    }
-
-    [Fact]
-    public unsafe void RtlGetVersion_OSVERSIONINFO_Test()
-    {
-        var versionInfo = Kernel32.OSVERSIONINFO.Create();
-
-        Assert.Equal(NTSTATUS.Code.STATUS_SUCCESS, RtlGetVersion((Kernel32.OSVERSIONINFOEX*)&versionInfo).Value);
-        Assert.Equal(Kernel32.PLATFORM_ID.VER_PLATFORM_WIN32_NT, versionInfo.dwPlatformId);
-        Assert.NotEqual(0, versionInfo.dwMajorVersion);
-        Assert.NotEqual(0, versionInfo.dwBuildNumber);
     }
 }

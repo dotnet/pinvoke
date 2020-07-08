@@ -39,7 +39,7 @@ namespace PInvoke
             /// <summary>
             /// The OS platform.
             /// </summary>
-            public PLATFORM_ID dwPlatformId;
+            public OSPlatformId dwPlatformId;
 
             /// <summary>
             /// A null-terminated string, such as "Service Pack 3", that indicates the latest Service Pack installed on the system.
@@ -48,10 +48,12 @@ namespace PInvoke
             public fixed char szCSDVersion[128];
 
             /// <summary>
-            /// Helper method to create <see cref="OSVERSIONINFO"/> with
-            /// the right pre-initialization for <see cref="dwOSVersionInfoSize"/>
+            /// Initializes a new instance of the <see cref="OSVERSIONINFO" /> struct
+            /// with <see cref="dwOSVersionInfoSize" /> set to the correct value.
             /// </summary>
-            /// <returns>A newly initialzed instance of <see cref="OSVERSIONINFO"/></returns>
+            /// <returns>
+            /// A newly initialized instance of <see cref="OSVERSIONINFO"/>
+            /// </returns>
             public static OSVERSIONINFO Create() => new OSVERSIONINFO { dwOSVersionInfoSize = sizeof(OSVERSIONINFO) };
         }
     }
