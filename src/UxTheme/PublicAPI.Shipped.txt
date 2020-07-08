@@ -15,3 +15,4 @@ static PInvoke.UxTheme.GetThemeMargins(PInvoke.UxTheme.SafeThemeHandle hTheme, P
 static extern PInvoke.UxTheme.GetThemeMargins(PInvoke.UxTheme.SafeThemeHandle hTheme, PInvoke.User32.SafeDCHandle hdc, int iPartId, int iStateId, int iPropId, PInvoke.RECT* prc, out PInvoke.UxTheme.MARGINS pMargins) -> PInvoke.HResult
 static extern PInvoke.UxTheme.OpenThemeData(System.IntPtr hwnd, string pszClassList) -> PInvoke.UxTheme.SafeThemeHandle
 static readonly PInvoke.UxTheme.SafeThemeHandle.Null -> PInvoke.UxTheme.SafeThemeHandle
+static extern PInvoke.UxTheme.OpenThemeDataForDpi(System.IntPtr hwnd, string pszClassIdList, int dpi) -> PInvoke.UxTheme.SafeThemeHandle
