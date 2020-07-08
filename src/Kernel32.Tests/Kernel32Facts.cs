@@ -70,4 +70,17 @@ public partial class Kernel32Facts
         Assert.NotEqual((FileSystemFlags)0, flags);
         Assert.NotEmpty(new string(fileSystemNameBuffer));
     }
+
+    [Fact]
+    public unsafe void GetNativeSystemInfo_Works()
+    {
+        GetNativeSystemInfo(out SYSTEM_INFO systemInfo);
+
+        Assert.True(Enum.IsDefined(typeof(Kernel32.ProcessorArchitecture), systemInfo.wProcessorArchitecture));
+        Assert.NotEqual(0, systemInfo.dwPageSize);
+        Assert.NotEqual(0, (int)systemInfo.dwActiveProcessorMask);
+        Assert.Equal(Environment.ProcessorCount, systemInfo.dwNumberOfProcessors);
+        Assert.True(Enum.IsDefined(typeof(Kernel32.ProcessorType), systemInfo.dwProcessorType));
+        Assert.NotEqual(0, systemInfo.dwAllocationGranularity);
+    }
 }

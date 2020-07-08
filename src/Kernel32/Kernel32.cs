@@ -992,6 +992,16 @@ namespace PInvoke
         public static extern ProcessPriorityClass GetPriorityClass(SafeObjectHandle hProcess);
 
         /// <summary>
+        /// Retrieves information about the current system.
+        /// </summary>
+        /// <param name="lpSystemInfo">
+        /// A pointer to a <see cref="SYSTEM_INFO"/> structure that receives the information.
+        /// </param>
+        [DllImport(nameof(Kernel32))]
+        public static unsafe extern void GetNativeSystemInfo(
+            [Friendly(FriendlyFlags.Out)] SYSTEM_INFO* lpSystemInfo);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>

@@ -25,3 +25,9 @@ static extern PInvoke.Magnification.MagSetFullscreenTransform(float magLevel, in
 static extern PInvoke.Magnification.MagSetWindowTransform(System.IntPtr hwnd, PInvoke.Magnification.MAGTRANSFORM* pTransform) -> bool
 static extern PInvoke.Magnification.MagShowSystemCursor(bool fShowCursor) -> bool
 static extern PInvoke.Magnification.MagUninitialize() -> bool
+PInvoke.Magnification.MAGCOLOREFFECT.this[int x, int y].get -> float
+PInvoke.Magnification.MAGCOLOREFFECT.this[int x, int y].set -> void
+PInvoke.Magnification.MAGCOLOREFFECT.transform -> float*
+PInvoke.Magnification.MAGTRANSFORM.this[int x, int y].get -> float
+PInvoke.Magnification.MAGTRANSFORM.this[int x, int y].set -> void
+PInvoke.Magnification.MAGTRANSFORM.v -> float*

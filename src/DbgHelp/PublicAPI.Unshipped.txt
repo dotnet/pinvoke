@@ -1,6 +1,0 @@
-PInvoke.DbgHelp.LOADED_IMAGE.fDOSImage.get -> bool
-PInvoke.DbgHelp.LOADED_IMAGE.fDOSImage.set -> void
-PInvoke.DbgHelp.LOADED_IMAGE.fReadOnly.get -> bool
-PInvoke.DbgHelp.LOADED_IMAGE.fReadOnly.set -> void
-PInvoke.DbgHelp.LOADED_IMAGE.fSystemImage.get -> bool
-PInvoke.DbgHelp.LOADED_IMAGE.fSystemImage.set -> void

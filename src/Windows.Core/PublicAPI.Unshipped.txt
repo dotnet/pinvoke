@@ -13,12 +13,4 @@ PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_MODESPRUNED = 134217728 -> PInvoke.Dis
 PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_PRIMARY_DEVICE = 4 -> PInvoke.DisplayDeviceFlags
 PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_REMOVABLE = 32 -> PInvoke.DisplayDeviceFlags
 PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_VGA_COMPATIBLE = 16 -> PInvoke.DisplayDeviceFlags
-PInvoke.HResult.Code.CO_E_CANCEL_DISABLED = 2147549504 -> PInvoke.HResult.Code
-PInvoke.HResult.Code.RPC_E_CALL_CANCELED = 2147549186 -> PInvoke.HResult.Code
-PInvoke.HResult.Code.RPC_E_CALL_COMPLETE = 2147549463 -> PInvoke.HResult.Code
-const PInvoke.ApiSets.api_ms_win_core_errorhandling_l1_1_1 = "api-ms-win-core-errorhandling-l1-1-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_registry_l1_1_0 = "api-ms-win-core-registry-l1-1-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_security_sddl_l1_1_0 = "api-ms-win-security-sddl-l1-1-0.dll" -> string
 static PInvoke.DISPLAY_DEVICE.Create() -> PInvoke.DISPLAY_DEVICE
-static PInvoke.POINT.implicit operator PInvoke.POINT(System.Drawing.Point point) -> PInvoke.POINT
-static PInvoke.POINT.implicit operator System.Drawing.Point(PInvoke.POINT point) -> System.Drawing.Point
