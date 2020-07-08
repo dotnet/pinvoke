@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// The OBJECT_ATTRIBUTES structure specifies attributes that can be applied to objects or object handles by routines that create objects and/or return handles to objects.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct OBJECT_ATTRIBUTES
         {
@@ -109,13 +108,7 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="OBJECT_ATTRIBUTES"/> structure.
             /// </summary>
             /// <returns>An <see cref="OBJECT_ATTRIBUTES"/> instance with <see cref="Length"/> initialized.</returns>
-            public static OBJECT_ATTRIBUTES Create()
-            {
-                return new OBJECT_ATTRIBUTES
-                {
-                    Length = Marshal.SizeOf(typeof(OBJECT_ATTRIBUTES)),
-                };
-            }
+            public static OBJECT_ATTRIBUTES Create() => new OBJECT_ATTRIBUTES { Length = sizeof(OBJECT_ATTRIBUTES) };
         }
     }
 }

@@ -1,0 +1,10 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+  <PropertyGroup>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
+    <StoreBanned>true</StoreBanned>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Windows.Core\Windows.Core.csproj" />
+    <ProjectReference Include="..\Kernel32\Kernel32.csproj" />
+  </ItemGroup>
+</Project>

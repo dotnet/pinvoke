@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains the delayed auto-start setting of an auto-start service.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServiceDelayedAutoStartInfo
         {
             /// <summary>

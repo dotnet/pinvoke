@@ -9,11 +9,12 @@ using Xunit;
 public class NTStatusFacts
 {
     [Fact]
-    public void MarshaledSize()
+    public unsafe void MarshaledSize()
     {
         // It's imperative that the struct be exactly the size of an Int32
         // since we use it in interop.
         Assert.Equal(sizeof(int), Marshal.SizeOf(typeof(NTSTATUS)));
+        Assert.Equal(sizeof(int), sizeof(NTSTATUS));
     }
 
     [Fact]

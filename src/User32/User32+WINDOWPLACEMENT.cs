@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about the placement of a window on the screen.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct WINDOWPLACEMENT
         {
             /// <summary>
@@ -42,13 +41,7 @@ namespace PInvoke
             /// Create a new instance of <see cref="WINDOWPLACEMENT"/> with <see cref="length"/> set to the correct value.
             /// </summary>
             /// <returns>A new instance of <see cref="WINDOWPLACEMENT"/> with <see cref="length"/> set to the correct value.</returns>
-            public static WINDOWPLACEMENT Create()
-            {
-                return new WINDOWPLACEMENT
-                {
-                    length = Marshal.SizeOf(typeof(WINDOWPLACEMENT))
-                };
-            }
+            public static unsafe WINDOWPLACEMENT Create() => new WINDOWPLACEMENT { length = sizeof(WINDOWPLACEMENT) };
         }
     }
 }

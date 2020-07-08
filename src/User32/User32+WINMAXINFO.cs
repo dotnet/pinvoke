@@ -10,7 +10,6 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
         public struct MINMAXINFO
         {
             public POINT ptReserved;

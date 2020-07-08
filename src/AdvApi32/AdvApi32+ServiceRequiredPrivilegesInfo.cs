@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Represents the required privileges for a service.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServiceRequiredPrivilegesInfo
         {
             /// <summary>

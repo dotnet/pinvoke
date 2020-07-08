@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a console screen buffer.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct CONSOLE_SCREEN_BUFFER_INFO
         {
             /// <summary>

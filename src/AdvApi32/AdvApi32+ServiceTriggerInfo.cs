@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains trigger event information for a service. This structure is used by the <see cref="ChangeServiceConfig2(SafeServiceHandle, ServiceInfoLevel, void*)"/> and QueryServiceConfig2 functions.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServiceTriggerInfo
         {
             /// <summary>

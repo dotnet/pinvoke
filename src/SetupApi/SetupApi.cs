@@ -18,6 +18,11 @@ namespace PInvoke
     public static partial class SetupApi
     {
         /// <summary>
+        /// The line length of the strings that are used by <see cref="SetupApi"/>.
+        /// </summary>
+        private const int LINE_LEN = 256;
+
+        /// <summary>
         /// The SetupDiGetClassDevs function returns a <see cref="SafeDeviceInfoSetHandle" /> handle to a device information set
         /// that contains requested device information elements for a local computer.
         /// </summary>
@@ -141,7 +146,7 @@ namespace PInvoke
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to a buffer that receives information about the device that supports the requested interface. The caller
-        /// must set <see cref="SP_DEVINFO_DATA.Size" /> before calling this function.
+        /// must set <see cref="SP_DEVINFO_DATA.cbSize" /> before calling this function.
         /// <para>This parameter is optional and can be <see langword="null" />.</para>
         /// </param>
         /// <returns>
@@ -170,7 +175,7 @@ namespace PInvoke
         /// <param name="memberIndex">A zero-based index of the device information element to retrieve.</param>
         /// <param name="deviceInfoData">
         /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure to receive information about an enumerated
-        /// device information element. The caller must set <see cref="SP_DEVINFO_DATA.Size" /> before calling this function.
+        /// device information element. The caller must set <see cref="SP_DEVINFO_DATA.cbSize" /> before calling this function.
         /// </param>
         /// <returns>
         /// Returns <see langword="true" /> if the function completed without error. If the function completed with an
@@ -182,7 +187,7 @@ namespace PInvoke
         public static extern unsafe bool SetupDiEnumDeviceInfo(
             SafeDeviceInfoSetHandle deviceInfoSet,
             int memberIndex,
-            SP_DEVINFO_DATA* deviceInfoData);
+            [Friendly(FriendlyFlags.Bidirectional)] SP_DEVINFO_DATA* deviceInfoData);
 
         /// <summary>
         /// Retrieves a device instance property.
@@ -218,6 +223,321 @@ namespace PInvoke
             uint propertyBufferSize,
             uint* requiredSize,
             SetupDiGetDevicePropertyFlags flags);
+
+        /// <summary>
+        /// The <see cref="SetupDiCreateDeviceInfoList(Guid*, IntPtr)"/> function creates an empty device information set and optionally associates the
+        /// set with a device setup class and a top-level window.
+        /// </summary>
+        /// <param name="classGuid">
+        /// A pointer to the <see cref="Guid"/> of the device setup class to associate with the newly created device information set.
+        /// If this parameter is specified, only devices of this class can be included in this device information set. If this parameter is set
+        /// to <see cref="IntPtr.Zero"/>, the device information set is not associated with a specific device setup class.
+        /// </param>
+        /// <param name="hwndParent">
+        /// A handle to the top-level window to use for any user interface that is related to non-device-specific actions (such as a select-device dialog
+        /// box that uses the global class driver list). This handle is optional and can be <see cref="IntPtr.Zero"/>. If a specific top-level window is not
+        /// required, set <paramref name="hwndParent"/> to <see cref="IntPtr.Zero"/>.
+        /// </param>
+        /// <returns>
+        /// The function returns a <see cref="IntPtr"/> to an empty device information set if it is successful. Otherwise, it returns
+        /// <see cref="SafeDeviceInfoSetHandle.Invalid"/>. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff550956(v=vs.85).aspx"/>
+        [DllImport(nameof(SetupApi), SetLastError = true)]
+        public static unsafe extern SafeDeviceInfoSetHandle SetupDiCreateDeviceInfoList(
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] Guid* classGuid,
+            IntPtr hwndParent);
+
+        /// <summary>
+        /// The <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> function adds a device information element for a device instance to a device information set,
+        /// if one does not already exist in the device information set, and retrieves information that identifies the device information element
+        /// for the device instance in the device information set.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to the device information set to which <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> adds a device information element, if one does
+        /// not already exist, for the device instance that is specified by <paramref name="deviceInstanceId"/>.
+        /// </param>
+        /// <param name="deviceInstanceId">
+        /// A <see cref="string"/> that supplies the device instance identifier of a device (for example, <c>Root\*PNP0500\0000</c>). If
+        /// <paramref name="deviceInstanceId"/> is <see langword="null"/> or <see cref="string.Empty"/>, <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> adds a
+        /// device information element to the supplied device information set, if one does not already exist, for the root device in the device tree.
+        /// </param>
+        /// <param name="parent">
+        /// The handle to the top-level window to use for any user interface related to installing the device.
+        /// A <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> that controls how the device information element is opened.
+        /// </param>
+        /// <param name="openFlags">
+        /// A variable of <see cref="SetupDiOpenDeviceInfo(SafeDeviceInfoSetHandle, string, IntPtr, SetupDiOpenDeviceInfoFlags, SP_DEVINFO_DATA*)"/> that controls how the device information element is opened.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// A pointer to a caller-supplied <see cref="SP_DEVINFO_DATA"/> structure that receives information about the device information
+        /// element for the device instance that is specified by <paramref name="deviceInstanceId"/>. The caller must set <see cref="SP_DEVINFO_DATA.cbSize"/>.
+        /// This parameter is optional and can be <see langword="null"/>.
+        /// </param>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/> and the logged error can be retrieved with a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <see href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff552071(v=vs.85).aspx"/>
+        [DllImport(nameof(SetupApi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiOpenDeviceInfo(
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            string deviceInstanceId,
+            IntPtr parent,
+            SetupDiOpenDeviceInfoFlags openFlags,
+            [Friendly(FriendlyFlags.Bidirectional)] SP_DEVINFO_DATA* deviceInfoData);
+
+        /// <summary>
+        /// The <see cref="SetupDiSetSelectedDevice(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*)"/> function sets a device information element as the selected member of a device information set.
+        /// This function is typically used by an installation wizard.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to the device information set that contains the device information element to set as the selected member of the device information set.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// A <see cref="SP_DEVINFO_DATA"/> structure that specifies the device information element in <paramref name="deviceInfoSet"/> to set as the
+        /// selected member of <paramref name="deviceInfoSet"/>.
+        /// </param>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/> and the logged error can be retrieved with a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff552176(v=vs.85).aspx"/>
+        [DllImport(nameof(SetupApi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiSetSelectedDevice(
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            [Friendly(FriendlyFlags.In)] SP_DEVINFO_DATA* deviceInfoData);
+
+        /// <summary>
+        /// The <see cref="SetupDiGetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/> function retrieves device installation parameters for a device information
+        /// set or a particular device information element.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to the device information set that contains the device installation parameters to retrieve.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure that specifies the device information element in <paramref name="deviceInfoSet"/>.
+        /// This parameter is optional and can be <see langword="null"/>. If this parameter is specified, <see cref="SetupDiGetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/>
+        /// retrieves the installation parameters for the specified device. If this parameter is <see langword="null"/>, the function retrieves
+        /// the global device installation parameters that are associated with <paramref name="deviceInfoSet"/>.
+        /// </param>
+        /// <param name="deviceInstallParams">
+        /// A pointer to an <see cref="SP_DEVINSTALL_PARAMS"/> structure that receives the device install parameters. <see cref="SP_DEVINSTALL_PARAMS.cbSize"/>
+        /// must be set to the size, in bytes, of the structure before calling this function.
+        /// </param>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/> and the logged error can be retrieved with a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff551104(v=vs.85).aspx"/>
+        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiGetDeviceInstallParams(
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
+            [Friendly(FriendlyFlags.Bidirectional)] SP_DEVINSTALL_PARAMS* deviceInstallParams);
+
+        /// <summary>
+        /// The <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/> function sets device installation parameters for a device information set
+        /// or a particular device information element.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to the device information set for which to set device installation parameters.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure that specifies a device information element in <paramref name="deviceInfoSet"/>.
+        /// This parameter is optional and can be set to <see langword="null"/>. If this parameter is specified, <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/>
+        /// sets the installation parameters for the specified device. If this parameter is <see langword="null"/>, <see cref="SetupDiSetDeviceInstallParams(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DEVINSTALL_PARAMS*)"/>
+        /// sets the installation parameters that are associated with the global class driver list for <paramref name="deviceInfoSet"/>.
+        /// </param>
+        /// <param name="deviceInstallParams">
+        /// An <see cref="SP_DEVINFO_DATA"/> structure that contains the new values of the parameters. The <see cref="SP_DEVINSTALL_PARAMS.cbSize"/>
+        /// must be set to the size, in bytes, of the structure before this function is called.
+        /// </param>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/> and the logged error can be retrieved with a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff552141(v=vs.85).aspx"/>
+        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiSetDeviceInstallParams(
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
+            [Friendly(FriendlyFlags.In)] SP_DEVINSTALL_PARAMS* deviceInstallParams);
+
+        /// <summary>
+        /// The <see cref="SetupDiBuildDriverInfoList(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType)"/> function builds a list of drivers that is associated with a specific device or with the
+        /// global class driver list for a device information set.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to the device information set to contain the driver list, either globally for all device information elements or specifically
+        /// for a single device information element. The device information set must not contain remote device information elements.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure for the device information element in <paramref name="deviceInfoSet"/> that
+        /// represents the device for which to build a driver list.This parameter is optional and can be <see langword="null"/>. If this parameter
+        /// is specified, the list is associated with the specified device. If this parameter is <see langword="null"/>, the list is associated
+        /// with the global class driver list for <paramref name="deviceInfoSet"/>.
+        /// <para>
+        /// </para>
+        /// <para>
+        /// If the class of this device is updated because of building a compatible driver list, <see cref="SP_DEVINFO_DATA.ClassGuid"/> is updated upon return.
+        /// </para>
+        /// </param>
+        /// <param name="driverType">
+        /// The type of driver list to build.
+        /// </param>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/> and the logged error can be retrieved with a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff550917(v=vs.85).aspx"/>
+        [DllImport(nameof(SetupApi), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiBuildDriverInfoList(
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
+            DriverType driverType);
+
+        /// <summary>
+        /// The <see cref="SetupDiEnumDriverInfo(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType, uint, SP_DRVINFO_DATA*)"/> function enumerates the members of a driver list.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to the device information set that contains the driver list to enumerate.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// An <see cref="SP_DEVINFO_DATA"/> structure that specifies a device information element in <paramref name="deviceInfoSet"/>.
+        /// This parameter is optional and can be <see langword="null"/>. If this parameter is specified, <see cref="SetupDiEnumDriverInfo(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType, uint, SP_DRVINFO_DATA*)"/>
+        /// enumerates a driver list for the specified device. If this parameter is <see langword="null"/>, <see cref="SetupDiEnumDriverInfo(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType, uint, SP_DRVINFO_DATA*)"/>
+        /// enumerates the global class driver list that is associated with <paramref name="deviceInfoSet"/> (this list is of type
+        /// <c>SPDIT_CLASSDRIVER</c>).
+        /// </param>
+        /// <param name="driverType">
+        /// The type of driver list to enumerate.
+        /// </param>
+        /// <param name="memberIndex">
+        /// The zero-based index of the driver information member to retrieve.
+        /// </param>
+        /// <param name="driverInfoData">
+        /// A caller-initialized <see cref="SP_DRVINFO_DATA"/> structure that receives information about the enumerated driver.
+        /// The caller must set <see cref="SP_DRVINFO_DATA.cbSize"/> before calling <see cref="SetupDiEnumDriverInfo(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType, uint, SP_DRVINFO_DATA*)"/>.
+        /// If the <see cref="SP_DRVINFO_DATA.cbSize"/> member is not properly set, <see cref="SetupDiEnumDriverInfo(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType, uint, SP_DRVINFO_DATA*)"/> will return
+        /// <see langword="false"/>.
+        /// </param>
+        /// <remarks>
+        /// To enumerate driver information set members, an installer should first call <see cref="SetupDiEnumDriverInfo(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType, uint, SP_DRVINFO_DATA*)"/> with the
+        /// <paramref name="memberIndex"/> parameter set to <c>0</c>. It should then increment <paramref name="memberIndex"/> and call
+        /// <see cref="SetupDiEnumDriverInfo(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, DriverType, uint, SP_DRVINFO_DATA*)"/> until there are no more values. When there are no more values, the function fails and a call to
+        /// <see cref="Marshal.GetLastWin32Error"/> returns <see cref="Win32ErrorCode.ERROR_NO_MORE_ITEMS"/>.
+        /// </remarks>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/> and the logged error can be retrieved with a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff551018(v=vs.85).aspx"/>
+        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiEnumDriverInfo(
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
+            DriverType driverType,
+            uint memberIndex,
+            [Friendly(FriendlyFlags.Bidirectional)] SP_DRVINFO_DATA* driverInfoData);
+
+        /// <summary>
+        /// The <see cref="SetupDiSetSelectedDriver(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DRVINFO_DATA*)"/> function sets, or resets, the selected driver for a device information element or the
+        /// selected class driver for a device information set.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to the device information set that contains the driver list from which to select a driver for a device information element
+        /// or for the device information set.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure that specifies the device information element in <paramref name="deviceInfoSet"/>.
+        /// This parameter is optional and can be <see langword="null"/>. If this parameter is specified, <see cref="SetupDiSetSelectedDriver(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DRVINFO_DATA*)"/> sets,
+        /// or resets, the selected driver for the specified device. If this parameter is <see langword="null"/>, <see cref="SetupDiSetSelectedDriver(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DRVINFO_DATA*)"/>
+        /// sets, or resets, the selected class driver for <paramref name="deviceInfoSet"/>.
+        /// </param>
+        /// <param name="driverInfoData">
+        /// <para>
+        /// An <see cref="SP_DRVINFO_DATA"/> structure that specifies the driver to be selected. This parameter is optional and can be <see langword="null"/>.
+        /// If this parameter and <paramref name="deviceInfoData"/> are supplied, the specified driver must be a member of a driver list that is associated
+        /// with <paramref name="deviceInfoData"/>. If this parameter is specified and <paramref name="deviceInfoData"/> is <see langword="null"/>, the
+        /// driver must be a member of the global class driver list for <paramref name="deviceInfoSet"/>. If this parameter is <see langword="null"/>, the
+        /// selected driver is reset for the device information element, if <paramref name="deviceInfoData"/> is specified, or the device information set,
+        /// if <paramref name="deviceInfoData"/> is <see langword="null"/>.
+        /// </para>
+        /// <para>
+        /// If the <see cref="SP_DRVINFO_DATA.Reserved"/> is <see langword="null"/>, the caller is requesting a search for a driver node with the specified
+        /// parameters (<see cref="SP_DRVINFO_DATA.DriverType"/>, <see cref="SP_DRVINFO_DATA.Description"/>, and <see cref="SP_DRVINFO_DATA.ProviderName"/>).
+        /// If a match is found, that driver node is selected. The <see cref="SP_DRVINFO_DATA.Reserved"/> field is updated on output to reflect
+        /// the actual driver node where the match was found. If a match is not found, the function fails and a call to <see cref="Marshal.GetLastWin32Error"/>
+        /// returns <c>ERROR_INVALID_PARAMETER</c>.
+        /// </para>
+        /// </param>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/> and the logged error can be retrieved with a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff552183(v=vs.85).aspx"/>
+        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiSetSelectedDriver(
+            SafeDeviceInfoSetHandle deviceInfoSet,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] SP_DRVINFO_DATA* driverInfoData);
+
+        /// <summary>
+        /// Retrieves driver information detail for a device information set or a particular device information element in the device information set.
+        /// </summary>
+        /// <param name="deviceInfoSet">
+        /// A handle to a device information set that contains a driver information element for which to retrieve driver information.
+        /// </param>
+        /// <param name="deviceInfoData">
+        /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure that specifies a device information element that represents the device
+        /// for which to retrieve driver information. This parameter is optional and can be <see langword="null"/>.
+        /// If this parameter is specified, <see cref="SetupDiGetDriverInfoDetail(SafeDeviceInfoSetHandle, SP_DEVINFO_DATA*, SP_DRVINFO_DATA*, byte*, int, out int)"/> retrieves information about a driver in a driver list
+        /// for the specified device.
+        /// If this parameter is <see langword="null"/>, SetupDiGetDriverInfoDetail retrieves information about a driver that is a member of
+        /// the global class driver list for <paramref name="deviceInfoSet"/>.
+        /// </param>
+        /// <param name="driverInfoData">
+        /// A pointer to an <see cref="SP_DRVINFO_DATA"/> structure that specifies the driver information element that represents the driver
+        /// for which to retrieve details. If DeviceInfoData is specified, the driver must be a member of the driver list for the device that
+        /// is specified by <paramref name="deviceInfoData"/>. Otherwise, the driver must be a member of the global class driver list for
+        /// <paramref name="deviceInfoSet"/>.
+        /// </param>
+        /// <param name="driverInfoDetailData">
+        /// A pointer to an <see cref="SP_DRVINFO_DETAIL_DATA"/> structure that receives detailed information about the specified driver.
+        /// If this parameter is not specified, <paramref name="driverInfoDetailDataSize"/> must be zero.
+        /// If this parameter is specified, <see cref="SP_DRVINFO_DETAIL_DATA.cbSize"/> must be set to the value of <c>sizeof(SP_DRVINFO_DETAIL_DATA)</c>
+        /// before it calls SetupDiGetDriverInfoDetail.
+        /// </param>
+        /// <param name="driverInfoDetailDataSize">
+        /// The size, in bytes, of the <paramref name="driverInfoDetailData"/> buffer.
+        /// </param>
+        /// <param name="requiredSize">
+        /// A pointer to a variable that receives the number of bytes required to store the detailed driver information.
+        /// This value includes both the size of the structure and the additional bytes required for the variable-length character buffer at the
+        /// end that holds the hardware ID list and the compatible ID list. The lists are in REG_MULTI_SZ format.
+        /// </param>
+        /// <returns>
+        /// The function returns <see langword="true"/> if it is successful.
+        /// Otherwise, it returns <see langword="false"/>and the logged error can be retrieved by making a call to <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/setupapi/nf-setupapi-setupdigetdriverinfodetaila"/>
+        [DllImport(nameof(SetupApi), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetupDiGetDriverInfoDetail(
+           SafeDeviceInfoSetHandle deviceInfoSet,
+           [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DEVINFO_DATA* deviceInfoData,
+           [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SP_DRVINFO_DATA* driverInfoData,
+           [Friendly(FriendlyFlags.Bidirectional)] byte* driverInfoDetailData,
+           int driverInfoDetailDataSize,
+           out int requiredSize);
 
         /// <summary>
         /// Deletes a device information set and frees all associated memory.

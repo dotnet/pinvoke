@@ -11,7 +11,6 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
         public unsafe struct MSGBOXPARAMS
         {
             public int cbSize;
@@ -28,12 +27,7 @@ namespace PInvoke
 
             public uint dwLanguageId;
 
-            public static MSGBOXPARAMS Create()
-            {
-                var nw = default(MSGBOXPARAMS);
-                nw.cbSize = Marshal.SizeOf(typeof(MSGBOXPARAMS));
-                return nw;
-            }
+            public static MSGBOXPARAMS Create() => new MSGBOXPARAMS { cbSize = Marshal.SizeOf(typeof(MSGBOXPARAMS)) };
         }
     }
 }

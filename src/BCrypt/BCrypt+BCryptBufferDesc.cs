@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Used to contain a set of generic CNG buffers.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct BCryptBufferDesc
         {

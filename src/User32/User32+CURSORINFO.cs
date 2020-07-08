@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains global cursor information.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct CURSORINFO
         {
             /// <summary>
@@ -44,7 +43,7 @@ namespace PInvoke
             /// <returns>
             /// An instance of the structure.
             /// </returns>
-            public static CURSORINFO Create() => new CURSORINFO { cbSize = Marshal.SizeOf(typeof(CURSORINFO)) };
+            public static unsafe CURSORINFO Create() => new CURSORINFO { cbSize = sizeof(CURSORINFO) };
         }
     }
 }

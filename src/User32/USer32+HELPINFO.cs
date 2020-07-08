@@ -11,7 +11,6 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
         public struct HELPINFO
         {
             public int cbSize;
@@ -21,7 +20,7 @@ namespace PInvoke
             public uint dwContextId;
             public POINT MousePos;
 
-            public static HELPINFO Create() => new HELPINFO { cbSize = Marshal.SizeOf(typeof(HELPINFO)) };
+            public static unsafe HELPINFO Create() => new HELPINFO { cbSize = sizeof(HELPINFO) };
         }
     }
 }

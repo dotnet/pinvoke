@@ -16,7 +16,6 @@ namespace PInvoke
         /// <summary>
         /// The SECURITY_ATTRIBUTES structure contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable. This structure provides security settings for objects created by various functions, such as CreateFile, CreatePipe, CreateProcess, RegCreateKeyEx, or RegSaveKeyEx.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct SECURITY_ATTRIBUTES
         {
             /// <summary>
@@ -45,17 +44,7 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="SECURITY_ATTRIBUTES"/> struct.
             /// </summary>
             /// <returns>A new instance of <see cref="SECURITY_ATTRIBUTES"/>.</returns>
-            public static SECURITY_ATTRIBUTES Create()
-            {
-                return new SECURITY_ATTRIBUTES
-                {
-#if NETSTANDARD1_3_ORLATER || NETFX_CORE
-                    nLength = Marshal.SizeOf<SECURITY_ATTRIBUTES>(),
-#else
-                    nLength = Marshal.SizeOf(typeof(SECURITY_ATTRIBUTES)),
-#endif
-                };
-            }
+            public static unsafe SECURITY_ATTRIBUTES Create() => new SECURITY_ATTRIBUTES { nLength = sizeof(SECURITY_ATTRIBUTES) };
         }
     }
 }

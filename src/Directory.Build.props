@@ -10,10 +10,9 @@
     <!-- <Nullable>enable</Nullable> -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <DesktopOnlyFrameworks>net45;net20</DesktopOnlyFrameworks>
+    <DesktopOnlyFrameworks>net45</DesktopOnlyFrameworks>
     <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0</PlatformSpecificFrameworks> <!-- win8 -->
-    <!-- Target frameworks beyond .NET Standard 1.1 are added to individual projects on an as-needed basis. -->
-    <PortableOnlyFrameworks>netstandard1.1</PortableOnlyFrameworks>
+    <PortableOnlyFrameworks>netstandard2.0</PortableOnlyFrameworks>
     <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 
     <TargetPlatformMinVersion Condition=" '$(TargetFramework)' == 'win8' ">8.0</TargetPlatformMinVersion>
@@ -31,7 +30,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;CA1401</NoWarn>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <SignAssembly>true</SignAssembly>
@@ -71,7 +70,7 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <GeneratorAssemblySearchPaths Include="$(RepoRootPath)bin\$(Configuration)\netstandard1.6\" />
+    <GeneratorAssemblySearchPaths Include="$(RepoRootPath)bin\$(Configuration)\netstandard2.0\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
     <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

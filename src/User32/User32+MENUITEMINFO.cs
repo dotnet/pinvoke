@@ -14,11 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a menu item.
         /// </summary>
-#if NETPORTABLE
-        [StructLayout(LayoutKind.Sequential)]
-#else
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-#endif
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct MENUITEMINFO
         {
@@ -155,13 +150,7 @@ namespace PInvoke
             /// Create a new instance of <see cref="MENUITEMINFO"/> with <see cref="cbSize"/> set to the correct value.
             /// </summary>
             /// <returns>A new instance of <see cref="MENUITEMINFO"/> with <see cref="cbSize"/> set to the correct value.</returns>
-            public MENUITEMINFO Create()
-            {
-                return new MENUITEMINFO
-                {
-                    cbSize = Marshal.SizeOf(typeof(MENUITEMINFO))
-                };
-            }
+            public static MENUITEMINFO Create() => new MENUITEMINFO { cbSize = sizeof(MENUITEMINFO) };
         }
     }
 }

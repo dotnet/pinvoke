@@ -11,7 +11,6 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public unsafe struct WNDCLASS
         {
             public ClassStyles style;

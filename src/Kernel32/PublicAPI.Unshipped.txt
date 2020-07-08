@@ -1,0 +1,132 @@
+PInvoke.Kernel32.CreatePseudoConsoleFlags
+PInvoke.Kernel32.CreatePseudoConsoleFlags.None = 0 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
+PInvoke.Kernel32.CreatePseudoConsoleFlags.PSEUDOCONSOLE_INHERIT_CURSOR = 1 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
+PInvoke.Kernel32.CreateThreadFlags
+PInvoke.Kernel32.CreateThreadFlags.CREATE_SUSPENDED = 4 -> PInvoke.Kernel32.CreateThreadFlags
+PInvoke.Kernel32.CreateThreadFlags.None = 0 -> PInvoke.Kernel32.CreateThreadFlags
+PInvoke.Kernel32.CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION = 65536 -> PInvoke.Kernel32.CreateThreadFlags
+PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_CASE_PRESERVED_NAMES = 2 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_CASE_SENSITIVE_SEARCH = 1 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_DAX_VOLUME = 536870912 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_FILE_COMPRESSION = 16 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_NAMED_STREAMS = 262144 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_PERSISTENT_ACLS = 8 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_READ_ONLY_VOLUME = 524288 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SEQUENTIAL_WRITE_ONCE = 1048576 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_ENCRYPTION = 131072 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_EXTENDED_ATTRIBUTES = 8388608 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_HARD_LINKS = 4194304 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_OBJECT_IDS = 65536 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_OPEN_BY_FILE_ID = 16777216 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_REPARSE_POINTS = 128 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_SPARSE_FILES = 64 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_TRANSACTIONS = 2097152 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_USN_JOURNAL = 33554432 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_UNICODE_ON_DISK = 4 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_VOLUME_IS_COMPRESSED = 32768 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.FileSystemFlags.FILE_VOLUME_QUOTAS = 32 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.PROCESSOR_NUMBER
+PInvoke.Kernel32.PROCESSOR_NUMBER.Group -> ushort
+PInvoke.Kernel32.PROCESSOR_NUMBER.Number -> byte
+PInvoke.Kernel32.PROCESSOR_NUMBER.PROCESSOR_NUMBER() -> void
+PInvoke.Kernel32.PROCESSOR_NUMBER.Reserved -> byte
+PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessPriorityClass.ABOVE_NORMAL_PRIORITY_CLASS = 32768 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessPriorityClass.BELOW_NORMAL_PRIORITY_CLASS = 16384 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessPriorityClass.HIGH_PRIORITY_CLASS = 128 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessPriorityClass.IDLE_PRIORITY_CLASS = 64 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessPriorityClass.NORMAL_PRIORITY_CLASS = 32 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessPriorityClass.REALTIME_PRIORITY_CLASS = 256 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_AMD64 = 9 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_ARM = 5 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_ARM64 = 12 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_IA64 = 6 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_INTEL = 0 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_UNKNOWN = 65535 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_AMD_X8664 = 8664 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_386 = 386 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_486 = 486 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_IA64 = 2200 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_PENTIUM = 586 -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.SYSTEM_INFO
+PInvoke.Kernel32.SYSTEM_INFO.SYSTEM_INFO() -> void
+PInvoke.Kernel32.SYSTEM_INFO.dwActiveProcessorMask -> System.IntPtr
+PInvoke.Kernel32.SYSTEM_INFO.dwAllocationGranularity -> int
+PInvoke.Kernel32.SYSTEM_INFO.dwNumberOfProcessors -> int
+PInvoke.Kernel32.SYSTEM_INFO.dwPageSize -> int
+PInvoke.Kernel32.SYSTEM_INFO.dwProcessorType -> PInvoke.Kernel32.ProcessorType
+PInvoke.Kernel32.SYSTEM_INFO.lpMaximumApplicationAddress -> void*
+PInvoke.Kernel32.SYSTEM_INFO.lpMinimumApplicationAddress -> void*
+PInvoke.Kernel32.SYSTEM_INFO.wProcessorArchitecture -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.SYSTEM_INFO.wProcessorLevel -> ushort
+PInvoke.Kernel32.SYSTEM_INFO.wProcessorRevision -> ushort
+PInvoke.Kernel32.SYSTEM_INFO.wReserved -> ushort
+PInvoke.Kernel32.SafePseudoConsoleHandle
+PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle() -> void
+PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
+PInvoke.Kernel32.THREAD_START_ROUTINE
+PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.SYNCHRONIZE = 1048576 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_ALL_ACCESS = 2097151 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_ALL_ACCESS_WINXP = 2032639 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_DIRECT_IMPERSONATION = 512 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_GET_CONTEXT = 8 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_IMPERSONATE = 256 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_QUERY_INFORMATION = 64 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_QUERY_LIMITED_INFORMATION = 2048 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SET_CONTEXT = 16 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SET_INFORMATION = 32 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SET_LIMITED_INFORMATION = 1024 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SET_THREAD_TOKEN = 128 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_SUSPEND_RESUME = 2 -> PInvoke.Kernel32.ThreadAccess
+PInvoke.Kernel32.ThreadAccess.THREAD_TERMINATE = 1 -> PInvoke.Kernel32.ThreadAccess
+override PInvoke.Kernel32.SafePseudoConsoleHandle.IsInvalid.get -> bool
+override PInvoke.Kernel32.SafePseudoConsoleHandle.ReleaseHandle() -> bool
+static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, System.IntPtr lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpAttributeList, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, System.IntPtr lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpAttributeList, System.IntPtr lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateThread(System.IntPtr lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, System.IntPtr lpFileTime) -> bool
+static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, out PInvoke.Kernel32.FILETIME lpFileTime) -> bool
+static PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpcBaseAddress, System.UIntPtr dwSize) -> bool
+static PInvoke.Kernel32.GetCurrentProcessorNumberEx(System.IntPtr ProcNumber) -> void
+static PInvoke.Kernel32.GetCurrentProcessorNumberEx(out PInvoke.Kernel32.PROCESSOR_NUMBER ProcNumber) -> void
+static PInvoke.Kernel32.GetNativeSystemInfo(System.IntPtr lpSystemInfo) -> void
+static PInvoke.Kernel32.GetNativeSystemInfo(out PInvoke.Kernel32.SYSTEM_INFO lpSystemInfo) -> void
+static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char[] lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char[] lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
+static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, System.IntPtr lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
+static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, ref int? lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
+static extern PInvoke.Kernel32.CreatePseudoConsole(PInvoke.COORD size, PInvoke.Kernel32.SafeObjectHandle hInput, PInvoke.Kernel32.SafeObjectHandle hOutput, PInvoke.Kernel32.CreatePseudoConsoleFlags dwFlags, out PInvoke.Kernel32.SafePseudoConsoleHandle phPC) -> PInvoke.HResult
+static extern PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
+static extern PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpcBaseAddress, System.UIntPtr dwSize) -> bool
+static extern PInvoke.Kernel32.FlushProcessWriteBuffers() -> void
+static extern PInvoke.Kernel32.GetCurrentProcessToken() -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.GetCurrentProcessorNumber() -> uint
+static extern PInvoke.Kernel32.GetCurrentProcessorNumberEx(PInvoke.Kernel32.PROCESSOR_NUMBER* ProcNumber) -> void
+static extern PInvoke.Kernel32.GetCurrentThread() -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.GetCurrentThreadEffectiveToken() -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.GetCurrentThreadStackLimits(out System.UIntPtr LowLimit, out System.UIntPtr HighLimit) -> void
+static extern PInvoke.Kernel32.GetCurrentThreadToken() -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.GetNativeSystemInfo(PInvoke.Kernel32.SYSTEM_INFO* lpSystemInfo) -> void
+static extern PInvoke.Kernel32.GetPriorityClass(PInvoke.Kernel32.SafeObjectHandle hProcess) -> PInvoke.Kernel32.ProcessPriorityClass
+static extern PInvoke.Kernel32.GetProcessHandleCount(PInvoke.Kernel32.SafeObjectHandle hProcess, out uint pdwHandleCount) -> bool
+static extern PInvoke.Kernel32.GetProcessIdOfThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> uint
+static extern PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char* lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char* lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static extern PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
+static extern PInvoke.Kernel32.ResizePseudoConsole(PInvoke.Kernel32.SafePseudoConsoleHandle hPC, PInvoke.COORD size) -> PInvoke.HResult
+static extern PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, int* lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
+static extern PInvoke.Kernel32.SetFilePointerEx(PInvoke.Kernel32.SafeObjectHandle hFile, long liDistanceToMove, out long lpNewFilePointer, System.IO.SeekOrigin dwMoveMethod) -> bool
+static readonly PInvoke.Kernel32.SafePseudoConsoleHandle.Invalid -> PInvoke.Kernel32.SafePseudoConsoleHandle

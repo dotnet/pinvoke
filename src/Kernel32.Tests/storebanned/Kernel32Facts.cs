@@ -15,6 +15,7 @@ using static PInvoke.Kernel32;
 
 public partial class Kernel32Facts
 {
+    private static unsafe Kernel32.THREAD_START_ROUTINE threadProc = new THREAD_START_ROUTINE(CreateThread_Test_ThreadMain);
     private readonly Random random = new Random();
 
     [Fact]
@@ -942,6 +943,210 @@ public partial class Kernel32Facts
             manualResetEvent.SafeWaitHandle,
             HandleFlags.HANDLE_FLAG_INHERIT | HandleFlags.HANDLE_FLAG_PROTECT_FROM_CLOSE,
             HandleFlags.HANDLE_FLAG_NONE));
+    }
+
+    /// <summary>
+    /// Basic validation for <see cref="Kernel32.CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(void*)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateThread_Test()
+    {
+        var result = false;
+        var dwNewThreadId = 0u;
+
+        using var hThread =
+                Kernel32.CreateThread(
+                    null,
+                    UIntPtr.Zero,
+                    Kernel32Facts.threadProc,
+                    &result,
+                    Kernel32.CreateThreadFlags.None,
+                    &dwNewThreadId);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.True(result);
+        Assert.NotEqual((uint)Kernel32.GetCurrentThreadId(), dwNewThreadId);
+    }
+
+    /// <summary>
+    /// Basic validation for <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
+    /// Note that this test DOES NOT create a true REMOTE thread in a foreign process; it just leverages this function to create a thread in the current (i.e, the test) procrss.
+    /// Nevertheless, this approach provides modest confidence that the P/Invoke definition is well-formed.
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(void*)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateRemoteThread_PseudoTest()
+    {
+        var result = false;
+        var dwNewThreadId = 0u;
+
+        using var hProcess = Kernel32.GetCurrentProcess();
+        using var hThread =
+                Kernel32.CreateRemoteThread(
+                    hProcess.DangerousGetHandle(),
+                    null,
+                    UIntPtr.Zero,
+                    Kernel32Facts.threadProc,
+                    &result,
+                    Kernel32.CreateThreadFlags.None,
+                    &dwNewThreadId);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.True(result);
+        Assert.NotEqual((uint)Kernel32.GetCurrentThreadId(), dwNewThreadId);
+    }
+
+    /// <summary>
+    /// Basic validation for <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, PROC_THREAD_ATTRIBUTE_LIST*, uint*)"/>
+    /// Note that this test DOES NOT create a true REMOTE thread in a foreign process; it just leverages this function to create a thread in the current (i.e, the test) procrss.
+    /// Nevertheless, this approach provides modest confidence that the P/Invoke definition is well-formed.
+    ///
+    /// Creates a thread by supplying <see cref="CreateThread_Test_ThreadMain(void*)"/> as its ThreadProc/<see cref="Kernel32.THREAD_START_ROUTINE"/>.
+    /// The ThreadProc updates a bool value (supplied by the thread that created it) from false -> true. This change
+    /// is observed by the calling thread as proof of successful thread-creation.
+    ///
+    /// Also validates that the (native) Thread-ID for the newly created Thread is different than the (native) Thread-ID
+    /// of that of the calling thread.
+    /// </summary>
+    [Fact]
+    public unsafe void CreateRemoteThreadEx_PseudoTest()
+    {
+        var result = false;
+        var dwNewThreadId = 0u;
+
+        using var hProcess = Kernel32.GetCurrentProcess();
+        using var hThread =
+                Kernel32.CreateRemoteThreadEx(
+                    hProcess.DangerousGetHandle(),
+                    null,
+                    UIntPtr.Zero,
+                    Kernel32Facts.threadProc,
+                    &result,
+                    Kernel32.CreateThreadFlags.None,
+                    null,
+                    &dwNewThreadId);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.True(result);
+        Assert.NotEqual((uint)Kernel32.GetCurrentThreadId(), dwNewThreadId);
+    }
+
+    [Fact]
+    public unsafe void GetCurrentThreadStackLimitsTest()
+    {
+        // Returns the low and high stack-limits of the running thread
+        //
+        // The parameter 'data' is assumed to be allocated by the caller and capable of
+        // carrying two ulong values.
+        unsafe uint ThreadStackLimitsThreadProc(void* data)
+        {
+            Kernel32.GetCurrentThreadStackLimits(out UIntPtr lowLimit, out UIntPtr highLimit);
+
+            ulong* limits = (ulong*)data;
+            limits[0] = (ulong)lowLimit;
+            limits[1] = (ulong)highLimit;
+
+            return 1;
+        }
+
+        const uint ThreadStackSize = 512 * 1024u;
+
+        var threadStartRoutine = new THREAD_START_ROUTINE(ThreadStackLimitsThreadProc);
+
+        var gcHandle = GCHandle.Alloc(threadStartRoutine); // Prevent premature GC of the delegate
+        try
+        {
+            ulong* limits = stackalloc ulong[2] { 0, 0 };
+            using var hThread =
+                Kernel32.CreateThread(
+                    null,
+                    new UIntPtr(ThreadStackSize),
+                    threadStartRoutine,
+                    limits,
+                    CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION,
+                    null);
+            Kernel32.WaitForSingleObject(hThread, -1);
+
+            Assert.Equal(ThreadStackSize, limits[1] - limits[0]);
+        }
+        finally
+        {
+            gcHandle.Free();
+        }
+    }
+
+    [Fact]
+    public unsafe void GetProcessHandleCountTest()
+    {
+        using var hProcess = Kernel32.GetCurrentProcess();
+
+        Assert.True(Kernel32.GetProcessHandleCount(hProcess, out uint handleCount));
+        Assert.NotEqual(0u, handleCount);
+    }
+
+    [Fact]
+    public unsafe void GetProcessIdOfThreadTest()
+    {
+        // Calls into GetProcessIdOfThread and returns the process-id
+        // Assumes that data contains enough allocated memory to
+        // return the process-id (i.e., a uint value)
+        unsafe uint GetProcessIdThreadProc(void* data)
+        {
+            using var hThread = Kernel32.GetCurrentThread();
+            var processId = Kernel32.GetProcessIdOfThread(hThread);
+
+            *(uint*)data = processId;
+
+            return 1;
+        }
+
+        var threadStartRoutine = new Kernel32.THREAD_START_ROUTINE(GetProcessIdThreadProc);
+
+        uint processId = 0;
+        using var hThread = Kernel32.CreateThread(
+            null,
+            UIntPtr.Zero,
+            threadStartRoutine,
+            &processId,
+            CreateThreadFlags.None,
+            null);
+        Kernel32.WaitForSingleObject(hThread, -1);
+
+        Assert.Equal((uint)Process.GetCurrentProcess().Id, processId);
+
+        GC.KeepAlive(threadStartRoutine); // Make sure that the delegate stays alive until the test is done
+    }
+
+    /// <summary>
+    /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and
+    /// <see cref="CreateRemoteThreadEx_PseudoTest"/> tests.
+    ///
+    /// Updates the boolean data pasesed in to true.
+    /// </summary>
+    /// <param name="data">
+    /// Data passed by the test. Contains a pointer to a boolean value.
+    /// </param>
+    /// <returns>
+    /// Returns 1.
+    /// </returns>
+    /// <remarks>See <see cref=" Kernel32.THREAD_START_ROUTINE"/> for general documentation</remarks>
+    private static unsafe uint CreateThread_Test_ThreadMain(void* data)
+    {
+        *(bool*)data = true;
+        return 1;
     }
 
     private ArraySegment<byte> GetRandomSegment(int size)

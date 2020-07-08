@@ -17,11 +17,6 @@ namespace PInvoke
         /// MONITORINFOEX structure is a superset of the MONITORINFO structure. The MONITORINFOEX
         /// structure adds a string member to contain a name for the display monitor.
         /// </summary>
-#if NETPORTABLE
-        [StructLayout(LayoutKind.Sequential)]
-#else
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-#endif
         public unsafe struct MONITORINFOEX
         {
             /// <summary>
@@ -59,13 +54,7 @@ namespace PInvoke
             /// </summary>
             public fixed char DeviceName[CCHDEVICENAME];
 
-            public static MONITORINFOEX Create()
-            {
-                var monitorIfo = default(MONITORINFOEX);
-                monitorIfo.cbSize = Marshal.SizeOf(typeof(MONITORINFOEX));
-
-                return monitorIfo;
-            }
+            public static MONITORINFOEX Create() => new MONITORINFOEX { cbSize = sizeof(MONITORINFOEX) };
         }
     }
 }

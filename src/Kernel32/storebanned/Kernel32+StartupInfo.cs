@@ -16,7 +16,6 @@ namespace PInvoke
         /// <summary>
         /// Specifies the window station, desktop, standard handles, and appearance of the main window for a process at creation time.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct STARTUPINFO
         {
@@ -135,17 +134,7 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="STARTUPINFO"/> struct.
             /// </summary>
             /// <returns>An initialized instance of the struct.</returns>
-            public static STARTUPINFO Create()
-            {
-                return new STARTUPINFO
-                {
-#if NETSTANDARD1_3_ORLATER
-                    cb = Marshal.SizeOf<STARTUPINFO>(),
-#else
-                    cb = Marshal.SizeOf(typeof(STARTUPINFO)),
-#endif
-                };
-            }
+            public static STARTUPINFO Create() => new STARTUPINFO { cb = sizeof(STARTUPINFO) };
         }
     }
 }

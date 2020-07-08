@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information for a console selection.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct CONSOLE_SELECTION_INFO
         {
             /// <summary>

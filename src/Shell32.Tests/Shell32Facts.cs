@@ -60,4 +60,17 @@ public class Shell32Facts
             ILFree(list);
         }
     }
+
+    [Fact]
+    public unsafe void CommandLineToArgvW_Test()
+    {
+        char** value = Shell32.CommandLineToArgvW("dotnet build /p:SomeValue=\"With A Space\"", out int length);
+
+        Assert.Equal(3, length);
+        Assert.Equal("dotnet", new string(value[0]));
+        Assert.Equal("build", new string(value[1]));
+        Assert.Equal("/p:SomeValue=With A Space", new string(value[2]));
+
+        Kernel32.LocalFree(value);
+    }
 }

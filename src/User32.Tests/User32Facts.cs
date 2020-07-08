@@ -150,7 +150,7 @@ public partial class User32Facts
     }
 
     [Fact]
-    public void MENUBARINFO_MarshalSizeAsExpected()
+    public unsafe void MENUBARINFO_MarshalSizeAsExpected()
     {
         MENUBARINFO info = default;
         int expectedSize = IntPtr.Size == 4 ? 0x20 : 0x30;

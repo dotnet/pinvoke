@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
 
     /// <content>
@@ -43,12 +44,7 @@ namespace PInvoke
             /// Create an instance with <see cref="Size" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="SP_DEVICE_INTERFACE_DATA" /> with it's <see cref="Size" /> member set.</returns>
-            public static SP_DEVICE_INTERFACE_DATA Create()
-            {
-                var result = default(SP_DEVICE_INTERFACE_DATA);
-                result.Size = Marshal.SizeOf(result);
-                return result;
-            }
+            public static unsafe SP_DEVICE_INTERFACE_DATA Create() => new SP_DEVICE_INTERFACE_DATA { Size = sizeof(SP_DEVICE_INTERFACE_DATA) };
         }
     }
 }

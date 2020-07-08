@@ -14,11 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a menu.
         /// </summary>
-#if NETPORTABLE
-        [StructLayout(LayoutKind.Sequential)]
-#else
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-#endif
         public struct MENUINFO
         {
             /// <summary>The size of the structure, in bytes.</summary>
@@ -54,7 +49,7 @@ namespace PInvoke
             /// Create a new instance of <see cref="MENUINFO"/> with <see cref="cbSize"/> set to the correct value.
             /// </summary>
             /// <returns>A new instance of <see cref="MENUINFO"/> with <see cref="cbSize"/> set to the correct value.</returns>
-            public MENUINFO Create() => new MENUINFO { cbSize = Marshal.SizeOf(typeof(MENUINFO)) };
+            public static unsafe MENUINFO Create() => new MENUINFO { cbSize = sizeof(MENUINFO) };
         }
     }
 }

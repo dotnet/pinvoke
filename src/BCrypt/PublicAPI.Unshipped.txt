@@ -1,0 +1,6 @@
+PInvoke.BCrypt.BCryptKeyDerivationFlags
+PInvoke.BCrypt.BCryptKeyDerivationFlags.BCRYPT_CAPI_AES_FLAG = 16 -> PInvoke.BCrypt.BCryptKeyDerivationFlags
+PInvoke.BCrypt.BCryptKeyDerivationFlags.None = 0 -> PInvoke.BCrypt.BCryptKeyDerivationFlags
+static PInvoke.BCrypt.BCryptKeyDerivation(PInvoke.BCrypt.SafeKeyHandle hKey, PInvoke.BCrypt.BCryptBufferDesc? pParameterList, byte[] pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.BCrypt.BCryptKeyDerivationFlags dwFlags) -> PInvoke.NTSTATUS
+static PInvoke.BCrypt.BCryptKeyDerivation(PInvoke.BCrypt.SafeKeyHandle hKey, System.IntPtr pParameterList, System.IntPtr pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.BCrypt.BCryptKeyDerivationFlags dwFlags) -> PInvoke.NTSTATUS
+static extern PInvoke.BCrypt.BCryptKeyDerivation(PInvoke.BCrypt.SafeKeyHandle hKey, PInvoke.BCrypt.BCryptBufferDesc* pParameterList, byte* pbDerivedKey, int cbDerivedKey, out int pcbResult, PInvoke.BCrypt.BCryptKeyDerivationFlags dwFlags) -> PInvoke.NTSTATUS

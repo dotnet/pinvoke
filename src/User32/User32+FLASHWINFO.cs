@@ -13,7 +13,6 @@ namespace PInvoke
         ///     Contains the flash status for a window and the number of times the system should flash the window. Used in
         ///     <see cref="FlashWindowEx" />.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct FLASHWINFO
         {
             /// <summary>The size of the structure, in bytes.</summary>
@@ -38,13 +37,7 @@ namespace PInvoke
             /// Create a new instance of <see cref="FLASHWINFO"/> with <see cref="cbSize"/> set to the correct value.
             /// </summary>
             /// <returns>A new instance of <see cref="FLASHWINFO"/> with <see cref="cbSize"/> set to the correct value.</returns>
-            public static FLASHWINFO Create()
-            {
-                return new FLASHWINFO
-                {
-                    cbSize = Marshal.SizeOf(typeof(FLASHWINFO))
-                };
-            }
+            public static unsafe FLASHWINFO Create() => new FLASHWINFO { cbSize = sizeof(FLASHWINFO) };
         }
     }
 }

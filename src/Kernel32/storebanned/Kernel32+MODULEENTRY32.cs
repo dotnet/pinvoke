@@ -17,7 +17,6 @@ namespace PInvoke
         /// <summary>
         /// Describes an entry from a list of the modules belonging to the specified process.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [SuppressMessage(
             "StyleCop.CSharp.MaintainabilityRules",
             "SA1401:Fields must be private",
@@ -112,11 +111,7 @@ namespace PInvoke
             {
                 return new MODULEENTRY32
                 {
-#if NETSTANDARD1_3_ORLATER
-                    dwSize = Marshal.SizeOf<MODULEENTRY32>(),
-#else
-                    dwSize = Marshal.SizeOf(typeof(MODULEENTRY32)),
-#endif
+                    dwSize = sizeof(MODULEENTRY32),
                     th32ModuleID = 1,
                 };
             }

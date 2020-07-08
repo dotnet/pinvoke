@@ -271,7 +271,7 @@ PInvoke.User32.LookupIconIdFromDirectoryExFlags
 PInvoke.User32.LookupIconIdFromDirectoryExFlags.LR_DEFAULTCOLOR = 0 -> PInvoke.User32.LookupIconIdFromDirectoryExFlags
 PInvoke.User32.LookupIconIdFromDirectoryExFlags.LR_MONOCHROME = 1 -> PInvoke.User32.LookupIconIdFromDirectoryExFlags
 PInvoke.User32.MENUITEMINFO
-PInvoke.User32.MENUITEMINFO.Create() -> PInvoke.User32.MENUITEMINFO
+static PInvoke.User32.MENUITEMINFO.Create() -> PInvoke.User32.MENUITEMINFO
 PInvoke.User32.MENUITEMINFO.MENUITEMINFO() -> void
 PInvoke.User32.MENUITEMINFO.cbSize -> int
 PInvoke.User32.MENUITEMINFO.cch -> int
@@ -2088,7 +2088,6 @@ PInvoke.User32.MENUBARINFO.hMenu -> System.IntPtr
 PInvoke.User32.MENUBARINFO.hwndMenu -> System.IntPtr
 PInvoke.User32.MENUBARINFO.rcBar -> PInvoke.RECT
 PInvoke.User32.MENUINFO
-PInvoke.User32.MENUINFO.Create() -> PInvoke.User32.MENUINFO
 PInvoke.User32.MENUINFO.MENUINFO() -> void
 PInvoke.User32.MENUINFO.cbSize -> int
 PInvoke.User32.MENUINFO.cyMax -> uint
@@ -2198,6 +2197,7 @@ static PInvoke.User32.LoadCursor(System.IntPtr hInstance, char[] lpCursorName) -
 static PInvoke.User32.LoadImage(System.IntPtr hInst, System.IntPtr name, PInvoke.User32.ImageType type, int cx, int cy, PInvoke.User32.LoadImageFlags fuLoad) -> System.IntPtr
 static PInvoke.User32.LoadImage(System.IntPtr hInst, char[] name, PInvoke.User32.ImageType type, int cx, int cy, PInvoke.User32.LoadImageFlags fuLoad) -> System.IntPtr
 static PInvoke.User32.MENUBARINFO.Create() -> PInvoke.User32.MENUBARINFO
+static PInvoke.User32.MENUINFO.Create() -> PInvoke.User32.MENUINFO
 static PInvoke.User32.MsgWaitForMultipleObjectsEx(uint nCount, System.IntPtr pHandles, uint dwMilliseconds, PInvoke.User32.WakeMask dwWakeMask, PInvoke.User32.MsgWaitForMultipleObjectsExFlags dwFlags) -> uint
 static PInvoke.User32.MsgWaitForMultipleObjectsEx(uint nCount, System.IntPtr[] pHandles, uint dwMilliseconds, PInvoke.User32.WakeMask dwWakeMask, PInvoke.User32.MsgWaitForMultipleObjectsExFlags dwFlags) -> uint
 static PInvoke.User32.SetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, PInvoke.User32.MENUITEMINFO lpmii) -> bool

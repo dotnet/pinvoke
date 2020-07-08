@@ -16,7 +16,6 @@ namespace PInvoke
         /// <summary>
         /// The UNICODE_STRING structure is used to define Unicode strings.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct UNICODE_STRING
         {

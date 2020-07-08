@@ -16,7 +16,6 @@ namespace PInvoke
         /// <summary>
         /// Describes an entry from a list of the processes residing in the system address space when a snapshot was taken.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [SuppressMessage(
             "StyleCop.CSharp.MaintainabilityRules",
             "SA1401:Fields must be private",
@@ -105,17 +104,7 @@ namespace PInvoke
             /// with <see cref="dwSize" /> set to the correct value.
             /// </summary>
             /// <returns>An instance of <see cref="PROCESSENTRY32"/>.</returns>
-            public static PROCESSENTRY32 Create()
-            {
-                return new PROCESSENTRY32
-                {
-#if NETSTANDARD1_3_ORLATER
-                    dwSize = Marshal.SizeOf<PROCESSENTRY32>(),
-#else
-                    dwSize = Marshal.SizeOf(typeof(PROCESSENTRY32)),
-#endif
-                };
-            }
+            public static PROCESSENTRY32 Create() => new PROCESSENTRY32 { dwSize = sizeof(PROCESSENTRY32) };
         }
     }
 }

@@ -24,7 +24,6 @@ PInvoke.SetupApi.SP_DEVINFO_DATA.ClassGuid -> System.Guid
 PInvoke.SetupApi.SP_DEVINFO_DATA.DevInst -> uint
 PInvoke.SetupApi.SP_DEVINFO_DATA.Reserved -> System.IntPtr
 PInvoke.SetupApi.SP_DEVINFO_DATA.SP_DEVINFO_DATA() -> void
-PInvoke.SetupApi.SP_DEVINFO_DATA.Size -> int
 PInvoke.SetupApi.SafeDeviceInfoSetHandle
 PInvoke.SetupApi.SafeDeviceInfoSetHandle.SafeDeviceInfoSetHandle() -> void
 PInvoke.SetupApi.SafeDeviceInfoSetHandle.SafeDeviceInfoSetHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void

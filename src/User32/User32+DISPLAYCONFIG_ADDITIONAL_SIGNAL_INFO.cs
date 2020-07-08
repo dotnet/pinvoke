@@ -16,7 +16,6 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
         public struct DISPLAYCONFIG_ADDITIONAL_SIGNAL_INFO
         {
             private const int vSyncFreqDividerBitMask = 0x3f;

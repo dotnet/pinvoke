@@ -1,0 +1,23 @@
+PInvoke.User32.DISPLAY_DEVICE
+PInvoke.User32.DISPLAY_DEVICE.DISPLAY_DEVICE() -> void
+PInvoke.User32.DISPLAY_DEVICE.DeviceID -> char*
+PInvoke.User32.DISPLAY_DEVICE.DeviceKey -> char*
+PInvoke.User32.DISPLAY_DEVICE.DeviceName -> char*
+PInvoke.User32.DISPLAY_DEVICE.DeviceString -> char*
+PInvoke.User32.DISPLAY_DEVICE.StateFlags -> PInvoke.User32.DisplayDeviceFlags
+PInvoke.User32.DISPLAY_DEVICE.cb -> uint
+PInvoke.User32.DisplayDeviceFlags
+PInvoke.User32.DisplayDeviceFlags.DISPLAY_DEVICE_ACTIVE = 1 -> PInvoke.User32.DisplayDeviceFlags
+PInvoke.User32.DisplayDeviceFlags.DISPLAY_DEVICE_MIRRORING_DRIVER = 8 -> PInvoke.User32.DisplayDeviceFlags
+PInvoke.User32.DisplayDeviceFlags.DISPLAY_DEVICE_MODESPRUNED = 134217728 -> PInvoke.User32.DisplayDeviceFlags
+PInvoke.User32.DisplayDeviceFlags.DISPLAY_DEVICE_PRIMARY_DEVICE = 4 -> PInvoke.User32.DisplayDeviceFlags
+PInvoke.User32.DisplayDeviceFlags.DISPLAY_DEVICE_REMOVABLE = 32 -> PInvoke.User32.DisplayDeviceFlags
+PInvoke.User32.DisplayDeviceFlags.DISPLAY_DEVICE_VGA_COMPATIBLE = 16 -> PInvoke.User32.DisplayDeviceFlags
+PInvoke.User32.EnumDisplayDevicesFlags
+PInvoke.User32.EnumDisplayDevicesFlags.EDD_GET_DEVICE_INTERFACE_NAME = 1 -> PInvoke.User32.EnumDisplayDevicesFlags
+static PInvoke.User32.DISPLAY_DEVICE.Create() -> PInvoke.User32.DISPLAY_DEVICE
+static PInvoke.User32.EnumDisplayDevices(string lpDevice, uint iDevNum, System.IntPtr lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
+static PInvoke.User32.EnumDisplayDevices(string lpDevice, uint iDevNum, ref PInvoke.User32.DISPLAY_DEVICE lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
+static extern PInvoke.User32.EnumDisplayDevices(string lpDevice, uint iDevNum, PInvoke.User32.DISPLAY_DEVICE* lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
+static extern PInvoke.User32.UnregisterClass(string lpClassName, System.IntPtr hInstance) -> bool
+static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED -> System.IntPtr

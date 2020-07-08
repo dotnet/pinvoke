@@ -143,6 +143,18 @@ namespace PInvoke
         public static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = new IntPtr(-4);
 
         /// <summary>
+        /// DPI unaware with improved quality of GDI-based content. This mode behaves similarly to <see cref="DPI_AWARENESS_CONTEXT_UNAWARE" />,
+        /// but also enables the system to automatically improve the rendering quality of text and other GDI-based primitives when
+        /// the window is displayed on a high-DPI monitor.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED" /> was introduced in the October 2018 update
+        /// of Windows 10 (also known as version 1809).
+        /// For more details, see <see href="https://blogs.windows.com/buildingapps/2017/05/19/improving-high-dpi-experience-gdi-based-desktop-apps/#Uwv9gY1SvpbgQ4dK.97">Improving the high-DPI experience in GDI-based Desktop apps</see>
+        /// </remarks>
+        public static readonly IntPtr DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED = new IntPtr(-5);
+
+        /// <summary>
         /// A special windows handle used to indicate to <see cref="SendMessage(IntPtr, WindowMessage, IntPtr, IntPtr)" />
         /// that the message is sent to all top-level windows in the system, including disabled or invisible unowned windows,
         /// overlapped windows, and pop-up windows.
@@ -170,7 +182,7 @@ namespace PInvoke
         /// The hook function processes the event notifications as required. Clients install the hook function and request specific types
         /// of event notifications by calling <see cref="SetWinEventHook(WindowsEventHookType, WindowsEventHookType, IntPtr, IntPtr, int, int, WindowsEventHookFlags)"/>.
         /// </summary>
-        /// <param name="hWinEventHook">Handle to an event hook function. This value is returned by SetWinEventHook when the hook function
+        /// <param name="hWinEventHook">Handle to an event hook function. This value is returned by <see cref="SetWinEventHook(WindowsEventHookType, WindowsEventHookType, IntPtr, IntPtr, int, int, WindowsEventHookFlags)"/> when the hook function
         /// is installed and is specific to each instance of the hook function.</param>
         /// <param name="event">Specifies the event that occurred. This value is one of the <see cref="WindowsEventHookType"/> constants.</param>
         /// <param name="hwnd">Handle to the window that generates the event, or NULL if no window is associated with the event.
@@ -1620,9 +1632,68 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowDisplayAffinity(IntPtr hWnd, out int dwAffinity);
 
+        /// <summary>
+        /// Enumerates display monitors (including invisible pseudo-monitors associated with the mirroring drivers)
+        /// that intersect a region formed by the intersection of a specified clipping rectangle and the visible region of a device context.
+        /// EnumDisplayMonitors calls an application-defined <see cref="MONITORENUMPROC"/> callback function once for each monitor that is enumerated. Note that <see cref="GetSystemMetrics(SystemMetric)"/> counts only the display monitors.
+        /// </summary>
+        /// <param name="hdc">
+        /// A handle to a display device context that defines the visible region of interest.
+        /// If this parameter is NULL, the hdcMonitor parameter passed to the callback function will be NULL,
+        /// and the visible region of interest is the virtual screen that encompasses all the displays on the desktop.
+        /// </param>
+        /// <param name="lprcClip">
+        /// A pointer to a RECT structure that specifies a clipping rectangle.
+        /// The region of interest is the intersection of the clipping rectangle with the visible region specified by hdc.
+        /// If hdc is non-NULL, the coordinates of the clipping rectangle are relative to the origin of the hdc.If hdc is NULL, the coordinates are virtual-screen coordinates.
+        /// This parameter can be NULL if you don't want to clip the region specified by hdc.
+        /// </param>
+        /// <param name="lpfnEnum">A pointer to a <see cref="MONITORENUMPROC"/> application-defined callback function.</param>
+        /// <param name="dwData">Application-defined data that EnumDisplayMonitors passes directly to the MonitorEnumProc function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        /// <remarks>
+        /// See: https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumdisplaymonitors#remarks.
+        /// </remarks>
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EnumDisplayMonitors(IntPtr hdc, RECT* lprcClip, MONITORENUMPROC lpfnEnum, void* dwData);
+
+        /// <summary>
+        /// Lets you obtain information about the display devices in the current session.
+        /// </summary>
+        /// <param name="lpDevice">A pointer to the device name. If <c>NULL</c>, function returns information for the display adapter(s) on the machine, based on <paramref name="iDevNum"/>.</param>
+        /// <param name="iDevNum">
+        /// An index value that specifies the display device of interest.
+        /// The operating system identifies each display device in the current session with an index value.
+        /// The index values are consecutive integers, starting at 0. If the current session has three display devices, for example, they are specified by the index values 0, 1, and 2.
+        /// </param>
+        /// <param name="lpDisplayDevice">
+        /// A pointer to a <see cref="DISPLAY_DEVICE"/> structure that receives information about the display device specified by <paramref name="iDevNum"/>.
+        /// Before calling <see cref="EnumDisplayDevices(string, uint, DISPLAY_DEVICE*, EnumDisplayDevicesFlags)"/>, you must initialize the member <see cref="DISPLAY_DEVICE.cb"/> to the size, in bytes, of <see cref="DISPLAY_DEVICE"/>.
+        /// </param>
+        /// <param name="dwFlags">
+        /// Set this flag to <see cref="EnumDisplayDevicesFlags.EDD_GET_DEVICE_INTERFACE_NAME"/> to retrieve the device interface name for <c>GUID_DEVINTERFACE_MONITOR</c>, which is registered by the operating system on a per monitor basis.
+        /// The value is placed in the <see cref="DISPLAY_DEVICE.DeviceID"/> structure returned in <paramref name="lpDisplayDevice"/>.
+        /// The resulting device interface name can be used with SetupAPI functions and serves as a link between GDI monitor devices and SetupAPI monitor devices.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// The function fails if <paramref name="iDevNum"/> is greater than the largest device index.
+        /// </returns>
+        /// <remarks>
+        /// See https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-enumdisplaydevicesa#remarks.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode, EntryPoint = "EnumDisplayDevicesW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool EnumDisplayDevices(
+            [MarshalAs(UnmanagedType.LPWStr)] string lpDevice,
+            uint iDevNum,
+            [Friendly(FriendlyFlags.Bidirectional)] DISPLAY_DEVICE* lpDisplayDevice,
+            EnumDisplayDevicesFlags dwFlags);
 
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -1686,6 +1757,27 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.U2)]
         public static extern short RegisterClassEx(ref WNDCLASSEX lpwcx);
+
+        /// <summary>
+        /// Unregisters a window class, freeing the memory required for the class.
+        /// </summary>
+        /// <param name="lpClassName">
+        /// A null-terminated string or a class atom. If lpClassName is a string, it specifies the window class name.
+        /// This class name must have been registered by a previous call to the <see cref="RegisterClass"/> or <see cref="RegisterClassEx"/> function.
+        /// System classes, such as dialog box controls, cannot be unregistered.
+        /// If this parameter is an atom, it must be a class atom created by a previous call to the <see cref="RegisterClass"/> or <see cref="RegisterClassEx"/> function.
+        /// The atom must be in the low-order word of lpClassName; the high-order word must be zero.
+        /// </param>
+        /// <param name="hInstance">A handle to the instance of the module that created the class.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the class could not be found or if a window still exists that was created with the class, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool UnregisterClass(
+            string lpClassName,
+            IntPtr hInstance);
 
         /// <summary>
         /// Retrieves the name of the format from the clipboard.

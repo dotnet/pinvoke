@@ -7,6 +7,8 @@
     Restore NuGet packages.
 .Parameter Build
     Build the entire project. Requires that -Restore is or has been executed.
+.Parameter Rebuild
+    Build the entire project with the Rebuild target. This may be slower than -Build but ensures you'll see any build warnings from prior builds. Requires that -Restore is or has been executed.
 .Parameter Test
     Run all built tests.
 .Parameter Configuration
@@ -22,6 +24,7 @@
 Param(
     [switch]$Restore,
     [switch]$Build,
+    [switch]$Rebuild,
     [switch]$Test,
     [Parameter()][ValidateSet('debug', 'release')]
     [string]$Configuration = $env:BUILDCONFIGURATION,
@@ -57,7 +60,7 @@ $PackageRestoreRoot = if ($env:NUGET_PACKAGES) { $env:NUGET_PACKAGES } else { Jo
 $MSBuildCommand = Get-Command MSBuild.exe -ErrorAction SilentlyContinue
 
 Function Get-ExternalTools {
-    if ($Build -and !$MSBuildCommand) {
+    if (($Build -or $Rebuild) -and !$MSBuildCommand) {
         Write-Error "Unable to find MSBuild.exe. Make sure you're running in a VS Developer Prompt."
         exit 1;
     }
@@ -70,9 +73,11 @@ if ($Restore -and $PSCmdlet.ShouldProcess($SolutionFile, "Restore packages")) {
     & "$PSScriptRoot\init.ps1"
 }
 
-if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
+if (($Build -or $Rebuild) -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
+    $msbuildTarget = "build"
+    if ($Rebuild) { $msbuildTarget = "rebuild" }
     $buildArgs = @()
-    $buildArgs += $SolutionFile,'/nologo','/nr:false','/m','/v:minimal','/t:build,pack'
+    $buildArgs += $SolutionFile,'/nologo','/nr:false','/m','/v:minimal',"/t:$msbuildTarget,pack"
     $buildArgs += "/p:Configuration=$Configuration"
     $buildArgs += "/clp:ForceNoAlign;Summary"
     $buildArgs += '/fl','/flp:verbosity=normal;logfile=msbuild.log','/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal','/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal'
@@ -111,8 +116,6 @@ if ($Build -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) {
 
 if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
     $TestAssemblies = Get-ChildItem -Recurse "$BinTestsFolder\*.Tests.dll" |? { $_.Directory -notlike '*netcoreapp*' }
-    Write-Output "Testing..."
-    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.1/tools/net472/xunit.console.x86.exe'
     $xunitArgs = @()
     $xunitArgs += $TestAssemblies
     $xunitArgs += "-html","$BinTestsFolder\testresults.html","-xml","$BinTestsFolder\testresults.xml"
@@ -121,5 +124,23 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
         $xunitArgs += "-parallel","all"
     }
 
+    Write-Host "Testing x86..." -ForegroundColor Yellow
+    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.1/tools/net472/xunit.console.x86.exe'
     & $xunitRunner $xunitArgs
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "x86 test run returned exit code $LASTEXITCODE"
+        $testsFailed = $true
+    }
+
+    Write-Host "Testing x64..." -ForegroundColor Yellow
+    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.1/tools/net472/xunit.console.exe'
+    & $xunitRunner $xunitArgs
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "x64 test run returned exit code $LASTEXITCODE"
+        $testsFailed = $true
+    }
+
+    if ($testsFailed) {
+        exit 4
+    }
 }

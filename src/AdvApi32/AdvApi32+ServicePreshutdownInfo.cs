@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Contains preshutdown settings
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServicePreshutdownInfo
         {
             /// <summary>

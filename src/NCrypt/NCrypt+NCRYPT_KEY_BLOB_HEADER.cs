@@ -16,7 +16,6 @@ namespace PInvoke
         /// <summary>
         /// Contains a key BLOB. This structure is used by the <see cref="NCryptExportKey(SafeKeyHandle, SafeKeyHandle, string, NCryptBufferDesc*, byte[], int, out int, NCryptExportKeyFlags)"/> and <see cref="NCryptImportKey(SafeProviderHandle, SafeKeyHandle, string, NCryptBufferDesc*, out SafeKeyHandle, byte*, int, NCryptExportKeyFlags)"/> functions.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct NCRYPT_KEY_BLOB_HEADER
         {
             /// <summary>
@@ -53,17 +52,7 @@ namespace PInvoke
             /// with the <see cref="cbSize"/> field set appropriately.
             /// </summary>
             /// <returns>An initialized instance of the struct.</returns>
-            public static NCRYPT_KEY_BLOB_HEADER Create()
-            {
-                return new NCRYPT_KEY_BLOB_HEADER
-                {
-#if NETSTANDARD1_3_ORLATER || NETFX_CORE
-                    cbSize = Marshal.SizeOf<NCRYPT_KEY_BLOB_HEADER>(),
-#else
-                    cbSize = Marshal.SizeOf(typeof(NCRYPT_KEY_BLOB_HEADER)),
-#endif
-                };
-            }
+            public static unsafe NCRYPT_KEY_BLOB_HEADER Create() => new NCRYPT_KEY_BLOB_HEADER { cbSize = sizeof(NCRYPT_KEY_BLOB_HEADER) };
         }
     }
 }

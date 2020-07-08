@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// A key blob format for transporting RSA keys.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_RSAKEY_BLOB
         {
             /// <summary>

@@ -4,6 +4,7 @@
 namespace PInvoke
 {
     using System;
+    using System.IO;
 #if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
     using System.Runtime.ConstrainedExecution;
 #endif
@@ -376,6 +377,80 @@ namespace PInvoke
             OVERLAPPED* lpOverlapped);
 
         /// <summary>
+        /// Moves the file pointer of the specified file.
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file.
+        /// The file handle must be created with the GENERIC_READ or GENERIC_WRITE access right.
+        /// </param>
+        /// <param name="liDistanceToMove">
+        /// The number of bytes to move the file pointer. A positive value moves the pointer forward in the file and a negative value moves the file pointer backward.
+        /// </param>
+        /// <param name="lpNewFilePointer">
+        /// A pointer to a variable to receive the new file pointer. If this parameter is <see langword="null"/>, the new file pointer is not returned.
+        /// </param>
+        /// <param name="dwMoveMethod">
+        /// The starting point for the file pointer move.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-setfilepointerex"/>
+        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetFilePointerEx(
+            SafeObjectHandle hFile,
+            long liDistanceToMove,
+            out long lpNewFilePointer,
+            SeekOrigin dwMoveMethod);
+
+        /// <summary>
+        /// Moves the file pointer of the specified file.
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file.
+        /// </param>
+        /// <param name="lDistanceToMove">
+        /// The low order 32-bits of a signed value that specifies the number of bytes to move the file pointer.
+        /// </param>
+        /// <param name="lpDistanceToMoveHigh">
+        /// A pointer to the high order 32-bits of the signed 64-bit distance to move.
+        /// If you do not need the high order 32-bits, this pointer must be set to <see langword="null"/>.
+        /// When not <see langword="null"/>, this parameter also receives the high order DWORD of the new value of the file pointer.
+        /// </param>
+        /// <param name="dwMoveMethod">
+        /// The starting point for the file pointer move.
+        /// </param>
+        /// <returns>
+        /// <para>
+        ///     If the function succeeds and <paramref name="lpDistanceToMoveHigh"/> is <see langword="null"/>,
+        ///     the return value is the low-order DWORD of the new file pointer.
+        ///     If the function returns a value other than INVALID_SET_FILE_POINTER, the call to <see cref="SetFilePointer(SafeObjectHandle, int, int*, SeekOrigin)"/> has succeeded.
+        ///     You do not need to call <see cref="GetLastError"/>.
+        /// </para>
+        /// <para>
+        ///     If function succeeds and <paramref name="lpDistanceToMoveHigh"/> is not <see langword="null"/>, the return value is the low-order DWORD
+        ///     of the new file pointer and <paramref name="lpDistanceToMoveHigh "/> contains the high order DWORD of the new file pointer.
+        /// </para>
+        /// <para>
+        ///     If the function fails, the return value is INVALID_SET_FILE_POINTER. To get extended error information, call <see cref="GetLastError"/>.
+        /// </para>
+        /// <para>
+        ///     If a new file pointer is a negative value, the function fails, the file pointer is not moved, and the code returned by <see cref="GetLastError"/> is ERROR_NEGATIVE_SEEK.
+        /// </para>
+        /// <para>
+        ///     If <paramref name="lpDistanceToMoveHigh"/> is <see langword="null"/> and the new file position does not fit in a 32-bit value, the function fails and returns INVALID_SET_FILE_POINTER.
+        /// </para>
+        /// </returns>
+        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        public static unsafe extern int SetFilePointer(
+            SafeObjectHandle hFile,
+            int lDistanceToMove,
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpDistanceToMoveHigh,
+            SeekOrigin dwMoveMethod);
+
+        /// <summary>
         /// Suspends the specified thread.
         /// A 64-bit application can suspend a WOW64 thread using the Wow64SuspendThread function (desktop only).
         /// </summary>
@@ -564,8 +639,9 @@ namespace PInvoke
         /// </summary>
         /// <param name="lpVersionInformation">
         /// A pointer to an OSVERSIONINFOEX structure containing the operating system version requirements to compare. The <paramref name="dwTypeMask"/>
-        /// parameter indicates the members of this structure that contain information to compare.You must set the
-        /// <see cref="OSVERSIONINFOEX.dwOSVersionInfoSize"/> member of this structure to <code>Marshal.SizeOf(typeof(OSVERSIONINFOEX))</code>. You must
+        /// parameter indicates the members of this structure that contain information to compare. You must set the
+        /// <see cref="OSVERSIONINFOEX.dwOSVersionInfoSize"/> member of this structure to <code>Marshal.SizeOf(typeof(OSVERSIONINFOEX))</code>
+        /// or create it with <see cref="OSVERSIONINFOEX.Create"/>. You must
         /// also specify valid data for the members indicated by <paramref name="dwTypeMask"/>. The function ignores structure members for which the
         /// corresponding <paramref name="dwTypeMask"/> bit is not set
         /// </param>
@@ -700,6 +776,230 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_errorhandling_l1_1_1)]
         public static extern ErrorModes SetErrorMode(ErrorModes uMode);
+
+        /// <summary>
+        /// Retrieves information about the file system and volume associated with the specified root directory.
+        /// </summary>
+        /// <param name="lpRootPathName">
+        /// <para>
+        /// A pointer to a string that contains the root directory of the volume to be described.
+        /// </para>
+        /// <para>
+        /// If this parameter is NULL, the root of the current directory is used. A trailing backslash is required.
+        /// For example, you specify <c>\\MyServer\MyShare</c> as <c>"\\MyServer\MyShare\"</c>, or the C drive as
+        /// <c>"C:\"</c>.
+        /// </para>
+        /// </param>
+        /// <param name="lpVolumeNameBuffer">
+        /// A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the nVolumeNameSize parameter.
+        /// </param>
+        /// <param name="nVolumeNameSize">
+        /// The length of a volume name buffer, in TCHARs. The maximum buffer size is MAX_PATH+1.
+        /// This parameter is ignored if the volume name buffer is not supplied.
+        /// </param>
+        /// <param name="lpVolumeSerialNumber">
+        /// <para>
+        /// A pointer to a variable that receives the volume serial number.
+        /// </para>
+        /// <para>
+        /// This parameter can be NULL if the serial number is not required.
+        /// </para>
+        /// <para>
+        /// This function returns the volume serial number that the operating system assigns when a hard disk i
+        /// formatted. To programmatically obtain the hard disk's serial number that the manufacturer assigns, use
+        /// the Windows Management Instrumentation (WMI) Win32_PhysicalMedia property SerialNumber.
+        /// </para>
+        /// </param>
+        /// <param name="lpMaximumComponentLength">
+        /// <para>
+        /// A pointer to a variable that receives the maximum length, in TCHARs, of a file name component that a specified file system supports.
+        /// </para>
+        /// <para>
+        /// A file name component is the portion of a file name between backslashes.
+        /// </para>
+        /// <para>
+        /// The value that is stored in the variable that *lpMaximumComponentLength points to is used to indicate
+        /// that a specified file system supports long names. For example, for a FAT file system that supports long
+        /// names, the function stores the value 255, rather than the previous 8.3 indicator. Long names can also be
+        /// supported on systems that use the NTFS file system.
+        /// </para>
+        /// </param>
+        /// <param name="lpFileSystemFlags">
+        /// A pointer to a variable that receives flags associated with the specified file system.
+        /// </param>
+        /// <param name="lpFileSystemNameBuffer">
+        /// A pointer to a buffer that receives the name of the file system, for example, the FAT file system or
+        /// the NTFS file system. The buffer size is specified by the nFileSystemNameSize parameter.
+        /// </param>
+        /// <param name="nFileSystemNameSize">
+        /// <para>
+        /// The length of the file system name buffer, in TCHARs. The maximum buffer size is MAX_PATH+1.
+        /// </para>
+        /// <para>
+        /// This parameter is ignored if the file system name buffer is not supplied.
+        /// </para>
+        /// </param>
+        /// <returns>
+        /// If all the requested information is retrieved, the return value is nonzero.
+        /// </returns>
+        [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetVolumeInformation(
+            string lpRootPathName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpVolumeNameBuffer,
+            int nVolumeNameSize,
+            out uint lpVolumeSerialNumber,
+            out int lpMaximumComponentLength,
+            out FileSystemFlags lpFileSystemFlags,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFileSystemNameBuffer,
+            int nFileSystemNameSize);
+
+        /// <summary>
+        /// Flushes the instruction cache for the specified process.
+        /// </summary>
+        /// <param name="hProcess">A handle to a process whose instruction cache is to be flushed.</param>
+        /// <param name="lpcBaseAddress">A pointer to the base of the region to be flushed. This parameter can be null.</param>
+        /// <param name="dwSize">The size of the region to be flushed if the <paramref name="lpcBaseAddress"/> parameter is not null, in bytes.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// Applications should call <see cref="FlushInstructionCache(SafeObjectHandle, void*, UIntPtr)"/> if they generate or modify code in memory.
+        /// The CPU cannot detect the change, and may execute the old code it cached.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool FlushInstructionCache(
+            SafeObjectHandle hProcess,
+            void* lpcBaseAddress,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwSize);
+
+        /// <summary>
+        /// Flushes the write queue of each processor that is running a thread of the current process.
+        /// </summary>
+        /// <remarks>
+        /// The function generates an interprocessor interrupt (IPI) to all processors that are part of the current process affinity.
+        /// It guarantees the visibility of write operations performed on one processor to the other processors.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static extern void FlushProcessWriteBuffers();
+
+        /// <summary>
+        /// Retrieves the number of the processor the current thread was running on during the call to this function.
+        /// </summary>
+        /// <returns>The function returns the current processor number.</returns>
+        /// <remarks>
+        /// This function is used to provide information for estimating process performance.
+        /// On systems with more than 64 logical processors, the <see cref="GetCurrentProcessorNumber"/> function returns the processor number within the processor
+        /// group to which the logical processor is assigned.Use the <see cref="GetCurrentProcessorNumberEx(PROCESSOR_NUMBER*)"/> function to retrieve the processor group and number of the
+        /// current processor.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static extern uint GetCurrentProcessorNumber();
+
+        /// <summary>
+        /// Retrieves the processor group and number of the logical processor in which the calling thread is running.
+        /// </summary>
+        /// <param name="ProcNumber">
+        /// A pointer to a <see cref="PROCESSOR_NUMBER"/> structure that receives the processor group to which the logical
+        /// processor is assigned and the number of the logical processor within its group
+        /// </param>
+        /// <remarks>
+        /// If the function succeeds, the <paramref name="ProcNumber"/> parameter contains the group and processor number of the processor on which
+        /// the calling thread is running.
+        ///
+        /// To compile an application that uses this function in C/C++, set _WIN32_WINNT >= 0x0601. This corresponds to a min. platform target
+        /// of Windows 7/Windows Server 2008 R2 for this function to be available.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static unsafe extern void GetCurrentProcessorNumberEx(
+            [Friendly(FriendlyFlags.Out)] PROCESSOR_NUMBER* ProcNumber);
+
+        /// <summary>
+        /// Retrieves a pseudo handle for the calling thread.
+        /// </summary>
+        /// <returns>The return value is a pseudo handle for the current thread.</returns>
+        /// <remarks>
+        /// A pseudo handle is a special constant that is interpreted as the current thread handle. The calling thread can use this handle to specify itself
+        /// whenever a thread handle is required. Pseudo handles are not inherited by child processes.
+        ///
+        /// This handle has the THREAD_ALL_ACCESS access right to the thread object.
+        ///
+        /// Windows Server 2003 and Windows XP:  This handle has the maximum access allowed by the security descriptor of the thread to the primary token of
+        /// the process.
+        ///
+        /// The function cannot be used by one thread to create a handle that can be used by other threads to refer to the first thread.The handle is always
+        /// interpreted as referring to the thread that is using it.A thread can create a "real" handle to itself that can be used by other threads, or
+        /// inherited by other processes, by specifying the pseudo handle as the source handle in a call to the DuplicateHandle function.
+        ///
+        /// The pseudo handle need not be closed when it is no longer needed.Calling the <see cref="CloseHandle(IntPtr)"/> function with this handle has no effect. If the pseudo
+        /// handle is duplicated by DuplicateHandle, the duplicate handle must be closed.
+        ///
+        /// Do not create a thread while impersonating a security context. The call will succeed, however the newly created thread will have reduced access
+        /// rights to itself when calling GetCurrentThread.The access rights granted this thread will be derived from the access rights the impersonated user
+        /// has to the process.Some access rights including THREAD_SET_THREAD_TOKEN and THREAD_GET_CONTEXT may not be present, leading to unexpected failures.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static extern SafeObjectHandle GetCurrentThread();
+
+        /// <summary>
+        /// Retrieves the boundaries of the stack that was allocated by the system for the current thread.
+        /// </summary>
+        /// <param name="LowLimit">A pointer variable that receives the lower boundary of the current thread stack.</param>
+        /// <param name="HighLimit">A pointer variable that receives the upper boundary of the current thread stack.</param>
+        /// <remarks>
+        /// It is possible for user-mode code to execute in stack memory that is outside the region allocated by the system when the thread was created.
+        /// Callers can use the GetCurrentThreadStackLimits function to verify that the current stack pointer is within the returned limits.
+        ///
+        /// To compile an application (C, C++) that uses this function, set _WIN32_WINNT >= 0x0602. This corresponds to a min. platform
+        /// requirement of Windows 8/Windows Server 2012 for using this function.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1)]
+        public static unsafe extern void GetCurrentThreadStackLimits(
+            [Friendly(FriendlyFlags.NativeInt)] out UIntPtr LowLimit,
+            [Friendly(FriendlyFlags.NativeInt)] out UIntPtr HighLimit);
+
+        /// <summary>
+        /// Retrieves the priority class for the specified process. This value, together with the priority value of each thread of the process,
+        /// determines each thread's base priority level.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process.
+        ///
+        /// The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> or <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION"/> access
+        /// right.For more information,see  <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+        ///
+        /// Windows Server 2003 and Windows XP:  The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> access right.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the priority class of the specified process.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// Every thread has a base priority level determined by the thread's priority value and the priority class of its process. The operating system
+        /// uses the base priority level of all executable threads to determine which thread gets the next slice of CPU time. Threads are scheduled in a
+        /// round-robin fashion at each priority level, and only when there are no executable threads at a higher level will scheduling of threads at a
+        /// lower level take place.
+        ///
+        /// For a table that shows the base priority levels for each combination of priority class and thread priority value, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>
+        ///
+        /// Priority class is maintained by the executive, so all processes have a priority class that can be queried.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        public static extern ProcessPriorityClass GetPriorityClass(SafeObjectHandle hProcess);
+
+        /// <summary>
+        /// Retrieves information about the current system.
+        /// </summary>
+        /// <param name="lpSystemInfo">
+        /// A pointer to a <see cref="SYSTEM_INFO"/> structure that receives the information.
+        /// </param>
+        [DllImport(nameof(Kernel32))]
+        public static unsafe extern void GetNativeSystemInfo(
+            [Friendly(FriendlyFlags.Out)] SYSTEM_INFO* lpSystemInfo);
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,

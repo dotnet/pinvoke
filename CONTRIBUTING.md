@@ -20,6 +20,8 @@ Please send pull requests to add what you've come up with.
 
 ### How to build
 
+Run the init script at the root of the repo. Run `init -installlocality machine` from an elevated prompt.
+
 The `build.ps1` script at the root of this project will restore packages, build, and run tests.
 With the appropriate switch, this script will perform a subset of these functions.
 
@@ -138,6 +140,12 @@ Windows 8 as it does on newer Windows versions.
    searches for method names as they are found in the native libraries' documentation
    will always turn up results if they are defined by these packages.
  * Preserve the original parameter names.
+ * For flags used in parameters, use the same enum name as the docs/header file if it defined.
+   Where no enum name is given, we prefer to create an enum called *MethodName*Flags.
+   When the enum may be used by multiple p/invoke methods, give it a name that captures its scope
+   so that it makes sense to be used in any method that uses it.
+   If the names of the relevant constants all share a prefix, consider using that prefix as the
+   basis for the enum name.
 
 There is a tension between keeping names consistent between native and managed code,
 and conforming to common .NET naming patterns such as camelCase and PascalCase.
@@ -175,6 +183,10 @@ anything else found in native header files for these reasons:
  * When a native method accepts a pointer to a single value, you may optionally add this attribute to the
    parameter with more or less flags: `[Friendly(FriendlyFlags.In | FriendlyFlags.Optional)]` which leads
    to the code generator producing `struct?`, `ref struct`, or `ref struct?` overloads for that parameter.
+ * When using `bool`, remember that .NET defaults to treating that as a 4-byte integer,
+   which is equivalent to explicitly specifying `[MarshalAs(UnmanagedType.Bool)]` and is appropriate for the native `BOOL` type.
+   Use `UnmanagedType.U1` when native code uses just 1-byte for its boolean value.
+   [Learn more](https://docs.microsoft.com/en-us/visualstudio/code-quality/ca1414?view=vs-2019).
  * Prefer `enum` types over `int` or `uint` for flags. Generally, name flags enums as `METHODNAMEFlags`.
    For example: `CreateFileFlags` for the flags that are passed to `CreateFile`.
  * Use `IntPtr` for integers that change size based on process architecture (32-bit vs. 64-bit).
@@ -196,8 +208,13 @@ anything else found in native header files for these reasons:
 | `WPARAM`    | `IntPtr`  |
 | `LRESULT`   | `IntPtr`  |
 
+### Structs
 
-### Struct field types
+Tip: Avoid adding `[StructLayout(LayoutKind.Sequential)]` to your structs,
+as [this is the default in C#](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.structlayoutattribute?view=netcore-3.1#remarks) and thus just more verbose than necessary.
+You may need the attribute to add additional properties however, such as forcing a particular `Pack` property or `CharSet`.
+
+#### Field types
 
 When defining a struct, we should take care to make sure the struct is 'pinnable' (i.e. all fields must be
 value types rather than reference types.) Benefits of structs being pinnable include:
@@ -324,8 +341,11 @@ When you remove a member of the public API, build error RS0017 occurs.
 When you add a member to the public API, build warning RS0016 lets you know you need to
 update the PublicAPI.Unshipped.txt file with your new member. This is so that if your
 new API is removed later, it can generate an RS0017 error.
+
 Use the analyzer's automatic code fix in Visual Studio 2019 to update the file and
 include that file change in your commit.
+You must have `net45` selected as the target framework in the Visual Studio editor for the
+code fix to be offered.
 
 ### SafeHandles
 
@@ -341,5 +361,5 @@ A good example would be [`SafeHookHandle.cs`](src/User32.Desktop/User32+SafeHook
 [APISets]: https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx
 [APISets8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn505783(v=vs.85).aspx
 
-[PROCESSENTRY32]: https://github.com/dotnet/pinvoke/blob/master/src/Kernel32.Desktop/Kernel32%2BPROCESSENTRY32.cs
-[BCRYPT_ALGORITHM_IDENTIFIER]: https://github.com/dotnet/pinvoke/blob/master/src/BCrypt.Shared/BCrypt%2BBCRYPT_ALGORITHM_IDENTIFIER.cs
+[PROCESSENTRY32]: https://github.com/dotnet/pinvoke/blob/b0cb7c1698d92193c58ce32209de5236a4f6bc9d/src/Kernel32/storebanned/Kernel32%2BPROCESSENTRY32.cs#L81
+[BCRYPT_ALGORITHM_IDENTIFIER]: https://github.com/dotnet/pinvoke/blob/b0cb7c1698d92193c58ce32209de5236a4f6bc9d/src/BCrypt/BCrypt%2BBCRYPT_ALGORITHM_IDENTIFIER.cs#L18

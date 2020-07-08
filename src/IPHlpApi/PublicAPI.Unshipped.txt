@@ -1,0 +1,28 @@
+﻿PInvoke.IPHlpApi
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.LocalAddr.get -> System.Net.IPAddress
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.LocalPort.get -> int
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.MIB_TCPROW_OWNER_PID() -> void
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.RemoteAddr.get -> System.Net.IPAddress
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.RemotePort.get -> int
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.dwLocalAddr -> uint
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.dwLocalPort -> int
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.dwOwningPid -> uint
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.dwRemoteAddr -> uint
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.dwRemotePort -> int
+PInvoke.IPHlpApi.MIB_TCPROW_OWNER_PID.dwState -> System.Net.NetworkInformation.TcpState
+PInvoke.IPHlpApi.MIB_TCPTABLE_OWNER_PID
+PInvoke.IPHlpApi.MIB_TCPTABLE_OWNER_PID.MIB_TCPTABLE_OWNER_PID() -> void
+PInvoke.IPHlpApi.MIB_TCPTABLE_OWNER_PID.dwNumEntries -> uint
+PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_BASIC_ALL = 2 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_BASIC_CONNECTIONS = 1 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_BASIC_LISTENER = 0 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_MODULE_ALL = 8 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_MODULE_CONNECTIONS = 7 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_MODULE_LISTENER = 6 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_PID_ALL = 5 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_PID_CONNECTIONS = 4 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+PInvoke.IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_PID_LISTENER = 3 -> PInvoke.IPHlpApi.TCP_TABLE_CLASS
+static PInvoke.IPHlpApi.GetExtendedTcpTable(System.IntPtr pTcpTable, ref int pdwSize, bool bOrder, System.Net.Sockets.AddressFamily ulAf, PInvoke.IPHlpApi.TCP_TABLE_CLASS TableClass, uint Reserved) -> PInvoke.Win32ErrorCode
+static extern PInvoke.IPHlpApi.GetExtendedTcpTable(void* pTcpTable, ref int pdwSize, bool bOrder, System.Net.Sockets.AddressFamily ulAf, PInvoke.IPHlpApi.TCP_TABLE_CLASS TableClass, uint Reserved) -> PInvoke.Win32ErrorCode

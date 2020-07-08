@@ -1,0 +1,3 @@
+static PInvoke.AdvApi32.LookupPrivilegeValue(System.IntPtr lpSystemName, System.IntPtr lpName, System.IntPtr lpLuid) -> bool
+static PInvoke.AdvApi32.LookupPrivilegeValue(char[] lpSystemName, char[] lpName, out PInvoke.User32.LUID lpLuid) -> bool
+static extern PInvoke.AdvApi32.LookupPrivilegeValue(char* lpSystemName, char* lpName, PInvoke.User32.LUID* lpLuid) -> bool

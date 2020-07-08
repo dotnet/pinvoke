@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// The RTL_OSVERSIONINFOEXW structure contains operating system version information.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public unsafe partial struct OSVERSIONINFOEX
         {
             /// <summary>
@@ -83,14 +82,7 @@ namespace PInvoke
             /// the right pre-initialization for <see cref="dwOSVersionInfoSize"/>
             /// </summary>
             /// <returns>A newly initialzed instance of <see cref="OSVERSIONINFOEX"/></returns>
-            public static OSVERSIONINFOEX Create() => new OSVERSIONINFOEX
-            {
-#if NETSTANDARD1_3_ORLATER || NETFX_CORE
-                dwOSVersionInfoSize = Marshal.SizeOf<OSVERSIONINFOEX>()
-#else
-                dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))
-#endif
-            };
+            public static OSVERSIONINFOEX Create() => new OSVERSIONINFOEX { dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX) };
         }
     }
 }

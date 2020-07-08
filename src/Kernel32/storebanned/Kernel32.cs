@@ -158,6 +158,25 @@ namespace PInvoke
         public unsafe delegate bool EnumResLangProc(IntPtr hModule, char* lpType, char* lpName, LANGID wLanguage, void* lParam);
 
         /// <summary>
+        /// Points to a function that notifies the host that a thread has started to execute.
+        /// </summary>
+        /// <param name="lpThreadParameter">A pointer to the code that has started executing</param>
+        /// <returns>
+        /// The return value indicates the success or failure of this function.
+        /// The return value should never be set to STILL_ACTIVE (259), as noted in <see cref="GetExitCodeThread(IntPtr, out int)"/>.
+        /// </returns>
+        /// <remarks>
+        /// The function to which <see cref="THREAD_START_ROUTINE"/> points is a callback
+        /// function and must be implemented by the writer of the hosting application.
+        ///
+        /// Do not declare this callback function with a void return type and cast the function pointer to
+        /// a pointer to <see cref="THREAD_START_ROUTINE"/> when creating the thread.
+        /// Code that does this is common, but it can crash on 64-bit Windows.
+        /// </remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public unsafe delegate uint THREAD_START_ROUTINE(void* lpThreadParameter);
+
+        /// <summary>
         /// Generates simple tones on the speaker. The function is synchronous; it performs an alertable wait and does not return control to its caller until the sound finishes.
         /// </summary>
         /// <param name="frequency">The frequency of the sound, in hertz. This parameter must be in the range 37 through 32,767 (0x25 through 0x7FFF).</param>
@@ -2793,8 +2812,31 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [Obsolete("Use ReadProcessMemory(SafeObjectHandle, ...) instead")]
         public static unsafe extern bool ReadProcessMemory(
             IntPtr hProcess,
+            void* lpBaseAddress,
+            void* lpBuffer,
+            UIntPtr nSize,
+            out UIntPtr lpNumberOfBytesRead);
+
+        /// <summary>
+        /// Reads data from an area of memory in a specified process. The entire area to be read must be accessible or the operation fails.
+        /// </summary>
+        /// <param name="hProcess">A handle to the process with memory that is being read. The handle must have <see cref="ProcessAccess.PROCESS_VM_READ"/> access to the process.</param>
+        /// <param name="lpBaseAddress">A pointer to the base address in the specified process from which to read. Before any data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for read access, and if it is not accessible the function fails.</param>
+        /// <param name="lpBuffer">A pointer to a buffer that receives the contents from the address space of the specified process.</param>
+        /// <param name="nSize">The number of bytes to be read from the specified process.</param>
+        /// <param name="lpNumberOfBytesRead">A variable that receives the number of bytes transferred into the specified buffer.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is 0 (zero). To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// The function fails if the requested read operation crosses into an area of the process that is inaccessible.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool ReadProcessMemory(
+            SafeObjectHandle hProcess,
             void* lpBaseAddress,
             void* lpBuffer,
             UIntPtr nSize,
@@ -3026,5 +3068,333 @@ namespace PInvoke
         [DllImport(api_ms_win_core_handle_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool GetHandleInformation(SafeHandle hObject, [Friendly(FriendlyFlags.Out)] HandleFlags* lpdwFlags);
+
+        /// <summary>
+        /// Creates a thread to execute within the virtual address space of the calling process.
+        /// To create a thread that runs in the virtual address space of another process, use the
+        /// CreateRemoteThread function.
+        /// </summary>
+        /// <param name="lpThreadAttributes">
+        /// A pointer to a <see cref="SECURITY_ATTRIBUTES"/> structure that determines whether the returned
+        /// handle can be inherited by child processes. If <paramref name="lpThreadAttributes"/> is null,
+        /// the handle cannot be inherited.
+        ///
+        /// The <see cref="SECURITY_ATTRIBUTES.lpSecurityDescriptor"/> member of the structure specifies a
+        /// security descriptor for the new thread.If <paramref name="lpThreadAttributes"/> is null, the
+        /// thread gets a default security descriptor.The ACLs in the default security descriptor for a thread
+        /// come from the primary token of the creator.
+        /// </param>
+        /// <param name="dwStackSize">The initial size of the stack, in bytes. The system rounds
+        /// this value to the nearest page. If this parameter is 0 (<see cref="UIntPtr.Zero"/>), the new thread uses the default size
+        /// for the executable.</param>
+        /// <param name="lpStartAddress">A pointer to the application-defined function to be executed
+        /// by the thread. This pointer represents the starting address of the thread. For more
+        /// information on the thread function, <see cref="THREAD_START_ROUTINE"/>.</param>
+        /// <param name="lpParameter">A pointer to a variable to be passed to the thread.</param>
+        /// <param name="dwCreationFlags">
+        /// The flags that control the creation of the thread.
+        /// <see cref="CreateThreadFlags.None"/>, <see cref="CreateThreadFlags.CREATE_SUSPENDED"/>
+        /// and <see cref="CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
+        /// values for this parameter.
+        /// </param>
+        /// <param name="lpThreadId">A pointer to a variable that receives the thread identifier. If this
+        /// parameter is null, the thread identifier is not returned.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the new thread.
+        /// If the function fails, the return value is null.To get extended error information, call
+        /// <see cref="GetLastError"/>.
+        /// </returns>
+        /// <remarks>
+        /// Note that <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/>
+        /// may succeed even if <paramref name="lpStartAddress"/> points to data, code, or is not accessible.
+        /// If the start address is invalid when the thread runs, an exception occurs, and the thread terminates.
+        /// Thread termination due to a invalid start address is handled as an error exit for the thread's process. This behavior
+        /// is similar to the asynchronous nature of <see cref="CreateProcessAsUser(IntPtr, string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/>,
+        /// where the process is created even if it refers to invalid or missing dynamic-link libraries (DLLs).
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        public static extern unsafe SafeObjectHandle CreateThread(
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpThreadAttributes,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
+            THREAD_START_ROUTINE lpStartAddress,
+            void* lpParameter,
+            CreateThreadFlags dwCreationFlags,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
+
+        /// <summary>
+        /// Creates a thread that runs in the virtual address space of another process.
+        /// Use the <see cref="CreateRemoteThreadEx(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, PROC_THREAD_ATTRIBUTE_LIST*, uint*)"/>
+        /// function to create a thread that runs in the virtual address space of another process and optionally specify extended attributes.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process in which the thread is to be created. The handle must have the <see cref="ProcessAccess.PROCESS_CREATE_THREAD"/>,
+        /// <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/>, <see cref="ProcessAccess.PROCESS_VM_OPERATION"/>, <see cref="ProcessAccess.PROCESS_VM_WRITE"/>,
+        /// and <see cref="ProcessAccess.PROCESS_VM_READ"/> access rights, and may fail without these rights on certain platforms.
+        /// </param>
+        /// <param name="lpThreadAttributes">
+        /// A pointer to a <see cref="SECURITY_ATTRIBUTES"/> structure that specifies a security descriptor for the new thread and determines whether child
+        /// processes can inherit the returned handle. If <paramref name="lpThreadAttributes"/> is null, the thread gets a default security descriptor and the
+        /// handle cannot be inherited. The access control lists (ACL) in the default security descriptor for a thread come from the primary token of the creator.
+        ///
+        /// Windows XP: The ACLs in the default security descriptor for a thread come from the primary or impersonation token of the creator.This behavior changed
+        /// with Windows XP with SP2 and Windows Server 2003.
+        /// </param>
+        /// <param name="dwStackSize">
+        /// The initial size of the stack, in bytes. The system rounds this value to the nearest page. If this parameter is 0 (<see cref="UIntPtr.Zero"/>),
+        /// the new thread uses the default size for the executable.
+        /// </param>
+        /// <param name="lpStartAddress">
+        /// A pointer to the application-defined function of type <see cref="THREAD_START_ROUTINE"/> to be executed by the thread and represents the starting
+        /// address of the thread in the remote process. The function must exist in the remote process.
+        /// </param>
+        /// <param name="lpParameter">A pointer to a variable to be passed to the thread function.</param>
+        /// <param name="dwCreationFlags">
+        /// The flags that control the creation of the thread.
+        /// <see cref="CreateThreadFlags.None"/>, <see cref="CreateThreadFlags.CREATE_SUSPENDED"/>
+        /// and <see cref="CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
+        /// values for this parameter.
+        /// </param>
+        /// <param name="lpThreadId">
+        /// A pointer to a variable that receives the thread identifier.
+        /// If this parameter is null, the thread identifier is not returned.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the new thread.
+        /// If the function fails, the return value is null.To get extended error information, call <see cref="GetLastError"/>.
+        /// Note that <see cref="CreateRemoteThread(IntPtr, SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/> may
+        /// succeed even if <paramref name="lpStartAddress"/> points to data, code, or is not accessible. If the start address is invalid when the thread
+        /// runs, an exception occurs, and the thread terminates. Thread termination due to a invalid start address is handled as an error exit for the thread's
+        /// process. This behavior is similar to the asynchronous nature of <see cref="CreateProcess(string, string, SECURITY_ATTRIBUTES*, SECURITY_ATTRIBUTES*, bool, CreateProcessFlags, void*, string, ref STARTUPINFO, out PROCESS_INFORMATION)"/>, where
+        /// the process is created even if it refers to invalid or missing dynamic-link libraries (DLL).
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe SafeObjectHandle CreateRemoteThread(
+            IntPtr hProcess,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* lpThreadAttributes,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
+            THREAD_START_ROUTINE lpStartAddress,
+            void* lpParameter,
+            CreateThreadFlags dwCreationFlags,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
+
+        /// <summary>
+        /// Creates a thread that runs in the virtual address space of another process and optionally specifies extended attributes such as processor
+        /// group affinity.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process in which the thread is to be created. The handle must have the <see cref="ProcessAccess.PROCESS_CREATE_THREAD"/>,
+        /// <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/>, <see cref="ProcessAccess.PROCESS_VM_OPERATION"/>, <see cref="ProcessAccess.PROCESS_VM_WRITE"/>, and
+        /// <see cref="ProcessAccess.PROCESS_VM_READ"/> access rights. In Windows 10, version 1607, your code must obtain these access rights for the new handle. However, starting in
+        /// Windows 10, version 1703, if the new handle is entitled to these access rights, the system obtains them for you.
+        /// </param>
+        /// <param name="lpThreadAttributes">
+        /// A pointer to a <see cref="SECURITY_ATTRIBUTES"/> structure that specifies a security descriptor for the new thread and determines whether
+        /// child processes can inherit the returned handle. If <paramref name="lpThreadAttributes"/> is null, the thread gets a default security descriptor and the handle
+        /// cannot be inherited. The access control lists (ACL) in the default security descriptor for a thread come from the primary token of the creator.
+        /// </param>
+        /// <param name="dwStackSize">
+        /// The initial size of the stack, in bytes. The system rounds this value to the nearest page. If this parameter is 0 (<see cref="UIntPtr.Zero"/>),
+        /// the new thread uses the default size for the executable.
+        /// </param>
+        /// <param name="lpStartAddress">
+        /// A pointer to the application-defined function of type <see cref="THREAD_START_ROUTINE"/> to be executed by the thread and represents the starting
+        /// address of the thread in the remote process. The function must exist in the remote process.
+        /// </param>
+        /// <param name="lpParameter">A pointer to a variable to be passed to the thread function pointed to by <paramref name="lpStartAddress"/>. This
+        /// parameter can be null.</param>
+        /// <param name="dwCreationFlags">
+        /// The flags that control the creation of the thread.
+        /// <see cref="CreateThreadFlags.None"/>, <see cref="CreateThreadFlags.CREATE_SUSPENDED"/>
+        /// and <see cref="CreateThreadFlags.STACK_SIZE_PARAM_IS_A_RESERVATION"/> are the only valid
+        /// values for this parameter.
+        /// </param>
+        /// <param name="lpAttributeList">
+        /// An attribute list that contains additional parameters for the new thread. This list is created by
+        /// the <see cref="InitializeProcThreadAttributeList(PROC_THREAD_ATTRIBUTE_LIST*, int, uint, ref IntPtr)"/> function.
+        /// </param>
+        /// <param name="lpThreadId">
+        /// A pointer to a variable that receives the thread identifier. If this parameter is null, the thread identifier is not returned.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the new thread.
+        /// If the function fails, the return value is NULL.To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern unsafe SafeObjectHandle CreateRemoteThreadEx(
+            IntPtr hProcess,
+            [Friendly(FriendlyFlags.In)] SECURITY_ATTRIBUTES* lpThreadAttributes,
+            [Friendly(FriendlyFlags.NativeInt)] UIntPtr dwStackSize,
+            THREAD_START_ROUTINE lpStartAddress,
+            void* lpParameter,
+            CreateThreadFlags dwCreationFlags,
+            PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] uint* lpThreadId);
+
+        /// <summary>
+        /// Creates a new pseudoconsole object for the calling process.
+        /// </summary>
+        /// <param name="size">The dimensions of the window/buffer in count of characters that will be used on initial creation of the pseudoconsole. This can be adjusted later with <see cref="ResizePseudoConsole"/>.</param>
+        /// <param name="hInput">An open handle to a stream of data that represents user input to the device. This is currently restricted to <see href="https://docs.microsoft.com/en-us/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">synchronous</see> I/O.</param>
+        /// <param name="hOutput">An open handle to a stream of data that represents application output from the device. This is currently restricted to <see href="https://docs.microsoft.com/en-us/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">synchronous</see> I/O.</param>
+        /// <param name="dwFlags">The value can be one of the values of the enum.</param>
+        /// <param name="phPC">Pointer to a location that will receive a handle to the new pseudoconsole device.</param>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        [DllImport(nameof(Kernel32), CallingConvention = CallingConvention.Winapi)]
+        public static extern HResult CreatePseudoConsole(
+            COORD size,
+            SafeObjectHandle hInput,
+            SafeObjectHandle hOutput,
+            CreatePseudoConsoleFlags dwFlags,
+            out SafePseudoConsoleHandle phPC);
+
+        /// <summary>
+        /// Resizes the internal buffers for a pseudoconsole to the given size.
+        /// </summary>
+        /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>
+        /// <param name="size">The dimensions of the window/buffer in count of characters that will be used for the internal buffer of this pseudoconsole.</param>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        /// <remarks>
+        /// This function can resize the internal buffers in the pseudoconsole session to match the window/buffer size being used for display on the terminal end.
+        /// This ensures that attached Command-Line Interface (CUI) applications using the Console Functions to communicate will have the correct dimensions returned in their calls.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), CallingConvention = CallingConvention.Winapi)]
+        public static extern HResult ResizePseudoConsole(
+            SafePseudoConsoleHandle hPC,
+            COORD size);
+
+        /// <summary>
+        /// Converts MS-DOS date and time values to a file time.
+        /// </summary>
+        /// <param name="wFatDate">
+        /// The portion of the MS-DOS date which contains the date part.
+        /// </param>
+        /// <param name="wFatTime">
+        /// The portion of the MS-DOS date which contains the time part.
+        /// </param>
+        /// <param name="lpFileTime">
+        /// A pointer to a FILETIME structure that receives the converted file time.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-dosdatetimetofiletime"/>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool DosDateTimeToFileTime(
+            ushort wFatDate,
+            ushort wFatTime,
+            [Friendly(FriendlyFlags.Out)] FILETIME* lpFileTime);
+
+        /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the access token associated with a process.
+        /// </summary>
+        /// <returns>A pseudo-handle that you can use as a shorthand way to refer to the access token associated with a process.</returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the access token for the current process. The calling process can use a pseudo-handle
+        /// to specify the access token for that process whenever a token handle is required. Child processes do not inherit pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the <see cref="CloseHandle(IntPtr)"/> function with a
+        /// pseudo-handle, the function has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentProcessToken();
+
+        /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread,
+        /// which is the thread token if one exists and the process token otherwise.
+        /// </summary>
+        /// <returns>
+        /// A pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread.
+        /// </returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the effective token for the current thread. The calling thread can use a pseudo-handle
+        /// to specify the effective token for that thread whenever a token handle is required. Child processes do not inherit pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        ///
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the <see cref="CloseHandle(IntPtr)"/> function with a
+        /// pseudo-handle, the function has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentThreadEffectiveToken();
+
+        /// <summary>
+        /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the impersonation token that was assigned to the current thread.
+        /// </summary>
+        /// <returns>A pseudo-handle that you can use as a shorthand way to refer to the impersonation token that was assigned to the current thread.</returns>
+        /// <remarks>
+        /// A pseudo-handle is a special constant that can function as the impersonation token for the current thread. The calling thread can use a
+        /// pseudo-handle to specify the impersonation token for that thread whenever a token handle is required. Child processes do not inherit
+        /// pseudo-handles.
+        ///
+        /// Starting in Windows 8, this pseudo-handle has only TOKEN_QUERY and TOKEN_QUERY_SOURCE access rights.
+        ///
+        /// The pseudo-handle cannot be duplicated by the DuplicateHandle function or the DuplicateToken function.
+        ///
+        /// You do not need to close the pseudo-handle when you no longer need it.If you call the CloseHandle function with a pseudo-handle, the function
+        /// has no effect.
+        /// </remarks>
+        [DllImport(nameof(Kernel32))]
+        public static extern SafeObjectHandle GetCurrentThreadToken();
+
+        /// <summary>
+        /// Retrieves the number of open handles that belong to the specified process.
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process whose handle count is being requested. The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> or
+        /// <see cref="ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION"/> access right. For more information, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        ///
+        /// Windows Server 2003 and Windows XP:  The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION"/> access right.
+        /// </param>
+        /// <param name="pdwHandleCount">A pointer to a variable that receives the number of open handles that belong to the specified process.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// This function retrieves information about the executive objects for the process. For more information, see
+        /// <a href="https://docs.microsoft.com/en-us/windows/desktop/SysInfo/kernel-objects">Kernel Object</a>
+        ///
+        /// To compile an application (C, C++0 that uses this function, define _WIN32_WINNT as 0x0501 or later. This corresponds to a min. supported
+        /// platform version of Windows XP/Windows Server 2003 required to use this function.
+        /// </remarks>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetProcessHandleCount(
+            SafeObjectHandle hProcess,
+            out uint pdwHandleCount);
+
+        /// <summary>
+        /// Retrieves the process identifier of the process associated with the specified thread.
+        /// </summary>
+        /// <param name="hThread">
+        /// A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or
+        /// THREAD_QUERY_LIMITED_INFORMATION access right. For more information, see Thread Security and Access Rights.
+        ///
+        /// Windows Server 2003:  The handle must have the THREAD_QUERY_INFORMATION access right.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is the process identifier of the process associated with the specified
+        /// thread.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
+        public static extern uint GetProcessIdOfThread(SafeObjectHandle hThread);
+
+        /// <summary>
+        /// Closes a pseudoconsole from the given handle.
+        /// </summary>
+        /// <param name="hPC">A handle to an active psuedoconsole as opened by <see cref="CreatePseudoConsole"/>.</param>
+        [DllImport(nameof(Kernel32), CallingConvention = CallingConvention.Winapi)]
+        private static extern void ClosePseudoConsole(IntPtr hPC);
     }
 }

@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// Represents a service security identifier (SID).
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct ServiceSidInfo
         {
             /// <summary>

@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Describes a mouse input event in a console <see cref="INPUT_RECORD"/> structure.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct MOUSE_EVENT_RECORD
         {
             /// <summary>

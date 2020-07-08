@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Used to contain information about a key data BLOB. The key data BLOB must immediately follow this structure in memory.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         public struct BCRYPT_KEY_DATA_BLOB_HEADER
         {
             /// <summary>
@@ -77,13 +76,9 @@ namespace PInvoke
                 return header.AddHeaderToKey(keyMaterial);
             }
 
-            private byte[] AddHeaderToKey(byte[] keyMaterial)
+            private unsafe byte[] AddHeaderToKey(byte[] keyMaterial)
             {
-#if NETSTANDARD1_3_ORLATER || NETFX_CORE
-                int headerLength = Marshal.SizeOf<BCRYPT_KEY_DATA_BLOB_HEADER>();
-#else
-                int headerLength = Marshal.SizeOf(typeof(BCRYPT_KEY_DATA_BLOB_HEADER));
-#endif
+                int headerLength = sizeof(BCRYPT_KEY_DATA_BLOB_HEADER);
                 byte[] keyWithHeader = new byte[headerLength + keyMaterial.Length];
                 Array.Copy(BitConverter.GetBytes((uint)this.dwMagic), keyWithHeader, sizeof(uint));
                 Array.Copy(BitConverter.GetBytes(this.dwVersion), 0, keyWithHeader, sizeof(uint), sizeof(uint));

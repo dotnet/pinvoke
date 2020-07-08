@@ -13,7 +13,6 @@ namespace PInvoke
         /// <summary>
         /// The BCRYPT_PSS_PADDING_INFO structure is used to provide options for the Probabilistic Signature Scheme (PSS) padding scheme.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct BCRYPT_PSS_PADDING_INFO
         {

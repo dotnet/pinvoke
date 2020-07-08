@@ -8,7 +8,6 @@ namespace PInvoke
     /// <summary>
     /// Describes a link in a doubly-linked list.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
     [OfferIntPtrPropertyAccessors]
     public unsafe partial struct LIST_ENTRY
     {

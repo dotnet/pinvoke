@@ -25,6 +25,7 @@ stages:
 
 - stage: GitHubRelease
   displayName: GitHub Release
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   jobs:
   - deployment: create
     pool:

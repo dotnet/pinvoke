@@ -14,7 +14,6 @@ namespace PInvoke
         /// <summary>
         /// Contains information about a CNG key.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct NCryptKeyName
         {
