@@ -14,7 +14,6 @@ namespace PInvoke
         /// </summary>
         public struct PROCESS_POWER_THROTTLING_STATE
         {
-#pragma warning disable IDE1006 // Naming Styles
             /// <summary>
             /// The current version of the <see cref="PROCESS_POWER_THROTTLING_STATE"/> structure
             /// </summary>
@@ -61,7 +60,6 @@ namespace PInvoke
             /// </list>
             /// </summary>
             public ProcessorPowerThrottlingFlags StateMask;
-#pragma warning restore IDE1006 // Naming Styles
         }
     }
 }

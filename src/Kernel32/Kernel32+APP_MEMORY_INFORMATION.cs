@@ -13,7 +13,6 @@ namespace PInvoke
         /// This structure can used by in <see cref="GetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)"/>        /// </summary>
         public struct APP_MEMORY_INFORMATION
         {
-#pragma warning disable IDE1006 // Naming Styles
             /// <summary>
             /// Total commit available to the app
             /// </summary>
@@ -33,7 +32,6 @@ namespace PInvoke
             /// The app's total usage of private plus shared commit
             /// </summary>
             public ulong TotalCommitUsage;
-#pragma warning restore IDE1006 // Naming Styles
         }
     }
 }

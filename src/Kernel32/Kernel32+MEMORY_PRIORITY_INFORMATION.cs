@@ -15,12 +15,10 @@ namespace PInvoke
         /// </summary>
         public struct MEMORY_PRIORITY_INFORMATION
         {
-#pragma warning disable IDE1006 // Naming Styles
             /// <summary>
             /// The memory priority for the thread or process
             /// </summary>
             public MemoryPriority MemoryPriority;
-#pragma warning restore IDE1006 // Naming Styles
         }
     }
 }

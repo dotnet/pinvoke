@@ -36,24 +36,18 @@ namespace PInvoke
             /// <summary>
             /// This should be set to <see cref="PME_CURRENT_VERSION"/>
             /// </summary>
-#pragma warning disable IDE1006 // Naming Styles
             public ushort Version;
-#pragma warning restore IDE1006 // Naming Styles
 
             /// <summary>
             /// Reserved
             /// </summary>
-#pragma warning disable IDE1006 // Naming Styles
             public ushort Reserved;
-#pragma warning restore IDE1006 // Naming Styles
 
             /// <summary>
             /// Type should be set to <see cref="PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure"/> (this is the only
             /// type available).
             /// </summary>
-#pragma warning disable IDE1006 // Naming Styles
             public PROCESS_MEMORY_EXHAUSTION_TYPE Type;
-#pragma warning restore IDE1006 // Naming Styles
 
             /// <summary>
             /// Used to turn the feature on or off
@@ -63,10 +57,7 @@ namespace PInvoke
             ///  <item><term>Disable</term><term><see cref="PME_FAILFAST_ON_COMMIT_FAIL_ENABLE"/></term></item>
             ///  </list>
             /// </summary>
-#pragma warning disable IDE1006 // Naming Styles
             public UIntPtr Value;
-#pragma warning restore IDE1006 // Naming Styles
-
         }
     }
 }

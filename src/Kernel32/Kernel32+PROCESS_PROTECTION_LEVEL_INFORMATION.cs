@@ -13,12 +13,10 @@ namespace PInvoke
         /// </summary>
         public struct PROCESS_PROTECTION_LEVEL_INFORMATION
         {
-#pragma warning disable IDE1006 // Naming Styles
             /// <summary>
             /// Process protection level
             /// </summary>
             public ProcessProtectionLevel ProtectionLevel;
-#pragma warning restore IDE1006 // Naming Styles
         }
     }
 }

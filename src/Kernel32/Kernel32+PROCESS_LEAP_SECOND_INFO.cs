@@ -13,7 +13,6 @@ namespace PInvoke
         /// </summary>
         public struct PROCESS_LEAP_SECOND_INFO
         {
-#pragma warning disable IDE1006 // Naming Styles
             /// <summary>
             /// Flag specifying how the system handles leap seconds
             /// </summary>
@@ -23,7 +22,6 @@ namespace PInvoke
             /// Reserved for future use
             /// </summary>
             public uint Reserved;
-#pragma warning restore IDE1006 // Naming Styles
         }
     }
 }

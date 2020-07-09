@@ -1027,7 +1027,6 @@ namespace PInvoke
         ///
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
-#pragma warning disable IDE1006 // Naming Styles
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return:MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool GetProcessInformation(
@@ -1035,7 +1034,6 @@ namespace PInvoke
             PROCESS_INFORMATION_CLASS ProcessInformationClass,
             void* ProcessInformation,
             uint ProcessInformationSize);
-#pragma warning restore IDE1006 // Naming Styles
 
         /// <summary>
         /// Sets information for the specified process
@@ -1085,7 +1083,6 @@ namespace PInvoke
         /// This improves overall system performance because higher priority pages are less likely to be trimmed from the working set and
         /// then trigger a page fault when they are accessed again.
         /// </remarks>
-#pragma warning disable IDE1006 // Naming Styles
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool SetProcessInformation(
@@ -1093,7 +1090,6 @@ namespace PInvoke
             PROCESS_INFORMATION_CLASS ProcessInformationClass,
             void* ProcessInformation,
             uint ProcessInformationSize);
-#pragma warning restore IDE1006 // Naming Styles
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,

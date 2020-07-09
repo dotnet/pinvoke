@@ -279,12 +279,10 @@ namespace PInvoke
         /// the value of <paramref name="ProcessInformationClass"/>. This helper is intended to make it simple to call into
         /// <see cref="GetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)"/>.
         /// </remarks>
-#pragma warning disable IDE1006 // Naming Styles
         public static unsafe bool GetProcessInformation(
             SafeObjectHandle hProcess,
             PROCESS_INFORMATION_CLASS ProcessInformationClass,
             void* ProcessInformation)
-#pragma warning restore IDE1006 // Naming Styles
         {
             uint processInformationSize = 0;
 
@@ -378,12 +376,10 @@ namespace PInvoke
         /// the value of <paramref name="ProcessInformationClass"/>. This helper is intended to make it simple to call into
         /// <see cref="SetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)" />
         /// </remarks>
-#pragma warning disable IDE1006 // Naming Styles
         public static unsafe bool SetProcessInformation(
             SafeObjectHandle hProcess,
             PROCESS_INFORMATION_CLASS ProcessInformationClass,
             void* ProcessInformation)
-#pragma warning restore IDE1006 // Naming Styles
         {
             uint processInformationSize = 0;
 
