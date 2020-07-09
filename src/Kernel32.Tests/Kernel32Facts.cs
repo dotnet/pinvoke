@@ -81,7 +81,8 @@ public partial class Kernel32Facts
         Assert.True(Kernel32.GetProcessInformation(
             hProcess,
             PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
-            &savedInfo));
+            &savedInfo,
+            (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
 
         // Set low memory priority on the process
         var memoryPriority = new MEMORY_PRIORITY_INFORMATION
@@ -92,14 +93,16 @@ public partial class Kernel32Facts
         Assert.True(Kernel32.SetProcessInformation(
             hProcess,
             PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
-            &memoryPriority));
+            &memoryPriority,
+            (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
 
         // Now read it back and verify that we get back MEMORY_PRIORITY_LOW
         memoryPriority.MemoryPriority = MemoryPriority.MEMORY_PRIORITY_NORMAL;
         Assert.True(Kernel32.GetProcessInformation(
             hProcess,
             PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
-            &memoryPriority));
+            &memoryPriority,
+            (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
 
         Assert.Equal(
             MemoryPriority.MEMORY_PRIORITY_LOW,
@@ -111,14 +114,16 @@ public partial class Kernel32Facts
             Assert.True(Kernel32.SetProcessInformation(
                 hProcess,
                 PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
-                &savedInfo));
+                &savedInfo,
+                (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
 
             // Verify that the memory-priority was restore successfully
             memoryPriority.MemoryPriority = MemoryPriority.MEMORY_PRIORITY_LOW;
             Assert.True(Kernel32.GetProcessInformation(
                 hProcess,
                 PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
-                &memoryPriority));
+                &memoryPriority,
+                (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
             Assert.Equal(savedInfo.MemoryPriority, memoryPriority.MemoryPriority);
         }
     }

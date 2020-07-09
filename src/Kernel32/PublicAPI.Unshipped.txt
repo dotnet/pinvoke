@@ -221,9 +221,7 @@ static PInvoke.Kernel32.GetCurrentProcessorNumberEx(System.IntPtr ProcNumber) ->
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(out PInvoke.Kernel32.PROCESSOR_NUMBER ProcNumber) -> void
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, System.IntPtr lpdwFlags) -> bool
 static PInvoke.Kernel32.GetHandleInformation(System.Runtime.InteropServices.SafeHandle hObject, out PInvoke.Kernel32.HandleFlags lpdwFlags) -> bool
-static PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation) -> bool
 static PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation, uint ProcessInformationSize) -> bool
-static PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, void* ProcessInformation) -> bool
 static PInvoke.Kernel32.GetStartupInfo(System.IntPtr lpStartupInfo) -> void
 static PInvoke.Kernel32.GetStartupInfo(ref PInvoke.Kernel32.STARTUPINFO lpStartupInfo) -> void
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
@@ -235,9 +233,7 @@ static PInvoke.Kernel32.SYSTEMTIME.implicit operator PInvoke.Kernel32.SYSTEMTIME
 static PInvoke.Kernel32.SYSTEMTIME.implicit operator System.DateTime(PInvoke.Kernel32.SYSTEMTIME st) -> System.DateTime
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, System.IntPtr lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, ref int? lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
-static PInvoke.Kernel32.SetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation) -> bool
 static PInvoke.Kernel32.SetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation, uint ProcessInformationSize) -> bool
-static PInvoke.Kernel32.SetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, void* ProcessInformation) -> bool
 static PInvoke.Kernel32.SystemTimeToFileTime(PInvoke.Kernel32.SYSTEMTIME lpSystemTime, out PInvoke.Kernel32.FILETIME lpFileTime) -> bool
 static PInvoke.Kernel32.SystemTimeToFileTime(System.IntPtr lpSystemTime, System.IntPtr lpFileTime) -> bool
 static PInvoke.Kernel32.VerifyVersionInfo(System.IntPtr lpVersionInformation, PInvoke.Kernel32.VER_MASK dwTypeMask, long dwlConditionMask) -> PInvoke.NTSTATUS
