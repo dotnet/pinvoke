@@ -25,13 +25,13 @@ namespace PInvoke
             /// Value for <see cref="PROCESS_MEMORY_EXHAUSTION_INFO.Value"/> field to disable
             /// the <see cref="PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure"/> feature
             /// </summary>
-            public static UIntPtr PME_FAILFAST_ON_COMMIT_FAIL_DISABLE = UIntPtr.Zero;
+            public static readonly UIntPtr PME_FAILFAST_ON_COMMIT_FAIL_DISABLE = UIntPtr.Zero;
 
             /// <summary>
             /// Value for <see cref="PROCESS_MEMORY_EXHAUSTION_INFO.Value"/> field to enable
             /// the <see cref="PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure"/> feature
             /// </summary>
-            public static UIntPtr PME_FAILFAST_ON_COMMIT_FAIL_ENABLE = new UIntPtr(0x1);
+            public static readonly UIntPtr PME_FAILFAST_ON_COMMIT_FAIL_ENABLE = new UIntPtr(0x1);
 
             /// <summary>
             /// This should be set to <see cref="PME_CURRENT_VERSION"/>
@@ -67,20 +67,6 @@ namespace PInvoke
             public UIntPtr Value;
 #pragma warning restore IDE1006 // Naming Styles
 
-            public static PROCESS_MEMORY_EXHAUSTION_INFO Create(PROCESS_MEMORY_EXHAUSTION_TYPE pmeType, bool enable)
-            {
-                return pmeType switch
-                {
-                    PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure => new PROCESS_MEMORY_EXHAUSTION_INFO
-                    {
-                        Version = PME_CURRENT_VERSION,
-                        Reserved = 0,
-                        Type = PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure,
-                        Value = enable ? PME_FAILFAST_ON_COMMIT_FAIL_ENABLE : PME_FAILFAST_ON_COMMIT_FAIL_DISABLE
-                    },
-                    _ => throw new ArgumentOutOfRangeException(nameof(pmeType)),
-                };
-            }
         }
     }
 }
