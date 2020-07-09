@@ -1028,7 +1028,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool GetProcessInformation(
             SafeObjectHandle hProcess,
             PROCESS_INFORMATION_CLASS ProcessInformationClass,
