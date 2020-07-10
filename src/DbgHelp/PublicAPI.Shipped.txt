@@ -21,3 +21,9 @@ PInvoke.DbgHelp.LOADED_IMAGE.Sections_IntPtr.set -> void
 PInvoke.DbgHelp.LOADED_IMAGE.SizeOfImage -> uint
 PInvoke.DbgHelp.LOADED_IMAGE.Version -> byte
 PInvoke.DbgHelp.LOADED_IMAGE.hFile -> System.IntPtr
+PInvoke.DbgHelp.LOADED_IMAGE.fDOSImage.get -> bool
+PInvoke.DbgHelp.LOADED_IMAGE.fDOSImage.set -> void
+PInvoke.DbgHelp.LOADED_IMAGE.fReadOnly.get -> bool
+PInvoke.DbgHelp.LOADED_IMAGE.fReadOnly.set -> void
+PInvoke.DbgHelp.LOADED_IMAGE.fSystemImage.get -> bool
+PInvoke.DbgHelp.LOADED_IMAGE.fSystemImage.set -> void

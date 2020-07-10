@@ -146,7 +146,7 @@ namespace PInvoke
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to a buffer that receives information about the device that supports the requested interface. The caller
-        /// must set <see cref="SP_DEVINFO_DATA.cbSize" /> before calling this function.
+        /// must set <see cref="SP_DEVINFO_DATA.Size" /> before calling this function.
         /// <para>This parameter is optional and can be <see langword="null" />.</para>
         /// </param>
         /// <returns>
@@ -175,7 +175,7 @@ namespace PInvoke
         /// <param name="memberIndex">A zero-based index of the device information element to retrieve.</param>
         /// <param name="deviceInfoData">
         /// A pointer to an <see cref="SP_DEVINFO_DATA"/> structure to receive information about an enumerated
-        /// device information element. The caller must set <see cref="SP_DEVINFO_DATA.cbSize" /> before calling this function.
+        /// device information element. The caller must set <see cref="SP_DEVINFO_DATA.Size" /> before calling this function.
         /// </param>
         /// <returns>
         /// Returns <see langword="true" /> if the function completed without error. If the function completed with an
@@ -271,7 +271,7 @@ namespace PInvoke
         /// </param>
         /// <param name="deviceInfoData">
         /// A pointer to a caller-supplied <see cref="SP_DEVINFO_DATA"/> structure that receives information about the device information
-        /// element for the device instance that is specified by <paramref name="deviceInstanceId"/>. The caller must set <see cref="SP_DEVINFO_DATA.cbSize"/>.
+        /// element for the device instance that is specified by <paramref name="deviceInstanceId"/>. The caller must set <see cref="SP_DEVINFO_DATA.Size"/>.
         /// This parameter is optional and can be <see langword="null"/>.
         /// </param>
         /// <returns>

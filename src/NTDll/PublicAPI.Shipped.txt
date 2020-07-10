@@ -41,3 +41,6 @@ static PInvoke.NTDll.OBJECT_ATTRIBUTES.Create() -> PInvoke.NTDll.OBJECT_ATTRIBUT
 static extern PInvoke.NTDll.NtOpenSection(out PInvoke.NTDll.SafeNTObjectHandle sectionHandle, PInvoke.Kernel32.ACCESS_MASK desiredAccess, PInvoke.NTDll.OBJECT_ATTRIBUTES* objectAttributes) -> PInvoke.NTSTATUS
 static extern PInvoke.NTDll.RtlNtStatusToDosError(PInvoke.NTSTATUS Status) -> PInvoke.Win32ErrorCode
 static readonly PInvoke.NTDll.SafeNTObjectHandle.Null -> PInvoke.NTDll.SafeNTObjectHandle
+static extern PInvoke.NTDll.RtlVerifyVersionInfo(PInvoke.Kernel32.OSVERSIONINFOEX* VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlVerifyVersionInfo(ref PInvoke.Kernel32.OSVERSIONINFOEX VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlVerifyVersionInfo(System.IntPtr VersionInfo, PInvoke.Kernel32.VER_MASK TypeMask, long ConditionMask) -> PInvoke.NTSTATUS
