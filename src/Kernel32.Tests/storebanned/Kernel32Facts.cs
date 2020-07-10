@@ -1159,11 +1159,11 @@ public partial class Kernel32Facts
                 out int pBytesReturned,
                 (OVERLAPPED*)null));
 
-            Assert.NotEqual(0, pdg.BytesPerSector);
+            Assert.NotEqual(0u, pdg.BytesPerSector);
             Assert.NotEqual(0, pdg.Cylinders);
             Assert.Equal(MEDIA_TYPE.FixedMedia, pdg.MediaType);
-            Assert.NotEqual(0, pdg.SectorsPerTrack);
-            Assert.NotEqual(0, pdg.TracksPerCylinder);
+            Assert.NotEqual(0u, pdg.SectorsPerTrack);
+            Assert.NotEqual(0u, pdg.TracksPerCylinder);
         }
     }
 
