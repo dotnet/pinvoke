@@ -16,7 +16,7 @@ namespace PInvoke
     /// </content>
     public static partial class User32
     {
-         /// <summary>
+        /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
         /// </summary>
         /// <param name="hwnd">Handle to the window to be repainted.</param>

@@ -117,8 +117,8 @@ namespace PInvoke
         [DllImport(nameof(Magnification))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagSetFullscreenTransform(
-            float magLevel,
-            int xOffset,
-            int yOffset);
+           float magLevel,
+           int xOffset,
+           int yOffset);
     }
 }

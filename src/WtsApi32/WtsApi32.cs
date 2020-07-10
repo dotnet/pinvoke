@@ -97,7 +97,7 @@ namespace PInvoke
         [SuppressUnmanagedCodeSecurity]
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
 #endif
-        [DllImport(nameof(WtsApi32), SetLastError =true, CharSet = CharSet.Unicode)]
+        [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Unicode)]
         private static extern void WTSCloseServer(IntPtr hServer);
     }
 }

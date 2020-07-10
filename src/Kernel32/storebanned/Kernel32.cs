@@ -959,7 +959,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError=true)]
+        [DllImport(api_ms_win_core_processthreads_l1_1_1, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetProcessTimes(SafeObjectHandle handle, out FILETIME creation, out FILETIME exit, out FILETIME kernel, out FILETIME user);
 
@@ -2262,7 +2262,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is true. If the function fails, the return value false. To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool HeapFree(IntPtr hHeap, HeapFreeFlags dwFlags, void* hMem);
 
         /// <summary>
