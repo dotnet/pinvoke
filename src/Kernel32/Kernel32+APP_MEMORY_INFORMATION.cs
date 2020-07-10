@@ -10,7 +10,8 @@ namespace PInvoke
     {
         /// <summary>
         /// Represents app memory usage at a single point in time.
-        /// This structure can used by in <see cref="GetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)"/>        /// </summary>
+        /// This structure can used by in <see cref="GetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)"/>
+        /// </summary>
         public struct APP_MEMORY_INFORMATION
         {
             /// <summary>
