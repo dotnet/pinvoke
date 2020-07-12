@@ -66,7 +66,7 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(NTDll))]
         public static unsafe extern NTSTATUS RtlVerifyVersionInfo(
-            [Friendly(FriendlyFlags.Bidirectional)]Kernel32.OSVERSIONINFOEX* VersionInfo,
+            [Friendly(FriendlyFlags.Bidirectional)] Kernel32.OSVERSIONINFOEX* VersionInfo,
             Kernel32.VER_MASK TypeMask,
             long ConditionMask);
 
