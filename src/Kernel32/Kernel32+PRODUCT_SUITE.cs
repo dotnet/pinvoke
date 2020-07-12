@@ -90,7 +90,7 @@ namespace PInvoke
             /// <summary>
             /// Windows Home Server is installed.
             /// </summary>
-            VER_SUITE_WH_SERVER = unchecked((short)0x00008000)
+            VER_SUITE_WH_SERVER = unchecked((short)0x00008000),
         }
     }
 }

@@ -1,3 +1,9 @@
+PInvoke.Kernel32.APP_MEMORY_INFORMATION
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.APP_MEMORY_INFORMATION() -> void
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.AvailableCommit -> ulong
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.PeakPrivateCommitUsage -> ulong
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.PrivateCommitUsage -> ulong
+PInvoke.Kernel32.APP_MEMORY_INFORMATION.TotalCommitUsage -> ulong
 PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.CreatePseudoConsoleFlags.None = 0 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.CreatePseudoConsoleFlags.PSEUDOCONSOLE_INHERIT_CURSOR = 1 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
@@ -60,11 +66,68 @@ PInvoke.Kernel32.MEDIA_TYPE.F8_256_128 = 22 -> PInvoke.Kernel32.MEDIA_TYPE
 PInvoke.Kernel32.MEDIA_TYPE.FixedMedia = 12 -> PInvoke.Kernel32.MEDIA_TYPE
 PInvoke.Kernel32.MEDIA_TYPE.RemovableMedia = 11 -> PInvoke.Kernel32.MEDIA_TYPE
 PInvoke.Kernel32.MEDIA_TYPE.Unknown = 0 -> PInvoke.Kernel32.MEDIA_TYPE
+PInvoke.Kernel32.MEMORY_PRIORITY_INFORMATION
+PInvoke.Kernel32.MEMORY_PRIORITY_INFORMATION.MEMORY_PRIORITY_INFORMATION() -> void
+PInvoke.Kernel32.MEMORY_PRIORITY_INFORMATION.MemoryPriority -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_BELOW_NORMAL = 4 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_LOW = 2 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_LOWEST = 0 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_MEDIUM = 3 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_NORMAL = 5 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_VERY_LOW = 1 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32_NT = 2 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32_WINDOWS = 1 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32s = 0 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSVERSIONINFO
+PInvoke.Kernel32.OSVERSIONINFO.OSVERSIONINFO() -> void
+PInvoke.Kernel32.OSVERSIONINFO.dwBuildNumber -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwMajorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwMinorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwOSVersionInfoSize -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwPlatformId -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSVERSIONINFO.szCSDVersion -> char*
 PInvoke.Kernel32.PROCESSOR_NUMBER
 PInvoke.Kernel32.PROCESSOR_NUMBER.Group -> ushort
 PInvoke.Kernel32.PROCESSOR_NUMBER.Number -> byte
 PInvoke.Kernel32.PROCESSOR_NUMBER.PROCESSOR_NUMBER() -> void
 PInvoke.Kernel32.PROCESSOR_NUMBER.Reserved -> byte
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessAppMemoryInfo = 2 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessInPrivateInfo = 3 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessInformationClassMax = 9 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo = 8 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessMemoryExhaustionInfo = 1 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessMemoryPriority = 0 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessPowerThrottling = 4 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessProtectionLevelInfo = 7 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessReservedValue1 = 5 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_INFORMATION_CLASS.ProcessTelemetryCoverageInfo = 6 -> PInvoke.Kernel32.PROCESS_INFORMATION_CLASS
+PInvoke.Kernel32.PROCESS_LEAP_SECOND_INFO
+PInvoke.Kernel32.PROCESS_LEAP_SECOND_INFO.Flags -> PInvoke.Kernel32.ProcessLeapSecondInfoFlags
+PInvoke.Kernel32.PROCESS_LEAP_SECOND_INFO.PROCESS_LEAP_SECOND_INFO() -> void
+PInvoke.Kernel32.PROCESS_LEAP_SECOND_INFO.Reserved -> uint
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PROCESS_MEMORY_EXHAUSTION_INFO() -> void
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Reserved -> ushort
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Type -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Value -> System.UIntPtr
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.Version -> ushort
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure = 0 -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
+PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeMax = 1 -> PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_TYPE
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.ControlMask -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.PROCESS_POWER_THROTTLING_STATE() -> void
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.StateMask -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
+PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.Version -> uint
+PInvoke.Kernel32.PROCESS_PROTECTION_LEVEL_INFORMATION
+PInvoke.Kernel32.PROCESS_PROTECTION_LEVEL_INFORMATION.PROCESS_PROTECTION_LEVEL_INFORMATION() -> void
+PInvoke.Kernel32.PROCESS_PROTECTION_LEVEL_INFORMATION.ProtectionLevel -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessLeapSecondInfoFlags
+PInvoke.Kernel32.ProcessLeapSecondInfoFlags.None = 0 -> PInvoke.Kernel32.ProcessLeapSecondInfoFlags
+PInvoke.Kernel32.ProcessLeapSecondInfoFlags.PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND = 1 -> PInvoke.Kernel32.ProcessLeapSecondInfoFlags
 PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.ABOVE_NORMAL_PRIORITY_CLASS = 32768 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.BELOW_NORMAL_PRIORITY_CLASS = 16384 -> PInvoke.Kernel32.ProcessPriorityClass
@@ -72,6 +135,18 @@ PInvoke.Kernel32.ProcessPriorityClass.HIGH_PRIORITY_CLASS = 128 -> PInvoke.Kerne
 PInvoke.Kernel32.ProcessPriorityClass.IDLE_PRIORITY_CLASS = 64 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.NORMAL_PRIORITY_CLASS = 32 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.REALTIME_PRIORITY_CLASS = 256 -> PInvoke.Kernel32.ProcessPriorityClass
+PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_ANTIMALWARE_LIGHT = 3 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_AUTHENTICODE = 7 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_CODEGEN_LIGHT = 6 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_LSA_LIGHT = 4 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_NONE = 4294967294 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_PPL_APP = 8 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_SAME = 4294967295 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_WINDOWS = 1 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_WINDOWS_LIGHT = 2 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_WINTCB = 5 -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.ProcessProtectionLevel.PROTECTION_LEVEL_WINTCB_LIGHT = 0 -> PInvoke.Kernel32.ProcessProtectionLevel
 PInvoke.Kernel32.ProcessorArchitecture
 PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_AMD64 = 9 -> PInvoke.Kernel32.ProcessorArchitecture
 PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_ARM = 5 -> PInvoke.Kernel32.ProcessorArchitecture
@@ -79,6 +154,9 @@ PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_ARM64 = 12 -> PInv
 PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_IA64 = 6 -> PInvoke.Kernel32.ProcessorArchitecture
 PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_INTEL = 0 -> PInvoke.Kernel32.ProcessorArchitecture
 PInvoke.Kernel32.ProcessorArchitecture.PROCESSOR_ARCHITECTURE_UNKNOWN = 65535 -> PInvoke.Kernel32.ProcessorArchitecture
+PInvoke.Kernel32.ProcessorPowerThrottlingFlags
+PInvoke.Kernel32.ProcessorPowerThrottlingFlags.None = 0 -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
+PInvoke.Kernel32.ProcessorPowerThrottlingFlags.PROCESS_POWER_THROTTLING_EXECUTION_SPEED = 1 -> PInvoke.Kernel32.ProcessorPowerThrottlingFlags
 PInvoke.Kernel32.ProcessorType
 PInvoke.Kernel32.ProcessorType.PROCESSOR_AMD_X8664 = 8664 -> PInvoke.Kernel32.ProcessorType
 PInvoke.Kernel32.ProcessorType.PROCESSOR_INTEL_386 = 386 -> PInvoke.Kernel32.ProcessorType
@@ -117,6 +195,8 @@ PInvoke.Kernel32.ThreadAccess.THREAD_SET_LIMITED_INFORMATION = 1024 -> PInvoke.K
 PInvoke.Kernel32.ThreadAccess.THREAD_SET_THREAD_TOKEN = 128 -> PInvoke.Kernel32.ThreadAccess
 PInvoke.Kernel32.ThreadAccess.THREAD_SUSPEND_RESUME = 2 -> PInvoke.Kernel32.ThreadAccess
 PInvoke.Kernel32.ThreadAccess.THREAD_TERMINATE = 1 -> PInvoke.Kernel32.ThreadAccess
+const PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_CURRENT_VERSION = 1 -> ushort
+const PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.PROCESS_POWER_THROTTLING_CURRENT_VERSION = 1 -> uint
 override PInvoke.Kernel32.SafePseudoConsoleHandle.IsInvalid.get -> bool
 override PInvoke.Kernel32.SafePseudoConsoleHandle.ReleaseHandle() -> bool
 static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
@@ -135,11 +215,14 @@ static PInvoke.Kernel32.GetCurrentProcessorNumberEx(System.IntPtr ProcNumber) ->
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(out PInvoke.Kernel32.PROCESSOR_NUMBER ProcNumber) -> void
 static PInvoke.Kernel32.GetNativeSystemInfo(System.IntPtr lpSystemInfo) -> void
 static PInvoke.Kernel32.GetNativeSystemInfo(out PInvoke.Kernel32.SYSTEM_INFO lpSystemInfo) -> void
+static PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation, uint ProcessInformationSize) -> bool
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char[] lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char[] lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static PInvoke.Kernel32.OSVERSIONINFO.Create() -> PInvoke.Kernel32.OSVERSIONINFO
 static PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, System.IntPtr lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, ref int? lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
+static PInvoke.Kernel32.SetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation, uint ProcessInformationSize) -> bool
 static extern PInvoke.Kernel32.CreatePseudoConsole(PInvoke.COORD size, PInvoke.Kernel32.SafeObjectHandle hInput, PInvoke.Kernel32.SafeObjectHandle hOutput, PInvoke.Kernel32.CreatePseudoConsoleFlags dwFlags, out PInvoke.Kernel32.SafePseudoConsoleHandle phPC) -> PInvoke.HResult
 static extern PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
@@ -158,9 +241,13 @@ static extern PInvoke.Kernel32.GetNativeSystemInfo(PInvoke.Kernel32.SYSTEM_INFO*
 static extern PInvoke.Kernel32.GetPriorityClass(PInvoke.Kernel32.SafeObjectHandle hProcess) -> PInvoke.Kernel32.ProcessPriorityClass
 static extern PInvoke.Kernel32.GetProcessHandleCount(PInvoke.Kernel32.SafeObjectHandle hProcess, out uint pdwHandleCount) -> bool
 static extern PInvoke.Kernel32.GetProcessIdOfThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> uint
+static extern PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, void* ProcessInformation, uint ProcessInformationSize) -> bool
 static extern PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char* lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char* lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static extern PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static extern PInvoke.Kernel32.ResizePseudoConsole(PInvoke.Kernel32.SafePseudoConsoleHandle hPC, PInvoke.COORD size) -> PInvoke.HResult
 static extern PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, int* lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static extern PInvoke.Kernel32.SetFilePointerEx(PInvoke.Kernel32.SafeObjectHandle hFile, long liDistanceToMove, out long lpNewFilePointer, System.IO.SeekOrigin dwMoveMethod) -> bool
+static extern PInvoke.Kernel32.SetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, void* ProcessInformation, uint ProcessInformationSize) -> bool
+static readonly PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_FAILFAST_ON_COMMIT_FAIL_DISABLE -> System.UIntPtr
+static readonly PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_FAILFAST_ON_COMMIT_FAIL_ENABLE -> System.UIntPtr
 static readonly PInvoke.Kernel32.SafePseudoConsoleHandle.Invalid -> PInvoke.Kernel32.SafePseudoConsoleHandle

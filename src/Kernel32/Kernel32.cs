@@ -1002,6 +1002,106 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Out)] SYSTEM_INFO* lpSystemInfo);
 
         /// <summary>
+        /// Retrieves information about the specified process
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process. This handle must have the <see cref="ProcessAccess.PROCESS_SET_INFORMATION"/> access right.
+        /// For more information, see <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        /// </param>
+        /// <param name="ProcessInformationClass">
+        /// A member of the <see cref="PROCESS_INFORMATION_CLASS"/> enumeration specifying the kind of information to retrieve.
+        /// </param>
+        /// <param name="ProcessInformation">
+        /// Pointer to an object to receive the type of information specified by the <paramref name="ProcessInformationClass"/> parameter
+        /// </param>
+        /// <param name="ProcessInformationSize">
+        /// The size in bytes of the structure specified by the <paramref name="ProcessInformation"/> parameter.
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessMemoryPriority"/>,
+        /// this parameter must be <code>sizeof(<see cref="MEMORY_PRIORITY_INFORMATION"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessPowerThrottling"/>,
+        /// this parameter must be <code>sizeof(<see cref="PROCESS_POWER_THROTTLING_STATE"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessProtectionLevelInfo"/>,
+        /// this parameter must be <code>sizeof(<see cref="PROCESS_PROTECTION_LEVEL_INFORMATION"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo"/>,
+        /// this parameter must be <code>sizeof(<see cref="PROCESS_LEAP_SECOND_INFO"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessAppMemoryInfo"/>,
+        /// this parameter must be <code>sizeof(<see cref="APP_MEMORY_INFORMATION"/>)</code>
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetProcessInformation(
+            SafeObjectHandle hProcess,
+            PROCESS_INFORMATION_CLASS ProcessInformationClass,
+            void* ProcessInformation,
+            uint ProcessInformationSize);
+
+        /// <summary>
+        /// Sets information for the specified process
+        /// </summary>
+        /// <param name="hProcess">
+        /// A handle to the process. This handle must have the <see cref="ProcessAccess.PROCESS_SET_INFORMATION"/> access right.
+        ///
+        /// For more information, see <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        /// </param>
+        /// <param name="ProcessInformationClass">Specifies the kind of information to be set</param>
+        /// <param name="ProcessInformation">
+        /// Pointer to an object that contains the type of information specified by the <paramref name="ProcessInformationClass"/>
+        /// parameter
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessMemoryPriority"/>, this
+        /// parameter must point to a <see cref="MEMORY_PRIORITY_INFORMATION"/> structure.
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is  <see cref="PROCESS_INFORMATION_CLASS.ProcessPowerThrottling"/>, this
+        /// parameter must point to a <see cref="PROCESS_POWER_THROTTLING_STATE"/> structure.
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo"/>, this
+        /// parameter must point to a <see cref="PROCESS_LEAP_SECOND_INFO"/> structure.
+        /// </param>
+        /// <param name="ProcessInformationSize">
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessMemoryPriority"/>, this
+        /// parameter must be <code>sizeof(<see cref="MEMORY_PRIORITY_INFORMATION"/>)</code>.
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is  <see cref="PROCESS_INFORMATION_CLASS.ProcessPowerThrottling"/>, this
+        /// parameter must be <code>sizeof(<see cref="PROCESS_POWER_THROTTLING_STATE"/>)</code>
+        ///
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo"/>, this
+        /// parameter must be <code>sizeof(<see cref="PROCESS_LEAP_SECOND_INFO"/>)</code>
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        ///
+        /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
+        /// <remarks>
+        /// To help improve system performance, applications should use the SetProcessInformation function with
+        /// <see cref="PROCESS_INFORMATION_CLASS.ProcessMemoryPriority"/> to lower the default memory priority of threads that perform
+        /// background operations or access files and data that are not expected to be accessed again soon. For example, a file indexing
+        /// application might set a lower default priority for the process that performs the indexing task.
+        ///
+        /// Memory priority helps to determine how long pages remain in the working set of a process before they are trimmed.A process's
+        /// memory priority determines the default priority of the physical pages that are added to the process working set by the threads
+        /// of that process. When the memory manager trims the working set, it trims lower priority pages before higher priority pages.
+        /// This improves overall system performance because higher priority pages are less likely to be trimmed from the working set and
+        /// then trigger a page fault when they are accessed again.
+        /// </remarks>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool SetProcessInformation(
+            SafeObjectHandle hProcess,
+            PROCESS_INFORMATION_CLASS ProcessInformationClass,
+            void* ProcessInformation,
+            uint ProcessInformationSize);
+
+        /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,
         ///     FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
         /// </summary>

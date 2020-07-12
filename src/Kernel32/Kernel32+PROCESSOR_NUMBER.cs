@@ -13,7 +13,6 @@ namespace PInvoke
         /// </summary>
         public struct PROCESSOR_NUMBER
         {
-#pragma warning disable IDE1006 // Naming Styles
             /// <summary>
             /// The processor group to which the logical processor is assigned.
             /// </summary>
@@ -28,7 +27,6 @@ namespace PInvoke
             /// This parameter is reserved.
             /// </summary>
             public byte Reserved;
-#pragma warning restore IDE1006 // Naming Styles
         }
     }
 }
