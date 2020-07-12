@@ -1,0 +1,16 @@
+PInvoke.DISPLAY_DEVICE
+PInvoke.DISPLAY_DEVICE.DISPLAY_DEVICE() -> void
+PInvoke.DISPLAY_DEVICE.DeviceID -> char*
+PInvoke.DISPLAY_DEVICE.DeviceKey -> char*
+PInvoke.DISPLAY_DEVICE.DeviceName -> char*
+PInvoke.DISPLAY_DEVICE.DeviceString -> char*
+PInvoke.DISPLAY_DEVICE.StateFlags -> PInvoke.DisplayDeviceFlags
+PInvoke.DISPLAY_DEVICE.cb -> uint
+PInvoke.DisplayDeviceFlags
+PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_ACTIVE = 1 -> PInvoke.DisplayDeviceFlags
+PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_MIRRORING_DRIVER = 8 -> PInvoke.DisplayDeviceFlags
+PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_MODESPRUNED = 134217728 -> PInvoke.DisplayDeviceFlags
+PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_PRIMARY_DEVICE = 4 -> PInvoke.DisplayDeviceFlags
+PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_REMOVABLE = 32 -> PInvoke.DisplayDeviceFlags
+PInvoke.DisplayDeviceFlags.DISPLAY_DEVICE_VGA_COMPATIBLE = 16 -> PInvoke.DisplayDeviceFlags
+static PInvoke.DISPLAY_DEVICE.Create() -> PInvoke.DISPLAY_DEVICE
