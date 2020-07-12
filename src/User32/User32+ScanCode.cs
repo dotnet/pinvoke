@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// General keyboard scan code constants on the same order that it can be found on <see cref="VirtualKey" /> constants
+        /// General keyboard scan code constants on the same order that it can be found on <see cref="VirtualKey" /> constants.
         /// </summary>
         /// <remarks>Scan codes are device-dependant values, these are general values used by most keyboards.</remarks>
         public enum ScanCode : ushort

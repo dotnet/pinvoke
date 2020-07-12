@@ -50,7 +50,7 @@ namespace PInvoke
         /// operating system version requirements to compare to the corresponding attributes of the currently running
         /// version of the operating system.</param>
         /// <param name="TypeMask">Specifies which members of VersionInfo to compare with the corresponding attributes of
-        /// the currently running version of the operating system. </param>
+        /// the currently running version of the operating system.</param>
         /// <param name="ConditionMask">Specifies how to compare each VersionInfo member. To set the value of ConditionMask,
         /// a caller should use the <see cref="Kernel32.VerSetConditionMask(long, Kernel32.VER_MASK, Kernel32.VER_CONDITION)"/> function.</param>
         /// <returns>

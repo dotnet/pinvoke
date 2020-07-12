@@ -6,8 +6,8 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
 
-    /// <summary>Identifies the dots per inch (dpi) setting for a monitor</summary>
-    /// <remarks>All of these settings are affected by the value of <see cref="PROCESS_DPI_AWARENESS"/> on your application</remarks>
+    /// <summary>Identifies the dots per inch (dpi) setting for a monitor.</summary>
+    /// <remarks>All of these settings are affected by the value of <see cref="PROCESS_DPI_AWARENESS"/> on your application.</remarks>
     public enum MONITOR_DPI_TYPE
     {
         /// <summary>

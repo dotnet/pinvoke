@@ -10,10 +10,12 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         /// Flags to be passed to the <code>wRemoveMsg</code> parameter of
-        /// <see cref="PeekMessage(IntPtr, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />
+        /// <see cref="PeekMessage(IntPtr, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />.
         /// </summary>
+#pragma warning restore SA1629 // Documentation text should end with a period
         [Flags]
         public enum PeekMessageRemoveFlags : uint
         {

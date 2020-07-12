@@ -52,7 +52,7 @@ namespace PInvoke
             /// with <see cref="dwOSVersionInfoSize" /> set to the correct value.
             /// </summary>
             /// <returns>
-            /// A newly initialized instance of <see cref="OSVERSIONINFO"/>
+            /// A newly initialized instance of <see cref="OSVERSIONINFO"/>.
             /// </returns>
             public static OSVERSIONINFO Create() => new OSVERSIONINFO { dwOSVersionInfoSize = sizeof(OSVERSIONINFO) };
         }

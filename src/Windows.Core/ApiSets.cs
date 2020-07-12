@@ -10,7 +10,7 @@ namespace PInvoke
     /// </summary>
     /// <remarks>
     /// The API set names and members are documented here:
-    /// https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx
+    /// https://msdn.microsoft.com/en-us/library/windows/desktop/hh802935(v=vs.85).aspx.
     /// </remarks>
     public static class ApiSets
     {

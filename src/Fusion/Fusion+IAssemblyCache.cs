@@ -26,7 +26,7 @@ namespace PInvoke
             /// <param name="pszAssemblyName">The name of the assembly to uninstall.</param>
             /// <param name="pRefData">A <see cref="FUSION_INSTALL_REFERENCE"/> structure that contains the installation data for the assembly.</param>
             /// <param name="pulDisposition">One of the disposition values defined in Fusion.idl.</param>
-            /// <returns>An <see cref="HResult"/></returns>
+            /// <returns>An <see cref="HResult"/>.</returns>
             [PreserveSig]
             unsafe HResult UninstallAssembly(
                 /* [in] */ UninstallAssemblyFlags dwFlags,
@@ -40,7 +40,7 @@ namespace PInvoke
             /// <param name="dwFlags">Flags defined in Fusion.idl.</param>
             /// <param name="pszAssemblyName">The name of the assembly for which data will be retrieved.</param>
             /// <param name="pAsmInfo">An <see cref="ASSEMBLY_INFO"/> structure that contains data about the assembly.</param>
-            /// <returns>An <see cref="HResult"/></returns>
+            /// <returns>An <see cref="HResult"/>.</returns>
             [PreserveSig]
             unsafe HResult QueryAssemblyInfo(
                 /* [in] */ QueryAssemblyInfoFlags dwFlags,
@@ -52,9 +52,9 @@ namespace PInvoke
             /// </summary>
             /// <param name="dwFlags">Flags defined in Fusion.idl.</param>
             /// <param name="pvReserved">Reserved for future extensibility. <paramref name="pvReserved"/> must be a null reference.</param>
-            /// <param name="ppAsmItem">The returned <see cref="IAssemblyCacheItem"/> pointer</param>
+            /// <param name="ppAsmItem">The returned <see cref="IAssemblyCacheItem"/> pointer.</param>
             /// <param name="pszAssemblyName">Uncanonicalized, comma-separated name=value pairs. Optional.</param>
-            /// <returns>An <see cref="HResult"/></returns>
+            /// <returns>An <see cref="HResult"/>.</returns>
             [PreserveSig]
             HResult CreateAssemblyCacheItem(
                 /* [in] */ AssemblyCacheInstallFlags dwFlags,
@@ -65,8 +65,8 @@ namespace PInvoke
             /// <summary>
             /// Reserved for internal use by the fusion technology.
             /// </summary>
-            /// <param name="ppUnkReserved">The returned IUnknown pointer</param>
-            /// <returns>An <see cref="HResult"/></returns>
+            /// <param name="ppUnkReserved">The returned IUnknown pointer.</param>
+            /// <returns>An <see cref="HResult"/>.</returns>
             [PreserveSig]
             HResult CreateAssemblyScavenger(
                 /* [out] */ out object ppUnkReserved);
@@ -77,7 +77,7 @@ namespace PInvoke
             /// <param name="dwFlags">Flags defined in Fusion.idl.</param>
             /// <param name="pszManifestFilePath">The path to the manifest for the assembly to install.</param>
             /// <param name="pRefData">A <see cref="FUSION_INSTALL_REFERENCE"/> structure that contains data for the installation.</param>
-            /// <returns>An <see cref="HResult"/></returns>
+            /// <returns>An <see cref="HResult"/>.</returns>
             [PreserveSig]
             unsafe HResult InstallAssembly(
                 /* [in] */ AssemblyCacheInstallFlags dwFlags,

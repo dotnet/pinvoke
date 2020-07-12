@@ -28,7 +28,7 @@ namespace PInvoke
             public char* pszAlgid;
 
             /// <summary>
-            /// A legacy identifier that specifies the type of key
+            /// A legacy identifier that specifies the type of key.
             /// </summary>
             public LegacyKeySpec dwLegacyKeySpec;
 

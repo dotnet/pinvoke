@@ -110,7 +110,7 @@ namespace PInvoke
         /// <summary>
         /// Changes the magnification settings for the full-screen magnifier.
         /// </summary>
-        /// <param name="magLevel">The new magnification factor for the full-screen magnifier. The minimum value of this parameter is 1.0, and the maximum value is 4096.0. If this value is 1.0, the screen content is not magnified and no offsets are applied. </param>
+        /// <param name="magLevel">The new magnification factor for the full-screen magnifier. The minimum value of this parameter is 1.0, and the maximum value is 4096.0. If this value is 1.0, the screen content is not magnified and no offsets are applied.</param>
         /// <param name="xOffset">The new x-coordinate offset, in pixels, for the upper-left corner of the magnified view. The offset is relative to the upper-left corner of the primary monitor, in unmagnified coordinates. The minimum value of the parameter is -262144, and the maximum value is 262144.</param>
         /// <param name="yOffset">The new y-coordinate offset, in pixels, for the upper-left corner of the magnified view. The offset is relative to the upper-left corner of the primary monitor, in unmagnified coordinates. The minimum value of the parameter is -262144, and the maximum value is 262144.</param>
         /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>

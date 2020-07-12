@@ -59,7 +59,7 @@ namespace PInvoke
             /// <see cref="FUSION_REFCOUNT_FILEPATH_GUID"/>,
             /// <see cref="FUSION_REFCOUNT_OPAQUE_STRING_GUID"/>,
             /// <see cref="FUSION_REFCOUNT_OSINSTALL_GUID"/>,
-            /// <see cref="FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID"/>
+            /// <see cref="FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID"/>.
             /// </summary>
             public Guid guidScheme;
 

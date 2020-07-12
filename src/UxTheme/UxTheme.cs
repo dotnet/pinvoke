@@ -40,7 +40,7 @@ namespace PInvoke
         /// <param name="hwnd">The handle of the window for which theme data is required.</param>
         /// <param name="pszClassIdList">A pointer to a string that contains a semicolon-separated list of classes.</param>
         /// <param name="dpi">The specified DPI value with which to associate the theme handle. The function will return an error if this value is outside of those that correspond to the set of connected monitors.</param>
-        /// <returns>See OpenThemeData</returns>
+        /// <returns>See OpenThemeData.</returns>
         /// <remarks>
         /// <list type="bullet">
         /// <item>

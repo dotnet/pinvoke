@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class BCrypt
     {
         /// <summary>
-        /// Flags that can be passed to <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/>
+        /// Flags that can be passed to <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/>.
         /// </summary>
         [Flags]
         public enum BCryptOpenAlgorithmProviderFlags

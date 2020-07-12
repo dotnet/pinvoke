@@ -15,7 +15,7 @@ namespace PInvoke
         /// <summary>
         /// Gets the path of a folder identified by a CSIDL value.
         /// </summary>
-        /// <param name="hwndOwner">Reserved. Pass IntPtr.Zero</param>
+        /// <param name="hwndOwner">Reserved. Pass IntPtr.Zero.</param>
         /// <param name="nFolder">
         /// A <see cref="CSIDL"/> value that identifies the folder whose path is to be retrieved.
         /// Only real folders are valid. If a virtual folder is specified, this function fails.
@@ -102,7 +102,7 @@ namespace PInvoke
         /// <returns>
         /// Returns S_OK if successful, or an error value otherwise, including the following:
         /// <see cref="PInvokeExtensions.ToHResult(Win32ErrorCode)"/>(<see cref="Win32ErrorCode.ERROR_FILE_NOT_FOUND"/>)
-        /// <see cref="HResult.Code.E_INVALIDARG"/>
+        /// <see cref="HResult.Code.E_INVALIDARG"/>.
         /// </returns>
         [DllImport(nameof(Shell32))]
         [Obsolete("As of Windows Vista, this function is merely a wrapper for " + nameof(SHGetKnownFolderIDList) + ".")]

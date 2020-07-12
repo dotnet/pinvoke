@@ -125,7 +125,7 @@ namespace PInvoke
         }
 
         /// <summary>
-        /// The CreateWindow is identical to the CreateWindowEx function, actually it is a macro on C/C++
+        /// The CreateWindow is identical to the CreateWindowEx function, actually it is a macro on C/C++.
         /// </summary>
         /// <param name="lpClassName">
         /// Pointer to a null-terminated string or a class atom created by a previous call to the
@@ -252,10 +252,10 @@ namespace PInvoke
         /// Retrieves the name of the class to which the specified window belongs.
         /// </summary>
         /// <param name = "hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
-        /// <param name="maxLength">The size of the string to return</param>
+        /// <param name="maxLength">The size of the string to return.</param>
         /// <returns>The class name string.</returns>
         /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
-        /// <remarks>The maximum length for lpszClassName is 256. See WNDCLASS structure documentation: https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576(v=vs.85).aspx</remarks>
+        /// <remarks>The maximum length for lpszClassName is 256. See WNDCLASS structure documentation: https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576(v=vs.85).aspx.</remarks>
         public static unsafe string GetClassName(IntPtr hWnd, int maxLength = 256)
         {
             char* className = stackalloc char[maxLength];
@@ -342,7 +342,7 @@ namespace PInvoke
         /// <summary>
         /// Retrieves the position of the mouse cursor, in screen coordinates.
         /// </summary>
-        /// <returns>The screen coordinates of the cursor</returns>
+        /// <returns>The screen coordinates of the cursor.</returns>
         public static unsafe POINT GetCursorPos()
         {
             var result = default(POINT);

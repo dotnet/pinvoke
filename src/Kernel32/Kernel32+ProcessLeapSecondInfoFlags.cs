@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Flags used in <see cref="PROCESS_LEAP_SECOND_INFO.Flags"/> field
+        /// Flags used in <see cref="PROCESS_LEAP_SECOND_INFO.Flags"/> field.
         /// </summary>
         [Flags]
         public enum ProcessLeapSecondInfoFlags : uint

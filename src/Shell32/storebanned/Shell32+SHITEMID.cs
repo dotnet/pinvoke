@@ -16,7 +16,7 @@ namespace PInvoke
         /// This struct must *always* be handled via pointer
         /// rather than copied around because it is just the header to a native buffer.
         /// </summary>
-        /// <remarks>Used by <see cref="ITEMIDLIST"/></remarks>
+        /// <remarks>Used by <see cref="ITEMIDLIST"/>.</remarks>
         [OfferIntPtrPropertyAccessors]
         public unsafe partial struct SHITEMID
         {

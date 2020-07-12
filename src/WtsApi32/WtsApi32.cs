@@ -58,7 +58,7 @@ namespace PInvoke
         /// <param name="Version">The version of the enumeration request. This parameter must be 1.</param>
         /// <param name="ppSessionInfo">A pointer to <see cref="IEnumerable&lt;WTS_SESSION_INFO&gt;"/> structures that represent the retrieved
         /// sessions. Note, that returned object doesn't know overall count of sessions, and always return true for MoveNext, use it in pair
-        /// with pSessionInfoCount parameter</param>
+        /// with pSessionInfoCount parameter.</param>
         /// <param name="pCount">A pointer to the number of WTS_SESSION_INFO structures returned in the ppSessionInfo parameter.</param>
         /// <returns>Returns zero if this function fails. If this function succeeds, a nonzero value is returned.</returns>
         [DllImport(nameof(WtsApi32), SetLastError = true, CharSet = CharSet.Unicode)]

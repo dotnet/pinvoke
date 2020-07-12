@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Controls the access of other processes to the created desktop
+        /// Controls the access of other processes to the created desktop.
         /// </summary>
         public enum DesktopCreationFlags : uint
         {

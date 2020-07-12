@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Possible flag values for <see cref="User32.SendMessageTimeout"/>
+        /// Possible flag values for <see cref="User32.SendMessageTimeout"/>.
         /// </summary>
         public enum SendMessageTimeoutFlags : int
         {

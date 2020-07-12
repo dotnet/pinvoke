@@ -21,7 +21,7 @@ namespace PInvoke
             /// <summary>A handle to the window to be flashed. The window can be either opened or minimized.</summary>
             public IntPtr hwnd;
 
-            /// <summary>The flash status</summary>
+            /// <summary>The flash status.</summary>
             public FlashWindowFlags dwFlags;
 
             /// <summary>The number of times to flash the window.</summary>

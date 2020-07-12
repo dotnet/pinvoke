@@ -93,7 +93,7 @@ namespace PInvoke
         /// Provides one of three interfaces: <see cref="ICLRMetaHost"/>, <see cref="ICLRMetaHostPolicy"/>, or <see cref="ICLRDebugging"/>.
         /// </summary>
         /// <param name="clsid">
-        /// One of three class identifiers: <see cref="CLSID_CLRMetaHost"/>, <see cref="CLSID_CLRMetaHostPolicy"/>, or <see cref="CLSID_CLRDebugging"/>
+        /// One of three class identifiers: <see cref="CLSID_CLRMetaHost"/>, <see cref="CLSID_CLRMetaHostPolicy"/>, or <see cref="CLSID_CLRDebugging"/>.
         /// </param>
         /// <param name="riid">One of three interface identifiers (IIDs) accessible via <c>typeof(T)</c> where the type is <see cref="ICLRMetaHost"/>, <see cref="ICLRMetaHostPolicy"/>, or <see cref="ICLRDebugging"/>.</param>
         /// <param name="ppInterface">One of three interfaces: <see cref="ICLRMetaHost"/>, <see cref="ICLRMetaHostPolicy"/>, or <see cref="ICLRDebugging"/>.</param>
@@ -113,7 +113,7 @@ namespace PInvoke
         /// <param name="pvReserved">Reserved for future use.</param>
         /// <param name="phModDll">A pointer to the handle of the module.</param>
         /// <returns>This method returns standard Component Object Model (COM) error codes, as defined in WinError.h, in addition to the following values.
-        /// <see cref="HResult.Code.S_OK"/>, CLR_E_SHIM_RUNTIMELOAD
+        /// <see cref="HResult.Code.S_OK"/>, CLR_E_SHIM_RUNTIMELOAD.
         /// </returns>
         /// <remarks>
         /// This function is used to load DLLs that are included in the .NET Framework redistributable package. It does not load user-generated DLLs.
@@ -134,10 +134,10 @@ namespace PInvoke
         /// <param name="cchBuffer">The length of the version buffer.</param>
         /// <param name="dwLength">A pointer to the length of the version number string.</param>
         /// <returns>
-        /// HRESULT
+        /// HRESULT.
         /// </returns>
         /// <remarks>
-        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0
+        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0.
         /// </remarks>
         [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode)]
         public static extern unsafe HResult GetVersionFromProcess(
@@ -154,10 +154,10 @@ namespace PInvoke
         /// <param name="cchBuffer">The size, in wide characters, of szBuffer.</param>
         /// <param name="dwLength">The size, in bytes, of the returned szBuffer.</param>
         /// <returns>
-        /// HRESULT
+        /// HRESULT.
         /// </returns>
         /// <remarks>
-        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1
+        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1.
         /// </remarks>
         [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode)]
         public static extern unsafe HResult GetFileVersion(

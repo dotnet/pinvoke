@@ -9,7 +9,7 @@ namespace PInvoke
     public static partial class Kernel32
     {
         /// <summary>
-        /// The product type enumeration
+        /// The product type enumeration.
         /// </summary>
         public enum OS_TYPE : byte
         {

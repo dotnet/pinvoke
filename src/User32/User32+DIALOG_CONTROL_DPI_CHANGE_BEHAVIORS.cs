@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains nested type <see cref="DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS"/>
+    /// Contains nested type <see cref="DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS"/>.
     /// </content>
     public partial class User32
     {

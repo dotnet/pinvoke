@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class AdvApi32
     {
         /// <summary>
-        /// Represents the current state of a servies
+        /// Represents the current state of a servies.
         /// </summary>
         public enum ServiceState
         {

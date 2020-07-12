@@ -10914,7 +10914,7 @@ namespace PInvoke
         /// <summary>The API return buffer is too small.</summary>
         NERR_BufTooSmall = 2100 + 23,
 
-        /// <summary>A remote API error occurred. </summary>
+        /// <summary>A remote API error occurred.</summary>
         NERR_RemoteErr = 2100 + 27,
 
         /// <summary>An error occurred when opening or reading the configuration file.</summary>
@@ -10923,7 +10923,7 @@ namespace PInvoke
         /// <summary>A general network error occurred.</summary>
         NERR_NetworkError = 2100 + 36,
 
-        /// <summary>The Workstation service is in an inconsistent state. Restart the computer before restarting the Workstation service. </summary>
+        /// <summary>The Workstation service is in an inconsistent state. Restart the computer before restarting the Workstation service.</summary>
         NERR_WkstaInconsistentState = 2100 + 37,
 
         /// <summary>The Workstation service has not been started.</summary>
@@ -10974,7 +10974,7 @@ namespace PInvoke
         /// <summary>No more printers can be added.</summary>
         NERR_QNoRoom = 2100 + 55,
 
-        /// <summary>No more print jobs can be added. </summary>
+        /// <summary>No more print jobs can be added.</summary>
         NERR_JobNoRoom = 2100 + 56,
 
         /// <summary>No more printer destinations can be added.</summary>
@@ -11064,7 +11064,7 @@ namespace PInvoke
         /// <summary>The workstation is not logged on to the local-area network.</summary>
         NERR_NotLoggedOn = 2100 + 101,
 
-        /// <summary>The user name or group name parameter is invalid. </summary>
+        /// <summary>The user name or group name parameter is invalid.</summary>
         NERR_BadUsername = 2100 + 102,
 
         /// <summary>The password parameter is invalid.</summary>
@@ -11085,7 +11085,7 @@ namespace PInvoke
         /// <summary>Network logons are paused.</summary>
         NERR_LogonsPaused = 2100 + 109,
 
-        /// <summary>A centralized logon-server conflict occurred. </summary>
+        /// <summary>A centralized logon-server conflict occurred.</summary>
         NERR_LogonServerConflict = 2100 + 110,
 
         /// <summary>The server is configured without a valid user path.</summary>
@@ -11097,10 +11097,10 @@ namespace PInvoke
         /// <summary>The logon server was not specified.  Your computer will be logged on as STANDALONE.</summary>
         NERR_StandaloneLogon = 2100 + 114,
 
-        /// <summary>The logon server could not be found. </summary>
+        /// <summary>The logon server could not be found.</summary>
         NERR_LogonServerNotFound = 2100 + 115,
 
-        /// <summary>There is already a logon domain for this computer. </summary>
+        /// <summary>There is already a logon domain for this computer.</summary>
         NERR_LogonDomainExists = 2100 + 116,
 
         /// <summary>The logon server could not validate the logon.</summary>
@@ -11115,7 +11115,7 @@ namespace PInvoke
         /// <summary>The user name could not be found.</summary>
         NERR_UserNotFound = 2100 + 121,
 
-        /// <summary>The resource name could not be found. </summary>
+        /// <summary>The resource name could not be found.</summary>
         NERR_ResourceNotFound = 2100 + 122,
 
         /// <summary>The group already exists.</summary>
@@ -11172,7 +11172,7 @@ namespace PInvoke
         /// <summary>The user is not allowed to log on from this workstation.</summary>
         NERR_InvalidWorkstation = 2100 + 140,
 
-        /// <summary>The user is not allowed to log on at this time. </summary>
+        /// <summary>The user is not allowed to log on at this time.</summary>
         NERR_InvalidLogonHours = 2100 + 141,
 
         /// <summary>The password of this user has expired.</summary>
@@ -11187,7 +11187,7 @@ namespace PInvoke
         /// <summary>The password does not meet the password policy requirements. Check the minimum password length, password complexity and password history requirements.</summary>
         NERR_PasswordTooShort = 2100 + 145,
 
-        /// <summary>The password of this user is too recent to change. </summary>
+        /// <summary>The password of this user is too recent to change.</summary>
         NERR_PasswordTooRecent = 2100 + 146,
 
         /// <summary>The security database is corrupted.</summary>
@@ -11217,7 +11217,7 @@ namespace PInvoke
         /// <summary>The Messenger service is already started.</summary>
         NERR_MsgAlreadyStarted = 2100 + 171,
 
-        /// <summary>The Messenger service failed to start. </summary>
+        /// <summary>The Messenger service failed to start.</summary>
         NERR_MsgInitFailed = 2100 + 172,
 
         /// <summary>The message alias could not be found on the network.</summary>
@@ -11421,7 +11421,7 @@ namespace PInvoke
         /// <summary>The shared resource you are connected to could not be found.</summary>
         NERR_ShareNotFound = 2100 + 292,
 
-        /// <summary>The LAN adapter number is invalid. </summary>
+        /// <summary>The LAN adapter number is invalid.</summary>
         NERR_InvalidLana = 2100 + 300,
 
         /// <summary>There are open files on the connection.   </summary>

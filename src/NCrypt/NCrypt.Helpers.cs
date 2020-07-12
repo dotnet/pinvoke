@@ -257,7 +257,7 @@ namespace PInvoke
         /// The name of the property to set. This can be one of the predefined <see cref="KeyStoragePropertyIdentifiers"/> or a custom property identifier.
         /// </param>
         /// <param name="propertyValue">The new property value.</param>
-        /// <param name="flags">Flags to pass to <see cref="NCryptSetProperty(SafeHandle, string, byte*, int, NCryptSetPropertyFlags)"/></param>
+        /// <param name="flags">Flags to pass to <see cref="NCryptSetProperty(SafeHandle, string, byte*, int, NCryptSetPropertyFlags)"/>.</param>
         public static unsafe void NCryptSetProperty<T>(SafeHandle hObject, string propertyName, T propertyValue, NCryptSetPropertyFlags flags = NCryptSetPropertyFlags.None)
         {
             int bufferSize = Marshal.SizeOf(propertyValue);

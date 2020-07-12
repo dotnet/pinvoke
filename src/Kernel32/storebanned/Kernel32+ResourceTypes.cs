@@ -47,16 +47,14 @@ namespace PInvoke
         /// <summary>Hardware-independent icon resource.</summary>
         public static readonly unsafe char* RT_GROUP_ICON = MAKEINTRESOURCE(14);
 
-        /// <summary>Version resource</summary>
+        /// <summary>Version resource.</summary>
         public static readonly unsafe char* RT_VERSION = MAKEINTRESOURCE(16);
 
         /// <summary>
         ///     Allows a resource editing tool to associate a string with an .rc file. Typically, the string is the name of the
         ///     header file that provides symbolic names. The resource compiler parses the string but otherwise ignores the value.
-        ///     For example,
-        ///     <para>
+        ///     For example:
         ///         <code>1 DLGINCLUDE "MyFile.h"</code>
-        ///     </para>
         /// </summary>
         public static readonly unsafe char* RT_DLGINCLUDE = MAKEINTRESOURCE(17);
 

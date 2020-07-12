@@ -17,7 +17,7 @@ namespace PInvoke
         public struct ServiceTrigger
         {
             /// <summary>
-            /// The trigger event type
+            /// The trigger event type.
             /// </summary>
             public ServiceTriggerType dwTriggerType;
 

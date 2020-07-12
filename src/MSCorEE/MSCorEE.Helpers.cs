@@ -71,7 +71,7 @@ namespace PInvoke
         /// The version number.
         /// </returns>
         /// <remarks>
-        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0
+        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0.
         /// </remarks>
         public static string GetVersionFromProcess(SafeHandle hProcess)
         {
@@ -105,7 +105,7 @@ namespace PInvoke
         /// <see cref="HResult.Code.E_INVALIDARG"/>.
         /// </returns>
         /// <remarks>
-        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1
+        /// .NET Framework Versions: 4.5, 4, 3.5 SP1, 3.5, 3.0 SP1, 3.0, 2.0 SP1, 2.0, 1.1.
         /// </remarks>
         public static string GetFileVersion(string fileName)
         {

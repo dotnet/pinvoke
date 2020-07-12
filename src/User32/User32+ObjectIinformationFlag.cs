@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// The information to be retrieved by <see cref="GetUserObjectInformation(System.IntPtr, ObjectInformationType, void*, uint, uint*)"/>
+        /// The information to be retrieved by <see cref="GetUserObjectInformation(System.IntPtr, ObjectInformationType, void*, uint, uint*)"/>.
         /// </summary>
         public enum ObjectInformationType : int
         {

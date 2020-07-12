@@ -8,7 +8,7 @@ namespace PInvoke
     using System.Text;
 
     /// <content>
-    /// Sourced from: https://msdn.microsoft.com/en-us/library/windows/desktop/aa376242(v=vs.85).aspx
+    /// Sourced from: https://msdn.microsoft.com/en-us/library/windows/desktop/aa376242(v=vs.85).aspx.
     /// </content>
     public partial class NCrypt
     {

@@ -10,8 +10,8 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
-        /// <summary>Virtual-key codes</summary>
-        /// <remarks>Defined in winuser.h from Windows SDK v6.1</remarks>
+        /// <summary>Virtual-key codes.</summary>
+        /// <remarks>Defined in winuser.h from Windows SDK v6.1.</remarks>
         /// <devremarks>
         /// APIs vary in the length they expect a parameter for virtual keys to be.
         /// Be sure to type the parameter as byte, ushort, or int as appropriate and document

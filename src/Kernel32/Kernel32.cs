@@ -29,7 +29,7 @@ namespace PInvoke
         public const int MAX_PATH = 260;
 
         /// <summary>
-        /// Constant for invalid handle value
+        /// Constant for invalid handle value.
         /// </summary>
         public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
 
@@ -626,13 +626,14 @@ namespace PInvoke
         /// initialize this variable to zero. For subsequent calls, pass in the variable used in the previous call.</param>
         /// <param name="TypeMask">A mask that indicates the member of the <see cref="OSVERSIONINFOEX"/> structure whose comparison operator
         /// is being set. This value corresponds to one of the bits specified in the dwTypeMask parameter for the
-        /// <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function</param>
+        /// <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function.</param>
         /// <param name="Condition">The operator to be used for the comparison. The <see cref="VerifyVersionInfo(OSVERSIONINFOEX*, VER_MASK, long)"/> function uses this
         /// operator to compare a specified attribute value to the corresponding value for the currently running system.</param>
         /// <returns>The function returns the condition mask value.</returns>
         [DllImport(api_ms_win_core_sysinfo_l1_2_0)]
         public static extern long VerSetConditionMask(long ConditionMask, VER_MASK TypeMask, VER_CONDITION Condition);
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         /// Compares a set of operating system version requirements to the corresponding values for the currently
         /// running version of the system.This function is subject to manifest-based behavior.
@@ -643,7 +644,7 @@ namespace PInvoke
         /// <see cref="OSVERSIONINFOEX.dwOSVersionInfoSize"/> member of this structure to <code>Marshal.SizeOf(typeof(OSVERSIONINFOEX))</code>
         /// or create it with <see cref="OSVERSIONINFOEX.Create"/>. You must
         /// also specify valid data for the members indicated by <paramref name="dwTypeMask"/>. The function ignores structure members for which the
-        /// corresponding <paramref name="dwTypeMask"/> bit is not set
+        /// corresponding <paramref name="dwTypeMask"/> bit is not set.
         /// </param>
         /// <param name="dwTypeMask">A mask that indicates the members of the <see cref="OSVERSIONINFOEX"/> structure to be tested.</param>
         /// <param name="dwlConditionMask">The type of comparison to be used for each <paramref name="lpVersionInformation"/> member being compared. To build this value,
@@ -711,6 +712,7 @@ namespace PInvoke
         ///         behaves as if the operation system version is Windows 10 (10.0).
         /// </para>
         /// </remarks>
+#pragma warning restore SA1629 // Documentation text should end with a period
         [DllImport(nameof(Kernel32))]
         public static unsafe extern NTSTATUS VerifyVersionInfo(
             [Friendly(FriendlyFlags.Bidirectional)] OSVERSIONINFOEX* lpVersionInformation,
@@ -903,7 +905,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="ProcNumber">
         /// A pointer to a <see cref="PROCESSOR_NUMBER"/> structure that receives the processor group to which the logical
-        /// processor is assigned and the number of the logical processor within its group
+        /// processor is assigned and the number of the logical processor within its group.
         /// </param>
         /// <remarks>
         /// If the function succeeds, the <paramref name="ProcNumber"/> parameter contains the group and processor number of the processor on which
@@ -1001,18 +1003,19 @@ namespace PInvoke
         public static unsafe extern void GetNativeSystemInfo(
             [Friendly(FriendlyFlags.Out)] SYSTEM_INFO* lpSystemInfo);
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
-        /// Retrieves information about the specified process
+        /// Retrieves information about the specified process.
         /// </summary>
         /// <param name="hProcess">
         /// A handle to the process. This handle must have the <see cref="ProcessAccess.PROCESS_SET_INFORMATION"/> access right.
-        /// For more information, see <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        /// For more information, see <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
         /// </param>
         /// <param name="ProcessInformationClass">
         /// A member of the <see cref="PROCESS_INFORMATION_CLASS"/> enumeration specifying the kind of information to retrieve.
         /// </param>
         /// <param name="ProcessInformation">
-        /// Pointer to an object to receive the type of information specified by the <paramref name="ProcessInformationClass"/> parameter
+        /// Pointer to an object to receive the type of information specified by the <paramref name="ProcessInformationClass"/> parameter.
         /// </param>
         /// <param name="ProcessInformationSize">
         /// The size in bytes of the structure specified by the <paramref name="ProcessInformation"/> parameter.
@@ -1037,6 +1040,7 @@ namespace PInvoke
         ///
         /// If the function fails, the return value is zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
         /// </returns>
+#pragma warning restore SA1629 // Documentation text should end with a period
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool GetProcessInformation(
@@ -1045,22 +1049,23 @@ namespace PInvoke
             void* ProcessInformation,
             uint ProcessInformationSize);
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
-        /// Sets information for the specified process
+        /// Sets information for the specified process.
         /// </summary>
         /// <param name="hProcess">
         /// A handle to the process. This handle must have the <see cref="ProcessAccess.PROCESS_SET_INFORMATION"/> access right.
         ///
-        /// For more information, see <a href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
+        /// For more information, see <see href="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</see>.
         /// </param>
-        /// <param name="ProcessInformationClass">Specifies the kind of information to be set</param>
+        /// <param name="ProcessInformationClass">Specifies the kind of information to be set.</param>
         /// <param name="ProcessInformation">
         /// Pointer to an object that contains the type of information specified by the <paramref name="ProcessInformationClass"/>
         /// parameter
         /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessMemoryPriority"/>, this
         /// parameter must point to a <see cref="MEMORY_PRIORITY_INFORMATION"/> structure.
         ///
-        /// If <paramref name="ProcessInformationClass"/> is  <see cref="PROCESS_INFORMATION_CLASS.ProcessPowerThrottling"/>, this
+        /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessPowerThrottling"/>, this
         /// parameter must point to a <see cref="PROCESS_POWER_THROTTLING_STATE"/> structure.
         ///
         /// If <paramref name="ProcessInformationClass"/> is <see cref="PROCESS_INFORMATION_CLASS.ProcessLeapSecondInfo"/>, this
@@ -1093,6 +1098,7 @@ namespace PInvoke
         /// This improves overall system performance because higher priority pages are less likely to be trimmed from the working set and
         /// then trigger a page fault when they are accessed again.
         /// </remarks>
+#pragma warning restore SA1629 // Documentation text should end with a period
         [DllImport(nameof(Kernel32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool SetProcessInformation(

@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <content>
-    /// Contains nested type <see cref="DPI_HOSTING_BEHAVIOR"/>
+    /// Contains nested type <see cref="DPI_HOSTING_BEHAVIOR"/>.
     /// </content>
     public partial class User32
     {

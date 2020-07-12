@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>Enumeration of the different ways of showing a window using
-        /// ShowWindow</summary>
+        /// ShowWindow.</summary>
         public enum WindowShowStyle : uint
         {
             /// <summary>Hides the window and activates another window.</summary>

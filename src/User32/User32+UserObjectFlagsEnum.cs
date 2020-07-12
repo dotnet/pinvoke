@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Flags indicating user object specific characteristics
+        /// Flags indicating user object specific characteristics.
         /// </summary>
         public enum UserObjectFlagsEnum : uint
         {

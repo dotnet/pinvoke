@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// For use with <see cref="ChildWindowFromPointEx"/>
+        /// For use with <see cref="ChildWindowFromPointEx"/>.
         /// </summary>
         [Flags]
         public enum ChildWindowFromPointExFlags

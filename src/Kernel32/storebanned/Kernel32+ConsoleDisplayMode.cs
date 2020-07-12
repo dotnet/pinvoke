@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Designates the console display mode on the <see cref="GetConsoleDisplayMode"/> functions
+        /// Designates the console display mode on the <see cref="GetConsoleDisplayMode"/> functions.
         /// </summary>
         public enum ConsoleDisplayMode
         {

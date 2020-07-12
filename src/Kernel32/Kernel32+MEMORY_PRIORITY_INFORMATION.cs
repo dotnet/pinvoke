@@ -16,7 +16,7 @@ namespace PInvoke
         public struct MEMORY_PRIORITY_INFORMATION
         {
             /// <summary>
-            /// The memory priority for the thread or process
+            /// The memory priority for the thread or process.
             /// </summary>
             public MemoryPriority MemoryPriority;
         }

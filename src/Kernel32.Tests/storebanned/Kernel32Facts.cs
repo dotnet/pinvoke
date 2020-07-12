@@ -1179,7 +1179,7 @@ public partial class Kernel32Facts
     /// <returns>
     /// Returns 1.
     /// </returns>
-    /// <remarks>See <see cref=" Kernel32.THREAD_START_ROUTINE"/> for general documentation</remarks>
+    /// <remarks>See <see cref=" Kernel32.THREAD_START_ROUTINE"/> for general documentation.</remarks>
     private static unsafe uint CreateThread_Test_ThreadMain(void* data)
     {
         *(bool*)data = true;

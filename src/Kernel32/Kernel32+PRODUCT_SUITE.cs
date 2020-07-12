@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <summary>
-    /// Contains the <see cref="PRODUCT_SUITE"/> nested type
+    /// Contains the <see cref="PRODUCT_SUITE"/> nested type.
     /// </summary>
     public static partial class Kernel32
     {

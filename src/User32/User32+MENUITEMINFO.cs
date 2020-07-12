@@ -82,7 +82,7 @@ namespace PInvoke
             ///     </para>
             ///     <para>
             ///         dwTypeData is used only if the <see cref="MenuMembersMask.MIIM_STRING" /> flag is set in the
-            ///         <see cref="fMask" /> member
+            ///         <see cref="fMask" /> member.
             ///     </para>
             /// </summary>
             public char* dwTypeData;
@@ -111,37 +111,37 @@ namespace PInvoke
             /// <summary>
             ///     A handle to the bitmap to be displayed, or it can be one of the following values :
             ///     <para>
-            ///         <see cref="HBMMENU_CALLBACK" />
+            ///         <see cref="HBMMENU_CALLBACK" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_MBAR_CLOSE" />
+            ///         <see cref="HBMMENU_MBAR_CLOSE" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_MBAR_CLOSE_D" />
+            ///         <see cref="HBMMENU_MBAR_CLOSE_D" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_MBAR_MINIMIZE" />
+            ///         <see cref="HBMMENU_MBAR_MINIMIZE" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_MBAR_MINIMIZE_D" />
+            ///         <see cref="HBMMENU_MBAR_MINIMIZE_D" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_MBAR_RESTORE" />
+            ///         <see cref="HBMMENU_MBAR_RESTORE" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_POPUP_CLOSE" />
+            ///         <see cref="HBMMENU_POPUP_CLOSE" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_POPUP_MAXIMIZE" />
+            ///         <see cref="HBMMENU_POPUP_MAXIMIZE" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_POPUP_MINIMIZE" />
+            ///         <see cref="HBMMENU_POPUP_MINIMIZE" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_POPUP_RESTORE" />
+            ///         <see cref="HBMMENU_POPUP_RESTORE" />.
             ///     </para>
             ///     <para>
-            ///         <see cref="HBMMENU_SYSTEM" />
+            ///         <see cref="HBMMENU_SYSTEM" />.
             ///     </para>
             /// </summary>
             public IntPtr hbmpItem;

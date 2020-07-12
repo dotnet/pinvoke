@@ -10,7 +10,7 @@ namespace PInvoke
     {
         /// <summary>
         /// Defines the query types for <see cref="CryptSetProvParam(SafeHandle,CryptSetProvParamQuery,byte*,uint)"/> API
-        /// as documented by https://msdn.microsoft.com/en-us/library/windows/desktop/aa380276(v=vs.85).aspx
+        /// <see href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa380276(v=vs.85).aspx">as documented</see>.
         /// </summary>
         public enum CryptSetProvParamQuery : uint
         {

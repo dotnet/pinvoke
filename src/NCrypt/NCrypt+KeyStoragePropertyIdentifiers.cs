@@ -10,7 +10,7 @@ namespace PInvoke
     {
         /// <summary>
         /// Defines the names of the built-in key storage property identifiers
-        /// as documented by https://msdn.microsoft.com/en-us/library/windows/desktop/aa376242(v=vs.85).aspx
+        /// as documented by https://msdn.microsoft.com/en-us/library/windows/desktop/aa376242(v=vs.85).aspx.
         /// </summary>
         public static class KeyStoragePropertyIdentifiers
         {

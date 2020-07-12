@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Process' priority class
+        /// Process' priority class.
         /// </summary>
         /// <remarks>
         /// Every thread has a base priority level determined by the thread's priority value and the priority class of its process. The operating system

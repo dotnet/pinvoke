@@ -14,7 +14,7 @@ namespace PInvoke
         /// <remarks>
         /// The memory priority of a thread or process serves as a hint to the memory manager when it trims pages from the working set.
         /// Other factors being equal, pages with lower memory priority are trimmed before pages with higher memory priority.
-        /// See also <a href="https://docs.microsoft.com/en-us/windows/desktop/Memory/working-set">Working Set</a>
+        /// See also <a href="https://docs.microsoft.com/en-us/windows/desktop/Memory/working-set">Working Set</a>.
         /// </remarks>
         public enum MemoryPriority : uint
         {

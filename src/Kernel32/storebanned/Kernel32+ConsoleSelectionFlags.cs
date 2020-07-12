@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// The console selection indicator for <see cref="CONSOLE_SELECTION_INFO.dwFlags"/>
+        /// The console selection indicator for <see cref="CONSOLE_SELECTION_INFO.dwFlags"/>.
         /// </summary>
         [Flags]
         public enum ConsoleSelectionFlags

@@ -30,7 +30,7 @@ namespace PInvoke
             /// A DWORD value that defines which operational classes this algorithm belongs to. This can be a combination of one or more of the following values:
             /// <see cref="AlgorithmOperations.NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION"/>
             /// <see cref="AlgorithmOperations.NCRYPT_SECRET_AGREEMENT_OPERATION"/>
-            /// <see cref="AlgorithmOperations.NCRYPT_SIGNATURE_OPERATION"/>
+            /// <see cref="AlgorithmOperations.NCRYPT_SIGNATURE_OPERATION"/>.
             /// </summary>
             public AlgorithmOperations dwAlgOperations;
 

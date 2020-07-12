@@ -43,7 +43,7 @@ namespace PInvoke
             public uint cProvParam;
 
             /// <summary>
-            /// An array of CRYPT_KEY_PROV_PARAM structures that contain the parameters for the key container
+            /// An array of CRYPT_KEY_PROV_PARAM structures that contain the parameters for the key container.
             /// </summary>
             public IntPtr rgProvParam;
 

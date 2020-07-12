@@ -176,7 +176,7 @@ namespace PInvoke
         /// <param name="lpLoadOrderGroup">
         /// The name of the load ordering group of which this service is a member. Specify NULL if you are not changing the existing group. Specify an empty string if the service does not belong to a group.
         /// The startup program uses load ordering groups to load groups of services in a specified order with respect to the other groups. The list of load ordering groups is contained in the ServiceGroupOrder value of the following registry key:
-        /// HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control
+        /// HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control.
         /// </param>
         /// <param name="lpdwTagId">
         /// A pointer to a variable that receives a tag value that is unique in the group specified in the lpLoadOrderGroup parameter. Specify NULL if you are not changing the existing tag.
@@ -204,7 +204,7 @@ namespace PInvoke
         /// <param name="lpDisplayName">
         /// The display name to be used by applications to identify the service for its users. Specify NULL if you are not changing the existing display name; otherwise, this string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
         /// This parameter can specify a localized string using the following format:
-        /// @[path\]dllname,-strID
+        /// @[path\]dllname,-strID.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
@@ -269,7 +269,7 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero
+        /// If the function fails, the return value is zero.
         /// </returns>
         [DllImport(api_ms_win_service_management_l2_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -377,7 +377,7 @@ namespace PInvoke
         /// The names of the load ordering group of which this service is a member. Specify NULL or an empty string if the service does not belong to a group.
         /// The startup program uses load ordering groups to load groups of services in a specified order with respect to the other groups.
         /// The list of load ordering groups is contained in the following registry value:
-        /// HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder
+        /// HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder.
         /// </param>
         /// <param name="lpdwTagId">
         /// A pointer to a variable that receives a tag value that is unique in the group specified in the lpLoadOrderGroup parameter. Specify NULL if you are not changing the existing tag.
@@ -404,7 +404,7 @@ namespace PInvoke
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is a handle to the service.
-        /// If the function fails, the return value is NULL
+        /// If the function fails, the return value is NULL.
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeServiceHandle CreateService(SafeServiceHandle hSCManager, string lpServiceName, string lpDisplayName, ACCESS_MASK dwDesiredAccess, ServiceType dwServiceType, ServiceStartType dwStartType, ServiceErrorControl dwErrorControl, string lpBinaryPathName, string lpLoadOrderGroup, int lpdwTagId, string lpDependencies, string lpServiceStartName, string lpPassword);
@@ -472,11 +472,11 @@ namespace PInvoke
         /// Marks the specified service for deletion from the service control manager database.
         /// </summary>
         /// <param name="hService">
-        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ACCESS_MASK.StandardRight.DELETE"/> access right
+        /// A handle to the service. This handle is returned by the <see cref="OpenService"/> or <see cref="CreateService(SafeServiceHandle,string,string,ACCESS_MASK,ServiceType,ServiceStartType,ServiceErrorControl,string,string,int, string,string,string)"/> function, and it must have the <see cref="ACCESS_MASK.StandardRight.DELETE"/> access right.
         /// </param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
-        /// If the function fails, the return value is zero
+        /// If the function fails, the return value is zero.
         /// </returns>
         [DllImport(api_ms_win_service_management_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -868,7 +868,7 @@ namespace PInvoke
         ///         <see cref="HKEY_CURRENT_USER" />,
         ///         <see cref="HKEY_LOCAL_MACHINE" />,
         ///         <see cref="HKEY_PERFORMANCE_DATA" /> and
-        ///         <see cref="HKEY_USERS" />
+        ///         <see cref="HKEY_USERS" />.
         ///     </para>
         /// </param>
         /// <param name="lpSubKey">
@@ -920,7 +920,7 @@ namespace PInvoke
         ///         <see cref="HKEY_CURRENT_USER" />,
         ///         <see cref="HKEY_LOCAL_MACHINE" />,
         ///         <see cref="HKEY_PERFORMANCE_DATA" /> and
-        ///         <see cref="HKEY_USERS" />
+        ///         <see cref="HKEY_USERS" />.
         ///     </para>
         /// </param>
         /// <returns>
@@ -941,7 +941,7 @@ namespace PInvoke
         ///         <see cref="HKEY_CURRENT_USER" />,
         ///         <see cref="HKEY_LOCAL_MACHINE" />,
         ///         <see cref="HKEY_PERFORMANCE_DATA" /> and
-        ///         <see cref="HKEY_USERS" />
+        ///         <see cref="HKEY_USERS" />.
         ///     </para>
         ///     <para>
         ///         This parameter must be a local handle. If <see cref="RegNotifyChangeKeyValue" /> is called with a remote
@@ -1020,7 +1020,7 @@ namespace PInvoke
         /// If the service type is SERVICE_WIN32_OWN_PROCESS, the function does not verify that the specified name is valid, because there is only one registered service in the process.
         /// </param>
         /// <param name="lpHandlerProc">A reference to the handler function to be registered.</param>
-        /// <returns>If the function succeeds, the return value is a service status handle If the function fails, the return value is zero. </returns>
+        /// <returns>If the function succeeds, the return value is a service status handle If the function fails, the return value is zero.</returns>
         /// <remarks>
         /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
         /// A service can use either function, but the new function supports user-defined context data, and the new handler function supports additional extended control codes.
@@ -1039,7 +1039,7 @@ namespace PInvoke
         /// </param>
         /// <param name="lpHandlerProc">A reference to the handler function to be registered.</param>
         /// <param name="lpContext">Any user-defined data. This parameter, which is passed to the handler function, can help identify the service when multiple services share a process.</param>
-        /// <returns>If the function succeeds, the return value is a service status handle If the function fails, the return value is zero. </returns>
+        /// <returns>If the function succeeds, the return value is a service status handle If the function fails, the return value is zero.</returns>
         /// <remarks>
         /// This function has been superseded by the <see cref="RegisterServiceCtrlHandlerEx(string, LPHANDLER_FUNCTION_EX, void*)"/> function.
         /// A service can use either function, but the new function supports user-defined context data, and the new handler function supports additional extended control codes.
@@ -1219,14 +1219,14 @@ namespace PInvoke
         /// <param name="hProv">A handle to a CSP created by a call to <see cref="CryptAcquireContext"/>.</param>
         /// <param name="algId">
         /// An <see cref="ALG_ID"/> value that identifies the hash algorithm to use.
-        /// Valid values for this parameter vary, depending on the CSP that is used. For a list of default algorithms, see Remarks
+        /// Valid values for this parameter vary, depending on the CSP that is used. For a list of default algorithms, see Remarks.
         /// </param>
         /// <param name="hKey">
         /// If the type of hash algorithm is a keyed hash, such as the Hash-Based Message Authentication Code (HMAC) or Message Authentication Code (MAC) algorithm, the key for the hash is passed in this parameter.
         /// For nonkeyed algorithms, this parameter must be set to zero.
         /// For keyed algorithms, the key must be to a block cipher key, such as RC2, that has a cipher mode of Cipher Block Chaining (CBC).
         /// </param>
-        /// <param name="dwFlags">Hashing flags</param>
+        /// <param name="dwFlags">Hashing flags.</param>
         /// <param name="phHash">
         /// The address to which the function copies a handle to the new hash object. When you have finished using the hash object, dispose the safe handle.
         /// </param>
@@ -1249,7 +1249,7 @@ namespace PInvoke
         /// <param name="hHash">Handle of the hash object.</param>
         /// <param name="pbData">A pointer to a buffer that contains the data to be added to the hash object.</param>
         /// <param name="dataLen">Number of bytes of data to be added. This must be zero if the <see cref="CryptHashDataFlags.CRYPT_USERDATA" /> flag is set.</param>
-        /// <param name="flags">Hashing flags</param>
+        /// <param name="flags">Hashing flags.</param>
         /// <returns>If the function succeeds, the function returns a nonzero value.
         /// If the function fails, it returns zero.To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
         [DllImport(nameof(AdvApi32), SetLastError = true)]
@@ -1261,7 +1261,7 @@ namespace PInvoke
             CryptHashDataFlags flags);
 
         /// <summary>
-        ///     Get parameters of a hash
+        ///     Get parameters of a hash.
         /// </summary>
         /// <param name="hHash">Handle of the hash object to be queried.</param>
         /// <param name="dwParam">Query type.</param>
@@ -1313,10 +1313,10 @@ namespace PInvoke
         internal static extern Win32ErrorCode RegCloseKey(IntPtr hKey);
 
         /// <summary>
-        ///     Destroy a hashing provider
+        ///     Destroy a hashing provider.
         /// </summary>
-        /// <param name="hHash">The hashing provider to destroy</param>
-        /// <returns>The result of destroying the hash provider</returns>
+        /// <param name="hHash">The hashing provider to destroy.</param>
+        /// <returns>The result of destroying the hash provider.</returns>
 #if NETFRAMEWORK || NETSTANDARD2_0_ORLATER
         [SuppressUnmanagedCodeSecurity]
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]

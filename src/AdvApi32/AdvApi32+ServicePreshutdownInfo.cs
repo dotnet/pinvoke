@@ -11,7 +11,7 @@ namespace PInvoke
     public static partial class AdvApi32
     {
         /// <summary>
-        /// Contains preshutdown settings
+        /// Contains preshutdown settings.
         /// </summary>
         public struct ServicePreshutdownInfo
         {

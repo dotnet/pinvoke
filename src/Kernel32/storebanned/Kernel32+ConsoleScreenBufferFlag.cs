@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Designates how to create the screen buffer on the <see cref="CreateConsoleScreenBuffer(ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, ConsoleScreenBufferFlag, void*)"/> function
+        /// Designates how to create the screen buffer on the <see cref="CreateConsoleScreenBuffer(ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, ConsoleScreenBufferFlag, void*)"/> function.
         /// </summary>
         public enum ConsoleScreenBufferFlag
         {

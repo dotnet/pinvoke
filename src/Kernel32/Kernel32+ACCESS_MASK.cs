@@ -15,27 +15,27 @@ namespace PInvoke
         /// The ACCESS_MASK type is a bitmask that specifies a set of access rights in the access mask of an access control entry.
         /// </summary>
         /// <remarks>
-        /// Quite well described here: http://blogs.msdn.com/b/openspecification/archive/2010/04/01/about-the-access-mask-structure.aspx
+        /// Quite well described here: http://blogs.msdn.com/b/openspecification/archive/2010/04/01/about-the-access-mask-structure.aspx.
         /// </remarks>
         public partial struct ACCESS_MASK : IComparable, IComparable<ACCESS_MASK>, IEquatable<ACCESS_MASK>, IFormattable
         {
             /// <summary>
-            /// Bits 28-31
+            /// Bits 28-31.
             /// </summary>
             private const uint GenericRightsMask = 0xf0000000;
 
             /// <summary>
-            /// Bits 24-27
+            /// Bits 24-27.
             /// </summary>
             private const uint SpecialRightsMask = 0x0f000000;
 
             /// <summary>
-            /// Bits 16-23
+            /// Bits 16-23.
             /// </summary>
             private const uint StandardRightsMask = 0x00ff0000;
 
             /// <summary>
-            /// Bits 0-15
+            /// Bits 0-15.
             /// </summary>
             private const uint SpecificRightsMask = 0x0000ffff;
 
@@ -135,7 +135,7 @@ namespace PInvoke
             }
 
             /// <summary>
-            /// The following are the generic access rights for a desktop object contained in the interactive window station of the user's logon session
+            /// The following are the generic access rights for a desktop object contained in the interactive window station of the user's logon session.
             /// </summary>
             [Flags]
             public enum DesktopGenericRight : uint
@@ -424,19 +424,19 @@ namespace PInvoke
             /// <summary>
             /// Converts a <see cref="StandardRight"/> to an <see cref="ACCESS_MASK"/>.
             /// </summary>
-            /// <param name="value">The value for the <see cref="ACCESS_MASK"/></param>
+            /// <param name="value">The value for the <see cref="ACCESS_MASK"/>.</param>
             public static implicit operator ACCESS_MASK(StandardRight value) => new ACCESS_MASK((uint)value);
 
             /// <summary>
             /// Converts a <see cref="GenericRight"/> to an <see cref="ACCESS_MASK"/>.
             /// </summary>
-            /// <param name="value">The value for the <see cref="ACCESS_MASK"/></param>
+            /// <param name="value">The value for the <see cref="ACCESS_MASK"/>.</param>
             public static implicit operator ACCESS_MASK(GenericRight value) => new ACCESS_MASK((uint)value);
 
             /// <summary>
             /// Converts a <see cref="SpecificRight"/> to an <see cref="ACCESS_MASK"/>.
             /// </summary>
-            /// <param name="value">The value for the <see cref="ACCESS_MASK"/></param>
+            /// <param name="value">The value for the <see cref="ACCESS_MASK"/>.</param>
             public static implicit operator ACCESS_MASK(SpecificRight value) => new ACCESS_MASK((uint)value);
 
             /// <inheritdoc />

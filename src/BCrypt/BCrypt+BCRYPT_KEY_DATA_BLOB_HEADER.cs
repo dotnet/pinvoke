@@ -23,7 +23,7 @@ namespace PInvoke
 
             /// <summary>
             /// The magic value for the key.
-            /// This member must be the following value: <see cref="MagicNumber.BCRYPT_KEY_DATA_BLOB_MAGIC"/>
+            /// This member must be the following value: <see cref="MagicNumber.BCRYPT_KEY_DATA_BLOB_MAGIC"/>.
             /// </summary>
             public MagicNumber dwMagic;
 

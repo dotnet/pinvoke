@@ -12,7 +12,7 @@ namespace PInvoke
         /// The information class for the limits to be set.
         /// </summary>
         /// <remarks>
-        /// Taken from https://msdn.microsoft.com/en-us/library/windows/desktop/ms686216(v=vs.85).aspx
+        /// Taken from https://msdn.microsoft.com/en-us/library/windows/desktop/ms686216(v=vs.85).aspx.
         /// </remarks>
         public enum JOBOBJECTINFOCLASS
         {

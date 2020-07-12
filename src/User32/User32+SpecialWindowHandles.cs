@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Special window handles
+        /// Special window handles.
         /// </summary>
         public static class SpecialWindowHandles
         {

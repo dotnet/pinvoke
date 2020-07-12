@@ -22,7 +22,7 @@ namespace PInvoke
         public const int PIPE_UNLIMITED_INSTANCES = 255;
 
         /// <summary>
-        /// All processes start at this shutdown level
+        /// All processes start at this shutdown level.
         /// </summary>
         public const int DefaultShutdownLevel = 0x280;
 
@@ -160,7 +160,7 @@ namespace PInvoke
         /// <summary>
         /// Points to a function that notifies the host that a thread has started to execute.
         /// </summary>
-        /// <param name="lpThreadParameter">A pointer to the code that has started executing</param>
+        /// <param name="lpThreadParameter">A pointer to the code that has started executing.</param>
         /// <returns>
         /// The return value indicates the success or failure of this function.
         /// The return value should never be set to STILL_ACTIVE (259), as noted in <see cref="GetExitCodeThread(IntPtr, out int)"/>.
@@ -194,7 +194,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="hProcess">
         /// A handle to the process to be terminated.
-        /// The handle must have the PROCESS_TERMINATE access right
+        /// The handle must have the PROCESS_TERMINATE access right.
         /// </param>
         /// <param name="uExitCode">
         /// The exit code to be used by the process and threads terminated as a result of this call.
@@ -1144,7 +1144,7 @@ namespace PInvoke
 
         /// <summary>
         /// Determines whether the specified process is running under WOW64 (x86 emulator that allows 32-bit Windows-based
-        /// applications to run seamlessly on 64-bit Windows)
+        /// applications to run seamlessly on 64-bit Windows).
         /// </summary>
         /// <param name="hProcess">
         /// A handle to the process. The handle must have the <see cref="ProcessAccess.PROCESS_QUERY_INFORMATION" /> or

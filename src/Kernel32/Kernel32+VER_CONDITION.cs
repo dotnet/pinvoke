@@ -4,7 +4,7 @@
 namespace PInvoke
 {
     /// <summary>
-    /// Contains the nested type <see cref="VER_CONDITION"/>
+    /// Contains the nested type <see cref="VER_CONDITION"/>.
     /// </summary>
     public static partial class Kernel32
     {
@@ -21,7 +21,7 @@ namespace PInvoke
         ///     - <see cref="VER_LESS_EQUAL"/>
         /// If dwTypeBitMask is VER_SUITENAME, this parameter can be one of the following values:
         ///     - <see cref="VER_AND"/>
-        ///     - <see cref="VER_OR"/>
+        ///     - <see cref="VER_OR"/>.
         /// </remarks>
         public enum VER_CONDITION : byte
         {

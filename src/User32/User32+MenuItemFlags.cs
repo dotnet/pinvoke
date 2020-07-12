@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Controls the appearance and behavior of a menu item
+        /// Controls the appearance and behavior of a menu item.
         /// </summary>
         [Flags]
         public enum MenuItemFlags

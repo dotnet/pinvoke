@@ -350,7 +350,7 @@ namespace PInvoke
         ///     A handle to an access token from which information is retrieved. The handle must have
         ///     TOKEN_QUERY access.
         /// </param>
-        /// <returns>The token elevation type</returns>
+        /// <returns>The token elevation type.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="TokenHandle" /> is NULL.</exception>
         /// <exception cref="Win32Exception">If the call to <see cref="GetTokenInformation(SafeObjectHandle, TOKEN_INFORMATION_CLASS, void*, int, out int)" /> fails.</exception>
         public static TOKEN_ELEVATION_TYPE GetTokenElevationType(SafeObjectHandle TokenHandle)
