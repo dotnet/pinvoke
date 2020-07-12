@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Represents the different memory exhaustion types
+        /// Represents the different memory exhaustion types.
         /// </summary>
         public enum PROCESS_MEMORY_EXHAUSTION_TYPE
         {
@@ -24,7 +24,7 @@ namespace PInvoke
             /// <summary>
             /// The maximum value for this enumeration. This value may change in a future version.
             /// </summary>
-            PMETypeMax
+            PMETypeMax,
         }
     }
 }

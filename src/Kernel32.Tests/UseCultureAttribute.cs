@@ -50,12 +50,12 @@ internal class UseCultureAttribute : BeforeAfterTestAttribute
     }
 
     /// <summary>
-    /// Gets the culture that will be set by this attribute
+    /// Gets the culture that will be set by this attribute.
     /// </summary>
     public CultureInfo Culture => this.culture;
 
     /// <summary>
-    /// Gets the UI culture that will be set by this attribute
+    /// Gets the UI culture that will be set by this attribute.
     /// </summary>
     public CultureInfo UICulture => this.uiCulture;
 
@@ -64,7 +64,7 @@ internal class UseCultureAttribute : BeforeAfterTestAttribute
     /// <see cref="CultureInfo.CurrentCulture" /> and <see cref="CultureInfo.CurrentUICulture" />
     /// and replaces them with the new cultures defined in the constructor.
     /// </summary>
-    /// <param name="methodUnderTest">The method under test</param>
+    /// <param name="methodUnderTest">The method under test.</param>
     public override void Before(MethodInfo methodUnderTest)
     {
         this.originalCulture = CultureInfo.CurrentCulture;
@@ -81,9 +81,9 @@ internal class UseCultureAttribute : BeforeAfterTestAttribute
 
     /// <summary>
     /// Restores the original <see cref="CultureInfo.CurrentCulture" /> and
-    /// <see cref="CultureInfo.CurrentUICulture" /> to Thread.CurrentPrincipal />
+    /// <see cref="CultureInfo.CurrentUICulture" /> to Thread.CurrentPrincipal />.
     /// </summary>
-    /// <param name="methodUnderTest">The method under test</param>
+    /// <param name="methodUnderTest">The method under test.</param>
     public override void After(MethodInfo methodUnderTest)
     {
 #if NETFRAMEWORK || NETSTANDARD2_0_ORLATER

@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Represents a group of icons as stored in a '.ico' file
+        /// Represents a group of icons as stored in a '.ico' file.
         /// </summary>
         /// <remarks>
         /// The structure is followed by <see cref="idCount"/> <see cref="ICONDIRENTRY"/> entries.
@@ -20,17 +20,17 @@ namespace PInvoke
         public struct ICONDIR
         {
             /// <summary>
-            /// Reserved (must be 0)
+            /// Reserved (must be 0).
             /// </summary>
             public ushort idReserved;
 
             /// <summary>
-            /// Resource type (1 for icons)
+            /// Resource type (1 for icons).
             /// </summary>
             public ushort idType;
 
             /// <summary>
-            /// How many images?
+            /// Indicates the number of images.
             /// </summary>
             public ushort idCount;
         }

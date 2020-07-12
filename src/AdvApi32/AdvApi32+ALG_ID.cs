@@ -11,7 +11,7 @@ namespace PInvoke
     public static partial class AdvApi32
     {
         /// <summary>
-        ///     Hashing Algorithms
+        ///     Hashing Algorithms.
         /// </summary>
         public enum ALG_ID
         {

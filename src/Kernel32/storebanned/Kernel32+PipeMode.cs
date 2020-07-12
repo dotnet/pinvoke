@@ -75,7 +75,7 @@ namespace PInvoke
             ///         access to the pipe to the NETWORK ACE.
             ///     </para>
             /// </summary>
-            PIPE_REJECT_REMOTE_CLIENTS = 0x00000008
+            PIPE_REJECT_REMOTE_CLIENTS = 0x00000008,
         }
     }
 }

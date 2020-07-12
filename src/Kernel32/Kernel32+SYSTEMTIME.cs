@@ -181,7 +181,7 @@ namespace PInvoke
                 wHour = (short)dt.Hour,
                 wMinute = (short)dt.Minute,
                 wSecond = (short)dt.Second,
-                wMilliseconds = (short)dt.Millisecond
+                wMilliseconds = (short)dt.Millisecond,
             };
         }
     }

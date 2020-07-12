@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// For use with <see cref="ChildWindowFromPointEx"/>
+        /// For use with <see cref="ChildWindowFromPointEx"/>.
         /// </summary>
         [Flags]
         public enum ChildWindowFromPointExFlags
@@ -35,7 +35,7 @@ namespace PInvoke
             /// <summary>
             /// Skips transparent child windows
             /// </summary>
-            CWP_SKIPTRANSPARENT = 0x0004
+            CWP_SKIPTRANSPARENT = 0x0004,
         }
     }
 }

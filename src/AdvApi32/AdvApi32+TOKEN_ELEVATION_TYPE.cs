@@ -29,7 +29,7 @@ namespace PInvoke
             /// Process executing under UAC, the current user got some elevated right but they can't
             /// be used in the process as the token is "split".
             /// </summary>
-            TokenElevationTypeLimited
+            TokenElevationTypeLimited,
         }
     }
 }

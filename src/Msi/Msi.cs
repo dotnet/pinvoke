@@ -59,7 +59,7 @@ namespace PInvoke
         /// Null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string s-1-1-0 (Everyone) specifies enumeration across all users in the system. A SID value other than s-1-1-0 is considered a user-SID and restricts enumeration to the current user or any user in the system. This parameter can be set to NULL to restrict the enumeration scope to the current user.
         /// See MSDN documentation for more information.
         /// </param>
-        /// <param name="dwContext">Restricts the enumeration to a context. </param>
+        /// <param name="dwContext">Restricts the enumeration to a context.</param>
         /// <param name="dwIndex">Specifies the index of the product to retrieve. This parameter must be zero for the first call to the MsiEnumProductsEx function and then incremented for subsequent calls. The index should be incremented, only if the previous call has returned ERROR_SUCCESS. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.</param>
         /// <param name="szInstalledProductCode">39 character length array for a null-terminated string of TCHAR that gives the ProductCode GUID of the product instance being enumerated. This parameter can be NULL.</param>
         /// <param name="pdwInstalledContext">Returns the context of the product instance being enumerated. The output value can be <see cref="MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_USERMANAGED"/>, <see cref="MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_USERUNMANAGED"/>, or <see cref="MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_MACHINE"/>. This parameter can be NULL.</param>

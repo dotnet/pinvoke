@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Process' priority class
+        /// Process' priority class.
         /// </summary>
         /// <remarks>
         /// Every thread has a base priority level determined by the thread's priority value and the priority class of its process. The operating system
@@ -61,7 +61,7 @@ namespace PInvoke
             /// including operating system processes performing important tasks. For example, a real-time process that executes for more than a very brief
             /// interval can cause disk caches not to flush or cause the mouse to be unresponsive.
             /// </summary>
-            REALTIME_PRIORITY_CLASS = CreateProcessFlags.REALTIME_PRIORITY_CLASS
+            REALTIME_PRIORITY_CLASS = CreateProcessFlags.REALTIME_PRIORITY_CLASS,
         }
     }
 }

@@ -319,18 +319,20 @@ public class BCryptFacts
             {
                 var authInfo = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.Create();
                 fixed (byte* pTagBuffer = tagBuffer)
-                fixed (byte* pNonce = nonceBuffer)
                 {
-                    authInfo.pbNonce = pNonce;
-                    authInfo.cbNonce = nonceBuffer.Length;
-                    authInfo.pbTag = pTagBuffer;
-                    authInfo.cbTag = tagBuffer.Length;
+                    fixed (byte* pNonce = nonceBuffer)
+                    {
+                        authInfo.pbNonce = pNonce;
+                        authInfo.cbNonce = nonceBuffer.Length;
+                        authInfo.pbTag = pTagBuffer;
+                        authInfo.cbTag = tagBuffer.Length;
 
-                    // Mix up calling the IntPtr and native pointer overloads so we test both.
-                    int cipherTextLength;
-                    BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
-                    cipherText = new byte[cipherTextLength];
-                    BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                        // Mix up calling the IntPtr and native pointer overloads so we test both.
+                        int cipherTextLength;
+                        BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                        cipherText = new byte[cipherTextLength];
+                        BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                    }
                 }
 
                 Assert.NotEqual<byte>(plainText, cipherText);
@@ -343,18 +345,20 @@ public class BCryptFacts
 
                 var authInfo = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.Create();
                 fixed (byte* pTagBuffer = tagBuffer)
-                fixed (byte* pNonce = nonceBuffer)
                 {
-                    authInfo.pbNonce = pNonce;
-                    authInfo.cbNonce = nonceBuffer.Length;
-                    authInfo.pbTag = pTagBuffer;
-                    authInfo.cbTag = tagBuffer.Length;
+                    fixed (byte* pNonce = nonceBuffer)
+                    {
+                        authInfo.pbNonce = pNonce;
+                        authInfo.cbNonce = nonceBuffer.Length;
+                        authInfo.pbTag = pTagBuffer;
+                        authInfo.cbTag = tagBuffer.Length;
 
-                    int plainTextLength;
-                    BCryptDecrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, null, 0, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
-                    decryptedText = new byte[plainTextLength];
-                    BCryptEncrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, decryptedText, decryptedText.Length, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
-                    Array.Resize(ref decryptedText, plainTextLength);
+                        int plainTextLength;
+                        BCryptDecrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, null, 0, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                        decryptedText = new byte[plainTextLength];
+                        BCryptEncrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, decryptedText, decryptedText.Length, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                        Array.Resize(ref decryptedText, plainTextLength);
+                    }
                 }
 
                 Assert.Equal<byte>(plainText, decryptedText);

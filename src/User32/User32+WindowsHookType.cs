@@ -75,7 +75,7 @@ namespace PInvoke
             WH_KEYBOARD_LL = 13,
 
             /// <summary>Installs a hook procedure that monitors low-level mouse input events.</summary>
-            WH_MOUSE_LL = 14
+            WH_MOUSE_LL = 14,
         }
     }
 }

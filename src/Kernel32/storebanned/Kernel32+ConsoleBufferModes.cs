@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Designates the console buffer mode on the <see cref="GetConsoleMode(IntPtr, out ConsoleBufferModes)"/> and <see cref="SetConsoleMode(IntPtr, ConsoleBufferModes)"/> functions
+        /// Designates the console buffer mode on the <see cref="GetConsoleMode(IntPtr, out ConsoleBufferModes)"/> and <see cref="SetConsoleMode(IntPtr, ConsoleBufferModes)"/> functions.
         /// </summary>
         [Flags]
         public enum ConsoleBufferModes

@@ -62,7 +62,7 @@ namespace PInvoke
             /// The pTriggerSubtype member specifies the event provider's GUID.
             /// The pDataItems member specifies trigger-specific data defined by the provider.
             /// </summary>
-            SERVICE_TRIGGER_TYPE_CUSTOM = 20
+            SERVICE_TRIGGER_TYPE_CUSTOM = 20,
         }
     }
 }

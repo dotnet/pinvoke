@@ -39,7 +39,7 @@ namespace PInvoke
             /// <remarks>
             /// This option cannot be used with <see cref="GET_MODULE_HANDLE_EX_FLAG_PIN" />.
             /// </remarks>
-            GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT = 0x00000002
+            GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT = 0x00000002,
         }
     }
 }

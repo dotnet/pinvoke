@@ -16,7 +16,7 @@ namespace PInvoke
         /// <summary>
         /// Value to be used with APIs which have a "preferred maximum length"
         /// parameter.  This value indicates that the API should just allocate
-        /// "as much as it takes."
+        /// "as much as it takes".
         /// </summary>
         public const uint MAX_PREFERRED_LENGTH = unchecked((uint)-1);
 
@@ -52,7 +52,7 @@ namespace PInvoke
         /// <see cref="Win32ErrorCode.ERROR_INVALID_LEVEL"/>
         /// <see cref="Win32ErrorCode.NERR_BufTooSmall"/>
         /// <see cref="Win32ErrorCode.NERR_InvalidComputer"/>
-        /// <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>
+        /// <see cref="Win32ErrorCode.ERROR_MORE_DATA"/>.
         /// </returns>
         [DllImport(nameof(NetApi32), CharSet = CharSet.Unicode)]
         public static extern unsafe Win32ErrorCode NetUserEnum(

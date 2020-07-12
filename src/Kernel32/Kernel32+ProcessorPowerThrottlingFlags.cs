@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Flags used with <see cref="PROCESS_POWER_THROTTLING_STATE"/> fields
+        /// Flags used with <see cref="PROCESS_POWER_THROTTLING_STATE"/> fields.
         /// </summary>
         [Flags]
         public enum ProcessorPowerThrottlingFlags : uint

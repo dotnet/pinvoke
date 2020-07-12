@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Controls the behaviour of <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES?)" /> when a window station with the desired name already exists/>
+        /// Controls the behaviour of <see cref="CreateWindowStation(string, WindowStationCreationFlags, Kernel32.ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES?)" /> when a window station with the desired name already exists.
         /// </summary>
         public enum WindowStationCreationFlags : uint
         {
@@ -18,7 +18,7 @@ namespace PInvoke
             /// <summary>
             /// Enables processes running in other accounts on the desktop to set hooks in this process
             /// </summary>
-            CWF_CREATE_ONLY = 0x0001
+            CWF_CREATE_ONLY = 0x0001,
         }
     }
 }

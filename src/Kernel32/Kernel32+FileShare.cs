@@ -37,7 +37,7 @@ namespace PInvoke
             /// Otherwise, other processes cannot open the object if they request delete access.
             /// If this flag is not specified, but the object has been opened for delete access, the function fails.
             /// </summary>
-            FILE_SHARE_DELETE = 0x00000004
+            FILE_SHARE_DELETE = 0x00000004,
         }
     }
 }

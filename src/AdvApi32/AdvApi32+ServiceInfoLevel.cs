@@ -69,7 +69,7 @@ namespace PInvoke
             /// The lpInfo parameter is a pointer a <see cref="ServiceLaunchProtected"/> structure.
             /// Note  This value is supported starting with Windows 8.1.
             /// </summary>
-            SERVICE_CONFIG_LAUNCH_PROTECTED = 12
+            SERVICE_CONFIG_LAUNCH_PROTECTED = 12,
         }
     }
 }

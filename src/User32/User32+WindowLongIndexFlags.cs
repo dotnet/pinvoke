@@ -25,7 +25,7 @@ namespace PInvoke
             GWLP_WNDPROC = GWL_WNDPROC,
             DWLP_USER = 0x8,
             DWLP_MSGRESULT = 0x0,
-            DWLP_DLGPROC = 0x4
+            DWLP_DLGPROC = 0x4,
         }
     }
 }

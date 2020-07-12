@@ -99,7 +99,7 @@ namespace PInvoke
             ///         message definition text into the output buffer. Hard-coded line breaks are coded with the %n escape sequence.
             ///     </para>
             /// </summary>
-            FORMAT_MESSAGE_MAX_WIDTH_MASK = 0xff
+            FORMAT_MESSAGE_MAX_WIDTH_MASK = 0xff,
         }
     }
 }

@@ -192,7 +192,7 @@ namespace PInvoke
             /// Control code supported by the <see cref="LPHANDLER_FUNCTION"/> function.
             /// Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  This control code is not supported.
             /// </remarks>
-            SERVICE_CONTROL_USERMODEREBOOT = 0x00000040
+            SERVICE_CONTROL_USERMODEREBOOT = 0x00000040,
         }
     }
 }

@@ -15,19 +15,19 @@ namespace PInvoke
         {
             /// <summary>
             /// The triple data encryption standard symmetric encryption algorithm.
-            /// Standard: SP800-67, SP800-38A
+            /// Standard: SP800-67, SP800-38A.
             /// </summary>
             public const string BCRYPT_3DES_ALGORITHM = "3DES";
 
             /// <summary>
             /// The 112-bit triple data encryption standard symmetric encryption algorithm.
-            /// Standard: SP800-67, SP800-38A
+            /// Standard: SP800-67, SP800-38A.
             /// </summary>
             public const string BCRYPT_3DES_112_ALGORITHM = "3DES_112";
 
             /// <summary>
             /// The advanced encryption standard symmetric encryption algorithm.
-            /// Standard: FIPS 197
+            /// Standard: FIPS 197.
             /// </summary>
             public const string BCRYPT_AES_ALGORITHM = "AES";
 
@@ -52,19 +52,19 @@ namespace PInvoke
 
             /// <summary>
             /// The data encryption standard symmetric encryption algorithm.
-            /// Standard: FIPS 46-3, FIPS 81
+            /// Standard: FIPS 46-3, FIPS 81.
             /// </summary>
             public const string BCRYPT_DES_ALGORITHM = "DES";
 
             /// <summary>
             /// The extended data encryption standard symmetric encryption algorithm.
-            /// Standard: None
+            /// Standard: None.
             /// </summary>
             public const string BCRYPT_DESX_ALGORITHM = "DESX";
 
             /// <summary>
             /// The Diffie-Hellman key exchange algorithm.
-            /// Standard: PKCS #3
+            /// Standard: PKCS #3.
             /// </summary>
             public const string BCRYPT_DH_ALGORITHM = "DH";
 
@@ -77,67 +77,67 @@ namespace PInvoke
 
             /// <summary>
             /// The 256-bit prime elliptic curve Diffie-Hellman key exchange algorithm.
-            /// Standard: SP800-56A
+            /// Standard: SP800-56A.
             /// </summary>
             public const string BCRYPT_ECDH_P256_ALGORITHM = "ECDH_P256";
 
             /// <summary>
             /// The 384-bit prime elliptic curve Diffie-Hellman key exchange algorithm.
-            /// Standard: SP800-56A
+            /// Standard: SP800-56A.
             /// </summary>
             public const string BCRYPT_ECDH_P384_ALGORITHM = "ECDH_P384";
 
             /// <summary>
             /// The 521-bit prime elliptic curve Diffie-Hellman key exchange algorithm.
-            /// Standard: SP800-56A
+            /// Standard: SP800-56A.
             /// </summary>
             public const string BCRYPT_ECDH_P521_ALGORITHM = "ECDH_P521";
 
             /// <summary>
             /// The 256-bit prime elliptic curve digital signature algorithm (FIPS 186-2).
-            /// Standard: FIPS 186-2, X9.62
+            /// Standard: FIPS 186-2, X9.62.
             /// </summary>
             public const string BCRYPT_ECDSA_P256_ALGORITHM = "ECDSA_P256";
 
             /// <summary>
             /// The 384-bit prime elliptic curve digital signature algorithm (FIPS 186-2).
-            /// Standard: FIPS 186-2, X9.62
+            /// Standard: FIPS 186-2, X9.62.
             /// </summary>
             public const string BCRYPT_ECDSA_P384_ALGORITHM = "ECDSA_P384";
 
             /// <summary>
             /// The 521-bit prime elliptic curve digital signature algorithm (FIPS 186-2).
-            /// Standard: FIPS 186-2, X9.62
+            /// Standard: FIPS 186-2, X9.62.
             /// </summary>
             public const string BCRYPT_ECDSA_P521_ALGORITHM = "ECDSA_P521";
 
             /// <summary>
             /// The MD2 hash algorithm.
-            /// Standard: RFC 1319
+            /// Standard: RFC 1319.
             /// </summary>
             public const string BCRYPT_MD2_ALGORITHM = "MD2";
 
             /// <summary>
             /// The MD4 hash algorithm.
-            /// Standard: RFC 1320
+            /// Standard: RFC 1320.
             /// </summary>
             public const string BCRYPT_MD4_ALGORITHM = "MD4";
 
             /// <summary>
             /// The MD5 hash algorithm.
-            /// Standard: RFC 1321
+            /// Standard: RFC 1321.
             /// </summary>
             public const string BCRYPT_MD5_ALGORITHM = "MD5";
 
             /// <summary>
             /// The RC2 block symmetric encryption algorithm.
-            /// Standard: RFC 2268
+            /// Standard: RFC 2268.
             /// </summary>
             public const string BCRYPT_RC2_ALGORITHM = "RC2";
 
             /// <summary>
             /// The RC4 symmetric encryption algorithm.
-            /// Standard: Various
+            /// Standard: Various.
             /// </summary>
             public const string BCRYPT_RC4_ALGORITHM = "RC4";
 
@@ -179,25 +179,25 @@ namespace PInvoke
 
             /// <summary>
             /// The 160-bit secure hash algorithm.
-            /// Standard: FIPS 180-2, FIPS 198
+            /// Standard: FIPS 180-2, FIPS 198.
             /// </summary>
             public const string BCRYPT_SHA1_ALGORITHM = "SHA1";
 
             /// <summary>
             /// The 256-bit secure hash algorithm.
-            /// Standard: FIPS 180-2, FIPS 198
+            /// Standard: FIPS 180-2, FIPS 198.
             /// </summary>
             public const string BCRYPT_SHA256_ALGORITHM = "SHA256";
 
             /// <summary>
             /// The 384-bit secure hash algorithm.
-            /// Standard: FIPS 180-2, FIPS 198
+            /// Standard: FIPS 180-2, FIPS 198.
             /// </summary>
             public const string BCRYPT_SHA384_ALGORITHM = "SHA384";
 
             /// <summary>
             /// The 512-bit secure hash algorithm.
-            /// Standard: FIPS 180-2, FIPS 198
+            /// Standard: FIPS 180-2, FIPS 198.
             /// </summary>
             public const string BCRYPT_SHA512_ALGORITHM = "SHA512";
 

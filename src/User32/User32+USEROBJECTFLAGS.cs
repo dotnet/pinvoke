@@ -28,7 +28,7 @@ namespace PInvoke
             public bool fReserved;
 
             /// <summary>
-            /// Flags indicating object specific characteristics
+            /// Flags indicating object specific characteristics.
             /// </summary>
             public UserObjectFlagsEnum dwFlags;
         }

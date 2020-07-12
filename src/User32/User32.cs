@@ -27,22 +27,22 @@ namespace PInvoke
         /// The multiplicative constant 120 for calculating mouse wheel movement.
         /// </summary>
         /// <remarks>
-        /// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms646254(v=vs.85).aspx
+        /// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms646254(v=vs.85).aspx.
         /// </remarks>
         public const int WHEEL_DELTA = 120;
 
         /// <summary>
-        /// Size of a device name string
+        /// Size of a device name string.
         /// </summary>
         public const int CCHDEVICENAME = 32;
 
         /// <summary>
-        /// Default parameters for <see cref="CreateWindowEx(WindowStylesEx, string, string, WindowStyles, int, int, int, int, IntPtr, IntPtr, IntPtr, IntPtr)"/>
+        /// Default parameters for <see cref="CreateWindowEx(WindowStylesEx, string, string, WindowStyles, int, int, int, int, IntPtr, IntPtr, IntPtr, IntPtr)"/>.
         /// </summary>
         public const int CW_USEDEFAULT = unchecked((int)0x80000000);
 
         /// <summary>
-        /// Size of a font name or a font family name
+        /// Size of a font name or a font family name.
         /// </summary>
         public const int LF_FACESIZE = 32;
 
@@ -103,7 +103,7 @@ namespace PInvoke
         /// for DPI changes and are always assumed to have a scale factor of 100% (96 DPI). They will be automatically scaled by
         /// the system on any other DPI setting.
         /// </summary>
-        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function</remarks>
+        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function.</remarks>
         public static readonly IntPtr DPI_AWARENESS_CONTEXT_UNAWARE = new IntPtr(-1);
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace PInvoke
         /// the process will not adjust to the new DPI value. It will be automatically scaled up or down by the system
         /// when the DPI changes from the system value.
         /// </summary>
-        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function</remarks>
+        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function.</remarks>
         public static readonly IntPtr DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = new IntPtr(-2);
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace PInvoke
         /// they are created and adjust the scale factor whenever the DPI changes. These processes are not automatically
         /// scaled by the system.
         /// </summary>
-        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function</remarks>
+        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function.</remarks>
         public static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE = new IntPtr(-3);
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace PInvoke
         /// <item>Improved theming behavior - UxTheme handles opened in the context of a Per Monitor v2 window will operate in terms of the DPI associated with that window.</item>
         /// </list>
         /// </summary>
-        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function</remarks>
+        /// <remarks>DPI_AWARENESS_CONTEXT values should never be compared directly. Instead, use AreDpiAwarenessContextsEqual function.</remarks>
         public static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = new IntPtr(-4);
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace PInvoke
         /// <remarks>
         /// <see cref="DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED" /> was introduced in the October 2018 update
         /// of Windows 10 (also known as version 1809).
-        /// For more details, see <see href="https://blogs.windows.com/buildingapps/2017/05/19/improving-high-dpi-experience-gdi-based-desktop-apps/#Uwv9gY1SvpbgQ4dK.97">Improving the high-DPI experience in GDI-based Desktop apps</see>
+        /// For more details, see <see href="https://blogs.windows.com/buildingapps/2017/05/19/improving-high-dpi-experience-gdi-based-desktop-apps/#Uwv9gY1SvpbgQ4dK.97">Improving the high-DPI experience in GDI-based Desktop apps</see>.
         /// </remarks>
         public static readonly IntPtr DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED = new IntPtr(-5);
 
@@ -165,8 +165,8 @@ namespace PInvoke
         /// This is a generic function to Hook callbacks. For specific callback functions see this <see href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632589(v=vs.85).aspx" >API documentation on MSDN</see>.
         /// </summary>
         /// <param name="nCode">An action code for the callback. Can be used to indicate if the hook procedure must process the message or not.</param>
-        /// <param name="wParam">First message parameter</param>
-        /// <param name="lParam">Second message parameter</param>
+        /// <param name="wParam">First message parameter.</param>
+        /// <param name="lParam">Second message parameter.</param>
         /// <returns>
         /// An LRESULT. Usually if nCode is less than zero, the hook procedure must return the value returned by CallNextHookEx.
         /// If nCode is greater than or equal to zero, it is highly recommended that you call CallNextHookEx and return the value it returns;
@@ -187,7 +187,7 @@ namespace PInvoke
         /// <param name="hwnd">Handle to the window that generates the event, or NULL if no window is associated with the event.
         /// For example, the mouse pointer is not associated with a window.</param>
         /// <param name="idObject">Identifies the object associated with the event. This is one of the object identifiers or a custom object ID.
-        /// <see href="https://msdn.microsoft.com/en-us/library/windows/desktop/dd373606(v=vs.85).aspx"/></param>
+        /// <see href="https://msdn.microsoft.com/en-us/library/windows/desktop/dd373606(v=vs.85).aspx"/>.</param>
         /// <param name="idChild">Identifies whether the event was triggered by an object or a child element of the object.
         /// If this value is CHILDID_SELF, the event was triggered by the object; otherwise, this value is the child ID of the element that triggered the event.</param>
         /// <param name="dwEventThread">Identifies the thread that generated the event, or the thread that owns the current window.</param>
@@ -315,9 +315,9 @@ namespace PInvoke
         /// <summary>
         /// Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the process that created the window.
         /// </summary>
-        /// <param name="hWnd">A handle to the window. </param>
+        /// <param name="hWnd">A handle to the window.</param>
         /// <param name="lpdwProcessId">A pointer to a variable that receives the process identifier. If this parameter is not NULL, GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not.</param>
-        /// <returns>The return value is the identifier of the thread that created the window. </returns>
+        /// <returns>The return value is the identifier of the thread that created the window.</returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
@@ -622,7 +622,7 @@ namespace PInvoke
         /// <summary>
         /// Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search. To search child windows, beginning with a specified child window, use the FindWindowEx function.
         /// </summary>
-        /// <param name="lpClassName">The window class name. If lpClassName is NULL, it finds any window whose title matches the lpWindowName parameter. </param>
+        /// <param name="lpClassName">The window class name. If lpClassName is NULL, it finds any window whose title matches the lpWindowName parameter.</param>
         /// <param name="lpWindowName">The window name (the window's title). If this parameter is NULL, all window names match.</param>
         /// <returns>If the function succeeds, the return value is a handle to the window that has the specified
         ///  class name and window name. If the function fails, the return value is NULL.</returns>
@@ -637,7 +637,7 @@ namespace PInvoke
             string windowTitle);
 
         /// <summary>
-        /// Shows a Window
+        /// Shows a Window.
         /// </summary>
         /// <remarks>
         /// <para>To perform certain special effects when showing or hiding a window, use AnimateWindow.</para>
@@ -750,7 +750,7 @@ namespace PInvoke
         /// </param>
         /// <param name="wParam">Any additional message-specific information.</param>
         /// <param name="lParam">Any additional message-specific information.</param>
-        /// <param name="flags">The behavior of this function. This parameter can be one or more of the following values: <see cref="SendMessageTimeoutFlags"/>. </param>
+        /// <param name="flags">The behavior of this function. This parameter can be one or more of the following values: <see cref="SendMessageTimeoutFlags"/>.</param>
         /// <param name="timeout">The duration of the time-out period, in milliseconds.
         /// If the message is a broadcast message, each window can use the full time-out period.
         /// For example, if you specify a five second time-out period and there are three top-level windows that fail to process the message, you could have up to a 15 second delay.
@@ -879,7 +879,7 @@ namespace PInvoke
         /// receive events from all processes on the current desktop.</param>
         /// <param name="idThread">Specifies the ID of the thread from which the hook function receives events. If this parameter is zero,
         /// the hook function is associated with all existing threads on the current desktop.</param>
-        /// <param name="dwflags">Flag values that specify the location of the hook function and of the events to be skipped. </param>
+        /// <param name="dwflags">Flag values that specify the location of the hook function and of the events to be skipped.</param>
         /// <returns>If successful, returns an <see cref="SafeEventHookHandle"/> value that identifies this event hook instance.</returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern SafeEventHookHandle SetWinEventHook(
@@ -906,7 +906,7 @@ namespace PInvoke
         /// receive events from all processes on the current desktop.</param>
         /// <param name="idThread">Specifies the ID of the thread from which the hook function receives events. If this parameter is zero,
         /// the hook function is associated with all existing threads on the current desktop.</param>
-        /// <param name="dwflags">Flag values that specify the location of the hook function and of the events to be skipped. </param>
+        /// <param name="dwflags">Flag values that specify the location of the hook function and of the events to be skipped.</param>
         /// <returns>If successful, returns an <see cref="SafeEventHookHandle"/> value that identifies this event hook instance.</returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern SafeEventHookHandle SetWinEventHook(
@@ -1169,7 +1169,7 @@ namespace PInvoke
         ///     use this function to specify the content, appearance, and behavior of the menu item.
         /// </summary>
         /// <param name="hMenu">A handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.</param>
-        /// <param name="uFlags">Controls the appearance and behavior of the new menu item</param>
+        /// <param name="uFlags">Controls the appearance and behavior of the new menu item.</param>
         /// <param name="uIdNewItem">
         ///     The identifier of the new menu item or, if the uFlags parameter is set to
         ///     <see cref="MenuItemFlags.MF_POPUP" />, a handle to the drop-down menu or submenu.
@@ -1239,7 +1239,7 @@ namespace PInvoke
         /// Retrieves information about the specified menu bar.
         /// </summary>
         /// <param name="hwnd">A handle to the window (menu bar) whose information is to be retrieved.</param>
-        /// <param name="idObject">The menu object</param>
+        /// <param name="idObject">The menu object.</param>
         /// <param name="idItem">The item for which to retrieve information. If this parameter is zero, the function retrieves information about the menu itself. If this parameter is 1, the function retrieves information about the first item on the menu, and so on.</param>
         /// <param name="pmbi">A pointer to a <see cref="MENUBARINFO"/> structure that receives the information. Note that you must set the <see cref="MENUBARINFO.cbSize"/> member to sizeof(MENUBARINFO) before calling this function.</param>
         /// <returns>
@@ -1310,6 +1310,7 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern uint GetMenuItemId(IntPtr hMenu, int nPos);
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>Retrieves information about a menu item.</summary>
         /// <param name="hMenu">A handle to the menu that contains the menu item.</param>
         /// <param name="uItem">
@@ -1329,6 +1330,7 @@ namespace PInvoke
         ///     If the function succeeds, the return value is true.
         ///     <para>If the function fails, the return value is false. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</para>
         /// </returns>
+#pragma warning restore SA1629 // Documentation text should end with a period
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool GetMenuItemInfo(
@@ -1879,19 +1881,19 @@ namespace PInvoke
         /// <summary>
         /// <para>
         /// Converts a point in a window from logical coordinates into physical coordinates, regardless of the dots per inch (dpi) awareness of the caller.
-        /// For more information about DPI awareness levels, see <see cref="PROCESS_DPI_AWARENESS"/>
+        /// For more information about DPI awareness levels, see <see cref="PROCESS_DPI_AWARENESS"/>.
         /// </para>
         /// <para>
         /// Tip: Since an application with a value of <see cref="PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE"/> uses the actual DPI of the monitor,
         /// physical and logical coordinates are the same for this app.
         /// </para>
         /// </summary>
-        /// <param name="hwnd">A handle to the window whose transform is used for the conversion</param>
+        /// <param name="hwnd">A handle to the window whose transform is used for the conversion.</param>
         /// <param name="lpPoint">
         /// A pointer to a <see cref="POINT"/> structure that specifies the physical/screen coordinates to be converted.
-        /// The new logical coordinates are copied into this structure if the function succeeds
+        /// The new logical coordinates are copied into this structure if the function succeeds.
         /// </param>
-        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
         /// <remarks>
         /// <para>
         /// In Windows 8, system–DPI aware applications translated between physical and logical space using
@@ -1928,17 +1930,17 @@ namespace PInvoke
         public static extern bool PhysicalToLogicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
 
         /// <summary>
-        /// Converts the physical coordinates of a point in a window to logical coordinates
+        /// Converts the physical coordinates of a point in a window to logical coordinates.
         /// </summary>
         /// <param name="hwnd">
         /// A handle to the window whose transform is used for the conversion. Top level windows are fully supported.
-        /// In the case of child windows, only the area of overlap between the parent and the child window is converted
+        /// In the case of child windows, only the area of overlap between the parent and the child window is converted.
         /// </param>
         /// <param name="lpPoint">
         /// A pointer to a <see cref="POINT"/> structure that specifies the physical/screen coordinates to be converted.
-        /// The new logical coordinates are copied into this structure if the function succeeds
+        /// The new logical coordinates are copied into this structure if the function succeeds.
         /// </param>
-        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
         /// <remarks>
         /// <para>
         /// The function uses the window identified by the <paramref name="hwnd"/> parameter and the physical coordinates
@@ -1977,12 +1979,12 @@ namespace PInvoke
         /// physical and logical coordinates are the same for this app.
         /// </para>
         /// </summary>
-        /// <param name="hwnd">A handle to the window whose transform is used for the conversion</param>
+        /// <param name="hwnd">A handle to the window whose transform is used for the conversion.</param>
         /// <param name="lpPoint">
         /// A pointer to a <see cref="POINT"/> structure that specifies the logical coordinates to be converted.
-        /// The new physical coordinates are copied into this structure if the function succeeds
+        /// The new physical coordinates are copied into this structure if the function succeeds.
         /// </param>
-        /// <returns>Returns true if successful, or false otherwise</returns>
+        /// <returns>Returns true if successful, or false otherwise.</returns>
         /// <remarks>
         /// <para>
         /// In Windows 8, system–DPI aware applications translated between physical and logical space using
@@ -2019,17 +2021,17 @@ namespace PInvoke
         public static extern bool LogicalToPhysicalPointForPerMonitorDPI(IntPtr hwnd, ref POINT lpPoint);
 
         /// <summary>
-        /// Converts the logical coordinates of a point in a window to physical coordinates
+        /// Converts the logical coordinates of a point in a window to physical coordinates.
         /// </summary>
         /// <param name="hwnd">
         /// A handle to the window whose transform is used for the conversion. Top level windows are fully supported.
-        /// In the case of child windows, only the area of overlap between the parent and the child window is converted
+        /// In the case of child windows, only the area of overlap between the parent and the child window is converted.
         /// </param>
         /// <param name="lpPoint">
         /// A pointer to a <see cref="POINT"/> structure that specifies the logical coordinates to be converted.
-        /// The new physical coordinates are copied into this structure if the function succeeds
+        /// The new physical coordinates are copied into this structure if the function succeeds.
         /// </param>
-        /// <returns>Returns TRUE if successful, or FALSE otherwise</returns>
+        /// <returns>Returns TRUE if successful, or FALSE otherwise.</returns>
         /// <remarks>
         /// <para>
         /// LogicalToPhysicalPoint is a transformation API that can be called by a process that declares itself as dpi aware.
@@ -2061,7 +2063,7 @@ namespace PInvoke
         /// <summary>
         /// Determines whether the current process is dots per inch (dpi) aware such that it adjusts the sizes of UI elements to compensate for the dpi setting.
         /// </summary>
-        /// <returns>TRUE if the process is dpi aware; otherwise, FALSE</returns>
+        /// <returns>TRUE if the process is dpi aware; otherwise, FALSE.</returns>
         /// <remarks>
         /// IsProcessDPIAware is available for use in Windows Vista or superior the operating systems.
         /// It may be altered or unavailable in subsequent versions.
@@ -2140,7 +2142,7 @@ namespace PInvoke
         /// Opens the specified desktop object.
         /// </summary>
         /// <param name="lpszDesktop">The name of the desktop to be opened. Desktop names are case-insensitive. This desktop must belong to the current window station.</param>
-        /// <param name="dwFlags">Access control flags</param>
+        /// <param name="dwFlags">Access control flags.</param>
         /// <param name="fInherit">If this value is true, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.</param>
         /// <param name="dwDesiredAccess">The access to the desktop. For a list of access rights, see <see cref="ACCESS_MASK"/>.</param>
         /// <returns>If the function succeeds, the return value is a handle to the opened desktop, if the function fails, the return value is an invalid handle.</returns>
@@ -2224,7 +2226,7 @@ namespace PInvoke
         /// <summary>
         /// Opens the desktop that receives user input.
         /// </summary>
-        /// <param name="dwFlags">Access control flags</param>
+        /// <param name="dwFlags">Access control flags.</param>
         /// <param name="fInherit">If this value is true, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.</param>
         /// <param name="dwDesiredAccess">The requested access to the desktop. For a list of values, see <see cref="ACCESS_MASK"/>.</param>
         /// <returns>If the function succeeds, the return value is a handle to the opened desktop, if the function fails, the return value is an invalid handle.</returns>
@@ -2254,9 +2256,9 @@ namespace PInvoke
         /// The calling process must have an associated window station, either assigned by the system at process creation time or set by the <see cref="SetProcessWindowStation"/> function.
         /// </summary>
         /// <param name="lpszDesktop">The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\).</param>
-        /// <param name="lpszDevice">This parameter is reserved and must be <see cref="IntPtr.Zero"/></param>
+        /// <param name="lpszDevice">This parameter is reserved and must be <see cref="IntPtr.Zero"/>.</param>
         /// <param name="pDevmode">This parameter is reserved and must be <see cref="IntPtr.Zero"/>.</param>
-        /// <param name="dwFlags">Access control flags</param>
+        /// <param name="dwFlags">Access control flags.</param>
         /// <param name="dwDesiredAccess">
         /// The requested access to the desktop. For a list of values, see <see cref="ACCESS_MASK"/>.
         /// This parameter must include the <see cref="ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW"/> access right, because internally <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> uses the handle to create a window.
@@ -2298,9 +2300,9 @@ namespace PInvoke
         /// Creates a new desktop, associates it with the current window station of the calling process, and assigns it to the calling thread. The calling process must have an associated window station, either assigned by the system at process creation time or set by the <see cref="SetProcessWindowStation"/> function.
         /// </summary>
         /// <param name="lpszDesktop">The name of the desktop to be created. Desktop names are case-insensitive and may not contain backslash characters (\).</param>
-        /// <param name="lpszDevice">This parameter is reserved and must be <see cref="IntPtr.Zero"/></param>
+        /// <param name="lpszDevice">This parameter is reserved and must be <see cref="IntPtr.Zero"/>.</param>
         /// <param name="pDevmode">This parameter is reserved and must be <see cref="IntPtr.Zero"/>.</param>
-        /// <param name="dwFlags">Access control flags</param>
+        /// <param name="dwFlags">Access control flags.</param>
         /// <param name="dwDesiredAccess">
         /// The requested access to the desktop. For a list of values, see <see cref="ACCESS_MASK"/>.
         /// This parameter must include the <see cref="ACCESS_MASK.DesktopSpecificRight.DESKTOP_CREATEWINDOW"/> access right, because internally <see cref="CreateDesktop(string, string, IntPtr, DesktopCreationFlags, ACCESS_MASK, Kernel32.SECURITY_ATTRIBUTES*)"/> uses the handle to create a window.
@@ -2503,8 +2505,8 @@ namespace PInvoke
         /// </summary>
         /// <param name="lpszWinSta">The name of the window station to be opened. Window station names are case-insensitive. This window station must belong to the current session.</param>
         /// <param name="fInherit">If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.</param>
-        /// <param name="dwDesiredAccess">The access to the window station. For a list of access rights</param>
-        /// <returns>If the function succeeds, the return value is the handle to the specified window station. If the function fails, the return value is NULL. </returns>
+        /// <param name="dwDesiredAccess">The access to the window station. For a list of access rights.</param>
+        /// <returns>If the function succeeds, the return value is the handle to the specified window station. If the function fails, the return value is NULL.</returns>
         /// <remarks>After you are done with the handle, you must call <see cref="CloseWindowStation"/> to free the handle.</remarks>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern SafeWindowStationHandle OpenWindowStation(
@@ -2663,7 +2665,7 @@ namespace PInvoke
         ///         available messages (that is, no range filtering is performed).
         ///     </para>
         /// </param>
-        /// <param name="wRemoveMsg">Specifies how messages are to be handled</param>
+        /// <param name="wRemoveMsg">Specifies how messages are to be handled.</param>
         /// <returns>
         ///     If a message is available, the return value is true.
         ///     <para>If no messages are available, the return value is false.</para>
@@ -2742,7 +2744,7 @@ namespace PInvoke
         /// <summary>
         ///     Retrieves the type of messages found in the calling thread's message queue.
         /// </summary>
-        /// <param name="flags">The types of messages for which to check</param>
+        /// <param name="flags">The types of messages for which to check.</param>
         /// <returns>
         ///     The high-order word of the return value indicates the types of messages currently in the queue. The low-order word
         ///     indicates the types of messages that have been added to the queue and that are still in the queue since the last
@@ -2888,8 +2890,8 @@ namespace PInvoke
         /// <summary>
         /// Changes the text of the specified window's title bar (if it has one). If the specified window is a control, the text of the control is changed. However, SetWindowText cannot change the text of a control in another application.
         /// </summary>
-        /// <param name="hWnd">A handle to the window or control whose text is to be changed. </param>
-        /// <param name="lpString">The new title or control text. </param>
+        /// <param name="hWnd">A handle to the window or control whose text is to be changed.</param>
+        /// <param name="lpString">The new title or control text.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
@@ -2913,7 +2915,7 @@ namespace PInvoke
         /// <summary>
         /// Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
         /// </summary>
-        /// <param name="hWnd">A handle to a window. The window handle retrieved is relative to this window, based on the value of the wCmd parameter. </param>
+        /// <param name="hWnd">A handle to a window. The window handle retrieved is relative to this window, based on the value of the wCmd parameter.</param>
         /// <param name="wCmd">The relationship between the specified window and the window whose handle is to be retrieved.</param>
         /// <returns>If the function succeeds, the return value is a handle to the next (or previous) window. If there is no next (or previous) window, the return value is NULL. To get extended error information, call GetLastError.</returns>
         [DllImport(nameof(User32), SetLastError = true)]
@@ -2925,7 +2927,7 @@ namespace PInvoke
         /// Retrieves a handle to the next or previous window in the Z-Order. The next window is below the specified window; the previous window is above.
         /// If the specified window is a topmost window, the function searches for a topmost window. If the specified window is a top-level window, the function searches for a top-level window. If the specified window is a child window, the function searches for a child window.
         /// </summary>
-        /// <param name="hWnd">A handle to a window. The window handle retrieved is relative to this window, based on the value of the wCmd parameter. </param>
+        /// <param name="hWnd">A handle to a window. The window handle retrieved is relative to this window, based on the value of the wCmd parameter.</param>
         /// <param name="wCmd">Indicates whether the function returns a handle to the next window or the previous window.</param>
         /// <returns>If the function succeeds, the return value is a handle to the next (or previous) window. If there is no next (or previous) window, the return value is NULL. To get extended error information, call GetLastError.</returns>
         public static IntPtr GetNextWindow(IntPtr hWnd, GetNextWindowCommands wCmd) => GetWindow(hWnd, (GetWindowCommands)wCmd);
@@ -3240,7 +3242,7 @@ namespace PInvoke
         /// If the specified window is a parent or owner window, DestroyWindow automatically destroys the associated child or owned windows when it destroys the parent or owner window. The function first destroys child or owned windows, and then it destroys the parent or owner window.
         /// DestroyWindow also destroys modeless dialog boxes created by the CreateDialog function.
         /// </summary>
-        /// <param name="hWnd">A handle to the window to be destroyed. </param>
+        /// <param name="hWnd">A handle to the window to be destroyed.</param>
         /// <returns>
         /// If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
@@ -3474,6 +3476,7 @@ namespace PInvoke
         /// <returns>The DPI for the window which depends on the <see cref="DPI_AWARENESS"/> of the window. An invalid <paramref name="hwnd"/> value will result in a return value of 0.</returns>
         /// <remarks>
         /// The following table indicates the return value of GetDpiForWindow based on the <see cref="DPI_AWARENESS"/> of the provided <paramref name="hwnd"/>.
+        /// <code>
         /// +---------------------------------+-----------------------------------------------------+
         /// |          DPI_AWARENESS          |                    Return value                     |
         /// +---------------------------------+-----------------------------------------------------+
@@ -3481,6 +3484,7 @@ namespace PInvoke
         /// | DPI_AWARENESS_SYSTEM_AWARE      | The system DPI.                                     |
         /// | DPI_AWARENESS_PER_MONITOR_AWARE | The DPI of the monitor where the window is located. |
         /// +---------------------------------+-----------------------------------------------------+
+        /// </code>
         /// </remarks>
         [DllImport(nameof(User32))]
         public static extern int GetDpiForWindow(
@@ -3683,7 +3687,7 @@ namespace PInvoke
         /// Retrieves the DPI from a given DPI_AWARENESS_CONTEXT handle. This enables you to determine the DPI of a thread without needed to examine a window created within that thread.
         /// </summary>
         /// <param name="dpiAwarenessContext">The DPI_AWARENESS_CONTEXT handle to examine.</param>
-        /// <returns>The DPI value associated with the DPI_AWARENESS_CONTEXT handle</returns>
+        /// <returns>The DPI value associated with the DPI_AWARENESS_CONTEXT handle.</returns>
         /// <remarks>
         /// DPI_AWARENESS_CONTEXT handles associated with values of <see cref="DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE"/> and
         /// <see cref="DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2"/> will return a value of 0 for their DPI. This is because the DPI of a
@@ -3705,7 +3709,7 @@ namespace PInvoke
         /// <para>
         /// <see cref="DPI_HOSTING_BEHAVIOR"/> enables a mixed content hosting behavior, which allows parent windows created in the thread to host child windows with a different DPI_AWARENESS_CONTEXT value.
         /// This property only effects new windows created within this thread while the mixed hosting behavior is active. A parent window with this hosting behavior is able to host child windows with
-        /// different DPI_AWARENESS_CONTEXT values, regardless of whether the child windows have mixed hosting behavior enabled
+        /// different DPI_AWARENESS_CONTEXT values, regardless of whether the child windows have mixed hosting behavior enabled.
         /// </para>
         /// <para>
         /// This hosting behavior does not allow for windows with per-monitor DPI_AWARENESS_CONTEXT values to be hosted until windows with DPI_AWARENESS_CONTEXT values of system or unaware.

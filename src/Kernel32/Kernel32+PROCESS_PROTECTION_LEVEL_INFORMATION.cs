@@ -9,12 +9,12 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Specifies whether Protected Process Light (PPL) is enabled
+        /// Specifies whether Protected Process Light (PPL) is enabled.
         /// </summary>
         public struct PROCESS_PROTECTION_LEVEL_INFORMATION
         {
             /// <summary>
-            /// Process protection level
+            /// Process protection level.
             /// </summary>
             public ProcessProtectionLevel ProtectionLevel;
         }

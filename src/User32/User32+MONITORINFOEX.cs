@@ -45,7 +45,7 @@ namespace PInvoke
             /// <summary>
             /// The attributes of the display monitor.
             /// </summary>
-            /// <remarks>This member can be the following value: 1 : MONITORINFOF_PRIMARY</remarks>
+            /// <remarks>This member can be the following value: 1 : MONITORINFOF_PRIMARY.</remarks>
             public uint Flags;
 
             /// <summary>

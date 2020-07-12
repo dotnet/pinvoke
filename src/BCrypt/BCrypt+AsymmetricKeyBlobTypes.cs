@@ -122,7 +122,7 @@ namespace PInvoke
             /// Private Exponent mod (Prime1 - 1)
             /// Private Exponent mod (Prime2 - 1)
             /// Inverse of Prime2 mod Prime1
-            /// PrivateExponent
+            /// PrivateExponent.
             /// </summary>
             public const string BCRYPT_RSAFULLPRIVATE_BLOB = "RSAFULLPRIVATEBLOB";
 

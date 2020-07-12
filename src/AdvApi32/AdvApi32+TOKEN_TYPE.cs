@@ -27,7 +27,7 @@ namespace PInvoke
             /// <summary>
             /// The new token is an impersonation token.
             /// </summary>
-            TokenImpersonation
+            TokenImpersonation,
         }
     }
 }

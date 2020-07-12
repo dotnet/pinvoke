@@ -44,7 +44,7 @@ namespace PInvoke
             ///     <para>MIIM_TYPE is replaced by <see cref="MIIM_BITMAP" />, <see cref="MIIM_FTYPE" />, and
             ///         <see cref="MIIM_STRING" />.</para>
             /// </summary>
-            MIIM_TYPE = 0x00000010
+            MIIM_TYPE = 0x00000010,
         }
     }
 }

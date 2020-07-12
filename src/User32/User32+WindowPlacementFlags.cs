@@ -38,7 +38,7 @@ namespace PInvoke
             /// posts the request to the thread that owns the window. This prevents the calling thread from blocking its execution
             /// while other threads process the request.
             /// </summary>
-            WPF_ASYNCWINDOWPLACEMENT = 0x004
+            WPF_ASYNCWINDOWPLACEMENT = 0x004,
         }
     }
 }

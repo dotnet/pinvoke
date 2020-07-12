@@ -28,7 +28,7 @@ namespace PInvoke
         /// Converts a <see cref="Win32ErrorCode"/> to an <see cref="HResult"/>.
         /// </summary>
         /// <param name="error">The <see cref="Win32ErrorCode"/> to convert.</param>
-        /// <returns>The <see cref="HResult"/></returns>
+        /// <returns>The <see cref="HResult"/>.</returns>
         public static HResult ToHResult(this Win32ErrorCode error)
         {
             // From winerror.h

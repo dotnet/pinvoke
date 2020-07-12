@@ -31,7 +31,7 @@ namespace PInvoke
             /// <summary>
             /// The interface is removed.
             /// </summary>
-            SPINT_REMOVED
+            SPINT_REMOVED,
         }
     }
 }

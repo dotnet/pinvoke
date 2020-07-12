@@ -17,29 +17,29 @@ namespace PInvoke
         public struct PROCESS_MEMORY_EXHAUSTION_INFO
         {
             /// <summary>
-            /// The only valid value for <see cref="PROCESS_MEMORY_EXHAUSTION_INFO.Version"/>
+            /// The only valid value for <see cref="PROCESS_MEMORY_EXHAUSTION_INFO.Version"/>.
             /// </summary>
             public const ushort PME_CURRENT_VERSION = 1;
 
             /// <summary>
             /// Value for <see cref="PROCESS_MEMORY_EXHAUSTION_INFO.Value"/> field to disable
-            /// the <see cref="PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure"/> feature
+            /// the <see cref="PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure"/> feature.
             /// </summary>
             public static readonly UIntPtr PME_FAILFAST_ON_COMMIT_FAIL_DISABLE = UIntPtr.Zero;
 
             /// <summary>
             /// Value for <see cref="PROCESS_MEMORY_EXHAUSTION_INFO.Value"/> field to enable
-            /// the <see cref="PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure"/> feature
+            /// the <see cref="PROCESS_MEMORY_EXHAUSTION_TYPE.PMETypeFailFastOnCommitFailure"/> feature.
             /// </summary>
             public static readonly UIntPtr PME_FAILFAST_ON_COMMIT_FAIL_ENABLE = new UIntPtr(0x1);
 
             /// <summary>
-            /// This should be set to <see cref="PME_CURRENT_VERSION"/>
+            /// This should be set to <see cref="PME_CURRENT_VERSION"/>.
             /// </summary>
             public ushort Version;
 
             /// <summary>
-            /// Reserved
+            /// Reserved.
             /// </summary>
             public ushort Reserved;
 
@@ -50,7 +50,7 @@ namespace PInvoke
             public PROCESS_MEMORY_EXHAUSTION_TYPE Type;
 
             /// <summary>
-            /// Used to turn the feature on or off
+            /// Used to turn the feature on or off.
             ///  <list type="table">
             ///  <listheader><term>Function</term><term>Setting</term></listheader>
             ///  <item><term>Enable</term><term><see cref="PME_FAILFAST_ON_COMMIT_FAIL_ENABLE"/></term></item>

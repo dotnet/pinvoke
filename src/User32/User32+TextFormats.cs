@@ -231,7 +231,7 @@ namespace PInvoke
             /// DT_HIDEPREFIX: " _ "
             /// </example>
             /// <remarks>Compare with <see cref="DT_HIDEPREFIX "/> and <see cref="DT_NOPREFIX"/>.</remarks>
-            DT_PREFIXONLY = 0x00200000
+            DT_PREFIXONLY = 0x00200000,
         }
     }
 }

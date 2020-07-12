@@ -12,7 +12,7 @@ namespace PInvoke
     /// </summary>
     /// <remarks>
     ///  HRESULTs are 32 bit values layed out as follows:
-    ///
+    /// <code>
     ///   3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1
     ///   1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
     ///  +-+-+-+-+-+---------------------+-------------------------------+
@@ -42,7 +42,7 @@ namespace PInvoke
     ///      Facility - is the facility code
     ///
     ///      Code - is the facility's status code
-    ///
+    /// </code>
     /// </remarks>
     [DebuggerDisplay("{Value}")]
     public partial struct HResult : IComparable, IComparable<HResult>, IEquatable<HResult>, IFormattable
@@ -189,8 +189,8 @@ namespace PInvoke
         /// <summary>
         /// Checks equality between this HResult and a <see cref="uint"/> value.
         /// </summary>
-        /// <param name="hr">An <see cref="HResult"/></param>
-        /// <param name="value">Some <see cref="uint"/> value</param>
+        /// <param name="hr">An <see cref="HResult"/>.</param>
+        /// <param name="value">Some <see cref="uint"/> value.</param>
         /// <returns><c>true</c> if they equal; <c>false</c> otherwise.</returns>
         /// <remarks>
         /// This operator overload is useful because HResult-uint conversion must be explicit,
@@ -201,8 +201,8 @@ namespace PInvoke
         /// <summary>
         /// Checks inequality between this HResult and a <see cref="uint"/> value.
         /// </summary>
-        /// <param name="hr">An <see cref="HResult"/></param>
-        /// <param name="value">Some <see cref="uint"/> value</param>
+        /// <param name="hr">An <see cref="HResult"/>.</param>
+        /// <param name="value">Some <see cref="uint"/> value.</param>
         /// <returns><c>true</c> if they unequal; <c>false</c> otherwise.</returns>
         /// <remarks>
         /// This operator overload is useful because HResult-uint conversion must be explicit,

@@ -38,7 +38,7 @@ namespace PInvoke
             /// One ACE that allows GENERIC_ALL access for the service logon SID is also added to the service process token object.
             /// If there are multiple services hosted in the same process and one service has SERVICE_SID_TYPE_RESTRICTED, all services must have SERVICE_SID_TYPE_RESTRICTED.
             /// </summary>
-            SERVICE_SID_TYPE_RESTRICTED = 0x00000003
+            SERVICE_SID_TYPE_RESTRICTED = 0x00000003,
         }
     }
 }

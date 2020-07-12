@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class BCrypt
     {
         /// <summary>
-        /// Possible values for the <see cref="BCryptAddContextFunction"/>
+        /// Possible values for the <see cref="BCryptAddContextFunction"/>.
         /// </summary>
         public enum ConfigurationTable
         {

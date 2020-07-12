@@ -43,7 +43,7 @@ namespace PInvoke
         /// Throws an exception when an error occurs.
         /// </summary>
         /// <param name="errorCode">The result of the P/Invoke call.</param>
-        /// <exception cref="Win32Exception">If <paramref name="errorCode"/> is not <see cref="Win32ErrorCode.ERROR_SUCCESS"/></exception>
+        /// <exception cref="Win32Exception">If <paramref name="errorCode"/> is not <see cref="Win32ErrorCode.ERROR_SUCCESS"/>.</exception>
         public static void ThrowOnError(this Win32ErrorCode errorCode)
         {
             if (errorCode != Win32ErrorCode.ERROR_SUCCESS)

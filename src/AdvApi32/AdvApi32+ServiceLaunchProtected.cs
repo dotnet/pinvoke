@@ -9,14 +9,14 @@ namespace PInvoke
     public static partial class AdvApi32
     {
         /// <summary>
-        /// The protection type of the service
+        /// The protection type of the service.
         /// </summary>
         public enum ServiceLaunchProtected
         {
             SERVICE_LAUNCH_PROTECTED_NONE = 0,
             SERVICE_LAUNCH_PROTECTED_WINDOWS = 1,
             SERVICE_LAUNCH_PROTECTED_WINDOWS_LIGHT = 2,
-            SERVICE_LAUNCH_PROTECTED_ANTIMALWARE_LIGHT = 3
+            SERVICE_LAUNCH_PROTECTED_ANTIMALWARE_LIGHT = 3,
         }
     }
 }

@@ -14,7 +14,7 @@ namespace PInvoke
         /// Common property names to supply to <see cref="BCryptGetProperty(SafeHandle, string, BCryptGetPropertyFlags)"/>.
         /// </summary>
         /// <devremarks>
-        /// Fill in summaries for each property as defined here: https://msdn.microsoft.com/en-us/library/windows/desktop/aa376211(v=vs.85).aspx
+        /// Fill in summaries for each property as defined here: https://msdn.microsoft.com/en-us/library/windows/desktop/aa376211(v=vs.85).aspx.
         /// </devremarks>
         public static class PropertyNames
         {

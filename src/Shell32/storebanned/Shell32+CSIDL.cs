@@ -15,7 +15,7 @@ namespace PInvoke
         /// but which may not have the same name or location on any given system. For example, the system folder may be "C:\Windows" on one system and "C:\Winnt" on another.
         /// These constants are defined in Shlobj.h.
         /// </summary>
-        /// <remarks>Used by <see cref="SHGetFolderPath(IntPtr, CSIDL, IntPtr, SHGetFolderPathFlags, char*)"/></remarks>
+        /// <remarks>Used by <see cref="SHGetFolderPath(IntPtr, CSIDL, IntPtr, SHGetFolderPathFlags, char*)"/>.</remarks>
         [Flags]
         public enum CSIDL
         {
@@ -276,7 +276,7 @@ namespace PInvoke
             /// <summary>
             /// A mask for any valid CSIDL flag value.
             /// </summary>
-            CSIDL_FLAG_MASK = 0xff00
+            CSIDL_FLAG_MASK = 0xff00,
         }
     }
 }

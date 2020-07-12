@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Possible flag values for <see cref="User32.SendMessageTimeout"/>
+        /// Possible flag values for <see cref="User32.SendMessageTimeout"/>.
         /// </summary>
         public enum SendMessageTimeoutFlags : int
         {
@@ -36,7 +36,7 @@ namespace PInvoke
             /// <summary>
             /// The function should return 0 if the receiving window is destroyed or its owning thread dies while the message is being processed.
             /// </summary>
-            SMTO_ERRORONEXIT = 0x0020
+            SMTO_ERRORONEXIT = 0x0020,
         }
     }
 }

@@ -38,7 +38,7 @@ namespace PInvoke
             ///     is specified. This flag has no effect when both the calling process and the generating process
             ///     are not 32-bit or 64-bit processes, or when the generating process is a console application.
             /// </summary>
-            WINEVENT_INCONTEXT = 0x0004
+            WINEVENT_INCONTEXT = 0x0004,
         }
     }
 }

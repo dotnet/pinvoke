@@ -18,7 +18,7 @@ namespace PInvoke
             /// <summary>
             /// Stop the service when the specified trigger event occurs.
             /// </summary>
-            SERVICE_TRIGGER_ACTION_SERVICE_STOP = 2
+            SERVICE_TRIGGER_ACTION_SERVICE_STOP = 2,
         }
     }
 }

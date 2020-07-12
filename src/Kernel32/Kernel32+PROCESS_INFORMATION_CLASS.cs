@@ -12,7 +12,7 @@ namespace PInvoke
         /// Indicates a specific class of process information. Values from this enumeration are passed into
         /// the <see cref="GetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)"/>
         /// and <see cref="SetProcessInformation(SafeObjectHandle, PROCESS_INFORMATION_CLASS, void*, uint)"/>
-        /// functions to specify the type of process information passed in the void pointer argument of the function call
+        /// functions to specify the type of process information passed in the void pointer argument of the function call.
         /// </summary>
         public enum PROCESS_INFORMATION_CLASS
         {
@@ -71,7 +71,7 @@ namespace PInvoke
             /// <summary>
             /// The maximum value for this enumeration. This value may change in a future version.
             /// </summary>
-            ProcessInformationClassMax
+            ProcessInformationClassMax,
         }
     }
 }

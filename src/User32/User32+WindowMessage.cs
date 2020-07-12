@@ -1228,7 +1228,7 @@ namespace PInvoke
             /// <summary>
             /// A top-level window is being replaced. The window exists when the system calls this hook.
             /// </summary>
-            WM_HSHELL_WINDOWREPLACED = 13
+            WM_HSHELL_WINDOWREPLACED = 13,
         }
     }
 }

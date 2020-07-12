@@ -13,7 +13,7 @@ namespace PInvoke
     {
         /// <summary>
         /// Control options that filter the device information elements that are added to the device information set by
-        /// <see cref="SetupDiGetClassDevs(Guid*,string,IntPtr,GetClassDevsFlags)" />
+        /// <see cref="SetupDiGetClassDevs(Guid*,string,IntPtr,GetClassDevsFlags)" />.
         /// </summary>
         [Flags]
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Original API names are used for consistency")]
@@ -44,7 +44,7 @@ namespace PInvoke
             /// <summary>
             /// Return only devices that are a part of the current hardware profile.
             /// </summary>
-            DIGCF_PROFILE = 0x00000008
+            DIGCF_PROFILE = 0x00000008,
         }
     }
 }

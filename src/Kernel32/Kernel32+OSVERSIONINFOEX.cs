@@ -27,7 +27,7 @@ namespace PInvoke
             public int dwMajorVersion;
 
             /// <summary>
-            /// The minor version number of the operating system. For example, for Windows 2000, the minor version number is zero
+            /// The minor version number of the operating system. For example, for Windows 2000, the minor version number is zero.
             /// </summary>
             public int dwMinorVersion;
 
@@ -82,7 +82,7 @@ namespace PInvoke
             /// with <see cref="dwOSVersionInfoSize" /> set to the correct value.
             /// </summary>
             /// <returns>
-            /// A newly initialized instance of <see cref="OSVERSIONINFOEX"/>
+            /// A newly initialized instance of <see cref="OSVERSIONINFOEX"/>.
             /// </returns>
             public static OSVERSIONINFOEX Create() => new OSVERSIONINFOEX { dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX) };
         }

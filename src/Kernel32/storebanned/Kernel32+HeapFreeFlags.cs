@@ -31,7 +31,7 @@ namespace PInvoke
             /// such as a CTRL+C handler, that simultaneously access the process heap.
             /// </para>
             /// </remarks>
-            HEAP_NO_SERIALIZE = 0x00000001
+            HEAP_NO_SERIALIZE = 0x00000001,
         }
     }
 }

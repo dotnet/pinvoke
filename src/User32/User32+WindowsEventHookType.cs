@@ -119,7 +119,7 @@ namespace PInvoke
             EVENT_UIA_EVENTID_START = 0x4E00,
             EVENT_UIA_EVENTID_END = 0x4EFF,
             EVENT_UIA_PROPID_START = 0x7500,
-            EVENT_UIA_PROPID_END = 0x75FF
+            EVENT_UIA_PROPID_END = 0x75FF,
         }
     }
 }

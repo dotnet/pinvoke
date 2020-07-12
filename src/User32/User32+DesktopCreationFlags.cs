@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Controls the access of other processes to the created desktop
+        /// Controls the access of other processes to the created desktop.
         /// </summary>
         public enum DesktopCreationFlags : uint
         {
@@ -18,7 +18,7 @@ namespace PInvoke
             /// <summary>
             /// Enables processes running in other accounts on the desktop to set hooks in this process
             /// </summary>
-            DF_ALLOWOTHERACCOUNTHOOK = 0x0001
+            DF_ALLOWOTHERACCOUNTHOOK = 0x0001,
         }
     }
 }

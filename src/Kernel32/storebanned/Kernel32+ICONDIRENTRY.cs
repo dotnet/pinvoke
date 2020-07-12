@@ -11,43 +11,43 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Represents an icon as stored in a '.ico' file
+        /// Represents an icon as stored in a '.ico' file.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct ICONDIRENTRY
         {
             /// <summary>
-            /// Width, in pixels, of the image
+            /// Width, in pixels, of the image.
             /// </summary>
             public byte bWidth;
 
             /// <summary>
-            /// Height, in pixels, of the image
+            /// Height, in pixels, of the image.
             /// </summary>
             public byte bHeight;
 
             /// <summary>
-            /// Number of colors in image (0 if >= 8bpp)
+            /// Number of colors in image (0 if >= 8bpp).
             /// </summary>
             public byte bColorCount;
 
             /// <summary>
-            /// Reserved
+            /// Reserved.
             /// </summary>
             public byte bReserved;
 
             /// <summary>
-            /// Color Planes
+            /// Color Planes.
             /// </summary>
             public ushort wPlanes;
 
             /// <summary>
-            /// Bits per pixel
+            /// Bits per pixel.
             /// </summary>
             public ushort wBitCount;
 
             /// <summary>
-            /// How many bytes in this resource
+            /// How many bytes in this resource.
             /// </summary>
             public uint dwBytesInRes;
 

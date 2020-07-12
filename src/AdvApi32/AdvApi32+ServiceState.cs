@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class AdvApi32
     {
         /// <summary>
-        /// Represents the current state of a servies
+        /// Represents the current state of a servies.
         /// </summary>
         public enum ServiceState
         {
@@ -46,7 +46,7 @@ namespace PInvoke
             /// <summary>
             /// The service is paused.
             /// </summary>
-            SERVICE_PAUSED = 0x00000007
+            SERVICE_PAUSED = 0x00000007,
         }
     }
 }

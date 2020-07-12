@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// The information to be retrieved by <see cref="GetUserObjectInformation(System.IntPtr, ObjectInformationType, void*, uint, uint*)"/>
+        /// The information to be retrieved by <see cref="GetUserObjectInformation(System.IntPtr, ObjectInformationType, void*, uint, uint*)"/>.
         /// </summary>
         public enum ObjectInformationType : int
         {
@@ -47,7 +47,7 @@ namespace PInvoke
             /// TRUE if the hObj parameter is a handle to the desktop object that is receiving input from the user. FALSE otherwise.
             /// </summary>
             /// <remarks>Windows Server 2003 and Windows XP/2000:  This value is not supported.</remarks>
-            UOI_IO = 6
+            UOI_IO = 6,
         }
     }
 }

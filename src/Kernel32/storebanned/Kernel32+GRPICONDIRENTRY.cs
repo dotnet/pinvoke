@@ -11,48 +11,48 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Represents an icon as stored in a resource
+        /// Represents an icon as stored in a resource.
         /// </summary>
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct GRPICONDIRENTRY
         {
             /// <summary>
-            /// Width, in pixels, of the image
+            /// Width, in pixels, of the image.
             /// </summary>
             public byte bWidth;
 
             /// <summary>
-            /// Height, in pixels, of the image
+            /// Height, in pixels, of the image.
             /// </summary>
             public byte bHeight;
 
             /// <summary>
-            /// Number of colors in image (0 if >= 8bpp)
+            /// Number of colors in image (0 if >= 8bpp).
             /// </summary>
             public byte bColorCount;
 
             /// <summary>
-            /// Reserved
+            /// Reserved.
             /// </summary>
             public byte bReserved;
 
             /// <summary>
-            /// Color Planes
+            /// Color Planes.
             /// </summary>
             public ushort wPlanes;
 
             /// <summary>
-            /// Bits per pixel
+            /// Bits per pixel.
             /// </summary>
             public ushort wBitCount;
 
             /// <summary>
-            /// How many bytes in this resource?
+            /// The number of bytes in this resource.
             /// </summary>
             public uint dwBytesInRes;
 
             /// <summary>
-            /// The ID
+            /// The ID.
             /// </summary>
             public ushort nId;
         }

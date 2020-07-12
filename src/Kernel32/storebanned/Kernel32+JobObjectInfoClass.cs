@@ -12,7 +12,7 @@ namespace PInvoke
         /// The information class for the limits to be set.
         /// </summary>
         /// <remarks>
-        /// Taken from https://msdn.microsoft.com/en-us/library/windows/desktop/ms686216(v=vs.85).aspx
+        /// Taken from https://msdn.microsoft.com/en-us/library/windows/desktop/ms686216(v=vs.85).aspx.
         /// </remarks>
         public enum JOBOBJECTINFOCLASS
         {
@@ -81,7 +81,7 @@ namespace PInvoke
             /// <summary>
             /// The lpJobObjectInfo parameter is a pointer to a JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 structure.
             /// </summary>
-            JobObjectLimitViolationInformation2 = 35
+            JobObjectLimitViolationInformation2 = 35,
         }
     }
 }

@@ -24,12 +24,13 @@ namespace PInvoke
         public static readonly SafeRegistryHandle HKEY_CLASSES_ROOT
             = new SafeRegistryHandle((IntPtr)unchecked((int)0x80000000), false);
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         ///     Registry entries subordinate to this key define the preferences of the current user. These preferences include the
         ///     settings of environment variables, data about program groups, colors, printers, network connections, and
         ///     application preferences. This key makes it easier to establish the current user's settings; the key maps to the
         ///     current user's branch in <see cref="HKEY_USERS" />. In HKEY_CURRENT_USER, software vendors store the current
-        ///     user-specific preferences to be used within their applications. Microsoft, for example, creates the
+        ///     user-specific preferences to be used within their applications. Microsoft, for example, creates the.
         ///     <code>HKEY_CURRENT_USER\Software\Microsoft</code> key for its applications to use, with each application creating
         ///     its own subkey under the <code>Microsoft</code> key.
         ///     <para>
@@ -49,6 +50,7 @@ namespace PInvoke
         ///         call the RegOpenCurrentUser function.
         ///     </para>
         /// </summary>
+#pragma warning restore SA1629 // Documentation text should end with a period
         public static readonly SafeRegistryHandle HKEY_CURRENT_USER
             = new SafeRegistryHandle((IntPtr)unchecked((int)0x80000001), false);
 
@@ -99,7 +101,7 @@ namespace PInvoke
         ///     the standard configuration. Information about the standard hardware configuration is stored under the Software and
         ///     System keys of <see cref="HKEY_LOCAL_MACHINE"/>.
         ///     <para>
-        ///         HKEY_CURRENT_CONFIG is an alias for
+        ///         HKEY_CURRENT_CONFIG is an alias for.
         ///         <code>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Hardware Profiles\Current</code>.
         ///     </para>
         /// </summary>
@@ -108,7 +110,7 @@ namespace PInvoke
 
         /// <summary>
         ///     Contains information about hardware, Plug &amp; Play and network performance statistics.
-        ///     <para>Only available on Windows 95, Windows 98 and Windows ME</para>
+        ///     <para>Only available on Windows 95, Windows 98 and Windows ME.</para>
         /// </summary>
         public static readonly SafeRegistryHandle HKEY_DYN_DATA
             = new SafeRegistryHandle((IntPtr)unchecked((int)0x80000006), false);

@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Flags that may be passed to the <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/> function
+        /// Flags that may be passed to the <see cref="CreateThread(SECURITY_ATTRIBUTES*, UIntPtr, THREAD_START_ROUTINE, void*, CreateThreadFlags, uint*)"/> function.
         /// </summary>
         [Flags]
         public enum CreateThreadFlags

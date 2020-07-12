@@ -18,7 +18,7 @@ namespace PInvoke
         public struct SERVICE_STATUS_PROCESS
         {
             /// <summary>
-            /// The type of service. <see cref="ServiceType"/>
+            /// The type of service. <see cref="ServiceType"/>.
             /// </summary>
             public ServiceType dwServiceType;
 

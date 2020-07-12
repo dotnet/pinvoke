@@ -83,7 +83,7 @@ namespace PInvoke
             /// Return only aliased PIDLs. Do not use the file system path.
             /// </summary>
             /// <remarks>Introduced in Windows 7</remarks>
-            KF_FLAG_ALIAS_ONLY = 0x80000000
+            KF_FLAG_ALIAS_ONLY = 0x80000000,
         }
     }
 }

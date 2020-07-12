@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Controls the appearance and behavior of a menu item
+        /// Controls the appearance and behavior of a menu item.
         /// </summary>
         [Flags]
         public enum MenuItemFlags
@@ -101,7 +101,7 @@ namespace PInvoke
             MF_SYSMENU = 0x00002000,
             MF_HELP = 0x00004000,
             MF_RIGHTJUSTIFY = 0x00004000,
-            MF_MOUSESELECT = 0x00008000
+            MF_MOUSESELECT = 0x00008000,
         }
     }
 }

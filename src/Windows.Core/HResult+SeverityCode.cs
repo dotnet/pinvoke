@@ -9,7 +9,7 @@ namespace PInvoke
     public partial struct HResult
     {
         /// <summary>
-        /// HRESULT severity codes defined by winerror.h
+        /// HRESULT severity codes defined by winerror.h.
         /// </summary>
         public enum SeverityCode : uint
         {

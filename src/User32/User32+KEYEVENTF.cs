@@ -38,7 +38,7 @@ namespace PInvoke
             /// This flag can only be combined with the <see cref="KEYEVENTF_KEYUP"/> flag.
             /// For more information, see the Remarks section.
             /// </summary>
-            KEYEVENTF_UNICODE = 0x0004
+            KEYEVENTF_UNICODE = 0x0004,
         }
     }
 }

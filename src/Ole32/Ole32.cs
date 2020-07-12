@@ -16,7 +16,7 @@ namespace PInvoke
         /// <summary>
         /// Enables cancellation of synchronous calls on the calling thread.
         /// </summary>
-        /// <param name="pReserved">This parameter is reserved and must be NULL (<see cref="IntPtr.Zero"/>)</param>
+        /// <param name="pReserved">This parameter is reserved and must be NULL (<see cref="IntPtr.Zero"/>).</param>
         /// <returns>This function can return the standard return values <see cref="HResult.Code.S_OK"/>, <see cref="HResult.Code.E_FAIL"/>, <see cref="HResult.Code.E_INVALIDARG"/>, and <see cref="HResult.Code.E_OUTOFMEMORY"/>.</returns>
         [DllImport(nameof(Ole32))]
         public static extern unsafe HResult CoEnableCallCancellation(void* pReserved);
@@ -24,7 +24,7 @@ namespace PInvoke
         /// <summary>
         /// Undoes the action of a call to <see cref="CoEnableCallCancellation(IntPtr)"/>. Disables cancellation of synchronous calls on the calling thread when all calls to CoEnableCallCancellation are balanced by calls to CoDisableCallCancellation.
         /// </summary>
-        /// <param name="pReserved">This parameter is reserved and must be NULL (<see cref="IntPtr.Zero"/>)</param>
+        /// <param name="pReserved">This parameter is reserved and must be NULL (<see cref="IntPtr.Zero"/>).</param>
         /// <returns>This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
         /// <list type="table">
         ///     <listheader>

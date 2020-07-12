@@ -10,7 +10,7 @@ namespace PInvoke
     {
         /// <summary>
         /// Defines the flags for <see cref="CryptAcquireCertificatePrivateKey(IntPtr,CryptAcquireCertificatePrivateKeyFlags,IntPtr,out IntPtr,out uint,out bool)"/> API as documented by https://msdn.microsoft.com/en-us/library/windows/desktop/aa379885(v=vs.85).aspx
-        /// Flag values defined in the Platform SDK wincrypt.h
+        /// Flag values defined in the Platform SDK wincrypt.h.
         /// </summary>
         [Flags]
         public enum CryptAcquireCertificatePrivateKeyFlags : uint

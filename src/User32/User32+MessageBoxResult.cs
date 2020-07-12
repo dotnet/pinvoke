@@ -73,7 +73,7 @@ namespace PInvoke
             /// <summary>
             /// The user did not click any button and the messagebox timed out.
             /// </summary>
-            IDTIMEOUT = 32000
+            IDTIMEOUT = 32000,
         }
     }
 }

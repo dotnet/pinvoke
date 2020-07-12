@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 using PInvoke;
 
 /// <content>
-/// Contains the inner class <see cref="HwndSubClass"/>
+/// Contains the inner class <see cref="HwndSubClass"/>.
 /// </content>
 public partial class User32Facts
 {
     /// <summary>
-    /// Helper to subclass an HWND using SetWindowLongPtr
+    /// Helper to subclass an HWND using SetWindowLongPtr.
     /// </summary>
     private class HwndSubClass : IDisposable
     {
@@ -23,7 +23,7 @@ public partial class User32Facts
         /// <summary>
         /// Initializes a new instance of the <see cref="HwndSubClass"/> class.
         /// </summary>
-        /// <param name="hWnd">The HWND being subclassed</param>
+        /// <param name="hWnd">The HWND being subclassed.</param>
         internal HwndSubClass(IntPtr hWnd)
         {
             this.HWnd = hWnd;
@@ -52,12 +52,12 @@ public partial class User32Facts
         internal event EventHandler<WindowMessage> WindowMessage;
 
         /// <summary>
-        /// Gets the new Window proceduce's address that has been replaced in the HWND
+        /// Gets the new Window proceduce's address that has been replaced in the HWND.
         /// </summary>
         internal IntPtr WindowProcPointer { get; }
 
         /// <summary>
-        /// Gets the Window procedure delegate that has been used to subclass the supplied HWND
+        /// Gets the Window procedure delegate that has been used to subclass the supplied HWND.
         /// </summary>
         internal User32.WndProc WindowProc { get; }
 
@@ -65,12 +65,12 @@ public partial class User32Facts
 
         /// <summary>
         /// Gets or sets the original window procedures address. This will be replaced back
-        /// to the HWND when this instance of <see cref="HwndSubClass"/> is disposed
+        /// to the HWND when this instance of <see cref="HwndSubClass"/> is disposed.
         /// </summary>
         private IntPtr OldWindowProcPointer { get; set; }
 
         /// <summary>
-        /// Frees resources
+        /// Frees resources.
         /// </summary>
         public void Dispose()
         {
@@ -80,13 +80,13 @@ public partial class User32Facts
 
         /// <summary>
         /// This is the replaces Window Procedure which will be used to track all window messages,
-        /// and generate events
+        /// and generate events.
         /// </summary>
-        /// <param name="hWnd">The window handle</param>
-        /// <param name="msg">Message ID</param>
-        /// <param name="wParam">The wParam value</param>
-        /// <param name="lParam">The lParam value</param>
-        /// <returns>Message specific return value</returns>
+        /// <param name="hWnd">The window handle.</param>
+        /// <param name="msg">Message ID.</param>
+        /// <param name="wParam">The wParam value.</param>
+        /// <param name="lParam">The lParam value.</param>
+        /// <returns>Message specific return value.</returns>
         internal unsafe IntPtr HookProc(IntPtr hWnd, User32.WindowMessage msg, void* wParam, void* lParam)
         {
             this.WindowMessage?.Invoke(this, new WindowMessage(msg, new IntPtr(wParam), new IntPtr(lParam)));
@@ -98,7 +98,7 @@ public partial class User32Facts
         /// instance of <see cref="HwndSubClass"/> as disposed.
         /// </summary>
         /// <param name="disposing">When true, indicates that this call is coming from a <see cref="Dispose()"/> call,
-        /// and when false, indicates that this call is coming from the finalizer</param>
+        /// and when false, indicates that this call is coming from the finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

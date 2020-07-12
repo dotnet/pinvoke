@@ -9,7 +9,7 @@ namespace PInvoke
     public partial struct HResult
     {
         /// <summary>
-        /// HRESULT facility codes defined by winerror.h
+        /// HRESULT facility codes defined by winerror.h.
         /// </summary>
         public enum FacilityCode : uint
         {

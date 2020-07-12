@@ -88,7 +88,7 @@ namespace PInvoke
                     select new
                     {
                         Parameter = parameter,
-                        Flags = friendlyFlags
+                        Flags = friendlyFlags,
                     };
                 var parametersToFriendlyTransform = refOrArrayAttributedParameters.ToDictionary(p => p.Parameter, p => p.Flags);
 

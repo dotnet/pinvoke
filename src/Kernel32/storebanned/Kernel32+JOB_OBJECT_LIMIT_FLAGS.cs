@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// The limit flags that are in effect
+        /// The limit flags that are in effect.
         /// </summary>
         [Flags]
         public enum JOB_OBJECT_LIMIT_FLAGS

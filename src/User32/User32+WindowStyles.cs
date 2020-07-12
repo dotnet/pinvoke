@@ -148,7 +148,7 @@ namespace PInvoke
             /// <summary>
             /// The window has a vertical scroll bar.
             /// </summary>
-            WS_VSCROLL = 0x200000
+            WS_VSCROLL = 0x200000,
         }
     }
 }

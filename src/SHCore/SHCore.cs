@@ -18,10 +18,10 @@ namespace PInvoke
         /// The values of <paramref name="dpiX"/> and <paramref name="dpiY"/> are identical.
         /// You only need to record one of the values to determine the DPI and respond appropriately.
         /// </summary>
-        /// <param name="hmonitor">Handle of the monitor being queried</param>
-        /// <param name="dpiType">The type of DPI being queried. Possible values are from the <see cref="MONITOR_DPI_TYPE"/> enumeration</param>
-        /// <param name="dpiX">The value of the DPI along the X axis. This value always refers to the horizontal edge, even when the screen is rotated</param>
-        /// <param name="dpiY">The value of the DPI along the Y axis. This value always refers to the vertical edge, even when the screen is rotated</param>
+        /// <param name="hmonitor">Handle of the monitor being queried.</param>
+        /// <param name="dpiType">The type of DPI being queried. Possible values are from the <see cref="MONITOR_DPI_TYPE"/> enumeration.</param>
+        /// <param name="dpiX">The value of the DPI along the X axis. This value always refers to the horizontal edge, even when the screen is rotated.</param>
+        /// <param name="dpiY">The value of the DPI along the Y axis. This value always refers to the vertical edge, even when the screen is rotated.</param>
         /// <returns>
         /// This function returns one of the following values:
         /// <list>
@@ -49,10 +49,10 @@ namespace PInvoke
         public static extern HResult GetDpiForMonitor(IntPtr hmonitor, MONITOR_DPI_TYPE dpiType, out int dpiX, out int dpiY);
 
         /// <summary>
-        /// Retrieves the dots per inch (dpi) awareness of the specified process
+        /// Retrieves the dots per inch (dpi) awareness of the specified process.
         /// </summary>
-        /// <param name="hprocess">Handle of the process that is being queried. If this parameter is NULL, the current process is queried</param>
-        /// <param name="value">The DPI awareness of the specified process. Possible values are from the <see cref="PROCESS_DPI_AWARENESS"/> enumeration</param>
+        /// <param name="hprocess">Handle of the process that is being queried. If this parameter is NULL, the current process is queried.</param>
+        /// <param name="value">The DPI awareness of the specified process. Possible values are from the <see cref="PROCESS_DPI_AWARENESS"/> enumeration.</param>
         /// <returns>
         /// This function returns one of the following values:
         /// <list>
@@ -65,9 +65,9 @@ namespace PInvoke
         public static extern HResult GetProcessDpiAwareness(IntPtr hprocess, out PROCESS_DPI_AWARENESS value);
 
         /// <summary>
-        /// Sets the current process to a specified dots per inch (dpi) awareness level. The DPI awareness levels are from the <see cref="PROCESS_DPI_AWARENESS"/> enumeration
+        /// Sets the current process to a specified dots per inch (dpi) awareness level. The DPI awareness levels are from the <see cref="PROCESS_DPI_AWARENESS"/> enumeration.
         /// </summary>
-        /// <param name="value">The DPI awareness value to set. Possible values are from the <see cref="PROCESS_DPI_AWARENESS"/> enumeration</param>
+        /// <param name="value">The DPI awareness value to set. Possible values are from the <see cref="PROCESS_DPI_AWARENESS"/> enumeration.</param>
         /// <returns>
         /// This function returns one of the following values:
         /// <list>
@@ -96,8 +96,8 @@ namespace PInvoke
         /// <summary>
         /// Retrieves the dots per inch (dpi) occupied by a <see cref="SHELL_UI_COMPONENT"/> based on the current scale factor and <see cref="PROCESS_DPI_AWARENESS"/>.
         /// </summary>
-        /// <param name="component">The type of shell component</param>
-        /// <returns>The DPI required for an icon of this type</returns>
+        /// <param name="component">The type of shell component.</param>
+        /// <returns>The DPI required for an icon of this type.</returns>
         [DllImport(nameof(SHCore))]
         public static extern int GetDpiForShellUIComponent(SHELL_UI_COMPONENT component);
 

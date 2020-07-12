@@ -257,7 +257,7 @@ namespace PInvoke
         /// The name of the property to set. This can be one of the predefined <see cref="KeyStoragePropertyIdentifiers"/> or a custom property identifier.
         /// </param>
         /// <param name="propertyValue">The new property value.</param>
-        /// <param name="flags">Flags to pass to <see cref="NCryptSetProperty(SafeHandle, string, byte*, int, NCryptSetPropertyFlags)"/></param>
+        /// <param name="flags">Flags to pass to <see cref="NCryptSetProperty(SafeHandle, string, byte*, int, NCryptSetPropertyFlags)"/>.</param>
         public static unsafe void NCryptSetProperty<T>(SafeHandle hObject, string propertyName, T propertyValue, NCryptSetPropertyFlags flags = NCryptSetPropertyFlags.None)
         {
             int bufferSize = Marshal.SizeOf(propertyValue);
@@ -402,16 +402,18 @@ namespace PInvoke
         public static unsafe bool NCryptVerifySignature(SafeKeyHandle key, void* paddingInfo, byte[] hashValue, byte[] signature, NCryptSignHashFlags flags = NCryptSignHashFlags.None)
         {
             fixed (byte* pHashValue = hashValue)
-            fixed (byte* pSignature = signature)
             {
-                SECURITY_STATUS result = NCryptVerifySignature(key, paddingInfo, pHashValue, hashValue.Length, pSignature, signature.Length, flags);
-                if (result == SECURITY_STATUS.NTE_BAD_SIGNATURE)
+                fixed (byte* pSignature = signature)
                 {
-                    return false;
-                }
+                    SECURITY_STATUS result = NCryptVerifySignature(key, paddingInfo, pHashValue, hashValue.Length, pSignature, signature.Length, flags);
+                    if (result == SECURITY_STATUS.NTE_BAD_SIGNATURE)
+                    {
+                        return false;
+                    }
 
-                result.ThrowOnError();
-                return true;
+                    result.ThrowOnError();
+                    return true;
+                }
             }
         }
     }

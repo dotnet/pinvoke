@@ -37,7 +37,7 @@ namespace PInvoke
             MOUSEEVENTF_VIRTUALDESK = 0x4000,
             MOUSEEVENTF_WHEEL = 0x0800,
             MOUSEEVENTF_XDOWN = 0x0080,
-            MOUSEEVENTF_XUP = 0x0100
+            MOUSEEVENTF_XUP = 0x0100,
         }
     }
 }

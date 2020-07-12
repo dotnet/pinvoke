@@ -99,7 +99,7 @@ namespace PInvoke
             FILE_ATTRIBUTE_TEMPORARY = 0x100,
 
             /// <summary>This value is reserved for system use.</summary>
-            FILE_ATTRIBUTE_VIRTUAL = 0x10000
+            FILE_ATTRIBUTE_VIRTUAL = 0x10000,
         }
     }
 }

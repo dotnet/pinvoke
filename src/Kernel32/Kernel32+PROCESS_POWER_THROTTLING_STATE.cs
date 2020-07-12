@@ -10,12 +10,12 @@ namespace PInvoke
     {
         /// <summary>
         /// Specifies the throttling policies and how to apply them to a target process when that process is
-        /// subject to power management
+        /// subject to power management.
         /// </summary>
         public struct PROCESS_POWER_THROTTLING_STATE
         {
             /// <summary>
-            /// The current version of the <see cref="PROCESS_POWER_THROTTLING_STATE"/> structure
+            /// The current version of the <see cref="PROCESS_POWER_THROTTLING_STATE"/> structure.
             /// </summary>
             public const uint PROCESS_POWER_THROTTLING_CURRENT_VERSION = 1;
 
@@ -30,7 +30,7 @@ namespace PInvoke
             public uint Version;
 
             /// <summary>
-            /// This field enables the caller to take control of the power throttling mechanism
+            /// This field enables the caller to take control of the power throttling mechanism.
             ///
             /// <list type="table">
             ///     <listheader>

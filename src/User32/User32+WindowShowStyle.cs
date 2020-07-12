@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>Enumeration of the different ways of showing a window using
-        /// ShowWindow</summary>
+        /// ShowWindow.</summary>
         public enum WindowShowStyle : uint
         {
             /// <summary>Hides the window and activates another window.</summary>
@@ -65,7 +65,7 @@ namespace PInvoke
             /// <summary>Windows 2000/XP: Minimizes a window, even if the thread
             /// that owns the window is hung. This flag should only be used when
             /// minimizing windows from a different thread.</summary>
-            SW_FORCEMINIMIZE = 11
+            SW_FORCEMINIMIZE = 11,
         }
     }
 }

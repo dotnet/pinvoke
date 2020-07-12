@@ -10,10 +10,12 @@ namespace PInvoke
     /// </content>
     public partial class User32
     {
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         /// Flags to be passed to the <code>wRemoveMsg</code> parameter of
-        /// <see cref="PeekMessage(IntPtr, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />
+        /// <see cref="PeekMessage(IntPtr, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />.
         /// </summary>
+#pragma warning restore SA1629 // Documentation text should end with a period
         [Flags]
         public enum PeekMessageRemoveFlags : uint
         {
@@ -46,7 +48,7 @@ namespace PInvoke
                 (QueueStatusFlags.QS_POSTMESSAGE | QueueStatusFlags.QS_HOTKEY | QueueStatusFlags.QS_TIMER) << 16,
 
             /// <summary>Process all sent messages.</summary>
-            PM_QS_SENDMESSAGE = QueueStatusFlags.QS_SENDMESSAGE << 16
+            PM_QS_SENDMESSAGE = QueueStatusFlags.QS_SENDMESSAGE << 16,
         }
     }
 }

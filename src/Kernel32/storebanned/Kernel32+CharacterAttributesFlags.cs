@@ -91,7 +91,7 @@ namespace PInvoke
             /// <summary>
             /// Underscore.
             /// </summary>
-            COMMON_LVB_UNDERSCORE = 0x8000
+            COMMON_LVB_UNDERSCORE = 0x8000,
         }
     }
 }

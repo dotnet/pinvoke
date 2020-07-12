@@ -22,7 +22,7 @@ namespace PInvoke
             public CHAR_INFO_ENCODING Char;
 
             /// <summary>
-            /// The character attributes. This member can be zero or any combination of the <see cref="CharacterAttributesFlags"/> values
+            /// The character attributes. This member can be zero or any combination of the <see cref="CharacterAttributesFlags"/> values.
             /// </summary>
             public CharacterAttributesFlags Attributes;
         }

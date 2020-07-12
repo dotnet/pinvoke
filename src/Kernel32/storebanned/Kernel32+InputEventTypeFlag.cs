@@ -39,7 +39,7 @@ namespace PInvoke
             /// <summary>
             /// The Event member contains a <see cref="WINDOW_BUFFER_SIZE_RECORD"/> structure with information about the new size of the console screen buffer.
             /// </summary>
-            WINDOW_BUFFER_SIZE_EVENT = 0x0004
+            WINDOW_BUFFER_SIZE_EVENT = 0x0004,
         }
     }
 }

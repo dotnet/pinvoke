@@ -59,7 +59,7 @@ namespace PInvoke
             /// <summary>
             /// The SHIFT key is pressed.
             /// </summary>
-            SHIFT_PRESSED = 0x0010
+            SHIFT_PRESSED = 0x0010,
         }
     }
 }

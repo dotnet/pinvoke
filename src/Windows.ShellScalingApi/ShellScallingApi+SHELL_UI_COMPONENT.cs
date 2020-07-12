@@ -7,7 +7,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Identifies the type of UI component that is needed in the shell
+    /// Identifies the type of UI component that is needed in the shell.
     /// </summary>
     public enum SHELL_UI_COMPONENT
     {

@@ -440,7 +440,7 @@ namespace PInvoke
         /// <summary>
         /// Creates an empty public/private key pair.
         /// </summary>
-        /// <param name="hAlgorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/></param>
+        /// <param name="hAlgorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/>.</param>
         /// <param name="phKey">Receives a handle to the generated key pair.</param>
         /// <param name="dwLength">The length of the key, in bits.</param>
         /// <param name="dwFlags">A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.</param>
@@ -567,7 +567,7 @@ namespace PInvoke
         /// <param name="phKey">A pointer to a BCRYPT_KEY_HANDLE that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as BCryptSignHash. This handle must be released when it is no longer needed by passing it to the <see cref="BCryptDestroyKey"/> function.</param>
         /// <param name="pbInput">The address of a buffer that contains the key BLOB to import. The <paramref name="cbInput"/> parameter contains the size of this buffer. The <paramref name="pszBlobType"/> parameter specifies the type of key BLOB this buffer contains.</param>
         /// <param name="cbInput">The size, in bytes, of the <paramref name="pbInput"/> buffer.</param>
-        /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern unsafe NTSTATUS BCryptImportKeyPair(
@@ -604,7 +604,7 @@ namespace PInvoke
         /// If the pbOutput parameter is NULL, this function will place the required size, in bytes,
         /// in the ULONG pointed to by this parameter.
         /// </param>
-        /// <param name="dwFlags">A set of flags that modify the behavior of this function. </param>
+        /// <param name="dwFlags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt), ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern unsafe NTSTATUS BCryptExportKey(
@@ -755,7 +755,7 @@ namespace PInvoke
         /// <param name="cbBuffer">
         /// The size, in bytes, of the <paramref name="pbBuffer" /> buffer.
         /// </param>
-        /// <param name="flags">A set of flags that modify the behavior of this function. </param>
+        /// <param name="flags">A set of flags that modify the behavior of this function.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         [DllImport(nameof(BCrypt))]
         public static extern unsafe NTSTATUS BCryptGenRandom(

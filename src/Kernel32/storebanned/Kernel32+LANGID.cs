@@ -31,7 +31,7 @@ namespace PInvoke
             return new LANGID
             {
                 Primary = (LANGID.PrimaryLanguage)usPrimaryLanguage,
-                Sub = (LANGID.SubLanguage)usSubLanguage
+                Sub = (LANGID.SubLanguage)usSubLanguage,
             };
         }
 
@@ -56,7 +56,7 @@ namespace PInvoke
             return new LANGID
             {
                 Primary = ePrimaryLanguage,
-                Sub = eSubLanguage
+                Sub = eSubLanguage,
             };
         }
 
@@ -211,7 +211,7 @@ namespace PInvoke
                 LANG_WELSH = 0x52,
                 LANG_WOLOF = 0x88,
                 LANG_YI = 0x78,
-                LANG_YORUBA = 0x6A
+                LANG_YORUBA = 0x6A,
             }
 
             public enum SubLanguage : ushort
@@ -448,7 +448,7 @@ namespace PInvoke
                 SUBLANG_WELSH_UNITED_KINGDOM = 0x01,
                 SUBLANG_WOLOF_SENEGAL = 0x01,
                 SUBLANG_YI_PRC = 0x01,
-                SUBLANG_YORUBA_NIGERIA = 0x01
+                SUBLANG_YORUBA_NIGERIA = 0x01,
             }
 
             public PrimaryLanguage Primary

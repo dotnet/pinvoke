@@ -146,7 +146,7 @@ namespace PInvoke
         /// <summary>
         /// Creates an empty public/private key pair.
         /// </summary>
-        /// <param name="algorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/></param>
+        /// <param name="algorithm">The handle to the algorithm previously opened by <see cref="BCryptOpenAlgorithmProvider(string, string, BCryptOpenAlgorithmProviderFlags)"/>.</param>
         /// <param name="keyLength">The length of the key, in bits.</param>
         /// <returns>A handle to the generated key pair.</returns>
         /// <remarks>
@@ -205,7 +205,7 @@ namespace PInvoke
         /// <param name="algorithm">The handle of the algorithm provider to import the key. This handle is obtained by calling the BCryptOpenAlgorithmProvider function.</param>
         /// <param name="blobType">An identifier that specifies the type of BLOB that is contained in the <paramref name="input"/> buffer. Supported formats are defined in <see cref="AsymmetricKeyBlobTypes"/>.</param>
         /// <param name="input">The address of a buffer that contains the key BLOB to import. The <paramref name="blobType"/> parameter specifies the type of key BLOB this buffer contains.</param>
-        /// <param name="flags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION</param>
+        /// <param name="flags">A set of flags that modify the behavior of this function. This can be zero or the following value: BCRYPT_NO_KEY_VALIDATION.</param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
         public static SafeKeyHandle BCryptImportKeyPair(
             SafeAlgorithmHandle algorithm,
@@ -377,21 +377,25 @@ namespace PInvoke
             EnsureNotNullOrEmpty(ref outputLocal);
 
             fixed (byte* pbInput = &inputLocal.Array[inputLocal.Offset])
-            fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
-            fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
             {
-                // As we call the P/Invoke method, restore any nulls that were originally there.
-                return BCryptEncrypt(
-                    key,
-                    ArrayOrOriginalNull(inputLocal, pbInput),
-                    inputLocal.Count,
-                    paddingInfo,
-                    ArrayOrOriginalNull(ivLocal, pbIV),
-                    ivLocal.Count,
-                    ArrayOrOriginalNull(outputLocal, pbOutput),
-                    outputLocal.Count,
-                    out outputLength,
-                    flags);
+                fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
+                {
+                    fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
+                    {
+                        // As we call the P/Invoke method, restore any nulls that were originally there.
+                        return BCryptEncrypt(
+                            key,
+                            ArrayOrOriginalNull(inputLocal, pbInput),
+                            inputLocal.Count,
+                            paddingInfo,
+                            ArrayOrOriginalNull(ivLocal, pbIV),
+                            ivLocal.Count,
+                            ArrayOrOriginalNull(outputLocal, pbOutput),
+                            outputLocal.Count,
+                            out outputLength,
+                            flags);
+                    }
+                }
             }
         }
 
@@ -503,21 +507,25 @@ namespace PInvoke
             EnsureNotNullOrEmpty(ref outputLocal);
 
             fixed (byte* pbInput = &inputLocal.Array[inputLocal.Offset])
-            fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
-            fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
             {
-                // As we call the P/Invoke method, restore any nulls that were originally there.
-                return BCryptDecrypt(
-                    key,
-                    ArrayOrOriginalNull(inputLocal, pbInput),
-                    inputLocal.Count,
-                    paddingInfo,
-                    ArrayOrOriginalNull(ivLocal, pbIV),
-                    ivLocal.Count,
-                    ArrayOrOriginalNull(outputLocal, pbOutput),
-                    outputLocal.Count,
-                    out outputLength,
-                    flags);
+                fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
+                {
+                    fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
+                    {
+                        // As we call the P/Invoke method, restore any nulls that were originally there.
+                        return BCryptDecrypt(
+                            key,
+                            ArrayOrOriginalNull(inputLocal, pbInput),
+                            inputLocal.Count,
+                            paddingInfo,
+                            ArrayOrOriginalNull(ivLocal, pbIV),
+                            ivLocal.Count,
+                            ArrayOrOriginalNull(outputLocal, pbOutput),
+                            outputLocal.Count,
+                            out outputLength,
+                            flags);
+                    }
+                }
             }
         }
 
@@ -673,7 +681,7 @@ namespace PInvoke
         /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
         /// </param>
         /// <param name="propertyValue">The new property value.</param>
-        /// <param name="flags">Flags to pass to <see cref="BCryptSetProperty(SafeHandle, string, byte[], int, BCryptSetPropertyFlags)"/></param>
+        /// <param name="flags">Flags to pass to <see cref="BCryptSetProperty(SafeHandle, string, byte[], int, BCryptSetPropertyFlags)"/>.</param>
         public static void BCryptSetProperty(SafeHandle hObject, string propertyName, string propertyValue, BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None)
         {
             var error = BCryptSetProperty(
@@ -694,7 +702,7 @@ namespace PInvoke
         /// The name of the property to set. This can be one of the predefined <see cref="PropertyNames"/> or a custom property identifier.
         /// </param>
         /// <param name="propertyValue">The new property value.</param>
-        /// <param name="flags">Flags to pass to <see cref="BCryptSetProperty(SafeHandle, string, byte[], int, BCryptSetPropertyFlags)"/></param>
+        /// <param name="flags">Flags to pass to <see cref="BCryptSetProperty(SafeHandle, string, byte[], int, BCryptSetPropertyFlags)"/>.</param>
         public static unsafe void BCryptSetProperty<T>(SafeHandle hObject, string propertyName, T propertyValue, BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None)
         {
             int bufferSize = Marshal.SizeOf(propertyValue);

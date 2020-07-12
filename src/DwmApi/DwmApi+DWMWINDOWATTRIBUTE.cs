@@ -28,7 +28,7 @@ namespace PInvoke
             DWMWA_CLOAK,
             DWMWA_CLOAKED,
             DWMWA_FREEZE_REPRESENTATION,
-            DWMWA_LAST
+            DWMWA_LAST,
         }
     }
 }

@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Flags used in the <see cref="GetSystemMetrics"/> function
+        /// Flags used in the <see cref="GetSystemMetrics"/> function.
         /// </summary>
         public enum SystemMetric
         {

@@ -35,7 +35,7 @@ namespace PInvoke
             SYSTEM_FIXED_FONT = 16,
             DEFAULT_GUI_FONT = 17,
             DC_BRUSH = 18,
-            DC_PEN = 19
+            DC_PEN = 19,
         }
     }
 }

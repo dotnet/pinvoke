@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// wParam options for <see cref="WindowMessage.WM_SYSCOMMAND"/>
+        /// wParam options for <see cref="WindowMessage.WM_SYSCOMMAND"/>.
         /// </summary>
         public enum SysCommands : int
         {

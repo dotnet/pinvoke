@@ -17,17 +17,17 @@ namespace PInvoke
         public unsafe partial struct MODULEINFO
         {
             /// <summary>
-            /// The base address of the module
+            /// The base address of the module.
             /// </summary>
             public void* lpBaseOfDll;
 
             /// <summary>
-            /// The size of the module
+            /// The size of the module.
             /// </summary>
             public int SizeOfImage;
 
             /// <summary>
-            /// The entry point of the module
+            /// The entry point of the module.
             /// </summary>
             public void* EntryPoint;
         }
