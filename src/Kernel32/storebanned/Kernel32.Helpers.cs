@@ -289,6 +289,44 @@ namespace PInvoke
             return LocalReAlloc(hMem, new IntPtr(uBytes), uFlags);
         }
 
+        /// <summary>
+        ///     Asynchronously sends a control code directly to a specified device driver, causing the corresponding device to perform the
+        ///     corresponding operation.
+        /// </summary>
+        /// <param name="hDevice">
+        ///     A handle to the device on which the operation is to be performed. The device is typically a
+        ///     volume, directory, file, or stream. To retrieve a device handle, use the CreateFile function.
+        /// </param>
+        /// <param name="dwIoControlCode">
+        ///     The control code for the operation. This value identifies the specific operation to be performed and the type of
+        ///     device on which to perform it.
+        ///     <para>
+        ///         For a list of the control codes, see Remarks. The documentation for each control code provides usage details
+        ///         for the <paramref name="inBuffer" /> and <paramref name="outBuffer" /> parameters.
+        ///     </para>
+        /// </param>
+        /// <param name="inBuffer">
+        ///     A pointer to the input buffer that contains the data required to perform the operation. The format of this data
+        ///     depends on the value of the <paramref name="dwIoControlCode" /> parameter.
+        ///     <para>
+        ///         This parameter can be NULL if <paramref name="dwIoControlCode" /> specifies an operation that does not
+        ///         require input data.
+        ///     </para>
+        /// </param>
+        /// <param name="outBuffer">
+        ///     A pointer to the output buffer that is to receive the data returned by the operation. The format of this data
+        ///     depends on the value of the <paramref name="dwIoControlCode" /> parameter.
+        ///     <para>
+        ///         This parameter can be NULL if <paramref name="dwIoControlCode" /> specifies an operation that does not return
+        ///         data.
+        ///     </para>
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     A <see cref="CancellationToken"/> which can be used to cancel the asynchronous operation.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="ValueTask{UInt32}"/> which returns the size of the data stored in the output buffer, in bytes, or an exception.
+        /// </returns>
         public static unsafe ValueTask<uint> DeviceIoControlAsync<TInput, TOutput>(
             SafeObjectHandle hDevice,
             uint dwIoControlCode,
