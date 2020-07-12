@@ -26,6 +26,18 @@ PInvoke.Kernel32.FileSystemFlags.FILE_SUPPORTS_USN_JOURNAL = 33554432 -> PInvoke
 PInvoke.Kernel32.FileSystemFlags.FILE_UNICODE_ON_DISK = 4 -> PInvoke.Kernel32.FileSystemFlags
 PInvoke.Kernel32.FileSystemFlags.FILE_VOLUME_IS_COMPRESSED = 32768 -> PInvoke.Kernel32.FileSystemFlags
 PInvoke.Kernel32.FileSystemFlags.FILE_VOLUME_QUOTAS = 32 -> PInvoke.Kernel32.FileSystemFlags
+PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32_NT = 2 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32_WINDOWS = 1 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32s = 0 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSVERSIONINFO
+PInvoke.Kernel32.OSVERSIONINFO.OSVERSIONINFO() -> void
+PInvoke.Kernel32.OSVERSIONINFO.dwBuildNumber -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwMajorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwMinorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwOSVersionInfoSize -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwPlatformId -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSVERSIONINFO.szCSDVersion -> char*
 PInvoke.Kernel32.PROCESSOR_NUMBER
 PInvoke.Kernel32.PROCESSOR_NUMBER.Group -> ushort
 PInvoke.Kernel32.PROCESSOR_NUMBER.Number -> byte
@@ -103,6 +115,7 @@ static PInvoke.Kernel32.GetNativeSystemInfo(System.IntPtr lpSystemInfo) -> void
 static PInvoke.Kernel32.GetNativeSystemInfo(out PInvoke.Kernel32.SYSTEM_INFO lpSystemInfo) -> void
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char[] lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char[] lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static PInvoke.Kernel32.OSVERSIONINFO.Create() -> PInvoke.Kernel32.OSVERSIONINFO
 static PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, System.IntPtr lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, ref int? lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int

@@ -78,10 +78,12 @@ namespace PInvoke
             public byte wReserved;
 
             /// <summary>
-            /// Helper method to create <see cref="OSVERSIONINFOEX"/> with
-            /// the right pre-initialization for <see cref="dwOSVersionInfoSize"/>
+            /// Initializes a new instance of the <see cref="OSVERSIONINFOEX" /> struct
+            /// with <see cref="dwOSVersionInfoSize" /> set to the correct value.
             /// </summary>
-            /// <returns>A newly initialzed instance of <see cref="OSVERSIONINFOEX"/></returns>
+            /// <returns>
+            /// A newly initialized instance of <see cref="OSVERSIONINFOEX"/>
+            /// </returns>
             public static OSVERSIONINFOEX Create() => new OSVERSIONINFOEX { dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX) };
         }
     }
