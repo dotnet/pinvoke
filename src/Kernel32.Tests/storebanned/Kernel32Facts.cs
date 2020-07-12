@@ -1168,7 +1168,6 @@ public partial class Kernel32Facts
         }
     }
 
-#if NETCOREAPP3_0
     [Fact]
     public async Task DeviceIOControlAsync_Works()
     {
@@ -1211,7 +1210,6 @@ public partial class Kernel32Facts
 
         File.Delete(fileName);
     }
-#endif
 
     /// <summary>
     /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and

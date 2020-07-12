@@ -1,7 +1,6 @@
 ﻿// Copyright © .NET Foundation and Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#if NETSTANDARD2_1
 namespace PInvoke
 {
     using System;
@@ -126,4 +125,3 @@ namespace PInvoke
         }
     }
 }
-#endif
