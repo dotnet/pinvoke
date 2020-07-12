@@ -1130,6 +1130,43 @@ public partial class Kernel32Facts
         GC.KeepAlive(threadStartRoutine); // Make sure that the delegate stays alive until the test is done
     }
 
+    [Fact]
+    public unsafe void DeviceIOControl_Works()
+    {
+        const uint IOCTL_DISK_GET_DRIVE_GEOMETRY = 0x070000;
+        const string drive = @"\\.\PhysicalDrive0";
+
+        using (var device = CreateFile(
+            filename: drive,
+            access: 0,
+            share: Kernel32.FileShare.FILE_SHARE_READ | Kernel32.FileShare.FILE_SHARE_WRITE,
+            securityAttributes: (SECURITY_ATTRIBUTES*)null,
+            creationDisposition: CreationDisposition.OPEN_EXISTING,
+            flagsAndAttributes: 0,
+            SafeObjectHandle.Null))
+        {
+            Assert.False(device.IsInvalid);
+
+            DISK_GEOMETRY pdg = default;
+
+            Assert.True(DeviceIoControl(
+                device,
+                (int)IOCTL_DISK_GET_DRIVE_GEOMETRY,
+                null,
+                0,
+                &pdg,
+                sizeof(DISK_GEOMETRY),
+                out int pBytesReturned,
+                (OVERLAPPED*)null));
+
+            Assert.NotEqual(0u, pdg.BytesPerSector);
+            Assert.NotEqual(0, pdg.Cylinders);
+            Assert.Equal(MEDIA_TYPE.FixedMedia, pdg.MediaType);
+            Assert.NotEqual(0u, pdg.SectorsPerTrack);
+            Assert.NotEqual(0u, pdg.TracksPerCylinder);
+        }
+    }
+
     /// <summary>
     /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and
     /// <see cref="CreateRemoteThreadEx_PseudoTest"/> tests.
