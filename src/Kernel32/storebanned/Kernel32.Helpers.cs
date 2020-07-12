@@ -327,6 +327,14 @@ namespace PInvoke
         /// <returns>
         ///     A <see cref="ValueTask{UInt32}"/> which returns the size of the data stored in the output buffer, in bytes, or an exception.
         /// </returns>
+        /// <typeparam name="TInput">
+        ///     The type which represents the data required to perform the operation. This depends on the value of the
+        ///     <paramref name="dwIoControlCode" /> parameter.
+        /// </typeparam>
+        /// <typeparam name="TOutput">
+        ///     The type which represents the data returned by the operation. This depends on the value of the
+        ///     <paramref name="dwIoControlCode" /> parameter.
+        /// </typeparam>
         public static unsafe ValueTask<uint> DeviceIoControlAsync<TInput, TOutput>(
             SafeObjectHandle hDevice,
             uint dwIoControlCode,
