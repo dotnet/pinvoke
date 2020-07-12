@@ -402,16 +402,18 @@ namespace PInvoke
         public static unsafe bool NCryptVerifySignature(SafeKeyHandle key, void* paddingInfo, byte[] hashValue, byte[] signature, NCryptSignHashFlags flags = NCryptSignHashFlags.None)
         {
             fixed (byte* pHashValue = hashValue)
-            fixed (byte* pSignature = signature)
             {
-                SECURITY_STATUS result = NCryptVerifySignature(key, paddingInfo, pHashValue, hashValue.Length, pSignature, signature.Length, flags);
-                if (result == SECURITY_STATUS.NTE_BAD_SIGNATURE)
+                fixed (byte* pSignature = signature)
                 {
-                    return false;
-                }
+                    SECURITY_STATUS result = NCryptVerifySignature(key, paddingInfo, pHashValue, hashValue.Length, pSignature, signature.Length, flags);
+                    if (result == SECURITY_STATUS.NTE_BAD_SIGNATURE)
+                    {
+                        return false;
+                    }
 
-                result.ThrowOnError();
-                return true;
+                    result.ThrowOnError();
+                    return true;
+                }
             }
         }
     }

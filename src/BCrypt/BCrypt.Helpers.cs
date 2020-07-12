@@ -377,21 +377,25 @@ namespace PInvoke
             EnsureNotNullOrEmpty(ref outputLocal);
 
             fixed (byte* pbInput = &inputLocal.Array[inputLocal.Offset])
-            fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
-            fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
             {
-                // As we call the P/Invoke method, restore any nulls that were originally there.
-                return BCryptEncrypt(
-                    key,
-                    ArrayOrOriginalNull(inputLocal, pbInput),
-                    inputLocal.Count,
-                    paddingInfo,
-                    ArrayOrOriginalNull(ivLocal, pbIV),
-                    ivLocal.Count,
-                    ArrayOrOriginalNull(outputLocal, pbOutput),
-                    outputLocal.Count,
-                    out outputLength,
-                    flags);
+                fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
+                {
+                    fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
+                    {
+                        // As we call the P/Invoke method, restore any nulls that were originally there.
+                        return BCryptEncrypt(
+                            key,
+                            ArrayOrOriginalNull(inputLocal, pbInput),
+                            inputLocal.Count,
+                            paddingInfo,
+                            ArrayOrOriginalNull(ivLocal, pbIV),
+                            ivLocal.Count,
+                            ArrayOrOriginalNull(outputLocal, pbOutput),
+                            outputLocal.Count,
+                            out outputLength,
+                            flags);
+                    }
+                }
             }
         }
 
@@ -503,21 +507,25 @@ namespace PInvoke
             EnsureNotNullOrEmpty(ref outputLocal);
 
             fixed (byte* pbInput = &inputLocal.Array[inputLocal.Offset])
-            fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
-            fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
             {
-                // As we call the P/Invoke method, restore any nulls that were originally there.
-                return BCryptDecrypt(
-                    key,
-                    ArrayOrOriginalNull(inputLocal, pbInput),
-                    inputLocal.Count,
-                    paddingInfo,
-                    ArrayOrOriginalNull(ivLocal, pbIV),
-                    ivLocal.Count,
-                    ArrayOrOriginalNull(outputLocal, pbOutput),
-                    outputLocal.Count,
-                    out outputLength,
-                    flags);
+                fixed (byte* pbOutput = &outputLocal.Array[outputLocal.Offset])
+                {
+                    fixed (byte* pbIV = &ivLocal.Array[ivLocal.Offset])
+                    {
+                        // As we call the P/Invoke method, restore any nulls that were originally there.
+                        return BCryptDecrypt(
+                            key,
+                            ArrayOrOriginalNull(inputLocal, pbInput),
+                            inputLocal.Count,
+                            paddingInfo,
+                            ArrayOrOriginalNull(ivLocal, pbIV),
+                            ivLocal.Count,
+                            ArrayOrOriginalNull(outputLocal, pbOutput),
+                            outputLocal.Count,
+                            out outputLength,
+                            flags);
+                    }
+                }
             }
         }
 
