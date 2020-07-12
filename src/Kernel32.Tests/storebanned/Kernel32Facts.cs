@@ -1242,6 +1242,20 @@ public partial class Kernel32Facts
         File.Delete(fileName);
     }
 
+    [Fact]
+    public async Task DeviceIOControlAsync_Exception_Works()
+    {
+        const uint IOCTL_DISK_GET_DRIVE_GEOMETRY = 0x070000;
+
+        await Assert.ThrowsAsync<Win32Exception>(() =>
+            DeviceIoControlAsync<byte, byte>(
+            SafeObjectHandle.Invalid,
+            (int)IOCTL_DISK_GET_DRIVE_GEOMETRY,
+            Array.Empty<byte>(),
+            Array.Empty<byte>(),
+            CancellationToken.None).AsTask()).ConfigureAwait(false);
+    }
+
     /// <summary>
     /// Helper for <see cref="CreateThread_Test"/>, <see cref="CreateRemoteThread_PseudoTest"/>  and
     /// <see cref="CreateRemoteThreadEx_PseudoTest"/> tests.

@@ -289,7 +289,7 @@ namespace PInvoke
             return LocalReAlloc(hMem, new IntPtr(uBytes), uFlags);
         }
 
-        public static unsafe Task<uint> DeviceIoControlAsync<TInput, TOutput>(
+        public static unsafe ValueTask<uint> DeviceIoControlAsync<TInput, TOutput>(
             SafeObjectHandle hDevice,
             uint dwIoControlCode,
             Memory<TInput> inBuffer,
@@ -315,7 +315,7 @@ namespace PInvoke
             {
                 // The operation completed synchronously
                 overlapped.Unpack();
-                return Task.FromResult((uint)bytesReturned);
+                return new ValueTask<uint>((uint)bytesReturned);
             }
             else
             {
@@ -325,14 +325,14 @@ namespace PInvoke
                 {
                     overlapped.Unpack();
 #if NET45
-                    return Task.Run(new Func<uint>(() => throw new Win32Exception(error)));
+                    return new ValueTask<uint>(Task.Run(new Func<uint>(() => throw new Win32Exception(error))));
 #else
-                    return Task.FromException<uint>(new PInvoke.Win32Exception(error));
+                    return new ValueTask<uint>(Task.FromException<uint>(new PInvoke.Win32Exception(error)));
 #endif
                 }
                 else
                 {
-                    return overlapped.Completion;
+                    return new ValueTask<uint>(overlapped.Completion);
                 }
             }
         }
