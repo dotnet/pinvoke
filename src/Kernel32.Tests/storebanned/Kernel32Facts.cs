@@ -1209,37 +1209,42 @@ public partial class Kernel32Facts
     public async Task DeviceIOControlAsync_Overlapped_Works()
     {
         const uint FSCTL_SET_ZERO_DATA = 0x000980c8;
-        string fileName = Path.Combine(Environment.CurrentDirectory, "test.txt");
+        string fileName = Path.GetTempFileName();
 
-        using (var file = CreateFile(
-            filename: fileName,
-            access: Kernel32.ACCESS_MASK.GenericRight.GENERIC_READ | ACCESS_MASK.GenericRight.GENERIC_WRITE,
-            share: Kernel32.FileShare.FILE_SHARE_READ | Kernel32.FileShare.FILE_SHARE_WRITE,
-            securityAttributes: IntPtr.Zero,
-            creationDisposition: CreationDisposition.CREATE_ALWAYS,
-            flagsAndAttributes: CreateFileFlags.FILE_FLAG_OVERLAPPED,
-            SafeObjectHandle.Null))
+        try
         {
-            Assert.False(file.IsInvalid);
-
-            Assert.True(ThreadPool.BindHandle(file));
-
-            var data = new FILE_ZERO_DATA_INFORMATION[]
+            using (var file = CreateFile(
+                filename: fileName,
+                access: Kernel32.ACCESS_MASK.GenericRight.GENERIC_READ | ACCESS_MASK.GenericRight.GENERIC_WRITE,
+                share: Kernel32.FileShare.FILE_SHARE_READ | Kernel32.FileShare.FILE_SHARE_WRITE,
+                securityAttributes: IntPtr.Zero,
+                creationDisposition: CreationDisposition.CREATE_ALWAYS,
+                flagsAndAttributes: CreateFileFlags.FILE_FLAG_OVERLAPPED,
+                SafeObjectHandle.Null))
             {
+                Assert.False(file.IsInvalid);
+
+                Assert.True(ThreadPool.BindHandle(file));
+
+                var data = new FILE_ZERO_DATA_INFORMATION[]
+                {
                 new FILE_ZERO_DATA_INFORMATION { BeyondFinalZero = int.MaxValue },
-            };
+                };
 
-            uint ret = await Kernel32.DeviceIoControlAsync<FILE_ZERO_DATA_INFORMATION, byte>(
-                file,
-                (int)FSCTL_SET_ZERO_DATA,
-                data,
-                null,
-                CancellationToken.None);
+                uint ret = await Kernel32.DeviceIoControlAsync<FILE_ZERO_DATA_INFORMATION, byte>(
+                    file,
+                    (int)FSCTL_SET_ZERO_DATA,
+                    data,
+                    null,
+                    CancellationToken.None);
 
-            Assert.Equal(0u, ret);
+                Assert.Equal(0u, ret);
+            }
         }
-
-        File.Delete(fileName);
+        finally
+        {
+            File.Delete(fileName);
+        }
     }
 
     [Fact]
