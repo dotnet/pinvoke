@@ -454,7 +454,7 @@ namespace PInvoke
             public PrimaryLanguage Primary
             {
                 get { return (PrimaryLanguage)(this.data & PrimaryLanguageMask); }
-                set { this.data = (ushort)((PrimaryLanguage)((this.data & SubLanguageMask) | ((ushort)value & PrimaryLanguageMask)));  }
+                set { this.data = (ushort)((PrimaryLanguage)((this.data & SubLanguageMask) | ((ushort)value & PrimaryLanguageMask))); }
             }
 
             public SubLanguage Sub

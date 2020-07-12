@@ -42,6 +42,18 @@ PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_LOWEST = 0 -> PInvoke.Kernel32.M
 PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_MEDIUM = 3 -> PInvoke.Kernel32.MemoryPriority
 PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_NORMAL = 5 -> PInvoke.Kernel32.MemoryPriority
 PInvoke.Kernel32.MemoryPriority.MEMORY_PRIORITY_VERY_LOW = 1 -> PInvoke.Kernel32.MemoryPriority
+PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32_NT = 2 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32_WINDOWS = 1 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSPlatformId.VER_PLATFORM_WIN32s = 0 -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSVERSIONINFO
+PInvoke.Kernel32.OSVERSIONINFO.OSVERSIONINFO() -> void
+PInvoke.Kernel32.OSVERSIONINFO.dwBuildNumber -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwMajorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwMinorVersion -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwOSVersionInfoSize -> int
+PInvoke.Kernel32.OSVERSIONINFO.dwPlatformId -> PInvoke.Kernel32.OSPlatformId
+PInvoke.Kernel32.OSVERSIONINFO.szCSDVersion -> char*
 PInvoke.Kernel32.PROCESSOR_NUMBER
 PInvoke.Kernel32.PROCESSOR_NUMBER.Group -> ushort
 PInvoke.Kernel32.PROCESSOR_NUMBER.Number -> byte
@@ -172,6 +184,7 @@ static PInvoke.Kernel32.GetNativeSystemInfo(out PInvoke.Kernel32.SYSTEM_INFO lpS
 static PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation, uint ProcessInformationSize) -> bool
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char[] lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char[] lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static PInvoke.Kernel32.OSVERSIONINFO.Create() -> PInvoke.Kernel32.OSVERSIONINFO
 static PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, System.IntPtr lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, ref int? lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int

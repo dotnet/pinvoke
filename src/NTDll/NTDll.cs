@@ -66,7 +66,7 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(NTDll))]
         public static unsafe extern NTSTATUS RtlVerifyVersionInfo(
-            [Friendly(FriendlyFlags.Bidirectional)]Kernel32.OSVERSIONINFOEX* VersionInfo,
+            [Friendly(FriendlyFlags.Bidirectional)] Kernel32.OSVERSIONINFOEX* VersionInfo,
             Kernel32.VER_MASK TypeMask,
             long ConditionMask);
 
@@ -102,6 +102,20 @@ namespace PInvoke
             void* ProcessInformation,
             int ProcessInformationLength,
             out int ReturnLength);
+
+        /// <summary>
+        /// The <see cref="RtlGetVersion(Kernel32.OSVERSIONINFO*)"/> routine returns version information about the currently running operating system.
+        /// </summary>
+        /// <param name="versionInformation">
+        /// A <see cref="Kernel32.OSVERSIONINFO"/> structure that contains the version information about the currently running operating system.
+        /// </param>
+        /// <returns>
+        /// <see cref="RtlGetVersion(Kernel32.OSVERSIONINFO*)"/> returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/>.
+        /// </returns>
+        /// <seealso href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlgetversion"/>
+        [DllImport(nameof(NTDll), SetLastError = true)]
+        public static unsafe extern NTSTATUS RtlGetVersion(
+            [Friendly(FriendlyFlags.Bidirectional)] Kernel32.OSVERSIONINFO* versionInformation);
 
         /// <summary>
         /// The NtClose routine closes an object handle.
