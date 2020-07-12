@@ -23,7 +23,7 @@ namespace PInvoke
             /// <summary>
             /// For desktops, indicates that the desktop allows processes running in other accounts on the desktop to set hooks in this process.
             /// </summary>
-            DF_ALLOWOTHERACCOUNTHOOK = 0x0001
+            DF_ALLOWOTHERACCOUNTHOOK = 0x0001,
         }
     }
 }

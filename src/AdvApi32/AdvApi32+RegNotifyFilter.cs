@@ -37,7 +37,7 @@ namespace PInvoke
             ///     <para>Note  This flag value is only supported in Windows 8 and later.</para>
             ///     .
             /// </summary>
-            REG_NOTIFY_THREAD_AGNOSTIC = 0x10000000
+            REG_NOTIFY_THREAD_AGNOSTIC = 0x10000000,
         }
     }
 }

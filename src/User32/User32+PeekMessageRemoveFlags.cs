@@ -48,7 +48,7 @@ namespace PInvoke
                 (QueueStatusFlags.QS_POSTMESSAGE | QueueStatusFlags.QS_HOTKEY | QueueStatusFlags.QS_TIMER) << 16,
 
             /// <summary>Process all sent messages.</summary>
-            PM_QS_SENDMESSAGE = QueueStatusFlags.QS_SENDMESSAGE << 16
+            PM_QS_SENDMESSAGE = QueueStatusFlags.QS_SENDMESSAGE << 16,
         }
     }
 }

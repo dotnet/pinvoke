@@ -1057,7 +1057,7 @@ namespace PInvoke
             /// <summary>
             /// Clear key
             /// </summary>
-            VK_OEM_CLEAR = 0xFE
+            VK_OEM_CLEAR = 0xFE,
 
             /* 0xFF : reserved */
         }

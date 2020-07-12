@@ -46,7 +46,7 @@ namespace PInvoke
             /// This value is not supported. If <see cref="ES_USER_PRESENT"/> is combined with other esFlags values, the call will fail and none of the specified states will be set.
             /// </summary>
             [Obsolete("This value is not supported. If ES_USER_PRESENT is combined with other esFlags values, the call will fail and none of the specified states will be set.")]
-            ES_USER_PRESENT = 0x00000004
+            ES_USER_PRESENT = 0x00000004,
         }
     }
 }

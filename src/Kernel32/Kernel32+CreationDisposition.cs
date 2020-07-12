@@ -43,7 +43,7 @@ namespace PInvoke
             /// Opens a file and truncates it so that its size is 0 (zero) bytes. The function fails if the file does not exist.
             /// The calling process must open the file with the GENERIC_WRITE access right.
             /// </summary>
-            TRUNCATE_EXISTING = 5
+            TRUNCATE_EXISTING = 5,
         }
     }
 }

@@ -23,7 +23,7 @@ namespace PInvoke
             /// The default value of the folder, which is the location of the folder if a user or administrator had not redirected it elsewhere,
             /// is retrieved by specifying the SHGFP_TYPE_DEFAULT flag. This value can be used to implement a "restore defaults" feature for a known folder.
             /// </remarks>
-            SHGFP_TYPE_DEFAULT = 1
+            SHGFP_TYPE_DEFAULT = 1,
         }
     }
 }

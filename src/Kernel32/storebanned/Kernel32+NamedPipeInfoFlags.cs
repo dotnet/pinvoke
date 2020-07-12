@@ -27,7 +27,7 @@ namespace PInvoke
             PIPE_TYPE_BYTE = 0x00000000,
 
             /// <summary>The named pipe is a message pipe. If this value is not specified, the pipe is a byte pipe.</summary>
-            PIPE_TYPE_MESSAGE = 0x00000004
+            PIPE_TYPE_MESSAGE = 0x00000004,
         }
     }
 }

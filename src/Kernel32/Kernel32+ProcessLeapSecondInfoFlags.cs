@@ -33,7 +33,7 @@ namespace PInvoke
             /// for each process. Obviously, this setting has no effect if leap seconds are disabled system-wide, because then the system will never even encounter a
             /// leap second.
             /// </summary>
-            PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND = 0x1
+            PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND = 0x1,
         }
     }
 }

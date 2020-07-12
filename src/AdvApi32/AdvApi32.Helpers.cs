@@ -248,7 +248,7 @@ namespace PInvoke
 
                     var descriptionStruct = new ServiceDescription
                     {
-                        lpDescription = lpDescription
+                        lpDescription = lpDescription,
                     };
 
 #if NETSTANDARD2_0_ORLATER

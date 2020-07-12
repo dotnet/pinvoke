@@ -30,7 +30,7 @@ namespace PInvoke
             FLASHW_TIMERNOFG = 0x0000000C,
 
             /// <summary>Flash the taskbar button.</summary>
-            FLASHW_TRAY = 0x00000002
+            FLASHW_TRAY = 0x00000002,
         }
     }
 }

@@ -61,7 +61,7 @@ namespace PInvoke
             /// including operating system processes performing important tasks. For example, a real-time process that executes for more than a very brief
             /// interval can cause disk caches not to flush or cause the mouse to be unresponsive.
             /// </summary>
-            REALTIME_PRIORITY_CLASS = CreateProcessFlags.REALTIME_PRIORITY_CLASS
+            REALTIME_PRIORITY_CLASS = CreateProcessFlags.REALTIME_PRIORITY_CLASS,
         }
     }
 }

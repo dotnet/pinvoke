@@ -24,7 +24,7 @@ namespace PInvoke
             /// <summary>
             /// The key is a symbolic link. Registry symbolic links should only be used when absolutely necessary.
             /// </summary>
-            REG_OPTION_OPEN_LINK = 0x00000008
+            REG_OPTION_OPEN_LINK = 0x00000008,
         }
     }
 }

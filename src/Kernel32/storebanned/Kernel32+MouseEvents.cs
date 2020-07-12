@@ -43,7 +43,7 @@ namespace PInvoke
             /// If the high word of the <see cref="MOUSE_EVENT_RECORD.dwButtonState"/>  member contains a positive value,
             /// the wheel was rotated forward, away from the user. Otherwise, the wheel was rotated backward, toward the user.
             /// </summary>
-            MOUSE_WHEELED = 0x0004
+            MOUSE_WHEELED = 0x0004,
         }
     }
 }

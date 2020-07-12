@@ -65,7 +65,7 @@ namespace PInvoke
             /// <summary>Windows 2000/XP: Minimizes a window, even if the thread
             /// that owns the window is hung. This flag should only be used when
             /// minimizing windows from a different thread.</summary>
-            SW_FORCEMINIMIZE = 11
+            SW_FORCEMINIMIZE = 11,
         }
     }
 }

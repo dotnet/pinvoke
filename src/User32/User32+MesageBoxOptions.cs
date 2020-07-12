@@ -186,7 +186,7 @@ namespace PInvoke
             /// If this flag is set, the hWnd parameter must be NULL. This is so that the message box can appear on a desktop other than the desktop corresponding to the hWnd.
             /// </summary>
             /// <remarks>Terminal Services: If the calling thread has an impersonation token, the function directs the message box to the session specified in the impersonation token.</remarks>
-            MB_SERVICE_NOTIFICATION = 0x00200000
+            MB_SERVICE_NOTIFICATION = 0x00200000,
         }
     }
 }

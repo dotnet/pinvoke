@@ -49,7 +49,7 @@ namespace PInvoke
             /// <summary>
             /// Combines the following states: <see cref="SERVICE_ACTIVE"/> and <see cref="SERVICE_INACTIVE"/>.
             /// </summary>
-            SERVICE_STATE_ALL = SERVICE_ACTIVE | SERVICE_INACTIVE
+            SERVICE_STATE_ALL = SERVICE_ACTIVE | SERVICE_INACTIVE,
         }
     }
 }

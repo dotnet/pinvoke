@@ -55,7 +55,7 @@ namespace PInvoke
             /// <summary>
             /// wSuiteMask
             /// </summary>
-            VER_SUITENAME = 0x0000040
+            VER_SUITENAME = 0x0000040,
         }
     }
 }

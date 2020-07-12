@@ -39,7 +39,7 @@ namespace PInvoke
             /// <summary>
             /// Selection rectangle is not empty.
             /// </summary>
-            CONSOLE_SELECTION_NOT_EMPTY = 0x0002
+            CONSOLE_SELECTION_NOT_EMPTY = 0x0002,
         }
     }
 }

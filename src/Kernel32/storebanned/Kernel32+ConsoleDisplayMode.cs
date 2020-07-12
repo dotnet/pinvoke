@@ -23,7 +23,7 @@ namespace PInvoke
             /// <summary>
             /// Text is displayed in a console window.
             /// </summary>
-            CONSOLE_WINDOWED_MODE = 2
+            CONSOLE_WINDOWED_MODE = 2,
         }
     }
 }

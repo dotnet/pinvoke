@@ -86,7 +86,7 @@ namespace PInvoke
             /// <summary>
             /// A <see cref="WindowMessage.WM_TIMER"/> message is in the queue.
             /// </summary>
-            QS_TIMER = 0x0010
+            QS_TIMER = 0x0010,
         }
     }
 }

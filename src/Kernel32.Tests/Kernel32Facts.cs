@@ -100,7 +100,7 @@ public partial class Kernel32Facts
         // Set low memory priority on the process
         var memoryPriority = new MEMORY_PRIORITY_INFORMATION
         {
-            MemoryPriority = MemoryPriority.MEMORY_PRIORITY_LOW
+            MemoryPriority = MemoryPriority.MEMORY_PRIORITY_LOW,
         };
 
         Assert.True(Kernel32.SetProcessInformation(

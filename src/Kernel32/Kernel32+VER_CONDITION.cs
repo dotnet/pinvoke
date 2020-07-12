@@ -58,7 +58,7 @@ namespace PInvoke
             /// <summary>
             /// At least one of the specified product suites must be present in the current system.
             /// </summary>
-            VER_OR = 7
+            VER_OR = 7,
         }
     }
 }

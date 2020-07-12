@@ -45,7 +45,7 @@ namespace PInvoke
             /// <summary>
             /// The allocated memory will be initialized to zero. Otherwise, the memory is not initialized to zero.
             /// </summary>
-            HEAP_ZERO_MEMORY = 0x00000008
+            HEAP_ZERO_MEMORY = 0x00000008,
         }
     }
 }

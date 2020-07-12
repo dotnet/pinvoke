@@ -211,7 +211,7 @@ namespace PInvoke
             /// <summary>
             /// Preferred blt alignment
             /// </summary>
-            BLTALIGNMENT = 119
+            BLTALIGNMENT = 119,
         }
     }
 }

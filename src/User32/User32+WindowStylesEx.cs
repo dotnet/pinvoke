@@ -186,7 +186,7 @@ namespace PInvoke
             /// <summary>
             /// Specifies a window that has a border with a raised edge.
             /// </summary>
-            WS_EX_WINDOWEDGE = 0x00000100
+            WS_EX_WINDOWEDGE = 0x00000100,
         }
     }
 }

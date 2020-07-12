@@ -46,7 +46,7 @@ namespace PInvoke
             /// <summary>
             /// The service is paused.
             /// </summary>
-            SERVICE_PAUSED = 0x00000007
+            SERVICE_PAUSED = 0x00000007,
         }
     }
 }

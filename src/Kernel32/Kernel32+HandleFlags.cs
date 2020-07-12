@@ -29,7 +29,7 @@ namespace PInvoke
             /// <summary>
             /// If this flag is set, calling the <see cref="CloseHandle"/> function will not close the object handle.
             /// </summary>
-            HANDLE_FLAG_PROTECT_FROM_CLOSE = 0x00000002
+            HANDLE_FLAG_PROTECT_FROM_CLOSE = 0x00000002,
         }
     }
 }

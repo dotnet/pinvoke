@@ -28,7 +28,7 @@ namespace PInvoke
             PROV_RNG = 21,
             PROV_INTEL_SEC = 22,
             PROV_REPLACE_OWF = 23,
-            PROV_RSA_AES = 24
+            PROV_RSA_AES = 24,
         }
     }
 }

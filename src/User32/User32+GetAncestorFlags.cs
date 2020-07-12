@@ -18,7 +18,7 @@ namespace PInvoke
             GA_ROOT = 2,
 
             /// <summary>Retrieves the owned root window by walking the chain of parent and owner windows returned by GetParent.</summary>
-            GA_ROOTOWNER = 3
+            GA_ROOTOWNER = 3,
         }
     }
 }

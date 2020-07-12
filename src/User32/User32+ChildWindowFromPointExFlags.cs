@@ -35,7 +35,7 @@ namespace PInvoke
             /// <summary>
             /// Skips transparent child windows
             /// </summary>
-            CWP_SKIPTRANSPARENT = 0x0004
+            CWP_SKIPTRANSPARENT = 0x0004,
         }
     }
 }

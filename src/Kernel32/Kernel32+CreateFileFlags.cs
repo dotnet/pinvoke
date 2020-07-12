@@ -167,7 +167,7 @@ namespace PInvoke
             ///     Impersonate a client at the impersonation level. This is the default behavior if no other flags are specified
             ///     along with the <see cref="SECURITY_SQOS_PRESENT" /> flag.
             /// </summary>
-            SECURITY_IMPERSONATION = SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation << 16
+            SECURITY_IMPERSONATION = SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation << 16,
         }
     }
 }

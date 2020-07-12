@@ -18,7 +18,7 @@ namespace PInvoke
             /// <summary>
             /// Enables processes running in other accounts on the desktop to set hooks in this process
             /// </summary>
-            DF_ALLOWOTHERACCOUNTHOOK = 0x0001
+            DF_ALLOWOTHERACCOUNTHOOK = 0x0001,
         }
     }
 }

@@ -169,7 +169,7 @@ namespace PInvoke
             ///     </para>
             ///     <para>This value cannot be combined with any LOAD_LIBRARY_SEARCH flag.</para>
             /// </summary>
-            LOAD_WITH_ALTERED_SEARCH_PATH = 0x00000008
+            LOAD_WITH_ALTERED_SEARCH_PATH = 0x00000008,
         }
     }
 }

@@ -43,7 +43,7 @@ namespace PInvoke
             /// <summary>
             /// Unknown architecture.
             /// </summary>
-            PROCESSOR_ARCHITECTURE_UNKNOWN = 0xFFFF
+            PROCESSOR_ARCHITECTURE_UNKNOWN = 0xFFFF,
         }
     }
 }

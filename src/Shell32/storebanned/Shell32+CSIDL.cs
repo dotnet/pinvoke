@@ -276,7 +276,7 @@ namespace PInvoke
             /// <summary>
             /// A mask for any valid CSIDL flag value.
             /// </summary>
-            CSIDL_FLAG_MASK = 0xff00
+            CSIDL_FLAG_MASK = 0xff00,
         }
     }
 }

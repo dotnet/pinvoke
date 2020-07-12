@@ -164,7 +164,7 @@ namespace PInvoke
                     DesktopSpecificRight.DESKTOP_JOURNALRECORD |
                     DesktopSpecificRight.DESKTOP_READOBJECTS |
                     DesktopSpecificRight.DESKTOP_SWITCHDESKTOP |
-                    DesktopSpecificRight.DESKTOP_WRITEOBJECTS
+                    DesktopSpecificRight.DESKTOP_WRITEOBJECTS,
             }
 
             /// <summary>
@@ -221,7 +221,7 @@ namespace PInvoke
                 /// <summary>
                 /// Required to write objects on the desktop.
                 /// </summary>
-                DESKTOP_WRITEOBJECTS = 0x00000080
+                DESKTOP_WRITEOBJECTS = 0x00000080,
             }
 
             /// <summary>
@@ -254,7 +254,7 @@ namespace PInvoke
                     WindowStationSpecificRight.WINSTA_EXITWINDOWS |
                     WindowStationSpecificRight.WINSTA_READATTRIBUTES |
                     WindowStationSpecificRight.WINSTA_READSCREEN |
-                    WindowStationSpecificRight.WINSTA_WRITEATTRIBUTES
+                    WindowStationSpecificRight.WINSTA_WRITEATTRIBUTES,
             }
 
             /// <summary>
@@ -285,7 +285,7 @@ namespace PInvoke
                     WindowStationSpecificRight.WINSTA_ENUMERATE |
                     WindowStationSpecificRight.WINSTA_EXITWINDOWS |
                     WindowStationSpecificRight.WINSTA_READATTRIBUTES |
-                    WindowStationSpecificRight.WINSTA_READSCREEN
+                    WindowStationSpecificRight.WINSTA_READSCREEN,
             }
 
             /// <summary>
@@ -343,7 +343,7 @@ namespace PInvoke
                 /// <summary>
                 /// Required to modify the attributes of a window station object. The attributes include color settings and other global window station properties.
                 /// </summary>
-                WINSTA_WRITEATTRIBUTES = 0x00000010
+                WINSTA_WRITEATTRIBUTES = 0x00000010,
             }
 
             /// <summary>

@@ -95,7 +95,7 @@ namespace PInvoke
             /// Redraws the entire window if a movement or size adjustment changes the height of the
             /// client area.
             /// </summary>
-            CS_VREDRAW = 0x0001
+            CS_VREDRAW = 0x0001,
         }
     }
 }

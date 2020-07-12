@@ -18,7 +18,7 @@ namespace PInvoke
             /// <summary>
             /// Enables processes running in other accounts on the desktop to set hooks in this process
             /// </summary>
-            CWF_CREATE_ONLY = 0x0001
+            CWF_CREATE_ONLY = 0x0001,
         }
     }
 }

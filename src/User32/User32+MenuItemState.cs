@@ -48,7 +48,7 @@ namespace PInvoke
             MFS_UNCHECKED = MenuItemFlags.MF_UNCHECKED,
 
             /// <summary>Removes the highlight from the menu item. This is the default state.</summary>
-            MFS_UNHILITE = MenuItemFlags.MF_UNHILITE
+            MFS_UNHILITE = MenuItemFlags.MF_UNHILITE,
         }
     }
 }

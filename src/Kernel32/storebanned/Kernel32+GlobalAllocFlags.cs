@@ -94,7 +94,7 @@ namespace PInvoke
             /// <summary>
             /// Calls the notification routine if the memory object is discarded.
             /// </summary>
-            GMEM_NOTIFY = 0x4000
+            GMEM_NOTIFY = 0x4000,
         }
     }
 }

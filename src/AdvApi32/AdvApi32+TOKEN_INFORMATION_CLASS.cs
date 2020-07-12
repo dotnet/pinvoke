@@ -53,7 +53,7 @@ namespace PInvoke
             TokenRestrictedDeviceGroups,
             TokenSecurityAttributes,
             TokenIsRestricted,
-            MaxTokenInfoClass
+            MaxTokenInfoClass,
         }
     }
 }

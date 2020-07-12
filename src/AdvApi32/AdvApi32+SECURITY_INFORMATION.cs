@@ -77,7 +77,7 @@ namespace PInvoke
             /// <summary>The SACL inherits ACEs from the parent object.</summary>
             UNPROTECTED_SACL_SECURITY_INFORMATION = 0x10000000,
 
-            PROCESS_TRUST_LABEL_SECURITY_INFORMATION = 0x00000080
+            PROCESS_TRUST_LABEL_SECURITY_INFORMATION = 0x00000080,
         }
     }
 }

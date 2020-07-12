@@ -71,7 +71,7 @@ namespace PInvoke
             /// Includes all processes and threads in the system, plus the heaps and modules of the process specified in
             /// th32ProcessID.
             /// </summary>
-            TH32CS_SNAPALL = TH32CS_SNAPHEAPLIST | TH32CS_SNAPMODULE | TH32CS_SNAPPROCESS | TH32CS_SNAPTHREAD
+            TH32CS_SNAPALL = TH32CS_SNAPHEAPLIST | TH32CS_SNAPMODULE | TH32CS_SNAPPROCESS | TH32CS_SNAPTHREAD,
         }
     }
 }

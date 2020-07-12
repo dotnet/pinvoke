@@ -44,7 +44,7 @@ namespace PInvoke
             /// <summary>
             /// Return only devices that are a part of the current hardware profile.
             /// </summary>
-            DIGCF_PROFILE = 0x00000008
+            DIGCF_PROFILE = 0x00000008,
         }
     }
 }

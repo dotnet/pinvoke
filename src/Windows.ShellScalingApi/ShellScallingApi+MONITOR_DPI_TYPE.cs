@@ -32,6 +32,6 @@ namespace PInvoke
         /// <summary>
         /// The default is the same as <see cref="MDT_EFFECTIVE_DPI"/>
         /// </summary>
-        MDT_DEFAULT = MDT_EFFECTIVE_DPI
+        MDT_DEFAULT = MDT_EFFECTIVE_DPI,
     }
 }

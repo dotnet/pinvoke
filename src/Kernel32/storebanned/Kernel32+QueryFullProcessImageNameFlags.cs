@@ -21,7 +21,7 @@ namespace PInvoke
             /// <summary>
             /// The name should use the native system path format.
             /// </summary>
-            PROCESS_NAME_NATIVE = 0x00000001
+            PROCESS_NAME_NATIVE = 0x00000001,
         }
     }
 }

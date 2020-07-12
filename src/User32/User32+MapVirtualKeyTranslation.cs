@@ -35,7 +35,7 @@ namespace PInvoke
             ///     uCode is a scan code and is translated into a virtual-key code that distinguishes between left- and right-hand
             ///     keys. If there is no translation, the function returns 0.
             /// </summary>
-            MAPVK_VSC_TO_VK_EX = 3
+            MAPVK_VSC_TO_VK_EX = 3,
         }
     }
 }

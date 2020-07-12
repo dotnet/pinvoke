@@ -39,7 +39,7 @@ namespace PInvoke
             /// <summary>
             /// The rightmost mouse button.
             /// </summary>
-            RIGHTMOST_BUTTON_PRESSED = 0x0002
+            RIGHTMOST_BUTTON_PRESSED = 0x0002,
         }
     }
 }

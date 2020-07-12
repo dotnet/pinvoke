@@ -158,7 +158,7 @@ namespace PInvoke
             F22 = 109,
             LAUNCH_MEDIA_SELECT = 109,
             F23 = 110,
-            F24 = 118
+            F24 = 118,
         }
     }
 }

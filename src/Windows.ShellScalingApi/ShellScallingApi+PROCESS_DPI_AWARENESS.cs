@@ -89,6 +89,6 @@ namespace PInvoke
         /// This snippet demonstrates how to set a value of <see cref="PROCESS_PER_MONITOR_DPI_AWARE"/> in your application manifest:
         /// <code><dpiAware>true/PM</dpiAware></code>
         /// </remarks>
-        PROCESS_PER_MONITOR_DPI_AWARE = 2
+        PROCESS_PER_MONITOR_DPI_AWARE = 2,
     }
 }

@@ -30,7 +30,7 @@ namespace PInvoke
             /// <remarks>
             /// Note that a server that is also a domain controller is reported as <see cref="VER_NT_DOMAIN_CONTROLLER"/>, not <see cref="VER_NT_SERVER"/>.
             /// </remarks>
-            VER_NT_SERVER = 0x00000003
+            VER_NT_SERVER = 0x00000003,
         }
     }
 }

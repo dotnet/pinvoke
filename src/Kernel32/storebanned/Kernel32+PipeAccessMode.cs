@@ -77,7 +77,7 @@ namespace PInvoke
             WRITE_OWNER = 0x00080000,
 
             /// <summary>The caller will have write access to the named pipe's SACL.</summary>
-            ACCESS_SYSTEM_SECURITY = 0x01000000
+            ACCESS_SYSTEM_SECURITY = 0x01000000,
         }
     }
 }

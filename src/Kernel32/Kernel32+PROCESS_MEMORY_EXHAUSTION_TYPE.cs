@@ -24,7 +24,7 @@ namespace PInvoke
             /// <summary>
             /// The maximum value for this enumeration. This value may change in a future version.
             /// </summary>
-            PMETypeMax
+            PMETypeMax,
         }
     }
 }

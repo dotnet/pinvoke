@@ -52,7 +52,7 @@ namespace PInvoke
             /// <summary>
             /// Process all sent messages.
             /// </summary>
-            PM_QS_SENDMESSAGE = QueueStatusFlags.QS_SENDMESSAGE << 16
+            PM_QS_SENDMESSAGE = QueueStatusFlags.QS_SENDMESSAGE << 16,
         }
     }
 }

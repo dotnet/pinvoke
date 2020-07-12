@@ -46,7 +46,7 @@ namespace PInvoke
             /// <summary>
             /// Normal memory priority. This is the default priority for all threads and processes on the system
             /// </summary>
-            MEMORY_PRIORITY_NORMAL = 5
+            MEMORY_PRIORITY_NORMAL = 5,
         }
     }
 }

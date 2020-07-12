@@ -29,7 +29,7 @@ namespace PInvoke
             /// <summary>
             /// Same as SPIF_SENDCHANGE.
             /// </summary>
-            SPIF_SENDWININICHANGE = 0x02
+            SPIF_SENDWININICHANGE = 0x02,
         }
     }
 }

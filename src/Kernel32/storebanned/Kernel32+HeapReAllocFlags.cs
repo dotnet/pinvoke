@@ -53,7 +53,7 @@ namespace PInvoke
             /// If the reallocation request is for a larger size, the additional region of memory beyond the original size be initialized to zero.
             /// The contents of the memory block up to its original size are unaffected.
             /// </summary>
-            HEAP_ZERO_MEMORY = 0x00000008
+            HEAP_ZERO_MEMORY = 0x00000008,
         }
     }
 }

@@ -76,7 +76,7 @@ namespace PInvoke
             ///     to a null-terminated string, and the <see cref="MENUITEMINFO.cch" /> member is the length of the string.
             ///     <para><see cref="MFT_STRING" /> is replaced by <see cref="MenuMembersMask.MIIM_STRING" />.</para>
             /// </summary>
-            MFT_STRING = 0x00000000
+            MFT_STRING = 0x00000000,
         }
     }
 }

@@ -36,7 +36,7 @@ namespace PInvoke
             /// <summary>
             /// The trigger-specific data is a 64-bit unsigned integer value.
             /// </summary>
-            SERVICE_TRIGGER_DATA_TYPE_KEYWORD_ALL = 5
+            SERVICE_TRIGGER_DATA_TYPE_KEYWORD_ALL = 5,
         }
     }
 }

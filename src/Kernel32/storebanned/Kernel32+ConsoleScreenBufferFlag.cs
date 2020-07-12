@@ -24,7 +24,7 @@ namespace PInvoke
             /// Creates a console with a text mode buffer
             /// </summary>
             /// <remarks>Actual meaning not documented</remarks>
-            CONSOLE_TEXTMODE_BUFFER = 1
+            CONSOLE_TEXTMODE_BUFFER = 1,
         }
     }
 }
