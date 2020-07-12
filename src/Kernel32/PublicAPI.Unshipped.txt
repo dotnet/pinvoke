@@ -18,6 +18,10 @@ PInvoke.Kernel32.DISK_GEOMETRY.DISK_GEOMETRY() -> void
 PInvoke.Kernel32.DISK_GEOMETRY.MediaType -> PInvoke.Kernel32.MEDIA_TYPE
 PInvoke.Kernel32.DISK_GEOMETRY.SectorsPerTrack -> uint
 PInvoke.Kernel32.DISK_GEOMETRY.TracksPerCylinder -> uint
+PInvoke.Kernel32.FILE_ZERO_DATA_INFORMATION
+PInvoke.Kernel32.FILE_ZERO_DATA_INFORMATION.BeyondFinalZero -> long
+PInvoke.Kernel32.FILE_ZERO_DATA_INFORMATION.FILE_ZERO_DATA_INFORMATION() -> void
+PInvoke.Kernel32.FILE_ZERO_DATA_INFORMATION.FileOffset -> long
 PInvoke.Kernel32.FileSystemFlags
 PInvoke.Kernel32.FileSystemFlags.FILE_CASE_PRESERVED_NAMES = 2 -> PInvoke.Kernel32.FileSystemFlags
 PInvoke.Kernel32.FileSystemFlags.FILE_CASE_SENSITIVE_SEARCH = 1 -> PInvoke.Kernel32.FileSystemFlags

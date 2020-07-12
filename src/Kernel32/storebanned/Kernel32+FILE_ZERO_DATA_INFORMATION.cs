@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class Kernel32
     {
         /// <summary>
-        /// Contains a range of a file to set to zeros. This structure is used by the <c>FSCTL_SET_ZERO_DATA</c> control code
+        /// Contains a range of a file to set to zeros. This structure is used by the <c>FSCTL_SET_ZERO_DATA</c> control code.
         /// </summary>
         public struct FILE_ZERO_DATA_INFORMATION
         {
