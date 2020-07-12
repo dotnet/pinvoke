@@ -83,4 +83,61 @@ public partial class Kernel32Facts
         Assert.True(Enum.IsDefined(typeof(Kernel32.ProcessorType), systemInfo.dwProcessorType));
         Assert.NotEqual(0, systemInfo.dwAllocationGranularity);
     }
+
+    [Fact]
+    public unsafe void GetSetProcessInformationMemoryPriorityTest()
+    {
+        using var hProcess = Kernel32.GetCurrentProcess();
+
+        // Save current memory-priority info
+        MEMORY_PRIORITY_INFORMATION savedInfo;
+        Assert.True(Kernel32.GetProcessInformation(
+            hProcess,
+            PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
+            &savedInfo,
+            (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
+
+        // Set low memory priority on the process
+        var memoryPriority = new MEMORY_PRIORITY_INFORMATION
+        {
+            MemoryPriority = MemoryPriority.MEMORY_PRIORITY_LOW
+        };
+
+        Assert.True(Kernel32.SetProcessInformation(
+            hProcess,
+            PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
+            &memoryPriority,
+            (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
+
+        // Now read it back and verify that we get back MEMORY_PRIORITY_LOW
+        memoryPriority.MemoryPriority = MemoryPriority.MEMORY_PRIORITY_NORMAL;
+        Assert.True(Kernel32.GetProcessInformation(
+            hProcess,
+            PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
+            &memoryPriority,
+            (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
+
+        Assert.Equal(
+            MemoryPriority.MEMORY_PRIORITY_LOW,
+            memoryPriority.MemoryPriority);
+
+        // Restore the saved memory-priority info
+        if (savedInfo.MemoryPriority != MemoryPriority.MEMORY_PRIORITY_LOW)
+        {
+            Assert.True(Kernel32.SetProcessInformation(
+                hProcess,
+                PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
+                &savedInfo,
+                (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
+
+            // Verify that the memory-priority was restore successfully
+            memoryPriority.MemoryPriority = MemoryPriority.MEMORY_PRIORITY_LOW;
+            Assert.True(Kernel32.GetProcessInformation(
+                hProcess,
+                PROCESS_INFORMATION_CLASS.ProcessMemoryPriority,
+                &memoryPriority,
+                (uint)sizeof(MEMORY_PRIORITY_INFORMATION)));
+            Assert.Equal(savedInfo.MemoryPriority, memoryPriority.MemoryPriority);
+        }
+    }
 }
