@@ -1187,25 +1187,19 @@ public partial class Kernel32Facts
 
             Assert.True(ThreadPool.BindHandle(file));
 
-            byte[] data = new byte[Marshal.SizeOf<FILE_ZERO_DATA_INFORMATION>()];
-
-            void SetIORequest(byte[] buffer)
+            var data = new FILE_ZERO_DATA_INFORMATION[]
             {
-                ref var request = ref MemoryMarshal.Cast<byte, FILE_ZERO_DATA_INFORMATION>(buffer)[0];
-                request.FileOffset = 0;
-                request.BeyondFinalZero = int.MaxValue;
-            }
+                new FILE_ZERO_DATA_INFORMATION { BeyondFinalZero = int.MaxValue },
+            };
 
-            SetIORequest(data);
-
-            var ret = await Kernel32.DeviceIoControlAsync(
+            uint ret = await Kernel32.DeviceIoControlAsync<FILE_ZERO_DATA_INFORMATION, byte>(
                 file,
                 (int)FSCTL_SET_ZERO_DATA,
                 data,
                 null,
                 CancellationToken.None);
 
-            Assert.Equal(0, ret);
+            Assert.Equal(0u, ret);
         }
 
         File.Delete(fileName);

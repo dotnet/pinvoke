@@ -289,23 +289,25 @@ namespace PInvoke
             return LocalReAlloc(hMem, new IntPtr(uBytes), uFlags);
         }
 
-        public static unsafe Task<int> DeviceIoControlAsync(
+        public static unsafe Task<uint> DeviceIoControlAsync<TInput, TOutput>(
             SafeObjectHandle hDevice,
-            int dwIoControlCode,
-            Memory<byte> inBuffer,
-            Memory<byte> outBuffer,
+            uint dwIoControlCode,
+            Memory<TInput> inBuffer,
+            Memory<TOutput> outBuffer,
             CancellationToken cancellationToken)
+            where TInput : unmanaged
+            where TOutput : unmanaged
         {
-            var overlapped = new DeviceIOControlOverlapped(inBuffer, outBuffer);
+            var overlapped = new DeviceIOControlOverlapped<TInput, TOutput>(inBuffer, outBuffer);
             var nativeOverlapped = overlapped.Pack();
 
             bool result = Kernel32.DeviceIoControl(
                 hDevice: hDevice,
-                dwIoControlCode: dwIoControlCode,
+                dwIoControlCode: (int)dwIoControlCode,
                 inBuffer: overlapped.InputHandle.Pointer,
-                nInBufferSize: inBuffer.Length,
+                nInBufferSize: inBuffer.Length * sizeof(TInput),
                 outBuffer: overlapped.OutputHandle.Pointer,
-                nOutBufferSize: outBuffer.Length,
+                nOutBufferSize: outBuffer.Length * sizeof(TOutput),
                 out int bytesReturned,
                 (OVERLAPPED*)nativeOverlapped);
 
@@ -313,7 +315,7 @@ namespace PInvoke
             {
                 // The operation completed synchronously
                 overlapped.Unpack();
-                return Task.FromResult(bytesReturned);
+                return Task.FromResult((uint)bytesReturned);
             }
             else
             {
@@ -323,14 +325,14 @@ namespace PInvoke
                 {
                     overlapped.Unpack();
 #if NET45
-                    return Task.Run(new Func<int>(() => throw new Win32Exception(error)));
+                    return Task.Run(new Func<uint>(() => throw new Win32Exception(error)));
 #else
-                    return Task.FromException<int>(new PInvoke.Win32Exception(error));
+                    return Task.FromException<uint>(new PInvoke.Win32Exception(error));
 #endif
                 }
                 else
                 {
-                    return overlapped.OnCompleted.Task;
+                    return overlapped.Completion;
                 }
             }
         }
