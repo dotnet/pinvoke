@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using PInvoke;
 using Xunit;
 using static PInvoke.Kernel32;
@@ -1165,6 +1166,99 @@ public partial class Kernel32Facts
             Assert.NotEqual(0u, pdg.SectorsPerTrack);
             Assert.NotEqual(0u, pdg.TracksPerCylinder);
         }
+    }
+
+    [Fact]
+    public async Task DeviceIOControlAsync_NotOverlapped_Works()
+    {
+        const uint IOCTL_DISK_GET_DRIVE_GEOMETRY = 0x070000;
+        const string drive = @"\\.\PhysicalDrive0";
+
+        var data = new DISK_GEOMETRY[1];
+
+        using (var device = CreateFile(
+            filename: drive,
+            access: 0,
+            share: Kernel32.FileShare.FILE_SHARE_READ | Kernel32.FileShare.FILE_SHARE_WRITE,
+            securityAttributes: IntPtr.Zero,
+            creationDisposition: CreationDisposition.OPEN_EXISTING,
+            flagsAndAttributes: 0,
+            SafeObjectHandle.Null))
+        {
+            Assert.False(device.IsInvalid);
+
+            var ret = (int)await DeviceIoControlAsync<byte, DISK_GEOMETRY>(
+                device,
+                (int)IOCTL_DISK_GET_DRIVE_GEOMETRY,
+                Array.Empty<byte>(),
+                data,
+                CancellationToken.None);
+
+            Assert.Equal(Marshal.SizeOf<DISK_GEOMETRY>(), ret);
+
+            var pdg = data[0];
+            Assert.NotEqual(0u, pdg.BytesPerSector);
+            Assert.NotEqual(0, pdg.Cylinders);
+            Assert.Equal(MEDIA_TYPE.FixedMedia, pdg.MediaType);
+            Assert.NotEqual(0u, pdg.SectorsPerTrack);
+            Assert.NotEqual(0u, pdg.TracksPerCylinder);
+        }
+    }
+
+    [Fact]
+    public async Task DeviceIOControlAsync_Overlapped_Works()
+    {
+        const uint FSCTL_SET_ZERO_DATA = 0x000980c8;
+        string fileName = Path.GetTempFileName();
+
+        try
+        {
+            using (var file = CreateFile(
+                filename: fileName,
+                access: Kernel32.ACCESS_MASK.GenericRight.GENERIC_READ | ACCESS_MASK.GenericRight.GENERIC_WRITE,
+                share: Kernel32.FileShare.FILE_SHARE_READ | Kernel32.FileShare.FILE_SHARE_WRITE,
+                securityAttributes: IntPtr.Zero,
+                creationDisposition: CreationDisposition.CREATE_ALWAYS,
+                flagsAndAttributes: CreateFileFlags.FILE_FLAG_OVERLAPPED,
+                SafeObjectHandle.Null))
+            {
+                Assert.False(file.IsInvalid);
+
+                Assert.True(ThreadPool.BindHandle(file));
+
+                var data = new FILE_ZERO_DATA_INFORMATION[]
+                {
+                new FILE_ZERO_DATA_INFORMATION { BeyondFinalZero = int.MaxValue },
+                };
+
+                uint ret = await Kernel32.DeviceIoControlAsync<FILE_ZERO_DATA_INFORMATION, byte>(
+                    file,
+                    (int)FSCTL_SET_ZERO_DATA,
+                    data,
+                    null,
+                    CancellationToken.None);
+
+                Assert.Equal(0u, ret);
+            }
+        }
+        finally
+        {
+            File.Delete(fileName);
+        }
+    }
+
+    [Fact]
+    public async Task DeviceIOControlAsync_Exception_Works()
+    {
+        const uint IOCTL_DISK_GET_DRIVE_GEOMETRY = 0x070000;
+
+        await Assert.ThrowsAsync<Win32Exception>(() =>
+            DeviceIoControlAsync<byte, byte>(
+            SafeObjectHandle.Invalid,
+            (int)IOCTL_DISK_GET_DRIVE_GEOMETRY,
+            Array.Empty<byte>(),
+            Array.Empty<byte>(),
+            CancellationToken.None).AsTask()).ConfigureAwait(false);
     }
 
     /// <summary>

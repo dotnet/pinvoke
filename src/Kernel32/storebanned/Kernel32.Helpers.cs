@@ -4,8 +4,11 @@
 namespace PInvoke
 {
     using System;
+    using System.Buffers;
     using System.Collections.Generic;
-    using System.Text;
+    using System.Runtime.InteropServices;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -284,6 +287,100 @@ namespace PInvoke
             // as an Int32 no matter the process bitness. So safely 'upscale' the Int32 to
             // the appropriate IntPtr and call the native overload.
             return LocalReAlloc(hMem, new IntPtr(uBytes), uFlags);
+        }
+
+        /// <summary>
+        ///     Asynchronously sends a control code directly to a specified device driver, causing the corresponding device to perform the
+        ///     corresponding operation.
+        /// </summary>
+        /// <param name="hDevice">
+        ///     A handle to the device on which the operation is to be performed. The device is typically a
+        ///     volume, directory, file, or stream. To retrieve a device handle, use the CreateFile function.
+        /// </param>
+        /// <param name="dwIoControlCode">
+        ///     The control code for the operation. This value identifies the specific operation to be performed and the type of
+        ///     device on which to perform it.
+        ///     <para>
+        ///         For a list of the control codes, see Remarks. The documentation for each control code provides usage details
+        ///         for the <paramref name="inBuffer" /> and <paramref name="outBuffer" /> parameters.
+        ///     </para>
+        /// </param>
+        /// <param name="inBuffer">
+        ///     A pointer to the input buffer that contains the data required to perform the operation. The format of this data
+        ///     depends on the value of the <paramref name="dwIoControlCode" /> parameter.
+        ///     <para>
+        ///         This parameter can be NULL if <paramref name="dwIoControlCode" /> specifies an operation that does not
+        ///         require input data.
+        ///     </para>
+        /// </param>
+        /// <param name="outBuffer">
+        ///     A pointer to the output buffer that is to receive the data returned by the operation. The format of this data
+        ///     depends on the value of the <paramref name="dwIoControlCode" /> parameter.
+        ///     <para>
+        ///         This parameter can be NULL if <paramref name="dwIoControlCode" /> specifies an operation that does not return
+        ///         data.
+        ///     </para>
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     A <see cref="CancellationToken"/> which can be used to cancel the asynchronous operation.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="ValueTask{UInt32}"/> which returns the size of the data stored in the output buffer, in bytes, or an exception.
+        /// </returns>
+        /// <typeparam name="TInput">
+        ///     The type which represents the data required to perform the operation. This depends on the value of the
+        ///     <paramref name="dwIoControlCode" /> parameter.
+        /// </typeparam>
+        /// <typeparam name="TOutput">
+        ///     The type which represents the data returned by the operation. This depends on the value of the
+        ///     <paramref name="dwIoControlCode" /> parameter.
+        /// </typeparam>
+        public static unsafe ValueTask<uint> DeviceIoControlAsync<TInput, TOutput>(
+            SafeObjectHandle hDevice,
+            uint dwIoControlCode,
+            Memory<TInput> inBuffer,
+            Memory<TOutput> outBuffer,
+            CancellationToken cancellationToken)
+            where TInput : unmanaged
+            where TOutput : unmanaged
+        {
+            var overlapped = new DeviceIOControlOverlapped<TInput, TOutput>(inBuffer, outBuffer);
+            var nativeOverlapped = overlapped.Pack();
+
+            bool result = Kernel32.DeviceIoControl(
+                hDevice: hDevice,
+                dwIoControlCode: (int)dwIoControlCode,
+                inBuffer: overlapped.InputHandle.Pointer,
+                nInBufferSize: inBuffer.Length * sizeof(TInput),
+                outBuffer: overlapped.OutputHandle.Pointer,
+                nOutBufferSize: outBuffer.Length * sizeof(TOutput),
+                out int bytesReturned,
+                (OVERLAPPED*)nativeOverlapped);
+
+            if (result)
+            {
+                // The operation completed synchronously
+                overlapped.Unpack();
+                return new ValueTask<uint>((uint)bytesReturned);
+            }
+            else
+            {
+                var error = (Win32ErrorCode)Marshal.GetLastWin32Error();
+
+                if (error != Win32ErrorCode.ERROR_IO_PENDING)
+                {
+                    overlapped.Unpack();
+#if NET45
+                    return new ValueTask<uint>(Task.Run(new Func<uint>(() => throw new Win32Exception(error))));
+#else
+                    return new ValueTask<uint>(Task.FromException<uint>(new PInvoke.Win32Exception(error)));
+#endif
+                }
+                else
+                {
+                    return new ValueTask<uint>(overlapped.Completion);
+                }
+            }
         }
     }
 }
