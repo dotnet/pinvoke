@@ -26,7 +26,7 @@ public class HResultFacts
     [Fact]
     public void Ctor_UInt32()
     {
-        Assert.Equal(3, new HResult((uint)3).AsInt32);
+        Assert.Equal(3, new HResult(3U).AsInt32);
     }
 
     [Fact]

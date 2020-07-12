@@ -26,7 +26,7 @@ public class NTStatusFacts
     [Fact]
     public void Ctor_UInt32()
     {
-        Assert.Equal(3, new NTSTATUS((uint)3).AsInt32);
+        Assert.Equal(3, new NTSTATUS(3U).AsInt32);
     }
 
     [Fact]
