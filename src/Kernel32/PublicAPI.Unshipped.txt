@@ -43,9 +43,6 @@ PInvoke.Kernel32.PROCESSOR_NUMBER.Group -> ushort
 PInvoke.Kernel32.PROCESSOR_NUMBER.Number -> byte
 PInvoke.Kernel32.PROCESSOR_NUMBER.PROCESSOR_NUMBER() -> void
 PInvoke.Kernel32.PROCESSOR_NUMBER.Reserved -> byte
-PInvoke.Kernel32.PRODUCT_SUITE.VER_SERVER_NT = 0 -> PInvoke.Kernel32.PRODUCT_SUITE
-PInvoke.Kernel32.PRODUCT_SUITE.VER_SUITE_MULTIUSERTS = 0 -> PInvoke.Kernel32.PRODUCT_SUITE
-PInvoke.Kernel32.PRODUCT_SUITE.VER_WORKSTATION_NT = 0 -> PInvoke.Kernel32.PRODUCT_SUITE
 PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.ABOVE_NORMAL_PRIORITY_CLASS = 32768 -> PInvoke.Kernel32.ProcessPriorityClass
 PInvoke.Kernel32.ProcessPriorityClass.BELOW_NORMAL_PRIORITY_CLASS = 16384 -> PInvoke.Kernel32.ProcessPriorityClass
