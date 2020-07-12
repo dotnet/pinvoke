@@ -87,6 +87,9 @@ reusable libraries. But try to cut down the verbose output that may be produced 
 And always double-check the generated code because these tools are known to sometimes misinterpret
 parameter types.
 
+A great resource for accurate p/invoke signatures and structures with a compatible OSS license
+comes from the .NET team: https://github.com/dotnet/runtime/tree/master/src/libraries/Common/src/Interop/Windows
+
 Remember whether you write the signatures yourself or use a tool, to follow the rest of the guidelines
 in this document.
 
