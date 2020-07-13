@@ -56,14 +56,14 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(NetApi32), CharSet = CharSet.Unicode)]
         public static extern unsafe Win32ErrorCode NetUserEnum(
-            string servername,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* servername,
             NetUserEnumLevel level,
             NetUserEnumFilter filter,
-            [Friendly(FriendlyFlags.Array)] byte* bufptr,
+            out void* bufptr,
             uint prefmaxlen,
             out uint entriesread,
             out uint totalentries,
-            ref uint resume_handle);
+            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] uint* resume_handle);
 
         /// <summary>
         /// The NetApiBufferFree function frees the memory that the NetApiBufferAllocate function allocates. Applications should also call NetApiBufferFree to free the memory that other network management functions use internally to return information.

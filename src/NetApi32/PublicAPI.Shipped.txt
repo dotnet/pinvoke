@@ -66,8 +66,5 @@ PInvoke.NetApi32.USER_INFO_1.usri1_script_path_IntPtr.set -> void
 const PInvoke.NetApi32.MAX_PREFERRED_LENGTH = 4294967295 -> uint
 static PInvoke.NetApi32.NetApiBufferAllocate(int ByteCount, out System.IntPtr Buffer) -> PInvoke.Win32ErrorCode
 static PInvoke.NetApi32.NetApiBufferFree(System.IntPtr Buffer) -> PInvoke.Win32ErrorCode
-static PInvoke.NetApi32.NetUserEnum(string servername, PInvoke.NetApi32.NetUserEnumLevel level, PInvoke.NetApi32.NetUserEnumFilter filter, System.IntPtr bufptr, uint prefmaxlen, out uint entriesread, out uint totalentries, ref uint resume_handle) -> PInvoke.Win32ErrorCode
-static PInvoke.NetApi32.NetUserEnum(string servername, PInvoke.NetApi32.NetUserEnumLevel level, PInvoke.NetApi32.NetUserEnumFilter filter, byte[] bufptr, uint prefmaxlen, out uint entriesread, out uint totalentries, ref uint resume_handle) -> PInvoke.Win32ErrorCode
 static extern PInvoke.NetApi32.NetApiBufferAllocate(int ByteCount, out void* Buffer) -> PInvoke.Win32ErrorCode
 static extern PInvoke.NetApi32.NetApiBufferFree(void* Buffer) -> PInvoke.Win32ErrorCode
-static extern PInvoke.NetApi32.NetUserEnum(string servername, PInvoke.NetApi32.NetUserEnumLevel level, PInvoke.NetApi32.NetUserEnumFilter filter, byte* bufptr, uint prefmaxlen, out uint entriesread, out uint totalentries, ref uint resume_handle) -> PInvoke.Win32ErrorCode
