@@ -71,6 +71,7 @@ namespace PInvoke
                 .WithMembers(SyntaxFactory.List<MemberDeclarationSyntax>());
             var methodsWithNativePointers =
                 from method in type.Members.OfType<MethodDeclarationSyntax>()
+                where !method.AttributeLists.SelectMany(al => al.Attributes).Any(att => att.Name is SimpleNameSyntax sn && sn.Identifier.ValueText == "NoFriendlyOverloads")
                 where WhereIsPointerParameter(method.ParameterList.Parameters).Any() || method.ReturnType is PointerTypeSyntax
                 select method;
 
