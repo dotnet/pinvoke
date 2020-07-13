@@ -9,9 +9,17 @@ namespace PInvoke
     /// </content>
     public static partial class NTDll
     {
-        // This is where you define methods that assist in calling P/Invoke methods.
-        // For example, if a P/Invoke method requires allocating unmanaged memory
-        // and freeing it up after the call, a helper method in this file would
-        // make "P/Invoking" for most callers much easier and is a welcome addition.
+        /// <inheritdoc cref="RtlGetVersion(Kernel32.OSVERSIONINFO*)"/>
+        [NoFriendlyOverloads]
+        public static unsafe NTSTATUS RtlGetVersion(Kernel32.OSVERSIONINFOEX* versionInformation) => RtlGetVersion((Kernel32.OSVERSIONINFO*)versionInformation);
+
+        /// <inheritdoc cref="RtlGetVersion(ref Kernel32.OSVERSIONINFO)"/>
+        public static unsafe NTSTATUS RtlGetVersion(ref Kernel32.OSVERSIONINFOEX versionInformation)
+        {
+            fixed (Kernel32.OSVERSIONINFOEX* versionInformationLocal = &versionInformation)
+            {
+                return RtlGetVersion(versionInformationLocal);
+            }
+        }
     }
 }
