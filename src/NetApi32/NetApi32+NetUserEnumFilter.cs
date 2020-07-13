@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class NetApi32
     {
         /// <summary>
-        /// Allowed values for the filter parameter of the <see cref="NetUserEnum(string, NetUserEnumLevel, NetUserEnumFilter, byte*, uint, out uint, out uint, ref uint)"/> function.
+        /// Allowed values for the filter parameter of the <see cref="NetUserEnum(char*, NetUserEnumLevel, NetUserEnumFilter, out void*, uint, out uint, out uint, uint*)"/> function.
         /// </summary>
         [Flags]
         public enum NetUserEnumFilter : uint
