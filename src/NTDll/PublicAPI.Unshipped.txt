@@ -13,8 +13,10 @@ PInvoke.NTDll.PROCESS_BASIC_INFORMATION.Reserved2a -> void*
 PInvoke.NTDll.PROCESS_BASIC_INFORMATION.Reserved2b -> void*
 PInvoke.NTDll.PROCESS_BASIC_INFORMATION.Reserved3 -> void*
 PInvoke.NTDll.PROCESS_BASIC_INFORMATION.UniqueProcessId -> void*
+static PInvoke.NTDll.NtQueryInformationProcess(PInvoke.Kernel32.SafeObjectHandle ProcessHandle, PInvoke.NTDll.PROCESSINFOCLASS ProcessInformationClass, System.IntPtr ProcessInformation, int ProcessInformationLength, out int ReturnLength) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlGetVersion(PInvoke.Kernel32.OSVERSIONINFOEX* versionInformation) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlGetVersion(System.IntPtr versionInformation) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlGetVersion(ref PInvoke.Kernel32.OSVERSIONINFO versionInformation) -> PInvoke.NTSTATUS
+static PInvoke.NTDll.RtlGetVersion(ref PInvoke.Kernel32.OSVERSIONINFOEX versionInformation) -> PInvoke.NTSTATUS
 static extern PInvoke.NTDll.NtQueryInformationProcess(PInvoke.Kernel32.SafeObjectHandle ProcessHandle, PInvoke.NTDll.PROCESSINFOCLASS ProcessInformationClass, void* ProcessInformation, int ProcessInformationLength, out int ReturnLength) -> PInvoke.NTSTATUS
 static extern PInvoke.NTDll.RtlGetVersion(PInvoke.Kernel32.OSVERSIONINFO* versionInformation) -> PInvoke.NTSTATUS
-static PInvoke.NTDll.NtQueryInformationProcess(PInvoke.Kernel32.SafeObjectHandle ProcessHandle, PInvoke.NTDll.PROCESSINFOCLASS ProcessInformationClass, System.IntPtr ProcessInformation, int ProcessInformationLength, out int ReturnLength) -> PInvoke.NTSTATUS
-static PInvoke.NTDll.RtlGetVersion(ref PInvoke.Kernel32.OSVERSIONINFO versionInformation) -> PInvoke.NTSTATUS
-static PInvoke.NTDll.RtlGetVersion(System.IntPtr versionInformation) -> PInvoke.NTSTATUS

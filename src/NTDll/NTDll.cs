@@ -107,7 +107,7 @@ namespace PInvoke
         /// The <see cref="RtlGetVersion(Kernel32.OSVERSIONINFO*)"/> routine returns version information about the currently running operating system.
         /// </summary>
         /// <param name="versionInformation">
-        /// A <see cref="Kernel32.OSVERSIONINFO"/> structure that contains the version information about the currently running operating system.
+        /// A pointer to an <see cref="Kernel32.OSVERSIONINFO"/> or <see cref="Kernel32.OSVERSIONINFOEX"/> structure that contains the version information about the currently running operating system.
         /// </param>
         /// <returns>
         /// <see cref="RtlGetVersion(Kernel32.OSVERSIONINFO*)"/> returns <see cref="NTSTATUS.Code.STATUS_SUCCESS"/>.
