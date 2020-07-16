@@ -95,7 +95,7 @@ psapi.dll    |`PInvoke.Psapi`   | [![NuGet](https://buildstats.info/nuget/PInvok
 setupapi.dll |`PInvoke.SetupApi`| [![NuGet](https://buildstats.info/nuget/PInvoke.SetupApi)](https://www.nuget.org/packages/PInvoke.SetupApi)|[Windows setup API][SetupApi]
 SHCore.dll   |`PInvoke.SHCore`  | [![NuGet](https://buildstats.info/nuget/PInvoke.SHCore)](https://www.nuget.org/packages/PInvoke.SHCore)|[Windows Shell][Shell32]
 shell32.dll  |`PInvoke.Shell32` | [![NuGet](https://buildstats.info/nuget/PInvoke.Shell32)](https://www.nuget.org/packages/PInvoke.Shell32)|[Windows Shell][Shell32]
-user32.dll   |`PInvoke.User32`  | [![NuGet](https://buildstats.info/nuget/PInvoke.User32)](https://www.nuget.org/packages/PInvoke.User32)|Windows User Interface
+user32.dll   |`PInvoke.User32`  | [![NuGet](https://buildstats.info/nuget/PInvoke.User32)](https://www.nuget.org/packages/PInvoke.User32)|[Windows User Interface][User32]
 userenv.dll  |`PInvoke.Userenv` | [![NuGet](https://buildstats.info/nuget/PInvoke.Userenv)](https://www.nuget.org/packages/PInvoke.Userenv)|Windows User Environment
 uxtheme.dll  |`PInvoke.UxTheme` | [![NuGet](https://buildstats.info/nuget/PInvoke.UxTheme)](https://www.nuget.org/packages/PInvoke.UxTheme)|[Windows Visual Styles][UxTheme]
 winusb.dll   |`PInvoke.WinUsb`  | [![NuGet](https://buildstats.info/nuget/PInvoke.WinUsb)](https://www.nuget.org/packages/PInvoke.WinUsb)|[USB Driver][WinUsb]
@@ -136,5 +136,6 @@ For more information see the [.NET Foundation Code of Conduct](https://dotnetfou
 [WinUsb]: https://docs.microsoft.com/en-us/windows/win32/api/winusb/
 [WtsApi32]: https://msdn.microsoft.com/en-us/library/aa383468(v=vs.85).aspx
 [Cabinet]: https://docs.microsoft.com/en-us/windows/win32/devnotes/cabinet-api-functions
+[User32]: https://docs.microsoft.com/en-us/windows/win32/api/winuser
 
 [PInvokeCoverageReport]: https://github.com/dotnet/pinvoke/wiki/coverage
