@@ -11,7 +11,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Flags for <see cref="EnumDisplaySettingsEx(string, uint, ref DEVMODE, EnumDisplaySettingsExFlags)"/>.
+        /// Flags for <see cref="EnumDisplaySettingsEx(char*, uint, DEVMODE*, EnumDisplaySettingsExFlags)"/>.
         /// </summary>
         [Flags]
         public enum EnumDisplaySettingsExFlags : uint

@@ -1,284 +1,284 @@
 PInvoke.DEVMODE
+PInvoke.DEVMODE.CollationSelectionOptions
+PInvoke.DEVMODE.CollationSelectionOptions.DMCOLLATE_FALSE = 0 -> PInvoke.DEVMODE.CollationSelectionOptions
+PInvoke.DEVMODE.CollationSelectionOptions.DMCOLLATE_TRUE = 1 -> PInvoke.DEVMODE.CollationSelectionOptions
 PInvoke.DEVMODE.DEVMODE() -> void
+PInvoke.DEVMODE.DeviceIcmIntentOptions
+PInvoke.DEVMODE.DeviceIcmIntentOptions.DMICM_ABS_COLORIMETRIC = 4 -> PInvoke.DEVMODE.DeviceIcmIntentOptions
+PInvoke.DEVMODE.DeviceIcmIntentOptions.DMICM_COLORIMETRIC = 3 -> PInvoke.DEVMODE.DeviceIcmIntentOptions
+PInvoke.DEVMODE.DeviceIcmIntentOptions.DMICM_CONTRAST = 2 -> PInvoke.DEVMODE.DeviceIcmIntentOptions
+PInvoke.DEVMODE.DeviceIcmIntentOptions.DMICM_SATURATE = 1 -> PInvoke.DEVMODE.DeviceIcmIntentOptions
+PInvoke.DEVMODE.DeviceIcmIntentOptions.DMICM_USER = 256 -> PInvoke.DEVMODE.DeviceIcmIntentOptions
+PInvoke.DEVMODE.DeviceIcmMethodOptions
+PInvoke.DEVMODE.DeviceIcmMethodOptions.DMICMMETHOD_DEVICE = 4 -> PInvoke.DEVMODE.DeviceIcmMethodOptions
+PInvoke.DEVMODE.DeviceIcmMethodOptions.DMICMMETHOD_DRIVER = 3 -> PInvoke.DEVMODE.DeviceIcmMethodOptions
+PInvoke.DEVMODE.DeviceIcmMethodOptions.DMICMMETHOD_NONE = 1 -> PInvoke.DEVMODE.DeviceIcmMethodOptions
+PInvoke.DEVMODE.DeviceIcmMethodOptions.DMICMMETHOD_SYSTEM = 2 -> PInvoke.DEVMODE.DeviceIcmMethodOptions
+PInvoke.DEVMODE.DeviceIcmMethodOptions.DMICMMETHOD_USER = 256 -> PInvoke.DEVMODE.DeviceIcmMethodOptions
+PInvoke.DEVMODE.DeviceMediaTypeOptions
+PInvoke.DEVMODE.DeviceMediaTypeOptions.DMMEDIA_GLOSSY = 3 -> PInvoke.DEVMODE.DeviceMediaTypeOptions
+PInvoke.DEVMODE.DeviceMediaTypeOptions.DMMEDIA_STANDARD = 1 -> PInvoke.DEVMODE.DeviceMediaTypeOptions
+PInvoke.DEVMODE.DeviceMediaTypeOptions.DMMEDIA_TRANSPARENCY = 2 -> PInvoke.DEVMODE.DeviceMediaTypeOptions
+PInvoke.DEVMODE.DeviceMediaTypeOptions.DMMEDIA_USER = 256 -> PInvoke.DEVMODE.DeviceMediaTypeOptions
+PInvoke.DEVMODE.DisplayFixedOutputOptions
+PInvoke.DEVMODE.DisplayFixedOutputOptions.DMDFO_CENTER = 2 -> PInvoke.DEVMODE.DisplayFixedOutputOptions
+PInvoke.DEVMODE.DisplayFixedOutputOptions.DMDFO_DEFAULT = 0 -> PInvoke.DEVMODE.DisplayFixedOutputOptions
+PInvoke.DEVMODE.DisplayFixedOutputOptions.DMDFO_STRETCH = 1 -> PInvoke.DEVMODE.DisplayFixedOutputOptions
+PInvoke.DEVMODE.DisplayOptions
+PInvoke.DEVMODE.DisplayOptions.DMDISPLAYFLAGS_TEXTMODE = 4 -> PInvoke.DEVMODE.DisplayOptions
+PInvoke.DEVMODE.DisplayOptions.DM_INTERLACED = 2 -> PInvoke.DEVMODE.DisplayOptions
+PInvoke.DEVMODE.DisplayOptions.NONE = 0 -> PInvoke.DEVMODE.DisplayOptions
+PInvoke.DEVMODE.DisplayOrientationOptions
+PInvoke.DEVMODE.DisplayOrientationOptions.DMDO_180 = 2 -> PInvoke.DEVMODE.DisplayOrientationOptions
+PInvoke.DEVMODE.DisplayOrientationOptions.DMDO_270 = 3 -> PInvoke.DEVMODE.DisplayOrientationOptions
+PInvoke.DEVMODE.DisplayOrientationOptions.DMDO_90 = 1 -> PInvoke.DEVMODE.DisplayOrientationOptions
+PInvoke.DEVMODE.DisplayOrientationOptions.DMDO_DEFAULT = 0 -> PInvoke.DEVMODE.DisplayOrientationOptions
+PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_COARSE = 2 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_ERRORDIFFUSION = 5 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_FINE = 3 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_GRAYSCALE = 10 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_LINEART = 4 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_NONE = 1 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_RESERVED6 = 6 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_RESERVED7 = 7 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_RESERVED8 = 8 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_RESERVED9 = 9 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.DitherTypeOptions.DMDITHER_USER = 256 -> PInvoke.DEVMODE.DitherTypeOptions
+PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_BITSPERPEL = 262144 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_COLLATE = 32768 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_COLOR = 2048 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_COPIES = 256 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_DEFAULTSOURCE = 512 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_DISPLAYFIXEDOUTPUT = 536870912 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_DISPLAYFLAGS = 2097152 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_DISPLAYFREQUENCY = 4194304 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_DISPLAYORIENTATION = 128 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_DITHERTYPE = 67108864 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_DUPLEX = 4096 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_FORMNAME = 65536 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_ICMINTENT = 16777216 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_ICMMETHOD = 8388608 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_LOGPIXELS = 131072 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_MEDIATYPE = 33554432 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_NUP = 64 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_ORIENTATION = 1 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_PANNINGHEIGHT = 268435456 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_PANNINGWIDTH = 134217728 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_PAPERLENGTH = 4 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_PAPERSIZE = 2 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_PAPERWIDTH = 8 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_PELSHEIGHT = 1048576 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_PELSWIDTH = 524288 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_POSITION = 32 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_PRINTQUALITY = 1024 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_SCALE = 16 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_TTOPTION = 16384 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.DM_YRESOLUTION = 8192 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.FieldUseFlags.NONE = 0 -> PInvoke.DEVMODE.FieldUseFlags
+PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_AUTO = 7 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_CASSETTE = 14 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_ENVELOPE = 5 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_ENVMANUAL = 6 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_FIRST = 1 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_FORMSOURCE = 15 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_LARGECAPACITY = 11 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_LARGEFMT = 10 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_LAST = 15 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_LOWER = 2 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_MANUAL = 4 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_MIDDLE = 3 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_ONLYONE = 1 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_SMALLFMT = 9 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_TRACTOR = 8 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_UPPER = 1 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintBinSelectionOptions.DMBIN_USER = 256 -> PInvoke.DEVMODE.PrintBinSelectionOptions
+PInvoke.DEVMODE.PrintColorOptions
+PInvoke.DEVMODE.PrintColorOptions.DMCOLOR_COLOR = 2 -> PInvoke.DEVMODE.PrintColorOptions
+PInvoke.DEVMODE.PrintColorOptions.DMCOLOR_MONOCHROME = 1 -> PInvoke.DEVMODE.PrintColorOptions
+PInvoke.DEVMODE.PrintDuplexOptions
+PInvoke.DEVMODE.PrintDuplexOptions.DMDUP_HORIZONTAL = 3 -> PInvoke.DEVMODE.PrintDuplexOptions
+PInvoke.DEVMODE.PrintDuplexOptions.DMDUP_SIMPLEX = 1 -> PInvoke.DEVMODE.PrintDuplexOptions
+PInvoke.DEVMODE.PrintDuplexOptions.DMDUP_VERTICAL = 2 -> PInvoke.DEVMODE.PrintDuplexOptions
+PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_10X11 = 45 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_10X14 = 16 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_11X17 = 17 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_12X11 = 90 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_15X11 = 46 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_9X11 = 44 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A2 = 66 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A3 = 8 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A3_EXTRA = 63 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A3_EXTRA_TRANSVERSE = 68 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A3_ROTATED = 76 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A3_TRANSVERSE = 67 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A4 = 9 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A4SMALL = 10 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A4_EXTRA = 53 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A4_PLUS = 60 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A4_ROTATED = 77 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A4_TRANSVERSE = 55 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A5 = 11 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A5_EXTRA = 64 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A5_ROTATED = 78 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A5_TRANSVERSE = 61 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A6 = 70 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A6_ROTATED = 83 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_A_PLUS = 57 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B4 = 12 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B4_JIS_ROTATED = 79 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B5 = 13 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B5_EXTRA = 65 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B5_JIS_ROTATED = 80 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B5_TRANSVERSE = 62 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B6_JIS = 88 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B6_JIS_ROTATED = 89 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_B_PLUS = 58 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_CSHEET = 24 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_DBL_JAPANESE_POSTCARD = 69 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED = 82 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_DSHEET = 25 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_10 = 20 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_11 = 21 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_12 = 22 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_14 = 23 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_9 = 19 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_B4 = 33 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_B5 = 34 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_B6 = 35 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_C3 = 29 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_C4 = 30 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_C5 = 28 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_C6 = 31 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_C65 = 32 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_DL = 27 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_INVITE = 47 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_ITALY = 36 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_MONARCH = 37 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ENV_PERSONAL = 38 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ESHEET = 26 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_EXECUTIVE = 7 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_FANFOLD_LGL_GERMAN = 41 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_FANFOLD_STD_GERMAN = 40 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_FANFOLD_US = 39 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_FIRST = 1 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_FOLIO = 14 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_ISO_B4 = 42 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JAPANESE_POSTCARD = 43 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JAPANESE_POSTCARD_ROTATED = 81 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_CHOU3 = 73 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_CHOU3_ROTATED = 86 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_CHOU4 = 74 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_CHOU4_ROTATED = 87 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_KAKU2 = 71 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_KAKU2_ROTATED = 84 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_KAKU3 = 72 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_KAKU3_ROTATED = 85 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_YOU4 = 91 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_JENV_YOU4_ROTATED = 92 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LAST = 118 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LEDGER = 4 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LEGAL = 5 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LEGAL_EXTRA = 51 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LETTER = 1 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LETTERSMALL = 2 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LETTER_EXTRA = 50 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LETTER_EXTRA_TRANSVERSE = 56 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LETTER_PLUS = 59 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LETTER_ROTATED = 75 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_LETTER_TRANSVERSE = 54 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_NOTE = 18 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_P16K = 93 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_P16K_ROTATED = 106 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_P32K = 94 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_P32KBIG = 95 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_P32KBIG_ROTATED = 108 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_P32K_ROTATED = 107 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_1 = 96 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_10 = 105 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_10_ROTATED = 118 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_1_ROTATED = 109 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_2 = 97 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_2_ROTATED = 110 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_3 = 98 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_3_ROTATED = 111 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_4 = 99 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_4_ROTATED = 112 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_5 = 100 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_5_ROTATED = 113 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_6 = 101 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_6_ROTATED = 114 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_7 = 102 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_7_ROTATED = 115 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_8 = 103 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_8_ROTATED = 116 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_9 = 104 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_PENV_9_ROTATED = 117 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_QUARTO = 15 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_RESERVED_48 = 48 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_RESERVED_49 = 49 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_STATEMENT = 6 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_TABLOID = 3 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_TABLOID_EXTRA = 52 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.DMPAPER_USER = 256 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintPaperOptions.NONE = 0 -> PInvoke.DEVMODE.PrintPaperOptions
+PInvoke.DEVMODE.PrintQualityOptions
+PInvoke.DEVMODE.PrintQualityOptions.DMRES_DRAFT = -1 -> PInvoke.DEVMODE.PrintQualityOptions
+PInvoke.DEVMODE.PrintQualityOptions.DMRES_HIGH = -4 -> PInvoke.DEVMODE.PrintQualityOptions
+PInvoke.DEVMODE.PrintQualityOptions.DMRES_LOW = -2 -> PInvoke.DEVMODE.PrintQualityOptions
+PInvoke.DEVMODE.PrintQualityOptions.DMRES_MEDIUM = -3 -> PInvoke.DEVMODE.PrintQualityOptions
+PInvoke.DEVMODE.PrinterOptions
+PInvoke.DEVMODE.PrinterOptions.DMNUP_ONEUP = 2 -> PInvoke.DEVMODE.PrinterOptions
+PInvoke.DEVMODE.PrinterOptions.DMNUP_SYSTEM = 1 -> PInvoke.DEVMODE.PrinterOptions
+PInvoke.DEVMODE.PrinterOrientationOptions
+PInvoke.DEVMODE.PrinterOrientationOptions.DMORIENT_LANDSCAPE = 2 -> PInvoke.DEVMODE.PrinterOrientationOptions
+PInvoke.DEVMODE.PrinterOrientationOptions.DMORIENT_PORTRAIT = 1 -> PInvoke.DEVMODE.PrinterOrientationOptions
+PInvoke.DEVMODE.TrueTypeOptions
+PInvoke.DEVMODE.TrueTypeOptions.DMTT_BITMAP = 1 -> PInvoke.DEVMODE.TrueTypeOptions
+PInvoke.DEVMODE.TrueTypeOptions.DMTT_DOWNLOAD = 2 -> PInvoke.DEVMODE.TrueTypeOptions
+PInvoke.DEVMODE.TrueTypeOptions.DMTT_DOWNLOAD_OUTLINE = 4 -> PInvoke.DEVMODE.TrueTypeOptions
+PInvoke.DEVMODE.TrueTypeOptions.DMTT_SUBDEV = 3 -> PInvoke.DEVMODE.TrueTypeOptions
 PInvoke.DEVMODE.dmBitsPerPel -> uint
-PInvoke.DEVMODE.dmCollate -> PInvoke.DEVMODE_CollationSelectionOptions
-PInvoke.DEVMODE.dmColor -> PInvoke.DEVMODE_PrintColorOptions
+PInvoke.DEVMODE.dmCollate -> PInvoke.DEVMODE.CollationSelectionOptions
+PInvoke.DEVMODE.dmColor -> PInvoke.DEVMODE.PrintColorOptions
 PInvoke.DEVMODE.dmCopies -> short
-PInvoke.DEVMODE.dmDefaultSource -> PInvoke.DEVMODE_PrintBinSelectionOptions
+PInvoke.DEVMODE.dmDefaultSource -> PInvoke.DEVMODE.PrintBinSelectionOptions
 PInvoke.DEVMODE.dmDeviceName -> char*
-PInvoke.DEVMODE.dmDisplayFixedOutput -> PInvoke.DEVMODE_DisplayFixedOutputOptions
-PInvoke.DEVMODE.dmDisplayFlags -> PInvoke.DEVMODE_DisplayOptions
+PInvoke.DEVMODE.dmDisplayFixedOutput -> PInvoke.DEVMODE.DisplayFixedOutputOptions
+PInvoke.DEVMODE.dmDisplayFlags -> PInvoke.DEVMODE.DisplayOptions
 PInvoke.DEVMODE.dmDisplayFrequency -> uint
-PInvoke.DEVMODE.dmDisplayOrientation -> PInvoke.DEVMODE_DisplayOrientationOptions
-PInvoke.DEVMODE.dmDitherType -> PInvoke.DEVMODE_DitherTypeOptions
+PInvoke.DEVMODE.dmDisplayOrientation -> PInvoke.DEVMODE.DisplayOrientationOptions
+PInvoke.DEVMODE.dmDitherType -> PInvoke.DEVMODE.DitherTypeOptions
 PInvoke.DEVMODE.dmDriverExtra -> ushort
 PInvoke.DEVMODE.dmDriverVersion -> ushort
-PInvoke.DEVMODE.dmDuplex -> PInvoke.DEVMODE_PrintDuplexOptions
-PInvoke.DEVMODE.dmFields -> PInvoke.DEVMODE_FieldUseFlags
+PInvoke.DEVMODE.dmDuplex -> PInvoke.DEVMODE.PrintDuplexOptions
+PInvoke.DEVMODE.dmFields -> PInvoke.DEVMODE.FieldUseFlags
 PInvoke.DEVMODE.dmFormName -> char*
-PInvoke.DEVMODE.dmICMIntent -> PInvoke.DEVMODE_DeviceIcmIntentOptions
-PInvoke.DEVMODE.dmICMMethod -> PInvoke.DEVMODE_DeviceIcmMethodOptions
+PInvoke.DEVMODE.dmICMIntent -> PInvoke.DEVMODE.DeviceIcmIntentOptions
+PInvoke.DEVMODE.dmICMMethod -> PInvoke.DEVMODE.DeviceIcmMethodOptions
 PInvoke.DEVMODE.dmLogPixels -> ushort
-PInvoke.DEVMODE.dmMediaType -> PInvoke.DEVMODE_DeviceMediaTypeOptions
-PInvoke.DEVMODE.dmNup -> PInvoke.DEVMODE_PrinterOptions
-PInvoke.DEVMODE.dmOrientation -> PInvoke.DEVMODE_PrinterOrientationOptions
+PInvoke.DEVMODE.dmMediaType -> PInvoke.DEVMODE.DeviceMediaTypeOptions
+PInvoke.DEVMODE.dmNup -> PInvoke.DEVMODE.PrinterOptions
+PInvoke.DEVMODE.dmOrientation -> PInvoke.DEVMODE.PrinterOrientationOptions
 PInvoke.DEVMODE.dmPanningHeight -> uint
 PInvoke.DEVMODE.dmPanningWidth -> uint
 PInvoke.DEVMODE.dmPaperLength -> short
-PInvoke.DEVMODE.dmPaperSize -> PInvoke.DEVMODE_PrintPaperOptions
+PInvoke.DEVMODE.dmPaperSize -> PInvoke.DEVMODE.PrintPaperOptions
 PInvoke.DEVMODE.dmPaperWidth -> short
 PInvoke.DEVMODE.dmPelsHeight -> uint
 PInvoke.DEVMODE.dmPelsWidth -> uint
 PInvoke.DEVMODE.dmPosition -> PInvoke.POINT
-PInvoke.DEVMODE.dmPrintQuality -> PInvoke.DEVMODE_PrintQualityOptions
+PInvoke.DEVMODE.dmPrintQuality -> PInvoke.DEVMODE.PrintQualityOptions
 PInvoke.DEVMODE.dmReserved1 -> uint
 PInvoke.DEVMODE.dmReserved2 -> uint
 PInvoke.DEVMODE.dmScale -> short
 PInvoke.DEVMODE.dmSize -> ushort
 PInvoke.DEVMODE.dmSpecVersion -> ushort
-PInvoke.DEVMODE.dmTTOption -> PInvoke.DEVMODE_TrueTypeOptions
+PInvoke.DEVMODE.dmTTOption -> PInvoke.DEVMODE.TrueTypeOptions
 PInvoke.DEVMODE.dmYResolution -> short
-PInvoke.DEVMODE_CollationSelectionOptions
-PInvoke.DEVMODE_CollationSelectionOptions.DMCOLLATE_FALSE = 0 -> PInvoke.DEVMODE_CollationSelectionOptions
-PInvoke.DEVMODE_CollationSelectionOptions.DMCOLLATE_TRUE = 1 -> PInvoke.DEVMODE_CollationSelectionOptions
-PInvoke.DEVMODE_DeviceIcmIntentOptions
-PInvoke.DEVMODE_DeviceIcmIntentOptions.DMICM_ABS_COLORIMETRIC = 4 -> PInvoke.DEVMODE_DeviceIcmIntentOptions
-PInvoke.DEVMODE_DeviceIcmIntentOptions.DMICM_COLORIMETRIC = 3 -> PInvoke.DEVMODE_DeviceIcmIntentOptions
-PInvoke.DEVMODE_DeviceIcmIntentOptions.DMICM_CONTRAST = 2 -> PInvoke.DEVMODE_DeviceIcmIntentOptions
-PInvoke.DEVMODE_DeviceIcmIntentOptions.DMICM_SATURATE = 1 -> PInvoke.DEVMODE_DeviceIcmIntentOptions
-PInvoke.DEVMODE_DeviceIcmIntentOptions.DMICM_USER = 256 -> PInvoke.DEVMODE_DeviceIcmIntentOptions
-PInvoke.DEVMODE_DeviceIcmMethodOptions
-PInvoke.DEVMODE_DeviceIcmMethodOptions.DMICMMETHOD_DEVICE = 4 -> PInvoke.DEVMODE_DeviceIcmMethodOptions
-PInvoke.DEVMODE_DeviceIcmMethodOptions.DMICMMETHOD_DRIVER = 3 -> PInvoke.DEVMODE_DeviceIcmMethodOptions
-PInvoke.DEVMODE_DeviceIcmMethodOptions.DMICMMETHOD_NONE = 1 -> PInvoke.DEVMODE_DeviceIcmMethodOptions
-PInvoke.DEVMODE_DeviceIcmMethodOptions.DMICMMETHOD_SYSTEM = 2 -> PInvoke.DEVMODE_DeviceIcmMethodOptions
-PInvoke.DEVMODE_DeviceIcmMethodOptions.DMICMMETHOD_USER = 256 -> PInvoke.DEVMODE_DeviceIcmMethodOptions
-PInvoke.DEVMODE_DeviceMediaTypeOptions
-PInvoke.DEVMODE_DeviceMediaTypeOptions.DMMEDIA_GLOSSY = 3 -> PInvoke.DEVMODE_DeviceMediaTypeOptions
-PInvoke.DEVMODE_DeviceMediaTypeOptions.DMMEDIA_STANDARD = 1 -> PInvoke.DEVMODE_DeviceMediaTypeOptions
-PInvoke.DEVMODE_DeviceMediaTypeOptions.DMMEDIA_TRANSPARENCY = 2 -> PInvoke.DEVMODE_DeviceMediaTypeOptions
-PInvoke.DEVMODE_DeviceMediaTypeOptions.DMMEDIA_USER = 256 -> PInvoke.DEVMODE_DeviceMediaTypeOptions
-PInvoke.DEVMODE_DisplayFixedOutputOptions
-PInvoke.DEVMODE_DisplayFixedOutputOptions.DMDFO_CENTER = 2 -> PInvoke.DEVMODE_DisplayFixedOutputOptions
-PInvoke.DEVMODE_DisplayFixedOutputOptions.DMDFO_DEFAULT = 0 -> PInvoke.DEVMODE_DisplayFixedOutputOptions
-PInvoke.DEVMODE_DisplayFixedOutputOptions.DMDFO_STRETCH = 1 -> PInvoke.DEVMODE_DisplayFixedOutputOptions
-PInvoke.DEVMODE_DisplayOptions
-PInvoke.DEVMODE_DisplayOptions.DMDISPLAYFLAGS_TEXTMODE = 4 -> PInvoke.DEVMODE_DisplayOptions
-PInvoke.DEVMODE_DisplayOptions.DM_INTERLACED = 2 -> PInvoke.DEVMODE_DisplayOptions
-PInvoke.DEVMODE_DisplayOptions.NONE = 0 -> PInvoke.DEVMODE_DisplayOptions
-PInvoke.DEVMODE_DisplayOrientationOptions
-PInvoke.DEVMODE_DisplayOrientationOptions.DMDO_180 = 2 -> PInvoke.DEVMODE_DisplayOrientationOptions
-PInvoke.DEVMODE_DisplayOrientationOptions.DMDO_270 = 3 -> PInvoke.DEVMODE_DisplayOrientationOptions
-PInvoke.DEVMODE_DisplayOrientationOptions.DMDO_90 = 1 -> PInvoke.DEVMODE_DisplayOrientationOptions
-PInvoke.DEVMODE_DisplayOrientationOptions.DMDO_DEFAULT = 0 -> PInvoke.DEVMODE_DisplayOrientationOptions
-PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_COARSE = 2 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_ERRORDIFFUSION = 5 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_FINE = 3 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_GRAYSCALE = 10 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_LINEART = 4 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_NONE = 1 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_RESERVED6 = 6 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_RESERVED7 = 7 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_RESERVED8 = 8 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_RESERVED9 = 9 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_DitherTypeOptions.DMDITHER_USER = 256 -> PInvoke.DEVMODE_DitherTypeOptions
-PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_BITSPERPEL = 262144 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_COLLATE = 32768 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_COLOR = 2048 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_COPIES = 256 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_DEFAULTSOURCE = 512 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_DISPLAYFIXEDOUTPUT = 536870912 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_DISPLAYFLAGS = 2097152 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_DISPLAYFREQUENCY = 4194304 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_DISPLAYORIENTATION = 128 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_DITHERTYPE = 67108864 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_DUPLEX = 4096 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_FORMNAME = 65536 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_ICMINTENT = 16777216 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_ICMMETHOD = 8388608 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_LOGPIXELS = 131072 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_MEDIATYPE = 33554432 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_NUP = 64 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_ORIENTATION = 1 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_PANNINGHEIGHT = 268435456 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_PANNINGWIDTH = 134217728 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_PAPERLENGTH = 4 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_PAPERSIZE = 2 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_PAPERWIDTH = 8 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_PELSHEIGHT = 1048576 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_PELSWIDTH = 524288 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_POSITION = 32 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_PRINTQUALITY = 1024 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_SCALE = 16 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_TTOPTION = 16384 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.DM_YRESOLUTION = 8192 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_FieldUseFlags.NONE = 0 -> PInvoke.DEVMODE_FieldUseFlags
-PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_AUTO = 7 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_CASSETTE = 14 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_ENVELOPE = 5 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_ENVMANUAL = 6 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_FIRST = 1 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_FORMSOURCE = 15 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_LARGECAPACITY = 11 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_LARGEFMT = 10 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_LAST = 15 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_LOWER = 2 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_MANUAL = 4 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_MIDDLE = 3 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_ONLYONE = 1 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_SMALLFMT = 9 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_TRACTOR = 8 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_UPPER = 1 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintBinSelectionOptions.DMBIN_USER = 256 -> PInvoke.DEVMODE_PrintBinSelectionOptions
-PInvoke.DEVMODE_PrintColorOptions
-PInvoke.DEVMODE_PrintColorOptions.DMCOLOR_COLOR = 2 -> PInvoke.DEVMODE_PrintColorOptions
-PInvoke.DEVMODE_PrintColorOptions.DMCOLOR_MONOCHROME = 1 -> PInvoke.DEVMODE_PrintColorOptions
-PInvoke.DEVMODE_PrintDuplexOptions
-PInvoke.DEVMODE_PrintDuplexOptions.DMDUP_HORIZONTAL = 3 -> PInvoke.DEVMODE_PrintDuplexOptions
-PInvoke.DEVMODE_PrintDuplexOptions.DMDUP_SIMPLEX = 1 -> PInvoke.DEVMODE_PrintDuplexOptions
-PInvoke.DEVMODE_PrintDuplexOptions.DMDUP_VERTICAL = 2 -> PInvoke.DEVMODE_PrintDuplexOptions
-PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_10X11 = 45 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_10X14 = 16 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_11X17 = 17 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_12X11 = 90 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_15X11 = 46 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_9X11 = 44 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A2 = 66 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A3 = 8 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A3_EXTRA = 63 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A3_EXTRA_TRANSVERSE = 68 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A3_ROTATED = 76 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A3_TRANSVERSE = 67 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A4 = 9 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A4SMALL = 10 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A4_EXTRA = 53 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A4_PLUS = 60 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A4_ROTATED = 77 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A4_TRANSVERSE = 55 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A5 = 11 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A5_EXTRA = 64 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A5_ROTATED = 78 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A5_TRANSVERSE = 61 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A6 = 70 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A6_ROTATED = 83 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_A_PLUS = 57 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B4 = 12 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B4_JIS_ROTATED = 79 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B5 = 13 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B5_EXTRA = 65 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B5_JIS_ROTATED = 80 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B5_TRANSVERSE = 62 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B6_JIS = 88 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B6_JIS_ROTATED = 89 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_B_PLUS = 58 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_CSHEET = 24 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_DBL_JAPANESE_POSTCARD = 69 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED = 82 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_DSHEET = 25 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_10 = 20 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_11 = 21 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_12 = 22 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_14 = 23 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_9 = 19 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_B4 = 33 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_B5 = 34 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_B6 = 35 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_C3 = 29 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_C4 = 30 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_C5 = 28 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_C6 = 31 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_C65 = 32 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_DL = 27 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_INVITE = 47 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_ITALY = 36 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_MONARCH = 37 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ENV_PERSONAL = 38 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ESHEET = 26 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_EXECUTIVE = 7 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_FANFOLD_LGL_GERMAN = 41 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_FANFOLD_STD_GERMAN = 40 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_FANFOLD_US = 39 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_FIRST = 1 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_FOLIO = 14 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_ISO_B4 = 42 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JAPANESE_POSTCARD = 43 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JAPANESE_POSTCARD_ROTATED = 81 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_CHOU3 = 73 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_CHOU3_ROTATED = 86 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_CHOU4 = 74 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_CHOU4_ROTATED = 87 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_KAKU2 = 71 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_KAKU2_ROTATED = 84 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_KAKU3 = 72 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_KAKU3_ROTATED = 85 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_YOU4 = 91 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_JENV_YOU4_ROTATED = 92 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LAST = 118 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LEDGER = 4 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LEGAL = 5 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LEGAL_EXTRA = 51 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LETTER = 1 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LETTERSMALL = 2 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LETTER_EXTRA = 50 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LETTER_EXTRA_TRANSVERSE = 56 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LETTER_PLUS = 59 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LETTER_ROTATED = 75 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_LETTER_TRANSVERSE = 54 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_NOTE = 18 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_P16K = 93 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_P16K_ROTATED = 106 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_P32K = 94 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_P32KBIG = 95 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_P32KBIG_ROTATED = 108 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_P32K_ROTATED = 107 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_1 = 96 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_10 = 105 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_10_ROTATED = 118 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_1_ROTATED = 109 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_2 = 97 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_2_ROTATED = 110 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_3 = 98 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_3_ROTATED = 111 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_4 = 99 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_4_ROTATED = 112 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_5 = 100 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_5_ROTATED = 113 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_6 = 101 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_6_ROTATED = 114 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_7 = 102 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_7_ROTATED = 115 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_8 = 103 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_8_ROTATED = 116 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_9 = 104 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_PENV_9_ROTATED = 117 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_QUARTO = 15 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_RESERVED_48 = 48 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_RESERVED_49 = 49 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_STATEMENT = 6 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_TABLOID = 3 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_TABLOID_EXTRA = 52 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.DMPAPER_USER = 256 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintPaperOptions.NONE = 0 -> PInvoke.DEVMODE_PrintPaperOptions
-PInvoke.DEVMODE_PrintQualityOptions
-PInvoke.DEVMODE_PrintQualityOptions.DMRES_DRAFT = -1 -> PInvoke.DEVMODE_PrintQualityOptions
-PInvoke.DEVMODE_PrintQualityOptions.DMRES_HIGH = -4 -> PInvoke.DEVMODE_PrintQualityOptions
-PInvoke.DEVMODE_PrintQualityOptions.DMRES_LOW = -2 -> PInvoke.DEVMODE_PrintQualityOptions
-PInvoke.DEVMODE_PrintQualityOptions.DMRES_MEDIUM = -3 -> PInvoke.DEVMODE_PrintQualityOptions
-PInvoke.DEVMODE_PrinterOptions
-PInvoke.DEVMODE_PrinterOptions.DMNUP_ONEUP = 2 -> PInvoke.DEVMODE_PrinterOptions
-PInvoke.DEVMODE_PrinterOptions.DMNUP_SYSTEM = 1 -> PInvoke.DEVMODE_PrinterOptions
-PInvoke.DEVMODE_PrinterOrientationOptions
-PInvoke.DEVMODE_PrinterOrientationOptions.DMORIENT_LANDSCAPE = 2 -> PInvoke.DEVMODE_PrinterOrientationOptions
-PInvoke.DEVMODE_PrinterOrientationOptions.DMORIENT_PORTRAIT = 1 -> PInvoke.DEVMODE_PrinterOrientationOptions
-PInvoke.DEVMODE_TrueTypeOptions
-PInvoke.DEVMODE_TrueTypeOptions.DMTT_BITMAP = 1 -> PInvoke.DEVMODE_TrueTypeOptions
-PInvoke.DEVMODE_TrueTypeOptions.DMTT_DOWNLOAD = 2 -> PInvoke.DEVMODE_TrueTypeOptions
-PInvoke.DEVMODE_TrueTypeOptions.DMTT_DOWNLOAD_OUTLINE = 4 -> PInvoke.DEVMODE_TrueTypeOptions
-PInvoke.DEVMODE_TrueTypeOptions.DMTT_SUBDEV = 3 -> PInvoke.DEVMODE_TrueTypeOptions
 PInvoke.DISPLAY_DEVICE
 PInvoke.DISPLAY_DEVICE.DISPLAY_DEVICE() -> void
 PInvoke.DISPLAY_DEVICE.DeviceID -> char*

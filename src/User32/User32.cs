@@ -1677,7 +1677,7 @@ namespace PInvoke
         /// </param>
         /// <param name="lpDisplayDevice">
         /// A pointer to a <see cref="DISPLAY_DEVICE"/> structure that receives information about the display device specified by <paramref name="iDevNum"/>.
-        /// Before calling <see cref="EnumDisplayDevices(string, uint, DISPLAY_DEVICE*, EnumDisplayDevicesFlags)"/>, you must initialize the member <see cref="DISPLAY_DEVICE.cb"/> to the size, in bytes, of <see cref="DISPLAY_DEVICE"/>.
+        /// Before calling <see cref="EnumDisplayDevices(char*, uint, DISPLAY_DEVICE*, EnumDisplayDevicesFlags)"/>, you must initialize the member <see cref="DISPLAY_DEVICE.cb"/> to the size, in bytes, of <see cref="DISPLAY_DEVICE"/>.
         /// </param>
         /// <param name="dwFlags">
         /// Set this flag to <see cref="EnumDisplayDevicesFlags.EDD_GET_DEVICE_INTERFACE_NAME"/> to retrieve the device interface name for <c>GUID_DEVINTERFACE_MONITOR</c>, which is registered by the operating system on a per monitor basis.
@@ -1695,7 +1695,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EnumDisplayDevices(
-            [MarshalAs(UnmanagedType.LPWStr)] string lpDevice,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] char* lpDevice,
             uint iDevNum,
             [Friendly(FriendlyFlags.Bidirectional)] DISPLAY_DEVICE* lpDisplayDevice,
             EnumDisplayDevicesFlags dwFlags);
@@ -1705,7 +1705,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="lpszDeviceName">
         /// A pointer to a null-terminated string that specifies the display device about whose graphics mode the function will obtain information.
-        /// This parameter is either <c>NULL</c> or a <see cref="DISPLAY_DEVICE.DeviceName"/> returned from <see cref="EnumDisplayDevices(string, uint, DISPLAY_DEVICE*, EnumDisplayDevicesFlags)"/>.
+        /// This parameter is either <c>NULL</c> or a <see cref="DISPLAY_DEVICE.DeviceName"/> returned from <see cref="EnumDisplayDevices(char*, uint, DISPLAY_DEVICE*, EnumDisplayDevicesFlags)"/>.
         /// A <c>NULL</c> value specifies the current display device on the computer on which the calling thread is running.
         /// </param>
         /// <param name="iModeNum">
@@ -1713,13 +1713,13 @@ namespace PInvoke
         /// <para><see cref="ENUM_CURRENT_SETTINGS"/>: Retrieve the current settings for the display device.</para>
         /// <para><see cref="ENUM_REGISTRY_SETTINGS"/>: Retrieve the settings for the display device that are currently stored in the registry.</para>
         /// <para>
-        /// Graphics mode indexes start at zero. To obtain information for all of a display device's graphics modes, make a series of calls to <see cref="EnumDisplaySettings(string, uint, DEVMODE*)"/>, as follows: Set <paramref name="iModeNum"/> to zero for the first call,
+        /// Graphics mode indexes start at zero. To obtain information for all of a display device's graphics modes, make a series of calls to <see cref="EnumDisplaySettings(char*, uint, DEVMODE*)"/>, as follows: Set <paramref name="iModeNum"/> to zero for the first call,
         /// and increment <paramref name="iModeNum"/> by one for each subsequent call.
         /// </para>
         /// <para>
         /// Continue calling the function until the return value is zero.<br/>
-        /// When you call <see cref="EnumDisplaySettings(string, uint, DEVMODE*)"/> with <paramref name="iModeNum"/> set to zero, the operating system initializes and caches information about the display device.<br/>
-        /// When you call <see cref="EnumDisplaySettings(string, uint, DEVMODE*)"/> with <paramref name="iModeNum"/> set to a nonzero value,
+        /// When you call <see cref="EnumDisplaySettings(char*, uint, DEVMODE*)"/> with <paramref name="iModeNum"/> set to zero, the operating system initializes and caches information about the display device.<br/>
+        /// When you call <see cref="EnumDisplaySettings(char*, uint, DEVMODE*)"/> with <paramref name="iModeNum"/> set to a nonzero value,
         /// the function returns the information that was cached the last time the function was called with iModeNum set to zero.
         /// </para>
         /// </param>
@@ -1734,7 +1734,7 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EnumDisplaySettings(
-            [MarshalAs(UnmanagedType.LPWStr)] string lpszDeviceName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] char* lpszDeviceName,
             uint iModeNum,
             [Friendly(FriendlyFlags.Bidirectional)]DEVMODE* lpDevMode);
 
@@ -1743,7 +1743,7 @@ namespace PInvoke
         /// </summary>
         /// <param name="lpszDeviceName">
         /// A pointer to a null-terminated string that specifies the display device about whose graphics mode the function will obtain information.
-        /// This parameter is either <c>NULL</c> or a <see cref="DISPLAY_DEVICE.DeviceName"/> returned from <see cref="EnumDisplayDevices(string, uint, DISPLAY_DEVICE*, EnumDisplayDevicesFlags)"/>.
+        /// This parameter is either <c>NULL</c> or a <see cref="DISPLAY_DEVICE.DeviceName"/> returned from <see cref="EnumDisplayDevices(char*, uint, DISPLAY_DEVICE*, EnumDisplayDevicesFlags)"/>.
         /// A <c>NULL</c> value specifies the current display device on the computer on which the calling thread is running.
         /// </param>
         /// <param name="iModeNum">
@@ -1751,13 +1751,13 @@ namespace PInvoke
         /// <para><see cref="ENUM_CURRENT_SETTINGS"/>: Retrieve the current settings for the display device.</para>
         /// <para><see cref="ENUM_REGISTRY_SETTINGS"/>: Retrieve the settings for the display device that are currently stored in the registry.</para>
         /// <para>
-        /// Graphics mode indexes start at zero. To obtain information for all of a display device's graphics modes, make a series of calls to <see cref="EnumDisplaySettingsEx(string, uint, DEVMODE*, EnumDisplaySettingsExFlags)"/>, as follows: Set <paramref name="iModeNum"/> to zero for the first call,
+        /// Graphics mode indexes start at zero. To obtain information for all of a display device's graphics modes, make a series of calls to <see cref="EnumDisplaySettingsEx(char*, uint, DEVMODE*, EnumDisplaySettingsExFlags)"/>, as follows: Set <paramref name="iModeNum"/> to zero for the first call,
         /// and increment <paramref name="iModeNum"/> by one for each subsequent call.
         /// </para>
         /// <para>
         /// Continue calling the function until the return value is zero.<br/>
-        /// When you call <see cref="EnumDisplaySettingsEx(string, uint, DEVMODE*, EnumDisplaySettingsExFlags)"/> with <paramref name="iModeNum"/> set to zero, the operating system initializes and caches information about the display device.<br/>
-        /// When you call <see cref="EnumDisplaySettingsEx(string, uint, DEVMODE*, EnumDisplaySettingsExFlags)"/> with <paramref name="iModeNum"/> set to a nonzero value,
+        /// When you call <see cref="EnumDisplaySettingsEx(char*, uint, DEVMODE*, EnumDisplaySettingsExFlags)"/> with <paramref name="iModeNum"/> set to zero, the operating system initializes and caches information about the display device.<br/>
+        /// When you call <see cref="EnumDisplaySettingsEx(char*, uint, DEVMODE*, EnumDisplaySettingsExFlags)"/> with <paramref name="iModeNum"/> set to a nonzero value,
         /// the function returns the information that was cached the last time the function was called with iModeNum set to zero.
         /// </para>
         /// </param>
@@ -1772,10 +1772,10 @@ namespace PInvoke
         /// As noted in the description of the <paramref name="iModeNum"/> parameter, you can use this behavior to enumerate all of a display device's graphics modes.
         /// </remarks>
         /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero.</returns>
-        [DllImport(nameof(User32), EntryPoint = "EnumDisplaySettingsExW")]
+        [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool EnumDisplaySettingsEx(
-            [MarshalAs(UnmanagedType.LPWStr)] string lpszDeviceName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] char* lpszDeviceName,
             uint iModeNum,
             [Friendly(FriendlyFlags.Bidirectional)] DEVMODE* lpDevMode,
             EnumDisplaySettingsExFlags dwFlags);

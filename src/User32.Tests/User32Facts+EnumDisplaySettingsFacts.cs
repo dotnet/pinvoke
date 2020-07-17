@@ -21,4 +21,19 @@ public partial class User32Facts
         Assert.True(mode.dmPelsWidth > 0);
         Assert.True(mode.dmPelsHeight > 0);
     }
+
+    [Fact]
+    public void EnumDisplaySettingsEx_Test()
+    {
+        // Arrange
+        var mode = DEVMODE.Create();
+
+        // Act
+        var result = EnumDisplaySettingsEx(null, ENUM_CURRENT_SETTINGS, ref mode, EnumDisplaySettingsExFlags.EDS_RAWMODE);
+
+        // Assert
+        Assert.True(result);
+        Assert.True(mode.dmPelsWidth > 0);
+        Assert.True(mode.dmPelsHeight > 0);
+    }
 }
