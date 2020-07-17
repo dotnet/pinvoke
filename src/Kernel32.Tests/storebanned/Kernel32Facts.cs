@@ -624,7 +624,7 @@ public partial class Kernel32Facts
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     try
                     {
-                        var cancelled = CancelIoEx(file, null);
+                        var cancelled = CancelIoEx(file, (NativeOverlapped*)null);
 
                         // We can't assert that it's true as if the IO finished already it'll fail with ERROR_NOT_FOUND
                         if (!cancelled)
