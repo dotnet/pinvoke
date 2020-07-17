@@ -34,42 +34,37 @@ namespace PInvoke
         /// </returns>
         public static unsafe ValueTask<int> WinUsb_ReadPipeAsync(SafeUsbHandle interfaceHandle, byte pipeID, Memory<byte> buffer, CancellationToken cancellationToken)
         {
-            var overlapped = new WinUsbOverlapped(interfaceHandle, pipeID, buffer);
+            var overlapped = new WinUsbOverlapped(interfaceHandle, pipeID, buffer, cancellationToken);
             var nativeOverlapped = overlapped.Pack();
 
-            cancellationToken.Register(overlapped.Cancel);
-
-            using (var memoryHandle = buffer.Pin())
+            if (WinUsb_ReadPipe(
+                interfaceHandle,
+                pipeID,
+                (byte*)overlapped.BufferHandle.Pointer,
+                buffer.Length,
+                out int lengthTransferred,
+                nativeOverlapped))
             {
-                if (WinUsb_ReadPipe(
-                    interfaceHandle,
-                    pipeID,
-                    (byte*)memoryHandle.Pointer,
-                    buffer.Length,
-                    out int lengthTransferred,
-                    nativeOverlapped))
+                overlapped.Unpack();
+                return new ValueTask<int>(lengthTransferred);
+            }
+            else
+            {
+                var error = (Win32ErrorCode)Marshal.GetLastWin32Error();
+
+                if (error == Win32ErrorCode.ERROR_IO_PENDING)
                 {
-                    overlapped.Unpack();
-                    return new ValueTask<int>(lengthTransferred);
+                    return new ValueTask<int>(overlapped.Completion);
                 }
                 else
                 {
-                    var error = (Win32ErrorCode)Marshal.GetLastWin32Error();
-
-                    if (error == Win32ErrorCode.ERROR_IO_PENDING)
-                    {
-                        return new ValueTask<int>(overlapped.Completion);
-                    }
-                    else
-                    {
-                        overlapped.Unpack();
+                    overlapped.Unpack();
 
 #if NET45
-                        return new ValueTask<int>(Task.Run(new Func<int>(() => throw new Win32Exception(error))));
+                    return new ValueTask<int>(Task.Run(new Func<int>(() => throw new Win32Exception(error))));
 #else
-                        return new ValueTask<int>(Task.FromException<int>(new PInvoke.Win32Exception(error)));
+                    return new ValueTask<int>(Task.FromException<int>(new PInvoke.Win32Exception(error)));
 #endif
-                    }
                 }
             }
         }
@@ -94,42 +89,37 @@ namespace PInvoke
         /// </returns>
         public static unsafe ValueTask<int> WinUsb_WritePipeAsync(SafeUsbHandle interfaceHandle, byte pipeID, Memory<byte> buffer, CancellationToken cancellationToken)
         {
-            var overlapped = new WinUsbOverlapped(interfaceHandle, pipeID, buffer);
+            var overlapped = new WinUsbOverlapped(interfaceHandle, pipeID, buffer, cancellationToken);
             var nativeOverlapped = overlapped.Pack();
 
-            cancellationToken.Register(overlapped.Cancel);
-
-            using (var memoryHandle = buffer.Pin())
+            if (WinUsb_WritePipe(
+                interfaceHandle,
+                pipeID,
+                (byte*)overlapped.BufferHandle.Pointer,
+                buffer.Length,
+                out int lengthTransferred,
+                nativeOverlapped))
             {
-                if (WinUsb_WritePipe(
-                    interfaceHandle,
-                    pipeID,
-                    (byte*)memoryHandle.Pointer,
-                    buffer.Length,
-                    out int lengthTransferred,
-                    nativeOverlapped))
+                overlapped.Unpack();
+                return new ValueTask<int>(lengthTransferred);
+            }
+            else
+            {
+                var error = (Win32ErrorCode)Marshal.GetLastWin32Error();
+
+                if (error == Win32ErrorCode.ERROR_IO_PENDING)
                 {
-                    overlapped.Unpack();
-                    return new ValueTask<int>(lengthTransferred);
+                    return new ValueTask<int>(overlapped.Completion);
                 }
                 else
                 {
-                    var error = (Win32ErrorCode)Marshal.GetLastWin32Error();
-
-                    if (error == Win32ErrorCode.ERROR_IO_PENDING)
-                    {
-                        return new ValueTask<int>(overlapped.Completion);
-                    }
-                    else
-                    {
-                        overlapped.Unpack();
+                    overlapped.Unpack();
 
 #if NET45
-                        return new ValueTask<int>(Task.Run(new Func<int>(() => throw new Win32Exception(error))));
+                    return new ValueTask<int>(Task.Run(new Func<int>(() => throw new Win32Exception(error))));
 #else
-                        return new ValueTask<int>(Task.FromException<int>(new PInvoke.Win32Exception(error)));
+                    return new ValueTask<int>(Task.FromException<int>(new PInvoke.Win32Exception(error)));
 #endif
-                    }
                 }
             }
         }

@@ -22,6 +22,7 @@ namespace PInvoke
             private readonly Memory<byte> buffer;
             private readonly SafeUsbHandle handle;
             private readonly byte pipeID;
+            private readonly CancellationToken cancellationToken;
 
             /// <summary>
             /// The source for completing the <see cref="Completion"/> property.
@@ -29,6 +30,7 @@ namespace PInvoke
             private readonly TaskCompletionSource<int> completion = new TaskCompletionSource<int>();
 
             private unsafe NativeOverlapped* native;
+            private CancellationTokenRegistration cancellationTokenRegistration;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="WinUsbOverlapped"/> class.
@@ -43,32 +45,36 @@ namespace PInvoke
             /// The buffer which is used by the I/O operation. This buffer will be pinned for the duration of
             /// the operation.
             /// </param>
-            public WinUsbOverlapped(SafeUsbHandle handle, byte pipeID, Memory<byte> buffer)
+            /// <param name="cancellationToken">
+            /// A <see cref="CancellationToken"/> which can be used to cancel the overlapped I/O.
+            /// </param>
+            public WinUsbOverlapped(SafeUsbHandle handle, byte pipeID, Memory<byte> buffer, CancellationToken cancellationToken)
             {
                 this.handle = handle ?? throw new ArgumentNullException(nameof(handle));
                 this.pipeID = pipeID;
                 this.buffer = buffer;
+                this.cancellationToken = cancellationToken;
             }
 
             /// <summary>
             /// Gets a <see cref="MemoryHandle"/> to the transfer buffer.
             /// </summary>
-            public MemoryHandle BufferHandle { get; private set; }
+            internal MemoryHandle BufferHandle { get; private set; }
 
             /// <summary>
             /// Gets the amount of bytes transferred.
             /// </summary>
-            public uint BytesTransferred { get; private set; }
+            internal uint BytesTransferred { get; private set; }
 
             /// <summary>
             /// Gets the error code returned by the device driver.
             /// </summary>
-            public uint ErrorCode { get; private set; }
+            internal uint ErrorCode { get; private set; }
 
             /// <summary>
             /// Gets a task whose result is the number of bytes transferred, or faults with the <see cref="Win32Exception"/> describing the failure.
             /// </summary>
-            public Task<int> Completion => this.completion.Task;
+            internal Task<int> Completion => this.completion.Task;
 
             /// <summary>
             /// Packs the current <see cref="WinUsbOverlapped"/> into a <see cref="NativeOverlapped"/> structure.
@@ -76,13 +82,15 @@ namespace PInvoke
             /// <returns>
             /// An unmanaged pointer to a <see cref="NativeOverlapped"/> structure.
             /// </returns>
-            public unsafe NativeOverlapped* Pack()
+            internal unsafe NativeOverlapped* Pack()
             {
                 this.BufferHandle = this.buffer.Pin();
 
                 this.native = this.Pack(
                     this.DeviceIOControlCompletionCallback,
                     null);
+
+                this.cancellationTokenRegistration = this.cancellationToken.Register(this.Cancel);
 
                 return this.native;
             }
@@ -91,19 +99,20 @@ namespace PInvoke
             /// Unpacks the unmanaged <see cref="NativeOverlapped"/> structure into
             /// a managed <see cref="WinUsbOverlapped"/> object.
             /// </summary>
-            public unsafe void Unpack()
+            internal unsafe void Unpack()
             {
                 Overlapped.Unpack(this.native);
                 Overlapped.Free(this.native);
                 this.native = null;
 
+                this.cancellationTokenRegistration.Dispose();
                 this.BufferHandle.Dispose();
             }
 
             /// <summary>
             /// Cancels the asynchronous I/O operation.
             /// </summary>
-            public unsafe void Cancel()
+            internal unsafe void Cancel()
             {
                 if (!WinUsb_AbortPipe(
                     this.handle,
