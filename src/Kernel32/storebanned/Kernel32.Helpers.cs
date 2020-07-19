@@ -382,5 +382,16 @@ namespace PInvoke
                 }
             }
         }
+
+        /// <inheritdoc cref="GetOverlappedResult(SafeObjectHandle, OVERLAPPED*, out int, bool)"/>
+        [NoFriendlyOverloads]
+        public static unsafe bool GetOverlappedResult(
+            SafeObjectHandle hFile,
+            NativeOverlapped* lpOverlapped,
+            out int lpNumberOfBytesTransferred,
+            bool bWait)
+        {
+            return GetOverlappedResult(hFile, (OVERLAPPED*)lpOverlapped, out lpNumberOfBytesTransferred, bWait);
+        }
     }
 }

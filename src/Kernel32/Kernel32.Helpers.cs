@@ -6,6 +6,7 @@ namespace PInvoke
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
+    using System.Threading;
 
     /// <content>
     /// Methods and nested types that are not strictly P/Invokes but provide
@@ -254,6 +255,54 @@ namespace PInvoke
 
             var bytesRead = ReadFile(hFile, segment);
             return new ArraySegment<byte>(buffer, 0, bytesRead);
+        }
+
+        /// <inheritdoc cref="CancelIoEx(SafeObjectHandle, OVERLAPPED*)" />
+        [NoFriendlyOverloads]
+        public static unsafe bool CancelIoEx(
+            SafeObjectHandle hFile,
+            NativeOverlapped* lpOverlapped)
+        {
+            return CancelIoEx(hFile, (OVERLAPPED*)lpOverlapped);
+        }
+
+        /// <inheritdoc cref="ReadFile(SafeObjectHandle, void*, int, int*, OVERLAPPED*)"/>
+        [NoFriendlyOverloads]
+        public static unsafe bool ReadFile(
+            SafeObjectHandle hFile,
+            void* lpBuffer,
+            int nNumberOfBytesToRead,
+            int* lpNumberOfBytesRead,
+            NativeOverlapped* lpOverlapped)
+        {
+            return ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, (OVERLAPPED*)lpOverlapped);
+        }
+
+        /// <inheritdoc cref="WriteFile(SafeObjectHandle, void*, int, int*, OVERLAPPED*)"/>
+        [NoFriendlyOverloads]
+        public static unsafe bool WriteFile(
+            SafeObjectHandle hFile,
+            void* lpBuffer,
+            int nNumberOfBytesToWrite,
+            int* lpNumberOfBytesWritten,
+            NativeOverlapped* lpOverlapped)
+        {
+            return WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, (OVERLAPPED*)lpOverlapped);
+        }
+
+        /// <inheritdoc cref="DeviceIoControl(SafeObjectHandle, int, void*, int, void*, int, out int, OVERLAPPED*)"/>
+        [NoFriendlyOverloads]
+        public static unsafe bool DeviceIoControl(
+            SafeObjectHandle hDevice,
+            int dwIoControlCode,
+            void* inBuffer,
+            int nInBufferSize,
+            void* outBuffer,
+            int nOutBufferSize,
+            out int pBytesReturned,
+            NativeOverlapped* lpOverlapped)
+        {
+            return DeviceIoControl(hDevice, dwIoControlCode, inBuffer, nInBufferSize, outBuffer, nOutBufferSize, out pBytesReturned, (OVERLAPPED*)lpOverlapped);
         }
 
         /// <summary>
