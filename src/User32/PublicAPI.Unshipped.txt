@@ -11,8 +11,11 @@ static PInvoke.User32.EnumDisplaySettings(System.IntPtr lpszDeviceName, uint iMo
 static PInvoke.User32.EnumDisplaySettings(char[] lpszDeviceName, uint iModeNum, ref PInvoke.DEVMODE lpDevMode) -> bool
 static PInvoke.User32.EnumDisplaySettingsEx(System.IntPtr lpszDeviceName, uint iModeNum, System.IntPtr lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
 static PInvoke.User32.EnumDisplaySettingsEx(char[] lpszDeviceName, uint iModeNum, ref PInvoke.DEVMODE lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
+static PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, char[] lpBuffer, int cchBufferMax) -> int
+static PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, System.IntPtr lpBuffer, int cchBufferMax) -> int
 static extern PInvoke.User32.EnumDisplayDevices(char* lpDevice, uint iDevNum, PInvoke.DISPLAY_DEVICE* lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
 static extern PInvoke.User32.EnumDisplaySettings(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode) -> bool
 static extern PInvoke.User32.EnumDisplaySettingsEx(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
+static extern PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, char* lpBuffer, int cchBufferMax) -> int
 static extern PInvoke.User32.UnregisterClass(string lpClassName, System.IntPtr hInstance) -> bool
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED -> System.IntPtr
