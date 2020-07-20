@@ -1070,8 +1070,8 @@ namespace PInvoke
             IntPtr handle,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            ref void* ppsidOwner,
-            ref void* ppsidGroup,
+            out void* ppsidOwner,
+            out void* ppsidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
@@ -1096,8 +1096,8 @@ namespace PInvoke
             string pObjectName,
             SE_OBJECT_TYPE ObjectType,
             SECURITY_INFORMATION SecurityInfo,
-            ref void* ppsidOwner,
-            ref void* ppsidGroup,
+            out void* ppsidOwner,
+            out void* ppsidGroup,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppDacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] Kernel32.ACL* ppSacl,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] SECURITY_DESCRIPTOR* ppSecurityDescriptor);
@@ -1326,7 +1326,7 @@ namespace PInvoke
 
         /// <summary>
         /// The ConvertSidToStringSid function converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
-        /// To convert the string-format SID back to a valid, functional SID, call the <see cref="ConvertStringSidToSid(string, ref void*)"/> function.
+        /// To convert the string-format SID back to a valid, functional SID, call the <see cref="ConvertStringSidToSid(string, out void*)"/> function.
         /// </summary>
         /// <param name="sid">A pointer to the SID structure to be converted.</param>
         /// <param name="sidString">A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the <see cref="LocalFree(void*)"/> function.</param>
@@ -1334,18 +1334,18 @@ namespace PInvoke
         /// <remarks>The ConvertSidToStringSid function uses the standard S-R-I-S-S… format for SID strings.</remarks>
         [DllImport(api_ms_win_security_sddl_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static unsafe extern bool ConvertSidToStringSid(IntPtr sid, ref char* sidString);
+        private static unsafe extern bool ConvertSidToStringSid(IntPtr sid, out char* sidString);
 
         /// <summary>
         /// The ConvertStringSidToSid function converts a string-format security identifier (SID) into a valid, functional SID.
-        /// You can use this function to retrieve a SID that the <see cref="ConvertSidToStringSid(IntPtr, ref char*)"/> function converted to string format.
+        /// You can use this function to retrieve a SID that the <see cref="ConvertSidToStringSid(IntPtr, out char*)"/> function converted to string format.
         /// </summary>
         /// <param name="StringSid">The string-format SID to convert. The SID string can use either the standard S-R-I-S-S… format for SID strings, or the SID string constant format, such as "BA" for built-in administrators.</param>
         /// <param name="sid">A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the <see cref="LocalFree(void*)"/> function.</param>
         /// <returns>If the function succeeds, the return value is true, otherwise the return value is false.</returns>
         [DllImport(api_ms_win_security_sddl_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static unsafe extern bool ConvertStringSidToSid(string StringSid, ref void* sid);
+        private static unsafe extern bool ConvertStringSidToSid(string StringSid, out void* sid);
 
         /// <summary>
         /// Closes a handle to a service control manager or service object.
