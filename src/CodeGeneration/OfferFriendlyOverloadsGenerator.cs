@@ -14,6 +14,7 @@ namespace PInvoke
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
     /// <summary>
     /// Generates <see cref="IntPtr"/> and/or <c>byte[]</c> overloads
@@ -103,12 +104,18 @@ namespace PInvoke
                     }
                 }
 
+                var leadingTrivia = Trivia(
+                    DocumentationCommentTrivia(SyntaxKind.SingleLineDocumentationCommentTrivia).AddContent(
+                        XmlText("/// "),
+                        XmlEmptyElement("inheritdoc").AddAttributes(XmlCrefAttribute(NameMemberCref(IdentifierName(method.Identifier), ToCref(method.ParameterList)))),
+                        XmlText().AddTextTokens(XmlTextNewLine(TriviaList(), "\r\n", "\r\n", TriviaList()))));
+
                 var transformedMethodBase = method
                     .WithReturnType(TransformReturnType(method.ReturnType))
                     .WithIdentifier(TransformMethodName(method))
                     .WithModifiers(RemoveModifier(method.Modifiers, SyntaxKind.ExternKeyword))
                     .WithAttributeLists(FilterAttributes(method.AttributeLists))
-                    .WithLeadingTrivia(method.GetLeadingTrivia().Reverse().TakeWhile(t => !t.IsDirective).Reverse())
+                    .WithLeadingTrivia(leadingTrivia)
                     .WithTrailingTrivia(method.GetTrailingTrivia().TakeWhile(t => !t.IsDirective))
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None))
                     .WithExpressionBody(null);
@@ -142,6 +149,15 @@ namespace PInvoke
 
             return Task.FromResult(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(generatedType));
         }
+
+        private static CrefParameterListSyntax ToCref(ParameterListSyntax parameterList) => CrefParameterList().AddParameters(parameterList.Parameters.Select(ToCref).ToArray());
+
+        private static CrefParameterSyntax ToCref(ParameterSyntax parameter)
+            => CrefParameter(
+                parameter.Modifiers.Any(SyntaxKind.RefKeyword) ? Token(SyntaxKind.RefKeyword) :
+                parameter.Modifiers.Any(SyntaxKind.OutKeyword) ? Token(SyntaxKind.OutKeyword) :
+                default,
+                parameter.Type);
 
         private static SyntaxList<AttributeListSyntax> FilterAttributes(SyntaxList<AttributeListSyntax> attributeLists)
         {
