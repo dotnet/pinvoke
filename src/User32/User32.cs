@@ -2915,11 +2915,11 @@ namespace PInvoke
         ///     The identifier of the string to be loaded.
         /// </param>
         /// <param name="lpBuffer">
-        ///     The buffer is to receive the string. Must be of sufficient length to hold a pointer (8 bytes).
+        /// The buffer to receive the string (if <paramref name="cchBufferMax" /> is non-zero) or a read-only pointer to the string resource itself (if <paramref name="cchBufferMax" /> is zero). Must be of sufficient length to hold a pointer (8 bytes).
         /// </param>
         /// <param name="cchBufferMax">
         ///     The size of the buffer, in characters. The string is truncated and null-terminated if it is longer than the
-        ///     number of characters specified. If this parameter is 0, then lpBuffer receives a read-only pointer to the
+        ///     number of characters specified. If this parameter is 0, then <paramref name="lpBuffer" /> receives a read-only pointer to the
         ///     resource itself.
         /// </param>
         /// <returns>
@@ -2928,7 +2928,11 @@ namespace PInvoke
         ///     error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern unsafe int LoadString(IntPtr hInstance, uint uID, out char* lpBuffer, int cchBufferMax);
+        public static extern unsafe int LoadString(
+            IntPtr hInstance,
+            uint uID,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpBuffer,
+            int cchBufferMax);
 
         /// <summary>
         /// Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar).
