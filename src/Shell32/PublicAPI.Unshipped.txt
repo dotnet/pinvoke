@@ -1,2 +1,5 @@
 static PInvoke.Shell32.CommandLineToArgvW_IntPtr(string lpCmdLine, out int pNumArgs) -> System.IntPtr
+static PInvoke.Shell32.SHGetFolderPath(System.IntPtr hwndOwner, PInvoke.Shell32.CSIDL nFolder, System.IntPtr hToken, PInvoke.Shell32.SHGetFolderPathFlags dwFlags, System.Span<char> pszPath) -> PInvoke.HResult
+static PInvoke.Shell32.SHGetPathFromIDList(PInvoke.Shell32.ITEMIDLIST* pidl, System.Span<char> pszPath) -> bool
+static PInvoke.Shell32.SHGetPathFromIDList(System.IntPtr pidl, System.Span<char> pszPath) -> bool
 static extern PInvoke.Shell32.CommandLineToArgvW(string lpCmdLine, out int pNumArgs) -> char**

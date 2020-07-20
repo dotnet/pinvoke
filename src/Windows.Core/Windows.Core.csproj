@@ -4,4 +4,7 @@
     <Summary>P/Invoke types for common Windows APIs.</Summary>
     <Description>P/Invoke types for common Windows APIs.</Description>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
 </Project>

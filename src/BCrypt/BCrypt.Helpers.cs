@@ -307,9 +307,9 @@ namespace PInvoke
             int length;
             BCryptEncrypt(
                 hKey,
-                ArraySegmentFor(pbInput),
+                pbInput,
                 pPaddingInfo,
-                ArraySegmentFor(pbIV),
+                pbIV,
                 null,
                 out length,
                 dwFlags).ThrowOnError();
@@ -317,10 +317,10 @@ namespace PInvoke
             byte[] cipherText = new byte[length];
             BCryptEncrypt(
                 hKey,
-                ArraySegmentFor(pbInput),
+                pbInput,
                 pPaddingInfo,
-                ArraySegmentFor(pbIV),
-                ArraySegmentFor(cipherText),
+                pbIV,
+                cipherText,
                 out length,
                 dwFlags).ThrowOnError();
 
@@ -356,6 +356,7 @@ namespace PInvoke
         /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the hKey parameter.
         /// </param>
         /// <returns>The encrypted ciphertext.</returns>
+        [Obsolete("Use the overload that accepts spans instead.")]
         public static unsafe NTSTATUS BCryptEncrypt(
             SafeKeyHandle key,
             ArraySegment<byte>? input,
@@ -486,6 +487,7 @@ namespace PInvoke
         /// A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <paramref name="key"/> parameter.
         /// </param>
         /// <returns>Returns a status code that indicates the success or failure of the function.</returns>
+        [Obsolete("Use the overload that accepts spans instead.")]
         public static unsafe NTSTATUS BCryptDecrypt(
             SafeKeyHandle key,
             ArraySegment<byte>? input,
