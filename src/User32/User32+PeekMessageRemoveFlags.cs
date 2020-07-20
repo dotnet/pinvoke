@@ -13,7 +13,7 @@ namespace PInvoke
 #pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         /// Flags to be passed to the <code>wRemoveMsg</code> parameter of
-        /// <see cref="PeekMessage(IntPtr, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />.
+        /// <see cref="PeekMessage(MSG*, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />.
         /// </summary>
 #pragma warning restore SA1629 // Documentation text should end with a period
         [Flags]
@@ -21,13 +21,13 @@ namespace PInvoke
         {
             /// <summary>
             /// Messages are not removed from the queue after processing by
-            /// <see cref="PeekMessage(IntPtr, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />.
+            /// <see cref="PeekMessage(MSG*, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />.
             /// </summary>
             PM_NOREMOVE = 0x0000,
 
             /// <summary>
             /// Messages are removed from the queue after processing by
-            /// <see cref="PeekMessage(IntPtr, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />.
+            /// <see cref="PeekMessage(MSG*, IntPtr, WindowMessage, WindowMessage, PeekMessageRemoveFlags)" />.
             /// </summary>
             PM_REMOVE = 0x0001,
 
