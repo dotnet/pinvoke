@@ -78,7 +78,7 @@ namespace PInvoke
         public static unsafe extern int GetModuleFileNameEx(
             IntPtr hProcess,
             IntPtr hModule,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFilename,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 3)] char* lpFilename,
             int nSize);
     }
 }

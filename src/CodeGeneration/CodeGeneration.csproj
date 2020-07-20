@@ -3,11 +3,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\CodeGenerationAttributes\FriendlyFlags.cs">
-      <Link>FriendlyFlags.cs</Link>
-    </Compile>
+    <PackageReference Include="CodeGeneration.Roslyn" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CodeGeneration.Roslyn" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
+    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" />
   </ItemGroup>
 </Project>

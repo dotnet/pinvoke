@@ -1,0 +1,7 @@
+static PInvoke.MSCorEE.GetFileVersion(string szFileName, System.Span<char> szBuffer, out int dwLength) -> PInvoke.HResult
+static PInvoke.MSCorEE.GetVersionFromProcess(System.Runtime.InteropServices.SafeHandle hProcess, System.Span<char> pVersion, out int dwLength) -> PInvoke.HResult
+static PInvoke.MSCorEE.StrongNameFreeBuffer(System.Span<byte> pbMemory) -> int
+static PInvoke.MSCorEE.StrongNameGetPublicKey(string szKeyContainer, System.ReadOnlySpan<byte> pbKeyBlob, out System.IntPtr ppbPublicKeyBlob, out int pcbPublicKeyBlob) -> int
+static PInvoke.MSCorEE.StrongNameGetPublicKey(string szKeyContainer, System.ReadOnlySpan<byte> pbKeyBlob, out byte* ppbPublicKeyBlob, out int pcbPublicKeyBlob) -> int
+static PInvoke.MSCorEE.StrongNameTokenFromPublicKey(System.ReadOnlySpan<byte> pbPublicKeyBlob, out System.IntPtr ppbStrongNameToken, out int pcbStrongNameToken) -> int
+static PInvoke.MSCorEE.StrongNameTokenFromPublicKey(System.ReadOnlySpan<byte> pbPublicKeyBlob, out byte* ppbStrongNameToken, out int pcbStrongNameToken) -> int

@@ -102,9 +102,9 @@ namespace PInvoke
         public static extern unsafe NTSTATUS BCryptCreateHash(
             SafeAlgorithmHandle hAlgorithm,
             out SafeHashHandle phHash,
-            byte* pbHashObject,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 3)] byte* pbHashObject,
             int cbHashObject,
-            byte* pbSecret,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In | FriendlyFlags.Optional, ArrayLengthParameter = 5)] byte* pbSecret,
             int cbSecret,
             BCryptCreateHashFlags dwFlags);
 
@@ -170,9 +170,9 @@ namespace PInvoke
             SafeAlgorithmHandle hAlgorithm,
             out SafeHashHandle phHash,
             int nHashes,
-            byte* pbHashObject,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 4)] byte* pbHashObject,
             int cbHashObject,
-            byte* pbSecret,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In | FriendlyFlags.Optional, ArrayLengthParameter = 6)] byte* pbSecret,
             int cbSecret,
             BCryptCreateHashFlags dwFlags);
 
@@ -218,12 +218,12 @@ namespace PInvoke
         [DllImport(nameof(BCrypt))]
         public static unsafe extern NTSTATUS BCryptEncrypt(
             SafeKeyHandle hKey,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 2)] byte* pbInput,
             int cbInput,
             void* pPaddingInfo,
-            byte* pbIV,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In | FriendlyFlags.Optional, ArrayLengthParameter = 5)] byte* pbIV,
             int cbIV,
-            byte* pbOutput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 7)] byte* pbOutput,
             int cbOutput,
             out int pcbResult,
             BCryptEncryptFlags dwFlags);
@@ -269,12 +269,12 @@ namespace PInvoke
         [DllImport(nameof(BCrypt))]
         public static unsafe extern NTSTATUS BCryptDecrypt(
             SafeKeyHandle hKey,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 2)] byte* pbInput,
             int cbInput,
             void* pPaddingInfo,
-            byte* pbIV,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In | FriendlyFlags.Optional, ArrayLengthParameter = 5)] byte* pbIV,
             int cbIV,
-            byte* pbOutput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 7)] byte* pbOutput,
             int cbOutput,
             out int pcbResult,
             BCryptEncryptFlags dwFlags);
@@ -298,7 +298,7 @@ namespace PInvoke
         [DllImport(nameof(BCrypt))]
         public static extern unsafe NTSTATUS BCryptHashData(
             SafeHashHandle hHash,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 2)] byte* pbInput,
             int cbInput,
             BCryptHashDataFlags dwFlags = BCryptHashDataFlags.None);
 
@@ -351,7 +351,7 @@ namespace PInvoke
         [DllImport(nameof(BCrypt))]
         public static extern unsafe NTSTATUS BCryptFinishHash(
             SafeHashHandle hHash,
-            byte* pbOutput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] byte* pbOutput,
             int cbOutput,
             BCryptFinishHashFlags dwFlags = BCryptFinishHashFlags.None);
 
@@ -390,9 +390,9 @@ namespace PInvoke
         public static unsafe extern NTSTATUS BCryptSignHash(
             SafeKeyHandle hKey,
             void* pPaddingInfo,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 3)] byte* pbInput,
             int cbInput,
-            byte* pbOutput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 5)] byte* pbOutput,
             int cbOutput,
             out int pcbResult,
             BCryptSignHashFlags dwFlags);
@@ -431,9 +431,9 @@ namespace PInvoke
         public static unsafe extern NTSTATUS BCryptVerifySignature(
             SafeKeyHandle hKey,
             void* pPaddingInfo,
-            byte* pbHash,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 3)] byte* pbHash,
             int cbHash,
-            byte* pbSignature,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 5)] byte* pbSignature,
             int cbSignature,
             BCryptSignHashFlags dwFlags = BCryptSignHashFlags.None);
 
@@ -488,9 +488,9 @@ namespace PInvoke
         public static extern unsafe NTSTATUS BCryptGenerateSymmetricKey(
             SafeAlgorithmHandle hAlgorithm,
             out SafeKeyHandle phKey,
-            byte* pbKeyObject,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 3)] byte* pbKeyObject,
             int cbKeyObject,
-            byte* pbSecret,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 5)] byte* pbSecret,
             int cbSecret,
             BCryptGenerateSymmetricKeyFlags flags = BCryptGenerateSymmetricKeyFlags.None);
 
@@ -552,9 +552,9 @@ namespace PInvoke
             SafeKeyHandle hImportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
             out SafeKeyHandle phKey,
-            byte* pbKeyObject,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 5)] byte* pbKeyObject,
             int cbKeyObject,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 7)] byte* pbInput,
             int cbInput,
             BCryptImportKeyFlags dwFlags = BCryptImportKeyFlags.None);
 
@@ -575,7 +575,7 @@ namespace PInvoke
             SafeKeyHandle hImportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
             out SafeKeyHandle phKey,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 5)] byte* pbInput,
             int cbInput,
             BCryptImportKeyPairFlags dwFlags);
 
@@ -611,7 +611,7 @@ namespace PInvoke
             SafeKeyHandle hKey,
             SafeKeyHandle hExportKey,
             [MarshalAs(UnmanagedType.LPWStr)] string pszBlobType,
-            byte* pbOutput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 4)] byte* pbOutput,
             int cbOutput,
             out int pcbResult,
             BCryptExportKeyFlags dwFlags = BCryptExportKeyFlags.None);
@@ -681,7 +681,7 @@ namespace PInvoke
             SafeSecretHandle sharedSecret,
             string keyDerivationFunction,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] BCryptBufferDesc* kdfParameters,
-            byte* derivedKey,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 4)] byte* derivedKey,
             int derivedKeySize,
             out int resultSize,
             BCryptDeriveKeyFlags flags);
@@ -701,7 +701,7 @@ namespace PInvoke
         public static extern unsafe NTSTATUS BCryptSetProperty(
             SafeHandle hObject,
             string pszProperty,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 3)] byte* pbInput,
             int cbInput,
             BCryptSetPropertyFlags dwFlags = BCryptSetPropertyFlags.None);
 
@@ -738,7 +738,7 @@ namespace PInvoke
         public static extern unsafe NTSTATUS BCryptGetProperty(
             SafeHandle hObject,
             string property,
-            byte* output,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 3)] byte* output,
             int outputSize,
             out int resultSize,
             BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None);
@@ -760,7 +760,7 @@ namespace PInvoke
         [DllImport(nameof(BCrypt))]
         public static extern unsafe NTSTATUS BCryptGenRandom(
             SafeAlgorithmHandle hAlgorithm,
-            byte* pbBuffer,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] byte* pbBuffer,
             int cbBuffer,
             BCryptGenRandomFlags flags = BCryptGenRandomFlags.None);
 

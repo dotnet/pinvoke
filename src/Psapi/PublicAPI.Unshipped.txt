@@ -1,0 +1,2 @@
+static PInvoke.Psapi.EnumProcessModulesEx(System.IntPtr hProcess, System.Span<System.IntPtr> lphModule, int cb, out int lpcbNeeded, PInvoke.Psapi.EnumProcessModulesFlags dwFilterFlag) -> bool
+static PInvoke.Psapi.GetModuleFileNameEx(System.IntPtr hProcess, System.IntPtr hModule, System.Span<char> lpFilename) -> int

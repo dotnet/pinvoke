@@ -1785,8 +1785,8 @@ static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, st
 static PInvoke.User32.CreateWindowStation(string lpwinsta, PInvoke.User32.WindowStationCreationFlags dwFlags, PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpsa) -> PInvoke.User32.SafeWindowStationHandle
 static PInvoke.User32.CreateWindowStation(string lpwinsta, PInvoke.User32.WindowStationCreationFlags dwFlags, PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, System.IntPtr lpsa) -> PInvoke.User32.SafeWindowStationHandle
 static PInvoke.User32.DispatchMessage(System.IntPtr lpMsg) -> System.IntPtr
-static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hDC, System.IntPtr lpString, int nCount, System.IntPtr lpRect, PInvoke.User32.TextFormats uFormat) -> int
-static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hDC, char[] lpString, int nCount, ref PInvoke.RECT lpRect, PInvoke.User32.TextFormats uFormat) -> int
+static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hdc, System.IntPtr lpchText, int cchText, System.IntPtr lprc, PInvoke.User32.TextFormats format) -> int
+static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hdc, char[] lpchText, int cchText, ref PInvoke.RECT lprc, PInvoke.User32.TextFormats format) -> int
 static PInvoke.User32.DrawTextEx(PInvoke.User32.SafeDCHandle hdc, System.IntPtr lpchText, int cchText, System.IntPtr lprc, uint dwDTFormat, System.IntPtr lpDTParams) -> int
 static PInvoke.User32.DrawTextEx(PInvoke.User32.SafeDCHandle hdc, char[] lpchText, int cchText, ref PInvoke.RECT lprc, uint dwDTFormat, PInvoke.User32.DRAWTEXTPARAMS? lpDTParams) -> int
 static PInvoke.User32.EndPaint(System.IntPtr hWnd, PInvoke.User32.PAINTSTRUCT lpPaint) -> bool
@@ -1858,7 +1858,7 @@ static extern PInvoke.User32.CreateWindowStation(string lpwinsta, PInvoke.User32
 static extern PInvoke.User32.DefWindowProc(System.IntPtr hWnd, PInvoke.User32.WindowMessage Msg, System.IntPtr wParam, System.IntPtr lParam) -> System.IntPtr
 static extern PInvoke.User32.DispatchMessage(PInvoke.User32.MSG* lpMsg) -> System.IntPtr
 static extern PInvoke.User32.DispatchMessage(ref PInvoke.User32.MSG lpmsg) -> System.IntPtr
-static extern PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hDC, char* lpString, int nCount, PInvoke.RECT* lpRect, PInvoke.User32.TextFormats uFormat) -> int
+static extern PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hdc, char* lpchText, int cchText, PInvoke.RECT* lprc, PInvoke.User32.TextFormats format) -> int
 static extern PInvoke.User32.DrawTextEx(PInvoke.User32.SafeDCHandle hdc, char* lpchText, int cchText, PInvoke.RECT* lprc, uint dwDTFormat, PInvoke.User32.DRAWTEXTPARAMS* lpDTParams) -> int
 static extern PInvoke.User32.EmptyClipboard() -> bool
 static extern PInvoke.User32.EndPaint(System.IntPtr hWnd, PInvoke.User32.PAINTSTRUCT* lpPaint) -> bool

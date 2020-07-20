@@ -888,7 +888,7 @@ namespace PInvoke
         /// </para>
         /// </param>
         /// <param name="lpVolumeNameBuffer">
-        /// A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the nVolumeNameSize parameter.
+        /// A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the <paramref name="nVolumeNameSize"/> parameter.
         /// </param>
         /// <param name="nVolumeNameSize">
         /// The length of a volume name buffer, in TCHARs. The maximum buffer size is MAX_PATH+1.
@@ -926,7 +926,7 @@ namespace PInvoke
         /// </param>
         /// <param name="lpFileSystemNameBuffer">
         /// A pointer to a buffer that receives the name of the file system, for example, the FAT file system or
-        /// the NTFS file system. The buffer size is specified by the nFileSystemNameSize parameter.
+        /// the NTFS file system. The buffer size is specified by the <paramref name="nFileSystemNameSize" /> parameter.
         /// </param>
         /// <param name="nFileSystemNameSize">
         /// <para>
@@ -943,12 +943,12 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool GetVolumeInformation(
             string lpRootPathName,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpVolumeNameBuffer,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* lpVolumeNameBuffer,
             int nVolumeNameSize,
             out uint lpVolumeSerialNumber,
             out int lpMaximumComponentLength,
             out FileSystemFlags lpFileSystemFlags,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpFileSystemNameBuffer,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 7)] char* lpFileSystemNameBuffer,
             int nFileSystemNameSize);
 
         /// <summary>

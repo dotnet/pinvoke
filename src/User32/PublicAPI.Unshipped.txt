@@ -5,14 +5,33 @@ PInvoke.User32.EnumDisplaySettingsExFlags.EDS_RAWMODE = 2 -> PInvoke.User32.Enum
 PInvoke.User32.EnumDisplaySettingsExFlags.EDS_ROTATEDMODE = 4 -> PInvoke.User32.EnumDisplaySettingsExFlags
 const PInvoke.User32.ENUM_CURRENT_SETTINGS = 4294967295 -> uint
 const PInvoke.User32.ENUM_REGISTRY_SETTINGS = 4294967294 -> uint
+static PInvoke.User32.CreateCursor(System.IntPtr hInst, int xHotspot, int yHotSpot, int nWidth, int nHeight, System.ReadOnlySpan<byte> pvANDPlane, System.ReadOnlySpan<byte> pvXORPlane) -> PInvoke.User32.SafeCursorHandle
+static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hdc, System.Span<char> lpchText, ref PInvoke.RECT lprc, PInvoke.User32.TextFormats format) -> int
+static PInvoke.User32.DrawTextEx(PInvoke.User32.SafeDCHandle hdc, System.Span<char> lpchText, ref PInvoke.RECT lprc, uint dwDTFormat, PInvoke.User32.DRAWTEXTPARAMS? lpDTParams) -> int
 static PInvoke.User32.EnumDisplayDevices(System.IntPtr lpDevice, uint iDevNum, System.IntPtr lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
+static PInvoke.User32.EnumDisplayDevices(System.ReadOnlySpan<char> lpDevice, uint iDevNum, ref PInvoke.DISPLAY_DEVICE lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
 static PInvoke.User32.EnumDisplayDevices(char[] lpDevice, uint iDevNum, ref PInvoke.DISPLAY_DEVICE lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
 static PInvoke.User32.EnumDisplaySettings(System.IntPtr lpszDeviceName, uint iModeNum, System.IntPtr lpDevMode) -> bool
+static PInvoke.User32.EnumDisplaySettings(System.ReadOnlySpan<char> lpszDeviceName, uint iModeNum, ref PInvoke.DEVMODE lpDevMode) -> bool
 static PInvoke.User32.EnumDisplaySettings(char[] lpszDeviceName, uint iModeNum, ref PInvoke.DEVMODE lpDevMode) -> bool
 static PInvoke.User32.EnumDisplaySettingsEx(System.IntPtr lpszDeviceName, uint iModeNum, System.IntPtr lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
+static PInvoke.User32.EnumDisplaySettingsEx(System.ReadOnlySpan<char> lpszDeviceName, uint iModeNum, ref PInvoke.DEVMODE lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
 static PInvoke.User32.EnumDisplaySettingsEx(char[] lpszDeviceName, uint iModeNum, ref PInvoke.DEVMODE lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
-static PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, char[] lpBuffer, int cchBufferMax) -> int
+static PInvoke.User32.GetClassName(System.IntPtr hWnd, System.Span<char> lpClassName) -> int
+static PInvoke.User32.GetClipboardFormatName(int format, System.Span<char> lpszFormatName) -> int
+static PInvoke.User32.GetMenuString(System.IntPtr hMenu, uint uIDItem, System.Span<char> lpString, PInvoke.User32.GetMenuStateFlags flags) -> int
+static PInvoke.User32.GetWindowText(System.IntPtr hWnd, System.Span<char> lpString) -> int
+static PInvoke.User32.LoadCursor(System.IntPtr hInstance, System.ReadOnlySpan<char> lpCursorName) -> PInvoke.User32.SafeCursorHandle
+static PInvoke.User32.LoadImage(System.IntPtr hInst, System.ReadOnlySpan<char> name, PInvoke.User32.ImageType type, int cx, int cy, PInvoke.User32.LoadImageFlags fuLoad) -> System.IntPtr
 static PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, System.IntPtr lpBuffer, int cchBufferMax) -> int
+static PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, System.Span<char> lpBuffer) -> int
+static PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, char[] lpBuffer, int cchBufferMax) -> int
+static PInvoke.User32.LookupIconIdFromDirectory(System.ReadOnlySpan<byte> presbits, bool fIcon) -> int
+static PInvoke.User32.LookupIconIdFromDirectoryEx(System.ReadOnlySpan<byte> presbits, bool fIcon, int cxDesired, int cyDesired, PInvoke.User32.LookupIconIdFromDirectoryExFlags Flags) -> int
+static PInvoke.User32.MsgWaitForMultipleObjectsEx(uint nCount, System.ReadOnlySpan<System.IntPtr> pHandles, uint dwMilliseconds, PInvoke.User32.WakeMask dwWakeMask, PInvoke.User32.MsgWaitForMultipleObjectsExFlags dwFlags) -> uint
+static PInvoke.User32.QueryDisplayConfig(uint Flags, ref int pNumPathArrayElements, System.Span<PInvoke.User32.DISPLAYCONFIG_PATH_INFO> pPathInfoArray, ref int pNumModeInfoArrayElements, System.Span<PInvoke.User32.DISPLAYCONFIG_MODE_INFO> pModeInfoArray, PInvoke.User32.DISPLAYCONFIG_TOPOLOGY_ID pCurrentTopologyId) -> int
+static PInvoke.User32.RealGetWindowClass(System.IntPtr hwnd, System.Span<char> pszType) -> uint
+static PInvoke.User32.SendInput(int nInputs, System.ReadOnlySpan<PInvoke.User32.INPUT> pInputs, int cbSize) -> uint
 static extern PInvoke.User32.EnumDisplayDevices(char* lpDevice, uint iDevNum, PInvoke.DISPLAY_DEVICE* lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
 static extern PInvoke.User32.EnumDisplaySettings(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode) -> bool
 static extern PInvoke.User32.EnumDisplaySettingsEx(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool

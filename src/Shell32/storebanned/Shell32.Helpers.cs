@@ -44,7 +44,9 @@ namespace PInvoke
         /// For example, "C:\Users" is returned rather than "C:\Users\".
         /// </remarks>
         [Obsolete("As of Windows Vista, this function is merely a wrapper for " + nameof(SHGetKnownFolderPath) + ".")]
+#pragma warning disable RS0027 // Public API with optional parameter(s) should have the most parameters amongst its public overloads.
         public static unsafe string SHGetFolderPath(CSIDL folder, IntPtr hToken = default(IntPtr), SHGetFolderPathFlags flags = SHGetFolderPathFlags.SHGFP_TYPE_CURRENT)
+#pragma warning restore RS0027 // Public API with optional parameter(s) should have the most parameters amongst its public overloads.
         {
             char* pszPath = stackalloc char[Kernel32.MAX_PATH + 1];
 #pragma warning disable CS0618 // Type or member is obsolete

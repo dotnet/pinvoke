@@ -8,12 +8,24 @@ namespace PInvoke
     [Flags]
     public enum FriendlyFlags
     {
+        /// <summary>
+        /// The pointer is to the first element in an array.
+        /// </summary>
         Array = 0x1,
 
+        /// <summary>
+        /// The value is at least partially initialized by the caller.
+        /// </summary>
         In = 0x2,
 
+        /// <summary>
+        /// The value is initialized or modified by the p/invoked method.
+        /// </summary>
         Out = 0x4,
 
+        /// <summary>
+        /// The value is optional. Null is an acceptable pointer value for this parameter.
+        /// </summary>
         Optional = 0x8,
 
         /// <summary>
@@ -23,6 +35,11 @@ namespace PInvoke
         /// <remarks>Intended for use on <see cref="IntPtr"/> or <see cref="UIntPtr"/></remarks>
         NativeInt = 0x16,
 
+        /// <summary>
+        /// The union of the <see cref="In"/> and <see cref="Out"/> flags,
+        /// indicating that the value for this parameter may be at least partially initialized by the caller
+        /// and modified by the p/invoked method.
+        /// </summary>
         Bidirectional = In | Out,
     }
 }

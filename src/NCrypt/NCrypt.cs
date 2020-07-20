@@ -119,7 +119,7 @@ namespace PInvoke
         public static extern unsafe SECURITY_STATUS NCryptKeyDerivation(
             SafeKeyHandle hKey,
             NCryptBufferDesc* pParameterList,
-            byte* pbDerivedKey,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 3)] byte* pbDerivedKey,
             int cbDerivedKey,
             out int pcbResult,
             NCryptKeyDerivationFlags dwFlags = NCryptKeyDerivationFlags.None);
@@ -140,7 +140,7 @@ namespace PInvoke
             SafeSecretHandle hSharedSecret,
             string pwszKDF,
             NCryptBufferDesc* pParameterList,
-            byte* pbDerivedKey,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 4)] byte* pbDerivedKey,
             int cbDerivedKey,
             out int pcbResult,
             NCryptDeriveKeyFlags dwFlags = NCryptDeriveKeyFlags.None);
@@ -289,7 +289,7 @@ namespace PInvoke
             string pszBlobType,
             NCryptBufferDesc* pParameterList,
             out SafeKeyHandle phKey,
-            byte* pbData,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 6)] byte* pbData,
             int cbData,
             NCryptExportKeyFlags dwFlags = NCryptExportKeyFlags.None);
 
@@ -343,7 +343,7 @@ namespace PInvoke
         public static extern unsafe SECURITY_STATUS NCryptSetProperty(
             SafeHandle hObject,
             string pszProperty,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 3)] byte* pbInput,
             int cbInput,
             NCryptSetPropertyFlags dwFlags);
 
@@ -406,10 +406,10 @@ namespace PInvoke
         [DllImport(nameof(NCrypt))]
         public static unsafe extern SECURITY_STATUS NCryptEncrypt(
             SafeKeyHandle hKey,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 2)] byte* pbInput,
             int cbInput,
             void* pPaddingInfo,
-            byte* pbOutput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 5)] byte* pbOutput,
             int cbOutput,
             out int pcbResult,
             NCryptEncryptFlags dwFlags = NCryptEncryptFlags.None);
@@ -447,10 +447,10 @@ namespace PInvoke
         [DllImport(nameof(NCrypt))]
         public static unsafe extern SECURITY_STATUS NCryptDecrypt(
             SafeKeyHandle hKey,
-            byte* pbInput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 2)] byte* pbInput,
             int cbInput,
             void* pPaddingInfo,
-            byte* pbOutput,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 5)] byte* pbOutput,
             int cbOutput,
             out int pcbResult,
             NCryptEncryptFlags dwFlags);
@@ -490,9 +490,9 @@ namespace PInvoke
         public static unsafe extern SECURITY_STATUS NCryptSignHash(
             SafeKeyHandle hKey,
             void* pPaddingInfo,
-            byte* pbHashValue,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 3)] byte* pbHashValue,
             int cbHashValue,
-            byte* pbSignature,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 5)] byte* pbSignature,
             int cbSignature,
             out int pcbResult,
             NCryptSignHashFlags dwFlags);
@@ -531,9 +531,9 @@ namespace PInvoke
         public static unsafe extern SECURITY_STATUS NCryptVerifySignature(
             SafeKeyHandle hKey,
             void* pPaddingInfo,
-            byte* pbHashValue,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 3)] byte* pbHashValue,
             int cbHashValue,
-            byte* pbSignature,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 5)] byte* pbSignature,
             int cbSignature,
             NCryptSignHashFlags dwFlags = NCryptSignHashFlags.None);
 
