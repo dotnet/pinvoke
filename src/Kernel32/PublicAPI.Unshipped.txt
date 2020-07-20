@@ -217,6 +217,10 @@ static PInvoke.Kernel32.DeviceIoControl(PInvoke.Kernel32.SafeObjectHandle hDevic
 static PInvoke.Kernel32.DeviceIoControlAsync<TInput, TOutput>(PInvoke.Kernel32.SafeObjectHandle hDevice, uint dwIoControlCode, System.Memory<TInput> inBuffer, System.Memory<TOutput> outBuffer, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<uint>
 static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, System.IntPtr lpFileTime) -> bool
 static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, out PInvoke.Kernel32.FILETIME lpFileTime) -> bool
+static PInvoke.Kernel32.EnumResourceLanguages(PInvoke.Kernel32.SafeLibraryHandle hModule, char[] lpType, char[] lpName, PInvoke.Kernel32.EnumResLangProc lpEnumFunc, System.IntPtr lParam) -> bool
+static PInvoke.Kernel32.EnumResourceLanguages(PInvoke.Kernel32.SafeLibraryHandle hModule, char[] lpType, char[] lpName, PInvoke.Kernel32.EnumResLangProc lpEnumFunc, void* lParam) -> bool
+static PInvoke.Kernel32.EnumResourceNames(PInvoke.Kernel32.SafeLibraryHandle hModule, char[] lpszType, PInvoke.Kernel32.EnumResNameProc lpEnumFunc, System.IntPtr lParam) -> bool
+static PInvoke.Kernel32.FindResource(PInvoke.Kernel32.SafeLibraryHandle hModule, char[] lpName, char[] lpType) -> System.IntPtr
 static PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpcBaseAddress, System.UIntPtr dwSize) -> bool
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(System.IntPtr ProcNumber) -> void
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(out PInvoke.Kernel32.PROCESSOR_NUMBER ProcNumber) -> void

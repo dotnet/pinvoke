@@ -200,9 +200,11 @@ namespace PInvoke
             }
         }
 
+#pragma warning disable RS0027 // Public API with optional parameter(s) should have the most parameters amongst its public overloads.
         public static unsafe string QueryFullProcessImageName(
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags = QueryFullProcessImageNameFlags.None)
+#pragma warning restore RS0027 // Public API with optional parameter(s) should have the most parameters amongst its public overloads.
         {
             // If we ever resize over this value something got really wrong
             const int maximumRealisticSize = 1 * 1024 * 2014;

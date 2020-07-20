@@ -838,7 +838,7 @@ namespace PInvoke
             SafeServiceHandle hSCManager,
             ServiceType dwServiceType,
             ServiceStateQuery dwServiceState,
-            byte* lpServices,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 4)] byte* lpServices,
             int cbBufSize,
             ref int pcbBytesNeeded,
             ref int lpServicesReturned,
@@ -1256,7 +1256,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool CryptHashData(
             SafeHashHandle hHash,
-            byte* pbData,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 2)] byte* pbData,
             int dataLen,
             CryptHashDataFlags flags);
 
@@ -1280,7 +1280,7 @@ namespace PInvoke
         public static extern unsafe bool CryptGetHashParam(
             SafeHashHandle hHash,
             CryptGetHashParamFlags dwParam,
-            byte* pbData,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 3)] byte* pbData,
             [Friendly(FriendlyFlags.Bidirectional)] int* pdwDataLen,
             uint dwFlags);
 

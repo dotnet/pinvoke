@@ -313,7 +313,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int GetClassName(
             IntPtr hWnd,
-            [Friendly(FriendlyFlags.Array)] char* lpClassName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* lpClassName,
             int nMaxCount);
 
         /// <summary>
@@ -1031,7 +1031,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe SafeCursorHandle LoadCursor(
             IntPtr hInstance,
-            [Friendly(FriendlyFlags.Array)] char* lpCursorName);
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] char* lpCursorName);
 
         /// <summary>
         /// Retrieves a handle to the current cursor.
@@ -1162,10 +1162,20 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowDisplayAffinity(IntPtr hWnd, int dwAffinity);
 
+        /// <summary>
+        /// Retrieves a string that specifies the window type.
+        /// </summary>
+        /// <param name="hwnd">A handle to the window whose type will be retrieved.</param>
+        /// <param name="pszType">A pointer to a string that receives the window type.</param>
+        /// <param name="cchType">The length, in characters, of the buffer pointed to by the <paramref name="pszType"/> parameter.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the number of characters copied to the specified buffer.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe uint RealGetWindowClass(
             IntPtr hwnd,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* pszType,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* pszType,
             uint cchType);
 
         /// <summary>
@@ -1405,7 +1415,7 @@ namespace PInvoke
         public static extern unsafe int GetMenuString(
             IntPtr hMenu,
             uint uIDItem,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpString,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array | FriendlyFlags.Optional, ArrayLengthParameter = 3)] char* lpString,
             int cchMax,
             GetMenuStateFlags flags);
 
@@ -1602,7 +1612,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe int LookupIconIdFromDirectory(
-            byte* presbits,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] byte* presbits,
             [MarshalAs(UnmanagedType.Bool)] bool fIcon);
 
         /// <summary>
@@ -1624,7 +1634,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe int LookupIconIdFromDirectoryEx(
-            byte* presbits,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] byte* presbits,
             [MarshalAs(UnmanagedType.Bool)] bool fIcon,
             int cxDesired,
             int cyDesired,
@@ -1879,7 +1889,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int GetClipboardFormatName(
             int format,
-            [Friendly(FriendlyFlags.Array)] char* lpszFormatName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* lpszFormatName,
             int cchMaxCount);
 
         [DllImport(nameof(User32), SetLastError = true)]
@@ -1917,7 +1927,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe uint SendInput(
             int nInputs,
-            [Friendly(FriendlyFlags.Array)] INPUT* pInputs,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] INPUT* pInputs,
             int cbSize);
 
         /// <summary>
@@ -2931,7 +2941,7 @@ namespace PInvoke
         public static extern unsafe int LoadString(
             IntPtr hInstance,
             uint uID,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpBuffer,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array, ArrayLengthParameter = 3)] char* lpBuffer,
             int cchBufferMax);
 
         /// <summary>
@@ -2972,7 +2982,7 @@ namespace PInvoke
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe int GetWindowText(
             IntPtr hWnd,
-            [Friendly(FriendlyFlags.Array)] char* lpString,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* lpString,
             int nMaxCount);
 
         /// <summary>
@@ -3347,19 +3357,19 @@ namespace PInvoke
         /// It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth).
         /// To specify additional formatting options, use the <see cref="DrawTextEx(SafeDCHandle, char*, int, RECT*, uint, DRAWTEXTPARAMS*)"/> function.
         /// </summary>
-        /// <param name="hDC">A handle to the device context.</param>
-        /// <param name="lpString">
+        /// <param name="hdc">A handle to the device context.</param>
+        /// <param name="lpchText">
         /// A pointer to the string that specifies the text to be drawn.
-        /// If the <paramref name="nCount"/> parameter is -1, the string must be null-terminated.
-        /// If <paramref name="uFormat"/> includes <see cref="TextFormats.DT_MODIFYSTRING"/>, the function could add up to four additional characters to this string.
+        /// If the <paramref name="cchText"/> parameter is -1, the string must be null-terminated.
+        /// If <paramref name="format"/> includes <see cref="TextFormats.DT_MODIFYSTRING"/>, the function could add up to four additional characters to this string.
         /// The buffer containing the string should be large enough to accommodate these extra characters.
         /// </param>
-        /// <param name="nCount">The length, in characters, of the string. If nCount is -1, then the lpchText parameter is assumed to be a pointer to a null-terminated string and DrawText computes the character count automatically.</param>
-        /// <param name="lpRect">A pointer to a RECT structure that contains the rectangle (in logical coordinates) in which the text is to be formatted.</param>
-        /// <param name="uFormat">The method of formatting the text.</param>
+        /// <param name="cchText">The length, in characters, of the string. If <paramref name="cchText"/> is -1, then the <paramref name="lpchText"/> parameter is assumed to be a pointer to a null-terminated string and DrawText computes the character count automatically.</param>
+        /// <param name="lprc">A pointer to a RECT structure that contains the rectangle (in logical coordinates) in which the text is to be formatted.</param>
+        /// <param name="format">The method of formatting the text.</param>
         /// <returns>
         /// If the function succeeds, the return value is the height of the text in logical units.
-        /// If <see cref="TextFormats.DT_VCENTER"/> or <see cref="TextFormats.DT_BOTTOM"/> is specified, the return value is the offset from <see cref="RECT.top"/> (<paramref name="lpRect"/>) to the bottom of the drawn text.
+        /// If <see cref="TextFormats.DT_VCENTER"/> or <see cref="TextFormats.DT_BOTTOM"/> is specified, the return value is the offset from <see cref="RECT.top"/> (<paramref name="lprc"/>) to the bottom of the drawn text.
         /// If the function fails, the return value is zero.</returns>
         /// <remarks>
         /// <para>
@@ -3375,11 +3385,11 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int DrawText(
-            SafeDCHandle hDC,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* lpString,
-            int nCount,
-            [Friendly(FriendlyFlags.Bidirectional)] RECT* lpRect,
-            TextFormats uFormat);
+            SafeDCHandle hdc,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional, ArrayLengthParameter = 2)] char* lpchText,
+            int cchText,
+            [Friendly(FriendlyFlags.Bidirectional)] RECT* lprc,
+            TextFormats format);
 
         /// <summary>
         /// The DrawTextEx function draws formatted text in the specified rectangle.
@@ -3392,7 +3402,7 @@ namespace PInvoke
         /// </param>
         /// <param name="cchText">
         /// The length of the string pointed to by <paramref name="lpchText"/>.
-        /// If cchText is -1, then the lpchText parameter is assumed to be a pointer to a null-terminated string and DrawTextEx computes the character count automatically.
+        /// If <paramref name="cchText"/> is -1, then the lpchText parameter is assumed to be a pointer to a null-terminated string and DrawTextEx computes the character count automatically.
         /// </param>
         /// <param name="lprc">A pointer to a <see cref="RECT"/> structure that contains the rectangle, in logical coordinates, in which the text is to be formatted.</param>
         /// <param name="dwDTFormat">The formatting options.</param>
@@ -3405,7 +3415,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int DrawTextEx(
             SafeDCHandle hdc,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* lpchText,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional, ArrayLengthParameter = 2)] char* lpchText,
             int cchText,
             [Friendly(FriendlyFlags.Bidirectional)] RECT* lprc,
             uint dwDTFormat,

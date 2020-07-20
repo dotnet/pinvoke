@@ -219,7 +219,7 @@ namespace PInvoke
             SP_DEVINFO_DATA* deviceInfoData,
             DEVPROPKEY* propertyKey,
             uint* propertyType,
-            byte* propertyBuffer,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out | FriendlyFlags.Optional, ArrayLengthParameter = 5)] byte* propertyBuffer,
             uint propertyBufferSize,
             uint* requiredSize,
             SetupDiGetDevicePropertyFlags flags);

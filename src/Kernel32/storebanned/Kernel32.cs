@@ -985,7 +985,7 @@ namespace PInvoke
         public static extern unsafe bool QueryFullProcessImageName(
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpExeName,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array, ArrayLengthParameter = 3)] char* lpExeName,
             ref int lpdwSize);
 
         /// <summary>Retrieves the full name of the executable image for the specified process.</summary>
@@ -1323,7 +1323,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool GetDllDirectory(
             int nBufferLength,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* lpBuffer);
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 0)] char* lpBuffer);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -1615,7 +1615,7 @@ namespace PInvoke
         ///     function.
         /// </param>
         /// <param name="ClientComputerName">The computer name.</param>
-        /// <param name="ClientComputerNameLength">The size of the ClientComputerName buffer, in bytes.</param>
+        /// <param name="ClientComputerNameLength">The size of the <paramref name="ClientComputerName"/> buffer, in bytes.</param>
         /// <returns>
         ///     If the function succeeds, the return value is nonzero.
         ///     <para>
@@ -1627,7 +1627,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool GetNamedPipeClientComputerName(
             SafeObjectHandle Pipe,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* ClientComputerName,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array, ArrayLengthParameter = 2)] char* ClientComputerName,
             int ClientComputerNameLength);
 
         /// <summary>Retrieves the client process identifier for the specified named pipe.</summary>
@@ -1784,10 +1784,10 @@ namespace PInvoke
         public static extern unsafe bool GetNamedPipeHandleState(
             SafeObjectHandle hNamedPipe,
             out PipeMode lpState,
-            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCurInstances,
-            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpMaxCollectionCount,
-            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] int* lpCollectDataTimeout,
-            [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Array)] char* lpUserName,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] int* lpCurInstances,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] int* lpMaxCollectionCount,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] int* lpCollectDataTimeout,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional | FriendlyFlags.Array, ArrayLengthParameter = 6)] char* lpUserName,
             int nMaxUserNameSize);
 
         /// <summary>Retrieves information about the specified named pipe.</summary>
@@ -2357,7 +2357,11 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool EnumResourceNames(SafeLibraryHandle hModule, char* lpszType, EnumResNameProc lpEnumFunc, IntPtr lParam);
+        public static extern unsafe bool EnumResourceNames(
+            SafeLibraryHandle hModule,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* lpszType,
+            EnumResNameProc lpEnumFunc,
+            IntPtr lParam);
 
         /// <summary>
         ///     Enumerates language-specific resources, of the specified type and name, associated with a binary module.
@@ -2388,7 +2392,12 @@ namespace PInvoke
         /// <returns>Returns TRUE if successful or FALSE otherwise. To get extended error information, call <see cref="GetLastError"/>.</returns>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern unsafe bool EnumResourceLanguages(SafeLibraryHandle hModule, char* lpType, char* lpName, EnumResLangProc lpEnumFunc, void* lParam);
+        public static extern unsafe bool EnumResourceLanguages(
+            SafeLibraryHandle hModule,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* lpType,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* lpName,
+            EnumResLangProc lpEnumFunc,
+            void* lParam);
 
         /// <summary>Determines whether a value is an integer identifier for a resource.</summary>
         /// <param name="p">The pointer to be tested whether it contains an integer resource identifier.</param>
@@ -2429,7 +2438,10 @@ namespace PInvoke
         ///     </para>
         /// </returns>
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern unsafe IntPtr FindResource(SafeLibraryHandle hModule, char* lpName, char* lpType);
+        public static extern unsafe IntPtr FindResource(
+            SafeLibraryHandle hModule,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* lpName,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* lpType);
 
         /// <summary>Retrieves the size, in bytes, of the specified resource.</summary>
         /// <param name="hModule">A handle to the module whose executable file contains the resource.</param>
@@ -2562,9 +2574,16 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlushConsoleInputBuffer(IntPtr hConsoleInput);
 
+        /// <summary>
+        /// Retrieves all defined console aliases for the specified executable.
+        /// </summary>
+        /// <param name="lpAliasBuffer">A pointer to a buffer that receives the aliases. The format of the data is as follows: <c>Source1=Target1\0Source2=Target2\0... SourceN=TargetN\0</c>, where <c>N</c> is the number of console aliases defined.</param>
+        /// <param name="AliasBufferLength">The size of the buffer pointed to by <paramref name="lpAliasBuffer"/>, in bytes.</param>
+        /// <param name="lpExeName">The executable file whose aliases are to be retrieved.</param>
+        /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe int GetConsoleAliases(
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpAliasBuffer,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array, ArrayLengthParameter = 1)] char* lpAliasBuffer,
             int AliasBufferLength,
             string lpExeName);
 
@@ -2573,7 +2592,7 @@ namespace PInvoke
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe int GetConsoleAliasExes(
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpExeNameBuffer,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array, ArrayLengthParameter = 1)] char* lpExeNameBuffer,
             int ExeNameBufferLength);
 
         [DllImport(nameof(Kernel32), SetLastError = true)]
@@ -2582,7 +2601,7 @@ namespace PInvoke
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe int GetConsoleAlias(
             string lpSource,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpTargetBuffer,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array, ArrayLengthParameter = 2)] char* lpTargetBuffer,
             int TargetBufferLength,
             string lpExeName);
 
@@ -2633,7 +2652,7 @@ namespace PInvoke
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe int GetConsoleTitle(
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpConsoleTitle,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array, ArrayLengthParameter = 1)] char* lpConsoleTitle,
             int nSize);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
