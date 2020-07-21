@@ -459,5 +459,26 @@ namespace PInvoke
                 return (void*)SetWindowLong(hWnd, nIndex, dwValue);
             }
         }
+
+        /// <inheritdoc cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/>
+        [NoFriendlyOverloads]
+        public static unsafe bool GetMonitorInfo(
+            IntPtr hMonitor,
+            [Friendly(FriendlyFlags.Out)] MONITORINFOEX* lpmi)
+        {
+            return GetMonitorInfo(hMonitor, (MONITORINFO*)lpmi);
+        }
+
+        /// <inheritdoc cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/>
+        [NoFriendlyOverloads]
+        public static unsafe bool GetMonitorInfo(
+            IntPtr hMonitor,
+            out MONITORINFOEX lpmi)
+        {
+            fixed (MONITORINFOEX* lpmiLocal = &lpmi)
+            {
+                return GetMonitorInfo(hMonitor, lpmiLocal);
+            }
+        }
     }
 }

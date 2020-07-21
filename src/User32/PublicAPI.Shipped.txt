@@ -296,12 +296,12 @@ PInvoke.User32.MONITORENUMPROC
 PInvoke.User32.MONITORINFO
 PInvoke.User32.MONITORINFO.MONITORINFO() -> void
 PInvoke.User32.MONITORINFO.cbSize -> int
-PInvoke.User32.MONITORINFO.dwFlags -> uint
+PInvoke.User32.MONITORINFO.dwFlags -> PInvoke.User32.MONITORINFO_Flags
 PInvoke.User32.MONITORINFO.rcMonitor -> PInvoke.RECT
 PInvoke.User32.MONITORINFO.rcWork -> PInvoke.RECT
 PInvoke.User32.MONITORINFOEX
 PInvoke.User32.MONITORINFOEX.DeviceName -> char*
-PInvoke.User32.MONITORINFOEX.Flags -> uint
+PInvoke.User32.MONITORINFOEX.Flags -> PInvoke.User32.MONITORINFO_Flags
 PInvoke.User32.MONITORINFOEX.MONITORINFOEX() -> void
 PInvoke.User32.MONITORINFOEX.Monitor -> PInvoke.RECT
 PInvoke.User32.MONITORINFOEX.WorkArea -> PInvoke.RECT
@@ -1886,7 +1886,7 @@ static extern PInvoke.User32.GetKeyState(int nVirtKey) -> short
 static extern PInvoke.User32.GetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, PInvoke.User32.MENUITEMINFO* lpmii) -> bool
 static extern PInvoke.User32.GetMessage(PInvoke.User32.MSG* lpMsg, System.IntPtr hWnd, PInvoke.User32.WindowMessage wMsgFilterMin, PInvoke.User32.WindowMessage wMsgFilterMax) -> int
 static extern PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, PInvoke.User32.MONITORINFO* lpmi) -> bool
-static extern PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, PInvoke.User32.MONITORINFOEX* lpmi) -> bool
+static PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, PInvoke.User32.MONITORINFOEX* lpmi) -> bool
 static extern PInvoke.User32.GetProcessWindowStation() -> PInvoke.User32.SafeWindowStationHandle
 static extern PInvoke.User32.GetQueueStatus(PInvoke.User32.QueueStatusFlags flags) -> int
 static extern PInvoke.User32.GetShellWindow() -> System.IntPtr
