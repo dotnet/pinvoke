@@ -4,7 +4,6 @@
 namespace PInvoke
 {
     using System;
-    using System.Runtime.InteropServices;
 
     /// <content>
     /// Contains the <see cref="MONITORINFOEX"/> nested type.
@@ -12,16 +11,16 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// The MONITORINFOEX structure contains information about a display monitor. The GetMonitorInfo
-        /// function stores information into a MONITORINFOEX structure or a MONITORINFO structure. The
-        /// MONITORINFOEX structure is a superset of the MONITORINFO structure. The MONITORINFOEX
+        /// The <see cref="MONITORINFOEX" /> structure contains information about a display monitor. The <see cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/>
+        /// function stores information into a <see cref="MONITORINFOEX" /> structure or a MONITORINFO structure. The
+        /// <see cref="MONITORINFOEX" /> structure is a superset of the MONITORINFO structure. The <see cref="MONITORINFOEX" />
         /// structure adds a string member to contain a name for the display monitor.
         /// </summary>
         public unsafe struct MONITORINFOEX
         {
             /// <summary>
-            /// The size, in bytes, of the structure. Set this member to sizeof(MONITORINFOEX) (72)
-            /// before calling the GetMonitorInfo function. Doing so lets the function determine the type
+            /// The size, in bytes, of the structure. Set this member to <c>sizeof(MONITORINFOEX)</c> (72)
+            /// before calling the <see cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/> function. Doing so lets the function determine the type
             /// of structure you are passing to it.
             /// </summary>
             public int cbSize;
@@ -45,8 +44,7 @@ namespace PInvoke
             /// <summary>
             /// The attributes of the display monitor.
             /// </summary>
-            /// <remarks>This member can be the following value: 1 : MONITORINFOF_PRIMARY.</remarks>
-            public uint Flags;
+            public MONITORINFO_Flags Flags;
 
             /// <summary>
             /// A string that specifies the device name of the monitor being used. Most applications have
@@ -54,6 +52,11 @@ namespace PInvoke
             /// </summary>
             public fixed char DeviceName[CCHDEVICENAME];
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="MONITORINFO"/> struct
+            /// with the <see cref="cbSize"/> field initialized.
+            /// </summary>
+            /// <returns>The newly initialized struct.</returns>
             public static MONITORINFOEX Create() => new MONITORINFOEX { cbSize = sizeof(MONITORINFOEX) };
         }
     }

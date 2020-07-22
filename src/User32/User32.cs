@@ -1746,7 +1746,7 @@ namespace PInvoke
         public static extern unsafe bool EnumDisplaySettings(
             [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] char* lpszDeviceName,
             uint iModeNum,
-            [Friendly(FriendlyFlags.Bidirectional)]DEVMODE* lpDevMode);
+            [Friendly(FriendlyFlags.Bidirectional)] DEVMODE* lpDevMode);
 
         /// <summary>
         /// Retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes of a display device, make a series of calls to this function.
@@ -1797,15 +1797,27 @@ namespace PInvoke
             string lpClassName,
             ref WNDCLASSEX lpWndClass);
 
-        [DllImport(nameof(User32), SetLastError = true)]
+        /// <summary>
+        /// Retrieves information about a display monitor.
+        /// </summary>
+        /// <param name="hMonitor">A handle to the display monitor of interest.</param>
+        /// <param name="lpmi">
+        /// A pointer to a <see cref="MONITORINFO"/> or <see cref="MONITORINFOEX"/> structure that receives information about the specified display monitor.
+        /// You must set the cbSize member of the structure to <c>sizeof(MONITORINFO)</c> or <c>sizeof(MONITORINFOEX)</c> before calling the <see cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/> function. Doing so lets the function determine the type of structure you are passing to it.
+        /// The <see cref="MONITORINFOEX"/> structure is a superset of the <see cref="MONITORINFO"/> structure. It has one additional member: a string that contains a name for the display monitor. Most applications have no use for a display monitor name, and so can save some bytes by using a <see cref="MONITORINFO"/> structure.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is <c>true</c>.
+        /// If the function fails, the return value is <c>false</c>.
+        /// </returns>
+        [DllImport(nameof(User32))]
         public static extern unsafe bool GetMonitorInfo(
             IntPtr hMonitor,
             [Friendly(FriendlyFlags.Out)] MONITORINFO* lpmi);
 
-        [DllImport(nameof(User32), EntryPoint = "GetMonitorInfo", SetLastError = true)]
-        public static extern unsafe bool GetMonitorInfoEx(
-            IntPtr hMonitor,
-            [Friendly(FriendlyFlags.Out)] MONITORINFOEX* lpmi);
+        /// <inheritdoc cref="GetMonitorInfo(IntPtr, MONITORINFOEX*)"/>
+        [Obsolete("Use " + nameof(GetMonitorInfo) + " instead.")]
+        public static unsafe bool GetMonitorInfoEx(IntPtr hMonitor, [Friendly(FriendlyFlags.Out)] MONITORINFOEX* lpmi) => GetMonitorInfo(hMonitor, lpmi);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetSystemMetrics(SystemMetric smIndex);
