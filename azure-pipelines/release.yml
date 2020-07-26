@@ -1,4 +1,5 @@
 trigger: none # We only want to trigger manually or based on resources
+pr: none
 
 resources:
   pipelines:
@@ -16,7 +17,7 @@ stages:
   - deployment: create
     pool:
       vmImage: ubuntu-latest
-    environment: Approval
+    environment: No-Approval # Approval is already granted in the release stage.
     strategy:
       runOnce:
         deploy:
