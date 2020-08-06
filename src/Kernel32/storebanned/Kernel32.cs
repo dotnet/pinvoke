@@ -6,6 +6,7 @@
 namespace PInvoke
 {
     using System;
+    using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
     using System.Text;
     using static Kernel32.ACCESS_MASK.GenericRight;
@@ -2674,14 +2675,26 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ReadConsoleOutput(IntPtr hConsoleOutput, out CHAR_INFO lpBuffer, COORD dwBufferSize, COORD dwBufferCoord, ref SMALL_RECT lpReadRegion);
 
+        /// <summary>
+        /// Reads character input from the console input buffer and removes it from the buffer.
+        /// </summary>
+        /// <param name="hConsoleInput">A handle to the console input buffer. The handle must have the GENERIC_READ access right. For more information, see <see href="https://docs.microsoft.com/en-us/windows/console/console-buffer-security-and-access-rights">Console Buffer Security and Access Rights</see>.</param>
+        /// <param name="lpBuffer">A pointer to a buffer that receives the data read from the console input buffer.</param>
+        /// <param name="nNumberOfCharsToRead">The number of characters to be read. The size of the buffer pointed to by the lpBuffer parameter should be at least <c><paramref name="nNumberOfCharsToRead" /> * sizeof(<see cref="char"/>)</c> bytes.</param>
+        /// <param name="lpNumberOfCharsRead">A pointer to a variable that receives the number of characters actually read.</param>
+        /// <param name="pInputControl">A pointer to a <see cref="CONSOLE_READCONSOLE_CONTROL"/> structure that specifies a control character to signal the end of the read operation. This parameter can be NULL.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static unsafe extern bool ReadConsole(
             IntPtr hConsoleInput,
-            void* lpBuffer,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* lpBuffer,
             int nNumberOfCharsToRead,
-            [Friendly(FriendlyFlags.Out)] int lpNumberOfCharsRead,
-            IntPtr lpReserved);
+            out int lpNumberOfCharsRead,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] CONSOLE_READCONSOLE_CONTROL* pInputControl);
 
         [DllImport(nameof(Kernel32), CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

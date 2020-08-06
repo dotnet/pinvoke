@@ -18,27 +18,27 @@ namespace PInvoke
         {
             /// <summary>
             /// CTRL+C is processed by the system and is not placed in the input buffer.
-            /// If the input buffer is being read by <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, void*, int, int, IntPtr)"/>,
-            /// other control keys are processed by the system and are not returned in the <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, void*, int, int, IntPtr)"/> buffer.
+            /// If the input buffer is being read by <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, char*, int, out int, CONSOLE_READCONSOLE_CONTROL*)"/>,
+            /// other control keys are processed by the system and are not returned in the <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, char*, int, out int, CONSOLE_READCONSOLE_CONTROL*)"/> buffer.
             /// If the <see cref="ENABLE_LINE_INPUT"/> mode is also enabled, backspace, carriage return, and line feed characters are handled by the system.
             /// </summary>
             ENABLE_PROCESSED_INPUT = 0x0001,
 
             /// <summary>
             /// Characters written by the <see cref="WriteFile(SafeObjectHandle, void*, int)"/> or <see cref="WriteConsole(IntPtr, void*, int, int*, IntPtr)"/> function
-            /// or echoed by the <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, void*, int, int, IntPtr)"/> function are parsed for ASCII control sequences, and the correct action is performed.
+            /// or echoed by the <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, char*, int, out int, CONSOLE_READCONSOLE_CONTROL*)"/> function are parsed for ASCII control sequences, and the correct action is performed.
             /// Backspace, tab, bell, carriage return, and line feed characters are processed.
             /// </summary>
             ENABLE_PROCESSED_OUTPUT = 0x0001,
 
             /// <summary>
-            /// The <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, void*, int, int, IntPtr)"/> function returns only when a carriage return character is read.
+            /// The <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, char*, int, out int, CONSOLE_READCONSOLE_CONTROL*)"/> function returns only when a carriage return character is read.
             /// If this mode is disabled, the functions return when one or more characters are available.
             /// </summary>
             ENABLE_LINE_INPUT = 0x0002,
 
             /// <summary>
-            /// When writing with <see cref="WriteFile(SafeObjectHandle, void*, int)"/> or <see cref="WriteConsole(IntPtr, void*, int, int*, IntPtr)"/> or echoing with <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, void*, int, int, IntPtr)"/>,
+            /// When writing with <see cref="WriteFile(SafeObjectHandle, void*, int)"/> or <see cref="WriteConsole(IntPtr, void*, int, int*, IntPtr)"/> or echoing with <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, char*, int, out int, CONSOLE_READCONSOLE_CONTROL*)"/>,
             /// the cursor moves to the beginning of the next row when it reaches the end of the current row. This causes the rows displayed in the console window to scroll up automatically when the cursor advances beyond the last row in the window.
             /// It also causes the contents of the console screen buffer to scroll up (discarding the top row of the console screen buffer) when the cursor advances beyond the last row in the console screen buffer.
             /// If this mode is disabled, the last character in the row is overwritten with any subsequent characters.
@@ -46,7 +46,7 @@ namespace PInvoke
             ENABLE_WRAP_AT_EOL_OUTPUT = 0x0002,
 
             /// <summary>
-            /// Characters read by the <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, void*, int, int, IntPtr)"/> function are written to the active screen buffer as they are read.
+            /// Characters read by the <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, char*, int, out int, CONSOLE_READCONSOLE_CONTROL*)"/> function are written to the active screen buffer as they are read.
             /// This mode can be used only if the <see cref="ENABLE_LINE_INPUT"/> mode is also enabled.
             /// </summary>
             ENABLE_ECHO_INPUT = 0x0004,
@@ -59,7 +59,7 @@ namespace PInvoke
 
             /// <summary>
             /// User interactions that change the size of the console screen buffer are reported in the console's input buffer.
-            /// Information about these events can be read from the input buffer by applications using the <see cref="ReadConsoleInput"/> function, but not by those using <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, void*, int, int, IntPtr)"/>.
+            /// Information about these events can be read from the input buffer by applications using the <see cref="ReadConsoleInput"/> function, but not by those using <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, char*, int, out int, CONSOLE_READCONSOLE_CONTROL*)"/>.
             /// </summary>
             ENABLE_WINDOW_INPUT = 0x0008,
 
@@ -74,7 +74,7 @@ namespace PInvoke
 
             /// <summary>
             /// If the mouse pointer is within the borders of the console window and the window has the keyboard focus, mouse events generated by mouse movement and button presses are placed in the input buffer.
-            /// These events are discarded by <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, void*, int, int, IntPtr)"/>, even when this mode is enabled.
+            /// These events are discarded by <see cref="ReadFile(SafeObjectHandle, void*, int)"/> or <see cref="ReadConsole(IntPtr, char*, int, out int, CONSOLE_READCONSOLE_CONTROL*)"/>, even when this mode is enabled.
             /// </summary>
             ENABLE_MOUSE_INPUT = 0x0010,
 
