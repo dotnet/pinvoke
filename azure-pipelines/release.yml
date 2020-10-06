@@ -25,10 +25,10 @@ stages:
           - powershell: |
               Write-Host "##vso[build.updatebuildnumber]$(resources.pipeline.CI.runName)"
             displayName: Set pipeline name
-          - download: current
+          - download: CI
             artifact: pinvoke_coverage_report-Windows
             displayName: Downloading pinvoke coverage report
-          - download: current
+          - download: CI
             artifact: pinvoke_method_coverage-Windows
             displayName: Downloading pinvoke method coverage
           - task: GitHubRelease@1
@@ -64,7 +64,7 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: current
+          - download: CI
             artifact: deployables-Windows
             displayName: Download deployables-Windows artifact
             patterns: '**/*.*nupkg'
