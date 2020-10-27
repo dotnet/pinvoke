@@ -695,7 +695,7 @@ namespace PInvoke
         /// To perform this operation as a transacted operation, which results in a handle that can be used for transacted I/O, use the CreateFileTransacted function.
         /// </summary>
         /// <param name="filename">
-        /// The name of the file or device to be created or opened. You may use either forward slashes (/) or backslashes (\) in this name.
+        /// The name of the file or device to be created or opened as a UTF-16, null-terminated array of characters. You may use either forward slashes (/) or backslashes (\) in this name.
         /// In the ANSI version of this function, the name is limited to <see cref="MAX_PATH"/> characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend "\\?\" to the path. For more information, see Naming Files, Paths, and Namespaces.
         /// For information on special device names, see Defining an MS-DOS Device Name.
         /// To create a file stream, specify the name of the file, a colon, and then the name of the stream.For more information, see File Streams.
@@ -747,7 +747,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(api_ms_win_core_file_l1_2_0, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe SafeObjectHandle CreateFile(
-            string filename,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* filename,
             ACCESS_MASK access,
             FileShare share,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* securityAttributes,
