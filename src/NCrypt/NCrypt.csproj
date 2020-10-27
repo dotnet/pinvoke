@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(PlatformAndPortableFrameworks);netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
     <NoWarn>$(NoWarn);RS0026;RS0027</NoWarn>
   </PropertyGroup>
   <ItemGroup>
