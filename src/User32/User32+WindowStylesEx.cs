@@ -187,6 +187,12 @@ namespace PInvoke
             /// Specifies a window that has a border with a raised edge.
             /// </summary>
             WS_EX_WINDOWEDGE = 0x00000100,
+            
+            /// <summary>
+            /// The window does not render to a redirection surface. This is for windows that do not 
+            /// have visible content or that use mechanisms other than surfaces to provide their visual.
+            /// </summary>
+            WS_EX_NOREDIRECTIONBITMAP = 0x00200000,
         }
     }
 }
