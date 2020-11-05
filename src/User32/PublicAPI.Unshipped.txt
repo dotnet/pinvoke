@@ -6,6 +6,7 @@ PInvoke.User32.EnumDisplaySettingsExFlags.EDS_ROTATEDMODE = 4 -> PInvoke.User32.
 PInvoke.User32.MONITORINFO_Flags
 PInvoke.User32.MONITORINFO_Flags.MONITORINFOF_PRIMARY = 1 -> PInvoke.User32.MONITORINFO_Flags
 PInvoke.User32.MONITORINFO_Flags.None = 0 -> PInvoke.User32.MONITORINFO_Flags
+PInvoke.User32.WindowStylesEx.WS_EX_NOREDIRECTIONBITMAP = 2097152 -> PInvoke.User32.WindowStylesEx
 const PInvoke.User32.ENUM_CURRENT_SETTINGS = 4294967295 -> uint
 const PInvoke.User32.ENUM_REGISTRY_SETTINGS = 4294967294 -> uint
 static PInvoke.User32.CreateCursor(System.IntPtr hInst, int xHotspot, int yHotSpot, int nWidth, int nHeight, System.ReadOnlySpan<byte> pvANDPlane, System.ReadOnlySpan<byte> pvXORPlane) -> PInvoke.User32.SafeCursorHandle
