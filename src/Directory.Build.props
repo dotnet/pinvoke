@@ -11,7 +11,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <DesktopOnlyFrameworks>net45</DesktopOnlyFrameworks>
-    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0</PlatformSpecificFrameworks> <!-- win8 -->
+    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0.16299</PlatformSpecificFrameworks> <!-- win8 -->
     <PortableOnlyFrameworks>netstandard2.0</PortableOnlyFrameworks>
     <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 

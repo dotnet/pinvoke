@@ -307,7 +307,7 @@ namespace PInvoke
             int length;
             BCryptEncrypt(
                 hKey,
-                pbInput,
+                pbInput.AsSpan(),
                 pPaddingInfo,
                 pbIV,
                 null,
@@ -317,7 +317,7 @@ namespace PInvoke
             byte[] cipherText = new byte[length];
             BCryptEncrypt(
                 hKey,
-                pbInput,
+                pbInput.AsSpan(),
                 pPaddingInfo,
                 pbIV,
                 cipherText,
