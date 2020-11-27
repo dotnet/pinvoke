@@ -3960,9 +3960,10 @@ namespace PInvoke
         /// In some cases, the value might be less than the tick count of a prior event. For example, this can be caused by
         /// a timing gap between the raw input thread and the desktop thread or an event raised by SendInput, which supplies its own tick count.
         /// </remarks>
-        [DllImport(nameof(User32), SetLastError = true, EntryPoint = "GetLastInputInfo")]
+        [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+        public static extern unsafe bool GetLastInputInfo(
+            [Friendly(FriendlyFlags.Out)] LASTINPUTINFO* plii);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.

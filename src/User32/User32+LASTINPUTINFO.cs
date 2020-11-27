@@ -12,7 +12,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Contains the time of the last input. It is used with the <see cref="GetLastInputInfo"/> function.
+        /// Contains the time of the last input. It is used with the <see cref="GetLastInputInfo(LASTINPUTINFO*)"/> function.
         /// </summary>
         public struct LASTINPUTINFO
         {
@@ -30,12 +30,7 @@ namespace PInvoke
             /// Initializes a new instance of the <see cref="LASTINPUTINFO"/> struct.
             /// </summary>
             /// <returns>An initialized instance of the struct.</returns>
-            public static LASTINPUTINFO Create()
-            {
-                var nw = default(LASTINPUTINFO);
-                nw.cbSize = Marshal.SizeOf(typeof(LASTINPUTINFO));
-                return nw;
-            }
+            public static unsafe LASTINPUTINFO Create() => new LASTINPUTINFO { cbSize = sizeof(LASTINPUTINFO) };
         }
     }
 }
