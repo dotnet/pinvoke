@@ -3945,6 +3945,26 @@ namespace PInvoke
             MsgWaitForMultipleObjectsExFlags dwFlags);
 
         /// <summary>
+        /// Retrieves the time of the last input event.
+        /// </summary>
+        /// <param name="plii">A pointer to a <see cref="LASTINPUTINFO"/> structure that receives the time of the last input event.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        /// <remarks>
+        /// This function is useful for input idle detection. However, GetLastInputInfo does not provide system-wide
+        /// user input information across all running sessions. Rather, GetLastInputInfo provides session-specific user input
+        /// information for only the session that invoked the function.
+        /// The tick count when the last input event was received (see <see cref="LASTINPUTINFO"/>) is not guaranteed to be incremental.
+        /// In some cases, the value might be less than the tick count of a prior event. For example, this can be caused by
+        /// a timing gap between the raw input thread and the desktop thread or an event raised by SendInput, which supplies its own tick count.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true, EntryPoint = "GetLastInputInfo")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+
+        /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
         /// </summary>
         /// <param name="hwnd">Handle to the window to be repainted.</param>

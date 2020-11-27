@@ -45,3 +45,9 @@ static extern PInvoke.User32.EnumDisplaySettingsEx(char* lpszDeviceName, uint iM
 static extern PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, char* lpBuffer, int cchBufferMax) -> int
 static extern PInvoke.User32.UnregisterClass(string lpClassName, System.IntPtr hInstance) -> bool
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED -> System.IntPtr
+static extern PInvoke.User32.GetLastInputInfo(ref PInvoke.User32.LASTINPUTINFO plii) -> bool
+PInvoke.User32.LASTINPUTINFO
+PInvoke.User32.LASTINPUTINFO.LASTINPUTINFO() -> void
+PInvoke.User32.LASTINPUTINFO.cbSize -> int
+PInvoke.User32.LASTINPUTINFO.dwTime -> uint
+static PInvoke.User32.LASTINPUTINFO.Create() -> PInvoke.User32.LASTINPUTINFO
