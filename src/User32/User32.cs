@@ -3944,6 +3944,82 @@ namespace PInvoke
             WakeMask dwWakeMask,
             MsgWaitForMultipleObjectsExFlags dwFlags);
 
+        /// <summary>Modifies the User Interface Privilege Isolation (UIPI) message filter for a specified window.</summary>
+        /// <param name = "hwnd">
+        /// <para>Type: <b>HWND</b></para>
+        /// <para>A handle to the window whose UIPI message filter is to be modified.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "message">
+        /// <para>Type: <b>UINT</b></para>
+        /// <para>The message that the message filter allows through or blocks.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "action">
+        /// <para>Type: <b>DWORD</b>The action to be performed, and can take one of the following values:</para>
+        /// <para>This doc was truncated.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "pChangeFilterStruct">
+        /// <para>Type: <b>PCHANGEFILTERSTRUCT</b></para>
+        /// <para>Optional pointer to a <a href = "https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-changefilterstruct">CHANGEFILTERSTRUCT</a> structure.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <returns>
+        /// <para>Type: <b>BOOL</b></para>
+        /// <para>If the function succeeds, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b>. To get extended error information, call <a href = "https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.</para>
+        /// </returns>
+        /// <remarks>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex">Learn more about this API from docs.microsoft.com</see>.</para>
+        /// </remarks>
+        [DllImport("User32", ExactSpelling = true, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool ChangeWindowMessageFilterEx(IntPtr hwnd, uint message, uint action, [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] CHANGEFILTERSTRUCT* pChangeFilterStruct);
+
+        /// <summary>Retrieves a handle to the specified window's parent or owner.</summary>
+        /// <param name = "hWnd">
+        /// <para>Type: <b>HWND</b></para>
+        /// <para>A handle to the window whose parent window handle is to be retrieved.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-getparent#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <returns>
+        /// <para>Type: <b>HWND</b>If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window.If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href = "https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.This function typically fails for one of the following reasons:</para>
+        /// <para></para>
+        /// <para>This doc was truncated.</para>
+        /// </returns>
+        /// <remarks>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-getparent">Learn more about this API from docs.microsoft.com</see>.</para>
+        /// </remarks>
+        [DllImport("User32", ExactSpelling = true, SetLastError = true)]
+        public static extern IntPtr GetParent(IntPtr hWnd);
+
+        /// <summary>Enumerates the child windows that belong to the specified parent window by passing the handle to each child window, in turn, to an application-defined callback function.</summary>
+        /// <param name = "hWndParent">
+        /// <para>Type: <b>HWND</b></para>
+        /// <para>A handle to the parent window whose child windows are to be enumerated. If this parameter is <b>NULL</b>, this function is equivalent to <a href = "https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumwindows">EnumWindows</a>.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-enumchildwindows#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "lpEnumFunc">
+        /// <para>Type: <b>WNDENUMPROC</b></para>
+        /// <para>A pointer to an application-defined callback function. For more information, see <a href = "https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633493(v=vs.85)">EnumChildProc</a>.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-enumchildwindows#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "lParam">
+        /// <para>Type: <b>LPARAM</b></para>
+        /// <para>An application-defined value to be passed to the callback function.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-enumchildwindows#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <returns>
+        /// <para>Type: <b>BOOL</b></para>
+        /// <para>The return value is not used.</para>
+        /// </returns>
+        /// <remarks>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-enumchildwindows">Learn more about this API from docs.microsoft.com</see>.</para>
+        /// </remarks>
+        [DllImport("User32", ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumChildWindows(IntPtr hWndParent, IntPtr lpEnumFunc, IntPtr lParam);
+
         /// <summary>
         /// Retrieves the time of the last input event.
         /// </summary>

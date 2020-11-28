@@ -1,3 +1,7 @@
+PInvoke.User32.CHANGEFILTERSTRUCT
+PInvoke.User32.CHANGEFILTERSTRUCT.CHANGEFILTERSTRUCT() -> void
+PInvoke.User32.CHANGEFILTERSTRUCT.ExtStatus -> uint
+PInvoke.User32.CHANGEFILTERSTRUCT.cbSize -> uint
 PInvoke.User32.EnumDisplayDevicesFlags
 PInvoke.User32.EnumDisplayDevicesFlags.EDD_GET_DEVICE_INTERFACE_NAME = 1 -> PInvoke.User32.EnumDisplayDevicesFlags
 PInvoke.User32.EnumDisplaySettingsExFlags
@@ -9,6 +13,8 @@ PInvoke.User32.MONITORINFO_Flags.None = 0 -> PInvoke.User32.MONITORINFO_Flags
 PInvoke.User32.WindowStylesEx.WS_EX_NOREDIRECTIONBITMAP = 2097152 -> PInvoke.User32.WindowStylesEx
 const PInvoke.User32.ENUM_CURRENT_SETTINGS = 4294967295 -> uint
 const PInvoke.User32.ENUM_REGISTRY_SETTINGS = 4294967294 -> uint
+static PInvoke.User32.ChangeWindowMessageFilterEx(System.IntPtr hwnd, uint message, uint action, System.IntPtr pChangeFilterStruct) -> bool
+static PInvoke.User32.ChangeWindowMessageFilterEx(System.IntPtr hwnd, uint message, uint action, ref PInvoke.User32.CHANGEFILTERSTRUCT? pChangeFilterStruct) -> bool
 static PInvoke.User32.CreateCursor(System.IntPtr hInst, int xHotspot, int yHotSpot, int nWidth, int nHeight, System.ReadOnlySpan<byte> pvANDPlane, System.ReadOnlySpan<byte> pvXORPlane) -> PInvoke.User32.SafeCursorHandle
 static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hdc, System.Span<char> lpchText, ref PInvoke.RECT lprc, PInvoke.User32.TextFormats format) -> int
 static PInvoke.User32.DrawTextEx(PInvoke.User32.SafeDCHandle hdc, System.Span<char> lpchText, ref PInvoke.RECT lprc, uint dwDTFormat, PInvoke.User32.DRAWTEXTPARAMS? lpDTParams) -> int
@@ -39,9 +45,12 @@ static PInvoke.User32.MsgWaitForMultipleObjectsEx(uint nCount, System.ReadOnlySp
 static PInvoke.User32.QueryDisplayConfig(uint Flags, ref int pNumPathArrayElements, System.Span<PInvoke.User32.DISPLAYCONFIG_PATH_INFO> pPathInfoArray, ref int pNumModeInfoArrayElements, System.Span<PInvoke.User32.DISPLAYCONFIG_MODE_INFO> pModeInfoArray, PInvoke.User32.DISPLAYCONFIG_TOPOLOGY_ID pCurrentTopologyId) -> int
 static PInvoke.User32.RealGetWindowClass(System.IntPtr hwnd, System.Span<char> pszType) -> uint
 static PInvoke.User32.SendInput(int nInputs, System.ReadOnlySpan<PInvoke.User32.INPUT> pInputs, int cbSize) -> uint
+static extern PInvoke.User32.ChangeWindowMessageFilterEx(System.IntPtr hwnd, uint message, uint action, PInvoke.User32.CHANGEFILTERSTRUCT* pChangeFilterStruct) -> bool
+static extern PInvoke.User32.EnumChildWindows(System.IntPtr hWndParent, System.IntPtr lpEnumFunc, System.IntPtr lParam) -> bool
 static extern PInvoke.User32.EnumDisplayDevices(char* lpDevice, uint iDevNum, PInvoke.DISPLAY_DEVICE* lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
 static extern PInvoke.User32.EnumDisplaySettings(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode) -> bool
 static extern PInvoke.User32.EnumDisplaySettingsEx(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
+static extern PInvoke.User32.GetParent(System.IntPtr hWnd) -> System.IntPtr
 static extern PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, char* lpBuffer, int cchBufferMax) -> int
 static extern PInvoke.User32.UnregisterClass(string lpClassName, System.IntPtr hInstance) -> bool
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED -> System.IntPtr
