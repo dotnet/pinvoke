@@ -17,7 +17,7 @@ namespace PInvoke
         public enum StaticControlWindowStyles : uint
         {
             /// <summary>
-            /// 	A simple rectangle and left-aligns the text in the rectangle. The text is formatted before it is displayed. Words that extend past the end of a line are automatically wrapped to the beginning of the next left-aligned line. Words that are longer than the width of the control are truncated.
+            /// A simple rectangle and left-aligns the text in the rectangle. The text is formatted before it is displayed. Words that extend past the end of a line are automatically wrapped to the beginning of the next left-aligned line. Words that are longer than the width of the control are truncated.
             /// </summary>
             SS_LEFT = 0x00000000,
 
@@ -27,7 +27,7 @@ namespace PInvoke
             SS_CENTER = 0x00000001,
 
             /// <summary>
-            /// 	A simple rectangle and right-aligns the text in the rectangle. The text is formatted before it is displayed. Words that extend past the end of a line are automatically wrapped to the beginning of the next right-aligned line. Words that are longer than the width of the control are truncated.
+            /// A simple rectangle and right-aligns the text in the rectangle. The text is formatted before it is displayed. Words that extend past the end of a line are automatically wrapped to the beginning of the next right-aligned line. Words that are longer than the width of the control are truncated.
             /// </summary>
             SS_RIGHT = 0x00000002,
 
@@ -77,12 +77,12 @@ namespace PInvoke
             SS_SIMPLE = 0x0000000B,
 
             /// <summary>
-            /// 	A simple rectangle and left-aligns the text in the rectangle. Tabs are expanded, but words are not wrapped. Text that extends past the end of a line is clipped.
+            /// A simple rectangle and left-aligns the text in the rectangle. Tabs are expanded, but words are not wrapped. Text that extends past the end of a line is clipped.
             /// </summary>
             SS_LEFTNOWORDWRAP = 0x0000000C,
 
             /// <summary>
-            /// 	The owner of the static control is responsible for drawing the control. The owner window receives a WM_DRAWITEM message whenever the control needs to be drawn.
+            /// The owner of the static control is responsible for drawing the control. The owner window receives a WM_DRAWITEM message whenever the control needs to be drawn.
             /// </summary>
             SS_OWNERDRAW = 0x0000000D,
 
@@ -92,7 +92,7 @@ namespace PInvoke
             SS_BITMAP = 0x0000000E,
 
             /// <summary>
-            /// 	An enhanced metafile is to be displayed in the static control. The text is the name of a metafile. An enhanced metafile static control has a fixed size; the metafile is scaled to fit the static control's client area.
+            /// An enhanced metafile is to be displayed in the static control. The text is the name of a metafile. An enhanced metafile static control has a fixed size; the metafile is scaled to fit the static control's client area.
             /// </summary>
             SS_ENHMETAFILE = 0x0000000F,
 
@@ -125,7 +125,7 @@ namespace PInvoke
             SS_REALSIZECONTROL = 0x00000040,
 
             /// <summary>
-            /// Prevents interpretation of any ampersand (&) characters in the control's text as accelerator prefix characters. These are displayed with the ampersand removed and the next character in the string underlined. This static control style may be included with any of the defined static controls. You can combine SS_NOPREFIX with other styles. This can be useful when filenames or other strings that may contain an ampersand (&) must be displayed in a static control in a dialog box.
+            /// Prevents interpretation of any ampersand (&amp;) characters in the control's text as accelerator prefix characters. These are displayed with the ampersand removed and the next character in the string underlined. This static control style may be included with any of the defined static controls. You can combine SS_NOPREFIX with other styles. This can be useful when filenames or other strings that may contain an ampersand (&amp;) must be displayed in a static control in a dialog box.
             /// </summary>
             SS_NOPREFIX = 0x00000080,
 
@@ -140,7 +140,7 @@ namespace PInvoke
             SS_CENTERIMAGE = 0x00000200,
 
             /// <summary>
-            /// 	The lower right corner of a static control with the SS_BITMAP or SS_ICON style is to remain fixed when the control is resized. Only the top and left sides are adjusted to accommodate a new bitmap or icon.
+            /// The lower right corner of a static control with the SS_BITMAP or SS_ICON style is to remain fixed when the control is resized. Only the top and left sides are adjusted to accommodate a new bitmap or icon.
             /// </summary>
             SS_RIGHTJUST = 0x00000400,
 
@@ -163,7 +163,7 @@ namespace PInvoke
             SS_EDITCONTROL = 0x00002000,
 
             /// <summary>
-            /// 	If the end of a string does not fit in the rectangle, it is truncated and ellipses are added. If a word that is not at the end of the string goes beyond the limits of the rectangle, it is truncated without ellipses. Using this style will force the control s text to be on one line with no word wrap. Compare with SS_PATHELLIPSIS and SS_WORDELLIPSIS.
+            /// If the end of a string does not fit in the rectangle, it is truncated and ellipses are added. If a word that is not at the end of the string goes beyond the limits of the rectangle, it is truncated without ellipses. Using this style will force the control s text to be on one line with no word wrap. Compare with SS_PATHELLIPSIS and SS_WORDELLIPSIS.
             /// </summary>
             SS_ENDELLIPSIS = 0x00004000,
 

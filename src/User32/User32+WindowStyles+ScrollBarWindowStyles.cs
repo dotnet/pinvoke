@@ -37,7 +37,7 @@ namespace PInvoke
             SBS_LEFTALIGN = 0x0002,
 
             /// <summary>
-            /// 	Aligns the bottom edge of the scroll bar with the bottom edge of the rectangle defined by the x, y, nWidth, and nHeight parameters of CreateWindowEx function. The scroll bar has the default height for system scroll bars. Use this style with the SBS_HORZ style.
+            /// Aligns the bottom edge of the scroll bar with the bottom edge of the rectangle defined by the x, y, nWidth, and nHeight parameters of CreateWindowEx function. The scroll bar has the default height for system scroll bars. Use this style with the SBS_HORZ style.
             /// </summary>
             SBS_BOTTOMALIGN = 0x0004,
 
@@ -47,7 +47,7 @@ namespace PInvoke
             SBS_RIGHTALIGN = 0x0004,
 
             /// <summary>
-            /// 	Aligns the upper left corner of the size box with the upper left corner of the rectangle specified by the x, y, nWidth, and nHeight parameters of CreateWindowEx. The size box has the default size for system size boxes. Use this style with the SBS_SIZEBOX or SBS_SIZEGRIP styles.
+            /// Aligns the upper left corner of the size box with the upper left corner of the rectangle specified by the x, y, nWidth, and nHeight parameters of CreateWindowEx. The size box has the default size for system size boxes. Use this style with the SBS_SIZEBOX or SBS_SIZEGRIP styles.
             /// </summary>
             SBS_SIZEBOXTOPLEFTALIGN = 0x0002,
 
