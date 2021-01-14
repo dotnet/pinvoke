@@ -4042,6 +4042,88 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Out)] LASTINPUTINFO* plii);
 
         /// <summary>
+        /// Retrieves a data handle from the property list of the specified window. The character string identifies the handle to be retrieved. The string and handle must have been added to the property list by a previous call to the <see cref="SetProp(IntPtr, string, IntPtr)" /> function.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list is to be searched.</param>
+        /// <param name="lpString">An atom that identifies a string. If this parameter is an atom, it must have been created by using the GlobalAddAtom function. The atom, a 16-bit value, must be placed in the low-order word of the <paramref name="lpString"/> parameter; the high-order word must be zero.</param>
+        /// <returns>If the property list contains the string, the return value is the associated data handle. Otherwise, the return value is NULL.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetProp(IntPtr hWnd, string lpString);
+
+        /// <summary>
+        /// Retrieves a data handle from the property list of the specified window. The character string identifies the handle to be retrieved. The string and handle must have been added to the property list by a previous call to the <see cref="SetProp(IntPtr, string, IntPtr)" /> function.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list is to be searched.</param>
+        /// <param name="atom">An atom that identifies a string. If this parameter is an atom, it must have been created by using the GlobalAddAtom function.</param>
+        /// <returns>If the property list contains the string, the return value is the associated data handle. Otherwise, the return value is NULL.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetProp(IntPtr hWnd, int atom);
+
+        /// <summary>
+        /// Adds a new entry or changes an existing entry in the property list of the specified window. The function adds a new entry to the list if the specified character string does not exist already in the list. The new entry contains the string and the handle. Otherwise, the function replaces the string's current handle with the specified handle.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list receives the new entry.</param>
+        /// <param name="lpString">A null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the GlobalAddAtom function. The atom must be placed in the low-order word of <paramref name="lpString" />; the high-order word must be zero.</param>
+        /// <param name="hData">A handle to the data to be copied to the property list. The data handle can identify any value useful to the application.</param>
+        /// <returns>
+        /// If the data handle and string are added to the property list, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError" />.
+        /// </returns>
+        /// <remarks>
+        /// Before a window is destroyed (that is, before it returns from processing the <see cref="WindowMessage.WM_NCDESTROY" /> message), an application must remove all entries it has added to the property list. The application must use the RemoveProp function to remove the entries.
+        /// SetProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <see cref="GetLastError" /> will return 5.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProp(IntPtr hWnd, string lpString, IntPtr hData);
+
+        /// <summary>
+        /// Adds a new entry or changes an existing entry in the property list of the specified window. The function adds a new entry to the list if the specified character string does not exist already in the list. The new entry contains the string and the handle. Otherwise, the function replaces the string's current handle with the specified handle.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list receives the new entry.</param>
+        /// <param name="atom">An atom that identifies a string. It must be a global atom created by a previous call to the GlobalAddAtom function.</param>
+        /// <param name="hData">A handle to the data to be copied to the property list. The data handle can identify any value useful to the application.</param>
+        /// <returns>
+        /// If the data handle and string are added to the property list, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError" />.
+        /// </returns>
+        /// <remarks>
+        /// Before a window is destroyed (that is, before it returns from processing the <see cref="WindowMessage.WM_NCDESTROY" /> message), an application must remove all entries it has added to the property list. The application must use the RemoveProp function to remove the entries.
+        /// SetProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <see cref="GetLastError" /> will return 5.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProp(IntPtr hWnd, int atom, IntPtr hData);
+
+        /// <summary>
+        /// Removes an entry from the property list of the specified window. The specified character string identifies the entry to be removed.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list is to be changed.</param>
+        /// <param name="lpString">A null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the GlobalAddAtom function. The atom, a 16-bit value, must be placed in the low-order word of <paramref name="lpString" />; the high-order word must be zero.</param>
+        /// <returns>The return value identifies the specified data. If the data cannot be found in the specified property list, the return value is NULL.</returns>
+        /// <remarks>
+        /// The return value is the hData value that was passed to <see cref="SetProp(IntPtr, string, IntPtr)" />; it is an application-defined value. Note, this function only destroys the association between the data and the window. If appropriate, the application must free the data handles associated with entries removed from a property list. The application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.
+        /// The RemoveProp function returns the data handle associated with the string so that the application can free the data associated with the handle.
+        /// Starting with Windows Vista, RemoveProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <see cref="GetLastError" /> will return 5.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr RemoveProp(IntPtr hWnd, string lpString);
+
+        /// <summary>
+        /// Removes an entry from the property list of the specified window. The specified character string identifies the entry to be removed.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list is to be changed.</param>
+        /// <param name="atom">An atom that identifies a string. If this parameter is an atom, it must have been created using the GlobalAddAtom function.</param>
+        /// <returns>The return value identifies the specified data. If the data cannot be found in the specified property list, the return value is NULL.</returns>
+        /// <remarks>
+        /// The return value is the hData value that was passed to <see cref="SetProp(IntPtr, string, IntPtr)" />; it is an application-defined value. Note, this function only destroys the association between the data and the window. If appropriate, the application must free the data handles associated with entries removed from a property list. The application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.
+        /// The RemoveProp function returns the data handle associated with the string so that the application can free the data associated with the handle.
+        /// Starting with Windows Vista, RemoveProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <see cref="GetLastError" /> will return 5.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr RemoveProp(IntPtr hWnd, int atom);
+
+        /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
         /// </summary>
         /// <param name="hwnd">Handle to the window to be repainted.</param>
