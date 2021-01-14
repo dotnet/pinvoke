@@ -34,7 +34,7 @@ namespace PInvoke
             /// <summary>
             /// A handle to the window to receive the message.
             /// </summary>
-            public IntPtr hWnd;
+            public IntPtr hwnd;
         }
     }
 }

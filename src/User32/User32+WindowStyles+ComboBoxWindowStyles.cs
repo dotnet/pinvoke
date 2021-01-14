@@ -6,7 +6,7 @@ namespace PInvoke
     using System;
 
     /// <content>
-    /// Contains the <see cref="ButtonWindowStyles"/> nested type.
+    /// Contains the <see cref="ComboBoxWindowStyles"/> nested type.
     /// </content>
     public partial class User32
     {

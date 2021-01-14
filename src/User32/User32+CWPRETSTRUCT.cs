@@ -39,7 +39,7 @@ namespace PInvoke
             /// <summary>
             /// A handle to the window that processed the message specified by the message value.
             /// </summary>
-            public IntPtr hWnd;
+            public IntPtr hwnd;
         }
     }
 }
