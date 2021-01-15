@@ -11,6 +11,7 @@ namespace PInvoke
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Text;
+    using Microsoft.Win32.SafeHandles;
 
     /// <summary>
     /// Exported functions from the Kernel32.dll Windows library.
@@ -1201,6 +1202,69 @@ namespace PInvoke
             PROCESS_INFORMATION_CLASS ProcessInformationClass,
             void* ProcessInformation,
             uint ProcessInformationSize);
+
+        /// <summary>
+        /// Creates or opens a named or unnamed file mapping object for a specified file.
+        /// To specify the NUMA node for the physical memory, see CreateFileMappingNuma.
+        /// </summary>
+        /// <param name="hFile">
+        /// A handle to the file from which to create a file mapping object.
+        /// The file must be opened with access rights that are compatible with the protection flags that the flProtect parameter specifies. It is not required, but it is recommended that files you intend to map be opened for exclusive access. For more information, see File Security and Access Rights.
+        /// If hFile is INVALID_HANDLE_VALUE, the calling process must also specify a size for the file mapping object in the dwMaximumSizeHigh and dwMaximumSizeLow parameters. In this scenario, CreateFileMapping creates a file mapping object of a specified size that is backed by the system paging file instead of by a file in the file system.
+        /// </param>
+        /// <param name="lpAttributes">
+        /// A pointer to a SECURITY_ATTRIBUTES structure that determines whether a returned handle can be inherited by child processes. The lpSecurityDescriptor member of the SECURITY_ATTRIBUTES structure specifies a security descriptor for a new file mapping object.
+        /// If lpFileMappingAttributes is NULL, the handle cannot be inherited and the file mapping object gets a default security descriptor. The access control lists (ACL) in the default security descriptor for a file mapping object come from the primary or impersonation token of the creator. For more information, see File Mapping Security and Access Rights.
+        /// </param>
+        /// <param name="flProtect">Specifies the page protection of the file mapping object. All mapped views of the object must be compatible with this protection.</param>
+        /// <param name="dwMaximumSizeHigh">The high-order DWORD of the maximum size of the file mapping object.</param>
+        /// <param name="dwMaximumSizeLow">
+        /// The low-order DWORD of the maximum size of the file mapping object.
+        /// If this parameter and dwMaximumSizeHigh are 0 (zero), the maximum size of the file mapping object is equal to the current size of the file that hFile identifies.
+        /// An attempt to map a file with a length of 0 (zero) fails with an error code of ERROR_FILE_INVALID. Applications should test for files with a length of 0 (zero) and reject those files.
+        /// </param>
+        /// <param name="lpName">
+        /// The name of the file mapping object.
+        /// If this parameter matches the name of an existing mapping object, the function requests access to the object with the protection that flProtect specifies.
+        /// If this parameter is NULL, the file mapping object is created without a name.
+        /// If lpName matches the name of an existing event, semaphore, mutex, waitable timer, or job object, the function fails, and the GetLastError function returns ERROR_INVALID_HANDLE. This occurs because these objects share the same namespace.
+        /// The name can have a "Global" or "Local" prefix to explicitly create the object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\). Creating a file mapping object in the global namespace from a session other than session zero requires the SeCreateGlobalPrivilege privilege. For more information, see Kernel Object Namespaces.
+        /// Fast user switching is implemented by using Terminal Services sessions. The first user to log on uses session 0 (zero), the next user to log on uses session 1 (one), and so on. Kernel object names must follow the guidelines that are outlined for Terminal Services so that applications can support multiple users.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is a handle to the newly created file mapping object.
+        /// If the object exists before the function call, the function returns a handle to the existing object (with its current size, not the specified size), and GetLastErrorreturns ERROR_ALREADY_EXISTS.
+        /// If the function fails, the return value is NULL. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern SafeObjectHandle CreateFileMapping(IntPtr hFile, IntPtr lpAttributes, PageProtection flProtect, int dwMaximumSizeHigh, int dwMaximumSizeLow, string lpName);
+
+        /// <summary>
+        /// Maps a view of a file mapping into the address space of a calling process.
+        /// To specify a suggested base address for the view, use the MapViewOfFileEx function. However, this practice is not recommended.
+        /// </summary>
+        /// <param name="hFileMappingObject">A handle to a file mapping object. The CreateFileMapping and OpenFileMapping functions return this handle.</param>
+        /// <param name="dwDesiredAccess">The type of access to a file mapping object, which determines the page protection of the pages.</param>
+        /// <param name="dwFileOffsetHigh">A high-order DWORD of the file offset where the view begins.</param>
+        /// <param name="dwFileOffsetLow">A low-order DWORD of the file offset where the view is to begin. The combination of the high and low offsets must specify an offset within the file mapping. They must also match the memory allocation granularity of the system. That is, the offset must be a multiple of the allocation granularity. To obtain the memory allocation granularity of the system, use the GetSystemInfo function, which fills in the members of a SYSTEM_INFO structure.</param>
+        /// <param name="dwNumberOfBytesToMap">The number of bytes of a file mapping to map to the view. All bytes must be within the maximum size specified by CreateFileMapping. If this parameter is 0 (zero), the mapping extends from the specified offset to the end of the file mapping.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the starting address of the mapped view.
+        /// If the function fails, the return value is NULL. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern SafeMapViewHandle MapViewOfFile(SafeObjectHandle hFileMappingObject, ACCESS_MASK.FileMapRight dwDesiredAccess, uint dwFileOffsetHigh, uint dwFileOffsetLow, IntPtr dwNumberOfBytesToMap);
+
+        /// <summary>
+        /// Unmaps a mapped view of a file from the calling process's address space.
+        /// </summary>
+        /// <param name="lpBaseAddress">A pointer to the base address of the mapped view of a file that is to be unmapped. This value must be identical to the value returned by a previous call to the MapViewOfFile or MapViewOfFileEx function.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(nameof(Kernel32), SetLastError = true)]
+        public static extern bool UnmapViewOfFile(IntPtr lpBaseAddress);
 
         /// <summary>
         ///     Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW,

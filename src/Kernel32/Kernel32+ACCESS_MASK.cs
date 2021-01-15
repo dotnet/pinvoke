@@ -48,6 +48,57 @@ namespace PInvoke
                 this.Value = value;
             }
 
+            /// <summary>
+            /// The type of access to a file mapping object, which determines the page protection of the pages. This parameter can be one of the following values, or a bitwise OR combination of multiple values where appropriate.
+            /// </summary>
+            [Flags]
+            public enum FileMapRight : uint
+            {
+                /// <summary>
+                /// A read/write view of the file is mapped. The file mapping object must have been created with PAGE_READWRITE or PAGE_EXECUTE_READWRITE protection.
+                /// When used with MapViewOfFile, (FILE_MAP_WRITE | FILE_MAP_READ) and FILE_MAP_ALL_ACCESS are equivalent to FILE_MAP_WRITE.
+                /// </summary>
+                FILE_MAP_WRITE = SectionRight.SECTION_MAP_WRITE,
+
+                /// <summary>
+                /// A read-only view of the file is mapped. An attempt to write to the file view results in an access violation.
+                /// The file mapping object must have been created with PAGE_READONLY, PAGE_READWRITE, PAGE_EXECUTE_READ, or PAGE_EXECUTE_READWRITE protection.
+                /// </summary>
+                FILE_MAP_READ = SectionRight.SECTION_MAP_READ,
+
+                /// <summary>
+                /// A read/write view of the file is mapped. The file mapping object must have been created with PAGE_READWRITE or PAGE_EXECUTE_READWRITE protection.
+                /// When used with the MapViewOfFile function, FILE_MAP_ALL_ACCESS is equivalent to FILE_MAP_WRITE.
+                /// </summary>
+                FILE_MAP_ALL_ACCESS = SectionRight.SECTION_ALL_ACCESS,
+
+                /// <summary>
+                /// An executable view of the file is mapped (mapped memory can be run as code). The file mapping object must have been created with PAGE_EXECUTE_READ, PAGE_EXECUTE_WRITECOPY, or PAGE_EXECUTE_READWRITE protection.
+                /// Windows Server 2003 and Windows XP:  This value is available starting with Windows XP with SP2 and Windows Server 2003 with SP1.
+                /// </summary>
+                FILE_MAP_EXECUTE = SectionRight.SECTION_MAP_EXECUTE_EXPLICIT, // not included in FILE_MAP_ALL_ACCESS
+
+                /// <summary>
+                /// A copy-on-write view of the file is mapped. The file mapping object must have been created with PAGE_READONLY, PAGE_READ_EXECUTE, PAGE_WRITECOPY, PAGE_EXECUTE_WRITECOPY, PAGE_READWRITE, or PAGE_EXECUTE_READWRITE protection.
+                /// When a process writes to a copy-on-write page, the system copies the original page to a new page that is private to the process. The new page is backed by the paging file. The protection of the new page changes from copy-on-write to read/write.
+                /// When copy-on-write access is specified, the system and process commit charge taken is for the entire view because the calling process can potentially write to every page in the view, making all pages private. The contents of the new page are never written back to the original file and are lost when the view is unmapped.
+                /// </summary>
+                FILE_MAP_COPY = 0x00000001,
+
+                FILE_MAP_RESERVE = 0x80000000,
+
+                /// <summary>
+                /// Sets all the locations in the mapped file as invalid targets for Control Flow Guard (CFG). This flag is similar to PAGE_TARGETS_INVALID. Use this flag in combination with the execute access right FILE_MAP_EXECUTE. Any indirect call to locations in those pages will fail CFG checks, and the process will be terminated. The default behavior for executable pages allocated is to be marked valid call targets for CFG.
+                /// </summary>
+                FILE_MAP_TARGETS_INVALID = 0x40000000,
+
+                /// <summary>
+                /// Starting with Windows 10, version 1703, this flag specifies that the view should be mapped using large page support. The size of the view must be a multiple of the size of a large page reported by the GetLargePageMinimum function, and the file-mapping object must have been created using the SEC_LARGE_PAGES option. If you provide a non-null value for lpBaseAddress, then the value must be a multiple of GetLargePageMinimum.
+                /// Note: On OS versions before Windows 10, version 1703, the FILE_MAP_LARGE_PAGES flag has no effect. On these releases, the view is automatically mapped using large pages if the section was created with the SEC_LARGE_PAGES flag set.
+                /// </summary>
+                FILE_MAP_LARGE_PAGES = 0x20000000,
+            }
+
             [Flags]
             public enum GenericRight : uint
             {
@@ -55,6 +106,45 @@ namespace PInvoke
                 GENERIC_EXECUTE = 0x20000000,
                 GENERIC_WRITE = 0x40000000,
                 GENERIC_READ = 0x80000000,
+            }
+
+            /// <summary>
+            /// Specifies an ACCESS_MASK value that determines the requested access to the object. In addition to the access rights that are defined for all types of objects (see ACCESS_MASK), the caller can specify any of the following access rights, which are specific to section objects.
+            /// </summary>
+            [Flags]
+            public enum SectionRight : uint
+            {
+                /// <summary>
+                /// Query the section object for information about the section. Drivers should set this flag.
+                /// </summary>
+                SECTION_QUERY = 0x0001,
+
+                /// <summary>
+                /// Write views of the section.
+                /// </summary>
+                SECTION_MAP_WRITE = 0x0002,
+
+                /// <summary>
+                /// Read views of the section.
+                /// </summary>
+                SECTION_MAP_READ = 0x0004,
+
+                /// <summary>
+                /// Execute views of the section.
+                /// </summary>
+                SECTION_MAP_EXECUTE = 0x0008,
+
+                /// <summary>
+                /// Dynamically extend the size of the section.
+                /// </summary>
+                SECTION_EXTEND_SIZE = 0x0010,
+
+                SECTION_MAP_EXECUTE_EXPLICIT = 0x0020, // not included in SECTION_ALL_ACCESS
+
+                /// <summary>
+                /// All of the previous flags combined with STANDARD_RIGHTS_REQUIRED.
+                /// </summary>
+                SECTION_ALL_ACCESS = StandardRight.STANDARD_RIGHTS_REQUIRED | SECTION_QUERY | SECTION_MAP_WRITE | SECTION_MAP_READ | SECTION_MAP_EXECUTE | SECTION_EXTEND_SIZE,
             }
 
             [Flags]

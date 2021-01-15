@@ -1,3 +1,20 @@
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight.FILE_MAP_ALL_ACCESS = 983071 -> PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight.FILE_MAP_COPY = 1 -> PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight.FILE_MAP_EXECUTE = 32 -> PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight.FILE_MAP_LARGE_PAGES = 536870912 -> PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight.FILE_MAP_READ = 4 -> PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight.FILE_MAP_RESERVE = 2147483648 -> PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight.FILE_MAP_TARGETS_INVALID = 1073741824 -> PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.FileMapRight.FILE_MAP_WRITE = 2 -> PInvoke.Kernel32.ACCESS_MASK.FileMapRight
+PInvoke.Kernel32.ACCESS_MASK.SectionRight
+PInvoke.Kernel32.ACCESS_MASK.SectionRight.SECTION_ALL_ACCESS = 983071 -> PInvoke.Kernel32.ACCESS_MASK.SectionRight
+PInvoke.Kernel32.ACCESS_MASK.SectionRight.SECTION_EXTEND_SIZE = 16 -> PInvoke.Kernel32.ACCESS_MASK.SectionRight
+PInvoke.Kernel32.ACCESS_MASK.SectionRight.SECTION_MAP_EXECUTE = 8 -> PInvoke.Kernel32.ACCESS_MASK.SectionRight
+PInvoke.Kernel32.ACCESS_MASK.SectionRight.SECTION_MAP_EXECUTE_EXPLICIT = 32 -> PInvoke.Kernel32.ACCESS_MASK.SectionRight
+PInvoke.Kernel32.ACCESS_MASK.SectionRight.SECTION_MAP_READ = 4 -> PInvoke.Kernel32.ACCESS_MASK.SectionRight
+PInvoke.Kernel32.ACCESS_MASK.SectionRight.SECTION_MAP_WRITE = 2 -> PInvoke.Kernel32.ACCESS_MASK.SectionRight
+PInvoke.Kernel32.ACCESS_MASK.SectionRight.SECTION_QUERY = 1 -> PInvoke.Kernel32.ACCESS_MASK.SectionRight
 PInvoke.Kernel32.APP_MEMORY_INFORMATION
 PInvoke.Kernel32.APP_MEMORY_INFORMATION.APP_MEMORY_INFORMATION() -> void
 PInvoke.Kernel32.APP_MEMORY_INFORMATION.AvailableCommit -> ulong
@@ -135,6 +152,23 @@ PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.Version -> uint
 PInvoke.Kernel32.PROCESS_PROTECTION_LEVEL_INFORMATION
 PInvoke.Kernel32.PROCESS_PROTECTION_LEVEL_INFORMATION.PROCESS_PROTECTION_LEVEL_INFORMATION() -> void
 PInvoke.Kernel32.PROCESS_PROTECTION_LEVEL_INFORMATION.ProtectionLevel -> PInvoke.Kernel32.ProcessProtectionLevel
+PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_ENCLAVE_THREAD_CONTROL = 2147483648 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_ENCLAVE_UNVALIDATED = 536870912 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_EXECUTE = 16 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_EXECUTE_READ = 32 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_EXECUTE_READWRITE = 64 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_EXECUTE_WRITECOPY = 128 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_GUARD = 256 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_NOACCESS = 1 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_NOCACHE = 512 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_READONLY = 2 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_READWRITE = 4 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_REVERT_TO_FILE_MAP = 2147483648 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_TARGETS_INVALID = 1073741824 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_TARGETS_NO_UPDATE = 1073741824 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_WRITECOMBINE = 1024 -> PInvoke.Kernel32.PageProtection
+PInvoke.Kernel32.PageProtection.PAGE_WRITECOPY = 8 -> PInvoke.Kernel32.PageProtection
 PInvoke.Kernel32.ProcessLeapSecondInfoFlags
 PInvoke.Kernel32.ProcessLeapSecondInfoFlags.None = 0 -> PInvoke.Kernel32.ProcessLeapSecondInfoFlags
 PInvoke.Kernel32.ProcessLeapSecondInfoFlags.PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND = 1 -> PInvoke.Kernel32.ProcessLeapSecondInfoFlags
@@ -186,6 +220,8 @@ PInvoke.Kernel32.SYSTEM_INFO.wProcessorArchitecture -> PInvoke.Kernel32.Processo
 PInvoke.Kernel32.SYSTEM_INFO.wProcessorLevel -> ushort
 PInvoke.Kernel32.SYSTEM_INFO.wProcessorRevision -> ushort
 PInvoke.Kernel32.SYSTEM_INFO.wReserved -> ushort
+PInvoke.Kernel32.SafeMapViewHandle
+PInvoke.Kernel32.SafeMapViewHandle.SafeMapViewHandle(System.IntPtr existingHandle, bool ownsHandle) -> void
 PInvoke.Kernel32.SafePseudoConsoleHandle
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle() -> void
 PInvoke.Kernel32.SafePseudoConsoleHandle.SafePseudoConsoleHandle(System.IntPtr preexistingHandle, bool ownsHandle = true) -> void
@@ -265,6 +301,7 @@ static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, 
 static PInvoke.Kernel32.SetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation, uint ProcessInformationSize) -> bool
 static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite, int* lpNumberOfBytesWritten, System.Threading.NativeOverlapped* lpOverlapped) -> bool
 static extern PInvoke.Kernel32.CreateFile(char* filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, PInvoke.Kernel32.SECURITY_ATTRIBUTES* securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
+static extern PInvoke.Kernel32.CreateFileMapping(System.IntPtr hFile, System.IntPtr lpAttributes, PInvoke.Kernel32.PageProtection flProtect, int dwMaximumSizeHigh, int dwMaximumSizeLow, string lpName) -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.CreatePseudoConsole(PInvoke.COORD size, PInvoke.Kernel32.SafeObjectHandle hInput, PInvoke.Kernel32.SafeObjectHandle hOutput, PInvoke.Kernel32.CreatePseudoConsoleFlags dwFlags, out PInvoke.Kernel32.SafePseudoConsoleHandle phPC) -> PInvoke.HResult
 static extern PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
@@ -285,12 +322,14 @@ static extern PInvoke.Kernel32.GetProcessHandleCount(PInvoke.Kernel32.SafeObject
 static extern PInvoke.Kernel32.GetProcessIdOfThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> uint
 static extern PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, void* ProcessInformation, uint ProcessInformationSize) -> bool
 static extern PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char* lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char* lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static extern PInvoke.Kernel32.MapViewOfFile(PInvoke.Kernel32.SafeObjectHandle hFileMappingObject, PInvoke.Kernel32.ACCESS_MASK.FileMapRight dwDesiredAccess, uint dwFileOffsetHigh, uint dwFileOffsetLow, System.IntPtr dwNumberOfBytesToMap) -> PInvoke.Kernel32.SafeMapViewHandle
 static extern PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, char* lpBuffer, int nNumberOfCharsToRead, out int lpNumberOfCharsRead, PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL* pInputControl) -> bool
 static extern PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static extern PInvoke.Kernel32.ResizePseudoConsole(PInvoke.Kernel32.SafePseudoConsoleHandle hPC, PInvoke.COORD size) -> PInvoke.HResult
 static extern PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, int* lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static extern PInvoke.Kernel32.SetFilePointerEx(PInvoke.Kernel32.SafeObjectHandle hFile, long liDistanceToMove, out long lpNewFilePointer, System.IO.SeekOrigin dwMoveMethod) -> bool
 static extern PInvoke.Kernel32.SetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, void* ProcessInformation, uint ProcessInformationSize) -> bool
+static extern PInvoke.Kernel32.UnmapViewOfFile(System.IntPtr lpBaseAddress) -> bool
 static readonly PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_FAILFAST_ON_COMMIT_FAIL_DISABLE -> System.UIntPtr
 static readonly PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_FAILFAST_ON_COMMIT_FAIL_ENABLE -> System.UIntPtr
 static readonly PInvoke.Kernel32.SafePseudoConsoleHandle.Invalid -> PInvoke.Kernel32.SafePseudoConsoleHandle
