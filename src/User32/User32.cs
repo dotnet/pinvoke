@@ -1813,11 +1813,11 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         public static extern unsafe bool GetMonitorInfo(
             IntPtr hMonitor,
-            [Friendly(FriendlyFlags.Out)] MONITORINFO* lpmi);
+            [Friendly(FriendlyFlags.Bidirectional)] MONITORINFO* lpmi);
 
         /// <inheritdoc cref="GetMonitorInfo(IntPtr, MONITORINFOEX*)"/>
         [Obsolete("Use " + nameof(GetMonitorInfo) + " instead.")]
-        public static unsafe bool GetMonitorInfoEx(IntPtr hMonitor, [Friendly(FriendlyFlags.Out)] MONITORINFOEX* lpmi) => GetMonitorInfo(hMonitor, lpmi);
+        public static unsafe bool GetMonitorInfoEx(IntPtr hMonitor, [Friendly(FriendlyFlags.Bidirectional)] MONITORINFOEX* lpmi) => GetMonitorInfo(hMonitor, lpmi);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetSystemMetrics(SystemMetric smIndex);

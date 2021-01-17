@@ -464,7 +464,7 @@ namespace PInvoke
         [NoFriendlyOverloads]
         public static unsafe bool GetMonitorInfo(
             IntPtr hMonitor,
-            [Friendly(FriendlyFlags.Out)] MONITORINFOEX* lpmi)
+            [Friendly(FriendlyFlags.Bidirectional)] MONITORINFOEX* lpmi)
         {
             return GetMonitorInfo(hMonitor, (MONITORINFO*)lpmi);
         }
@@ -475,6 +475,7 @@ namespace PInvoke
             IntPtr hMonitor,
             out MONITORINFOEX lpmi)
         {
+            lpmi = MONITORINFOEX.Create();
             fixed (MONITORINFOEX* lpmiLocal = &lpmi)
             {
                 return GetMonitorInfo(hMonitor, lpmiLocal);
