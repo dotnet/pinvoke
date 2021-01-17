@@ -1806,9 +1806,9 @@ static PInvoke.User32.GetDC(System.IntPtr hWnd) -> PInvoke.User32.SafeDCHandle
 static PInvoke.User32.GetDCEx(System.IntPtr hWnd, System.IntPtr hrgnClip, PInvoke.User32.DeviceContextValues flags) -> PInvoke.User32.SafeDCHandle
 static PInvoke.User32.GetMessage(System.IntPtr lpMsg, System.IntPtr hWnd, PInvoke.User32.WindowMessage wMsgFilterMin, PInvoke.User32.WindowMessage wMsgFilterMax) -> int
 static PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, System.IntPtr lpmi) -> bool
-static PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, out PInvoke.User32.MONITORINFO lpmi) -> bool
+static PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, ref PInvoke.User32.MONITORINFO lpmi) -> bool
 static PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, System.IntPtr lpmi) -> bool
-static PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, out PInvoke.User32.MONITORINFOEX lpmi) -> bool
+static PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, ref PInvoke.User32.MONITORINFOEX lpmi) -> bool
 static PInvoke.User32.GetUserObjectInformation(System.IntPtr hObj, PInvoke.User32.ObjectInformationType nIndex, System.IntPtr pvInfo, uint nLength, System.IntPtr lpnLengthNeeded) -> bool
 static PInvoke.User32.GetWindowDC(System.IntPtr hWnd) -> PInvoke.User32.SafeDCHandle
 static PInvoke.User32.GetWindowPlacement(System.IntPtr hWnd) -> PInvoke.User32.WINDOWPLACEMENT
