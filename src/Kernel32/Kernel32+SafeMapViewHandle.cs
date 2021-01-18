@@ -8,7 +8,7 @@ namespace PInvoke
     using Microsoft.Win32.SafeHandles;
 
     /// <content>
-    /// Contains the <see cref="SafeObjectHandle"/> nested type.
+    /// Contains the <see cref="SafeMapViewHandle"/> nested type.
     /// </content>
     public static partial class Kernel32
     {
