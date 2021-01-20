@@ -2181,7 +2181,7 @@ static PInvoke.User32.CreateCursor(System.IntPtr hInst, int xHotspot, int yHotSp
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, System.IntPtr lpParam) -> System.IntPtr
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, void* lpParam) -> System.IntPtr
 static PInvoke.User32.GetCursorInfo(System.IntPtr pci) -> bool
-static PInvoke.User32.GetCursorInfo(out PInvoke.User32.CURSORINFO pci) -> bool
+static PInvoke.User32.GetCursorInfo(ref PInvoke.User32.CURSORINFO pci) -> bool
 static PInvoke.User32.GetMenuBarInfo(System.IntPtr hwnd, PInvoke.User32.MenuObject idObject, int idItem, System.IntPtr pmbi) -> bool
 static PInvoke.User32.GetMenuInfo(System.IntPtr hMenu, System.IntPtr lpMenuInfo) -> bool
 static PInvoke.User32.GetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, System.IntPtr lpmii) -> bool
