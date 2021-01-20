@@ -1100,7 +1100,7 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool GetCursorInfo(
-            [Friendly(FriendlyFlags.Out)] CURSORINFO* pci);
+            [Friendly(FriendlyFlags.Bidirectional)] CURSORINFO* pci);
 
         /// <summary>
         /// Displays or hides the cursor.
