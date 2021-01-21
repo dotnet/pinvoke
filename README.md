@@ -15,6 +15,8 @@ Special Windows Store targeted assemblies omit p/invoke signatures to banned API
 
 This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
 
+**⚠ NOTICE: A new, preferred approach for Win32 p/invokes now exists for C# developers. [Check it out](https://github.com/dotnet/pinvoke/issues/565).**
+
 ## Usage
 
 Install the NuGet package(s) for the DLLs you want to P/Invoke into.
