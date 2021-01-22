@@ -56,7 +56,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(NetApi32), CharSet = CharSet.Unicode)]
         public static extern unsafe Win32ErrorCode NetUserEnum(
-            [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* servername,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Array | FriendlyFlags.Optional)] char* servername,
             NetUserEnumLevel level,
             NetUserEnumFilter filter,
             out void* bufptr,

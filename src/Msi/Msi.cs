@@ -82,7 +82,7 @@ namespace PInvoke
             int dwIndex,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional | FriendlyFlags.Array)] char* szInstalledProductCode,
             [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional)] MSIINSTALLCONTEXT* pdwInstalledContext,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional | FriendlyFlags.Array)] char* szSid,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Optional | FriendlyFlags.Array, ArrayLengthParameter = 7)] char* szSid,
             [Friendly(FriendlyFlags.In | FriendlyFlags.Out | FriendlyFlags.Optional)] int* pcchSid);
     }
 }

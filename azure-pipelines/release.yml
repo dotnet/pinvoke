@@ -1,0 +1,81 @@
+trigger: none # We only want to trigger manually or based on resources
+pr: none
+
+resources:
+  pipelines:
+  - pipeline: CI
+    source: PInvoke
+    trigger:
+      tags:
+      - auto-release
+
+stages:
+- stage: GitHubRelease
+  displayName: GitHub Release
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  jobs:
+  - deployment: create
+    pool:
+      vmImage: ubuntu-latest
+    environment: No-Approval # Approval is already granted in the release stage.
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - powershell: |
+              Write-Host "##vso[build.updatebuildnumber]$(resources.pipeline.CI.runName)"
+            displayName: Set pipeline name
+          - download: CI
+            artifact: pinvoke_coverage_report-Windows
+            displayName: Downloading pinvoke coverage report
+          - download: CI
+            artifact: pinvoke_method_coverage-Windows
+            displayName: Downloading pinvoke method coverage
+          - task: GitHubRelease@1
+            displayName: GitHub release (create)
+            inputs:
+              gitHubConnection: GitHub AArnott
+              repositoryName: $(Build.Repository.Name)
+              target: $(resources.pipeline.CI.sourceCommit)
+              tagSource: userSpecifiedTag
+              tag: v$(resources.pipeline.CI.runName)
+              title: v$(resources.pipeline.CI.runName)
+              isDraft: true
+              assets: |
+                $(Pipeline.Workspace)/CI/pinvoke_method_coverage-Windows/*
+                $(Pipeline.Workspace)/CI/pinvoke_coverage_report-Windows/*
+              changeLogCompareToRelease: lastNonDraftRelease
+              changeLogType: issueBased
+              changeLogLabels: |
+                [
+                  { "label" : "bug", "displayName" : "Fixes", "state" : "closed" },
+                  { "label" : "enhancement", "displayName": "Enhancements", "state" : "closed" }
+                ]
+
+- stage: nuget_org
+  displayName: nuget.org
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  jobs:
+  - deployment: push
+    pool:
+      vmImage: ubuntu-latest
+    environment: No-Approval # Approval is already granted in the release stage.
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: CI
+            artifact: deployables-Windows
+            displayName: Download deployables-Windows artifact
+            patterns: '**/*.*nupkg'
+          - task: NuGetToolInstaller@1
+            displayName: Use NuGet 5.x
+            inputs:
+              versionSpec: 5.x
+          - task: NuGetCommand@2
+            displayName: NuGet push
+            inputs:
+              command: push
+              packagesToPush: $(Pipeline.Workspace)/CI/deployables-Windows/*.nupkg
+              nuGetFeedType: external
+              publishFeedCredentials: nuget.org

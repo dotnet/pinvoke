@@ -1,0 +1,1 @@
+static PInvoke.Msi.MsiEnumProductsEx(string szProductCode, string szUserSid, PInvoke.Msi.MSIINSTALLCONTEXT dwContext, int dwIndex, System.Span<char> szInstalledProductCode, ref PInvoke.Msi.MSIINSTALLCONTEXT? pdwInstalledContext, System.Span<char> szSid, ref int? pcchSid) -> PInvoke.Win32ErrorCode

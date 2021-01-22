@@ -16,6 +16,25 @@ namespace PInvoke
     /// </content>
     public static partial class Kernel32
     {
+        /// <inheritdoc cref="CreateFile(char*, ACCESS_MASK, FileShare, SECURITY_ATTRIBUTES*, CreationDisposition, CreateFileFlags, SafeObjectHandle)"/>
+        /// <devremarks>
+        /// This should be removed as part of delivering <see href="https://github.com/dotnet/pinvoke/issues/286">the string-overload codegen feature</see>.
+        /// </devremarks>
+        public static unsafe SafeObjectHandle CreateFile(
+            string filename,
+            ACCESS_MASK access,
+            FileShare share,
+            [Friendly(FriendlyFlags.In | FriendlyFlags.Optional)] SECURITY_ATTRIBUTES* securityAttributes,
+            CreationDisposition creationDisposition,
+            CreateFileFlags flagsAndAttributes,
+            SafeObjectHandle templateFile)
+        {
+            fixed (char* pFileName = filename)
+            {
+                return CreateFile(pFileName, access, share, securityAttributes, creationDisposition, flagsAndAttributes, templateFile);
+            }
+        }
+
         /// <summary>Retrieves information about the first process encountered in a system snapshot.</summary>
         /// <param name="hSnapshot">
         ///     A handle to the snapshot returned from a previous call to the
@@ -200,9 +219,11 @@ namespace PInvoke
             }
         }
 
+#pragma warning disable RS0027 // Public API with optional parameter(s) should have the most parameters amongst its public overloads.
         public static unsafe string QueryFullProcessImageName(
             SafeObjectHandle hProcess,
             QueryFullProcessImageNameFlags dwFlags = QueryFullProcessImageNameFlags.None)
+#pragma warning restore RS0027 // Public API with optional parameter(s) should have the most parameters amongst its public overloads.
         {
             // If we ever resize over this value something got really wrong
             const int maximumRealisticSize = 1 * 1024 * 2014;

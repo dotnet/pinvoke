@@ -9,7 +9,7 @@ namespace PInvoke
     public partial class User32
     {
         /// <summary>
-        /// Flags for the <see cref="MsgWaitForMultipleObjectsEx(uint, IntPtr, uint, WakeMask, MsgWaitForMultipleObjectsExFlags)"/> method.
+        /// Flags for the <see cref="MsgWaitForMultipleObjectsEx(uint, IntPtr*, uint, WakeMask, MsgWaitForMultipleObjectsExFlags)"/> method.
         /// </summary>
         [Flags]
         public enum MsgWaitForMultipleObjectsExFlags : uint

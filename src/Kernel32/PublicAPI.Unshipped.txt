@@ -4,6 +4,12 @@ PInvoke.Kernel32.APP_MEMORY_INFORMATION.AvailableCommit -> ulong
 PInvoke.Kernel32.APP_MEMORY_INFORMATION.PeakPrivateCommitUsage -> ulong
 PInvoke.Kernel32.APP_MEMORY_INFORMATION.PrivateCommitUsage -> ulong
 PInvoke.Kernel32.APP_MEMORY_INFORMATION.TotalCommitUsage -> ulong
+PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL
+PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL.CONSOLE_READCONSOLE_CONTROL() -> void
+PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL.dwControlKeyState -> PInvoke.Kernel32.ControlKeyStates
+PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL.dwCtrlWakeupMask -> uint
+PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL.nInitialChars -> uint
+PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL.nLength -> int
 PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.CreatePseudoConsoleFlags.None = 0 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
 PInvoke.Kernel32.CreatePseudoConsoleFlags.PSEUDOCONSOLE_INHERIT_CURSOR = 1 -> PInvoke.Kernel32.CreatePseudoConsoleFlags
@@ -203,7 +209,11 @@ const PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_CURRENT_VERSION = 1 ->
 const PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.PROCESS_POWER_THROTTLING_CURRENT_VERSION = 1 -> uint
 override PInvoke.Kernel32.SafePseudoConsoleHandle.IsInvalid.get -> bool
 override PInvoke.Kernel32.SafePseudoConsoleHandle.ReleaseHandle() -> bool
+static PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL.Create() -> PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL
 static PInvoke.Kernel32.CancelIoEx(PInvoke.Kernel32.SafeObjectHandle hFile, System.Threading.NativeOverlapped* lpOverlapped) -> bool
+static PInvoke.Kernel32.CreateFile(System.IntPtr filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, System.IntPtr securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateFile(System.ReadOnlySpan<char> filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, PInvoke.Kernel32.SECURITY_ATTRIBUTES? securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.CreateFile(char[] filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, PInvoke.Kernel32.SECURITY_ATTRIBUTES? securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
 static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
 static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, ref uint? lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
 static PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, System.IntPtr lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, System.IntPtr lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, System.IntPtr lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
@@ -217,22 +227,44 @@ static PInvoke.Kernel32.DeviceIoControl(PInvoke.Kernel32.SafeObjectHandle hDevic
 static PInvoke.Kernel32.DeviceIoControlAsync<TInput, TOutput>(PInvoke.Kernel32.SafeObjectHandle hDevice, uint dwIoControlCode, System.Memory<TInput> inBuffer, System.Memory<TOutput> outBuffer, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<uint>
 static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, System.IntPtr lpFileTime) -> bool
 static PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, out PInvoke.Kernel32.FILETIME lpFileTime) -> bool
+static PInvoke.Kernel32.EnumResourceLanguages(PInvoke.Kernel32.SafeLibraryHandle hModule, System.ReadOnlySpan<char> lpType, System.ReadOnlySpan<char> lpName, PInvoke.Kernel32.EnumResLangProc lpEnumFunc, System.IntPtr lParam) -> bool
+static PInvoke.Kernel32.EnumResourceLanguages(PInvoke.Kernel32.SafeLibraryHandle hModule, System.ReadOnlySpan<char> lpType, System.ReadOnlySpan<char> lpName, PInvoke.Kernel32.EnumResLangProc lpEnumFunc, void* lParam) -> bool
+static PInvoke.Kernel32.EnumResourceLanguages(PInvoke.Kernel32.SafeLibraryHandle hModule, char[] lpType, char[] lpName, PInvoke.Kernel32.EnumResLangProc lpEnumFunc, System.IntPtr lParam) -> bool
+static PInvoke.Kernel32.EnumResourceLanguages(PInvoke.Kernel32.SafeLibraryHandle hModule, char[] lpType, char[] lpName, PInvoke.Kernel32.EnumResLangProc lpEnumFunc, void* lParam) -> bool
+static PInvoke.Kernel32.EnumResourceNames(PInvoke.Kernel32.SafeLibraryHandle hModule, System.ReadOnlySpan<char> lpszType, PInvoke.Kernel32.EnumResNameProc lpEnumFunc, System.IntPtr lParam) -> bool
+static PInvoke.Kernel32.EnumResourceNames(PInvoke.Kernel32.SafeLibraryHandle hModule, char[] lpszType, PInvoke.Kernel32.EnumResNameProc lpEnumFunc, System.IntPtr lParam) -> bool
+static PInvoke.Kernel32.FindResource(PInvoke.Kernel32.SafeLibraryHandle hModule, System.ReadOnlySpan<char> lpName, System.ReadOnlySpan<char> lpType) -> System.IntPtr
+static PInvoke.Kernel32.FindResource(PInvoke.Kernel32.SafeLibraryHandle hModule, char[] lpName, char[] lpType) -> System.IntPtr
 static PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpcBaseAddress, System.UIntPtr dwSize) -> bool
+static PInvoke.Kernel32.GetConsoleAlias(string lpSource, System.Span<char> lpTargetBuffer, string lpExeName) -> int
+static PInvoke.Kernel32.GetConsoleAliasExes(System.Span<char> lpExeNameBuffer) -> int
+static PInvoke.Kernel32.GetConsoleAliases(System.Span<char> lpAliasBuffer, string lpExeName) -> int
+static PInvoke.Kernel32.GetConsoleProcessList(System.Span<uint> lpdwProcessList, int dwProcessCount) -> int
+static PInvoke.Kernel32.GetConsoleTitle(System.Span<char> lpConsoleTitle) -> int
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(System.IntPtr ProcNumber) -> void
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(out PInvoke.Kernel32.PROCESSOR_NUMBER ProcNumber) -> void
+static PInvoke.Kernel32.GetDllDirectory(System.Span<char> lpBuffer) -> bool
+static PInvoke.Kernel32.GetNamedPipeClientComputerName(PInvoke.Kernel32.SafeObjectHandle Pipe, System.Span<char> ClientComputerName) -> bool
+static PInvoke.Kernel32.GetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.PipeMode lpState, ref int? lpCurInstances, ref int? lpMaxCollectionCount, ref int? lpCollectDataTimeout, System.Span<char> lpUserName) -> bool
 static PInvoke.Kernel32.GetNativeSystemInfo(System.IntPtr lpSystemInfo) -> void
 static PInvoke.Kernel32.GetNativeSystemInfo(out PInvoke.Kernel32.SYSTEM_INFO lpSystemInfo) -> void
 static PInvoke.Kernel32.GetOverlappedResult(PInvoke.Kernel32.SafeObjectHandle hFile, System.Threading.NativeOverlapped* lpOverlapped, out int lpNumberOfBytesTransferred, bool bWait) -> bool
 static PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation, uint ProcessInformationSize) -> bool
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.IntPtr lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.IntPtr lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, System.Span<char> lpVolumeNameBuffer, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, System.Span<char> lpFileSystemNameBuffer) -> bool
 static PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char[] lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char[] lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static PInvoke.Kernel32.OSVERSIONINFO.Create() -> PInvoke.Kernel32.OSVERSIONINFO
+static PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.QueryFullProcessImageNameFlags dwFlags, System.Span<char> lpExeName, int lpdwSize) -> bool
+static PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, System.IntPtr lpBuffer, int nNumberOfCharsToRead, out int lpNumberOfCharsRead, System.IntPtr pInputControl) -> bool
+static PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, System.Span<char> lpBuffer, out int lpNumberOfCharsRead, PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL? pInputControl) -> bool
+static PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, char[] lpBuffer, int nNumberOfCharsToRead, out int lpNumberOfCharsRead, PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL? pInputControl) -> bool
 static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead, int* lpNumberOfBytesRead, System.Threading.NativeOverlapped* lpOverlapped) -> bool
 static PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, System.IntPtr lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, ref int? lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
 static PInvoke.Kernel32.SetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, System.IntPtr ProcessInformation, uint ProcessInformationSize) -> bool
 static PInvoke.Kernel32.WriteFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToWrite, int* lpNumberOfBytesWritten, System.Threading.NativeOverlapped* lpOverlapped) -> bool
+static extern PInvoke.Kernel32.CreateFile(char* filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, PInvoke.Kernel32.SECURITY_ATTRIBUTES* securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.CreatePseudoConsole(PInvoke.COORD size, PInvoke.Kernel32.SafeObjectHandle hInput, PInvoke.Kernel32.SafeObjectHandle hOutput, PInvoke.Kernel32.CreatePseudoConsoleFlags dwFlags, out PInvoke.Kernel32.SafePseudoConsoleHandle phPC) -> PInvoke.HResult
 static extern PInvoke.Kernel32.CreateRemoteThread(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.CreateRemoteThreadEx(System.IntPtr hProcess, PInvoke.Kernel32.SECURITY_ATTRIBUTES* lpThreadAttributes, System.UIntPtr dwStackSize, PInvoke.Kernel32.THREAD_START_ROUTINE lpStartAddress, void* lpParameter, PInvoke.Kernel32.CreateThreadFlags dwCreationFlags, PInvoke.Kernel32.PROC_THREAD_ATTRIBUTE_LIST* lpAttributeList, uint* lpThreadId) -> PInvoke.Kernel32.SafeObjectHandle
@@ -253,6 +285,7 @@ static extern PInvoke.Kernel32.GetProcessHandleCount(PInvoke.Kernel32.SafeObject
 static extern PInvoke.Kernel32.GetProcessIdOfThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> uint
 static extern PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, void* ProcessInformation, uint ProcessInformationSize) -> bool
 static extern PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char* lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char* lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
+static extern PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, char* lpBuffer, int nNumberOfCharsToRead, out int lpNumberOfCharsRead, PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL* pInputControl) -> bool
 static extern PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static extern PInvoke.Kernel32.ResizePseudoConsole(PInvoke.Kernel32.SafePseudoConsoleHandle hPC, PInvoke.COORD size) -> PInvoke.HResult
 static extern PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, int* lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int

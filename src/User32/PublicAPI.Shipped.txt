@@ -296,12 +296,12 @@ PInvoke.User32.MONITORENUMPROC
 PInvoke.User32.MONITORINFO
 PInvoke.User32.MONITORINFO.MONITORINFO() -> void
 PInvoke.User32.MONITORINFO.cbSize -> int
-PInvoke.User32.MONITORINFO.dwFlags -> uint
+PInvoke.User32.MONITORINFO.dwFlags -> PInvoke.User32.MONITORINFO_Flags
 PInvoke.User32.MONITORINFO.rcMonitor -> PInvoke.RECT
 PInvoke.User32.MONITORINFO.rcWork -> PInvoke.RECT
 PInvoke.User32.MONITORINFOEX
 PInvoke.User32.MONITORINFOEX.DeviceName -> char*
-PInvoke.User32.MONITORINFOEX.Flags -> uint
+PInvoke.User32.MONITORINFOEX.Flags -> PInvoke.User32.MONITORINFO_Flags
 PInvoke.User32.MONITORINFOEX.MONITORINFOEX() -> void
 PInvoke.User32.MONITORINFOEX.Monitor -> PInvoke.RECT
 PInvoke.User32.MONITORINFOEX.WorkArea -> PInvoke.RECT
@@ -1785,8 +1785,8 @@ static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, st
 static PInvoke.User32.CreateWindowStation(string lpwinsta, PInvoke.User32.WindowStationCreationFlags dwFlags, PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, PInvoke.Kernel32.SECURITY_ATTRIBUTES? lpsa) -> PInvoke.User32.SafeWindowStationHandle
 static PInvoke.User32.CreateWindowStation(string lpwinsta, PInvoke.User32.WindowStationCreationFlags dwFlags, PInvoke.Kernel32.ACCESS_MASK dwDesiredAccess, System.IntPtr lpsa) -> PInvoke.User32.SafeWindowStationHandle
 static PInvoke.User32.DispatchMessage(System.IntPtr lpMsg) -> System.IntPtr
-static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hDC, System.IntPtr lpString, int nCount, System.IntPtr lpRect, PInvoke.User32.TextFormats uFormat) -> int
-static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hDC, char[] lpString, int nCount, ref PInvoke.RECT lpRect, PInvoke.User32.TextFormats uFormat) -> int
+static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hdc, System.IntPtr lpchText, int cchText, System.IntPtr lprc, PInvoke.User32.TextFormats format) -> int
+static PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hdc, char[] lpchText, int cchText, ref PInvoke.RECT lprc, PInvoke.User32.TextFormats format) -> int
 static PInvoke.User32.DrawTextEx(PInvoke.User32.SafeDCHandle hdc, System.IntPtr lpchText, int cchText, System.IntPtr lprc, uint dwDTFormat, System.IntPtr lpDTParams) -> int
 static PInvoke.User32.DrawTextEx(PInvoke.User32.SafeDCHandle hdc, char[] lpchText, int cchText, ref PInvoke.RECT lprc, uint dwDTFormat, PInvoke.User32.DRAWTEXTPARAMS? lpDTParams) -> int
 static PInvoke.User32.EndPaint(System.IntPtr hWnd, PInvoke.User32.PAINTSTRUCT lpPaint) -> bool
@@ -1806,9 +1806,9 @@ static PInvoke.User32.GetDC(System.IntPtr hWnd) -> PInvoke.User32.SafeDCHandle
 static PInvoke.User32.GetDCEx(System.IntPtr hWnd, System.IntPtr hrgnClip, PInvoke.User32.DeviceContextValues flags) -> PInvoke.User32.SafeDCHandle
 static PInvoke.User32.GetMessage(System.IntPtr lpMsg, System.IntPtr hWnd, PInvoke.User32.WindowMessage wMsgFilterMin, PInvoke.User32.WindowMessage wMsgFilterMax) -> int
 static PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, System.IntPtr lpmi) -> bool
-static PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, out PInvoke.User32.MONITORINFO lpmi) -> bool
+static PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, ref PInvoke.User32.MONITORINFO lpmi) -> bool
 static PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, System.IntPtr lpmi) -> bool
-static PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, out PInvoke.User32.MONITORINFOEX lpmi) -> bool
+static PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, ref PInvoke.User32.MONITORINFOEX lpmi) -> bool
 static PInvoke.User32.GetUserObjectInformation(System.IntPtr hObj, PInvoke.User32.ObjectInformationType nIndex, System.IntPtr pvInfo, uint nLength, System.IntPtr lpnLengthNeeded) -> bool
 static PInvoke.User32.GetWindowDC(System.IntPtr hWnd) -> PInvoke.User32.SafeDCHandle
 static PInvoke.User32.GetWindowPlacement(System.IntPtr hWnd) -> PInvoke.User32.WINDOWPLACEMENT
@@ -1818,7 +1818,6 @@ static PInvoke.User32.GetWindowText(System.IntPtr hWnd, System.IntPtr lpString, 
 static PInvoke.User32.GetWindowText(System.IntPtr hWnd, char[] lpString, int nMaxCount) -> int
 static PInvoke.User32.HELPINFO.Create() -> PInvoke.User32.HELPINFO
 static PInvoke.User32.IsDialogMessage(System.IntPtr hDlg, System.IntPtr lpMsg) -> bool
-static PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, out System.IntPtr lpBuffer, int cchBufferMax) -> int
 static PInvoke.User32.LookupIconIdFromDirectory(System.IntPtr presbits, bool fIcon) -> int
 static PInvoke.User32.LookupIconIdFromDirectory(byte[] presbits, bool fIcon) -> int
 static PInvoke.User32.LookupIconIdFromDirectoryEx(System.IntPtr presbits, bool fIcon, int cxDesired, int cyDesired, PInvoke.User32.LookupIconIdFromDirectoryExFlags Flags) -> int
@@ -1859,7 +1858,7 @@ static extern PInvoke.User32.CreateWindowStation(string lpwinsta, PInvoke.User32
 static extern PInvoke.User32.DefWindowProc(System.IntPtr hWnd, PInvoke.User32.WindowMessage Msg, System.IntPtr wParam, System.IntPtr lParam) -> System.IntPtr
 static extern PInvoke.User32.DispatchMessage(PInvoke.User32.MSG* lpMsg) -> System.IntPtr
 static extern PInvoke.User32.DispatchMessage(ref PInvoke.User32.MSG lpmsg) -> System.IntPtr
-static extern PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hDC, char* lpString, int nCount, PInvoke.RECT* lpRect, PInvoke.User32.TextFormats uFormat) -> int
+static extern PInvoke.User32.DrawText(PInvoke.User32.SafeDCHandle hdc, char* lpchText, int cchText, PInvoke.RECT* lprc, PInvoke.User32.TextFormats format) -> int
 static extern PInvoke.User32.DrawTextEx(PInvoke.User32.SafeDCHandle hdc, char* lpchText, int cchText, PInvoke.RECT* lprc, uint dwDTFormat, PInvoke.User32.DRAWTEXTPARAMS* lpDTParams) -> int
 static extern PInvoke.User32.EmptyClipboard() -> bool
 static extern PInvoke.User32.EndPaint(System.IntPtr hWnd, PInvoke.User32.PAINTSTRUCT* lpPaint) -> bool
@@ -1887,7 +1886,7 @@ static extern PInvoke.User32.GetKeyState(int nVirtKey) -> short
 static extern PInvoke.User32.GetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, PInvoke.User32.MENUITEMINFO* lpmii) -> bool
 static extern PInvoke.User32.GetMessage(PInvoke.User32.MSG* lpMsg, System.IntPtr hWnd, PInvoke.User32.WindowMessage wMsgFilterMin, PInvoke.User32.WindowMessage wMsgFilterMax) -> int
 static extern PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, PInvoke.User32.MONITORINFO* lpmi) -> bool
-static extern PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, PInvoke.User32.MONITORINFOEX* lpmi) -> bool
+static PInvoke.User32.GetMonitorInfoEx(System.IntPtr hMonitor, PInvoke.User32.MONITORINFOEX* lpmi) -> bool
 static extern PInvoke.User32.GetProcessWindowStation() -> PInvoke.User32.SafeWindowStationHandle
 static extern PInvoke.User32.GetQueueStatus(PInvoke.User32.QueueStatusFlags flags) -> int
 static extern PInvoke.User32.GetShellWindow() -> System.IntPtr
@@ -1916,7 +1915,6 @@ static extern PInvoke.User32.IsWindowVisible(System.IntPtr hWnd) -> bool
 static extern PInvoke.User32.IsZoomed(System.IntPtr hWnd) -> bool
 static extern PInvoke.User32.LoadIcon(System.IntPtr hInstance, System.IntPtr lpIconName) -> System.IntPtr
 static extern PInvoke.User32.LoadIcon(System.IntPtr hInstance, string lpIconName) -> System.IntPtr
-static extern PInvoke.User32.LoadString(System.IntPtr hInstance, uint uID, out char* lpBuffer, int cchBufferMax) -> int
 static extern PInvoke.User32.LogicalToPhysicalPoint(System.IntPtr hwnd, ref PInvoke.POINT lpPoint) -> bool
 static extern PInvoke.User32.LogicalToPhysicalPointForPerMonitorDPI(System.IntPtr hwnd, ref PInvoke.POINT lpPoint) -> bool
 static extern PInvoke.User32.LookupIconIdFromDirectory(byte* presbits, bool fIcon) -> int
@@ -2183,7 +2181,7 @@ static PInvoke.User32.CreateCursor(System.IntPtr hInst, int xHotspot, int yHotSp
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, System.IntPtr lpParam) -> System.IntPtr
 static PInvoke.User32.CreateWindowEx(PInvoke.User32.WindowStylesEx dwExStyle, short lpClassName, string lpWindowName, PInvoke.User32.WindowStyles dwStyle, int x, int y, int nWidth, int nHeight, System.IntPtr hWndParent, System.IntPtr hMenu, System.IntPtr hInstance, void* lpParam) -> System.IntPtr
 static PInvoke.User32.GetCursorInfo(System.IntPtr pci) -> bool
-static PInvoke.User32.GetCursorInfo(out PInvoke.User32.CURSORINFO pci) -> bool
+static PInvoke.User32.GetCursorInfo(ref PInvoke.User32.CURSORINFO pci) -> bool
 static PInvoke.User32.GetMenuBarInfo(System.IntPtr hwnd, PInvoke.User32.MenuObject idObject, int idItem, System.IntPtr pmbi) -> bool
 static PInvoke.User32.GetMenuInfo(System.IntPtr hMenu, System.IntPtr lpMenuInfo) -> bool
 static PInvoke.User32.GetMenuItemInfo(System.IntPtr hMenu, uint uItem, bool fByPosition, System.IntPtr lpmii) -> bool

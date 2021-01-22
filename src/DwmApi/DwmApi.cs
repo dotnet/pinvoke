@@ -87,7 +87,7 @@ namespace PInvoke
         /// <param name="cbAttribute">The size of the <see cref="DWMWINDOWATTRIBUTE"/> value being retrieved. The size is dependent on the type of the <paramref name="pvAttribute"/> parameter.</param>
         /// <returns>If this function succeeds, it returns <see cref="HResult.Code.S_OK"/>. Otherwise, it returns an <see cref="HResult"/> error code.</returns>
         [DllImport(nameof(DwmApi))]
-        public static unsafe extern HResult DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, out void* pvAttribute, int cbAttribute);
+        public static unsafe extern HResult DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, void* pvAttribute, int cbAttribute);
 
         /// <summary>
         /// Extends the window frame into the client area.

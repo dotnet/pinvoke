@@ -3,8 +3,6 @@
 
 namespace PInvoke
 {
-    using System.Runtime.InteropServices;
-
     /// <content>
     /// Contains the <see cref="HiddAttributes"/> nested type.
     /// </content>
@@ -35,6 +33,11 @@ namespace PInvoke
             /// </summary>
             public ushort VersionNumber;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="HiddAttributes"/> struct
+            /// with the <see cref="Size"/> field initialized.
+            /// </summary>
+            /// <returns>The newly initialized struct.</returns>
             public static unsafe HiddAttributes Create() => new HiddAttributes { Size = sizeof(HiddAttributes) };
         }
     }

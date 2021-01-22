@@ -313,7 +313,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int GetClassName(
             IntPtr hWnd,
-            [Friendly(FriendlyFlags.Array)] char* lpClassName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* lpClassName,
             int nMaxCount);
 
         /// <summary>
@@ -1031,7 +1031,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe SafeCursorHandle LoadCursor(
             IntPtr hInstance,
-            [Friendly(FriendlyFlags.Array)] char* lpCursorName);
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] char* lpCursorName);
 
         /// <summary>
         /// Retrieves a handle to the current cursor.
@@ -1100,7 +1100,7 @@ namespace PInvoke
         [DllImport(nameof(User32))]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool GetCursorInfo(
-            [Friendly(FriendlyFlags.Out)] CURSORINFO* pci);
+            [Friendly(FriendlyFlags.Bidirectional)] CURSORINFO* pci);
 
         /// <summary>
         /// Displays or hides the cursor.
@@ -1162,10 +1162,20 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowDisplayAffinity(IntPtr hWnd, int dwAffinity);
 
+        /// <summary>
+        /// Retrieves a string that specifies the window type.
+        /// </summary>
+        /// <param name="hwnd">A handle to the window whose type will be retrieved.</param>
+        /// <param name="pszType">A pointer to a string that receives the window type.</param>
+        /// <param name="cchType">The length, in characters, of the buffer pointed to by the <paramref name="pszType"/> parameter.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is the number of characters copied to the specified buffer.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.
+        /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe uint RealGetWindowClass(
             IntPtr hwnd,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* pszType,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* pszType,
             uint cchType);
 
         /// <summary>
@@ -1405,7 +1415,7 @@ namespace PInvoke
         public static extern unsafe int GetMenuString(
             IntPtr hMenu,
             uint uIDItem,
-            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array)] char* lpString,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array | FriendlyFlags.Optional, ArrayLengthParameter = 3)] char* lpString,
             int cchMax,
             GetMenuStateFlags flags);
 
@@ -1602,7 +1612,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe int LookupIconIdFromDirectory(
-            byte* presbits,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] byte* presbits,
             [MarshalAs(UnmanagedType.Bool)] bool fIcon);
 
         /// <summary>
@@ -1624,7 +1634,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe int LookupIconIdFromDirectoryEx(
-            byte* presbits,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] byte* presbits,
             [MarshalAs(UnmanagedType.Bool)] bool fIcon,
             int cxDesired,
             int cyDesired,
@@ -1736,7 +1746,7 @@ namespace PInvoke
         public static extern unsafe bool EnumDisplaySettings(
             [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] char* lpszDeviceName,
             uint iModeNum,
-            [Friendly(FriendlyFlags.Bidirectional)]DEVMODE* lpDevMode);
+            [Friendly(FriendlyFlags.Bidirectional)] DEVMODE* lpDevMode);
 
         /// <summary>
         /// Retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes of a display device, make a series of calls to this function.
@@ -1787,15 +1797,27 @@ namespace PInvoke
             string lpClassName,
             ref WNDCLASSEX lpWndClass);
 
-        [DllImport(nameof(User32), SetLastError = true)]
+        /// <summary>
+        /// Retrieves information about a display monitor.
+        /// </summary>
+        /// <param name="hMonitor">A handle to the display monitor of interest.</param>
+        /// <param name="lpmi">
+        /// A pointer to a <see cref="MONITORINFO"/> or <see cref="MONITORINFOEX"/> structure that receives information about the specified display monitor.
+        /// You must set the cbSize member of the structure to <c>sizeof(MONITORINFO)</c> or <c>sizeof(MONITORINFOEX)</c> before calling the <see cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/> function. Doing so lets the function determine the type of structure you are passing to it.
+        /// The <see cref="MONITORINFOEX"/> structure is a superset of the <see cref="MONITORINFO"/> structure. It has one additional member: a string that contains a name for the display monitor. Most applications have no use for a display monitor name, and so can save some bytes by using a <see cref="MONITORINFO"/> structure.
+        /// </param>
+        /// <returns>
+        /// If the function succeeds, the return value is <c>true</c>.
+        /// If the function fails, the return value is <c>false</c>.
+        /// </returns>
+        [DllImport(nameof(User32))]
         public static extern unsafe bool GetMonitorInfo(
             IntPtr hMonitor,
-            [Friendly(FriendlyFlags.Out)] MONITORINFO* lpmi);
+            [Friendly(FriendlyFlags.Bidirectional)] MONITORINFO* lpmi);
 
-        [DllImport(nameof(User32), EntryPoint = "GetMonitorInfo", SetLastError = true)]
-        public static extern unsafe bool GetMonitorInfoEx(
-            IntPtr hMonitor,
-            [Friendly(FriendlyFlags.Out)] MONITORINFOEX* lpmi);
+        /// <inheritdoc cref="GetMonitorInfo(IntPtr, MONITORINFOEX*)"/>
+        [Obsolete("Use " + nameof(GetMonitorInfo) + " instead.")]
+        public static unsafe bool GetMonitorInfoEx(IntPtr hMonitor, [Friendly(FriendlyFlags.Bidirectional)] MONITORINFOEX* lpmi) => GetMonitorInfo(hMonitor, lpmi);
 
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern int GetSystemMetrics(SystemMetric smIndex);
@@ -1879,7 +1901,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int GetClipboardFormatName(
             int format,
-            [Friendly(FriendlyFlags.Array)] char* lpszFormatName,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* lpszFormatName,
             int cchMaxCount);
 
         [DllImport(nameof(User32), SetLastError = true)]
@@ -1917,7 +1939,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         public static extern unsafe uint SendInput(
             int nInputs,
-            [Friendly(FriendlyFlags.Array)] INPUT* pInputs,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In)] INPUT* pInputs,
             int cbSize);
 
         /// <summary>
@@ -2915,11 +2937,11 @@ namespace PInvoke
         ///     The identifier of the string to be loaded.
         /// </param>
         /// <param name="lpBuffer">
-        ///     The buffer is to receive the string. Must be of sufficient length to hold a pointer (8 bytes).
+        /// The buffer to receive the string (if <paramref name="cchBufferMax" /> is non-zero) or a read-only pointer to the string resource itself (if <paramref name="cchBufferMax" /> is zero). Must be of sufficient length to hold a pointer (8 bytes).
         /// </param>
         /// <param name="cchBufferMax">
         ///     The size of the buffer, in characters. The string is truncated and null-terminated if it is longer than the
-        ///     number of characters specified. If this parameter is 0, then lpBuffer receives a read-only pointer to the
+        ///     number of characters specified. If this parameter is 0, then <paramref name="lpBuffer" /> receives a read-only pointer to the
         ///     resource itself.
         /// </param>
         /// <returns>
@@ -2928,7 +2950,11 @@ namespace PInvoke
         ///     error information, call <see cref="Kernel32.GetLastError"/>.
         /// </returns>
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern unsafe int LoadString(IntPtr hInstance, uint uID, out char* lpBuffer, int cchBufferMax);
+        public static extern unsafe int LoadString(
+            IntPtr hInstance,
+            uint uID,
+            [Friendly(FriendlyFlags.Out | FriendlyFlags.Array, ArrayLengthParameter = 3)] char* lpBuffer,
+            int cchBufferMax);
 
         /// <summary>
         /// Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar).
@@ -2968,7 +2994,7 @@ namespace PInvoke
         [DllImport(nameof(User32), CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe int GetWindowText(
             IntPtr hWnd,
-            [Friendly(FriendlyFlags.Array)] char* lpString,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* lpString,
             int nMaxCount);
 
         /// <summary>
@@ -3343,19 +3369,19 @@ namespace PInvoke
         /// It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth).
         /// To specify additional formatting options, use the <see cref="DrawTextEx(SafeDCHandle, char*, int, RECT*, uint, DRAWTEXTPARAMS*)"/> function.
         /// </summary>
-        /// <param name="hDC">A handle to the device context.</param>
-        /// <param name="lpString">
+        /// <param name="hdc">A handle to the device context.</param>
+        /// <param name="lpchText">
         /// A pointer to the string that specifies the text to be drawn.
-        /// If the <paramref name="nCount"/> parameter is -1, the string must be null-terminated.
-        /// If <paramref name="uFormat"/> includes <see cref="TextFormats.DT_MODIFYSTRING"/>, the function could add up to four additional characters to this string.
+        /// If the <paramref name="cchText"/> parameter is -1, the string must be null-terminated.
+        /// If <paramref name="format"/> includes <see cref="TextFormats.DT_MODIFYSTRING"/>, the function could add up to four additional characters to this string.
         /// The buffer containing the string should be large enough to accommodate these extra characters.
         /// </param>
-        /// <param name="nCount">The length, in characters, of the string. If nCount is -1, then the lpchText parameter is assumed to be a pointer to a null-terminated string and DrawText computes the character count automatically.</param>
-        /// <param name="lpRect">A pointer to a RECT structure that contains the rectangle (in logical coordinates) in which the text is to be formatted.</param>
-        /// <param name="uFormat">The method of formatting the text.</param>
+        /// <param name="cchText">The length, in characters, of the string. If <paramref name="cchText"/> is -1, then the <paramref name="lpchText"/> parameter is assumed to be a pointer to a null-terminated string and DrawText computes the character count automatically.</param>
+        /// <param name="lprc">A pointer to a RECT structure that contains the rectangle (in logical coordinates) in which the text is to be formatted.</param>
+        /// <param name="format">The method of formatting the text.</param>
         /// <returns>
         /// If the function succeeds, the return value is the height of the text in logical units.
-        /// If <see cref="TextFormats.DT_VCENTER"/> or <see cref="TextFormats.DT_BOTTOM"/> is specified, the return value is the offset from <see cref="RECT.top"/> (<paramref name="lpRect"/>) to the bottom of the drawn text.
+        /// If <see cref="TextFormats.DT_VCENTER"/> or <see cref="TextFormats.DT_BOTTOM"/> is specified, the return value is the offset from <see cref="RECT.top"/> (<paramref name="lprc"/>) to the bottom of the drawn text.
         /// If the function fails, the return value is zero.</returns>
         /// <remarks>
         /// <para>
@@ -3371,11 +3397,11 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int DrawText(
-            SafeDCHandle hDC,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* lpString,
-            int nCount,
-            [Friendly(FriendlyFlags.Bidirectional)] RECT* lpRect,
-            TextFormats uFormat);
+            SafeDCHandle hdc,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional, ArrayLengthParameter = 2)] char* lpchText,
+            int cchText,
+            [Friendly(FriendlyFlags.Bidirectional)] RECT* lprc,
+            TextFormats format);
 
         /// <summary>
         /// The DrawTextEx function draws formatted text in the specified rectangle.
@@ -3388,7 +3414,7 @@ namespace PInvoke
         /// </param>
         /// <param name="cchText">
         /// The length of the string pointed to by <paramref name="lpchText"/>.
-        /// If cchText is -1, then the lpchText parameter is assumed to be a pointer to a null-terminated string and DrawTextEx computes the character count automatically.
+        /// If <paramref name="cchText"/> is -1, then the lpchText parameter is assumed to be a pointer to a null-terminated string and DrawTextEx computes the character count automatically.
         /// </param>
         /// <param name="lprc">A pointer to a <see cref="RECT"/> structure that contains the rectangle, in logical coordinates, in which the text is to be formatted.</param>
         /// <param name="dwDTFormat">The formatting options.</param>
@@ -3401,7 +3427,7 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern unsafe int DrawTextEx(
             SafeDCHandle hdc,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* lpchText,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional, ArrayLengthParameter = 2)] char* lpchText,
             int cchText,
             [Friendly(FriendlyFlags.Bidirectional)] RECT* lprc,
             uint dwDTFormat,
@@ -3917,6 +3943,185 @@ namespace PInvoke
             uint dwMilliseconds,
             WakeMask dwWakeMask,
             MsgWaitForMultipleObjectsExFlags dwFlags);
+
+        /// <summary>Modifies the User Interface Privilege Isolation (UIPI) message filter for a specified window.</summary>
+        /// <param name = "hwnd">
+        /// <para>Type: <b>HWND</b></para>
+        /// <para>A handle to the window whose UIPI message filter is to be modified.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "message">
+        /// <para>Type: <b>UINT</b></para>
+        /// <para>The message that the message filter allows through or blocks.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "action">
+        /// <para>Type: <b>DWORD</b>The action to be performed, and can take one of the following values:</para>
+        /// <para>This doc was truncated.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "pChangeFilterStruct">
+        /// <para>Type: <b>PCHANGEFILTERSTRUCT</b></para>
+        /// <para>Optional pointer to a <a href = "https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-changefilterstruct">CHANGEFILTERSTRUCT</a> structure.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <returns>
+        /// <para>Type: <b>BOOL</b></para>
+        /// <para>If the function succeeds, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b>. To get extended error information, call <a href = "https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.</para>
+        /// </returns>
+        /// <remarks>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex">Learn more about this API from docs.microsoft.com</see>.</para>
+        /// </remarks>
+        [DllImport("User32", ExactSpelling = true, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool ChangeWindowMessageFilterEx(IntPtr hwnd, uint message, uint action, [Friendly(FriendlyFlags.Bidirectional | FriendlyFlags.Optional)] CHANGEFILTERSTRUCT* pChangeFilterStruct);
+
+        /// <summary>Retrieves a handle to the specified window's parent or owner.</summary>
+        /// <param name = "hWnd">
+        /// <para>Type: <b>HWND</b></para>
+        /// <para>A handle to the window whose parent window handle is to be retrieved.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-getparent#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <returns>
+        /// <para>Type: <b>HWND</b>If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window.If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href = "https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.This function typically fails for one of the following reasons:</para>
+        /// <para></para>
+        /// <para>This doc was truncated.</para>
+        /// </returns>
+        /// <remarks>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-getparent">Learn more about this API from docs.microsoft.com</see>.</para>
+        /// </remarks>
+        [DllImport("User32", ExactSpelling = true, SetLastError = true)]
+        public static extern IntPtr GetParent(IntPtr hWnd);
+
+        /// <summary>Enumerates the child windows that belong to the specified parent window by passing the handle to each child window, in turn, to an application-defined callback function.</summary>
+        /// <param name = "hWndParent">
+        /// <para>Type: <b>HWND</b></para>
+        /// <para>A handle to the parent window whose child windows are to be enumerated. If this parameter is <b>NULL</b>, this function is equivalent to <a href = "https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumwindows">EnumWindows</a>.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-enumchildwindows#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "lpEnumFunc">
+        /// <para>Type: <b>WNDENUMPROC</b></para>
+        /// <para>A pointer to an application-defined callback function. For more information, see <a href = "https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633493(v=vs.85)">EnumChildProc</a>.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-enumchildwindows#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <param name = "lParam">
+        /// <para>Type: <b>LPARAM</b></para>
+        /// <para>An application-defined value to be passed to the callback function.</para>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-enumchildwindows#parameters">Read more on docs.microsoft.com</see>.</para>
+        /// </param>
+        /// <returns>
+        /// <para>Type: <b>BOOL</b></para>
+        /// <para>The return value is not used.</para>
+        /// </returns>
+        /// <remarks>
+        /// <para><see href = "https://docs.microsoft.com/en-us/windows/win32/api//winuser/nf-winuser-enumchildwindows">Learn more about this API from docs.microsoft.com</see>.</para>
+        /// </remarks>
+        [DllImport("User32", ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumChildWindows(IntPtr hWndParent, IntPtr lpEnumFunc, IntPtr lParam);
+
+        /// <summary>
+        /// Retrieves the time of the last input event.
+        /// </summary>
+        /// <param name="plii">A pointer to a <see cref="LASTINPUTINFO"/> structure that receives the time of the last input event.</param>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.
+        /// If the function fails, the return value is zero.
+        /// </returns>
+        /// <remarks>
+        /// This function is useful for input idle detection. However, GetLastInputInfo does not provide system-wide
+        /// user input information across all running sessions. Rather, GetLastInputInfo provides session-specific user input
+        /// information for only the session that invoked the function.
+        /// The tick count when the last input event was received (see <see cref="LASTINPUTINFO"/>) is not guaranteed to be incremental.
+        /// In some cases, the value might be less than the tick count of a prior event. For example, this can be caused by
+        /// a timing gap between the raw input thread and the desktop thread or an event raised by SendInput, which supplies its own tick count.
+        /// </remarks>
+        [DllImport(nameof(User32))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetLastInputInfo(
+            [Friendly(FriendlyFlags.Out)] LASTINPUTINFO* plii);
+
+        /// <summary>
+        /// Retrieves a data handle from the property list of the specified window. The character string identifies the handle to be retrieved. The string and handle must have been added to the property list by a previous call to the <see cref="SetProp(IntPtr, string, IntPtr)" /> function.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list is to be searched.</param>
+        /// <param name="lpString">An atom that identifies a string. If this parameter is an atom, it must have been created by using the GlobalAddAtom function. The atom, a 16-bit value, must be placed in the low-order word of the <paramref name="lpString"/> parameter; the high-order word must be zero.</param>
+        /// <returns>If the property list contains the string, the return value is the associated data handle. Otherwise, the return value is NULL.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetProp(IntPtr hWnd, string lpString);
+
+        /// <summary>
+        /// Retrieves a data handle from the property list of the specified window. The character string identifies the handle to be retrieved. The string and handle must have been added to the property list by a previous call to the <see cref="SetProp(IntPtr, string, IntPtr)" /> function.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list is to be searched.</param>
+        /// <param name="atom">An atom that identifies a string. If this parameter is an atom, it must have been created by using the GlobalAddAtom function.</param>
+        /// <returns>If the property list contains the string, the return value is the associated data handle. Otherwise, the return value is NULL.</returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr GetProp(IntPtr hWnd, int atom);
+
+        /// <summary>
+        /// Adds a new entry or changes an existing entry in the property list of the specified window. The function adds a new entry to the list if the specified character string does not exist already in the list. The new entry contains the string and the handle. Otherwise, the function replaces the string's current handle with the specified handle.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list receives the new entry.</param>
+        /// <param name="lpString">A null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the GlobalAddAtom function. The atom must be placed in the low-order word of <paramref name="lpString" />; the high-order word must be zero.</param>
+        /// <param name="hData">A handle to the data to be copied to the property list. The data handle can identify any value useful to the application.</param>
+        /// <returns>
+        /// If the data handle and string are added to the property list, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError" />.
+        /// </returns>
+        /// <remarks>
+        /// Before a window is destroyed (that is, before it returns from processing the <see cref="WindowMessage.WM_NCDESTROY" /> message), an application must remove all entries it has added to the property list. The application must use the RemoveProp function to remove the entries.
+        /// SetProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <see cref="GetLastError" /> will return 5.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProp(IntPtr hWnd, string lpString, IntPtr hData);
+
+        /// <summary>
+        /// Adds a new entry or changes an existing entry in the property list of the specified window. The function adds a new entry to the list if the specified character string does not exist already in the list. The new entry contains the string and the handle. Otherwise, the function replaces the string's current handle with the specified handle.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list receives the new entry.</param>
+        /// <param name="atom">An atom that identifies a string. It must be a global atom created by a previous call to the GlobalAddAtom function.</param>
+        /// <param name="hData">A handle to the data to be copied to the property list. The data handle can identify any value useful to the application.</param>
+        /// <returns>
+        /// If the data handle and string are added to the property list, the return value is nonzero.
+        /// If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError" />.
+        /// </returns>
+        /// <remarks>
+        /// Before a window is destroyed (that is, before it returns from processing the <see cref="WindowMessage.WM_NCDESTROY" /> message), an application must remove all entries it has added to the property list. The application must use the RemoveProp function to remove the entries.
+        /// SetProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <see cref="GetLastError" /> will return 5.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProp(IntPtr hWnd, int atom, IntPtr hData);
+
+        /// <summary>
+        /// Removes an entry from the property list of the specified window. The specified character string identifies the entry to be removed.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list is to be changed.</param>
+        /// <param name="lpString">A null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the GlobalAddAtom function. The atom, a 16-bit value, must be placed in the low-order word of <paramref name="lpString" />; the high-order word must be zero.</param>
+        /// <returns>The return value identifies the specified data. If the data cannot be found in the specified property list, the return value is NULL.</returns>
+        /// <remarks>
+        /// The return value is the hData value that was passed to <see cref="SetProp(IntPtr, string, IntPtr)" />; it is an application-defined value. Note, this function only destroys the association between the data and the window. If appropriate, the application must free the data handles associated with entries removed from a property list. The application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.
+        /// The RemoveProp function returns the data handle associated with the string so that the application can free the data associated with the handle.
+        /// Starting with Windows Vista, RemoveProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <see cref="GetLastError" /> will return 5.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr RemoveProp(IntPtr hWnd, string lpString);
+
+        /// <summary>
+        /// Removes an entry from the property list of the specified window. The specified character string identifies the entry to be removed.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose property list is to be changed.</param>
+        /// <param name="atom">An atom that identifies a string. If this parameter is an atom, it must have been created using the GlobalAddAtom function.</param>
+        /// <returns>The return value identifies the specified data. If the data cannot be found in the specified property list, the return value is NULL.</returns>
+        /// <remarks>
+        /// The return value is the hData value that was passed to <see cref="SetProp(IntPtr, string, IntPtr)" />; it is an application-defined value. Note, this function only destroys the association between the data and the window. If appropriate, the application must free the data handles associated with entries removed from a property list. The application can remove only those properties it has added. It must not remove properties added by other applications or by the system itself.
+        /// The RemoveProp function returns the data handle associated with the string so that the application can free the data associated with the handle.
+        /// Starting with Windows Vista, RemoveProp is subject to the restrictions of User Interface Privilege Isolation (UIPI). A process can only call this function on a window belonging to a process of lesser or equal integrity level. When UIPI blocks property changes, <see cref="GetLastError" /> will return 5.
+        /// </remarks>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern IntPtr RemoveProp(IntPtr hWnd, int atom);
 
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.

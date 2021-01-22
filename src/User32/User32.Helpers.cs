@@ -256,7 +256,9 @@ namespace PInvoke
         /// <returns>The class name string.</returns>
         /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
         /// <remarks>The maximum length for lpszClassName is 256. See WNDCLASS structure documentation: https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576(v=vs.85).aspx.</remarks>
+#pragma warning disable RS0027 // Public API with optional parameter(s) should have the most parameters amongst its public overloads.
         public static unsafe string GetClassName(IntPtr hWnd, int maxLength = 256)
+#pragma warning restore RS0027 // Public API with optional parameter(s) should have the most parameters amongst its public overloads.
         {
             char* className = stackalloc char[maxLength];
             int count = GetClassName(hWnd, className, maxLength);
@@ -455,6 +457,28 @@ namespace PInvoke
             {
                 var dwValue = (SetWindowLongFlags)(int)dwNewLong;
                 return (void*)SetWindowLong(hWnd, nIndex, dwValue);
+            }
+        }
+
+        /// <inheritdoc cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/>
+        [NoFriendlyOverloads]
+        public static unsafe bool GetMonitorInfo(
+            IntPtr hMonitor,
+            [Friendly(FriendlyFlags.Bidirectional)] MONITORINFOEX* lpmi)
+        {
+            return GetMonitorInfo(hMonitor, (MONITORINFO*)lpmi);
+        }
+
+        /// <inheritdoc cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/>
+        [NoFriendlyOverloads]
+        public static unsafe bool GetMonitorInfo(
+            IntPtr hMonitor,
+            out MONITORINFOEX lpmi)
+        {
+            lpmi = MONITORINFOEX.Create();
+            fixed (MONITORINFOEX* lpmiLocal = &lpmi)
+            {
+                return GetMonitorInfo(hMonitor, lpmiLocal);
             }
         }
     }

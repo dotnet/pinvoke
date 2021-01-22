@@ -182,7 +182,7 @@ public class BCryptFacts
                 Array.Copy(plainText, plainTextPadded, plainText.Length);
                 BCryptEncrypt(
                     key,
-                    new ArraySegment<byte>(plainTextPadded),
+                    plainTextPadded,
                     null,
                     null,
                     null,
@@ -192,10 +192,10 @@ public class BCryptFacts
                 cipherText = new byte[cipherTextLength];
                 BCryptEncrypt(
                     key,
-                    new ArraySegment<byte>(plainTextPadded),
+                    plainTextPadded,
                     null,
                     null,
-                    new ArraySegment<byte>(cipherText),
+                    cipherText,
                     out cipherTextLength,
                     BCryptEncryptFlags.None).ThrowOnError();
 
@@ -210,10 +210,10 @@ public class BCryptFacts
                 int cbDecrypted;
                 BCryptDecrypt(
                     key,
-                    new ArraySegment<byte>(cipherText),
+                    cipherText,
                     null,
                     null,
-                    new ArraySegment<byte>(decryptedText),
+                    decryptedText,
                     out cbDecrypted,
                     BCryptEncryptFlags.None).ThrowOnError();
 
@@ -234,10 +234,10 @@ public class BCryptFacts
                 int length;
                 BCryptEncrypt(
                     key,
-                    new ArraySegment<byte>(new byte[0]),
+                    new byte[0],
                     null,
                     default(ArraySegment<byte>),
-                    new ArraySegment<byte>(new byte[1]),
+                    new byte[1],
                     out length,
                     BCryptEncryptFlags.None);
             }
@@ -247,10 +247,10 @@ public class BCryptFacts
                 int length;
                 BCryptEncrypt(
                     key,
-                    new ArraySegment<byte>(new byte[0]),
+                    new byte[0],
                     null,
                     null,
-                    new ArraySegment<byte>(new byte[1]),
+                    new byte[1],
                     out length,
                     BCryptEncryptFlags.None);
             }

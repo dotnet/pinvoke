@@ -157,4 +157,19 @@ public partial class User32Facts
         Assert.Equal(expectedSize, Marshal.SizeOf(info));
         Assert.Equal(expectedSize, MENUBARINFO.Create().cbSize);
     }
+
+    [Fact]
+    public unsafe void EnumDisplayMonitors_GetMonitorInfo_Test()
+    {
+        Assert.True(EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, Callback, IntPtr.Zero));
+
+        bool Callback(IntPtr hMonitor, IntPtr hdcMonitor, RECT* lprcMonitor, void* dwData)
+        {
+            MONITORINFO info = default;
+            info.cbSize = sizeof(MONITORINFO);
+            Assert.True(GetMonitorInfo(hMonitor, ref info));
+            Assert.True(info.rcMonitor.bottom > 0);
+            return true;
+        }
+    }
 }

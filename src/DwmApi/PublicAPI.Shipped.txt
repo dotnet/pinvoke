@@ -36,11 +36,11 @@ PInvoke.DwmApi.DwmEnableCompositionFlags.DWM_EC_DISABLECOMPOSITION = 0 -> PInvok
 PInvoke.DwmApi.DwmEnableCompositionFlags.DWM_EC_ENABLECOMPOSITION = 1 -> PInvoke.DwmApi.DwmEnableCompositionFlags
 static PInvoke.DwmApi.DwmEnableBlurBehindWindow(System.IntPtr hWnd, PInvoke.DwmApi.DWM_BLURBEHIND pBlurBehind) -> PInvoke.HResult
 static PInvoke.DwmApi.DwmEnableBlurBehindWindow(System.IntPtr hWnd, System.IntPtr pBlurBehind) -> PInvoke.HResult
-static PInvoke.DwmApi.DwmGetWindowAttribute(System.IntPtr hwnd, PInvoke.DwmApi.DWMWINDOWATTRIBUTE dwAttribute, out System.IntPtr pvAttribute, int cbAttribute) -> PInvoke.HResult
+static PInvoke.DwmApi.DwmGetWindowAttribute(System.IntPtr hwnd, PInvoke.DwmApi.DWMWINDOWATTRIBUTE dwAttribute, System.IntPtr pvAttribute, int cbAttribute) -> PInvoke.HResult
 static extern PInvoke.DwmApi.DwmDefWindowProc(System.IntPtr hwnd, uint msg, System.IntPtr wParam, System.IntPtr lParam, out System.IntPtr plResult) -> bool
 static extern PInvoke.DwmApi.DwmEnableBlurBehindWindow(System.IntPtr hWnd, PInvoke.DwmApi.DWM_BLURBEHIND* pBlurBehind) -> PInvoke.HResult
 static extern PInvoke.DwmApi.DwmEnableComposition(PInvoke.DwmApi.DwmEnableCompositionFlags uCompositionAction) -> PInvoke.HResult
 static extern PInvoke.DwmApi.DwmFlush() -> PInvoke.HResult
 static extern PInvoke.DwmApi.DwmGetColorizationColor(out uint pcrColorization, out bool pfOpaqueBlend) -> PInvoke.HResult
-static extern PInvoke.DwmApi.DwmGetWindowAttribute(System.IntPtr hwnd, PInvoke.DwmApi.DWMWINDOWATTRIBUTE dwAttribute, out void* pvAttribute, int cbAttribute) -> PInvoke.HResult
+static extern PInvoke.DwmApi.DwmGetWindowAttribute(System.IntPtr hwnd, PInvoke.DwmApi.DWMWINDOWATTRIBUTE dwAttribute, void* pvAttribute, int cbAttribute) -> PInvoke.HResult
 static extern PInvoke.DwmApi.DwmExtendFrameIntoClientArea(System.IntPtr hWnd, PInvoke.UxTheme.MARGINS margins) -> PInvoke.HResult

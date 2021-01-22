@@ -42,7 +42,7 @@ namespace PInvoke
         /// </param>
         /// <param name="cbKeyBlob">The size, in bytes, of <paramref name="pbKeyBlob"/>.</param>
         /// <param name="ppbPublicKeyBlob">
-        /// The returned public key BLOB. The <paramref name="ppbPublicKeyBlob"/> parameter is allocated by the common language runtime and returned to the caller. The caller must free the memory by using the ICLRStrongName::StrongNameFreeBuffer method.
+        /// The returned public key BLOB. The <paramref name="ppbPublicKeyBlob"/> parameter is allocated by the common language runtime and returned to the caller. The caller must free the memory by using the <see cref="StrongNameFreeBuffer(byte*)"/> method.
         /// </param>
         /// <param name="pcbPublicKeyBlob">The size of the returned public key BLOB.</param>
         /// <returns>
@@ -54,7 +54,7 @@ namespace PInvoke
         [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode, PreserveSig = true)]
         public static extern unsafe int StrongNameGetPublicKey(
             string szKeyContainer,
-            byte* pbKeyBlob,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In | FriendlyFlags.Optional, ArrayLengthParameter = 2)] byte* pbKeyBlob,
             int cbKeyBlob,
             out byte* ppbPublicKeyBlob,
             out int pcbPublicKeyBlob);
@@ -71,7 +71,7 @@ namespace PInvoke
         /// </returns>
         [DllImport(nameof(MSCorEE), PreserveSig = true)]
         public static extern unsafe int StrongNameTokenFromPublicKey(
-            byte* pbPublicKeyBlob,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.In, ArrayLengthParameter = 1)] byte* pbPublicKeyBlob,
             int cbPublicKeyBlob,
             out byte* ppbStrongNameToken,
             out int pcbStrongNameToken);
@@ -142,7 +142,7 @@ namespace PInvoke
         [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode)]
         public static extern unsafe HResult GetVersionFromProcess(
             SafeHandle hProcess,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* pVersion,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out, ArrayLengthParameter = 2)] char* pVersion,
             int cchBuffer,
             out int dwLength);
 
@@ -162,7 +162,7 @@ namespace PInvoke
         [DllImport(nameof(MSCorEE), CharSet = CharSet.Unicode)]
         public static extern unsafe HResult GetFileVersion(
             [MarshalAs(UnmanagedType.LPWStr)] string szFileName,
-            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional)] char* szBuffer,
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Bidirectional, ArrayLengthParameter = 2)] char* szBuffer,
             int cchBuffer,
             out int dwLength);
     }

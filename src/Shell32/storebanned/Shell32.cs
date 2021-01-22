@@ -54,7 +54,7 @@ namespace PInvoke
             CSIDL nFolder,
             IntPtr hToken,
             SHGetFolderPathFlags dwFlags,
-            [Friendly(FriendlyFlags.Array)] char* pszPath);
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* pszPath);
 
         /// <summary>
         /// Gets the path of a folder identified by a CSIDL value.
@@ -146,7 +146,7 @@ namespace PInvoke
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern unsafe bool SHGetPathFromIDList(
             ITEMIDLIST* pidl,
-            [Friendly(FriendlyFlags.Array)] char* pszPath);
+            [Friendly(FriendlyFlags.Array | FriendlyFlags.Out)] char* pszPath);
 
         /// <summary>
         /// Frees an <see cref="ITEMIDLIST"/> structure allocated by the Shell.
