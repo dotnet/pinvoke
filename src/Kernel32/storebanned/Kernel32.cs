@@ -1352,7 +1352,7 @@ namespace PInvoke
         /// Therefore, do not pass a handle returned by this function to the <see cref="FreeLibrary"/> function. Doing so can cause a DLL module to be unmapped prematurely.
         /// </remarks>
         [DllImport(nameof(Kernel32), SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern SafeLibraryHandle GetModuleHandle(string lpModuleName);
+        public static extern IntPtr GetModuleHandle(string lpModuleName);
 
         /// <summary>
         /// Retrieves a module handle for the specified module and increments the module's reference count unless <see cref="GetModuleHandleExFlags.GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT"/> is specified.
