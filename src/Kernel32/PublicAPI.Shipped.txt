@@ -1320,7 +1320,7 @@ static extern PInvoke.Kernel32.GetDllDirectory(int nBufferLength, char* lpBuffer
 static extern PInvoke.Kernel32.GetExitCodeProcess(System.IntPtr hProcess, out int lpExitCode) -> bool
 static extern PInvoke.Kernel32.GetExitCodeThread(System.IntPtr hThread, out int lpExitCode) -> bool
 static extern PInvoke.Kernel32.GetLargestConsoleWindowSize(System.IntPtr hConsoleOutput) -> PInvoke.COORD
-static extern PInvoke.Kernel32.GetModuleHandle(string lpModuleName) -> PInvoke.Kernel32.SafeLibraryHandle
+static extern PInvoke.Kernel32.GetModuleHandle(string lpModuleName) -> System.IntPtr
 static extern PInvoke.Kernel32.GetModuleHandleEx(PInvoke.Kernel32.GetModuleHandleExFlags dwFlags, string lpModuleName, out PInvoke.Kernel32.SafeLibraryHandle phModule) -> bool
 static extern PInvoke.Kernel32.GetNamedPipeClientComputerName(PInvoke.Kernel32.SafeObjectHandle Pipe, System.Text.StringBuilder ClientComputerName, int ClientComputerNameLength) -> bool
 static extern PInvoke.Kernel32.GetNamedPipeClientComputerName(PInvoke.Kernel32.SafeObjectHandle Pipe, char* ClientComputerName, int ClientComputerNameLength) -> bool
