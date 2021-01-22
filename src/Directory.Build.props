@@ -6,7 +6,7 @@
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\</BaseOutputPath>
     <PackageOutputPath>$(RepoRootPath)bin\$(Configuration)\Packages\</PackageOutputPath>
 
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <!-- <Nullable>enable</Nullable> -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 

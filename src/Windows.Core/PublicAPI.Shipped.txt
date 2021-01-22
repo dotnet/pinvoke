@@ -1,13 +1,45 @@
+const PInvoke.ApiSets.api_ms_win_core_console_l1_1_0 = "api-ms-win-core-console-l1-1-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_console_l2_1_0 = "api-ms-win-core-console-l2-1-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_errorhandling_l1_1_1 = "api-ms-win-core-errorhandling-l1-1-1.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_file_l1_2_0 = "api-ms-win-core-file-l1-2-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_file_l1_2_1 = "api-ms-win-core-file-l1-2-1.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_handle_l1_1_0 = "api-ms-win-core-handle-l1-1-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_io_l1_1_1 = "api-ms-win-core-io-l1-1-1.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_libraryloader_l1_1_1 = "api-ms-win-core-libraryloader-l1-1-1.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_localization_l1_2_0 = "api-ms-win-core-localization-l1-2-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_localization_l1_2_1 = "api-ms-win-core-localization-l1-2-1.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_namedpipe_l1_2_0 = "api-ms-win-core-namedpipe-l1-2-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_processthreads_l1_1_1 = "api-ms-win-core-processthreads-l1-1-1.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_processthreads_l1_1_2 = "api-ms-win-core-processthreads-l1-1-2.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_psapi_l1_1_0 = "api-ms-win-core-psapi-l1-1-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_registry_l1_1_0 = "api-ms-win-core-registry-l1-1-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_synch_l1_2_0 = "api-ms-win-core-synch-l1-2-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_sysinfo_l1_2_0 = "api-ms-win-core-sysinfo-l1-2-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_core_sysinfo_l1_2_1 = "api-ms-win-core-sysinfo-l1-2-1.dll" -> string
+const PInvoke.ApiSets.api_ms_win_security_base_l1_2_0 = "api-ms-win-security-base-l1-2-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_security_sddl_l1_1_0 = "api-ms-win-security-sddl-l1-1-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_service_core_l1_1_1 = "api-ms-win-service-core-l1-1-1.dll" -> string
+const PInvoke.ApiSets.api_ms_win_service_management_l1_1_0 = "api-ms-win-service-management-l1-1-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_service_management_l2_1_0 = "api-ms-win-service-management-l2-1-0.dll" -> string
+const PInvoke.ApiSets.api_ms_win_service_winsvc_l1_2_0 = "api-ms-win-service-winsvc-l1-2-0.dll" -> string
+const PInvoke.Constants.IMAGE_NUMBEROF_DIRECTORY_ENTRIES = 16 -> int
+const PInvoke.Constants.IMAGE_SIZEOF_SHORT_NAME = 8 -> int
+Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid (forwarded, contained in mscorlib)
+Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid.SafeHandleZeroOrMinusOneIsInvalid(bool ownsHandle) -> void (forwarded, contained in mscorlib)
+override Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid.IsInvalid.get -> bool (forwarded, contained in mscorlib)
+override PInvoke.HResult.Equals(object obj) -> bool
+override PInvoke.HResult.GetHashCode() -> int
+override PInvoke.HResult.ToString() -> string
+override PInvoke.NTSTATUS.Equals(object obj) -> bool
+override PInvoke.NTSTATUS.GetHashCode() -> int
+override PInvoke.NTSTATUS.ToString() -> string
 PInvoke.ApiSets
-PInvoke.COORD
-PInvoke.COORD.COORD() -> void
-PInvoke.COORD.X -> short
-PInvoke.COORD.Y -> short
 PInvoke.Constants
 PInvoke.HResult
 PInvoke.HResult.AsInt32.get -> int
 PInvoke.HResult.AsUInt32.get -> uint
 PInvoke.HResult.Code
+PInvoke.HResult.Code.CO_E_CANCEL_DISABLED = 2147549504 -> PInvoke.HResult.Code
 PInvoke.HResult.Code.E_ABORT = 2147500036 -> PInvoke.HResult.Code
 PInvoke.HResult.Code.E_ACCESSDENIED = 2147942405 -> PInvoke.HResult.Code
 PInvoke.HResult.Code.E_FAIL = 2147500037 -> PInvoke.HResult.Code
@@ -18,10 +50,12 @@ PInvoke.HResult.Code.E_NOTIMPL = 2147500033 -> PInvoke.HResult.Code
 PInvoke.HResult.Code.E_OUTOFMEMORY = 2147942414 -> PInvoke.HResult.Code
 PInvoke.HResult.Code.E_POINTER = 2147500035 -> PInvoke.HResult.Code
 PInvoke.HResult.Code.E_UNEXPECTED = 2147549183 -> PInvoke.HResult.Code
+PInvoke.HResult.Code.RPC_E_CALL_CANCELED = 2147549186 -> PInvoke.HResult.Code
+PInvoke.HResult.Code.RPC_E_CALL_COMPLETE = 2147549463 -> PInvoke.HResult.Code
 PInvoke.HResult.Code.S_FALSE = 1 -> PInvoke.HResult.Code
 PInvoke.HResult.Code.S_OK = 0 -> PInvoke.HResult.Code
-PInvoke.HResult.CompareTo(PInvoke.HResult other) -> int
 PInvoke.HResult.CompareTo(object obj) -> int
+PInvoke.HResult.CompareTo(PInvoke.HResult other) -> int
 PInvoke.HResult.Equals(PInvoke.HResult other) -> bool
 PInvoke.HResult.Facility.get -> PInvoke.HResult.FacilityCode
 PInvoke.HResult.FacilityCode
@@ -157,8 +191,9 @@ PInvoke.HResult.FacilityStatus.get -> uint
 PInvoke.HResult.Failed.get -> bool
 PInvoke.HResult.GetException() -> System.Exception
 PInvoke.HResult.GetException(System.IntPtr errorInfo) -> System.Exception
-PInvoke.HResult.HResult(PInvoke.HResult.Code value) -> void
+PInvoke.HResult.HResult() -> void
 PInvoke.HResult.HResult(int value) -> void
+PInvoke.HResult.HResult(PInvoke.HResult.Code value) -> void
 PInvoke.HResult.HResult(uint value) -> void
 PInvoke.HResult.Severity.get -> PInvoke.HResult.SeverityCode
 PInvoke.HResult.SeverityCode
@@ -169,151 +204,6 @@ PInvoke.HResult.ThrowOnFailure() -> void
 PInvoke.HResult.ThrowOnFailure(System.IntPtr errorInfo) -> void
 PInvoke.HResult.ToString(string format, System.IFormatProvider formatProvider) -> string
 PInvoke.HResult.Value.get -> PInvoke.HResult.Code
-PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_DATA_DIRECTORY.IMAGE_DATA_DIRECTORY() -> void
-PInvoke.IMAGE_DATA_DIRECTORY.Size -> uint
-PInvoke.IMAGE_DATA_DIRECTORY.VirtualAddress -> uint
-PInvoke.IMAGE_FILE_HEADER
-PInvoke.IMAGE_FILE_HEADER.Characteristics -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_32BIT_MACHINE = 256 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_AGGRESIVE_WS_TRIM = 16 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_BYTES_REVERSED_HI = 32768 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_BYTES_REVERSED_LO = 128 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_DEBUG_STRIPPED = 512 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_DLL = 8192 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_EXECUTABLE_IMAGE = 2 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_LARGE_ADDRESS_AWARE = 32 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_LINE_NUMS_STRIPPED = 4 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_LOCAL_SYMS_STRIPPED = 8 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_NET_RUN_FROM_SWAP = 2048 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_RELOCS_STRIPPED = 1 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP = 1024 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_SYSTEM = 4096 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.CharacteristicsType.IMAGE_FILE_UP_SYSTEM_ONLY = 16384 -> PInvoke.IMAGE_FILE_HEADER.CharacteristicsType
-PInvoke.IMAGE_FILE_HEADER.IMAGE_FILE_HEADER() -> void
-PInvoke.IMAGE_FILE_HEADER.Machine -> PInvoke.IMAGE_FILE_HEADER.MachineType
-PInvoke.IMAGE_FILE_HEADER.MachineType
-PInvoke.IMAGE_FILE_HEADER.MachineType.IMAGE_FILE_MACHINE_AMD64 = 34404 -> PInvoke.IMAGE_FILE_HEADER.MachineType
-PInvoke.IMAGE_FILE_HEADER.MachineType.IMAGE_FILE_MACHINE_I386 = 332 -> PInvoke.IMAGE_FILE_HEADER.MachineType
-PInvoke.IMAGE_FILE_HEADER.MachineType.IMAGE_FILE_MACHINE_IA64 = 512 -> PInvoke.IMAGE_FILE_HEADER.MachineType
-PInvoke.IMAGE_FILE_HEADER.NumberOfSections -> ushort
-PInvoke.IMAGE_FILE_HEADER.NumberOfSymbols -> uint
-PInvoke.IMAGE_FILE_HEADER.PointerToSymbolTable -> uint
-PInvoke.IMAGE_FILE_HEADER.SizeOfOptionalHeader -> ushort
-PInvoke.IMAGE_FILE_HEADER.TimeDateStamp -> uint
-PInvoke.IMAGE_NT_HEADERS
-PInvoke.IMAGE_NT_HEADERS.FileHeader -> PInvoke.IMAGE_FILE_HEADER
-PInvoke.IMAGE_NT_HEADERS.IMAGE_NT_HEADERS() -> void
-PInvoke.IMAGE_NT_HEADERS.OptionalHeader -> PInvoke.IMAGE_OPTIONAL_HEADER
-PInvoke.IMAGE_NT_HEADERS.Signature -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER
-PInvoke.IMAGE_OPTIONAL_HEADER.AddressOfEntryPoint -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.BaseOfCode -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.BaseOfData -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.CheckSum -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.DataDirectory -> PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristics -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE = 64 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.IMAGE_DLLCHARACTERISTICS_FORCE_INTEGRITY = 128 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.IMAGE_DLLCHARACTERISTICS_NO_BIND = 2048 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.IMAGE_DLLCHARACTERISTICS_NO_ISOLATION = 512 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.IMAGE_DLLCHARACTERISTICS_NO_SEH = 1024 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.IMAGE_DLLCHARACTERISTICS_NX_COMPAT = 256 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE = 32768 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.IMAGE_DLLCHARACTERISTICS_WDM_DRIVER = 8192 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.Reserved1 = 1 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.Reserved2 = 2 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.Reserved3 = 4 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.Reserved4 = 8 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.Reserved5 = 4096 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType.Reserved6 = 16384 -> PInvoke.IMAGE_OPTIONAL_HEADER.DllCharacteristicsType
-PInvoke.IMAGE_OPTIONAL_HEADER.FileAlignment -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.IMAGE_OPTIONAL_HEADER() -> void
-PInvoke.IMAGE_OPTIONAL_HEADER.ImageBase -> System.UIntPtr
-PInvoke.IMAGE_OPTIONAL_HEADER.LoaderFlags -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.Magic -> PInvoke.IMAGE_OPTIONAL_HEADER.MagicType
-PInvoke.IMAGE_OPTIONAL_HEADER.MagicType
-PInvoke.IMAGE_OPTIONAL_HEADER.MagicType.IMAGE_NT_OPTIONAL_HDR32_MAGIC = 267 -> PInvoke.IMAGE_OPTIONAL_HEADER.MagicType
-PInvoke.IMAGE_OPTIONAL_HEADER.MagicType.IMAGE_NT_OPTIONAL_HDR64_MAGIC = 523 -> PInvoke.IMAGE_OPTIONAL_HEADER.MagicType
-PInvoke.IMAGE_OPTIONAL_HEADER.MagicType.IMAGE_ROM_OPTIONAL_HDR_MAGIC = 263 -> PInvoke.IMAGE_OPTIONAL_HEADER.MagicType
-PInvoke.IMAGE_OPTIONAL_HEADER.MajorImageVersion -> ushort
-PInvoke.IMAGE_OPTIONAL_HEADER.MajorLinkerVersion -> byte
-PInvoke.IMAGE_OPTIONAL_HEADER.MajorOperatingSystemVersion -> ushort
-PInvoke.IMAGE_OPTIONAL_HEADER.MajorSubsystemVersion -> ushort
-PInvoke.IMAGE_OPTIONAL_HEADER.MinorImageVersion -> ushort
-PInvoke.IMAGE_OPTIONAL_HEADER.MinorLinkerVersion -> byte
-PInvoke.IMAGE_OPTIONAL_HEADER.MinorOperatingSystemVersion -> ushort
-PInvoke.IMAGE_OPTIONAL_HEADER.MinorSubsystemVersion -> ushort
-PInvoke.IMAGE_OPTIONAL_HEADER.NumberOfRvaAndSizes -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.SectionAlignment -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfCode -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfHeaders -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfHeapCommit -> System.UIntPtr
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfHeapReserve -> System.UIntPtr
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfImage -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfInitializedData -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfStackCommit -> System.UIntPtr
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfStackReserve -> System.UIntPtr
-PInvoke.IMAGE_OPTIONAL_HEADER.SizeOfUninitializedData -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER.Subsystem -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_EFI_APPLICATION = 10 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER = 11 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_EFI_ROM = 13 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER = 12 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_NATIVE = 1 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_OS2_CUI = 5 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_POSIX_CUI = 7 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_UNKNOWN = 0 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_WINDOWS_BOOT_APPLICATION = 16 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_WINDOWS_CE_GUI = 9 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_WINDOWS_CUI = 3 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_WINDOWS_GUI = 2 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType.IMAGE_SUBSYSTEM_XBOX = 14 -> PInvoke.IMAGE_OPTIONAL_HEADER.SubsystemType
-PInvoke.IMAGE_OPTIONAL_HEADER.Win32VersionValue -> uint
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.Architecture -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.BaseRelocationTable -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.BoundImport -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.CLRRuntimeHeader -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.CertificateTable -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.Debug -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.DelayImportDescriptor -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.ExceptionTable -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.ExportTable -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.GlobalPtr -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.IAT -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.IMAGE_OPTIONAL_HEADER_DIRECTORIES() -> void
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.ImportTable -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.LoadConfigTable -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.Reserved -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.ResourceTable -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.TLSTable -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.this[int index].get -> PInvoke.IMAGE_DATA_DIRECTORY
-PInvoke.IMAGE_OPTIONAL_HEADER_DIRECTORIES.this[int index].set -> void
-PInvoke.IMAGE_SECTION_HEADER
-PInvoke.IMAGE_SECTION_HEADER.Characteristics -> PInvoke.IMAGE_SECTION_HEADER.CharacteristicsType
-PInvoke.IMAGE_SECTION_HEADER.CharacteristicsType
-PInvoke.IMAGE_SECTION_HEADER.IMAGE_SECTION_HEADER() -> void
-PInvoke.IMAGE_SECTION_HEADER.Name -> byte*
-PInvoke.IMAGE_SECTION_HEADER.NumberOfLinenumbers -> ushort
-PInvoke.IMAGE_SECTION_HEADER.NumberOfRelocations -> ushort
-PInvoke.IMAGE_SECTION_HEADER.PhysicalAddressOrVirtualSize -> uint
-PInvoke.IMAGE_SECTION_HEADER.PointerToLinenumbers -> uint
-PInvoke.IMAGE_SECTION_HEADER.PointerToRawData -> uint
-PInvoke.IMAGE_SECTION_HEADER.PointerToRelocations -> uint
-PInvoke.IMAGE_SECTION_HEADER.SizeOfRawData -> uint
-PInvoke.IMAGE_SECTION_HEADER.VirtualAddress -> uint
-PInvoke.LIST_ENTRY
-PInvoke.LIST_ENTRY.Blink -> PInvoke.LIST_ENTRY*
-PInvoke.LIST_ENTRY.Blink_IntPtr.get -> System.IntPtr
-PInvoke.LIST_ENTRY.Blink_IntPtr.set -> void
-PInvoke.LIST_ENTRY.Flink -> PInvoke.LIST_ENTRY*
-PInvoke.LIST_ENTRY.Flink_IntPtr.get -> System.IntPtr
-PInvoke.LIST_ENTRY.Flink_IntPtr.set -> void
-PInvoke.LIST_ENTRY.LIST_ENTRY() -> void
 PInvoke.NTSTATUS
 PInvoke.NTSTATUS.AsInt32.get -> int
 PInvoke.NTSTATUS.AsUInt32.get -> uint
@@ -2674,8 +2564,8 @@ PInvoke.NTSTATUS.Code.STATUS_WX86_UNSIMULATE = 1073741852 -> PInvoke.NTSTATUS.Co
 PInvoke.NTSTATUS.Code.STATUS_XMLDSIG_ERROR = 3221266564 -> PInvoke.NTSTATUS.Code
 PInvoke.NTSTATUS.Code.STATUS_XML_ENCODING_MISMATCH = 3222601761 -> PInvoke.NTSTATUS.Code
 PInvoke.NTSTATUS.Code.STATUS_XML_PARSE_ERROR = 3221266563 -> PInvoke.NTSTATUS.Code
-PInvoke.NTSTATUS.CompareTo(PInvoke.NTSTATUS other) -> int
 PInvoke.NTSTATUS.CompareTo(object obj) -> int
+PInvoke.NTSTATUS.CompareTo(PInvoke.NTSTATUS other) -> int
 PInvoke.NTSTATUS.CustomerCode.get -> uint
 PInvoke.NTSTATUS.Equals(PInvoke.NTSTATUS other) -> bool
 PInvoke.NTSTATUS.Facility.get -> PInvoke.NTSTATUS.FacilityCode
@@ -2726,8 +2616,9 @@ PInvoke.NTSTATUS.FacilityCode.FACILITY_WIN32K_NTGDI = 4128768 -> PInvoke.NTSTATU
 PInvoke.NTSTATUS.FacilityCode.FACILITY_WIN32K_NTUSER = 4063232 -> PInvoke.NTSTATUS.FacilityCode
 PInvoke.NTSTATUS.FacilityCode.FACILTIY_MUI_ERROR_CODE = 720896 -> PInvoke.NTSTATUS.FacilityCode
 PInvoke.NTSTATUS.FacilityStatus.get -> uint
-PInvoke.NTSTATUS.NTSTATUS(PInvoke.NTSTATUS.Code status) -> void
+PInvoke.NTSTATUS.NTSTATUS() -> void
 PInvoke.NTSTATUS.NTSTATUS(int status) -> void
+PInvoke.NTSTATUS.NTSTATUS(PInvoke.NTSTATUS.Code status) -> void
 PInvoke.NTSTATUS.NTSTATUS(uint status) -> void
 PInvoke.NTSTATUS.Severity.get -> PInvoke.NTSTATUS.SeverityCode
 PInvoke.NTSTATUS.SeverityCode
@@ -2738,22 +2629,6 @@ PInvoke.NTSTATUS.SeverityCode.STATUS_SEVERITY_WARNING = 2147483648 -> PInvoke.NT
 PInvoke.NTSTATUS.ToString(string format, System.IFormatProvider formatProvider) -> string
 PInvoke.NTSTATUS.Value.get -> PInvoke.NTSTATUS.Code
 PInvoke.PInvokeExtensions
-PInvoke.POINT
-PInvoke.POINT.POINT() -> void
-PInvoke.POINT.x -> int
-PInvoke.POINT.y -> int
-PInvoke.RECT
-PInvoke.RECT.RECT() -> void
-PInvoke.RECT.bottom -> int
-PInvoke.RECT.left -> int
-PInvoke.RECT.right -> int
-PInvoke.RECT.top -> int
-PInvoke.SMALL_RECT
-PInvoke.SMALL_RECT.Bottom -> short
-PInvoke.SMALL_RECT.Left -> short
-PInvoke.SMALL_RECT.Right -> short
-PInvoke.SMALL_RECT.SMALL_RECT() -> void
-PInvoke.SMALL_RECT.Top -> short
 PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.APPMODEL_ERROR_NO_APPLICATION = 15703 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.APPMODEL_ERROR_NO_PACKAGE = 15700 -> PInvoke.Win32ErrorCode
@@ -4686,16 +4561,16 @@ PInvoke.Win32ErrorCode.FRS_ERR_SYSVOL_DEMOTE = 8016 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.FRS_ERR_SYSVOL_IS_BUSY = 8015 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.FRS_ERR_SYSVOL_POPULATE = 8013 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.FRS_ERR_SYSVOL_POPULATE_TIMEOUT = 8014 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_AccountExpired = 2239 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_AccountLockedOut = 2702 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_AccountUndefined = 2238 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_AcctLimitExceeded = 2434 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ACFFileIOFail = 2229 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ACFNoParent = 2232 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ACFNoRoom = 2228 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ACFNotFound = 2219 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ACFNotLoaded = 2227 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ACFTooManyLists = 2230 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_AccountExpired = 2239 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_AccountLockedOut = 2702 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_AccountUndefined = 2238 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_AcctLimitExceeded = 2434 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ActiveConns = 2402 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_AddForwarded = 2275 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_AlertExists = 2430 -> PInvoke.Win32ErrorCode
@@ -4745,12 +4620,9 @@ PInvoke.Win32ErrorCode.NERR_ClientNameNotFound = 2312 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_CommDevInUse = 2343 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ComputerAccountNotFound = 2697 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ConnectionInsecure = 2718 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DCNotFound = 2453 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DS8DCNotFound = 2722 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DS8DCRequired = 2720 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DS9DCNotFound = 2725 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DataTypeInvalid = 2167 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DatabaseUpToDate = 2248 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DataTypeInvalid = 2167 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DCNotFound = 2453 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DefaultJoinRequired = 2694 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DelComputerName = 2278 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DeleteLater = 2298 -> PInvoke.Win32ErrorCode
@@ -4760,14 +4632,14 @@ PInvoke.Win32ErrorCode.NERR_DestInvalidOp = 2159 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DestInvalidState = 2162 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DestNoRoom = 2157 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DestNotFound = 2152 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DeviceIsShared = 2252 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DeviceNotShared = 2311 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DeviceShareConflict = 2318 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DevInUse = 2404 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DevInvalidOpCode = 2331 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DevNotFound = 2332 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DevNotOpen = 2333 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DevNotRedirected = 2107 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DeviceIsShared = 2252 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DeviceNotShared = 2311 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DeviceShareConflict = 2318 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DfsAlreadyShared = 2664 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DfsBadRenamePath = 2671 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DfsCantCreateJunctionPoint = 2669 -> PInvoke.Win32ErrorCode
@@ -4795,9 +4667,12 @@ PInvoke.Win32ErrorCode.NERR_DfsVolumeIsInterDfs = 2678 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DfsVolumeIsOffline = 2672 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DifferentServers = 2383 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DriverNotFound = 2166 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_DupNameReboot = 2144 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DS8DCNotFound = 2722 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DS8DCRequired = 2720 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DS9DCNotFound = 2725 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DuplicateName = 2297 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_DuplicateShare = 2118 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_DupNameReboot = 2144 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ErrCommRunSrv = 2389 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ErrorExecingGhost = 2391 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ExecFailure = 2315 -> PInvoke.Win32ErrorCode
@@ -4806,16 +4681,16 @@ PInvoke.Win32ErrorCode.NERR_GroupExists = 2223 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_GroupNotFound = 2220 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_GrpMsgProcessor = 2280 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ImageParamErr = 2508 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_InUseBySpooler = 2342 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_IncompleteDel = 2299 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InternalError = 2140 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_InUseBySpooler = 2342 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidAPI = 2142 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidComputer = 2351 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidDatabase = 2247 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidDevice = 2294 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidLana = 2400 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_InvalidLogSeek = 2440 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidLogonHours = 2241 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_InvalidLogSeek = 2440 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidMachineNameForJoin = 2724 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidMaxUsers = 2122 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_InvalidUASOp = 2451 -> PInvoke.Win32ErrorCode
@@ -4827,22 +4702,22 @@ PInvoke.Win32ErrorCode.NERR_JobInvalidState = 2164 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_JobNoRoom = 2156 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_JobNotFound = 2151 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_JoinPerformedMustRestart = 2713 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_LDAPCapableDCRequired = 2721 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LanmanIniError = 2131 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LastAdmin = 2452 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_LDAPCapableDCRequired = 2721 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LineTooLong = 2149 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LocalDrive = 2405 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LocalForward = 2279 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LogFileChanged = 2378 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LogFileCorrupt = 2379 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_LogOverflow = 2377 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LogonDomainExists = 2216 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LogonNoUserPath = 2211 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LogonScriptError = 2212 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LogonServerConflict = 2210 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LogonServerNotFound = 2215 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_LogonTrackingError = 2454 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_LogonsPaused = 2209 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_LogonTrackingError = 2454 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_LogOverflow = 2377 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_MaxLenExceeded = 2354 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_MsgAlreadyStarted = 2271 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_MsgInitFailed = 2272 -> PInvoke.Win32ErrorCode
@@ -4852,16 +4727,18 @@ PInvoke.Win32ErrorCode.NERR_NameInUse = 2283 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NameNotForwarded = 2288 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NameNotFound = 2273 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NameUsesIncompatibleCodePage = 2696 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_NetlogonNotStarted = 2455 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NetNameNotFound = 2310 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NetNotStarted = 2102 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_NetlogonNotStarted = 2455 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NetworkError = 2136 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoAlternateServers = 2467 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoCommDevs = 2337 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoComputerName = 2270 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoForwardName = 2286 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoJoinPending = 2714 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_NonDosFloppyUsed = 2510 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoNetworkResource = 2105 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_NonValidatedLogon = 2217 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoOfflineJoinInfo = 2709 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoRoom = 2119 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoRplBootSystem = 2505 -> PInvoke.Win32ErrorCode
@@ -4869,8 +4746,6 @@ PInvoke.Win32ErrorCode.NERR_NoSuchAlert = 2432 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoSuchConnection = 2462 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoSuchServer = 2460 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NoSuchSession = 2461 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_NonDosFloppyUsed = 2510 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_NonValidatedLogon = 2217 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NotInCache = 2235 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NotInDispatchTbl = 2192 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_NotLocalDomain = 2320 -> PInvoke.Win32ErrorCode
@@ -4905,7 +4780,6 @@ PInvoke.Win32ErrorCode.NERR_QInvalidState = 2163 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_QNoRoom = 2155 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_QNotFound = 2150 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_QueueNotFound = 2338 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_RPL_CONNECTED = 2519 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RedirectedPath = 2117 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RemoteBootFailed = 2503 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RemoteErr = 2127 -> PInvoke.Win32ErrorCode
@@ -4919,8 +4793,8 @@ PInvoke.Win32ErrorCode.NERR_RplAdapterNotFound = 2637 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplBackupDatabase = 2636 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplBadDatabase = 2612 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplBadRegistry = 2611 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_RplBootInUse = 2635 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplBootInfoCorrupted = 2628 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_RplBootInUse = 2635 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplBootNameUnavailable = 2640 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplBootNotFound = 2631 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplBootRestart = 2511 -> PInvoke.Win32ErrorCode
@@ -4951,6 +4825,7 @@ PInvoke.Win32ErrorCode.NERR_RplWkstaInfoCorrupted = 2616 -> PInvoke.Win32ErrorCo
 PInvoke.Win32ErrorCode.NERR_RplWkstaNameUnavailable = 2618 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplWkstaNeedsUserAcct = 2629 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RplWkstaNotFound = 2617 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_RPL_CONNECTED = 2519 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_RunSrvPaused = 2385 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_SameAsComputerName = 2253 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ServerNotStarted = 2114 -> PInvoke.Win32ErrorCode
@@ -4973,8 +4848,8 @@ PInvoke.Win32ErrorCode.NERR_ShareMem = 2104 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_ShareNotFound = 2392 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_SourceIsDir = 2380 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_SpeGroupOp = 2234 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_SpoolNoMemory = 2165 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_SpoolerNotLoaded = 2161 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_SpoolNoMemory = 2165 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_StandaloneLogon = 2214 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_StartingRplBoot = 2516 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_Success = 0 -> PInvoke.Win32ErrorCode
@@ -4994,17 +4869,17 @@ PInvoke.Win32ErrorCode.NERR_TooManySessions = 2464 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_TooMuchData = 2317 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_TruncatedBroadcast = 2289 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_TryDownLevel = 2470 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_UPSDriverNotStarted = 2480 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_UPSInvalidCommPort = 2482 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_UPSInvalidConfig = 2481 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_UPSShutdownFailed = 2484 -> PInvoke.Win32ErrorCode
-PInvoke.Win32ErrorCode.NERR_UPSSignalAsserted = 2483 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UnableToAddName_F = 2205 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UnableToAddName_W = 2204 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UnableToDelName_F = 2207 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UnableToDelName_W = 2206 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UnknownDevDir = 2116 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UnknownServer = 2103 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_UPSDriverNotStarted = 2480 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_UPSInvalidCommPort = 2482 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_UPSInvalidConfig = 2481 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_UPSShutdownFailed = 2484 -> PInvoke.Win32ErrorCode
+PInvoke.Win32ErrorCode.NERR_UPSSignalAsserted = 2483 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UseNotFound = 2250 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UserExists = 2224 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.NERR_UserInGroup = 2236 -> PInvoke.Win32ErrorCode
@@ -5238,58 +5113,20 @@ PInvoke.Win32ErrorCode.WSA_QOS_RESERVED_PETYPE = 11031 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.WSA_QOS_SENDERS = 11006 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.WSA_QOS_TRAFFIC_CTRL_ERROR = 11014 -> PInvoke.Win32ErrorCode
 PInvoke.Win32ErrorCode.WSA_SECURE_HOST_NOT_FOUND = 11032 -> PInvoke.Win32ErrorCode
-const PInvoke.ApiSets.api_ms_win_core_console_l1_1_0 = "api-ms-win-core-console-l1-1-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_console_l2_1_0 = "api-ms-win-core-console-l2-1-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_file_l1_2_0 = "api-ms-win-core-file-l1-2-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_file_l1_2_1 = "api-ms-win-core-file-l1-2-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_handle_l1_1_0 = "api-ms-win-core-handle-l1-1-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_io_l1_1_1 = "api-ms-win-core-io-l1-1-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_libraryloader_l1_1_1 = "api-ms-win-core-libraryloader-l1-1-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_localization_l1_2_0 = "api-ms-win-core-localization-l1-2-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_localization_l1_2_1 = "api-ms-win-core-localization-l1-2-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_namedpipe_l1_2_0 = "api-ms-win-core-namedpipe-l1-2-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_processthreads_l1_1_1 = "api-ms-win-core-processthreads-l1-1-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_processthreads_l1_1_2 = "api-ms-win-core-processthreads-l1-1-2.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_psapi_l1_1_0 = "api-ms-win-core-psapi-l1-1-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_synch_l1_2_0 = "api-ms-win-core-synch-l1-2-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_sysinfo_l1_2_0 = "api-ms-win-core-sysinfo-l1-2-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_sysinfo_l1_2_1 = "api-ms-win-core-sysinfo-l1-2-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_security_base_l1_2_0 = "api-ms-win-security-base-l1-2-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_service_core_l1_1_1 = "api-ms-win-service-core-l1-1-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_service_management_l1_1_0 = "api-ms-win-service-management-l1-1-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_service_management_l2_1_0 = "api-ms-win-service-management-l2-1-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_service_winsvc_l1_2_0 = "api-ms-win-service-winsvc-l1-2-0.dll" -> string
-const PInvoke.Constants.IMAGE_NUMBEROF_DIRECTORY_ENTRIES = 16 -> int
-const PInvoke.Constants.IMAGE_SIZEOF_SHORT_NAME = 8 -> int
-const PInvoke.Constants.INFINITE = -1 -> int
-override PInvoke.HResult.Equals(object obj) -> bool
-override PInvoke.HResult.GetHashCode() -> int
-override PInvoke.HResult.ToString() -> string
-override PInvoke.NTSTATUS.Equals(object obj) -> bool
-override PInvoke.NTSTATUS.GetHashCode() -> int
-override PInvoke.NTSTATUS.ToString() -> string
 static PInvoke.HResult.explicit operator uint(PInvoke.HResult hr) -> uint
-static PInvoke.HResult.implicit operator PInvoke.HResult(PInvoke.HResult.Code hr) -> PInvoke.HResult
+static PInvoke.HResult.implicit operator int(PInvoke.HResult hr) -> int
 static PInvoke.HResult.implicit operator PInvoke.HResult(int hr) -> PInvoke.HResult
+static PInvoke.HResult.implicit operator PInvoke.HResult(PInvoke.HResult.Code hr) -> PInvoke.HResult
 static PInvoke.HResult.implicit operator PInvoke.HResult(uint hr) -> PInvoke.HResult
 static PInvoke.HResult.implicit operator PInvoke.HResult.Code(PInvoke.HResult hr) -> PInvoke.HResult.Code
-static PInvoke.HResult.implicit operator int(PInvoke.HResult hr) -> int
 static PInvoke.HResult.operator !=(PInvoke.HResult hr, uint value) -> bool
 static PInvoke.HResult.operator ==(PInvoke.HResult hr, uint value) -> bool
 static PInvoke.NTSTATUS.explicit operator int(PInvoke.NTSTATUS status) -> int
-static PInvoke.NTSTATUS.implicit operator PInvoke.NTSTATUS(PInvoke.NTSTATUS.Code status) -> PInvoke.NTSTATUS
 static PInvoke.NTSTATUS.implicit operator PInvoke.NTSTATUS(int status) -> PInvoke.NTSTATUS
+static PInvoke.NTSTATUS.implicit operator PInvoke.NTSTATUS(PInvoke.NTSTATUS.Code status) -> PInvoke.NTSTATUS
 static PInvoke.NTSTATUS.implicit operator PInvoke.NTSTATUS(uint status) -> PInvoke.NTSTATUS
 static PInvoke.NTSTATUS.implicit operator PInvoke.NTSTATUS.Code(PInvoke.NTSTATUS status) -> PInvoke.NTSTATUS.Code
 static PInvoke.NTSTATUS.implicit operator uint(PInvoke.NTSTATUS status) -> uint
 static PInvoke.PInvokeExtensions.ToCharArrayWithNullTerminator(this string value) -> char[]
 static PInvoke.PInvokeExtensions.ToHResult(this PInvoke.NTSTATUS status) -> PInvoke.HResult
 static PInvoke.PInvokeExtensions.ToHResult(this PInvoke.Win32ErrorCode error) -> PInvoke.HResult
-PInvoke.HResult.Code.CO_E_CANCEL_DISABLED = 2147549504 -> PInvoke.HResult.Code
-PInvoke.HResult.Code.RPC_E_CALL_CANCELED = 2147549186 -> PInvoke.HResult.Code
-PInvoke.HResult.Code.RPC_E_CALL_COMPLETE = 2147549463 -> PInvoke.HResult.Code
-const PInvoke.ApiSets.api_ms_win_core_errorhandling_l1_1_1 = "api-ms-win-core-errorhandling-l1-1-1.dll" -> string
-const PInvoke.ApiSets.api_ms_win_core_registry_l1_1_0 = "api-ms-win-core-registry-l1-1-0.dll" -> string
-const PInvoke.ApiSets.api_ms_win_security_sddl_l1_1_0 = "api-ms-win-security-sddl-l1-1-0.dll" -> string
-static PInvoke.POINT.implicit operator PInvoke.POINT(System.Drawing.Point point) -> PInvoke.POINT
-static PInvoke.POINT.implicit operator System.Drawing.Point(PInvoke.POINT point) -> System.Drawing.Point
