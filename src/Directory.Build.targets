@@ -20,16 +20,10 @@
   <ItemGroup>
     <Compile Remove="storebanned\**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' " />
     <Compile Remove="**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' and '$(StoreBanned)' == 'true' " />
-    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAttributes.cs" Condition=" '$(IsPInvokeProject)' == 'true' " />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAttributes.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(IsPInvokeProject)' == 'true' and '$(MSBuildProjectName)' != 'Win32' and '$(TargetFramework)' == 'net45' ">
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.2" PrivateAssets="all" />
-    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
-    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
-  </ItemGroup>
-
-  <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
+  <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" />
 
   <!-- Workaround win8 .targets defining a target that should be blank (https://github.com/dotnet/sdk/issues/2517) -->
   <Target Name="GetPackagingOutputs" />

@@ -1,5 +1,0 @@
-PInvoke.SHCore
-static extern PInvoke.SHCore.GetDpiForMonitor(System.IntPtr hmonitor, PInvoke.MONITOR_DPI_TYPE dpiType, out int dpiX, out int dpiY) -> PInvoke.HResult
-static extern PInvoke.SHCore.GetDpiForShellUIComponent(PInvoke.SHELL_UI_COMPONENT component) -> int
-static extern PInvoke.SHCore.GetProcessDpiAwareness(System.IntPtr hprocess, out PInvoke.PROCESS_DPI_AWARENESS value) -> PInvoke.HResult
-static extern PInvoke.SHCore.SetProcessDpiAwareness(PInvoke.PROCESS_DPI_AWARENESS value) -> PInvoke.HResult

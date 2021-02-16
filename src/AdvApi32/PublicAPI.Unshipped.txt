@@ -1,7 +1,0 @@
-static PInvoke.AdvApi32.CryptGetHashParam(PInvoke.AdvApi32.SafeHashHandle hHash, PInvoke.AdvApi32.CryptGetHashParamFlags dwParam, System.Span<byte> pbData, ref int pdwDataLen, uint dwFlags) -> bool
-static PInvoke.AdvApi32.CryptHashData(PInvoke.AdvApi32.SafeHashHandle hHash, System.ReadOnlySpan<byte> pbData, PInvoke.AdvApi32.CryptHashDataFlags flags) -> bool
-static PInvoke.AdvApi32.EnumServicesStatus(PInvoke.AdvApi32.SafeServiceHandle hSCManager, PInvoke.AdvApi32.ServiceType dwServiceType, PInvoke.AdvApi32.ServiceStateQuery dwServiceState, System.Span<byte> lpServices, ref int pcbBytesNeeded, ref int lpServicesReturned, ref int lpResumeHandle) -> bool
-static PInvoke.AdvApi32.LookupPrivilegeValue(System.IntPtr lpSystemName, System.IntPtr lpName, System.IntPtr lpLuid) -> bool
-static PInvoke.AdvApi32.LookupPrivilegeValue(System.ReadOnlySpan<char> lpSystemName, System.ReadOnlySpan<char> lpName, out PInvoke.User32.LUID lpLuid) -> bool
-static PInvoke.AdvApi32.LookupPrivilegeValue(char[] lpSystemName, char[] lpName, out PInvoke.User32.LUID lpLuid) -> bool
-static extern PInvoke.AdvApi32.LookupPrivilegeValue(char* lpSystemName, char* lpName, PInvoke.User32.LUID* lpLuid) -> bool

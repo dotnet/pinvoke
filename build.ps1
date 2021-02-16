@@ -9,8 +9,6 @@
     Build the entire project. Requires that -Restore is or has been executed.
 .Parameter Rebuild
     Build the entire project with the Rebuild target. This may be slower than -Build but ensures you'll see any build warnings from prior builds. Requires that -Restore is or has been executed.
-.Parameter Test
-    Run all built tests.
 .Parameter Configuration
     The configuration to build. Either "debug" or "release". The default is debug, or the Configuration environment variable if set.
 .Parameter WarnAsError
@@ -25,7 +23,6 @@ Param(
     [switch]$Restore,
     [switch]$Build,
     [switch]$Rebuild,
-    [switch]$Test,
     [Parameter()][ValidateSet('debug', 'release')]
     [string]$Configuration = $env:BUILDCONFIGURATION,
     [switch]$WarnAsError = $true,
@@ -111,36 +108,5 @@ if (($Build -or $Rebuild) -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) 
 
     if ($fail) {
         exit 3;
-    }
-}
-
-if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
-    $TestAssemblies = Get-ChildItem -Recurse "$BinTestsFolder\*.Tests.dll" |? { $_.Directory -notlike '*netcoreapp*' }
-    $xunitArgs = @()
-    $xunitArgs += $TestAssemblies
-    $xunitArgs += "-html","$BinTestsFolder\testresults.html","-xml","$BinTestsFolder\testresults.xml"
-    $xunitArgs += "-notrait",'"skiponcloud=true"'
-    if (!$NoParallelTests) {
-        $xunitArgs += "-parallel","all"
-    }
-
-    Write-Host "Testing x86..." -ForegroundColor Yellow
-    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.1/tools/net472/xunit.console.x86.exe'
-    & $xunitRunner $xunitArgs
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error "x86 test run returned exit code $LASTEXITCODE"
-        $testsFailed = $true
-    }
-
-    Write-Host "Testing x64..." -ForegroundColor Yellow
-    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.1/tools/net472/xunit.console.exe'
-    & $xunitRunner $xunitArgs
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error "x64 test run returned exit code $LASTEXITCODE"
-        $testsFailed = $true
-    }
-
-    if ($testsFailed) {
-        exit 4
     }
 }

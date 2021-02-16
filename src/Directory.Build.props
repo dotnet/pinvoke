@@ -30,18 +30,12 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
 
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
-    <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
-    <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
-    <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
+    <RootNamespace>PInvoke</RootNamespace>
+    <AssemblyName>PInvoke.$(MSBuildProjectName)</AssemblyName>
 
     <CodeGenerationPackageVersion>0.4.74</CodeGenerationPackageVersion>
 
     <ProduceReferenceAssembly Condition=" '$(IsTestProject)' != 'true' ">true</ProduceReferenceAssembly>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
-    <RootNamespace>PInvoke</RootNamespace>
-    <AssemblyName>PInvoke.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
@@ -61,7 +55,7 @@
 
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
-    <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
+    <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
