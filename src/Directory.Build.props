@@ -10,13 +10,6 @@
     <!-- <Nullable>enable</Nullable> -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <DesktopOnlyFrameworks>net45</DesktopOnlyFrameworks>
-    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0.16299</PlatformSpecificFrameworks> <!-- win8 -->
-    <PortableOnlyFrameworks>netstandard2.0</PortableOnlyFrameworks>
-    <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
-
-    <TargetPlatformMinVersion Condition=" '$(TargetFramework)' == 'win8' ">8.0</TargetPlatformMinVersion>
-
     <Title>PInvoke.$(MSBuildProjectName)</Title>
     <Authors>Andrew Arnott</Authors>
     <Summary>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Summary>
@@ -58,9 +51,6 @@
   </PropertyGroup>
 
   <ItemDefinitionGroup>
-    <Compile>
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
     <!-- We build all libraries to a common directory, so avoid trying to copy P2P refs to the directory
          to avoid wasting time with file collisions and build warnings. -->
     <ProjectReference Condition=" '$(IsTestProject)' != 'true' ">
@@ -70,31 +60,18 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <GeneratorAssemblySearchPaths Include="$(RepoRootPath)bin\$(Configuration)\netstandard2.0\" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
     <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0" PrivateAssets="all" /> -->
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.1.91" PrivateAssets="all" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="all" />
+  <ItemGroup Condition=" '$(IsTestProject)' != 'true' ">
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.1.340-beta" PrivateAssets="all" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
-    <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
-    <DotNetCliToolReference Include="dotnet-codegen" Version="$(CodeGenerationPackageVersion)" />
-    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all">
-      <Private>false</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
-      <UndefineProperties>TargetFramework</UndefineProperties>
-      <Private>false</Private>
-    </ProjectReference>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="all" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.321" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
     <PackageReference Include="coverlet.msbuild" Version="2.9.0" />

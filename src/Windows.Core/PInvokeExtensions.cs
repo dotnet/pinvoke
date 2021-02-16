@@ -5,7 +5,6 @@ namespace PInvoke
 {
     using System;
     using System.Runtime.InteropServices;
-    using static PInvoke.HResult.FacilityCode;
 
     /// <summary>
     /// Extension methods for commonly defined types.
@@ -21,7 +20,7 @@ namespace PInvoke
         {
             // From winerror.h
             // #define HRESULT_FROM_NT(x)      ((HRESULT) ((x) | FACILITY_NT_BIT))
-            return status | (int)FACILITY_NT_BIT;
+            return status | (int)Constants.FACILITY_NT_BIT;
         }
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace PInvoke
             //  (HRESULT)(x) <= 0 ? (HRESULT)(x) : (HRESULT) (((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000)
             return error <= 0
                 ? (HResult)(int)error
-                : (HResult)(int)(((int)error & 0x0000ffff) | ((int)FACILITY_WIN32 /*<< 16*/) | 0x80000000);
+                : (HResult)(int)(((int)error & 0x0000ffff) | ((int)Constants.FACILITY_WIN32 /*<< 16*/) | 0x80000000);
         }
 
         /// <summary>

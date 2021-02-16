@@ -1,9 +1,0 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
-  <PropertyGroup>
-    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
-    <AssemblyName>CodeGenerationAttributes</AssemblyName>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="CodeGeneration.Roslyn.Attributes" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
-  </ItemGroup>
-</Project>
