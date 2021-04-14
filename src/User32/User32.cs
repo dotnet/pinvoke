@@ -1321,7 +1321,7 @@ namespace PInvoke
         /// <param name="hMenu">A handle to the menu that contains the item whose identifier is to be retrieved.</param>
         /// <param name="nPos">The zero-based relative position of the menu item whose identifier is to be retrieved.</param>
         /// <returns>The return value is the identifier of the specified menu item. If the menu item identifier is NULL or if the specified item opens a submenu, the return value is -1.</returns>
-        [DllImport(nameof(User32))]
+        [DllImport(nameof(User32), EntryPoint = "GetMenuItemID")]
         public static extern uint GetMenuItemId(IntPtr hMenu, int nPos);
 
 #pragma warning disable SA1629 // Documentation text should end with a period

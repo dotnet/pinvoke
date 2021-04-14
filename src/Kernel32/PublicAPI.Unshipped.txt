@@ -272,13 +272,13 @@ static extern PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES
 static extern PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
 static extern PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpcBaseAddress, System.UIntPtr dwSize) -> bool
 static extern PInvoke.Kernel32.FlushProcessWriteBuffers() -> void
-static extern PInvoke.Kernel32.GetCurrentProcessToken() -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.GetCurrentProcessToken() -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetCurrentProcessorNumber() -> uint
 static extern PInvoke.Kernel32.GetCurrentProcessorNumberEx(PInvoke.Kernel32.PROCESSOR_NUMBER* ProcNumber) -> void
 static extern PInvoke.Kernel32.GetCurrentThread() -> PInvoke.Kernel32.SafeObjectHandle
-static extern PInvoke.Kernel32.GetCurrentThreadEffectiveToken() -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.GetCurrentThreadEffectiveToken() -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetCurrentThreadStackLimits(out System.UIntPtr LowLimit, out System.UIntPtr HighLimit) -> void
-static extern PInvoke.Kernel32.GetCurrentThreadToken() -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.GetCurrentThreadToken() -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetNativeSystemInfo(PInvoke.Kernel32.SYSTEM_INFO* lpSystemInfo) -> void
 static extern PInvoke.Kernel32.GetPriorityClass(PInvoke.Kernel32.SafeObjectHandle hProcess) -> PInvoke.Kernel32.ProcessPriorityClass
 static extern PInvoke.Kernel32.GetProcessHandleCount(PInvoke.Kernel32.SafeObjectHandle hProcess, out uint pdwHandleCount) -> bool
