@@ -3237,8 +3237,10 @@ namespace PInvoke
         /// You do not need to close the pseudo-handle when you no longer need it.If you call the <see cref="CloseHandle(IntPtr)"/> function with a
         /// pseudo-handle, the function has no effect.
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
-        public static extern SafeObjectHandle GetCurrentProcessToken();
+        public static SafeObjectHandle GetCurrentProcessToken()
+        {
+            return new SafeObjectHandle(new IntPtr(-4), false);
+        }
 
         /// <summary>
         /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread,
@@ -3258,8 +3260,10 @@ namespace PInvoke
         /// You do not need to close the pseudo-handle when you no longer need it.If you call the <see cref="CloseHandle(IntPtr)"/> function with a
         /// pseudo-handle, the function has no effect.
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
-        public static extern SafeObjectHandle GetCurrentThreadEffectiveToken();
+        public static SafeObjectHandle GetCurrentThreadEffectiveToken()
+        {
+            return new SafeObjectHandle(new IntPtr(-6), false);
+        }
 
         /// <summary>
         /// Retrieves a pseudo-handle that you can use as a shorthand way to refer to the impersonation token that was assigned to the current thread.
@@ -3277,8 +3281,10 @@ namespace PInvoke
         /// You do not need to close the pseudo-handle when you no longer need it.If you call the CloseHandle function with a pseudo-handle, the function
         /// has no effect.
         /// </remarks>
-        [DllImport(nameof(Kernel32))]
-        public static extern SafeObjectHandle GetCurrentThreadToken();
+        public static SafeObjectHandle GetCurrentThreadToken()
+        {
+            return new SafeObjectHandle(new IntPtr(-5), false);
+        }
 
         /// <summary>
         /// Retrieves the number of open handles that belong to the specified process.

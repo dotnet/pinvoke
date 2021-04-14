@@ -55,7 +55,7 @@ namespace PInvoke
         /// UxTheme API's seamlessly</item>
         /// </list>
         /// </remarks>
-        [DllImport(nameof(User32), CharSet = CharSet.Unicode)]
+        [DllImport(nameof(UxTheme), CharSet = CharSet.Unicode)]
         public static extern SafeThemeHandle OpenThemeDataForDpi(
             IntPtr hwnd,
             [MarshalAs(UnmanagedType.LPWStr)] string pszClassIdList,
