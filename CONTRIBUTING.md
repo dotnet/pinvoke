@@ -196,7 +196,7 @@ anything else found in native header files for these reasons:
    Use `int` or `long` for integers that are always either 32-bit or 64-bit (respectively).
    All PInvoke assemblies are architecture neutral, so we rely on `IntPtr` to accomodate the size of integer
    types that vary with architecture. An [exhaustive list of equivalent types are available on MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/aa383751).
-   Some helpful translations are included in the following table:
+   Some helpful translations are included in the following table. Find more [in Microsoft documentation](https://docs.microsoft.com/en-us/dotnet/standard/native-interop/best-practices#common-windows-data-types).
 
 | C/C++ type  | C# type   |
 | ----------- | --------- |
