@@ -38,7 +38,7 @@ namespace PInvoke
         private const string api_ms_win_core_localization_l1_2_0 = ApiSets.api_ms_win_core_localization_l1_2_0;
         private const string api_ms_win_core_processthreads_l1_1_1 = ApiSets.api_ms_win_core_processthreads_l1_1_1;
         private const string api_ms_win_core_io_l1_1_1 = ApiSets.api_ms_win_core_io_l1_1_1;
-        private const string api_ms_win_core_file_l1_2_0 = ApiSets.api_ms_win_core_file_l1_2_0;
+        private const string api_ms_win_core_file_l1_1_0 = ApiSets.api_ms_win_core_file_l1_1_0;
         private const string api_ms_win_core_synch_l1_2_0 = ApiSets.api_ms_win_core_synch_l1_2_0;
         private const string api_ms_win_core_handle_l1_1_0 = ApiSets.api_ms_win_core_handle_l1_1_0;
         private const string api_ms_win_core_console_l1_1_0 = ApiSets.api_ms_win_core_console_l1_1_0;
@@ -53,7 +53,7 @@ namespace PInvoke
         private const string api_ms_win_core_localization_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_processthreads_l1_1_1 = nameof(Kernel32);
         private const string api_ms_win_core_io_l1_1_1 = nameof(Kernel32);
-        private const string api_ms_win_core_file_l1_2_0 = nameof(Kernel32);
+        private const string api_ms_win_core_file_l1_1_0 = nameof(Kernel32);
         private const string api_ms_win_core_synch_l1_2_0 = nameof(Kernel32);
         private const string api_ms_win_core_handle_l1_1_0 = nameof(Kernel32);
         private const string api_ms_win_core_console_l1_1_0 = nameof(Kernel32);
@@ -99,7 +99,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is a search handle used in a subsequent call to FindNextFile or FindClose, and the lpFindFileData parameter contains information about the first file or directory found.
         /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, EntryPoint = "FindFirstFileExW", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_file_l1_1_0, EntryPoint = "FindFirstFileExW", ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static unsafe extern SafeFindFilesHandle FindFirstFileEx(string lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, out WIN32_FIND_DATA lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, void* lpSearchFilter, FindFirstFileExFlags dwAdditionalFlags);
 
         /// <summary>
@@ -292,7 +292,7 @@ namespace PInvoke
         ///         it designates the read operation is pending completion asynchronously.
         ///     </para>
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_1_0, SetLastError = true)]
         public static extern unsafe bool ReadFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
@@ -368,7 +368,7 @@ namespace PInvoke
         ///         it designates the write operation is pending completion asynchronously.
         ///     </para>
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_1_0, SetLastError = true)]
         public static extern unsafe bool WriteFile(
             SafeObjectHandle hFile,
             void* lpBuffer,
@@ -397,7 +397,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
         /// </returns>
         /// <seealso href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-setfilepointerex"/>
-        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetFilePointerEx(
             SafeObjectHandle hFile,
@@ -443,7 +443,7 @@ namespace PInvoke
         ///     If <paramref name="lpDistanceToMoveHigh"/> is <see langword="null"/> and the new file position does not fit in a 32-bit value, the function fails and returns INVALID_SET_FILE_POINTER.
         /// </para>
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_1_0, SetLastError = true)]
         public static unsafe extern int SetFilePointer(
             SafeObjectHandle hFile,
             int lDistanceToMove,
@@ -634,7 +634,7 @@ namespace PInvoke
         ///         <see cref="Win32ErrorCode.ERROR_INVALID_HANDLE" />.
         ///     </para>
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_1_0, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlushFileBuffers(SafeObjectHandle hFile);
 
@@ -1214,7 +1214,7 @@ namespace PInvoke
         ///         <see cref="GetLastError" />.
         ///     </para>
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_1_0, SetLastError = true)]
         private static extern bool FindClose(IntPtr hFindFile);
 
         /// <summary>

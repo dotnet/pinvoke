@@ -40,6 +40,11 @@ namespace PInvoke
         public const string api_ms_win_core_io_l1_1_1 = "api-ms-win-core-io-l1-1-1.dll";
 
         /// <summary>
+        /// The "api-ms-win-core-file-l1-1-0.dll" constant.
+        /// </summary>
+        public const string api_ms_win_core_file_l1_1_0 = "api-ms-win-core-file-l1-1-0.dll";
+
+        /// <summary>
         /// The "api-ms-win-core-file-l1-2-0.dll" constant.
         /// </summary>
         public const string api_ms_win_core_file_l1_2_0 = "api-ms-win-core-file-l1-2-0.dll";

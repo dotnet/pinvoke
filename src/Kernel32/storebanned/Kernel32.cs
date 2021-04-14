@@ -745,7 +745,7 @@ namespace PInvoke
         /// If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
         /// If the function fails, the return value is INVALID_HANDLE_VALUE.To get extended error information, call <see cref="GetLastError"/>.
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport(api_ms_win_core_file_l1_1_0, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern unsafe SafeObjectHandle CreateFile(
             [Friendly(FriendlyFlags.In | FriendlyFlags.Array)] char* filename,
             ACCESS_MASK access,
@@ -772,7 +772,7 @@ namespace PInvoke
         /// If the function fails or fails to locate files from the search string in the lpFileName parameter, the return value is INVALID_HANDLE_VALUE and the contents of lpFindFileData are indeterminate.To get extended error information, call the <see cref="GetLastError"/> function.
         /// If the function fails because no matching files can be found, the <see cref="GetLastError"/> function returns ERROR_FILE_NOT_FOUND.
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_file_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeFindFilesHandle FindFirstFile(string lpFileName, out WIN32_FIND_DATA lpFindFileData);
 
         /// <summary>
@@ -785,7 +785,7 @@ namespace PInvoke
         /// If the function fails, the return value is zero and the contents of lpFindFileData are indeterminate. To get extended error information, call the <see cref="GetLastError"/> function.
         /// If the function fails because no more matching files can be found, the <see cref="GetLastError"/> function returns ERROR_NO_MORE_FILES.
         /// </returns>
-        [DllImport(api_ms_win_core_file_l1_2_0, SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(api_ms_win_core_file_l1_1_0, SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool FindNextFile(SafeFindFilesHandle hFindFile, out WIN32_FIND_DATA lpFindFileData);
 
         /// <summary>
