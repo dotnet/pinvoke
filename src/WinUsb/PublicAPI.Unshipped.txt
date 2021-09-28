@@ -23,7 +23,7 @@ static PInvoke.WinUsb.WinUsb_ReadPipeAsync(PInvoke.WinUsb.SafeUsbHandle interfac
 static PInvoke.WinUsb.WinUsb_WritePipe(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte pipeID, System.IntPtr buffer, int bufferLength, out int lengthTransferred, System.IntPtr overlapped) -> bool
 static PInvoke.WinUsb.WinUsb_WritePipe(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte pipeID, System.ReadOnlySpan<byte> buffer, int bufferLength, out int lengthTransferred, System.Threading.NativeOverlapped? overlapped) -> bool
 static PInvoke.WinUsb.WinUsb_WritePipe(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte pipeID, byte[] buffer, int bufferLength, out int lengthTransferred, System.Threading.NativeOverlapped? overlapped) -> bool
-static PInvoke.WinUsb.WinUsb_WritePipeAsync(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte pipeID, System.Memory<byte> buffer, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<int>
+static PInvoke.WinUsb.WinUsb_WritePipeAsync(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte pipeID, System.ReadOnlyMemory<byte> buffer, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<int>
 static extern PInvoke.WinUsb.WinUsb_AbortPipe(PInvoke.WinUsb.SafeUsbHandle handle, byte pipeID) -> bool
 static extern PInvoke.WinUsb.WinUsb_Initialize(PInvoke.Kernel32.SafeObjectHandle deviceHandle, out PInvoke.WinUsb.SafeUsbHandle interfaceHandle) -> bool
 static extern PInvoke.WinUsb.WinUsb_QueryPipe(PInvoke.WinUsb.SafeUsbHandle interfaceHandle, byte alternateInterfaceNumber, byte pipeIndex, PInvoke.WinUsb.WINUSB_PIPE_INFORMATION* pipeInformation) -> bool

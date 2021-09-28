@@ -19,7 +19,6 @@ namespace PInvoke
         /// </summary>
         private class WinUsbOverlapped : Overlapped
         {
-            private readonly Memory<byte> buffer;
             private readonly SafeUsbHandle handle;
             private readonly byte pipeID;
             private readonly CancellationToken cancellationToken;
@@ -41,18 +40,18 @@ namespace PInvoke
             /// <param name="pipeID">
             /// The ID of the pipe on which the I/O is being performed.
             /// </param>
-            /// <param name="buffer">
-            /// The buffer which is used by the I/O operation. This buffer will be pinned for the duration of
+            /// <param name="bufferHandle">
+            /// A handle to the buffer which is used by the I/O operation. This buffer will be pinned for the duration of
             /// the operation.
             /// </param>
             /// <param name="cancellationToken">
             /// A <see cref="CancellationToken"/> which can be used to cancel the overlapped I/O.
             /// </param>
-            public WinUsbOverlapped(SafeUsbHandle handle, byte pipeID, Memory<byte> buffer, CancellationToken cancellationToken)
+            public WinUsbOverlapped(SafeUsbHandle handle, byte pipeID, MemoryHandle bufferHandle, CancellationToken cancellationToken)
             {
                 this.handle = handle ?? throw new ArgumentNullException(nameof(handle));
                 this.pipeID = pipeID;
-                this.buffer = buffer;
+                this.BufferHandle = bufferHandle;
                 this.cancellationToken = cancellationToken;
             }
 
@@ -84,8 +83,6 @@ namespace PInvoke
             /// </returns>
             internal unsafe NativeOverlapped* Pack()
             {
-                this.BufferHandle = this.buffer.Pin();
-
                 this.native = this.Pack(
                     this.DeviceIOControlCompletionCallback,
                     null);
