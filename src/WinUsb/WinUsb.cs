@@ -62,6 +62,53 @@ namespace PInvoke
             [Friendly(FriendlyFlags.Out)] WINUSB_PIPE_INFORMATION* pipeInformation);
 
         /// <summary>
+        /// The <see cref="WinUsb_FlushPipe"/> function discards any data that is cached in a pipe. This is a synchronous operation.
+        /// </summary>
+        /// <param name="interfaceHandle">
+        /// An opaque handle to the interface with which the specified pipe's endpoint is associated. To clear data in a pipe that is
+        /// associated with the endpoint on the first (default) interface, use the handle returned by <see cref="WinUsb_Initialize"/>.
+        /// For all other interfaces, use the handle to the target interface, retrieved by <see cref="WinUsb_GetAssociatedInterface"/>.
+        /// </param>
+        /// <param name="pipeID">
+        /// The identifier (ID) of the control pipe. The PipeID parameter is an 8-bit value that consists of a 7-bit address and a direction bit.
+        /// This parameter corresponds to the bEndpointAddress field in the endpoint descriptor.
+        /// </param>
+        /// <returns>
+        /// <see cref="WinUsb_FlushPipe"/> returns <see langword="true"/> if the operation succeeds. Otherwise, this routine returns
+        /// <see langword="false"/>, and the caller can retrieve the logged error by calling <see cref="Kernel32.GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(WinUsb), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool WinUsb_FlushPipe(
+            SafeUsbHandle interfaceHandle,
+            byte pipeID);
+
+        /// <summary>
+        /// The <see cref="WinUsb_GetAssociatedInterface"/> function retrieves a handle for an associated interface. This is a synchronous operation.
+        /// </summary>
+        /// <param name="interfaceHandle">
+        /// An opaque handle to the first (default) interface on the device, which is returned by <see cref="WinUsb_Initialize"/>.
+        /// </param>
+        /// <param name="associatedInterfaceIndex">
+        /// An index that specifies the associated interface to retrieve. A value of 0 indicates the first associated interface,
+        /// a value of 1 indicates the second associated interface, and so on.
+        /// </param>
+        /// <param name="associatedInterfaceHandle">
+        /// A handle for the associated interface. Callers must pass this interface handle to WinUSB Functions exposed by <c>Winusb.dll</c>.
+        /// To close this handle, call <see cref="WinUsb_Free"/>.
+        /// </param>
+        /// <returns>
+        /// <see cref="WinUsb_GetAssociatedInterface"/> returns <see langword="true"/> if the operation succeeds. Otherwise, this routine returns
+        /// <see langword="true"/>, and the caller can retrieve the logged error by calling <see cref="Kernel32.GetLastError"/>.
+        /// </returns>
+        [DllImport(nameof(WinUsb), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool WinUsb_GetAssociatedInterface(
+            SafeUsbHandle interfaceHandle,
+            byte associatedInterfaceIndex,
+            out SafeUsbHandle associatedInterfaceHandle);
+
+        /// <summary>
         /// Writes data to a pipe.
         /// </summary>
         /// <param name="interfaceHandle">
