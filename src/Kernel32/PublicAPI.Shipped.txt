@@ -1372,7 +1372,6 @@ static extern PInvoke.Kernel32.Process32Next(PInvoke.Kernel32.SafeObjectHandle h
 static extern PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.QueryFullProcessImageNameFlags dwFlags, System.Text.StringBuilder lpExeName, ref int lpdwSize) -> bool
 static extern PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.QueryFullProcessImageNameFlags dwFlags, char* lpExeName, ref int lpdwSize) -> bool
 static extern PInvoke.Kernel32.ReadConsoleInput(System.IntPtr hConsoleInput, out PInvoke.Kernel32.INPUT_RECORD lpBuffer, int nLength, out int lpNumberOfEventsRead) -> bool
-static extern PInvoke.Kernel32.ReadConsoleOutput(System.IntPtr hConsoleOutput, out PInvoke.Kernel32.CHAR_INFO lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, ref PInvoke.SMALL_RECT lpReadRegion) -> bool
 static extern PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead, int* lpNumberOfBytesRead, PInvoke.Kernel32.OVERLAPPED* lpOverlapped) -> bool
 static extern PInvoke.Kernel32.ResumeThread(PInvoke.Kernel32.SafeObjectHandle hThread) -> int
 static extern PInvoke.Kernel32.ScrollConsoleScreenBuffer(System.IntPtr hConsoleOutput, PInvoke.SMALL_RECT* lpScrollRectangle, PInvoke.SMALL_RECT* lpClipRectangle, PInvoke.COORD dwDestinationOrigin, PInvoke.Kernel32.CHAR_INFO* lpFill) -> bool
