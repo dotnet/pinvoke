@@ -47,7 +47,6 @@ if ($NothingToDo) {
 $ProjectRoot = Split-Path -parent $PSCommandPath
 $SolutionFolder = Join-Path $ProjectRoot src
 $SolutionFile = Join-Path $SolutionFolder "PInvoke.sln"
-$ToolsFolder = Join-Path $ProjectRoot tools
 $BinFolder = Join-Path $ProjectRoot "bin"
 $BinConfigFolder = Join-Path $BinFolder $Configuration
 $BinTestsFolder = Join-Path $BinConfigFolder "tests"

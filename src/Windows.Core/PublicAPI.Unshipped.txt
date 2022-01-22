@@ -298,3 +298,5 @@ const PInvoke.DEVMODE.CCHDEVICENAME = 32 -> int
 const PInvoke.DEVMODE.CCHFORMNAME = 32 -> int
 static PInvoke.DEVMODE.Create() -> PInvoke.DEVMODE
 static PInvoke.DISPLAY_DEVICE.Create() -> PInvoke.DISPLAY_DEVICE
+static PInvoke.NTSTATUS.operator !=(PInvoke.NTSTATUS left, PInvoke.NTSTATUS right) -> bool
+static PInvoke.NTSTATUS.operator ==(PInvoke.NTSTATUS left, PInvoke.NTSTATUS right) -> bool

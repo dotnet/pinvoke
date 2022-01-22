@@ -78,7 +78,7 @@ public partial class Kernel32Facts
 
         Assert.True(Enum.IsDefined(typeof(Kernel32.ProcessorArchitecture), systemInfo.wProcessorArchitecture));
         Assert.NotEqual(0, systemInfo.dwPageSize);
-        Assert.NotEqual(0, (int)systemInfo.dwActiveProcessorMask);
+        Assert.NotEqual(IntPtr.Zero, systemInfo.dwActiveProcessorMask);
         Assert.Equal(Environment.ProcessorCount, systemInfo.dwNumberOfProcessors);
         Assert.True(Enum.IsDefined(typeof(Kernel32.ProcessorType), systemInfo.dwProcessorType));
         Assert.NotEqual(0, systemInfo.dwAllocationGranularity);

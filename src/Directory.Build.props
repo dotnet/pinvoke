@@ -19,7 +19,7 @@
     <DebugType Condition=" '$(CI)' != 'true' and '$(TF_BUILD)' != 'true' ">embedded</DebugType>
 
     <DesktopOnlyFrameworks>net45</DesktopOnlyFrameworks>
-    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0.16299</PlatformSpecificFrameworks> <!-- win8 -->
+    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0.18362</PlatformSpecificFrameworks>
     <PortableOnlyFrameworks>netstandard2.0</PortableOnlyFrameworks>
     <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 
@@ -49,8 +49,6 @@
     <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
     <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
 
-    <CodeGenerationPackageVersion>0.4.74</CodeGenerationPackageVersion>
-
     <ProduceReferenceAssembly Condition=" '$(IsTestProject)' != 'true' ">true</ProduceReferenceAssembly>
   </PropertyGroup>
 
@@ -66,9 +64,6 @@
   </PropertyGroup>
 
   <ItemDefinitionGroup>
-    <Compile>
-      <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
-    </Compile>
     <!-- We build all libraries to a common directory, so avoid trying to copy P2P refs to the directory
          to avoid wasting time with file collisions and build warnings. -->
     <ProjectReference Condition=" '$(IsTestProject)' != 'true' ">
@@ -96,13 +91,13 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
-    <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
-    <DotNetCliToolReference Include="dotnet-codegen" Version="$(CodeGenerationPackageVersion)" />
     <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all">
       <Private>false</Private>
+      <OutputItemType>Analyzer</OutputItemType>
     </ProjectReference>
     <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Analyzer</OutputItemType>
       <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
       <UndefineProperties>TargetFramework</UndefineProperties>
       <Private>false</Private>

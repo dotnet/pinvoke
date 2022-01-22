@@ -282,7 +282,7 @@ public class NCryptFacts
                 status = NCryptEnumKeys(provider, scope, out ipkeyName, ref enumState);
             }
 
-            if (enumState != null)
+            if (enumState != IntPtr.Zero)
             {
                 NCryptFreeBuffer(enumState).ThrowOnError();
             }

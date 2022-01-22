@@ -2,8 +2,6 @@
   <PropertyGroup>
     <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
     <AssemblyName>CodeGenerationAttributes</AssemblyName>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="CodeGeneration.Roslyn.Attributes" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
-  </ItemGroup>
 </Project>
