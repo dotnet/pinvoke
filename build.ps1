@@ -76,7 +76,7 @@ if (($Build -or $Rebuild) -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) 
     $buildArgs += $SolutionFile,'/nologo','/nr:false','/m','/v:minimal',"/t:$msbuildTarget,pack"
     $buildArgs += "/p:Configuration=$Configuration"
     $buildArgs += "/clp:ForceNoAlign;Summary"
-    $buildArgs += '/fl','/flp:verbosity=normal;logfile=msbuild.log','/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal','/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal'
+    $buildArgs += '/fl','/bl','/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal','/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal'
     if ($GeneratePInvokesTxt) {
         $buildArgs += '/p:GeneratePInvokesTxt=true'
     }
