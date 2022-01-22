@@ -1,7 +1,8 @@
 trigger:
+  batch: true
   branches:
     include:
-    - master
+    - main
     - 'validate/*'
   paths:
     exclude:

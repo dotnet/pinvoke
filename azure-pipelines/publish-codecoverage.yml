@@ -1,0 +1,12 @@
+steps:
+- powershell: |
+    $reports = Get-ChildItem -Recurse 'bin/coverage.*cobertura.xml'
+    $Inputs = [string]::join(';', ($reports |% { Resolve-Path -relative $_ }))
+    obj/reportgenerator -reports:"$Inputs" -targetdir:coveragereport -reporttypes:Cobertura
+  displayName: Merge coverage
+- task: PublishCodeCoverageResults@1
+  displayName: Publish code coverage results to Azure DevOps
+  inputs:
+    codeCoverageTool: cobertura
+    summaryFileLocation: 'coveragereport/Cobertura.xml'
+    failIfCoverageEmpty: true

@@ -12,12 +12,11 @@ resources:
 stages:
 - stage: GitHubRelease
   displayName: GitHub Release
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   jobs:
   - deployment: create
     pool:
       vmImage: ubuntu-latest
-    environment: No-Approval # Approval is already granted in the release stage.
+    environment: No-Approval
     strategy:
       runOnce:
         deploy:
@@ -40,7 +39,7 @@ stages:
               tagSource: userSpecifiedTag
               tag: v$(resources.pipeline.CI.runName)
               title: v$(resources.pipeline.CI.runName)
-              isDraft: true
+              isDraft: true # After running this step, visit the new draft release, edit, and publish.
               assets: |
                 $(Pipeline.Workspace)/CI/pinvoke_method_coverage-Windows/*
                 $(Pipeline.Workspace)/CI/pinvoke_coverage_report-Windows/*
@@ -54,12 +53,12 @@ stages:
 
 - stage: nuget_org
   displayName: nuget.org
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  dependsOn: GitHubRelease
   jobs:
   - deployment: push
     pool:
       vmImage: ubuntu-latest
-    environment: No-Approval # Approval is already granted in the release stage.
+    environment: No-Approval
     strategy:
       runOnce:
         deploy:
@@ -67,7 +66,7 @@ stages:
           - download: CI
             artifact: deployables-Windows
             displayName: Download deployables-Windows artifact
-            patterns: '**/*.*nupkg'
+            patterns: 'deployables-Windows/**/*.*nupkg'
           - task: NuGetToolInstaller@1
             displayName: Use NuGet 5.x
             inputs:

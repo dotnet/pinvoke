@@ -6,9 +6,17 @@
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\</BaseOutputPath>
     <PackageOutputPath>$(RepoRootPath)bin\$(Configuration)\Packages\</PackageOutputPath>
 
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <!-- <Nullable>enable</Nullable> -->
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <!-- This entire repo has just one version.json file, so compute the version once and share with all projects in a large build. -->
+    <GitVersionBaseDirectory>$(MSBuildThisFileDirectory)../</GitVersionBaseDirectory>
+
+    <!-- Local builds should embed PDBs so we never lose them when a subsequent build occurs. -->
+    <DebugType Condition=" '$(CI)' != 'true' and '$(TF_BUILD)' != 'true' ">embedded</DebugType>
 
     <DesktopOnlyFrameworks>net45</DesktopOnlyFrameworks>
     <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0.16299</PlatformSpecificFrameworks> <!-- win8 -->
@@ -27,7 +35,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSymbols Condition=" '$(DebugType)' != 'embedded' ">true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
     <NoWarn>$(NoWarn);CS1591;CA1401</NoWarn>
@@ -71,17 +79,21 @@
 
   <ItemGroup>
     <GeneratorAssemblySearchPaths Include="$(RepoRootPath)bin\$(Configuration)\netstandard2.0\" />
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json"/>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)../stylecop.json"/>
     <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemDefinitionGroup>
+    <!-- We always want MSBuild properties generated that point at the restored location of each package. -->
+    <PackageReference GeneratePathProperty="true" />
+  </ItemDefinitionGroup>
+
   <ItemGroup>
-    <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0" PrivateAssets="all" /> -->
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.1.91" PrivateAssets="all" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.54-alpha" PrivateAssets="all" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
     <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="$(CodeGenerationPackageVersion)" PrivateAssets="all" />
@@ -97,10 +109,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <PackageReference Include="coverlet.msbuild" Version="2.9.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="xunit.runner.console" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 

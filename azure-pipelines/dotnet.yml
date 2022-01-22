@@ -1,11 +1,7 @@
 steps:
 
-- task: VSBuild@1
-  displayName: Build Visual Studio solution
-  inputs:
-    msbuildArgs: /t:build,pack /m /v:m /bl:"$(Build.ArtifactStagingDirectory)/build_logs/msbuild.binlog"
-    platform: Any CPU
-    configuration: $(BuildConfiguration)
+- script: dotnet build -t:build,pack --no-restore -c $(BuildConfiguration) /v:m /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog"
+  displayName: dotnet build & pack
 
 - powershell: .\build.ps1 -Test
   displayName: Test
@@ -26,25 +22,36 @@ steps:
   displayName: Code sign
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
-- task: PowerShell@2
-  inputs:
-    filePath: azure-pipelines/variables/_pipelines.ps1
-    failOnStderr: true
+- powershell: azure-pipelines/variables/_pipelines.ps1
+  failOnStderr: true
   displayName: Update pipeline variables based on build outputs
   condition: succeededOrFailed()
 
-- task: PowerShell@2
-  inputs:
-    filePath: azure-pipelines/artifacts/_pipelines.ps1
-    arguments: -ArtifactNameSuffix "-$(Agent.JobName)"
+- powershell: azure-pipelines/artifacts/_pipelines.ps1 -ArtifactNameSuffix "-$(Agent.JobName)"
+  failOnStderr: true
   displayName: Publish artifacts
   condition: succeededOrFailed()
 
 - task: PublishSymbols@2
   inputs:
-    SymbolsFolder: $(Build.ArtifactStagingDirectory)/symbols-Windows
+    SymbolsFolder: $(Build.ArtifactStagingDirectory)/symbols-$(Agent.JobName)
     SearchPattern: '**/*.pdb'
     IndexSources: false
     SymbolServerType: TeamServices
   displayName: Publish symbols to symbol server
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Agent.OS'], 'Windows_NT'))
+  condition: eq(variables['Agent.OS'], 'Windows_NT') # Execute on failed test runs too. Windows-only till https://github.com/microsoft/azure-pipelines-tasks/issues/13821 is fixed.
+
+- task: PublishSymbols@2
+  inputs:
+    SymbolsFolder: $(Build.ArtifactStagingDirectory)/test_symbols-$(Agent.JobName)
+    SearchPattern: '**/*.pdb'
+    IndexSources: false
+    SymbolServerType: TeamServices
+  displayName: Publish test symbols to symbol server
+  condition: and(failed(), eq(variables['Agent.OS'], 'Windows_NT')) # Execute on failed test runs only.
+
+- bash: bash <(curl -s https://codecov.io/bash)
+  displayName: Publish code coverage results to codecov.io
+  condition: ne(variables['codecov_token'], '')
+  timeoutInMinutes: 3
+  continueOnError: true

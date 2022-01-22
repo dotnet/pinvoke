@@ -43,9 +43,6 @@ if ($NothingToDo) {
     $Test = $true
 }
 
-# External dependencies
-$sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/v3.3.0/nuget.exe"
-
 # Path variables
 $ProjectRoot = Split-Path -parent $PSCommandPath
 $SolutionFolder = Join-Path $ProjectRoot src
