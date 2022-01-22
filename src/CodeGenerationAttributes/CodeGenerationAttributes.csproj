@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <AssemblyName>CodeGenerationAttributes</AssemblyName>
     <Nullable>enable</Nullable>
   </PropertyGroup>
