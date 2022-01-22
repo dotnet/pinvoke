@@ -18,5 +18,4 @@ jobs:
     displayName: Set build number
 
   - template: dotnet.yml
-  - template: publish-codecoverage.yml
   - template: publish-deployables.yml

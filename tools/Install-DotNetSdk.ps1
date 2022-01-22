@@ -38,7 +38,7 @@ if (!$arch) { # Windows Powershell leaves this blank
 # Search for all .NET Core runtime versions referenced from MSBuild projects and arrange to install them.
 $runtimeVersions = @()
 $windowsDesktopRuntimeVersions = @()
-Get-ChildItem "$PSScriptRoot\..\src\*.*proj","$PSScriptRoot\..\test\*.*proj","$PSScriptRoot\..\Directory.Build.props" -Recurse |% {
+Get-ChildItem "$PSScriptRoot\..\src\*.*proj","$PSScriptRoot\..\Directory.Build.props" -Recurse |% {
     $projXml = [xml](Get-Content -Path $_)
     $pg = $projXml.Project.PropertyGroup
     if ($pg) {

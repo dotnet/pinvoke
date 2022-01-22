@@ -19,7 +19,7 @@
     <DebugType Condition=" '$(CI)' != 'true' and '$(TF_BUILD)' != 'true' ">embedded</DebugType>
 
     <DesktopOnlyFrameworks>net45</DesktopOnlyFrameworks>
-    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0.18362</PlatformSpecificFrameworks>
+    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0.19041</PlatformSpecificFrameworks>
     <PortableOnlyFrameworks>netstandard2.0</PortableOnlyFrameworks>
     <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
 

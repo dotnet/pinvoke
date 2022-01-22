@@ -1,7 +1,11 @@
 steps:
 
-- script: dotnet build -t:build,pack --no-restore -c $(BuildConfiguration) /v:m /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog"
-  displayName: dotnet build & pack
+- task: VSBuild@1
+  displayName: Build Visual Studio solution
+  inputs:
+    msbuildArgs: /t:build,pack /m /v:m /bl:"$(Build.ArtifactStagingDirectory)/build_logs/msbuild.binlog"
+    platform: Any CPU
+    configuration: $(BuildConfiguration)
 
 - powershell: .\build.ps1 -Test
   displayName: Test
@@ -49,9 +53,3 @@ steps:
     SymbolServerType: TeamServices
   displayName: Publish test symbols to symbol server
   condition: and(failed(), eq(variables['Agent.OS'], 'Windows_NT')) # Execute on failed test runs only.
-
-- bash: bash <(curl -s https://codecov.io/bash)
-  displayName: Publish code coverage results to codecov.io
-  condition: ne(variables['codecov_token'], '')
-  timeoutInMinutes: 3
-  continueOnError: true

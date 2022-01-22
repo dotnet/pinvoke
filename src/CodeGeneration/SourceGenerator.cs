@@ -94,8 +94,9 @@ public class SourceGenerator : ISourceGenerator
                         .WithLeadingTrivia(GeneratedByAToolPreamble)
                         .NormalizeWhitespace();
 
-                    string sourceHash = Convert.ToBase64String(hash.ComputeHash(Encoding.UTF8.GetBytes(syntaxTree.FilePath)), 0, 6).Replace('/', '-');
-                    context.AddSource(Path.GetFileNameWithoutExtension(syntaxTree.FilePath) + $".{sourceHash}.friendly.cs", generatedFile.ToFullString());
+                    string sourceHash = Convert.ToBase64String(hash.ComputeHash(Encoding.UTF8.GetBytes(syntaxTree.FilePath)), 0, 6);
+                    string hintName = Path.GetFileNameWithoutExtension(syntaxTree.FilePath) + $".{sourceHash}.friendly.cs";
+                    context.AddSource(hintName.Replace('/', '-').Replace('+', '_'), generatedFile.ToFullString());
                 }
             }
         }
