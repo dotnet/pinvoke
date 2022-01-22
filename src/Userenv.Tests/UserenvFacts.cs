@@ -20,8 +20,7 @@ public class UserenvFacts
     [Fact]
     public unsafe void CreateEnvironmentBlock_DestroyEnvironmentBlock()
     {
-        char* environmentBlock;
-        if (!CreateEnvironmentBlock(out environmentBlock, SafeObjectHandle.Null, false))
+        if (!CreateEnvironmentBlock(out char* environmentBlock, SafeObjectHandle.Null, false))
         {
             throw new Win32Exception();
         }

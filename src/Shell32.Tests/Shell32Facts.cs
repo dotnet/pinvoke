@@ -30,8 +30,7 @@ public class Shell32Facts
     [Fact]
     public unsafe void SHGetFolderLocation_SHGetPathFromIDList()
     {
-        ITEMIDLIST* list;
-        SHGetFolderLocation(IntPtr.Zero, CSIDL.CSIDL_LOCAL_APPDATA, IntPtr.Zero, 0, out list).ThrowOnFailure();
+        SHGetFolderLocation(IntPtr.Zero, CSIDL.CSIDL_LOCAL_APPDATA, IntPtr.Zero, 0, out ITEMIDLIST* list).ThrowOnFailure();
         try
         {
             string actual = SHGetPathFromIDList(list);
@@ -47,8 +46,7 @@ public class Shell32Facts
     [Fact]
     public unsafe void SHGetKnownFolderIDList_SHGetPathFromIDList()
     {
-        ITEMIDLIST* list;
-        SHGetKnownFolderIDList(KNOWNFOLDERID.FOLDERID_LocalAppData, KNOWN_FOLDER_FLAG.None, IntPtr.Zero, out list).ThrowOnFailure();
+        SHGetKnownFolderIDList(KNOWNFOLDERID.FOLDERID_LocalAppData, KNOWN_FOLDER_FLAG.None, IntPtr.Zero, out ITEMIDLIST* list).ThrowOnFailure();
         try
         {
             string actual = SHGetPathFromIDList(list);

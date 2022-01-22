@@ -19,8 +19,7 @@ public class AdvApi32Facts
     [Fact]
     public void CanOpenRegistryKey()
     {
-        SafeRegistryHandle handle;
-        var errorCode = RegOpenKeyEx(HKEY_CURRENT_USER, "Software", RegOpenKeyOptions.None, KEY_READ, out handle);
+        Win32ErrorCode errorCode = RegOpenKeyEx(HKEY_CURRENT_USER, "Software", RegOpenKeyOptions.None, KEY_READ, out SafeRegistryHandle handle);
         Assert.Equal(Win32ErrorCode.ERROR_SUCCESS, errorCode);
         Assert.NotNull(handle);
         Assert.False(handle.IsInvalid);
@@ -30,10 +29,9 @@ public class AdvApi32Facts
     [Fact]
     public void CanNotifyRegistryChange()
     {
-        SafeRegistryHandle handle;
         Assert.Equal(
             Win32ErrorCode.ERROR_SUCCESS,
-            RegOpenKeyEx(HKEY_CURRENT_USER, "Software", RegOpenKeyOptions.None, KEY_READ, out handle));
+            RegOpenKeyEx(HKEY_CURRENT_USER, "Software", RegOpenKeyOptions.None, KEY_READ, out SafeRegistryHandle handle));
         using (handle)
         {
             using (var evt = new ManualResetEvent(false))

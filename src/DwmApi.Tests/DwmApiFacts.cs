@@ -11,8 +11,7 @@ public class DwmApiFacts
     [Fact]
     public void DefWindowProc()
     {
-        IntPtr lResult;
-        bool result = DwmDefWindowProc(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero, out lResult);
+        bool result = DwmDefWindowProc(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero, out IntPtr lResult);
         Assert.False(result);
     }
 
@@ -38,8 +37,6 @@ public class DwmApiFacts
     [Fact]
     public void GetColorizationColor()
     {
-        uint colorization;
-        bool opaqueBlend;
-        DwmGetColorizationColor(out colorization, out opaqueBlend).ThrowOnFailure();
+        DwmGetColorizationColor(out uint colorization, out bool opaqueBlend).ThrowOnFailure();
     }
 }

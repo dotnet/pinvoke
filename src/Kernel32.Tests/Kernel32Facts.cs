@@ -53,13 +53,10 @@ public partial class Kernel32Facts
     {
         char[] volumeNameBuffer = new char[261];
         char[] fileSystemNameBuffer = new char[261];
-        uint serialNumber;
-        int maxlen;
-        FileSystemFlags flags;
 
-        var systemDrive = Path.GetPathRoot(Environment.SystemDirectory);
+        string systemDrive = Path.GetPathRoot(Environment.SystemDirectory);
 
-        if (!Kernel32.GetVolumeInformation(systemDrive, volumeNameBuffer, volumeNameBuffer.Length, out serialNumber, out maxlen, out flags, fileSystemNameBuffer, fileSystemNameBuffer.Length))
+        if (!Kernel32.GetVolumeInformation(systemDrive, volumeNameBuffer, volumeNameBuffer.Length, out uint serialNumber, out int maxlen, out FileSystemFlags flags, fileSystemNameBuffer, fileSystemNameBuffer.Length))
         {
             Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
         }
@@ -87,7 +84,7 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void GetSetProcessInformationMemoryPriorityTest()
     {
-        using var hProcess = Kernel32.GetCurrentProcess();
+        using SafeObjectHandle hProcess = Kernel32.GetCurrentProcess();
 
         // Save current memory-priority info
         MEMORY_PRIORITY_INFORMATION savedInfo;

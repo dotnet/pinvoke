@@ -75,7 +75,7 @@ public class SourceGenerator : ISourceGenerator
                             SyntaxList<MemberDeclarationSyntax> generatedMembers = generator.Generate(transformationContext, context.CancellationToken);
                             if (generatedMembers.Any(m => m.DescendantNodesAndSelf().OfType<TypeDeclarationSyntax>().Any(t => t.Members.Any())))
                             {
-                                var wrappedMembers = typeDeclaration.Ancestors().Aggregate(generatedMembers, WrapInAncestor);
+                                SyntaxList<MemberDeclarationSyntax> wrappedMembers = typeDeclaration.Ancestors().Aggregate(generatedMembers, WrapInAncestor);
                                 additionalMembers = additionalMembers.AddRange(wrappedMembers);
                             }
                         }

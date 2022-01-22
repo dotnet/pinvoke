@@ -43,7 +43,7 @@ namespace PInvoke
             IntPtr hwnd,
             [Friendly(FriendlyFlags.Out)] PAINTSTRUCT* lpPaint)
         {
-            var hdc = BeginPaint_IntPtr(hwnd, lpPaint);
+            IntPtr hdc = BeginPaint_IntPtr(hwnd, lpPaint);
             return hdc != IntPtr.Zero ? new SafeDCHandle(hwnd, hdc) : null;
         }
 
@@ -59,7 +59,7 @@ namespace PInvoke
         /// </returns>
         public static SafeDCHandle GetDC(IntPtr hWnd)
         {
-            var hdc = GetDC_IntPtr(hWnd);
+            IntPtr hdc = GetDC_IntPtr(hWnd);
             return hdc != IntPtr.Zero ? new SafeDCHandle(hWnd, hdc) : null;
         }
 
@@ -90,7 +90,7 @@ namespace PInvoke
         /// </remarks>
         public static SafeDCHandle GetDCEx(IntPtr hWnd, IntPtr hrgnClip, DeviceContextValues flags)
         {
-            var hdc = GetDCEx_IntPtr(hWnd, hrgnClip, flags);
+            IntPtr hdc = GetDCEx_IntPtr(hWnd, hrgnClip, flags);
             return hdc != IntPtr.Zero ? new SafeDCHandle(hWnd, hdc) : null;
         }
 
@@ -120,7 +120,7 @@ namespace PInvoke
         /// </remarks>
         public static SafeDCHandle GetWindowDC(IntPtr hWnd)
         {
-            var hdc = GetWindowDC_IntPtr(hWnd);
+            IntPtr hdc = GetWindowDC_IntPtr(hWnd);
             return hdc != IntPtr.Zero ? new SafeDCHandle(hWnd, hdc) : null;
         }
 
@@ -313,10 +313,10 @@ namespace PInvoke
         /// </returns>
         public static string GetWindowText(IntPtr hWnd)
         {
-            var maxLength = GetWindowTextLength(hWnd);
+            int maxLength = GetWindowTextLength(hWnd);
             if (maxLength == 0)
             {
-                var lastError = GetLastError();
+                Win32ErrorCode lastError = GetLastError();
                 if (lastError != Win32ErrorCode.ERROR_SUCCESS)
                 {
                     throw new Win32Exception(lastError);
@@ -325,11 +325,11 @@ namespace PInvoke
                 return string.Empty;
             }
 
-            var text = new char[maxLength + 1];
-            var finalLength = GetWindowText(hWnd, text, maxLength + 1);
+            char[] text = new char[maxLength + 1];
+            int finalLength = GetWindowText(hWnd, text, maxLength + 1);
             if (finalLength == 0)
             {
-                var lastError = GetLastError();
+                Win32ErrorCode lastError = GetLastError();
                 if (lastError != Win32ErrorCode.ERROR_SUCCESS)
                 {
                     throw new Win32Exception(lastError);

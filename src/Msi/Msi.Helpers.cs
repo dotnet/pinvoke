@@ -67,7 +67,7 @@ namespace PInvoke
             pdwInstalledContext = MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_NONE;
             szSid = null;
 
-            var installedProductCode = new char[39];
+            char[] installedProductCode = new char[39];
             MSIINSTALLCONTEXT? pdwInstalledContextLocal = MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_NONE;
             int? pcchSid = 0;
             Win32ErrorCode error = MsiEnumProductsEx(

@@ -17,8 +17,7 @@ namespace PInvoke
     {
         public static Guid HidD_GetHidGuid()
         {
-            Guid guid;
-            HidD_GetHidGuid(out guid);
+            HidD_GetHidGuid(out Guid guid);
             return guid;
         }
 
@@ -35,8 +34,7 @@ namespace PInvoke
 
         public static SafePreparsedDataHandle HidD_GetPreparsedData(SafeObjectHandle hDevice)
         {
-            SafePreparsedDataHandle preparsedDataHandle;
-            if (!HidD_GetPreparsedData(hDevice, out preparsedDataHandle))
+            if (!HidD_GetPreparsedData(hDevice, out SafePreparsedDataHandle preparsedDataHandle))
             {
                 throw new Win32Exception();
             }
@@ -47,7 +45,7 @@ namespace PInvoke
         public static HidpCaps HidP_GetCaps(SafePreparsedDataHandle preparsedData)
         {
             var hidCaps = default(HidpCaps);
-            var result = HidP_GetCaps(preparsedData, ref hidCaps);
+            NTSTATUS result = HidP_GetCaps(preparsedData, ref hidCaps);
             switch (result.Value)
             {
                 case NTSTATUS.Code.HIDP_STATUS_SUCCESS:
@@ -79,8 +77,7 @@ namespace PInvoke
 
         public static string HidD_GetManufacturerString(SafeObjectHandle hidDeviceObject)
         {
-            string result;
-            if (!HidD_GetManufacturerString(hidDeviceObject, out result))
+            if (!HidD_GetManufacturerString(hidDeviceObject, out string result))
             {
                 throw new Win32Exception();
             }
@@ -90,8 +87,7 @@ namespace PInvoke
 
         public static string HidD_GetProductString(SafeObjectHandle hidDeviceObject)
         {
-            string result;
-            if (!HidD_GetProductString(hidDeviceObject, out result))
+            if (!HidD_GetProductString(hidDeviceObject, out string result))
             {
                 throw new Win32Exception();
             }
@@ -101,8 +97,7 @@ namespace PInvoke
 
         public static string HidD_GetSerialNumberString(SafeObjectHandle hidDeviceObject)
         {
-            string result;
-            if (!HidD_GetSerialNumberString(hidDeviceObject, out result))
+            if (!HidD_GetSerialNumberString(hidDeviceObject, out string result))
             {
                 throw new Win32Exception();
             }

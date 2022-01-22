@@ -79,24 +79,24 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
 
     public SyntaxList<MemberDeclarationSyntax> Generate(TransformationContext context, CancellationToken cancellationToken)
     {
-        var applyTo = context.ProcessingNode;
-        var compilation = context.Compilation;
-        var semanticModel = compilation.GetSemanticModel(applyTo.SyntaxTree);
-        var obsoleteAttribute = compilation.GetTypeByMetadataName("System.ObsoleteAttribute");
+        TypeDeclarationSyntax? applyTo = context.ProcessingNode;
+        Compilation? compilation = context.Compilation;
+        SemanticModel? semanticModel = compilation.GetSemanticModel(applyTo.SyntaxTree);
+        INamedTypeSymbol? obsoleteAttribute = compilation.GetTypeByMetadataName("System.ObsoleteAttribute");
 
         var type = (ClassDeclarationSyntax)applyTo;
-        var generatedType = type
+        ClassDeclarationSyntax? generatedType = type
             .WithMembers(List<MemberDeclarationSyntax>());
-        var methodsWithNativePointers =
+        IEnumerable<MethodDeclarationSyntax>? methodsWithNativePointers =
             from method in type.Members.OfType<MethodDeclarationSyntax>()
             where !method.AttributeLists.SelectMany(al => al.Attributes).Any(att => att.Name is SimpleNameSyntax sn && sn.Identifier.ValueText == "NoFriendlyOverloads")
             where WhereIsPointerParameter(method.ParameterList.Parameters).Any() || method.ReturnType is PointerTypeSyntax
             select method;
 
-        foreach (var method in methodsWithNativePointers)
+        foreach (MethodDeclarationSyntax? method in methodsWithNativePointers)
         {
-            var methodSymbol = semanticModel.GetDeclaredSymbol(method, cancellationToken);
-            var nativePointerParameters = method.ParameterList.Parameters.Where(p => p.Type is PointerTypeSyntax);
+            IMethodSymbol? methodSymbol = semanticModel.GetDeclaredSymbol(method, cancellationToken);
+            IEnumerable<ParameterSyntax>? nativePointerParameters = method.ParameterList.Parameters.Where(p => p.Type is PointerTypeSyntax);
 
             var refOrArrayAttributedParameters =
                 from parameter in nativePointerParameters
@@ -119,8 +119,8 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
             var parametersToFriendlyTransform = refOrArrayAttributedParameters.ToDictionary(p => p.Parameter, p => p.Friendly);
 
             // Consider undecorated byte* parameters to have a Friendly attribute by default.
-            var byteArrayInParameters = nativePointerParameters.Where(IsByteStarInParameter);
-            foreach (var p in byteArrayInParameters)
+            IEnumerable<ParameterSyntax>? byteArrayInParameters = nativePointerParameters.Where(IsByteStarInParameter);
+            foreach (ParameterSyntax? p in byteArrayInParameters)
             {
                 if (!parametersToFriendlyTransform.ContainsKey(p))
                 {
@@ -128,13 +128,13 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
                 }
             }
 
-            var leadingTrivia = Trivia(
+            SyntaxTrivia leadingTrivia = Trivia(
                 DocumentationCommentTrivia(SyntaxKind.SingleLineDocumentationCommentTrivia).AddContent(
                     XmlText("/// "),
                     XmlEmptyElement("inheritdoc").AddAttributes(XmlCrefAttribute(NameMemberCref(IdentifierName(method.Identifier), ToCref(method.ParameterList)))),
                     XmlText().AddTextTokens(XmlTextNewLine(TriviaList(), "\r\n", "\r\n", TriviaList()))));
 
-            var transformedMethodBase = method
+            MethodDeclarationSyntax? transformedMethodBase = method
                 .WithReturnType(TransformReturnType(method.ReturnType))
                 .WithIdentifier(TransformMethodName(method))
                 .WithModifiers(RemoveModifier(method.Modifiers, SyntaxKind.ExternKeyword))
@@ -144,8 +144,8 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
                 .WithSemicolonToken(Token(SyntaxKind.None))
                 .WithExpressionBody(null);
 
-            var flags = GeneratorFlags.NativePointerToIntPtr;
-            var intPtrOverload = transformedMethodBase
+            GeneratorFlags flags = GeneratorFlags.NativePointerToIntPtr;
+            MethodDeclarationSyntax? intPtrOverload = transformedMethodBase
                 .WithParameterList(TransformParameterList(method.ParameterList, flags, parametersToFriendlyTransform, null, null))
                 .WithBody(CallNativePointerOverload(semanticModel, methodSymbol, method, flags, parametersToFriendlyTransform, null));
             generatedType = generatedType.AddMembers(intPtrOverload);
@@ -159,11 +159,11 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
                     List<int>? indexesOfParametersToMakeOutOnly = null;
                     if ((flags & GeneratorFlags.UseArrays) == GeneratorFlags.None)
                     {
-                        foreach (var parameter in method.ParameterList.Parameters)
+                        foreach (ParameterSyntax? parameter in method.ParameterList.Parameters)
                         {
                             if (parametersToFriendlyTransform?.TryGetValue(parameter, out FriendlyAttribute friendly) is true && (friendly.Flags & FriendlyFlags.Array) == FriendlyFlags.Array && friendly.ArrayLengthParameter >= 0)
                             {
-                                var lenParam = method.ParameterList.Parameters[friendly.ArrayLengthParameter];
+                                ParameterSyntax? lenParam = method.ParameterList.Parameters[friendly.ArrayLengthParameter];
                                 if (!(lenParam.Type is PointerTypeSyntax))
                                 {
                                     if (lenParam.Modifiers.Count == 0)
@@ -189,7 +189,7 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
                         }
                     }
 
-                    var overload = transformedMethodBase
+                    MethodDeclarationSyntax? overload = transformedMethodBase
                         .WithParameterList(TransformParameterList(method.ParameterList, flags, parametersToFriendlyTransform, indexesOfParameterToRemove?.Keys, indexesOfParametersToMakeOutOnly))
                         .WithBody(CallNativePointerOverload(semanticModel, methodSymbol, method, flags, parametersToFriendlyTransform, indexesOfParameterToRemove));
                     generatedType = generatedType.AddMembers(overload);
@@ -232,10 +232,10 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
 
     private static SyntaxList<AttributeListSyntax> FilterAttributes(SyntaxList<AttributeListSyntax> attributeLists)
     {
-        var result = List<AttributeListSyntax>();
-        foreach (var list in attributeLists)
+        SyntaxList<AttributeListSyntax> result = List<AttributeListSyntax>();
+        foreach (AttributeListSyntax? list in attributeLists)
         {
-            var filteredList = FilterAttributes(list);
+            AttributeListSyntax? filteredList = FilterAttributes(list);
             if (filteredList.Attributes.Count > 0)
             {
                 result = result.Add(filteredList);
@@ -291,18 +291,17 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
 
     private static ParameterListSyntax TransformParameterList(ParameterListSyntax list, GeneratorFlags generatorFlags, IReadOnlyDictionary<ParameterSyntax, FriendlyAttribute> parametersToFriendlyTransform, IEnumerable<int>? indexesOfParameterToRemove, List<int>? indexesOfParametersToMakeOutOnly)
     {
-        var resultingList = list.ReplaceNodes(
+        ParameterListSyntax? resultingList = list.ReplaceNodes(
             WhereIsPointerParameter(list.Parameters),
             (n1, n2) =>
             {
                 // Remove all attributes
                 n2 = n2.WithAttributeLists(List<AttributeListSyntax>());
 
-                FriendlyAttribute friendly;
-                if (generatorFlags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.TryGetValue(n1, out friendly))
+                if (generatorFlags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.TryGetValue(n1, out FriendlyAttribute friendly))
                 {
                     var pointerType = (PointerTypeSyntax?)n2.Type;
-                    var alteredParameter = n2.WithDefault(null);
+                    ParameterSyntax? alteredParameter = n2.WithDefault(null);
                     if (friendly.Flags.HasFlag(FriendlyFlags.Array) && pointerType?.ElementType is not null)
                     {
                         alteredParameter = alteredParameter
@@ -401,18 +400,18 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
         var invocationArguments = new Dictionary<ParameterSyntax, ArgumentSyntax>();
         for (int i = 0; i < nativePointerOverload.ParameterList.Parameters.Count; i++)
         {
-            var p = nativePointerOverload.ParameterList.Parameters[i];
+            ParameterSyntax? p = nativePointerOverload.ParameterList.Parameters[i];
             if (indexesOfParametersToRemove is object && indexesOfParametersToRemove.TryGetValue(i, out ParameterSyntax arrayParameter))
             {
                 // We may have to cast this to uint depending on the receiving type.
-                var uintSymbol = semanticModel.Compilation.GetTypeByMetadataName("System.UInt32");
+                INamedTypeSymbol? uintSymbol = semanticModel.Compilation.GetTypeByMetadataName("System.UInt32");
                 bool isUint = SymbolEqualityComparer.Default.Equals(methodSymbol?.Parameters[i].Type, uintSymbol);
-                var memberAccess = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(arrayParameter.Identifier), IdentifierName("Length"));
+                MemberAccessExpressionSyntax? memberAccess = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(arrayParameter.Identifier), IdentifierName("Length"));
                 invocationArguments[p] = Argument(isUint ? CastExpression(PredefinedType(Token(SyntaxKind.UIntKeyword)), memberAccess) : memberAccess);
             }
             else
             {
-                var refOrOut = p.Modifiers.FirstOrDefault(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword));
+                SyntaxToken refOrOut = p.Modifiers.FirstOrDefault(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword));
                 invocationArguments[p] =
                     Argument(IdentifierName(p.Identifier))
                     .WithRefOrOutKeyword(refOrOut);
@@ -427,12 +426,11 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
         const string EmptyStackArrayLocal = "__EmptyArray";
         const string EmptyStackArrayLocalPointer = "pEmptyArray";
 
-        foreach (var parameter in nativePointerOverload.ParameterList.Parameters.Where(p => p.Type is PointerTypeSyntax))
+        foreach (ParameterSyntax? parameter in nativePointerOverload.ParameterList.Parameters.Where(p => p.Type is PointerTypeSyntax))
         {
-            var parameterName = IdentifierName(parameter.Identifier);
-            var localVarName = getLocalSubstituteName(parameter);
-            FriendlyAttribute friendly;
-            if (flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.TryGetValue(parameter, out friendly))
+            IdentifierNameSyntax? parameterName = IdentifierName(parameter.Identifier);
+            IdentifierNameSyntax? localVarName = getLocalSubstituteName(parameter);
+            if (flags.HasFlag(GeneratorFlags.NativePointerToFriendly) && parametersToFriendlyTransform.TryGetValue(parameter, out FriendlyAttribute friendly))
             {
                 if (friendly.Flags.HasFlag(FriendlyFlags.Array) && parameter.Type is not null)
                 {
@@ -441,7 +439,7 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
                         emptyStackArrayRequired = true;
                     }
 
-                    var fixedArrayDecl = VariableDeclarator(localVarName.Identifier)
+                    VariableDeclaratorSyntax? fixedArrayDecl = VariableDeclarator(localVarName.Identifier)
                         .WithInitializer(EqualsValueClause(parameterName));
                     fixedStatements.Add(FixedStatement(
                         VariableDeclaration(parameter.Type).AddVariables(fixedArrayDecl),
@@ -466,16 +464,16 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
                     if (friendly.Flags.HasFlag(FriendlyFlags.Optional) && parameter.Type is not null)
                     {
                         var nullableType = (PointerTypeSyntax)parameter.Type;
-                        var hasValueExpression = MemberAccessExpression(
+                        MemberAccessExpressionSyntax? hasValueExpression = MemberAccessExpression(
                             SyntaxKind.SimpleMemberAccessExpression,
                             IdentifierName(parameter.Identifier),
                             IdentifierName(nameof(Nullable<int>.HasValue)));
-                        var valueExpression = MemberAccessExpression(
+                        MemberAccessExpressionSyntax? valueExpression = MemberAccessExpression(
                             SyntaxKind.SimpleMemberAccessExpression,
                             IdentifierName(parameter.Identifier),
                             IdentifierName(nameof(Nullable<int>.Value)));
-                        var defaultExpression = DefaultExpression(nullableType.ElementType);
-                        var varStatement = VariableDeclaration(nullableType.ElementType).AddVariables(
+                        DefaultExpressionSyntax? defaultExpression = DefaultExpression(nullableType.ElementType);
+                        VariableDeclarationSyntax? varStatement = VariableDeclaration(nullableType.ElementType).AddVariables(
                             VariableDeclarator(localVarName.Identifier)
                                 .WithInitializer(EqualsValueClause(
                                     ConditionalExpression(
@@ -487,11 +485,11 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
                         if (friendly.Flags.HasFlag(FriendlyFlags.Out))
                         {
                             // someParam = someParamLocal;
-                            var assignBackToParameter = AssignmentExpression(
+                            AssignmentExpressionSyntax? assignBackToParameter = AssignmentExpression(
                                 SyntaxKind.SimpleAssignmentExpression,
                                 parameterName,
                                 localVarName);
-                            var conditionalStatement = IfStatement(
+                            IfStatementSyntax? conditionalStatement = IfStatement(
                                 hasValueExpression,
                                 ExpressionStatement(assignBackToParameter));
                             postlude.Add(conditionalStatement);
@@ -505,7 +503,7 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
                     }
                     else if (friendly.Flags.HasFlag(FriendlyFlags.Out) && parameter.Type is not null)
                     {
-                        var fixedDecl = VariableDeclarator(localVarName.Identifier)
+                        VariableDeclaratorSyntax? fixedDecl = VariableDeclarator(localVarName.Identifier)
                             .WithInitializer(EqualsValueClause(
                                 PrefixUnaryExpression(
                                     SyntaxKind.AddressOfExpression,
@@ -525,11 +523,11 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
             }
             else if (flags.HasFlag(GeneratorFlags.NativePointerToIntPtr) && parameter.Type is not null)
             {
-                var varStatement = VariableDeclaration(parameter.Type);
-                var declarator = VariableDeclarator(localVarName.Identifier);
+                VariableDeclarationSyntax? varStatement = VariableDeclaration(parameter.Type);
+                VariableDeclaratorSyntax? declarator = VariableDeclarator(localVarName.Identifier);
                 if (parameter.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword) || m.IsKind(SyntaxKind.RefKeyword)))
                 {
-                    var assignment = AssignmentExpression(
+                    AssignmentExpressionSyntax? assignment = AssignmentExpression(
                         SyntaxKind.SimpleAssignmentExpression,
                         parameterName,
                         ObjectCreationExpression(
@@ -541,13 +539,13 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
 
                 if (!parameter.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword)))
                 {
-                    var voidStarPointer = InvocationExpression(
+                    InvocationExpressionSyntax? voidStarPointer = InvocationExpression(
                         MemberAccessExpression(
                             SyntaxKind.SimpleMemberAccessExpression,
                             IdentifierName(parameter.Identifier),
                             IdentifierName(nameof(IntPtr.ToPointer))),
                         ArgumentList());
-                    var typedPointer = parameter.Type.Equals(VoidStar)
+                    ExpressionSyntax? typedPointer = parameter.Type.Equals(VoidStar)
                         ? (ExpressionSyntax)voidStarPointer
                         : CastExpression(parameter.Type, voidStarPointer);
 
@@ -561,7 +559,7 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
             }
         }
 
-        var invocationExpression = InvocationExpression(
+        InvocationExpressionSyntax? invocationExpression = InvocationExpression(
             IdentifierName(nativePointerOverload.Identifier.ValueText),
             ArgumentList(
                 SeparatedList(
@@ -584,7 +582,7 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
             invocationStatement = ExpressionStatement(invocationExpression);
         }
 
-        var block = Block()
+        BlockSyntax? block = Block()
             .AddStatements(prelude.ToArray())
             .AddStatements(invocationStatement)
             .AddStatements(postlude.ToArray());
@@ -611,7 +609,7 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
         if (fixedStatements.Count > 0)
         {
             StatementSyntax outermost = block;
-            foreach (var statement in fixedStatements)
+            foreach (FixedStatementSyntax? statement in fixedStatements)
             {
                 outermost = statement.WithStatement(outermost);
             }
@@ -622,7 +620,7 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
         if (emptyStackArrayRequired)
         {
             // Span<byte> __EmptyArray = stackalloc byte[1];
-            var statement = LocalDeclarationStatement(VariableDeclaration(SpanOfByte).AddVariables(VariableDeclarator(EmptyStackArrayLocal).WithInitializer(
+            LocalDeclarationStatementSyntax? statement = LocalDeclarationStatement(VariableDeclaration(SpanOfByte).AddVariables(VariableDeclarator(EmptyStackArrayLocal).WithInitializer(
                 EqualsValueClause(StackAllocArrayCreationExpression(ArrayType(PredefinedType(Token(SyntaxKind.ByteKeyword))).AddRankSpecifiers(ArrayRankSpecifier(SingletonSeparatedList<ExpressionSyntax>(LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(1))))))))));
             block = block.InsertNodesBefore(block.Statements.First(), new SyntaxNode[] { statement });
         }
@@ -633,7 +631,6 @@ internal class OfferFriendlyOverloadsGenerator : IGenerator
     [return: NotNullIfNotNull("defaultValue")]
     private static TValue? GetValueOrDefault<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue? defaultValue = default(TValue))
     {
-        TValue? entry;
-        return dictionary.TryGetValue(key, out entry) ? entry : defaultValue;
+        return dictionary.TryGetValue(key, out TValue? entry) ? entry : defaultValue;
     }
 }

@@ -35,7 +35,7 @@ namespace PInvoke
         public static unsafe ValueTask<int> WinUsb_ReadPipeAsync(SafeUsbHandle interfaceHandle, byte pipeID, Memory<byte> buffer, CancellationToken cancellationToken)
         {
             var overlapped = new WinUsbOverlapped(interfaceHandle, pipeID, buffer.Pin(), cancellationToken);
-            var nativeOverlapped = overlapped.Pack();
+            NativeOverlapped* nativeOverlapped = overlapped.Pack();
 
             if (WinUsb_ReadPipe(
                 interfaceHandle,
@@ -90,7 +90,7 @@ namespace PInvoke
         public static unsafe ValueTask<int> WinUsb_WritePipeAsync(SafeUsbHandle interfaceHandle, byte pipeID, ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken)
         {
             var overlapped = new WinUsbOverlapped(interfaceHandle, pipeID, buffer.Pin(), cancellationToken);
-            var nativeOverlapped = overlapped.Pack();
+            NativeOverlapped* nativeOverlapped = overlapped.Pack();
 
             if (WinUsb_WritePipe(
                 interfaceHandle,

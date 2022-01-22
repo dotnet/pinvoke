@@ -35,17 +35,13 @@ namespace PInvoke
             IntPtr pvParameters,
             out SafeHandle cryptHandle)
         {
-            IntPtr cryptProvOrNCryptKey;
-            uint keySpec;
-            bool callerFreeProvOrNCryptKey;
-
             if (!CryptAcquireCertificatePrivateKey(
                 pCert,
                 dwFlags,
                 (void*)pvParameters,
-                out cryptProvOrNCryptKey,
-                out keySpec,
-                out callerFreeProvOrNCryptKey))
+                out IntPtr cryptProvOrNCryptKey,
+                out uint keySpec,
+                out bool callerFreeProvOrNCryptKey))
             {
                 cryptHandle = AdvApi32.SafeCryptographicProviderHandle.Null;
                 return false;

@@ -22,7 +22,7 @@ namespace PInvoke
             // Copy out the value of the struct pointed to (if any) so that
             // the caller does not need to remember to keep the pointer fixed
             // for the entire enumeration.
-            var deviceInfoDataCopy = deviceInfoData != null ? (SP_DEVINFO_DATA?)*deviceInfoData : null;
+            SP_DEVINFO_DATA? deviceInfoDataCopy = deviceInfoData != null ? (SP_DEVINFO_DATA?)*deviceInfoData : null;
             return SetupDiEnumDeviceInterfacesHelper(
                 lpDeviceInfoSet,
                 deviceInfoDataCopy,
@@ -46,7 +46,7 @@ namespace PInvoke
                 deviceInfoData);
 
             // As we passed an empty buffer we know that the function will fail, not need to check the result.
-            var lastError = GetLastError();
+            Win32ErrorCode lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
             {
                 throw new Win32Exception(lastError);
@@ -58,7 +58,7 @@ namespace PInvoke
                 pDetail->cbSize = SP_DEVICE_INTERFACE_DETAIL_DATA.ReportableStructSize;
 
                 // Second call to get the value
-                var success = SetupDiGetDeviceInterfaceDetail(
+                bool success = SetupDiGetDeviceInterfaceDetail(
                     deviceInfoSet,
                     ref interfaceData,
                     pDetail,
@@ -95,7 +95,7 @@ namespace PInvoke
 
                 if (!result)
                 {
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     if (lastError != Win32ErrorCode.ERROR_NO_MORE_ITEMS)
                     {
                         throw new Win32Exception(lastError);

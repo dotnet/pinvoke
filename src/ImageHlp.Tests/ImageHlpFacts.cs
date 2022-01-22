@@ -14,8 +14,7 @@ public class ImageHlpFacts
     [Trait("TestCategory", "FailsInCloudTest")]
     public void MapAndLoadTest()
     {
-        LOADED_IMAGE imageData;
-        Assert.True(MapAndLoad("kernel32.dll", null, out imageData, true, true));
+        Assert.True(MapAndLoad("kernel32.dll", null, out LOADED_IMAGE imageData, true, true));
         try
         {
             Assert.True(imageData.fReadOnly);

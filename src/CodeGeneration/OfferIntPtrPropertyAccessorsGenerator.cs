@@ -30,18 +30,18 @@ internal class OfferIntPtrPropertyAccessorsGenerator : IGenerator
 
     public SyntaxList<MemberDeclarationSyntax> Generate(TransformationContext context, CancellationToken cancellationToken)
     {
-        var applyTo = context.ProcessingNode;
-        var compilation = context.Compilation;
+        TypeDeclarationSyntax? applyTo = context.ProcessingNode;
+        Compilation? compilation = context.Compilation;
         var applyToStruct = applyTo as StructDeclarationSyntax;
         var applyToClass = applyTo as ClassDeclarationSyntax;
 
-        var generatedMembers = List<MemberDeclarationSyntax>();
-        var nativePointerFields = from field in applyTo.Members.OfType<FieldDeclarationSyntax>()
+        SyntaxList<MemberDeclarationSyntax> generatedMembers = List<MemberDeclarationSyntax>();
+        System.Collections.Generic.IEnumerable<FieldDeclarationSyntax>? nativePointerFields = from field in applyTo.Members.OfType<FieldDeclarationSyntax>()
                                   where field.Declaration.Type is PointerTypeSyntax && field.Modifiers.Any(m => m.IsKind(SyntaxKind.PublicKeyword))
                                   select field;
-        foreach (var field in nativePointerFields)
+        foreach (FieldDeclarationSyntax? field in nativePointerFields)
         {
-            foreach (var variable in field.Declaration.Variables)
+            foreach (VariableDeclaratorSyntax? variable in field.Declaration.Variables)
             {
                 generatedMembers = generatedMembers.Add(
                 PropertyDeclaration(IntPtrTypeSyntax, variable.Identifier.ValueText + "_IntPtr")
@@ -73,7 +73,7 @@ internal class OfferIntPtrPropertyAccessorsGenerator : IGenerator
             }
         }
 
-        var generatedType = (TypeDeclarationSyntax?)applyToStruct?.WithMembers(generatedMembers)
+        TypeDeclarationSyntax? generatedType = (TypeDeclarationSyntax?)applyToStruct?.WithMembers(generatedMembers)
                 .WithAttributeLists(List<AttributeListSyntax>())
             ?? applyToClass?.WithMembers(generatedMembers)
                 .WithAttributeLists(List<AttributeListSyntax>());

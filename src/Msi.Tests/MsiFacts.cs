@@ -19,25 +19,21 @@ public class MsiFacts
     public void IsProductElevated_BadArgs()
     {
         Guid productCode = Guid.Empty;
-        bool elevated;
-        Win32ErrorCode result = MsiIsProductElevated(productCode, out elevated);
+        Win32ErrorCode result = MsiIsProductElevated(productCode, out bool elevated);
         Assert.Equal(Win32ErrorCode.ERROR_UNKNOWN_PRODUCT, result);
     }
 
     [Fact]
     public unsafe void EnumProductsEx()
     {
-        Guid installedProductCode;
-        string sid;
-        MSIINSTALLCONTEXT installedContext;
         Win32ErrorCode result = MsiEnumProductsEx(
             null,
             null,
             MSIINSTALLCONTEXT.MSIINSTALLCONTEXT_ALL,
             0,
-            out installedProductCode,
-            out installedContext,
-            out sid);
+            out Guid installedProductCode,
+            out MSIINSTALLCONTEXT installedContext,
+            out string sid);
         Assert.Equal(Win32ErrorCode.ERROR_SUCCESS, result);
     }
 }

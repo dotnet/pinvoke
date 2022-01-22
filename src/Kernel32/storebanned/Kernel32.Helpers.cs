@@ -59,7 +59,7 @@ namespace PInvoke
                 return entry;
             }
 
-            var lastError = GetLastError();
+            Win32ErrorCode lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
             {
                 throw new Win32Exception(lastError);
@@ -92,7 +92,7 @@ namespace PInvoke
                 return entry;
             }
 
-            var lastError = GetLastError();
+            Win32ErrorCode lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
             {
                 throw new Win32Exception(lastError);
@@ -118,7 +118,7 @@ namespace PInvoke
                 throw new ArgumentNullException(nameof(hSnapshot));
             }
 
-            var entry = Process32First(hSnapshot);
+            PROCESSENTRY32? entry = Process32First(hSnapshot);
 
             while (entry.HasValue)
             {
@@ -151,7 +151,7 @@ namespace PInvoke
                 return entry;
             }
 
-            var lastError = GetLastError();
+            Win32ErrorCode lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
             {
                 throw new Win32Exception(lastError);
@@ -184,7 +184,7 @@ namespace PInvoke
                 return entry;
             }
 
-            var lastError = GetLastError();
+            Win32ErrorCode lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_NO_MORE_FILES)
             {
                 throw new Win32Exception(lastError);
@@ -210,7 +210,7 @@ namespace PInvoke
                 throw new ArgumentNullException(nameof(hSnapshot));
             }
 
-            var entry = Module32First(hSnapshot);
+            MODULEENTRY32? entry = Module32First(hSnapshot);
 
             while (entry.HasValue)
             {
@@ -239,7 +239,7 @@ namespace PInvoke
                         return new string(buffer, 0, size);
                     }
 
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     if (lastError != Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
                     {
                         lastError.ThrowOnError();
@@ -256,8 +256,7 @@ namespace PInvoke
 
         public static bool IsWow64Process(SafeObjectHandle hProcess)
         {
-            bool result;
-            if (!IsWow64Process(hProcess, out result))
+            if (!IsWow64Process(hProcess, out bool result))
             {
                 throw new Win32Exception();
             }
@@ -366,7 +365,7 @@ namespace PInvoke
             where TOutput : unmanaged
         {
             var overlapped = new DeviceIOControlOverlapped<TInput, TOutput>(inBuffer, outBuffer);
-            var nativeOverlapped = overlapped.Pack();
+            NativeOverlapped* nativeOverlapped = overlapped.Pack();
 
             bool result = Kernel32.DeviceIoControl(
                 hDevice: hDevice,

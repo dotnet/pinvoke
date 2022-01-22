@@ -22,7 +22,7 @@ public class Crypt32Facts
                 cbData = protectedPfxContent.Length,
                 pbData = pbData,
             };
-            using (var handle = PFXImportCertStore(ref data, "123456", PFXImportCertStoreFlags.None))
+            using (SafeCertStoreHandle handle = PFXImportCertStore(ref data, "123456", PFXImportCertStoreFlags.None))
             {
                 if (handle.IsInvalid)
                 {
@@ -36,7 +36,7 @@ public class Crypt32Facts
 
     private static byte[] ReadEmbeddedResource(string fileName)
     {
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName))
+        using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName))
         {
             if (stream == null)
             {

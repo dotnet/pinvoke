@@ -20,16 +20,14 @@ public class WtsApi32Facts
     [Fact]
     public unsafe void CheckWorkingOfWtsSafeMemoryGuard()
     {
-        WTS_SESSION_INFO* pSessions;
-        int sessionCount;
-        Assert.True(WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, out pSessions, out sessionCount));
+        Assert.True(WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, out WTS_SESSION_INFO* pSessions, out int sessionCount));
         try
         {
             Assert.NotEqual(0, sessionCount);
 
             for (int i = 0; i < sessionCount; i++)
             {
-                var ses = pSessions[i];
+                WTS_SESSION_INFO ses = pSessions[i];
                 this.output.WriteLine($"#{i} {ses.WinStationName}, {ses.SessionID}, {ses.State}");
             }
         }

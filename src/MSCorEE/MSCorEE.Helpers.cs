@@ -24,9 +24,7 @@ namespace PInvoke
         {
             fixed (byte* keyBlobPtr = keyBlob)
             {
-                byte* publicKeyBlob;
-                int publicKeyBlobLength;
-                Marshal.ThrowExceptionForHR(StrongNameGetPublicKey(null, keyBlobPtr, keyBlob.Length, out publicKeyBlob, out publicKeyBlobLength));
+                Marshal.ThrowExceptionForHR(StrongNameGetPublicKey(null, keyBlobPtr, keyBlob.Length, out byte* publicKeyBlob, out int publicKeyBlobLength));
                 return MarshalNativeBuffer(publicKeyBlob, publicKeyBlobLength);
             }
         }
@@ -41,9 +39,7 @@ namespace PInvoke
         /// <returns>The public key.</returns>
         public static unsafe byte[] StrongNameGetPublicKey(string keyContainer)
         {
-            byte* publicKeyBlob;
-            int publicKeyBlobLength;
-            Marshal.ThrowExceptionForHR(StrongNameGetPublicKey(keyContainer, (byte*)null, 0, out publicKeyBlob, out publicKeyBlobLength));
+            Marshal.ThrowExceptionForHR(StrongNameGetPublicKey(keyContainer, (byte*)null, 0, out byte* publicKeyBlob, out int publicKeyBlobLength));
             return MarshalNativeBuffer(publicKeyBlob, publicKeyBlobLength);
         }
 
@@ -56,9 +52,7 @@ namespace PInvoke
         {
             fixed (byte* keyBlobPtr = publicKeyBlob)
             {
-                byte* strongNameToken;
-                int strongNameTokenLength;
-                Marshal.ThrowExceptionForHR(StrongNameTokenFromPublicKey(keyBlobPtr, publicKeyBlob.Length, out strongNameToken, out strongNameTokenLength));
+                Marshal.ThrowExceptionForHR(StrongNameTokenFromPublicKey(keyBlobPtr, publicKeyBlob.Length, out byte* strongNameToken, out int strongNameTokenLength));
                 return MarshalNativeBuffer(strongNameToken, strongNameTokenLength);
             }
         }
@@ -79,8 +73,7 @@ namespace PInvoke
             char[] versionChars = new char[32];
             while (true)
             {
-                int dwLength;
-                HResult hr = GetVersionFromProcess(hProcess, versionChars, versionChars.Length, out dwLength);
+                HResult hr = GetVersionFromProcess(hProcess, versionChars, versionChars.Length, out int dwLength);
                 if (hr.Succeeded)
                 {
                     return new string(versionChars, 0, dwLength);
@@ -113,8 +106,7 @@ namespace PInvoke
             char[] versionChars = new char[32];
             while (true)
             {
-                int dwLength;
-                HResult hr = GetFileVersion(fileName, versionChars, versionChars.Length, out dwLength);
+                HResult hr = GetFileVersion(fileName, versionChars, versionChars.Length, out int dwLength);
                 if (hr.Succeeded)
                 {
                     return new string(versionChars, 0, dwLength);

@@ -28,7 +28,7 @@ public class MSCorEEFacts
             IEnumUnknown ppEnumerator = host.EnumerateLoadedRuntimes(hProcess.DangerousGetHandle());
             return ppEnumerator.Cast<ICLRRuntimeInfo>().Select(rti =>
             {
-                var bufferLength = (uint)buffer.Capacity;
+                uint bufferLength = (uint)buffer.Capacity;
                 rti.GetVersionString(buffer, ref bufferLength);
                 return buffer.ToString(0, (int)bufferLength - 1);
             }).ToList();
@@ -106,14 +106,13 @@ public class MSCorEEFacts
     {
         // I'm not sure if there's a "right" way to use this function in .NET 4.0
         // But at least this test verifies we don't AV.
-        IntPtr moduleDll;
-        HResult hr = LoadLibraryShim("fusion.dll", "2.0", IntPtr.Zero, out moduleDll);
+        HResult hr = LoadLibraryShim("fusion.dll", "2.0", IntPtr.Zero, out IntPtr moduleDll);
         Assert.Equal<HResult>(HResult.Code.E_HANDLE, hr);
     }
 
     private static byte[] GetKeyFileBytes(string keyFileName)
     {
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Keys." + keyFileName))
+        using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Keys." + keyFileName))
         {
             Assert.NotNull(stream);
             var ms = new MemoryStream((int)stream.Length);
@@ -124,8 +123,7 @@ public class MSCorEEFacts
 
     private static ICLRMetaHost CreateClrMetaHost()
     {
-        object pClrMetaHost;
-        HResult result = CLRCreateInstance(CLSID_CLRMetaHost, typeof(ICLRMetaHost).GUID, out pClrMetaHost);
+        HResult result = CLRCreateInstance(CLSID_CLRMetaHost, typeof(ICLRMetaHost).GUID, out object pClrMetaHost);
         result.ThrowOnFailure();
         return (ICLRMetaHost)pClrMetaHost;
     }

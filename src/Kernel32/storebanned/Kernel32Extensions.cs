@@ -18,7 +18,7 @@ namespace PInvoke
         /// <returns>The error message. Or <c>null</c> if no message could be found.</returns>
         public static string GetMessage(this NTSTATUS status)
         {
-            using (var ntdll = LoadLibrary("ntdll.dll"))
+            using (SafeLibraryHandle ntdll = LoadLibrary("ntdll.dll"))
             {
                 int dwLanguageId = 0;
 #if NETFRAMEWORK || NETSTANDARD2_0

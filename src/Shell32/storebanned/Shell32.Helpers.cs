@@ -80,8 +80,7 @@ namespace PInvoke
         /// </remarks>
         public static unsafe string SHGetKnownFolderPath(Guid rfid, KNOWN_FOLDER_FLAG dwFlags = KNOWN_FOLDER_FLAG.None, IntPtr hToken = default(IntPtr))
         {
-            char* pszPath;
-            SHGetKnownFolderPath(rfid, dwFlags, hToken, out pszPath).ThrowOnFailure();
+            SHGetKnownFolderPath(rfid, dwFlags, hToken, out char* pszPath).ThrowOnFailure();
 
             try
             {

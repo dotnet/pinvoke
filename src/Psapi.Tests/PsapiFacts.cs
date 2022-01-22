@@ -11,7 +11,7 @@ public class PsapiFacts
     [Fact]
     public void EmptyWorkingSet_Run()
     {
-        using (var pid = GetCurrentProcess())
+        using (SafeObjectHandle pid = GetCurrentProcess())
         {
             Assert.True(EmptyWorkingSet(pid));
         }

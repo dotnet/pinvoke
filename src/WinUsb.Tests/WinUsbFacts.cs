@@ -21,9 +21,9 @@ public partial class WinUsbFacts
     [Fact(Skip = "Requires USB device")]
     public async Task WinUsb_ReadPipeAsync_Overlapped_Test()
     {
-        var devicePath = @"<path to your USB device>";
+        string devicePath = @"<path to your USB device>";
 
-        using (var handle = CreateFile(
+        using (SafeObjectHandle handle = CreateFile(
            devicePath,
            ACCESS_MASK.GenericRight.GENERIC_READ | ACCESS_MASK.GenericRight.GENERIC_WRITE,
            FileShare.FILE_SHARE_READ | FileShare.FILE_SHARE_WRITE,
@@ -41,7 +41,7 @@ public partial class WinUsbFacts
 
             Assert.True(WinUsb_QueryPipe(usbHandle, alternateInterfaceNumber: 0, pipeIndex: 0, out WINUSB_PIPE_INFORMATION input));
 
-            var readTask = WinUsb_ReadPipeAsync(usbHandle, input.PipeId, Array.Empty<byte>(), default);
+            ValueTask<int> readTask = WinUsb_ReadPipeAsync(usbHandle, input.PipeId, Array.Empty<byte>(), default);
             Assert.Equal(0, await readTask.ConfigureAwait(false));
         }
     }
@@ -49,9 +49,9 @@ public partial class WinUsbFacts
     [Fact(Skip = "Requires USB device")]
     public async Task WinUsb_ReadPipeAsync_Cancelled_Test()
     {
-        var devicePath = @"<path to your USB device>";
+        string devicePath = @"<path to your USB device>";
 
-        using (var handle = CreateFile(
+        using (SafeObjectHandle handle = CreateFile(
            devicePath,
            ACCESS_MASK.GenericRight.GENERIC_READ | ACCESS_MASK.GenericRight.GENERIC_WRITE,
            FileShare.FILE_SHARE_READ | FileShare.FILE_SHARE_WRITE,
@@ -72,10 +72,10 @@ public partial class WinUsbFacts
             byte[] buffer = new byte[100];
 
             var cts = new CancellationTokenSource();
-            var readTask = WinUsb_ReadPipeAsync(usbHandle, input.PipeId, buffer, cts.Token);
+            ValueTask<int> readTask = WinUsb_ReadPipeAsync(usbHandle, input.PipeId, buffer, cts.Token);
             cts.Cancel();
 
-            var ex = await Assert.ThrowsAsync<PInvoke.Win32Exception>(() => readTask.AsTask());
+            PInvoke.Win32Exception ex = await Assert.ThrowsAsync<PInvoke.Win32Exception>(() => readTask.AsTask());
             Assert.Equal(Win32ErrorCode.ERROR_OPERATION_ABORTED, ex.NativeErrorCode);
         }
     }
@@ -89,9 +89,9 @@ public partial class WinUsbFacts
     [Fact(Skip = "Requires USB device")]
     public async Task WinUsb_WritePipeAsync_Overlapped_Test()
     {
-        var devicePath = @"<path to your USB device>";
+        string devicePath = @"<path to your USB device>";
 
-        using (var handle = CreateFile(
+        using (SafeObjectHandle handle = CreateFile(
            devicePath,
            ACCESS_MASK.GenericRight.GENERIC_READ | ACCESS_MASK.GenericRight.GENERIC_WRITE,
            FileShare.FILE_SHARE_READ | FileShare.FILE_SHARE_WRITE,
@@ -109,7 +109,7 @@ public partial class WinUsbFacts
 
             Assert.True(WinUsb_QueryPipe(usbHandle, alternateInterfaceNumber: 0, pipeIndex: 0, out WINUSB_PIPE_INFORMATION input));
 
-            var readTask = WinUsb_WritePipeAsync(usbHandle, input.PipeId, Array.Empty<byte>(), default);
+            ValueTask<int> readTask = WinUsb_WritePipeAsync(usbHandle, input.PipeId, Array.Empty<byte>(), default);
             Assert.Equal(0, await readTask.ConfigureAwait(false));
         }
     }
@@ -117,9 +117,9 @@ public partial class WinUsbFacts
     [Fact(Skip = "Requires USB device")]
     public async Task WinUsb_WritePipeAsync_Cancelled_Test()
     {
-        var devicePath = @"<path to your USB device>";
+        string devicePath = @"<path to your USB device>";
 
-        using (var handle = CreateFile(
+        using (SafeObjectHandle handle = CreateFile(
            devicePath,
            ACCESS_MASK.GenericRight.GENERIC_READ | ACCESS_MASK.GenericRight.GENERIC_WRITE,
            FileShare.FILE_SHARE_READ | FileShare.FILE_SHARE_WRITE,
@@ -140,10 +140,10 @@ public partial class WinUsbFacts
             byte[] buffer = new byte[100];
 
             var cts = new CancellationTokenSource();
-            var readTask = WinUsb_WritePipeAsync(usbHandle, input.PipeId, buffer, cts.Token);
+            ValueTask<int> readTask = WinUsb_WritePipeAsync(usbHandle, input.PipeId, buffer, cts.Token);
             cts.Cancel();
 
-            var ex = await Assert.ThrowsAsync<PInvoke.Win32Exception>(() => readTask.AsTask());
+            PInvoke.Win32Exception ex = await Assert.ThrowsAsync<PInvoke.Win32Exception>(() => readTask.AsTask());
             Assert.Equal(Win32ErrorCode.ERROR_OPERATION_ABORTED, ex.NativeErrorCode);
         }
     }

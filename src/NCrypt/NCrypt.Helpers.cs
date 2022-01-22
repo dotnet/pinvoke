@@ -27,8 +27,7 @@ namespace PInvoke
             string providerName,
             NCryptOpenStorageProviderFlags flags = NCryptOpenStorageProviderFlags.None)
         {
-            SafeProviderHandle handle;
-            NCryptOpenStorageProvider(out handle, providerName, flags).ThrowOnError();
+            NCryptOpenStorageProvider(out SafeProviderHandle handle, providerName, flags).ThrowOnError();
             return handle;
         }
 
@@ -58,10 +57,9 @@ namespace PInvoke
             LegacyKeySpec legacyKeySpec = LegacyKeySpec.None,
             NCryptCreatePersistedKeyFlags flags = NCryptCreatePersistedKeyFlags.None)
         {
-            SafeKeyHandle result;
             NCryptCreatePersistedKey(
                 provider,
-                out result,
+                out SafeKeyHandle result,
                 algorithmId,
                 keyName,
                 legacyKeySpec,
@@ -85,10 +83,9 @@ namespace PInvoke
             LegacyKeySpec legacyKeySpec,
             NCryptOpenKeyFlags flags = NCryptOpenKeyFlags.None)
         {
-            SafeKeyHandle key;
             NCryptOpenKey(
                 provider,
-                out key,
+                out SafeKeyHandle key,
                 keyName,
                 legacyKeySpec,
                 flags).ThrowOnError();
@@ -129,8 +126,7 @@ namespace PInvoke
             NCryptExportKeyFlags flags = NCryptExportKeyFlags.None)
         {
             exportKey = exportKey ?? SafeKeyHandle.Null;
-            int pcbResult;
-            NCryptExportKey(key, exportKey, blobType, parameterList, null, 0, out pcbResult, flags).ThrowOnError();
+            NCryptExportKey(key, exportKey, blobType, parameterList, null, 0, out int pcbResult, flags).ThrowOnError();
             byte[] result = new byte[pcbResult];
             NCryptExportKey(key, exportKey, blobType, parameterList, result, result.Length, out pcbResult, flags).ThrowOnError();
             return new ArraySegment<byte>(result, 0, pcbResult);
@@ -166,13 +162,12 @@ namespace PInvoke
         {
             fixed (byte* pKeyData = keyData)
             {
-                SafeKeyHandle importedKey;
                 NCryptImportKey(
                     provider,
                     importKey ?? SafeKeyHandle.Null,
                     blobType,
                     parameterList,
-                    out importedKey,
+                    out SafeKeyHandle importedKey,
                     pKeyData,
                     keyData.Length,
                     flags).ThrowOnError();
@@ -193,8 +188,7 @@ namespace PInvoke
         /// <returns>The property value.</returns>
         public static byte[] NCryptGetProperty(SafeHandle hObject, string propertyName, NCryptGetPropertyFlags flags = NCryptGetPropertyFlags.None)
         {
-            int requiredSize;
-            NCryptGetProperty(hObject, propertyName, null, 0, out requiredSize, flags).ThrowOnError();
+            NCryptGetProperty(hObject, propertyName, null, 0, out int requiredSize, flags).ThrowOnError();
             byte[] result = new byte[requiredSize];
             NCryptGetProperty(hObject, propertyName, result, result.Length, out requiredSize, flags).ThrowOnError();
             return result;
@@ -239,7 +233,7 @@ namespace PInvoke
         /// <param name="propertyValue">The new property value.</param>
         public static void NCryptSetProperty(SafeHandle hObject, string propertyName, string propertyValue)
         {
-            var error = NCryptSetProperty(
+            SECURITY_STATUS error = NCryptSetProperty(
                 hObject,
                 propertyName,
                 propertyValue,
@@ -299,8 +293,7 @@ namespace PInvoke
         {
             fixed (byte* pPlaintext = plaintext)
             {
-                int pcbResult;
-                NCryptEncrypt(key, pPlaintext, plaintext.Length, paddingInfo, null, 0, out pcbResult, flags).ThrowOnError();
+                NCryptEncrypt(key, pPlaintext, plaintext.Length, paddingInfo, null, 0, out int pcbResult, flags).ThrowOnError();
                 byte[] ciphertext = new byte[pcbResult];
                 fixed (byte* pCiphertext = ciphertext)
                 {
@@ -330,8 +323,7 @@ namespace PInvoke
         {
             fixed (byte* pCiphertext = ciphertext)
             {
-                int pcbResult;
-                NCryptDecrypt(key, pCiphertext, ciphertext.Length, paddingInfo, null, 0, out pcbResult, flags).ThrowOnError();
+                NCryptDecrypt(key, pCiphertext, ciphertext.Length, paddingInfo, null, 0, out int pcbResult, flags).ThrowOnError();
                 byte[] plaintext = new byte[pcbResult];
                 fixed (byte* pPlaintext = plaintext)
                 {
@@ -364,9 +356,8 @@ namespace PInvoke
         {
             fixed (byte* pHashValue = hashValue)
             {
-                int pcbResult;
-                NCryptSignHash(key, paddingInfo, pHashValue, hashValue.Length, null, 0, out pcbResult, flags).ThrowOnError();
-                var signatureBuffer = new byte[pcbResult];
+                NCryptSignHash(key, paddingInfo, pHashValue, hashValue.Length, null, 0, out int pcbResult, flags).ThrowOnError();
+                byte[] signatureBuffer = new byte[pcbResult];
                 fixed (byte* pSignatureBuffer = signatureBuffer)
                 {
                     NCryptSignHash(key, paddingInfo, pHashValue, hashValue.Length, pSignatureBuffer, signatureBuffer.Length, out pcbResult, flags).ThrowOnError();
