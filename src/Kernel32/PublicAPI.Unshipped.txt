@@ -263,6 +263,9 @@ static PInvoke.Kernel32.QueryFullProcessImageName(PInvoke.Kernel32.SafeObjectHan
 static PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, System.IntPtr lpBuffer, int nNumberOfCharsToRead, out int lpNumberOfCharsRead, System.IntPtr pInputControl) -> bool
 static PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, System.Span<char> lpBuffer, out int lpNumberOfCharsRead, PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL? pInputControl) -> bool
 static PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, char[] lpBuffer, int nNumberOfCharsToRead, out int lpNumberOfCharsRead, PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL? pInputControl) -> bool
+static PInvoke.Kernel32.ReadConsoleOutput(System.IntPtr hConsoleOutput, PInvoke.Kernel32.CHAR_INFO[] lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, ref PInvoke.SMALL_RECT lpReadRegion) -> bool
+static PInvoke.Kernel32.ReadConsoleOutput(System.IntPtr hConsoleOutput, System.IntPtr lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, ref PInvoke.SMALL_RECT lpReadRegion) -> bool
+static PInvoke.Kernel32.ReadConsoleOutput(System.IntPtr hConsoleOutput, System.Span<PInvoke.Kernel32.CHAR_INFO> lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, ref PInvoke.SMALL_RECT lpReadRegion) -> bool
 static PInvoke.Kernel32.ReadFile(PInvoke.Kernel32.SafeObjectHandle hFile, void* lpBuffer, int nNumberOfBytesToRead, int* lpNumberOfBytesRead, System.Threading.NativeOverlapped* lpOverlapped) -> bool
 static PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, System.IntPtr lpBaseAddress, System.IntPtr lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, System.IntPtr lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
@@ -288,6 +291,7 @@ static extern PInvoke.Kernel32.GetProcessIdOfThread(PInvoke.Kernel32.SafeObjectH
 static extern PInvoke.Kernel32.GetProcessInformation(PInvoke.Kernel32.SafeObjectHandle hProcess, PInvoke.Kernel32.PROCESS_INFORMATION_CLASS ProcessInformationClass, void* ProcessInformation, uint ProcessInformationSize) -> bool
 static extern PInvoke.Kernel32.GetVolumeInformation(string lpRootPathName, char* lpVolumeNameBuffer, int nVolumeNameSize, out uint lpVolumeSerialNumber, out int lpMaximumComponentLength, out PInvoke.Kernel32.FileSystemFlags lpFileSystemFlags, char* lpFileSystemNameBuffer, int nFileSystemNameSize) -> bool
 static extern PInvoke.Kernel32.ReadConsole(System.IntPtr hConsoleInput, char* lpBuffer, int nNumberOfCharsToRead, out int lpNumberOfCharsRead, PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL* pInputControl) -> bool
+static extern PInvoke.Kernel32.ReadConsoleOutput(System.IntPtr hConsoleOutput, PInvoke.Kernel32.CHAR_INFO* lpBuffer, PInvoke.COORD dwBufferSize, PInvoke.COORD dwBufferCoord, ref PInvoke.SMALL_RECT lpReadRegion) -> bool
 static extern PInvoke.Kernel32.ReadProcessMemory(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpBaseAddress, void* lpBuffer, System.UIntPtr nSize, out System.UIntPtr lpNumberOfBytesRead) -> bool
 static extern PInvoke.Kernel32.ResizePseudoConsole(PInvoke.Kernel32.SafePseudoConsoleHandle hPC, PInvoke.COORD size) -> PInvoke.HResult
 static extern PInvoke.Kernel32.SetFilePointer(PInvoke.Kernel32.SafeObjectHandle hFile, int lDistanceToMove, int* lpDistanceToMoveHigh, System.IO.SeekOrigin dwMoveMethod) -> int
