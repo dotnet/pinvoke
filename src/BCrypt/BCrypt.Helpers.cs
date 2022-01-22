@@ -57,9 +57,8 @@ namespace PInvoke
             string pszImplementation = null,
             BCryptOpenAlgorithmProviderFlags dwFlags = BCryptOpenAlgorithmProviderFlags.None)
         {
-            SafeAlgorithmHandle handle;
             BCryptOpenAlgorithmProvider(
-                out handle,
+                out SafeAlgorithmHandle handle,
                 pszAlgId,
                 pszImplementation,
                 dwFlags).ThrowOnError();
@@ -91,10 +90,9 @@ namespace PInvoke
             byte[] secret = null,
             BCryptCreateHashFlags flags = BCryptCreateHashFlags.None)
         {
-            SafeHashHandle result;
             BCryptCreateHash(
                 algorithm,
-                out result,
+                out SafeHashHandle result,
                 hashObject,
                 hashObject?.Length ?? 0,
                 secret,
@@ -120,7 +118,6 @@ namespace PInvoke
         /// </returns>
         public static ArraySegment<byte> BCryptExportKey(SafeKeyHandle key, SafeKeyHandle exportKey, string blobType)
         {
-            int length;
             exportKey = exportKey ?? SafeKeyHandle.Null;
             BCryptExportKey(
                 key,
@@ -128,7 +125,7 @@ namespace PInvoke
                 blobType,
                 IntPtr.Zero,
                 0,
-                out length,
+                out int length,
                 0).ThrowOnError();
             byte[] keyBuffer = new byte[length];
             BCryptExportKey(
@@ -158,8 +155,7 @@ namespace PInvoke
             SafeAlgorithmHandle algorithm,
             int keyLength)
         {
-            SafeKeyHandle result;
-            var error = BCryptGenerateKeyPair(algorithm, out result, keyLength, 0);
+            NTSTATUS error = BCryptGenerateKeyPair(algorithm, out SafeKeyHandle result, keyLength, 0);
             error.ThrowOnError();
             return result;
         }
@@ -187,10 +183,9 @@ namespace PInvoke
             byte[] keyObject = null,
             BCryptGenerateSymmetricKeyFlags flags = BCryptGenerateSymmetricKeyFlags.None)
         {
-            SafeKeyHandle hKey;
             BCryptGenerateSymmetricKey(
                 algorithm,
-                out hKey,
+                out SafeKeyHandle hKey,
                 keyObject,
                 keyObject?.Length ?? 0,
                 secret,
@@ -213,12 +208,11 @@ namespace PInvoke
             byte[] input,
             BCryptImportKeyPairFlags flags = BCryptImportKeyPairFlags.None)
         {
-            SafeKeyHandle result;
-            var error = BCryptImportKeyPair(
+            NTSTATUS error = BCryptImportKeyPair(
                 algorithm,
                 SafeKeyHandle.Null,
                 blobType,
-                out result,
+                out SafeKeyHandle result,
                 input,
                 input.Length,
                 flags);
@@ -262,12 +256,11 @@ namespace PInvoke
             byte[] pbKeyObject = null,
             BCryptImportKeyFlags dwFlags = BCryptImportKeyFlags.None)
         {
-            SafeKeyHandle importedKey;
             BCryptImportKey(
                 hAlgorithm,
                 hImportKey ?? new SafeKeyHandle(),
                 pszBlobType,
-                out importedKey,
+                out SafeKeyHandle importedKey,
                 pbKeyObject,
                 pbKeyObject?.Length ?? 0,
                 pbInput,
@@ -304,14 +297,13 @@ namespace PInvoke
             byte[] pbIV,
             BCryptEncryptFlags dwFlags)
         {
-            int length;
             BCryptEncrypt(
                 hKey,
                 pbInput.AsSpan(),
                 pPaddingInfo,
                 pbIV,
                 null,
-                out length,
+                out int length,
                 dwFlags).ThrowOnError();
 
             byte[] cipherText = new byte[length];
@@ -366,9 +358,9 @@ namespace PInvoke
             out int outputLength,
             BCryptEncryptFlags flags)
         {
-            var inputLocal = input ?? default(ArraySegment<byte>);
-            var ivLocal = iv ?? default(ArraySegment<byte>);
-            var outputLocal = output ?? default(ArraySegment<byte>);
+            ArraySegment<byte> inputLocal = input ?? default(ArraySegment<byte>);
+            ArraySegment<byte> ivLocal = iv ?? default(ArraySegment<byte>);
+            ArraySegment<byte> outputLocal = output ?? default(ArraySegment<byte>);
 
             // We have to make sure that the input, which may be null, does
             // not cause a NRE in our fixed expressions below, which cannot do
@@ -428,7 +420,6 @@ namespace PInvoke
             byte[] pbIV,
             BCryptEncryptFlags dwFlags)
         {
-            int length;
             BCryptDecrypt(
                 hKey,
                 pbInput,
@@ -438,7 +429,7 @@ namespace PInvoke
                 pbIV?.Length ?? 0,
                 null,
                 0,
-                out length,
+                out int length,
                 dwFlags).ThrowOnError();
 
             byte[] plainText = new byte[length];
@@ -497,9 +488,9 @@ namespace PInvoke
             out int outputLength,
             BCryptEncryptFlags flags)
         {
-            var inputLocal = input ?? default(ArraySegment<byte>);
-            var ivLocal = iv ?? default(ArraySegment<byte>);
-            var outputLocal = output ?? default(ArraySegment<byte>);
+            ArraySegment<byte> inputLocal = input ?? default(ArraySegment<byte>);
+            ArraySegment<byte> ivLocal = iv ?? default(ArraySegment<byte>);
+            ArraySegment<byte> outputLocal = output ?? default(ArraySegment<byte>);
 
             // We have to make sure that the input, which may be null, does
             // not cause a NRE in our fixed expressions below, which cannot do
@@ -574,7 +565,6 @@ namespace PInvoke
             void* paddingInfo = null,
             BCryptSignHashFlags flags = BCryptSignHashFlags.None)
         {
-            int outputLength;
             BCryptSignHash(
                 key,
                 paddingInfo,
@@ -582,7 +572,7 @@ namespace PInvoke
                 hash.Length,
                 null,
                 0,
-                out outputLength,
+                out int outputLength,
                 flags).ThrowOnError();
 
             byte[] pbOutput = new byte[outputLength];
@@ -667,11 +657,10 @@ namespace PInvoke
             SafeKeyHandle privateKey,
             SafeKeyHandle publicKey)
         {
-            SafeSecretHandle result;
             BCryptSecretAgreement(
                   privateKey,
                   publicKey,
-                  out result).ThrowOnError();
+                  out SafeSecretHandle result).ThrowOnError();
             return result;
         }
 
@@ -686,7 +675,7 @@ namespace PInvoke
         /// <param name="flags">Flags to pass to <see cref="BCryptSetProperty(SafeHandle, string, byte[], int, BCryptSetPropertyFlags)"/>.</param>
         public static void BCryptSetProperty(SafeHandle hObject, string propertyName, string propertyValue, BCryptSetPropertyFlags flags = BCryptSetPropertyFlags.None)
         {
-            var error = BCryptSetProperty(
+            NTSTATUS error = BCryptSetProperty(
                 hObject,
                 propertyName,
                 propertyValue,
@@ -735,8 +724,7 @@ namespace PInvoke
         /// <returns>The property value.</returns>
         public static ArraySegment<byte> BCryptGetProperty(SafeHandle hObject, string propertyName, BCryptGetPropertyFlags flags = BCryptGetPropertyFlags.None)
         {
-            int length;
-            BCryptGetProperty(hObject, propertyName, IntPtr.Zero, 0, out length, flags).ThrowOnError();
+            BCryptGetProperty(hObject, propertyName, IntPtr.Zero, 0, out int length, flags).ThrowOnError();
             byte[] result = new byte[length];
             BCryptGetProperty(hObject, propertyName, result, result.Length, out length, flags).ThrowOnError();
             return new ArraySegment<byte>(result, 0, length);

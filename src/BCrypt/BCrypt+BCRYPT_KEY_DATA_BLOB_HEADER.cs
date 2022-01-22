@@ -72,7 +72,7 @@ namespace PInvoke
                     throw new ArgumentNullException(nameof(keyMaterial));
                 }
 
-                var header = Create(keyMaterial.Length);
+                BCRYPT_KEY_DATA_BLOB_HEADER header = Create(keyMaterial.Length);
                 return header.AddHeaderToKey(keyMaterial);
             }
 

@@ -25,7 +25,7 @@ namespace PInvoke
         /// <exception cref="Win32Exception">If the method fails, returning the calling thread's last-error code value.</exception>
         public static unsafe IEnumerable<ENUM_SERVICE_STATUS> EnumServicesStatus()
         {
-            using (var scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_ENUMERATE_SERVICE))
+            using (SafeServiceHandle scmHandle = OpenSCManager(null, null, ServiceManagerAccess.SC_MANAGER_ENUMERATE_SERVICE))
             {
                 if (scmHandle.IsInvalid)
                 {
@@ -48,7 +48,7 @@ namespace PInvoke
                     return System.Linq.Enumerable.Empty<ENUM_SERVICE_STATUS>();
                 }
 
-                var lastError = GetLastError();
+                Win32ErrorCode lastError = GetLastError();
                 if (lastError != Win32ErrorCode.ERROR_MORE_DATA)
                 {
                     throw new Win32Exception(lastError);
@@ -119,18 +119,17 @@ namespace PInvoke
                 throw new ArgumentNullException(nameof(hService));
             }
 
-            var securityDescriptor = new byte[0];
-            int bufSizeNeeded;
-            QueryServiceObjectSecurity(hService, dwSecurityInformation, securityDescriptor, 0, out bufSizeNeeded);
+            byte[] securityDescriptor = new byte[0];
+            QueryServiceObjectSecurity(hService, dwSecurityInformation, securityDescriptor, 0, out int bufSizeNeeded);
 
-            var lastError = GetLastError();
+            Win32ErrorCode lastError = GetLastError();
             if (lastError != Win32ErrorCode.ERROR_INSUFFICIENT_BUFFER)
             {
                 throw new Win32Exception(lastError);
             }
 
             securityDescriptor = new byte[bufSizeNeeded];
-            var success = QueryServiceObjectSecurity(hService, dwSecurityInformation, securityDescriptor, bufSizeNeeded, out bufSizeNeeded);
+            bool success = QueryServiceObjectSecurity(hService, dwSecurityInformation, securityDescriptor, bufSizeNeeded, out bufSizeNeeded);
 
             if (!success)
             {
@@ -160,7 +159,7 @@ namespace PInvoke
             SECURITY_INFORMATION dwSecurityInformation,
             RawSecurityDescriptor lpSecurityDescriptor)
         {
-            var binaryForm = new byte[lpSecurityDescriptor.BinaryLength];
+            byte[] binaryForm = new byte[lpSecurityDescriptor.BinaryLength];
             lpSecurityDescriptor.GetBinaryForm(binaryForm, 0);
             if (!SetServiceObjectSecurity(hService, dwSecurityInformation, binaryForm))
             {
@@ -287,13 +286,13 @@ namespace PInvoke
         /// <exception cref="Win32Exception">Thrown when an error occurs.</exception>
         public static unsafe byte[] CryptGetProvParam(SafeHandle hProv, CryptGetProvParamQuery dwParam, uint dwFlags)
         {
-            var requiredSize = 0;
+            int requiredSize = 0;
             if (!CryptGetProvParam(hProv, dwParam, null, ref requiredSize, dwFlags))
             {
                 throw new Win32Exception();
             }
 
-            var propertyBuffer = new byte[requiredSize];
+            byte[] propertyBuffer = new byte[requiredSize];
             fixed (byte* pbData = propertyBuffer)
             {
                 if (!CryptGetProvParam(hProv, dwParam, pbData, ref requiredSize, dwFlags))
@@ -365,13 +364,12 @@ namespace PInvoke
             bool success;
             unsafe
             {
-                int returnLength;
                 success = GetTokenInformation(
                     TokenHandle,
                     TOKEN_INFORMATION_CLASS.TokenElevationType,
                     &elevationType,
                     sizeof(TOKEN_ELEVATION_TYPE),
-                    out returnLength);
+                    out int returnLength);
             }
 
             if (!success)

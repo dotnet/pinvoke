@@ -22,9 +22,9 @@ public class BCryptFacts
     [Fact]
     public void BCryptGetPropertyOfT()
     {
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
-            var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(provider, PropertyNames.BCRYPT_KEY_LENGTHS);
+            BCRYPT_KEY_LENGTHS_STRUCT keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(provider, PropertyNames.BCRYPT_KEY_LENGTHS);
             Assert.Equal(128, keyLengths.MinLength);
             Assert.Equal(256, keyLengths.MaxLength);
             Assert.Equal(64, keyLengths.Increment);
@@ -74,7 +74,7 @@ public class BCryptFacts
     [Fact]
     public void GenRandom()
     {
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_RNG_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_RNG_ALGORITHM))
         {
             byte[] buffer = new byte[20];
             BCryptGenRandom(provider, buffer, 15).ThrowOnError();
@@ -86,10 +86,10 @@ public class BCryptFacts
     [Fact]
     public void GenerateSymmetricKey()
     {
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
             byte[] keyMaterial = new byte[128 / 8];
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 Assert.NotNull(key);
             }
@@ -99,19 +99,19 @@ public class BCryptFacts
     [Fact]
     public unsafe void EncryptDecrypt_DefaultPadding()
     {
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
             byte[] plainText = new byte[] { 0x3, 0x5, 0x8 };
             byte[] keyMaterial = new byte[128 / 8];
             byte[] cipherText;
 
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 cipherText = BCryptEncrypt(key, plainText, null, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
                 Assert.NotEqual<byte>(plainText, cipherText);
             }
 
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 byte[] decryptedText = BCryptDecrypt(key, cipherText, null, null, BCryptEncryptFlags.BCRYPT_BLOCK_PADDING).ToArray();
                 Assert.Equal<byte>(plainText, decryptedText);
@@ -122,7 +122,7 @@ public class BCryptFacts
     [Fact]
     public unsafe void EncryptDecrypt_NoPadding()
     {
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
             byte[] plainText = new byte[] { 0x3, 0x5, 0x8 };
             byte[] plainTextPadded;
@@ -131,7 +131,7 @@ public class BCryptFacts
             int cipherTextLength;
 
             byte[] keyMaterial = new byte[128 / 8];
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 // Verify that without padding, an error is returned.
                 Assert.Equal<NTSTATUS>(NTSTATUS.Code.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
@@ -148,11 +148,10 @@ public class BCryptFacts
 
             // We must renew the key because there are residual effects on it from encryption
             // that will prevent decryption from working.
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 byte[] decryptedText = new byte[plainTextPadded.Length];
-                int cbDecrypted;
-                BCryptDecrypt(key, cipherText, cipherTextLength, null, null, 0, decryptedText, decryptedText.Length, out cbDecrypted, BCryptEncryptFlags.None).ThrowOnError();
+                BCryptDecrypt(key, cipherText, cipherTextLength, null, null, 0, decryptedText, decryptedText.Length, out int cbDecrypted, BCryptEncryptFlags.None).ThrowOnError();
                 Assert.Equal(plainTextPadded.Length, cbDecrypted);
                 Assert.Equal<byte>(plainTextPadded, decryptedText);
             }
@@ -162,19 +161,18 @@ public class BCryptFacts
     [Fact]
     public unsafe void EncryptDecrypt_Pointers()
     {
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
             byte[] plainText = new byte[] { 0x3, 0x5, 0x8 };
             byte[] plainTextPadded;
             byte[] cipherText;
             int blockSize;
-            int cipherTextLength;
 
             byte[] keyMaterial = new byte[128 / 8];
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 // Verify that without padding, an error is returned.
-                Assert.Equal<NTSTATUS>(NTSTATUS.Code.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None));
+                Assert.Equal<NTSTATUS>(NTSTATUS.Code.STATUS_INVALID_BUFFER_SIZE, BCryptEncrypt(key, plainText, plainText.Length, null, null, 0, null, 0, out int cipherTextLength, BCryptEncryptFlags.None));
 
                 // Now do our own padding (zeros).
                 blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
@@ -204,17 +202,16 @@ public class BCryptFacts
 
             // We must renew the key because there are residual effects on it from encryption
             // that will prevent decryption from working.
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 byte[] decryptedText = new byte[plainTextPadded.Length];
-                int cbDecrypted;
                 BCryptDecrypt(
                     key,
                     cipherText,
                     null,
                     null,
                     decryptedText,
-                    out cbDecrypted,
+                    out int cbDecrypted,
                     BCryptEncryptFlags.None).ThrowOnError();
 
                 Assert.Equal(plainTextPadded.Length, cbDecrypted);
@@ -226,32 +223,30 @@ public class BCryptFacts
     [Fact]
     public unsafe void EncryptDecrypt_PointerCornerCases()
     {
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
             byte[] keyMaterial = new byte[128 / 8];
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                int length;
                 BCryptEncrypt(
                     key,
                     new byte[0],
                     null,
                     default(ArraySegment<byte>),
                     new byte[1],
-                    out length,
+                    out int length,
                     BCryptEncryptFlags.None);
             }
 
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                int length;
                 BCryptEncrypt(
                     key,
                     new byte[0],
                     null,
                     null,
                     new byte[1],
-                    out length,
+                    out int length,
                     BCryptEncryptFlags.None);
             }
         }
@@ -260,12 +255,12 @@ public class BCryptFacts
     [Fact]
     public unsafe void EncryptDecrypt_EmptyBuffer()
     {
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
             byte[] keyMaterial = new byte[128 / 8];
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
-                var cipherText = BCryptEncrypt(
+                ArraySegment<byte> cipherText = BCryptEncrypt(
                      key,
                      new byte[0],
                      null,
@@ -273,7 +268,7 @@ public class BCryptFacts
                      BCryptEncryptFlags.BCRYPT_BLOCK_PADDING);
                 Assert.Equal(BCryptGetProperty<int>(key, PropertyNames.BCRYPT_BLOCK_LENGTH), cipherText.Count);
 
-                var plainText = BCryptDecrypt(
+                ArraySegment<byte> plainText = BCryptDecrypt(
                     key,
                     cipherText.ToArray(),
                     null,
@@ -295,18 +290,18 @@ public class BCryptFacts
     {
         var random = new Random();
 
-        using (var provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle provider = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
             BCryptSetProperty(provider, PropertyNames.BCRYPT_CHAINING_MODE, ChainingModes.Ccm);
 
             byte[] plainText;
             byte[] cipherText;
 
-            var nonceBuffer = new byte[12];
+            byte[] nonceBuffer = new byte[12];
             random.NextBytes(nonceBuffer);
 
-            var tagLengths = BCryptGetProperty<BCRYPT_AUTH_TAG_LENGTHS_STRUCT>(provider, PropertyNames.BCRYPT_AUTH_TAG_LENGTH);
-            var tagBuffer = new byte[tagLengths.dwMaxLength];
+            BCRYPT_AUTH_TAG_LENGTHS_STRUCT tagLengths = BCryptGetProperty<BCRYPT_AUTH_TAG_LENGTHS_STRUCT>(provider, PropertyNames.BCRYPT_AUTH_TAG_LENGTH);
+            byte[] tagBuffer = new byte[tagLengths.dwMaxLength];
 
             int blockSize = BCryptGetProperty<int>(provider, PropertyNames.BCRYPT_BLOCK_LENGTH);
             plainText = new byte[blockSize];
@@ -315,7 +310,7 @@ public class BCryptFacts
             byte[] keyMaterial = new byte[blockSize];
             RandomNumberGenerator.Create().GetBytes(keyMaterial);
 
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 var authInfo = BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO.Create();
                 fixed (byte* pTagBuffer = tagBuffer)
@@ -328,8 +323,7 @@ public class BCryptFacts
                         authInfo.cbTag = tagBuffer.Length;
 
                         // Mix up calling the IntPtr and native pointer overloads so we test both.
-                        int cipherTextLength;
-                        BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, null, 0, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                        BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, null, 0, out int cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                         cipherText = new byte[cipherTextLength];
                         BCryptEncrypt(key, plainText, plainText.Length, &authInfo, null, 0, cipherText, cipherText.Length, out cipherTextLength, BCryptEncryptFlags.None).ThrowOnError();
                     }
@@ -339,7 +333,7 @@ public class BCryptFacts
             }
 
             // Renew the key to prove we can decrypt it with a fresh key.
-            using (var key = BCryptGenerateSymmetricKey(provider, keyMaterial))
+            using (SafeKeyHandle key = BCryptGenerateSymmetricKey(provider, keyMaterial))
             {
                 byte[] decryptedText;
 
@@ -353,8 +347,7 @@ public class BCryptFacts
                         authInfo.pbTag = pTagBuffer;
                         authInfo.cbTag = tagBuffer.Length;
 
-                        int plainTextLength;
-                        BCryptDecrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, null, 0, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
+                        BCryptDecrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, null, 0, out int plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
                         decryptedText = new byte[plainTextLength];
                         BCryptEncrypt(key, cipherText, cipherText.Length, &authInfo, null, 0, decryptedText, decryptedText.Length, out plainTextLength, BCryptEncryptFlags.None).ThrowOnError();
                         Array.Resize(ref decryptedText, plainTextLength);
@@ -371,9 +364,9 @@ public class BCryptFacts
     {
         byte[] data = new byte[] { 0x3, 0x5, 0x8 };
         byte[] actualHash;
-        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_SHA1_ALGORITHM))
+        using (SafeAlgorithmHandle algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_SHA1_ALGORITHM))
         {
-            using (var hash = BCryptCreateHash(algorithm))
+            using (SafeHashHandle hash = BCryptCreateHash(algorithm))
             {
                 BCryptHashData(hash, data, 2).ThrowOnError();
                 byte[] data2 = new byte[] { data[2] };
@@ -392,12 +385,11 @@ public class BCryptFacts
         byte[] data = Enumerable.Range(0, 1024).Select(i => (byte)(i % 256)).ToArray();
         byte[] expectedHash = SHA256.Create().ComputeHash(data);
 
-        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM, dwFlags: BCryptOpenAlgorithmProviderFlags.BCRYPT_MULTI_FLAG))
+        using (SafeAlgorithmHandle algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_SHA256_ALGORITHM, dwFlags: BCryptOpenAlgorithmProviderFlags.BCRYPT_MULTI_FLAG))
         {
             int sha256HashSize = expectedHash.Length;
             int parallelism = 1;
-            SafeHashHandle hash;
-            BCryptCreateMultiHash(algorithm, out hash, parallelism, IntPtr.Zero, 0, IntPtr.Zero, 0, BCryptCreateHashFlags.BCRYPT_HASH_REUSABLE_FLAG).ThrowOnError();
+            BCryptCreateMultiHash(algorithm, out SafeHashHandle hash, parallelism, IntPtr.Zero, 0, IntPtr.Zero, 0, BCryptCreateHashFlags.BCRYPT_HASH_REUSABLE_FLAG).ThrowOnError();
             using (hash)
             {
                 var ops = new BCRYPT_MULTI_HASH_OPERATION[parallelism];
@@ -443,10 +435,10 @@ public class BCryptFacts
     [Fact]
     public unsafe void SignHash()
     {
-        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
+        using (SafeAlgorithmHandle algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
         {
             int keySize = GetMinimumKeySize(algorithm);
-            using (var keyPair = BCryptGenerateKeyPair(algorithm, keySize))
+            using (SafeKeyHandle keyPair = BCryptGenerateKeyPair(algorithm, keySize))
             {
                 BCryptFinalizeKeyPair(keyPair).ThrowOnError();
                 byte[] hashData = SHA1.Create().ComputeHash(new byte[] { 0x1 });
@@ -463,12 +455,12 @@ public class BCryptFacts
     [Fact]
     public void ExportKey_ECDHPublic()
     {
-        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM))
+        using (SafeAlgorithmHandle algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM))
         {
-            using (var key = BCryptGenerateKeyPair(algorithm, 256))
+            using (SafeKeyHandle key = BCryptGenerateKeyPair(algorithm, 256))
             {
                 BCryptFinalizeKeyPair(key).ThrowOnError();
-                var exported = BCryptExportKey(key, SafeKeyHandle.Null, AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB);
+                ArraySegment<byte> exported = BCryptExportKey(key, SafeKeyHandle.Null, AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB);
                 Assert.NotNull(exported.Array);
             }
         }
@@ -478,7 +470,7 @@ public class BCryptFacts
     public void ImportKey_ECDHPublic()
     {
         const string ecdhPublicBase64 = "RUNLMSAAAAC4EtbkVuPCJQIzxjfb+NbYkxxN2FoMZnPxBdTp3GI4NiPQz3fdBaLtLBa95UuBWjnBnvF1q4vfKwdkSTe1ieIx";
-        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM))
+        using (SafeAlgorithmHandle algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM))
         {
             // This throws, as using NCrypt is required to import ECDH keys.
             Assert.Throws<NTStatusException>(() =>
@@ -492,10 +484,10 @@ public class BCryptFacts
     [Fact]
     public void ImportKey_AES()
     {
-        using (var algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
+        using (SafeAlgorithmHandle algorithm = BCryptOpenAlgorithmProvider(AlgorithmIdentifiers.BCRYPT_AES_ALGORITHM))
         {
             byte[] keyMaterial = new byte[GetMinimumKeySize(algorithm) / 8];
-            var keyWithHeader = BCRYPT_KEY_DATA_BLOB_HEADER.InsertBeforeKey(keyMaterial);
+            byte[] keyWithHeader = BCRYPT_KEY_DATA_BLOB_HEADER.InsertBeforeKey(keyMaterial);
             using (SafeKeyHandle key = BCryptImportKey(algorithm, SymmetricKeyBlobTypes.BCRYPT_KEY_DATA_BLOB, keyWithHeader))
             {
                 Assert.NotNull(key);
@@ -534,12 +526,10 @@ public class BCryptFacts
     [Fact]
     public unsafe void BCryptEnumAlgorithms_Test()
     {
-        int algCount;
-        BCRYPT_ALGORITHM_IDENTIFIER* algList;
         BCryptEnumAlgorithms(
             AlgorithmOperations.BCRYPT_HASH_OPERATION | AlgorithmOperations.BCRYPT_RNG_OPERATION,
-            out algCount,
-            out algList).ThrowOnError();
+            out int algCount,
+            out BCRYPT_ALGORITHM_IDENTIFIER* algList).ThrowOnError();
         Assert.NotEqual(0, algCount);
         for (int i = 0; i < algCount; i++)
         {
@@ -568,7 +558,7 @@ public class BCryptFacts
     /// <returns>The length of the smallest key, in bits.</returns>
     private static int GetMinimumKeySize(SafeAlgorithmHandle algorithm)
     {
-        var keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(algorithm, PropertyNames.BCRYPT_KEY_LENGTHS);
+        BCRYPT_KEY_LENGTHS_STRUCT keyLengths = BCryptGetProperty<BCRYPT_KEY_LENGTHS_STRUCT>(algorithm, PropertyNames.BCRYPT_KEY_LENGTHS);
         return keyLengths.MinLength;
     }
 }

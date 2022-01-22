@@ -39,8 +39,7 @@ public class NTDllFacts
             var attrs = OBJECT_ATTRIBUTES.Create();
             attrs.ObjectName = &objectNameUnicode;
             attrs.Attributes = OBJECT_ATTRIBUTES.ObjectHandleAttributes.OBJ_CASE_INSENSITIVE;
-            SafeNTObjectHandle hObject;
-            NTSTATUS status = NtOpenSection(out hObject, Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_READ, attrs);
+            NTSTATUS status = NtOpenSection(out SafeNTObjectHandle hObject, Kernel32.ACCESS_MASK.StandardRight.STANDARD_RIGHTS_READ, attrs);
             Assert.Equal<NTSTATUS>(NTSTATUS.Code.STATUS_ACCESS_DENIED, status);
         }
     }
@@ -49,11 +48,11 @@ public class NTDllFacts
     public unsafe void NtQueryInformationProcess_Test()
     {
         var desiredAccess = new Kernel32.ACCESS_MASK(Kernel32.ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION);
-        using (var process = Kernel32.OpenProcess(desiredAccess, false, Process.GetCurrentProcess().Id))
+        using (Kernel32.SafeObjectHandle process = Kernel32.OpenProcess(desiredAccess, false, Process.GetCurrentProcess().Id))
         {
             PROCESS_BASIC_INFORMATION pbi = default;
 
-            var result = NtQueryInformationProcess(
+            NTSTATUS result = NtQueryInformationProcess(
                     process,
                     PROCESSINFOCLASS.ProcessBasicInformation,
                     &pbi,

@@ -19,8 +19,7 @@ namespace PInvoke
             uint count;
             do
             {
-                object element;
-                enumerator.RemoteNext(1, out element, out count);
+                enumerator.RemoteNext(1, out object element, out count);
                 if (count == 1)
                 {
                     yield return element;
@@ -31,7 +30,7 @@ namespace PInvoke
 
         public static IEnumerable<T> Cast<T>(this IEnumUnknown enumerator)
         {
-            var e = enumerator.GetEnumerator();
+            IEnumerator<object> e = enumerator.GetEnumerator();
             while (e.MoveNext())
             {
                 yield return (T)e.Current;

@@ -13,7 +13,7 @@ public unsafe class SetupApiFacts
     [Fact]
     public void SetupDiCreateDeviceInfoListWithoutGuidTest()
     {
-        using var handle = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle handle = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
         Assert.False(handle.IsInvalid);
     }
 
@@ -21,14 +21,14 @@ public unsafe class SetupApiFacts
     public void SetupDiCreateDeviceInfoWithGuidListTest()
     {
         Guid processorId = DeviceSetupClass.Processor;
-        using var handle = SetupDiCreateDeviceInfoList(&processorId, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle handle = SetupDiCreateDeviceInfoList(&processorId, IntPtr.Zero);
         Assert.False(handle.IsInvalid);
     }
 
     [Fact]
     public void SetupDiOpenDeviceInfoTest()
     {
-        using var deviceInfoSet = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle deviceInfoSet = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
 
         SP_DEVINFO_DATA deviceInfoData = SP_DEVINFO_DATA.Create();
 
@@ -41,7 +41,7 @@ public unsafe class SetupApiFacts
     [Fact]
     public void SetupDiSetSelectedDeviceTest()
     {
-        using var deviceInfoSet = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle deviceInfoSet = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
 
         SP_DEVINFO_DATA deviceInfoData = SP_DEVINFO_DATA.Create();
 
@@ -59,7 +59,7 @@ public unsafe class SetupApiFacts
     [Fact]
     public void SetupDiGetDeviceInstallParamsTest()
     {
-        using var deviceInfoSet = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle deviceInfoSet = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
 
         SP_DEVINFO_DATA deviceInfoData = SP_DEVINFO_DATA.Create();
 
@@ -85,7 +85,7 @@ public unsafe class SetupApiFacts
     [Fact]
     public void SetupDiGetSetDeviceInstallParamsTest()
     {
-        using var deviceInfoSet = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle deviceInfoSet = SetupDiCreateDeviceInfoList((Guid*)null, IntPtr.Zero);
 
         SP_DEVINFO_DATA deviceInfoData = SP_DEVINFO_DATA.Create();
 
@@ -107,7 +107,7 @@ public unsafe class SetupApiFacts
     {
         Guid usbDeviceId = DeviceSetupClass.UsbDevice;
 
-        using var deviceInfoSet = SetupDiCreateDeviceInfoList(&usbDeviceId, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle deviceInfoSet = SetupDiCreateDeviceInfoList(&usbDeviceId, IntPtr.Zero);
         Assert.True(SetupDiBuildDriverInfoList(deviceInfoSet, (SP_DEVINFO_DATA*)null, DriverType.SPDIT_CLASSDRIVER));
     }
 
@@ -116,7 +116,7 @@ public unsafe class SetupApiFacts
     {
         Guid usbDeviceId = DeviceSetupClass.Net;
 
-        using var deviceInfoSet = SetupDiCreateDeviceInfoList(&usbDeviceId, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle deviceInfoSet = SetupDiCreateDeviceInfoList(&usbDeviceId, IntPtr.Zero);
 
         Assert.True(SetupDiBuildDriverInfoList(deviceInfoSet, (SP_DEVINFO_DATA*)null, DriverType.SPDIT_CLASSDRIVER));
 
@@ -131,11 +131,11 @@ public unsafe class SetupApiFacts
         // We should have enumerated at least one driver
         Assert.NotEmpty(driverInfos);
 
-        var loopbackDrivers =
+        SP_DRVINFO_DATA[] loopbackDrivers =
             driverInfos
             .Where(d => new string(d.Description).IndexOf("loopback", StringComparison.OrdinalIgnoreCase) >= 0).ToArray();
 
-        var loopbackDriver = Assert.Single(loopbackDrivers);
+        SP_DRVINFO_DATA loopbackDriver = Assert.Single(loopbackDrivers);
 
         Assert.Equal("Microsoft KM-TEST Loopback Adapter", new string(loopbackDriver.Description));
         Assert.Equal(DriverType.SPDIT_CLASSDRIVER, loopbackDriver.DriverType);
@@ -149,7 +149,7 @@ public unsafe class SetupApiFacts
     {
         Guid usbDeviceId = DeviceSetupClass.Net;
 
-        using var deviceInfoSet = SetupDiCreateDeviceInfoList(&usbDeviceId, IntPtr.Zero);
+        using SafeDeviceInfoSetHandle deviceInfoSet = SetupDiCreateDeviceInfoList(&usbDeviceId, IntPtr.Zero);
 
         Assert.True(SetupDiBuildDriverInfoList(deviceInfoSet, (SP_DEVINFO_DATA*)null, DriverType.SPDIT_CLASSDRIVER));
 
@@ -164,11 +164,11 @@ public unsafe class SetupApiFacts
         // We should have enumerated at least one driver
         Assert.NotEmpty(driverInfos);
 
-        var loopbackDrivers =
+        SP_DRVINFO_DATA[] loopbackDrivers =
             driverInfos
             .Where(d => new string(d.Description).IndexOf("loopback", StringComparison.OrdinalIgnoreCase) >= 0).ToArray();
 
-        var loopbackDriver = Assert.Single(loopbackDrivers);
+        SP_DRVINFO_DATA loopbackDriver = Assert.Single(loopbackDrivers);
 
         byte[] buffer = new byte[0x1000];
         fixed (byte* ptr = buffer)

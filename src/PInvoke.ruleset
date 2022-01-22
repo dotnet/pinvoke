@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Microsoft Managed Recommended Rules" Description="These rules focus on the most critical problems in your code, including potential security holes, application crashes, and other important logic and design errors. It is recommended to include this rule set in any custom rule set you create for your projects." ToolsVersion="14.0">
+<RuleSet Name="Microsoft Managed Recommended Rules" Description="These rules focus on the most critical problems in your code, including potential security holes, application crashes, and other important logic and design errors. It is recommended to include this rule set in any custom rule set you create for your projects." ToolsVersion="17.0">
   <Localization ResourceAssembly="Microsoft.VisualStudio.CodeAnalysis.RuleSets.Strings.dll" ResourceBaseName="Microsoft.VisualStudio.CodeAnalysis.RuleSets.Strings.Localized">
     <Name Resource="MinimumRecommendedRules_Name" />
     <Description Resource="MinimumRecommendedRules_Description" />
@@ -10,10 +10,9 @@
     <Rule Id="CA1016" Action="Warning" />
     <Rule Id="CA1033" Action="Warning" />
     <Rule Id="CA1049" Action="Warning" />
-    <Rule Id="CA1060" Action="Warning" />
     <Rule Id="CA1061" Action="Warning" />
     <Rule Id="CA1063" Action="Warning" />
-    <Rule Id="CA1065" Action="Warning" />
+    <Rule Id="CA1065" Action="Info" />
     <Rule Id="CA1301" Action="Warning" />
     <Rule Id="CA1400" Action="Warning" />
     <Rule Id="CA1401" Action="Warning" />
@@ -27,7 +26,7 @@
     <Rule Id="CA1901" Action="Warning" />
     <Rule Id="CA2002" Action="Warning" />
     <Rule Id="CA2100" Action="Warning" />
-    <Rule Id="CA2101" Action="Warning" />
+    <Rule Id="CA2101" Action="Info" />
     <Rule Id="CA2108" Action="Warning" />
     <Rule Id="CA2111" Action="Warning" />
     <Rule Id="CA2112" Action="Warning" />
@@ -68,8 +67,16 @@
     <Rule Id="CA2241" Action="Warning" />
     <Rule Id="CA2242" Action="Warning" />
   </Rules>
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp.CodeStyle" RuleNamespace="Microsoft.CodeAnalysis.CSharp.CodeStyle">
+    <Rule Id="IDE1006" Action="None" />
+  </Rules>
   <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp.Features" RuleNamespace="Microsoft.CodeAnalysis.CSharp.Features">
     <Rule Id="IDE0003" Action="None" />
+    <Rule Id="IDE1006" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+    <Rule Id="CA1041" Action="Hidden" />
+    <Rule Id="CA1069" Action="Hidden" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1307" Action="None" />
@@ -77,8 +84,6 @@
     <Rule Id="SA1313" Action="None" />
     <Rule Id="SA1600" Action="Hidden" />
     <Rule Id="SA1602" Action="Hidden" />
-  </Rules>
-  <Rules AnalyzerId="Roslyn.Diagnostics.Analyzers" RuleNamespace="Roslyn.Diagnostics.Analyzers">
-    <Rule Id="RS0017" Action="Error" />
+    <Rule Id="SA1649" Action="Info" />
   </Rules>
 </RuleSet>

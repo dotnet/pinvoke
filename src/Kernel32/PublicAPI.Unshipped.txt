@@ -209,6 +209,8 @@ const PInvoke.Kernel32.PROCESS_MEMORY_EXHAUSTION_INFO.PME_CURRENT_VERSION = 1 ->
 const PInvoke.Kernel32.PROCESS_POWER_THROTTLING_STATE.PROCESS_POWER_THROTTLING_CURRENT_VERSION = 1 -> uint
 override PInvoke.Kernel32.SafePseudoConsoleHandle.IsInvalid.get -> bool
 override PInvoke.Kernel32.SafePseudoConsoleHandle.ReleaseHandle() -> bool
+static PInvoke.Kernel32.ACCESS_MASK.operator !=(PInvoke.Kernel32.ACCESS_MASK left, PInvoke.Kernel32.ACCESS_MASK right) -> bool
+static PInvoke.Kernel32.ACCESS_MASK.operator ==(PInvoke.Kernel32.ACCESS_MASK left, PInvoke.Kernel32.ACCESS_MASK right) -> bool
 static PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL.Create() -> PInvoke.Kernel32.CONSOLE_READCONSOLE_CONTROL
 static PInvoke.Kernel32.CancelIoEx(PInvoke.Kernel32.SafeObjectHandle hFile, System.Threading.NativeOverlapped* lpOverlapped) -> bool
 static PInvoke.Kernel32.CreateFile(System.IntPtr filename, PInvoke.Kernel32.ACCESS_MASK access, PInvoke.Kernel32.FileShare share, System.IntPtr securityAttributes, PInvoke.Kernel32.CreationDisposition creationDisposition, PInvoke.Kernel32.CreateFileFlags flagsAndAttributes, PInvoke.Kernel32.SafeObjectHandle templateFile) -> PInvoke.Kernel32.SafeObjectHandle
@@ -241,8 +243,11 @@ static PInvoke.Kernel32.GetConsoleAliasExes(System.Span<char> lpExeNameBuffer) -
 static PInvoke.Kernel32.GetConsoleAliases(System.Span<char> lpAliasBuffer, string lpExeName) -> int
 static PInvoke.Kernel32.GetConsoleProcessList(System.Span<uint> lpdwProcessList, int dwProcessCount) -> int
 static PInvoke.Kernel32.GetConsoleTitle(System.Span<char> lpConsoleTitle) -> int
+static PInvoke.Kernel32.GetCurrentProcessToken() -> PInvoke.Kernel32.SafeObjectHandle
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(System.IntPtr ProcNumber) -> void
 static PInvoke.Kernel32.GetCurrentProcessorNumberEx(out PInvoke.Kernel32.PROCESSOR_NUMBER ProcNumber) -> void
+static PInvoke.Kernel32.GetCurrentThreadEffectiveToken() -> PInvoke.Kernel32.SafeObjectHandle
+static PInvoke.Kernel32.GetCurrentThreadToken() -> PInvoke.Kernel32.SafeObjectHandle
 static PInvoke.Kernel32.GetDllDirectory(System.Span<char> lpBuffer) -> bool
 static PInvoke.Kernel32.GetNamedPipeClientComputerName(PInvoke.Kernel32.SafeObjectHandle Pipe, System.Span<char> ClientComputerName) -> bool
 static PInvoke.Kernel32.GetNamedPipeHandleState(PInvoke.Kernel32.SafeObjectHandle hNamedPipe, out PInvoke.Kernel32.PipeMode lpState, ref int? lpCurInstances, ref int? lpMaxCollectionCount, ref int? lpCollectDataTimeout, System.Span<char> lpUserName) -> bool
@@ -272,13 +277,10 @@ static extern PInvoke.Kernel32.CreateThread(PInvoke.Kernel32.SECURITY_ATTRIBUTES
 static extern PInvoke.Kernel32.DosDateTimeToFileTime(ushort wFatDate, ushort wFatTime, PInvoke.Kernel32.FILETIME* lpFileTime) -> bool
 static extern PInvoke.Kernel32.FlushInstructionCache(PInvoke.Kernel32.SafeObjectHandle hProcess, void* lpcBaseAddress, System.UIntPtr dwSize) -> bool
 static extern PInvoke.Kernel32.FlushProcessWriteBuffers() -> void
-static PInvoke.Kernel32.GetCurrentProcessToken() -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetCurrentProcessorNumber() -> uint
 static extern PInvoke.Kernel32.GetCurrentProcessorNumberEx(PInvoke.Kernel32.PROCESSOR_NUMBER* ProcNumber) -> void
 static extern PInvoke.Kernel32.GetCurrentThread() -> PInvoke.Kernel32.SafeObjectHandle
-static PInvoke.Kernel32.GetCurrentThreadEffectiveToken() -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetCurrentThreadStackLimits(out System.UIntPtr LowLimit, out System.UIntPtr HighLimit) -> void
-static PInvoke.Kernel32.GetCurrentThreadToken() -> PInvoke.Kernel32.SafeObjectHandle
 static extern PInvoke.Kernel32.GetNativeSystemInfo(PInvoke.Kernel32.SYSTEM_INFO* lpSystemInfo) -> void
 static extern PInvoke.Kernel32.GetPriorityClass(PInvoke.Kernel32.SafeObjectHandle hProcess) -> PInvoke.Kernel32.ProcessPriorityClass
 static extern PInvoke.Kernel32.GetProcessHandleCount(PInvoke.Kernel32.SafeObjectHandle hProcess, out uint pdwHandleCount) -> bool

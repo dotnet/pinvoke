@@ -11,11 +11,10 @@ public class FusionFacts
     [Fact]
     public unsafe void CreateAssemblyCache_QueryAssemblyInfo()
     {
-        IAssemblyCache cache;
-        CreateAssemblyCache(out cache, 0).ThrowOnFailure();
+        CreateAssemblyCache(out IAssemblyCache cache, 0).ThrowOnFailure();
         Assert.NotNull(cache);
         ASSEMBLY_INFO info = ASSEMBLY_INFO.Create();
-        var assemblyPath = new char[500];
+        char[] assemblyPath = new char[500];
         fixed (char* pAssemblyPath = assemblyPath)
         {
             info.pszCurrentAssemblyPathBuf = pAssemblyPath;

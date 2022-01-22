@@ -21,7 +21,7 @@ public class NCryptFacts
     [Fact]
     public void OpenStorageProvider()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
         }
     }
@@ -29,9 +29,9 @@ public class NCryptFacts
     [Fact]
     public void CreatePersistedKey()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
+            using (SafeKeyHandle key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM))
             {
                 NCryptFinalizeKey(key).ThrowOnError();
             }
@@ -41,10 +41,10 @@ public class NCryptFacts
     [Fact]
     public void NCryptDeleteKey_Test()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
             string keyName = $"PInvokeTest_{Guid.NewGuid():N}";
-            using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM, keyName))
+            using (SafeKeyHandle key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_ECDSA_P256_ALGORITHM, keyName))
             {
                 NCryptFinalizeKey(key).ThrowOnError();
 
@@ -57,16 +57,16 @@ public class NCryptFacts
     [Fact]
     public unsafe void ExportImport_RSAPublicKey()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
+            using (SafeKeyHandle key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
             {
                 NCryptFinalizeKey(key).ThrowOnError();
                 const string blobType = AsymmetricKeyBlobTypes.BCRYPT_RSAPUBLIC_BLOB;
-                var exportedPublicKey = NCryptExportKey(key, null, blobType);
+                ArraySegment<byte> exportedPublicKey = NCryptExportKey(key, null, blobType);
                 Assert.NotNull(exportedPublicKey.Array);
 
-                using (var importedPublicKey = NCryptImportKey(provider, null, blobType, null, exportedPublicKey.ToArray()))
+                using (SafeKeyHandle importedPublicKey = NCryptImportKey(provider, null, blobType, null, exportedPublicKey.ToArray()))
                 {
                 }
             }
@@ -76,14 +76,14 @@ public class NCryptFacts
     [Fact]
     public void ExportKey_ECDHPublic()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            using (var key = NCryptCreatePersistedKey(
+            using (SafeKeyHandle key = NCryptCreatePersistedKey(
                 provider,
                 BCrypt.AlgorithmIdentifiers.BCRYPT_ECDH_P256_ALGORITHM))
             {
                 NCryptFinalizeKey(key).ThrowOnError();
-                var exported = NCryptExportKey(key, SafeKeyHandle.Null, AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB, IntPtr.Zero);
+                ArraySegment<byte> exported = NCryptExportKey(key, SafeKeyHandle.Null, AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB, IntPtr.Zero);
                 Assert.NotNull(exported.Array);
             }
         }
@@ -93,9 +93,9 @@ public class NCryptFacts
     public void ImportKey_ECDHPublic()
     {
         const string ecdhPublicBase64 = "RUNLMSAAAAC4EtbkVuPCJQIzxjfb+NbYkxxN2FoMZnPxBdTp3GI4NiPQz3fdBaLtLBa95UuBWjnBnvF1q4vfKwdkSTe1ieIx";
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            using (var key = NCryptImportKey(
+            using (SafeKeyHandle key = NCryptImportKey(
                 provider,
                 SafeKeyHandle.Null,
                 AsymmetricKeyBlobTypes.BCRYPT_ECCPUBLIC_BLOB,
@@ -111,9 +111,9 @@ public class NCryptFacts
     [Fact]
     public unsafe void EncryptDecryptRSA()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            using (var key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
+            using (SafeKeyHandle key = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
             {
                 NCryptSetProperty(key, KeyStoragePropertyIdentifiers.NCRYPT_LENGTH_PROPERTY, 512);
                 NCryptFinalizeKey(key).ThrowOnError();
@@ -132,15 +132,15 @@ public class NCryptFacts
     [Fact]
     public unsafe void SignHash()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            using (var keyPair = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
+            using (SafeKeyHandle keyPair = NCryptCreatePersistedKey(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM))
             {
                 int keySize = GetMinimumKeySize(keyPair);
                 NCryptSetProperty(keyPair, KeyStoragePropertyIdentifiers.NCRYPT_LENGTH_PROPERTY, keySize);
                 NCryptFinalizeKey(keyPair).ThrowOnError();
                 byte[] hashData = SHA1.Create().ComputeHash(new byte[] { 0x1 });
-                var flags = NCryptSignHashFlags.BCRYPT_PAD_PKCS1;
+                NCryptSignHashFlags flags = NCryptSignHashFlags.BCRYPT_PAD_PKCS1;
                 fixed (char* pAlgorithm = BCrypt.AlgorithmIdentifiers.BCRYPT_SHA1_ALGORITHM.ToCharArrayWithNullTerminator())
                 {
                     var paddingInfo = new BCrypt.BCRYPT_PKCS1_PADDING_INFO()
@@ -161,7 +161,7 @@ public class NCryptFacts
     [Fact]
     public void GetPropertyOfT()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
             var actual = (KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY)NCryptGetProperty<int>(provider, KeyStoragePropertyIdentifiers.NCRYPT_IMPL_TYPE_PROPERTY);
             Assert.Equal(KeyStoragePropertyValues.NCRYPT_IMPL_TYPE_PROPERTY.NCRYPT_IMPL_SOFTWARE_FLAG, actual);
@@ -171,15 +171,13 @@ public class NCryptFacts
     [Fact]
     public unsafe void NCryptEnumAlgorithms_Test()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
-            int algCount;
-            NCryptAlgorithmName* algList;
             NCryptEnumAlgorithms(
                 provider,
                 AlgorithmOperations.NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION | AlgorithmOperations.NCRYPT_KEY_DERIVATION_OPERATION,
-                out algCount,
-                out algList).ThrowOnError();
+                out int algCount,
+                out NCryptAlgorithmName* algList).ThrowOnError();
             Assert.NotEqual(0, algCount);
             for (int i = 0; i < algCount; i++)
             {
@@ -193,11 +191,9 @@ public class NCryptFacts
     [Fact]
     public unsafe void NCryptEnumStorageProviders_Test()
     {
-        int providerCount;
-        NCryptProviderName* providerList;
         NCryptEnumStorageProviders(
-            out providerCount,
-            out providerList).ThrowOnError();
+            out int providerCount,
+            out NCryptProviderName* providerList).ThrowOnError();
         Assert.NotEqual(0, providerCount);
         for (int i = 0; i < providerCount; i++)
         {
@@ -210,7 +206,7 @@ public class NCryptFacts
     [Fact]
     public void NCryptIsAlgSupported_Test()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
             Assert.Equal(SECURITY_STATUS.NTE_NOT_SUPPORTED, NCryptIsAlgSupported(provider, "Foo"));
             Assert.Equal(SECURITY_STATUS.ERROR_SUCCESS, NCryptIsAlgSupported(provider, BCrypt.AlgorithmIdentifiers.BCRYPT_RSA_ALGORITHM));
@@ -220,19 +216,18 @@ public class NCryptFacts
     [Fact]
     public unsafe void NCryptEnumKeys_pointer_Test()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
             const string scope = null;
-            NCryptKeyName* keyName;
             void* enumState = null;
-            SECURITY_STATUS status = NCryptEnumKeys(provider, scope, out keyName, ref enumState);
+            SECURITY_STATUS status = NCryptEnumKeys(provider, scope, out NCryptKeyName* keyName, ref enumState);
             while (status == SECURITY_STATUS.ERROR_SUCCESS)
             {
                 this.logger.WriteLine($"{keyName->Name} ({keyName->Algid})");
 
                 if (keyName->Name.StartsWith("PclCrypto_"))
                 {
-                    using (var key = NCryptOpenKey(provider, *keyName))
+                    using (SafeKeyHandle key = NCryptOpenKey(provider, *keyName))
                     {
                         NCryptDeleteKey(key).ThrowOnError();
                         key.SetHandleAsInvalid();
@@ -258,12 +253,11 @@ public class NCryptFacts
     [Fact]
     public unsafe void NCryptEnumKeys_IntPtr_Test()
     {
-        using (var provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
+        using (SafeProviderHandle provider = NCryptOpenStorageProvider(KeyStorageProviders.MS_KEY_STORAGE_PROVIDER))
         {
             const string scope = null;
-            IntPtr ipkeyName;
             IntPtr enumState = IntPtr.Zero;
-            SECURITY_STATUS status = NCryptEnumKeys(provider, scope, out ipkeyName, ref enumState);
+            SECURITY_STATUS status = NCryptEnumKeys(provider, scope, out IntPtr ipkeyName, ref enumState);
             while (status == SECURITY_STATUS.ERROR_SUCCESS)
             {
                 var keyName = (NCryptKeyName*)ipkeyName.ToPointer();
@@ -271,7 +265,7 @@ public class NCryptFacts
 
                 if (keyName->Name.StartsWith("PclCrypto_"))
                 {
-                    using (var key = NCryptOpenKey(provider, *keyName))
+                    using (SafeKeyHandle key = NCryptOpenKey(provider, *keyName))
                     {
                         NCryptDeleteKey(key).ThrowOnError();
                         key.SetHandleAsInvalid();
@@ -282,7 +276,7 @@ public class NCryptFacts
                 status = NCryptEnumKeys(provider, scope, out ipkeyName, ref enumState);
             }
 
-            if (enumState != null)
+            if (enumState != IntPtr.Zero)
             {
                 NCryptFreeBuffer(enumState).ThrowOnError();
             }
@@ -296,7 +290,7 @@ public class NCryptFacts
 
     private static int GetMinimumKeySize(SafeKeyHandle key)
     {
-        var keyLengths = NCryptGetProperty<NCRYPT_SUPPORTED_LENGTHS>(key, KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY);
+        NCRYPT_SUPPORTED_LENGTHS keyLengths = NCryptGetProperty<NCRYPT_SUPPORTED_LENGTHS>(key, KeyStoragePropertyIdentifiers.NCRYPT_LENGTHS_PROPERTY);
         return keyLengths.dwMinLength;
     }
 }

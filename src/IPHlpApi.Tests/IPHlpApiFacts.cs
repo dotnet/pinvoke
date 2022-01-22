@@ -32,7 +32,7 @@ public class IPHlpApiFacts
                 if (IPHlpApi.GetExtendedTcpTable(tcpTablePtr, ref tcpTableLength, bOrder: true, AddressFamily.InterNetwork, IPHlpApi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_PID_ALL, 0) == Win32ErrorCode.ERROR_SUCCESS)
                 {
                     IPHlpApi.MIB_TCPTABLE_OWNER_PID* tcpTable = (IPHlpApi.MIB_TCPTABLE_OWNER_PID*)tcpTablePtr;
-                    var tableSize = sizeof(IPHlpApi.MIB_TCPTABLE_OWNER_PID);
+                    int tableSize = sizeof(IPHlpApi.MIB_TCPTABLE_OWNER_PID);
 
                     IPHlpApi.MIB_TCPROW_OWNER_PID* tcpRow = (IPHlpApi.MIB_TCPROW_OWNER_PID*)(tcpTablePtr + tableSize);
 

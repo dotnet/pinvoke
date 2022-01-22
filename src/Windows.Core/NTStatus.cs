@@ -183,6 +183,10 @@ namespace PInvoke
         /// <param name="status">The value to convert.</param>
         public static implicit operator Code(NTSTATUS status) => status.Value;
 
+        public static bool operator ==(NTSTATUS left, NTSTATUS right) => left.Equals(right);
+
+        public static bool operator !=(NTSTATUS left, NTSTATUS right) => !left.Equals(right);
+
         /// <inheritdoc />
         public override int GetHashCode() => (int)this.Value;
 

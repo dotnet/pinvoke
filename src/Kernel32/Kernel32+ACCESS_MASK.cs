@@ -439,6 +439,10 @@ namespace PInvoke
             /// <param name="value">The value for the <see cref="ACCESS_MASK"/>.</param>
             public static implicit operator ACCESS_MASK(SpecificRight value) => new ACCESS_MASK((uint)value);
 
+            public static bool operator ==(ACCESS_MASK left, ACCESS_MASK right) => left.Equals(right);
+
+            public static bool operator !=(ACCESS_MASK left, ACCESS_MASK right) => !left.Equals(right);
+
             /// <inheritdoc />
             public override int GetHashCode() => this.AsInt32;
 

@@ -1,7 +1,8 @@
 trigger:
+  batch: true
   branches:
     include:
-    - master
+    - main
     - 'validate/*'
   paths:
     exclude:
@@ -18,7 +19,7 @@ stages:
     BuildConfiguration: Release
     BuildPlatform: Any CPU
     codecov_token: e300ab17-4cd6-43b5-8292-e824cb320ed3
-    ci_feed: 6ed146e5-8e9c-46d6-a40f-da9367ed50cd/c20edbb7-8403-4456-8f43-f46b47e360b1
+    ci_feed: OSS/PublicCI
     NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages
     GeneratePInvokesTxt: true
   jobs:

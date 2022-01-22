@@ -14,7 +14,7 @@ public partial class User32Facts
         var mode = DEVMODE.Create();
 
         // Act
-        var result = EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref mode);
+        bool result = EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref mode);
 
         // Assert
         Assert.True(result);
@@ -29,7 +29,7 @@ public partial class User32Facts
         var mode = DEVMODE.Create();
 
         // Act
-        var result = EnumDisplaySettingsEx(null, ENUM_CURRENT_SETTINGS, ref mode, EnumDisplaySettingsExFlags.EDS_RAWMODE);
+        bool result = EnumDisplaySettingsEx(null, ENUM_CURRENT_SETTINGS, ref mode, EnumDisplaySettingsExFlags.EDS_RAWMODE);
 
         // Assert
         Assert.True(result);

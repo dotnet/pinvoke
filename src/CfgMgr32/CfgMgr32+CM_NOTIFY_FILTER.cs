@@ -71,7 +71,7 @@ namespace PInvoke
             {
                 get
                 {
-                    var filter = Create();
+                    CM_NOTIFY_FILTER filter = Create();
                     filter.Flags = CM_NOTIFY_FILTER_FLAG.ALL_DEVICE_INSTANCES;
                     filter.FilterType = CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINSTANCE;
                     return filter;
@@ -85,7 +85,7 @@ namespace PInvoke
             {
                 get
                 {
-                    var filter = Create();
+                    CM_NOTIFY_FILTER filter = Create();
                     filter.Flags = CM_NOTIFY_FILTER_FLAG.ALL_INTERFACE_CLASSES;
                     filter.FilterType = CM_NOTIFY_FILTER_TYPE.CM_NOTIFY_FILTER_TYPE_DEVICEINTERFACE;
                     return filter;

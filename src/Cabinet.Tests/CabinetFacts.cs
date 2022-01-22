@@ -39,7 +39,7 @@ public unsafe class CabinetFacts
     [Fact]
     public void CreateDisposeContext()
     {
-        var handle = Cabinet.FDICreate(
+        Cabinet.FdiHandle handle = Cabinet.FDICreate(
             this.fdiAllocMemDelegate,
             this.fdiFreeMemDelegate,
             this.fdiOpenStreamDelegate,
@@ -58,7 +58,7 @@ public unsafe class CabinetFacts
     {
         string sampleCabinetName = "demo.CAB";
 
-        using (var handle = Cabinet.FDICreate(
+        using (Cabinet.FdiHandle handle = Cabinet.FDICreate(
             this.fdiAllocMemDelegate,
             this.fdiFreeMemDelegate,
             this.fdiOpenStreamDelegate,
@@ -97,12 +97,12 @@ public unsafe class CabinetFacts
             case Cabinet.NOTIFICATIONTYPE.COPY_FILE:
                 {
                     string filename = new string(notification->psz1);
-                    var date = notification->date;
-                    var time = notification->time;
-                    var attribs = notification->attribs;
+                    ushort date = notification->date;
+                    ushort time = notification->time;
+                    short attribs = notification->attribs;
 
                     filename = Path.Combine(SampleCabinetPath, filename);
-                    var handle = Kernel32.CreateFile(filename, Kernel32.ACCESS_MASK.GenericRight.GENERIC_WRITE, Kernel32.FileShare.None, IntPtr.Zero, Kernel32.CreationDisposition.CREATE_ALWAYS, Kernel32.CreateFileFlags.FILE_ATTRIBUTE_NORMAL, Kernel32.SafeObjectHandle.Null);
+                    Kernel32.SafeObjectHandle handle = Kernel32.CreateFile(filename, Kernel32.ACCESS_MASK.GenericRight.GENERIC_WRITE, Kernel32.FileShare.None, IntPtr.Zero, Kernel32.CreationDisposition.CREATE_ALWAYS, Kernel32.CreateFileFlags.FILE_ATTRIBUTE_NORMAL, Kernel32.SafeObjectHandle.Null);
 
                     if (handle.IsInvalid)
                     {
@@ -116,7 +116,7 @@ public unsafe class CabinetFacts
 
             case Cabinet.NOTIFICATIONTYPE.CLOSE_FILE_INFO:
                 {
-                    var handle = this.handles[notification->hf.ToInt32()];
+                    Kernel32.SafeObjectHandle handle = this.handles[notification->hf.ToInt32()];
                     handle.Dispose();
                     this.handles.Remove(notification->hf.ToInt32());
 
@@ -127,7 +127,7 @@ public unsafe class CabinetFacts
                     if (Kernel32.DosDateTimeToFileTime(notification->date, notification->time, (Kernel32.FILETIME*)&filetime))
                     {
                         var dateTime = DateTime.FromFileTimeUtc(filetime);
-                        var attributes = (FileAttributes)notification->attribs &
+                        FileAttributes attributes = (FileAttributes)notification->attribs &
                             (FileAttributes.Archive | FileAttributes.Hidden | FileAttributes.ReadOnly | FileAttributes.System);
 
                         File.SetLastWriteTimeUtc(Path.Combine(SampleCabinetPath, filename), dateTime);
@@ -151,21 +151,21 @@ public unsafe class CabinetFacts
 
     private int Open(string path, int openFlags, int shareMode)
     {
-        var handle = Kernel32.CreateFile(path, (Kernel32.ACCESS_MASK)Kernel32.ACCESS_MASK.GenericRight.GENERIC_READ, Kernel32.FileShare.FILE_SHARE_READ, IntPtr.Zero, Kernel32.CreationDisposition.OPEN_EXISTING, Kernel32.CreateFileFlags.FILE_ATTRIBUTE_NORMAL, Kernel32.SafeObjectHandle.Null);
+        Kernel32.SafeObjectHandle handle = Kernel32.CreateFile(path, (Kernel32.ACCESS_MASK)Kernel32.ACCESS_MASK.GenericRight.GENERIC_READ, Kernel32.FileShare.FILE_SHARE_READ, IntPtr.Zero, Kernel32.CreationDisposition.OPEN_EXISTING, Kernel32.CreateFileFlags.FILE_ATTRIBUTE_NORMAL, Kernel32.SafeObjectHandle.Null);
 
         if (handle.IsInvalid)
         {
             throw new Win32Exception();
         }
 
-        var value = this.nextHandle++;
+        int value = this.nextHandle++;
         this.handles.Add(value, handle);
         return value;
     }
 
     private int Read(int streamHandle, byte* memory, int cb)
     {
-        var handle = this.handles[streamHandle];
+        Kernel32.SafeObjectHandle handle = this.handles[streamHandle];
 
         int? read = 0;
 
@@ -184,7 +184,7 @@ public unsafe class CabinetFacts
 
     private int Write(int streamHandle, byte* memory, int cb)
     {
-        var handle = this.handles[streamHandle];
+        Kernel32.SafeObjectHandle handle = this.handles[streamHandle];
 
         int? written = 0;
 
@@ -203,7 +203,7 @@ public unsafe class CabinetFacts
 
     private uint Seek(int streamHandle, int offset, SeekOrigin seekOrigin)
     {
-        var handle = this.handles[streamHandle];
+        Kernel32.SafeObjectHandle handle = this.handles[streamHandle];
 
         return (uint)Kernel32.SetFilePointer(
             handle,
@@ -214,7 +214,7 @@ public unsafe class CabinetFacts
 
     private uint Close(int streamHandle)
     {
-        var handle = this.handles[streamHandle];
+        Kernel32.SafeObjectHandle handle = this.handles[streamHandle];
 
         handle.Dispose();
         this.handles.Remove(streamHandle);

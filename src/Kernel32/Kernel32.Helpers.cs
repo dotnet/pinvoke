@@ -54,12 +54,10 @@ namespace PInvoke
         /// </returns>
         public static unsafe string FormatMessage(FormatMessageFlags dwFlags, void* lpSource, int dwMessageId, int dwLanguageId, IntPtr[] Arguments, int maxAllowedBufferSize)
         {
-            string errorMsg;
-
             var sb = new StringBuilder(256);
             do
             {
-                if (TryGetErrorMessage(dwFlags, lpSource, dwMessageId, dwLanguageId, sb, Arguments, out errorMsg))
+                if (TryGetErrorMessage(dwFlags, lpSource, dwMessageId, dwLanguageId, sb, Arguments, out string errorMsg))
                 {
                     return errorMsg;
                 }
@@ -147,7 +145,7 @@ namespace PInvoke
                 throw new ArgumentNullException(nameof(hFile));
             }
 
-            var bytesWritten = (int?)0;
+            int? bytesWritten = (int?)0;
             if (!WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, ref bytesWritten, null))
             {
                 throw new Win32Exception();
@@ -180,7 +178,7 @@ namespace PInvoke
             {
                 fixed (byte* pBuffer = lpBuffer.Array)
                 {
-                    var pStart = pBuffer + lpBuffer.Offset;
+                    byte* pStart = pBuffer + lpBuffer.Offset;
                     return WriteFile(hFile, pStart, lpBuffer.Count);
                 }
             }
@@ -204,7 +202,7 @@ namespace PInvoke
                 throw new ArgumentNullException(nameof(hFile));
             }
 
-            var bytesRead = (int?)0;
+            int? bytesRead = (int?)0;
             if (!ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, ref bytesRead, null))
             {
                 throw new Win32Exception();
@@ -229,7 +227,7 @@ namespace PInvoke
             {
                 fixed (byte* pBuffer = lpBuffer.Array)
                 {
-                    var pStart = pBuffer + lpBuffer.Offset;
+                    byte* pStart = pBuffer + lpBuffer.Offset;
                     return ReadFile(hFile, pStart, lpBuffer.Count);
                 }
             }
@@ -250,10 +248,10 @@ namespace PInvoke
         /// <exception cref="ArgumentNullException">If <paramref name="hFile" /> is <see langword="null" />.</exception>
         public static ArraySegment<byte> ReadFile(SafeObjectHandle hFile, int nNumberOfBytesToRead)
         {
-            var buffer = new byte[nNumberOfBytesToRead];
+            byte[] buffer = new byte[nNumberOfBytesToRead];
             var segment = new ArraySegment<byte>(buffer);
 
-            var bytesRead = ReadFile(hFile, segment);
+            int bytesRead = ReadFile(hFile, segment);
             return new ArraySegment<byte>(buffer, 0, bytesRead);
         }
 

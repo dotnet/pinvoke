@@ -30,7 +30,6 @@ public partial class Kernel32Facts
     public void CreateProcess_CmdListDirectories()
     {
         STARTUPINFO startupInfo = STARTUPINFO.Create();
-        PROCESS_INFORMATION processInformation;
         bool result = CreateProcess(
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "cmd.exe"),
             "/c dir",
@@ -41,7 +40,7 @@ public partial class Kernel32Facts
             IntPtr.Zero,
             null,
             ref startupInfo,
-            out processInformation);
+            out PROCESS_INFORMATION processInformation);
         if (!result)
         {
             throw new Win32Exception();
@@ -61,7 +60,6 @@ public partial class Kernel32Facts
             fixed (void* environmentBlock = environment)
             {
                 STARTUPINFO startupInfo = STARTUPINFO.Create();
-                PROCESS_INFORMATION processInformation;
                 bool result = CreateProcess(
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "cmd.exe"),
                     $"/c set > \"{commandOutputFileName}\"",
@@ -72,7 +70,7 @@ public partial class Kernel32Facts
                     environmentBlock,
                     null,
                     ref startupInfo,
-                    out processInformation);
+                    out PROCESS_INFORMATION processInformation);
                 if (!result)
                 {
                     throw new Win32Exception();
@@ -106,7 +104,7 @@ public partial class Kernel32Facts
     public void CreateFile_DeleteOnClose()
     {
         string testPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-        using (var tempFileHandle = CreateFile(
+        using (SafeObjectHandle tempFileHandle = CreateFile(
             testPath,
             ACCESS_MASK.GenericRight.GENERIC_WRITE,
             Kernel32.FileShare.FILE_SHARE_READ,
@@ -124,8 +122,7 @@ public partial class Kernel32Facts
     [Fact]
     public void FindFirstFile_NoMatches()
     {
-        WIN32_FIND_DATA data;
-        using (var handle = FindFirstFile("foodoesnotexist", out data))
+        using (SafeFindFilesHandle handle = FindFirstFile("foodoesnotexist", out WIN32_FIND_DATA data))
         {
             Assert.True(handle.IsInvalid);
         }
@@ -142,12 +139,11 @@ public partial class Kernel32Facts
             File.WriteAllText(aTxt, string.Empty);
             File.SetAttributes(aTxt, FileAttributes.Archive);
 
-            var bTxt = Path.Combine(testPath, "b.txt");
+            string bTxt = Path.Combine(testPath, "b.txt");
             File.WriteAllText(bTxt, string.Empty);
             File.SetAttributes(bTxt, FileAttributes.Normal);
 
-            WIN32_FIND_DATA data;
-            using (var handle = FindFirstFile(Path.Combine(testPath, "*.txt"), out data))
+            using (SafeFindFilesHandle handle = FindFirstFile(Path.Combine(testPath, "*.txt"), out WIN32_FIND_DATA data))
             {
                 Assert.False(handle.IsInvalid);
                 Assert.Equal("a.txt", data.cFileName);
@@ -170,7 +166,7 @@ public partial class Kernel32Facts
     [UseCulture("en-US")]
     public void FormatMessage_NTStatus()
     {
-        using (var ntdll = LoadLibrary("ntdll.dll"))
+        using (SafeLibraryHandle ntdll = LoadLibrary("ntdll.dll"))
         {
             string actual = FormatMessage(
                 FormatMessageFlags.FORMAT_MESSAGE_FROM_HMODULE,
@@ -216,12 +212,12 @@ public partial class Kernel32Facts
     [Fact]
     public void CreateToolhelp32Snapshot_CanGetCurrentProcess()
     {
-        var currentProcess = GetCurrentProcessId();
-        var snapshot = CreateToolhelp32Snapshot(CreateToolhelp32SnapshotFlags.TH32CS_SNAPPROCESS, 0);
+        int currentProcess = GetCurrentProcessId();
+        SafeObjectHandle snapshot = CreateToolhelp32Snapshot(CreateToolhelp32SnapshotFlags.TH32CS_SNAPPROCESS, 0);
         using (snapshot)
         {
             var processes = Process32Enumerate(snapshot).ToList();
-            var win32Process = processes.Single(p => p.th32ProcessID == currentProcess);
+            PROCESSENTRY32 win32Process = processes.Single(p => p.th32ProcessID == currentProcess);
             var netProcess = Process.GetCurrentProcess();
             Assert.Equal(netProcess.MainModule.ModuleName, win32Process.ExeFile, true);
         }
@@ -230,7 +226,7 @@ public partial class Kernel32Facts
     [Fact]
     public void OpenProcess_CannotOpenSystem()
     {
-        using (var system = OpenProcess(ProcessAccess.PROCESS_TERMINATE, false, 0x00000000))
+        using (SafeObjectHandle system = OpenProcess(ProcessAccess.PROCESS_TERMINATE, false, 0x00000000))
         {
             var error = (Win32ErrorCode)Marshal.GetLastWin32Error();
             Assert.True(system.IsInvalid);
@@ -241,8 +237,8 @@ public partial class Kernel32Facts
     [Fact]
     public void OpenProcess_CanOpenSelf()
     {
-        var currentProcessId = GetCurrentProcessId();
-        var currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
+        int currentProcessId = GetCurrentProcessId();
+        SafeObjectHandle currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
         using (currentProcess)
         {
             Assert.False(currentProcess.IsInvalid);
@@ -252,15 +248,21 @@ public partial class Kernel32Facts
     [Fact]
     public void GetProcessTimes_CanGetCurrentProcessTimes()
     {
-        var currentProcessId = GetCurrentProcessId();
-        var currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
+        int currentProcessId = GetCurrentProcessId();
+        SafeObjectHandle currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
         using (currentProcess)
         {
-            Kernel32.FILETIME create, exit, kernel, user;
-            var totalProcessTime = Process.GetCurrentProcess().TotalProcessorTime;
+            TimeSpan totalProcessTime = Process.GetCurrentProcess().TotalProcessorTime;
+
+/* Unmerged change from project 'Kernel32.Tests (netcoreapp3.1)'
+Before:
             Assert.True(GetProcessTimes(currentProcess, out create, out exit, out kernel, out user));
-            var expected = Math.Truncate(totalProcessTime.TotalSeconds / 10);
-            var actual = Math.Truncate(new TimeSpan(kernel + user).TotalSeconds / 10);
+After:
+            Assert.True(GetProcessTimes(currentProcess, out FILETIME create, out FILETIME exit, out FILETIME kernel, out FILETIME user));
+*/
+            Assert.True(GetProcessTimes(currentProcess, out Kernel32.FILETIME create, out Kernel32.FILETIME exit, out Kernel32.FILETIME kernel, out Kernel32.FILETIME user));
+            double expected = Math.Truncate(totalProcessTime.TotalSeconds / 10);
+            double actual = Math.Truncate(new TimeSpan(kernel + user).TotalSeconds / 10);
             Assert.Equal(expected, actual);
         }
     }
@@ -268,12 +270,12 @@ public partial class Kernel32Facts
     [Fact]
     public void QueryFullProcessImageName_CanGetForCurrentProcess()
     {
-        var currentProcessId = GetCurrentProcessId();
-        var currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
+        int currentProcessId = GetCurrentProcessId();
+        SafeObjectHandle currentProcess = OpenProcess(ProcessAccess.PROCESS_QUERY_LIMITED_INFORMATION, false, currentProcessId);
         using (currentProcess)
         {
-            var actual = QueryFullProcessImageName(currentProcess);
-            var expected = Process.GetCurrentProcess().MainModule.FileName;
+            string actual = QueryFullProcessImageName(currentProcess);
+            string expected = Process.GetCurrentProcess().MainModule.FileName;
 
             Assert.Equal(expected, actual, ignoreCase: true);
         }
@@ -282,16 +284,16 @@ public partial class Kernel32Facts
     [Fact]
     public void ReadFile_CanReadSynchronously()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var expected = new byte[testDataSize];
+            byte[] expected = new byte[testDataSize];
             this.random.NextBytes(expected);
 
             File.WriteAllBytes(testPath, expected);
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_READ,
                 Kernel32.FileShare.None,
@@ -300,8 +302,8 @@ public partial class Kernel32Facts
                 CreateFileFlags.FILE_ATTRIBUTE_NORMAL,
                 new SafeObjectHandle()))
             {
-                var actual = ReadFile(file, testDataSize);
-                var actualData = actual.Skip(actual.Offset).Take(actual.Count);
+                ArraySegment<byte> actual = ReadFile(file, testDataSize);
+                IEnumerable<byte> actualData = actual.Skip(actual.Offset).Take(actual.Count);
                 Assert.Equal(expected, actualData);
             }
         }
@@ -314,16 +316,16 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void ReadFile_CanReadOverlappedWithWait()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var expected = new byte[testDataSize];
+            byte[] expected = new byte[testDataSize];
             this.random.NextBytes(expected);
 
             File.WriteAllBytes(testPath, expected);
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_READ,
                 Kernel32.FileShare.None,
@@ -333,20 +335,19 @@ public partial class Kernel32Facts
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
-                var actual = new byte[testDataSize];
+                byte[] actual = new byte[testDataSize];
                 fixed (byte* pActual = actual)
                 {
-                    var result = ReadFile(file, pActual, testDataSize, null, &overlapped);
+                    bool result = ReadFile(file, pActual, testDataSize, null, &overlapped);
                     if (result)
                     {
                         // We can't really test anything not covered by another test here :(
                         return;
                     }
 
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
-                    int bytesTransfered;
-                    var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
+                    bool overlappedResult = GetOverlappedResult(file, &overlapped, out int bytesTransfered, true);
                     Assert.Equal(testDataSize, bytesTransfered);
                     Assert.True(overlappedResult);
                 }
@@ -363,16 +364,16 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void ReadFile_CanReadOverlappedWithWaitHandle()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var expected = new byte[testDataSize];
+            byte[] expected = new byte[testDataSize];
             this.random.NextBytes(expected);
 
             File.WriteAllBytes(testPath, expected);
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_READ,
                 Kernel32.FileShare.None,
@@ -382,23 +383,22 @@ public partial class Kernel32Facts
                 new SafeObjectHandle()))
             {
                 var overlapped = default(OVERLAPPED);
-                var actual = new byte[testDataSize];
+                byte[] actual = new byte[testDataSize];
                 var evt = new ManualResetEvent(false);
                 overlapped.hEvent = evt.SafeWaitHandle.DangerousGetHandle();
                 fixed (byte* pActual = actual)
                 {
-                    var result = ReadFile(file, pActual, testDataSize, null, &overlapped);
+                    bool result = ReadFile(file, pActual, testDataSize, null, &overlapped);
                     if (result)
                     {
                         // We can't really test anything not covered by another test here :(
                         return;
                     }
 
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     Assert.True(evt.WaitOne(TimeSpan.FromSeconds(30)));
-                    int bytesTransfered;
-                    var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, false);
+                    bool overlappedResult = GetOverlappedResult(file, &overlapped, out int bytesTransfered, false);
                     Assert.Equal(testDataSize, bytesTransfered);
                     Assert.True(overlappedResult);
                 }
@@ -415,14 +415,14 @@ public partial class Kernel32Facts
     [Fact]
     public void WriteFile_CanWriteSynchronously()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var expected = new byte[testDataSize];
+            byte[] expected = new byte[testDataSize];
             this.random.NextBytes(expected);
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
@@ -431,11 +431,11 @@ public partial class Kernel32Facts
                 CreateFileFlags.FILE_ATTRIBUTE_NORMAL,
                 new SafeObjectHandle()))
             {
-                var bytesWritten = WriteFile(file, new ArraySegment<byte>(expected));
+                int bytesWritten = WriteFile(file, new ArraySegment<byte>(expected));
                 Assert.Equal(testDataSize, bytesWritten);
             }
 
-            var actual = File.ReadAllBytes(testPath);
+            byte[] actual = File.ReadAllBytes(testPath);
 
             Assert.Equal(expected, actual);
         }
@@ -448,14 +448,14 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void WriteFile_CanWriteOverlappedWithWait()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var expected = new byte[testDataSize];
+            byte[] expected = new byte[testDataSize];
             this.random.NextBytes(expected);
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
@@ -467,23 +467,22 @@ public partial class Kernel32Facts
                 var overlapped = default(OVERLAPPED);
                 fixed (byte* pExpected = expected)
                 {
-                    var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    bool result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
                     if (result)
                     {
                         // We can't really test anything not covered by another test here :(
                         return;
                     }
 
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
-                    int bytesTransfered;
-                    var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
+                    bool overlappedResult = GetOverlappedResult(file, &overlapped, out int bytesTransfered, true);
                     Assert.Equal(testDataSize, bytesTransfered);
                     Assert.True(overlappedResult);
                 }
             }
 
-            var actual = File.ReadAllBytes(testPath);
+            byte[] actual = File.ReadAllBytes(testPath);
 
             Assert.Equal(expected, actual);
         }
@@ -496,14 +495,14 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void WriteFile_CanWriteOverlappedWithWaitHandle()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var expected = new byte[testDataSize];
+            byte[] expected = new byte[testDataSize];
             this.random.NextBytes(expected);
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
@@ -517,24 +516,23 @@ public partial class Kernel32Facts
                 overlapped.hEvent = evt.SafeWaitHandle.DangerousGetHandle();
                 fixed (byte* pExpected = expected)
                 {
-                    var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    bool result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
                     if (result)
                     {
                         // We can't really test anything not covered by another test here :(
                         return;
                     }
 
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     Assert.True(evt.WaitOne(TimeSpan.FromSeconds(30)));
-                    int bytesTransfered;
-                    var overlappedResult = GetOverlappedResult(file, &overlapped, out bytesTransfered, false);
+                    bool overlappedResult = GetOverlappedResult(file, &overlapped, out int bytesTransfered, false);
                     Assert.Equal(testDataSize, bytesTransfered);
                     Assert.True(overlappedResult);
                 }
             }
 
-            var actual = File.ReadAllBytes(testPath);
+            byte[] actual = File.ReadAllBytes(testPath);
 
             Assert.Equal(expected, actual);
         }
@@ -547,13 +545,13 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void CancelIo_CancelWrite()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var buffer = new byte[testDataSize];
+            byte[] buffer = new byte[testDataSize];
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
@@ -565,14 +563,14 @@ public partial class Kernel32Facts
                 var overlapped = default(OVERLAPPED);
                 fixed (byte* pExpected = buffer)
                 {
-                    var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    bool result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
                     if (result)
                     {
                         // We can't really test anything not covered by another test here :(
                         return;
                     }
 
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     try
                     {
@@ -580,8 +578,7 @@ public partial class Kernel32Facts
                     }
                     finally
                     {
-                        int bytesTransfered;
-                        GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
+                        GetOverlappedResult(file, &overlapped, out int bytesTransfered, true);
                     }
                 }
             }
@@ -595,13 +592,13 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void CancelIoEx_CancelWriteAll()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var buffer = new byte[testDataSize];
+            byte[] buffer = new byte[testDataSize];
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
@@ -613,18 +610,18 @@ public partial class Kernel32Facts
                 var overlapped = default(OVERLAPPED);
                 fixed (byte* pExpected = buffer)
                 {
-                    var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    bool result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
                     if (result)
                     {
                         // We can't really test anything not covered by another test here :(
                         return;
                     }
 
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     try
                     {
-                        var cancelled = CancelIoEx(file, (NativeOverlapped*)null);
+                        bool cancelled = CancelIoEx(file, (NativeOverlapped*)null);
 
                         // We can't assert that it's true as if the IO finished already it'll fail with ERROR_NOT_FOUND
                         if (!cancelled)
@@ -634,8 +631,7 @@ public partial class Kernel32Facts
                     }
                     finally
                     {
-                        int bytesTransfered;
-                        GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
+                        GetOverlappedResult(file, &overlapped, out int bytesTransfered, true);
                     }
                 }
             }
@@ -649,13 +645,13 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void CancelIoEx_CancelWriteSpecific()
     {
-        var testPath = Path.GetTempFileName();
+        string testPath = Path.GetTempFileName();
         try
         {
             const int testDataSize = 256;
-            var buffer = new byte[testDataSize];
+            byte[] buffer = new byte[testDataSize];
 
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 testPath,
                 ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 Kernel32.FileShare.None,
@@ -667,18 +663,18 @@ public partial class Kernel32Facts
                 var overlapped = default(OVERLAPPED);
                 fixed (byte* pExpected = buffer)
                 {
-                    var result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
+                    bool result = WriteFile(file, pExpected, testDataSize, null, &overlapped);
                     if (result)
                     {
                         // We can't really test anything not covered by another test here :(
                         return;
                     }
 
-                    var lastError = GetLastError();
+                    Win32ErrorCode lastError = GetLastError();
                     Assert.Equal(Win32ErrorCode.ERROR_IO_PENDING, lastError);
                     try
                     {
-                        var cancelled = CancelIoEx(file, &overlapped);
+                        bool cancelled = CancelIoEx(file, &overlapped);
 
                         // We can't assert that it's true as if the IO finished already it'll fail with ERROR_NOT_FOUND
                         if (!cancelled)
@@ -688,8 +684,7 @@ public partial class Kernel32Facts
                     }
                     finally
                     {
-                        int bytesTransfered;
-                        GetOverlappedResult(file, &overlapped, out bytesTransfered, true);
+                        GetOverlappedResult(file, &overlapped, out int bytesTransfered, true);
                     }
                 }
             }
@@ -703,20 +698,19 @@ public partial class Kernel32Facts
     [Fact]
     public void IsWow64Process_ReturnExpectedValue()
     {
-        var expected = Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess;
-        var actual = IsWow64Process(GetCurrentProcess());
+        bool expected = Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess;
+        bool actual = IsWow64Process(GetCurrentProcess());
         Assert.Equal(expected, actual);
     }
 
     [Fact]
     public void CreatePipe_ReadWrite()
     {
-        SafeObjectHandle readPipe, writePipe;
-        Assert.True(CreatePipe(out readPipe, out writePipe, IntPtr.Zero, 0));
+        Assert.True(CreatePipe(out SafeObjectHandle readPipe, out SafeObjectHandle writePipe, IntPtr.Zero, 0));
         using (readPipe)
         using (writePipe)
         {
-            var data = new byte[] { 1, 2, 3 };
+            byte[] data = new byte[] { 1, 2, 3 };
             Assert.Equal(data.Length, WriteFile(writePipe, new ArraySegment<byte>(data)));
             Assert.Equal(data, ReadFile(readPipe, data.Length));
         }
@@ -725,7 +719,7 @@ public partial class Kernel32Facts
     [IgnoreOnOsVersionUnderFact("6.1")]
     public void K32EmptyWorkingSet_Run()
     {
-        using (var pid = GetCurrentProcess())
+        using (SafeObjectHandle pid = GetCurrentProcess())
         {
             Assert.True(K32EmptyWorkingSet(pid));
         }
@@ -734,7 +728,7 @@ public partial class Kernel32Facts
     [Fact]
     public void LoadLibrary_And_FreeLibrary()
     {
-        using (var library = LoadLibrary("kernel32.dll"))
+        using (SafeLibraryHandle library = LoadLibrary("kernel32.dll"))
         {
             Assert.False(library.IsInvalid);
         }
@@ -750,9 +744,9 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void CreateNamedPipe_ReadWrite()
     {
-        var pipeName = @"\\.\pipe\pinvoke_tests_" + Guid.NewGuid();
+        string pipeName = @"\\.\pipe\pinvoke_tests_" + Guid.NewGuid();
 
-        var server = CreateNamedPipe(
+        SafeObjectHandle server = CreateNamedPipe(
             pipeName,
             PipeAccessMode.PIPE_ACCESS_DUPLEX | PipeAccessMode.FILE_FLAG_FIRST_PIPE_INSTANCE | PipeAccessMode.FILE_FLAG_OVERLAPPED,
             PipeMode.PIPE_TYPE_MESSAGE | PipeMode.PIPE_READMODE_MESSAGE | PipeMode.PIPE_REJECT_REMOTE_CLIENTS,
@@ -775,7 +769,7 @@ public partial class Kernel32Facts
             {
                 Assert.True(WaitNamedPipe(pipeName, NMPWAIT_NOWAIT));
 
-                var client = CreateFile(
+                SafeObjectHandle client = CreateFile(
                     pipeName,
                     (uint)ACCESS_MASK.GenericRight.GENERIC_READ | (uint)Kernel32.FileAccess.FILE_GENERIC_WRITE,
                     Kernel32.FileShare.None,
@@ -790,7 +784,7 @@ public partial class Kernel32Facts
                     Assert.True(connectEvent.WaitOne(TimeSpan.FromMilliseconds(100)));
                     Assert.True(SetNamedPipeHandleState(client, PipeMode.PIPE_READMODE_MESSAGE, null, null));
 
-                    var writeBuffer = this.GetRandomSegment(42);
+                    ArraySegment<byte> writeBuffer = this.GetRandomSegment(42);
                     WriteFile(client, writeBuffer);
                     Assert.Equal(writeBuffer, ReadFile(server, writeBuffer.Count));
 
@@ -816,20 +810,20 @@ public partial class Kernel32Facts
     public unsafe void Find_And_Load_Bmp_Icon_Resource()
     {
         // shell32.dll contains at position #1 the icon for unknown files
-        using (var imageRes = LoadLibrary("shell32.dll"))
+        using (SafeLibraryHandle imageRes = LoadLibrary("shell32.dll"))
         {
             Assert.False(imageRes.IsInvalid);
 
             // Locate where the resource is (Can be in some language dll)
-            var resInfo = FindResource(imageRes, MAKEINTRESOURCE(1), RT_GROUP_ICON);
+            IntPtr resInfo = FindResource(imageRes, MAKEINTRESOURCE(1), RT_GROUP_ICON);
             Assert.NotEqual(IntPtr.Zero, resInfo);
 
             // Get a handle to the resource
-            var resHGlobal = LoadResource(imageRes, resInfo);
+            IntPtr resHGlobal = LoadResource(imageRes, resInfo);
             Assert.NotEqual(IntPtr.Zero, resHGlobal);
 
             // Get a pointer to the data
-            var ptr = LockResource(resHGlobal);
+            void* ptr = LockResource(resHGlobal);
             Assert.True(ptr != null);
         }
     }
@@ -837,16 +831,16 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void Get_Size_Of_Bmp_Icon_Resource()
     {
-        using (var imageRes = LoadLibrary("shell32.dll"))
+        using (SafeLibraryHandle imageRes = LoadLibrary("shell32.dll"))
         {
             Assert.False(imageRes.IsInvalid);
 
             // Load the icon for unknown files
-            var resInfo = FindResource(imageRes, MAKEINTRESOURCE(1), RT_GROUP_ICON);
+            IntPtr resInfo = FindResource(imageRes, MAKEINTRESOURCE(1), RT_GROUP_ICON);
             Assert.NotEqual(IntPtr.Zero, resInfo);
 
             // Should be able to get it's size
-            var size = SizeofResource(imageRes, resInfo);
+            int size = SizeofResource(imageRes, resInfo);
             Assert.NotEqual(0, size);
         }
     }
@@ -855,7 +849,7 @@ public partial class Kernel32Facts
     public unsafe void Enumerate_Imageres_Resources()
     {
         // Let's load the icon for unknown files
-        using (var imageRes = LoadLibrary("shell32.dll"))
+        using (SafeLibraryHandle imageRes = LoadLibrary("shell32.dll"))
         {
             Assert.False(imageRes.IsInvalid);
 
@@ -881,7 +875,7 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void Enumerate_Resource_Languages()
     {
-        using (var imageRes = LoadLibrary("shell32.dll"))
+        using (SafeLibraryHandle imageRes = LoadLibrary("shell32.dll"))
         {
             Assert.False(imageRes.IsInvalid);
 
@@ -933,7 +927,7 @@ public partial class Kernel32Facts
     public void GetHandleInformation_DoesNotThrow()
     {
         var manualResetEvent = new ManualResetEvent(false);
-        Assert.True(GetHandleInformation(manualResetEvent.SafeWaitHandle, out var lpdwFlags));
+        Assert.True(GetHandleInformation(manualResetEvent.SafeWaitHandle, out HandleFlags lpdwFlags));
     }
 
     [Fact]
@@ -959,10 +953,10 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void CreateThread_Test()
     {
-        var result = false;
-        var dwNewThreadId = 0u;
+        bool result = false;
+        uint dwNewThreadId = 0u;
 
-        using var hThread =
+        using SafeObjectHandle hThread =
                 Kernel32.CreateThread(
                     null,
                     UIntPtr.Zero,
@@ -991,11 +985,11 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void CreateRemoteThread_PseudoTest()
     {
-        var result = false;
-        var dwNewThreadId = 0u;
+        bool result = false;
+        uint dwNewThreadId = 0u;
 
-        using var hProcess = Kernel32.GetCurrentProcess();
-        using var hThread =
+        using SafeObjectHandle hProcess = Kernel32.GetCurrentProcess();
+        using SafeObjectHandle hThread =
                 Kernel32.CreateRemoteThread(
                     hProcess.DangerousGetHandle(),
                     null,
@@ -1025,11 +1019,11 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void CreateRemoteThreadEx_PseudoTest()
     {
-        var result = false;
-        var dwNewThreadId = 0u;
+        bool result = false;
+        uint dwNewThreadId = 0u;
 
-        using var hProcess = Kernel32.GetCurrentProcess();
-        using var hThread =
+        using SafeObjectHandle hProcess = Kernel32.GetCurrentProcess();
+        using SafeObjectHandle hThread =
                 Kernel32.CreateRemoteThreadEx(
                     hProcess.DangerousGetHandle(),
                     null,
@@ -1071,7 +1065,7 @@ public partial class Kernel32Facts
         try
         {
             ulong* limits = stackalloc ulong[2] { 0, 0 };
-            using var hThread =
+            using SafeObjectHandle hThread =
                 Kernel32.CreateThread(
                     null,
                     new UIntPtr(ThreadStackSize),
@@ -1092,7 +1086,7 @@ public partial class Kernel32Facts
     [Fact]
     public unsafe void GetProcessHandleCountTest()
     {
-        using var hProcess = Kernel32.GetCurrentProcess();
+        using SafeObjectHandle hProcess = Kernel32.GetCurrentProcess();
 
         Assert.True(Kernel32.GetProcessHandleCount(hProcess, out uint handleCount));
         Assert.NotEqual(0u, handleCount);
@@ -1106,8 +1100,8 @@ public partial class Kernel32Facts
         // return the process-id (i.e., a uint value)
         unsafe uint GetProcessIdThreadProc(void* data)
         {
-            using var hThread = Kernel32.GetCurrentThread();
-            var processId = Kernel32.GetProcessIdOfThread(hThread);
+            using SafeObjectHandle hThread = Kernel32.GetCurrentThread();
+            uint processId = Kernel32.GetProcessIdOfThread(hThread);
 
             *(uint*)data = processId;
 
@@ -1117,7 +1111,7 @@ public partial class Kernel32Facts
         var threadStartRoutine = new Kernel32.THREAD_START_ROUTINE(GetProcessIdThreadProc);
 
         uint processId = 0;
-        using var hThread = Kernel32.CreateThread(
+        using SafeObjectHandle hThread = Kernel32.CreateThread(
             null,
             UIntPtr.Zero,
             threadStartRoutine,
@@ -1137,7 +1131,7 @@ public partial class Kernel32Facts
         const uint IOCTL_DISK_GET_DRIVE_GEOMETRY = 0x070000;
         const string drive = @"\\.\PhysicalDrive0";
 
-        using (var device = CreateFile(
+        using (SafeObjectHandle device = CreateFile(
             filename: drive,
             access: 0,
             share: Kernel32.FileShare.FILE_SHARE_READ | Kernel32.FileShare.FILE_SHARE_WRITE,
@@ -1176,7 +1170,7 @@ public partial class Kernel32Facts
 
         var data = new DISK_GEOMETRY[1];
 
-        using (var device = CreateFile(
+        using (SafeObjectHandle device = CreateFile(
             filename: drive,
             access: 0,
             share: Kernel32.FileShare.FILE_SHARE_READ | Kernel32.FileShare.FILE_SHARE_WRITE,
@@ -1187,7 +1181,7 @@ public partial class Kernel32Facts
         {
             Assert.False(device.IsInvalid);
 
-            var ret = (int)await DeviceIoControlAsync<byte, DISK_GEOMETRY>(
+            int ret = (int)await DeviceIoControlAsync<byte, DISK_GEOMETRY>(
                 device,
                 (int)IOCTL_DISK_GET_DRIVE_GEOMETRY,
                 Array.Empty<byte>(),
@@ -1196,7 +1190,7 @@ public partial class Kernel32Facts
 
             Assert.Equal(Marshal.SizeOf<DISK_GEOMETRY>(), ret);
 
-            var pdg = data[0];
+            DISK_GEOMETRY pdg = data[0];
             Assert.NotEqual(0u, pdg.BytesPerSector);
             Assert.NotEqual(0, pdg.Cylinders);
             Assert.Equal(MEDIA_TYPE.FixedMedia, pdg.MediaType);
@@ -1213,7 +1207,7 @@ public partial class Kernel32Facts
 
         try
         {
-            using (var file = CreateFile(
+            using (SafeObjectHandle file = CreateFile(
                 filename: fileName,
                 access: Kernel32.ACCESS_MASK.GenericRight.GENERIC_READ | ACCESS_MASK.GenericRight.GENERIC_WRITE,
                 share: Kernel32.FileShare.FILE_SHARE_READ | Kernel32.FileShare.FILE_SHARE_WRITE,
