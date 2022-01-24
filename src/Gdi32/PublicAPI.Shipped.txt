@@ -60,7 +60,6 @@ PInvoke.Gdi32.StockObject.SYSTEM_FIXED_FONT = 16 -> PInvoke.Gdi32.StockObject
 PInvoke.Gdi32.StockObject.SYSTEM_FONT = 13 -> PInvoke.Gdi32.StockObject
 PInvoke.Gdi32.StockObject.WHITE_BRUSH = 0 -> PInvoke.Gdi32.StockObject
 PInvoke.Gdi32.StockObject.WHITE_PEN = 6 -> PInvoke.Gdi32.StockObject
-static extern PInvoke.Gdi32.BitBlt(System.IntPtr hObject, int nXDest, int nYDest, int nWidth, int nHeight, System.IntPtr hObjectSource, int nXSrc, int nYSrc, int dwRop) -> bool
 static extern PInvoke.Gdi32.CreateCompatibleBitmap(PInvoke.User32.SafeDCHandle hDC, int nWidth, int nHeight) -> System.IntPtr
 static extern PInvoke.Gdi32.CreateCompatibleDC(PInvoke.User32.SafeDCHandle hDC) -> PInvoke.User32.SafeDCHandle
 static extern PInvoke.Gdi32.DeleteDC(PInvoke.User32.SafeDCHandle hDC) -> bool
