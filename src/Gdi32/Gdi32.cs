@@ -56,7 +56,7 @@ namespace PInvoke
 
         [DllImport(nameof(Gdi32))]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool BitBlt(IntPtr hObject, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hObjectSource, int nXSrc, int nYSrc, int dwRop);
+        public static extern bool BitBlt(User32.SafeDCHandle hObject, int nXDest, int nYDest, int nWidth, int nHeight, User32.SafeDCHandle hObjectSource, int nXSrc, int nYSrc, int dwRop);
 
         [DllImport(nameof(Gdi32))]
         public static extern IntPtr CreateCompatibleBitmap(User32.SafeDCHandle hDC, int nWidth, int nHeight);

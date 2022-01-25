@@ -1,0 +1,1 @@
+static extern PInvoke.Gdi32.BitBlt(PInvoke.User32.SafeDCHandle hObject, int nXDest, int nYDest, int nWidth, int nHeight, PInvoke.User32.SafeDCHandle hObjectSource, int nXSrc, int nYSrc, int dwRop) -> bool
