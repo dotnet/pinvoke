@@ -4180,7 +4180,7 @@ namespace PInvoke
         /// <item>There is no foreground process.</item>
         /// <item>The foreground process is being debugged.</item>
         /// <item>The foreground is not locked (see LockSetForegroundWindow).</item>
-        /// <item>The foreground lock time-out has expired (see SPI_GETFOREGROUNDLOCKTIMEOUT in <see cref="SystemParametersInfo"/>).</item>
+        /// <item>The foreground lock time-out has expired (see SPI_GETFOREGROUNDLOCKTIMEOUT in SystemParametersInfo).</item>
         /// <item>No menus are active.</item>
         /// </list>
         /// </para>
@@ -4288,7 +4288,7 @@ namespace PInvoke
         /// </para>
         /// </remarks>
         /// <param name="hIcon">
-        /// A handle to the icon or cursor. To retrieve information about a standard icon or cursor, use the respective overloads of GetIconInfo/>.
+        /// A handle to the icon or cursor. To retrieve information about a standard icon or cursor, use the respective overloads of GetIconInfo.
         /// </param>
         /// <param name="piconinfo">A pointer to an ICONINFO structure. The function fills in the structure's members.</param>
         /// <returns>
