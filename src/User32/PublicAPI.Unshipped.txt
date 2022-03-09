@@ -99,6 +99,13 @@ PInvoke.User32.EnumDisplayDevicesFlags.EDD_GET_DEVICE_INTERFACE_NAME = 1 -> PInv
 PInvoke.User32.EnumDisplaySettingsExFlags
 PInvoke.User32.EnumDisplaySettingsExFlags.EDS_RAWMODE = 2 -> PInvoke.User32.EnumDisplaySettingsExFlags
 PInvoke.User32.EnumDisplaySettingsExFlags.EDS_ROTATEDMODE = 4 -> PInvoke.User32.EnumDisplaySettingsExFlags
+PInvoke.User32.ICONINFO
+PInvoke.User32.ICONINFO.ICONINFO() -> void
+PInvoke.User32.ICONINFO.fIcon -> bool
+PInvoke.User32.ICONINFO.xHotspot -> int
+PInvoke.User32.ICONINFO.yHotspot -> int
+PInvoke.User32.ICONINFO.hbmMask -> System.IntPtr
+PInvoke.User32.ICONINFO.hbmColor -> System.IntPtr
 PInvoke.User32.LASTINPUTINFO
 PInvoke.User32.LASTINPUTINFO.LASTINPUTINFO() -> void
 PInvoke.User32.LASTINPUTINFO.cbSize -> int
@@ -176,6 +183,7 @@ PInvoke.User32.StaticControlWindowStyles.SS_WORDELLIPSIS = PInvoke.User32.Static
 PInvoke.User32.WindowStylesEx.WS_EX_NOREDIRECTIONBITMAP = 2097152 -> PInvoke.User32.WindowStylesEx
 const PInvoke.User32.ENUM_CURRENT_SETTINGS = 4294967295 -> uint
 const PInvoke.User32.ENUM_REGISTRY_SETTINGS = 4294967294 -> uint
+const PInvoke.User32.ASFW_ANY = 4294967295 -> uint
 static PInvoke.User32.ChangeWindowMessageFilterEx(System.IntPtr hwnd, uint message, uint action, System.IntPtr pChangeFilterStruct) -> bool
 static PInvoke.User32.ChangeWindowMessageFilterEx(System.IntPtr hwnd, uint message, uint action, ref PInvoke.User32.CHANGEFILTERSTRUCT? pChangeFilterStruct) -> bool
 static PInvoke.User32.CreateCursor(System.IntPtr hInst, int xHotspot, int yHotSpot, int nWidth, int nHeight, System.ReadOnlySpan<byte> pvANDPlane, System.ReadOnlySpan<byte> pvXORPlane) -> PInvoke.User32.SafeCursorHandle
@@ -192,11 +200,21 @@ static PInvoke.User32.EnumDisplaySettingsEx(System.ReadOnlySpan<char> lpszDevice
 static PInvoke.User32.EnumDisplaySettingsEx(char[] lpszDeviceName, uint iModeNum, ref PInvoke.DEVMODE lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
 static PInvoke.User32.GetClassName(System.IntPtr hWnd, System.Span<char> lpClassName) -> int
 static PInvoke.User32.GetClipboardFormatName(int format, System.Span<char> lpszFormatName) -> int
+static PInvoke.User32.GetIconInfo(PInvoke.User32.Cursors cursor, out PInvoke.User32.ICONINFO piconinfo) -> bool
+static PInvoke.User32.GetIconInfo(PInvoke.User32.Cursors cursor, PInvoke.User32.ICONINFO* piconinfo) -> bool
+static PInvoke.User32.GetIconInfo(PInvoke.User32.Cursors cursor, System.IntPtr piconinfo) -> bool
+static PInvoke.User32.GetIconInfo(PInvoke.User32.Icons icon, out PInvoke.User32.ICONINFO piconinfo) -> bool
+static PInvoke.User32.GetIconInfo(PInvoke.User32.Icons icon, PInvoke.User32.ICONINFO* piconinfo) -> bool
+static PInvoke.User32.GetIconInfo(PInvoke.User32.Icons icon, System.IntPtr piconinfo) -> bool
+static PInvoke.User32.GetIconInfo(System.IntPtr hIcon, System.IntPtr piconinfo) -> bool
+static PInvoke.User32.GetIconInfo(System.IntPtr hIcon, out PInvoke.User32.ICONINFO piconinfo) -> bool
 static PInvoke.User32.GetLastInputInfo(System.IntPtr plii) -> bool
 static PInvoke.User32.GetLastInputInfo(out PInvoke.User32.LASTINPUTINFO plii) -> bool
 static PInvoke.User32.GetMenuString(System.IntPtr hMenu, uint uIDItem, System.Span<char> lpString, PInvoke.User32.GetMenuStateFlags flags) -> int
 static PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, PInvoke.User32.MONITORINFOEX* lpmi) -> bool
 static PInvoke.User32.GetMonitorInfo(System.IntPtr hMonitor, out PInvoke.User32.MONITORINFOEX lpmi) -> bool
+static PInvoke.User32.GetWindowLongPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex) -> void*
+static PInvoke.User32.GetWindowLongPtr_IntPtr(System.IntPtr hWnd, PInvoke.User32.WindowLongIndexFlags nIndex) -> System.IntPtr
 static PInvoke.User32.GetWindowText(System.IntPtr hWnd, System.Span<char> lpString) -> int
 static PInvoke.User32.LASTINPUTINFO.Create() -> PInvoke.User32.LASTINPUTINFO
 static PInvoke.User32.LoadCursor(System.IntPtr hInstance, System.ReadOnlySpan<char> lpCursorName) -> PInvoke.User32.SafeCursorHandle
@@ -211,11 +229,17 @@ static PInvoke.User32.MsgWaitForMultipleObjectsEx(uint nCount, System.ReadOnlySp
 static PInvoke.User32.QueryDisplayConfig(uint Flags, ref int pNumPathArrayElements, System.Span<PInvoke.User32.DISPLAYCONFIG_PATH_INFO> pPathInfoArray, ref int pNumModeInfoArrayElements, System.Span<PInvoke.User32.DISPLAYCONFIG_MODE_INFO> pModeInfoArray, PInvoke.User32.DISPLAYCONFIG_TOPOLOGY_ID pCurrentTopologyId) -> int
 static PInvoke.User32.RealGetWindowClass(System.IntPtr hwnd, System.Span<char> pszType) -> uint
 static PInvoke.User32.SendInput(int nInputs, System.ReadOnlySpan<PInvoke.User32.INPUT> pInputs, int cbSize) -> uint
+static extern PInvoke.User32.AllowSetForegroundWindow(int dwProcessId) -> bool
+static extern PInvoke.User32.BringWindowToTop(System.IntPtr hWnd) -> bool
 static extern PInvoke.User32.ChangeWindowMessageFilterEx(System.IntPtr hwnd, uint message, uint action, PInvoke.User32.CHANGEFILTERSTRUCT* pChangeFilterStruct) -> bool
+static extern PInvoke.User32.DestroyIcon(System.IntPtr hIcon) -> int
+static extern PInvoke.User32.GetIconInfo(System.IntPtr hIcon, PInvoke.User32.ICONINFO* piconinfo) -> bool
 static extern PInvoke.User32.EnumChildWindows(System.IntPtr hWndParent, System.IntPtr lpEnumFunc, System.IntPtr lParam) -> bool
 static extern PInvoke.User32.EnumDisplayDevices(char* lpDevice, uint iDevNum, PInvoke.DISPLAY_DEVICE* lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
 static extern PInvoke.User32.EnumDisplaySettings(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode) -> bool
 static extern PInvoke.User32.EnumDisplaySettingsEx(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool
+static extern PInvoke.User32.EnumThreadWindows(int dwThreadId, PInvoke.User32.WNDENUMPROC lpfn, System.IntPtr lParam) -> bool
+static extern PInvoke.User32.FlashWindow(System.IntPtr hWnd, bool bInvert) -> bool
 static extern PInvoke.User32.GetLastInputInfo(PInvoke.User32.LASTINPUTINFO* plii) -> bool
 static extern PInvoke.User32.GetParent(System.IntPtr hWnd) -> System.IntPtr
 static extern PInvoke.User32.GetProp(System.IntPtr hWnd, int atom) -> System.IntPtr
@@ -225,5 +249,17 @@ static extern PInvoke.User32.RemoveProp(System.IntPtr hWnd, int atom) -> System.
 static extern PInvoke.User32.RemoveProp(System.IntPtr hWnd, string lpString) -> System.IntPtr
 static extern PInvoke.User32.SetProp(System.IntPtr hWnd, int atom, System.IntPtr hData) -> bool
 static extern PInvoke.User32.SetProp(System.IntPtr hWnd, string lpString, System.IntPtr hData) -> bool
+static extern PInvoke.User32.ShowWindowAsync(System.IntPtr hWnd, PInvoke.User32.WindowShowStyle nCmdShow) -> bool
 static extern PInvoke.User32.UnregisterClass(string lpClassName, System.IntPtr hInstance) -> bool
 static readonly PInvoke.User32.DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED -> System.IntPtr
+PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_APPLICATION = 32512 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_ASTERISK = 32516 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_ERROR = 32513 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_EXCLAMATION = 32515 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_HAND = 32513 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_INFORMATION = 32516 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_QUESTION = 32514 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_SHIELD = 32518 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_WARNING = 32515 -> PInvoke.User32.Icons
+PInvoke.User32.Icons.IDI_WINLOGO = 32517 -> PInvoke.User32.Icons
