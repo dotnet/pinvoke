@@ -66,6 +66,8 @@ namespace PInvoke
 
         public const uint ENUM_REGISTRY_SETTINGS = unchecked((uint)-2);
 
+        public const uint ASFW_ANY = unchecked((uint)-1);
+
         /// <summary>
         ///     A bitmap that is drawn by the window that owns the menu. The application must process the WM_MEASUREITEM and
         ///     WM_DRAWITEM messages.
@@ -687,6 +689,28 @@ namespace PInvoke
         public static extern bool ShowWindow(IntPtr hWnd, WindowShowStyle nCmdShow);
 
         /// <summary>
+        /// Sets the show state of a window without waiting for the operation to complete.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This function posts a show-window event to the message queue of the given window.
+        /// An application can use this function to avoid becoming nonresponsive while waiting for a
+        /// nonresponsive application to finish processing a show-window event.
+        /// </para>
+        /// </remarks>
+        /// <param name="hWnd">Handle to the window.</param>
+        /// <param name="nCmdShow">
+        /// Controls how the window is to be shown. For a list of possible values, see the
+        /// description of the <see cref="ShowWindow"/> function.
+        /// </param>
+        /// <returns>
+        /// If the operation was successfully started, the return value is nonzero.
+        /// </returns>
+        [DllImport(nameof(User32))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ShowWindowAsync(IntPtr hWnd, WindowShowStyle nCmdShow);
+
+        /// <summary>
         /// Retrieves a handle to the desktop window. The desktop window covers the entire screen. The desktop window is the area on top of which other windows are painted.
         /// </summary>
         /// <returns>The return value is a handle to the desktop window.</returns>
@@ -994,6 +1018,23 @@ namespace PInvoke
         [DllImport(nameof(User32), SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+
+        /// <summary>
+        /// <para>Flashes the specified window one time. It does not change the active state of the window.</para>
+        /// <para>To flash the window a specified number of times, use the FlashWindowEx function.</para>
+        /// </summary>
+        /// <param name="hWnd">A handle to the window to be flashed. The window can be either open or minimized.</param>
+        /// <param name="bInvert">
+        /// <para>If this parameter is TRUE, the window is flashed from one state to the other. If it is FALSE, the window is returned to its original state (either active or inactive).</para>
+        /// <para>When an application is minimized and this parameter is TRUE, the taskbar window button flashes active/inactive. If it is FALSE, the taskbar window button flashes inactive, meaning that it does not change colors. It flashes, as if it were being redrawn, but it does not provide the visual invert clue to the user.</para>
+        /// </param>
+        /// <returns>
+        ///     The return value specifies the window's state before the call to the FlashWindow function. If the window
+        ///     caption was drawn as active before the call, the return value is nonzero. Otherwise, the return value is zero.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool FlashWindow(IntPtr hWnd, bool bInvert);
 
         /// <summary>
         ///     Enables the application to access the window menu (also known as the system menu or the control menu) for
@@ -4124,6 +4165,142 @@ namespace PInvoke
         public static extern IntPtr RemoveProp(IntPtr hWnd, int atom);
 
         /// <summary>
+        /// Enables the specified process to set the foreground window using the SetForegroundWindow function.
+        /// The calling process must already be able to set the foreground window.
+        /// For more information, see Remarks later in this topic.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The system restricts which processes can set the foreground window.
+        /// A process can set the foreground window only if one of the following conditions is true:
+        /// <list type="bullet">
+        /// <item>The process is the foreground process.</item>
+        /// <item>The process was started by the foreground process.</item>
+        /// <item>The process received the last input event.</item>
+        /// <item>There is no foreground process.</item>
+        /// <item>The foreground process is being debugged.</item>
+        /// <item>The foreground is not locked (see LockSetForegroundWindow).</item>
+        /// <item>The foreground lock time-out has expired (see SPI_GETFOREGROUNDLOCKTIMEOUT in SystemParametersInfo).</item>
+        /// <item>No menus are active.</item>
+        /// </list>
+        /// </para>
+        /// <para>
+        /// A process that can set the foreground window can enable another process to set the foreground window by calling
+        /// AllowSetForegroundWindow. The process specified by dwProcessId loses the ability to set the foreground window
+        /// the next time the user generates input, unless the input is directed at that process, or the next time a process
+        /// calls AllowSetForegroundWindow, unless that process is specified.
+        /// </para>
+        /// </remarks>
+        /// <param name="dwProcessId">The identifier of the process that will be enabled to set the foreground window.
+        /// If this parameter is ASFW_ANY, all processes will be enabled to set the foreground window.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>If the function fails, the return value is zero. The function will fail if the calling
+        /// process cannot set the foreground window. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AllowSetForegroundWindow(int dwProcessId);
+
+        /// <summary>
+        /// Brings the specified window to the top of the Z order. If the window is a top-level window, it is activated.
+        /// If the window is a child window, the top-level parent window associated with the child window is activated.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Use the BringWindowToTop function to uncover any window that is partially or completely obscured by other windows.
+        /// An application can use this function to avoid becoming nonresponsive while waiting for a
+        /// nonresponsive application to finish processing a show-window event.
+        /// </para>
+        /// <para>
+        /// Calling this function is similar to calling the SetWindowPos function to change a window's position
+        /// in the Z order. BringWindowToTop does not make a window a top-level window.
+        /// </para>
+        /// </remarks>
+        /// <param name="hWnd">A handle to the window to bring to the top of the Z order.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool BringWindowToTop(IntPtr hWnd);
+
+        /// <summary>
+        /// Enumerates all nonchild windows associated with a thread by passing the handle to each window, in turn,
+        /// to an application-defined callback function. EnumThreadWindows continues until the last window is enumerated
+        /// or the callback function returns FALSE. To enumerate child windows of a particular window, use the EnumChildWindows function.
+        /// </summary>
+        /// <param name="dwThreadId">The identifier of the thread whose windows are to be enumerated.</param>
+        /// <param name="lpfn">A pointer to an application-defined callback function. For more information, see EnumThreadWndProc.</param>
+        /// <param name="lParam">An application-defined value to be passed to the callback function.</param>
+        /// <returns>
+        /// <para>If the callback function returns TRUE for all windows in the thread specified by dwThreadId, the return value is TRUE.</para>
+        /// <para>
+        /// If the callback function returns FALSE on any enumerated window, or if there are no windows found in the thread specified
+        /// by dwThreadId, the return value is FALSE.
+        /// </para>
+        /// </returns>
+        [DllImport(nameof(User32))]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumThreadWindows(int dwThreadId, WNDENUMPROC lpfn, IntPtr lParam);
+
+        /// <summary>
+        /// Destroys an icon and frees any memory the icon occupied.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is only necessary to call DestroyIcon for icons and cursors created with the following functions:
+        /// CreateIconFromResourceEx (if called without the LR_SHARED flag), CreateIconIndirect, and CopyIcon.
+        /// Do not use this function to destroy a shared icon. A shared icon is valid as long as the module from which
+        /// it was loaded remains in memory. The following functions obtain a shared icon.
+        /// <list type="bullet">
+        /// <item>LoadIcon</item>
+        /// <item>LoadImage (if you use the LR_SHARED flag)</item>
+        /// <item>CopyImage (if you use the LR_COPYRETURNORG flag and the hImage parameter is a shared icon)</item>
+        /// <item>CreateIconFromResource</item>
+        /// <item>CreateIconFromResourceEx (if you use the LR_SHARED flag)</item>
+        /// </list>
+        /// </para>
+        /// </remarks>
+        /// <param name="hIcon">A handle to the icon to be destroyed. The icon must not be in use.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// by dwThreadId, the return value is FALSE.
+        /// </para>
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        public static extern int DestroyIcon(IntPtr hIcon);
+
+        /// <summary>
+        /// Retrieves information about the specified icon or cursor.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// GetIconInfo creates bitmaps for the hbmMask and hbmCol or members of ICONINFO. The calling application
+        /// must manage these bitmaps and delete them when they are no longer necessary.
+        /// </para>
+        /// <para>
+        /// DPI Virtualization: This API does not participate in DPI virtualization. The output returned is not
+        /// affected by the DPI of the calling thread.
+        /// </para>
+        /// </remarks>
+        /// <param name="hIcon">
+        /// A handle to the icon or cursor. To retrieve information about a standard icon or cursor, use the respective overloads of GetIconInfo.
+        /// </param>
+        /// <param name="piconinfo">A pointer to an ICONINFO structure. The function fills in the structure's members.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero and the function fills in the members of the specified ICONINFO structure.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// by dwThreadId, the return value is FALSE.
+        /// </returns>
+        [DllImport(nameof(User32), SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern unsafe bool GetIconInfo(IntPtr hIcon, [Friendly(FriendlyFlags.Out)] ICONINFO* piconinfo);
+
+        /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a <see cref="PAINTSTRUCT"/> structure with information about the painting.
         /// </summary>
         /// <param name="hwnd">Handle to the window to be repainted.</param>
@@ -4411,5 +4588,8 @@ namespace PInvoke
         /// </remarks>
         [DllImport(nameof(User32), SetLastError = true, EntryPoint = "SetWindowLongPtr")]
         private static extern unsafe void* SetWindowLongPtr64(IntPtr hWnd, WindowLongIndexFlags nIndex, void* dwNewLong);
+
+        [DllImport(nameof(User32), SetLastError = true, EntryPoint = "GetWindowLongPtr")]
+        private static extern unsafe void* GetWindowLongPtr64(IntPtr hWnd, WindowLongIndexFlags nIndex);
     }
 }

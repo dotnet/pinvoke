@@ -460,6 +460,55 @@ namespace PInvoke
             }
         }
 
+        /// <summary>
+        /// Retrieves information about the specified window. The function also retrieves the value at a specified offset into the extra window memory.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
+        /// <param name="nIndex">The zero-based offset to the value to be set. Valid values are in the range zero
+        /// through the number of bytes of extra window memory, minus the size of a LONG_PTR. To set any other value,
+        /// specify one of the following values.
+        ///
+        /// <list type="table">
+        /// <listheader><term>Value</term><term>Meaning</term></listheader>
+        /// <item><term>GWL_EXSTYLE(-20)</term><term>Retrieves the extended window styles.</term></item>
+        /// <item><term>GWLP_HINSTANCE(-6)</term><term>Retrieves a handle to the application instance.</term></item>
+        /// <item><term>GWLP_HWNDPARENT(-8)</term><term>Retrieves a handle to the parent window, if there is one.</term></item>
+        /// <item><term>GWLP_ID(-12)</term><term>Retrieves the identifier of the window.</term></item>
+        /// <item><term>GWL_STYLE (-16)</term><term>Retrieves the window styles.</term></item>
+        /// <item><term>GWLP_USERDATA</term><term>Retrieves the user data associated with the window. This data is intended for use by the application that created the window. Its value is initially zero.</term></item>
+        /// <item><term>GWLP_WNDPROC (-4)</term><term>Retrieves the pointer to the window procedure, or a handle representing the pointer to the window procedure. You must use the CallWindowProc function to call the window procedure.</term></item>
+        /// </list>
+        ///
+        /// The following values are also available when the hWnd parameter identifies a dialog box.
+        ///
+        /// <list type="table">
+        /// <listheader><term>Value</term><term>Meaning</term></listheader>
+        /// <item><term>DWLP_DLGPROC (DWLP_MSGRESULT + sizeof(LRESULT))</term><term>Retrieves the pointer to the dialog box procedure, or a handle representing the pointer to the dialog box procedure. You must use the CallWindowProc function to call the dialog box procedure.</term></item>
+        /// <item><term>DWLP_MSGRESULT (0)</term><term>Retrieves the return value of a message processed in the dialog box procedure.</term></item>
+        /// <item><term>DWLP_USER (DWLP_DLGPROC + sizeof(DLGPROC))</term><term>Retrieves extra information private to the application, such as handles or pointers.</term></item>
+        /// </list>
+        ///
+        /// </param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is the requested value.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// <para>If SetWindowLong or SetWindowLongPtr has not been called previously, GetWindowLongPtr returns zero for values in the extra window or class memory.</para>
+        /// </returns>
+        /// <remarks>
+        /// <para>Reserve extra window memory by specifying a nonzero value in the cbWndExtra member of the WNDCLASSEX structure used with the RegisterClassEx function.</para>
+        /// </remarks>
+        public static unsafe void* GetWindowLongPtr(IntPtr hWnd, WindowLongIndexFlags nIndex)
+        {
+            if (IntPtr.Size == 8)
+            {
+                return GetWindowLongPtr64(hWnd, nIndex);
+            }
+            else
+            {
+                return (void*)GetWindowLong(hWnd, nIndex);
+            }
+        }
+
         /// <inheritdoc cref="GetMonitorInfo(IntPtr, MONITORINFO*)"/>
         [NoFriendlyOverloads]
         public static unsafe bool GetMonitorInfo(
@@ -480,6 +529,56 @@ namespace PInvoke
             {
                 return GetMonitorInfo(hMonitor, lpmiLocal);
             }
+        }
+
+        /// <summary>
+        /// Retrieves information about the specified icon or cursor.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// GetIconInfo creates bitmaps for the hbmMask and hbmCol or members of ICONINFO. The calling application
+        /// must manage these bitmaps and delete them when they are no longer necessary.
+        /// </para>
+        /// <para>
+        /// DPI Virtualization: This API does not participate in DPI virtualization. The output returned is not
+        /// affected by the DPI of the calling thread.
+        /// </para>
+        /// </remarks>
+        /// <param name="cursor">The cursor</param>
+        /// <param name="piconinfo">A pointer to an ICONINFO structure. The function fills in the structure's members.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero and the function fills in the members of the specified ICONINFO structure.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// by dwThreadId, the return value is FALSE.
+        /// </returns>
+        public static unsafe bool GetIconInfo(Cursors cursor, [Friendly(FriendlyFlags.Out)] ICONINFO* piconinfo)
+        {
+            return GetIconInfo(new IntPtr(MAKEINTRESOURCE((int)cursor)), piconinfo);
+        }
+
+        /// <summary>
+        /// Retrieves information about the specified icon or cursor.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// GetIconInfo creates bitmaps for the hbmMask and hbmCol or members of ICONINFO. The calling application
+        /// must manage these bitmaps and delete them when they are no longer necessary.
+        /// </para>
+        /// <para>
+        /// DPI Virtualization: This API does not participate in DPI virtualization. The output returned is not
+        /// affected by the DPI of the calling thread.
+        /// </para>
+        /// </remarks>
+        /// <param name="icon">The icon</param>
+        /// <param name="piconinfo">A pointer to an ICONINFO structure. The function fills in the structure's members.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero and the function fills in the members of the specified ICONINFO structure.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call GetLastError.</para>
+        /// by dwThreadId, the return value is FALSE.
+        /// </returns>
+        public static unsafe bool GetIconInfo(Icons icon, [Friendly(FriendlyFlags.Out)] ICONINFO* piconinfo)
+        {
+            return GetIconInfo(new IntPtr(MAKEINTRESOURCE((int)icon)), piconinfo);
         }
     }
 }
