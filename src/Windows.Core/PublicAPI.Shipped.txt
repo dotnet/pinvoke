@@ -162,7 +162,7 @@ PInvoke.HResult.HResult(int value) -> void
 PInvoke.HResult.HResult(uint value) -> void
 PInvoke.HResult.Severity.get -> PInvoke.HResult.SeverityCode
 PInvoke.HResult.SeverityCode
-PInvoke.HResult.SeverityCode.Fail = 2147483648 -> PInvoke.HResult.SeverityCode
+PInvoke.HResult.SeverityCode.Fail = 1 -> PInvoke.HResult.SeverityCode
 PInvoke.HResult.SeverityCode.Success = 0 -> PInvoke.HResult.SeverityCode
 PInvoke.HResult.Succeeded.get -> bool
 PInvoke.HResult.ThrowOnFailure() -> void

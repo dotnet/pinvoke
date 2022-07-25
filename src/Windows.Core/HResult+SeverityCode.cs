@@ -1,4 +1,4 @@
-﻿// Copyright © .NET Foundation and Contributors. All rights reserved.
+// Copyright © .NET Foundation and Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace PInvoke
@@ -14,7 +14,7 @@ namespace PInvoke
         public enum SeverityCode : uint
         {
             Success = 0,
-            Fail = 0x80000000,
+            Fail = 1,
         }
     }
 }

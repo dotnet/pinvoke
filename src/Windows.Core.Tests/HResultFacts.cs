@@ -1,4 +1,4 @@
-﻿// Copyright © .NET Foundation and Contributors. All rights reserved.
+// Copyright © .NET Foundation and Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -157,7 +157,7 @@ public class HResultFacts
     [Fact]
     public void Severity()
     {
-        Assert.Equal((HResult.SeverityCode)0x80000000u, new HResult(0xffffffff).Severity);
+        Assert.Equal((HResult.SeverityCode)0x1u, new HResult(0xffffffff).Severity);
     }
 
     [Fact]
