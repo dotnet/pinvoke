@@ -138,7 +138,7 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility code of the HRESULT.
         /// </summary>
-        public FacilityCode Facility => (FacilityCode)(this.AsUInt32 & FacilityMask);
+        public FacilityCode Facility => (FacilityCode)((this.AsUInt32 & FacilityMask) >> FacilityShift);
 
         /// <summary>
         /// Gets the severity of the HRESULT.

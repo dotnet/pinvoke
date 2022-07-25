@@ -140,7 +140,7 @@ namespace PInvoke
         /// <summary>
         /// Gets the facility code of this value.
         /// </summary>
-        public FacilityCode Facility => (FacilityCode)(this.AsUInt32 & FacilityMask);
+        public FacilityCode Facility => (FacilityCode)((this.AsUInt32 & FacilityMask) >> FacilityShift);
 
         /// <summary>
         /// Gets the facility's status code bits from the NT_STATUS.

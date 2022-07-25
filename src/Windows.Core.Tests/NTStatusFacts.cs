@@ -151,7 +151,7 @@ public class NTStatusFacts
     [Fact]
     public void Facility()
     {
-        Assert.Equal((NTSTATUS.FacilityCode)0xfff0000, new NTSTATUS(0xffffffff).Facility);
+        Assert.Equal((NTSTATUS.FacilityCode)0xfff, new NTSTATUS(0xffffffff).Facility);
     }
 
     [Fact]

@@ -163,7 +163,7 @@ public class HResultFacts
     [Fact]
     public void Facility()
     {
-        Assert.Equal((HResult.FacilityCode)0x7ff0000, new HResult(0xffffffff).Facility);
+        Assert.Equal((HResult.FacilityCode)0x7ff, new HResult(0xffffffff).Facility);
 
         // Verify that a real HRESULT produces a valid Facility enum value.
         HResult hr = 0x80090001; // SECURITY_STATUS.NTE_BAD_UID
