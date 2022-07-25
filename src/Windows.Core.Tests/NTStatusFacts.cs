@@ -1,4 +1,4 @@
-﻿// Copyright © .NET Foundation and Contributors. All rights reserved.
+// Copyright © .NET Foundation and Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -139,7 +139,7 @@ public class NTStatusFacts
     [Fact]
     public void Severity()
     {
-        Assert.Equal((NTSTATUS.SeverityCode)0xc0000000, new NTSTATUS(0xffffffff).Severity);
+        Assert.Equal((NTSTATUS.SeverityCode)0xc, new NTSTATUS(0xffffffff).Severity);
     }
 
     [Fact]

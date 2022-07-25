@@ -2731,10 +2731,10 @@ PInvoke.NTSTATUS.NTSTATUS(int status) -> void
 PInvoke.NTSTATUS.NTSTATUS(uint status) -> void
 PInvoke.NTSTATUS.Severity.get -> PInvoke.NTSTATUS.SeverityCode
 PInvoke.NTSTATUS.SeverityCode
-PInvoke.NTSTATUS.SeverityCode.STATUS_SEVERITY_ERROR = 3221225472 -> PInvoke.NTSTATUS.SeverityCode
-PInvoke.NTSTATUS.SeverityCode.STATUS_SEVERITY_INFORMATIONAL = 1073741824 -> PInvoke.NTSTATUS.SeverityCode
+PInvoke.NTSTATUS.SeverityCode.STATUS_SEVERITY_ERROR = 3 -> PInvoke.NTSTATUS.SeverityCode
+PInvoke.NTSTATUS.SeverityCode.STATUS_SEVERITY_INFORMATIONAL = 1 -> PInvoke.NTSTATUS.SeverityCode
 PInvoke.NTSTATUS.SeverityCode.STATUS_SEVERITY_SUCCESS = 0 -> PInvoke.NTSTATUS.SeverityCode
-PInvoke.NTSTATUS.SeverityCode.STATUS_SEVERITY_WARNING = 2147483648 -> PInvoke.NTSTATUS.SeverityCode
+PInvoke.NTSTATUS.SeverityCode.STATUS_SEVERITY_WARNING = 2 -> PInvoke.NTSTATUS.SeverityCode
 PInvoke.NTSTATUS.ToString(string format, System.IFormatProvider formatProvider) -> string
 PInvoke.NTSTATUS.Value.get -> PInvoke.NTSTATUS.Code
 PInvoke.PInvokeExtensions
