@@ -40,12 +40,17 @@ namespace PInvoke
             private const uint SpecificRightsMask = 0x0000ffff;
 
             /// <summary>
+            /// Backing field for the <see cref="Value"/> property.
+            /// </summary>
+            private uint value;
+
+            /// <summary>
             /// Initializes a new instance of the <see cref="ACCESS_MASK"/> struct.
             /// </summary>
             /// <param name="value">The value for the <see cref="ACCESS_MASK"/>.</param>
             public ACCESS_MASK(uint value)
             {
-                this.Value = value;
+                this.value = value;
             }
 
             [Flags]
@@ -349,7 +354,7 @@ namespace PInvoke
             /// <summary>
             /// Gets the ACCESS_MASK as a 32-bit unsigned integer.
             /// </summary>
-            public uint Value { get; }
+            public uint Value => this.value;
 
             /// <summary>
             /// Gets the ACCESS_MASK as a 32-bit signed integer.
