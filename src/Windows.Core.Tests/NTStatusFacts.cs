@@ -139,7 +139,7 @@ public class NTStatusFacts
     [Fact]
     public void Severity()
     {
-        Assert.Equal((NTSTATUS.SeverityCode)0xc, new NTSTATUS(0xffffffff).Severity);
+        Assert.Equal((NTSTATUS.SeverityCode)0x3, new NTSTATUS(0xffffffff).Severity);
     }
 
     [Fact]
