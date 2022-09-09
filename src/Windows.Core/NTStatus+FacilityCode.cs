@@ -57,7 +57,7 @@ namespace PInvoke
             FACILITY_BTH_ATT = 0x42,
             FACILITY_BCD_ERROR_CODE = 0x39,
             FACILITY_AUDIO_KERNEL = 0x44,
-            FACILITY_ACPI_ERROR_CODE = 0x14
+            FACILITY_ACPI_ERROR_CODE = 0x14,
         }
     }
 }
