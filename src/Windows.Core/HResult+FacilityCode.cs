@@ -140,7 +140,7 @@ namespace PInvoke
             FACILITY_ACTION_QUEUE = 44,
             FACILITY_ACS = 20,
             FACILITY_AAF = 18,
-            FACILITY_NT_BIT = 4096,
+            FACILITY_NT_BIT = 0x10000000,
         }
     }
 }
