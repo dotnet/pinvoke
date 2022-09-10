@@ -1,4 +1,4 @@
-// Copyright © .NET Foundation and Contributors. All rights reserved.
+﻿// Copyright © .NET Foundation and Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -151,7 +151,7 @@ public class NTStatusFacts
     [Fact]
     public void Facility()
     {
-        Assert.Equal((NTSTATUS.FacilityCode)0xfff0000, new NTSTATUS(0xffffffff).Facility);
+        Assert.Equal((NTSTATUS.FacilityCode)0xfff, new NTSTATUS(0xffffffff).Facility);
     }
 
     [Fact]

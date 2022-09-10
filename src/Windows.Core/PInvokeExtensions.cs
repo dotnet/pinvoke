@@ -35,7 +35,7 @@ namespace PInvoke
             //  (HRESULT)(x) <= 0 ? (HRESULT)(x) : (HRESULT) (((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000)
             return error <= 0
                 ? (HResult)(int)error
-                : (HResult)(int)(((int)error & 0x0000ffff) | ((int)FACILITY_WIN32 /*<< 16*/) | 0x80000000);
+                : (HResult)(int)(((int)error & 0x0000ffff) | ((int)FACILITY_WIN32 << 16) | 0x80000000);
         }
 
         /// <summary>
