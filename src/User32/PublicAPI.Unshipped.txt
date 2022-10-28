@@ -234,7 +234,7 @@ static extern PInvoke.User32.BringWindowToTop(System.IntPtr hWnd) -> bool
 static extern PInvoke.User32.ChangeWindowMessageFilterEx(System.IntPtr hwnd, uint message, uint action, PInvoke.User32.CHANGEFILTERSTRUCT* pChangeFilterStruct) -> bool
 static extern PInvoke.User32.DestroyIcon(System.IntPtr hIcon) -> int
 static extern PInvoke.User32.GetIconInfo(System.IntPtr hIcon, PInvoke.User32.ICONINFO* piconinfo) -> bool
-static extern PInvoke.User32.EnumChildWindows(System.IntPtr hWndParent, System.IntPtr lpEnumFunc, System.IntPtr lParam) -> bool
+static extern PInvoke.User32.EnumChildWindows(System.IntPtr hWndParent, PInvoke.User32.WNDENUMPROC lpEnumFunc, System.IntPtr lParam) -> bool
 static extern PInvoke.User32.EnumDisplayDevices(char* lpDevice, uint iDevNum, PInvoke.DISPLAY_DEVICE* lpDisplayDevice, PInvoke.User32.EnumDisplayDevicesFlags dwFlags) -> bool
 static extern PInvoke.User32.EnumDisplaySettings(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode) -> bool
 static extern PInvoke.User32.EnumDisplaySettingsEx(char* lpszDeviceName, uint iModeNum, PInvoke.DEVMODE* lpDevMode, PInvoke.User32.EnumDisplaySettingsExFlags dwFlags) -> bool

@@ -4059,7 +4059,7 @@ namespace PInvoke
         /// </remarks>
         [DllImport("User32", ExactSpelling = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool EnumChildWindows(IntPtr hWndParent, IntPtr lpEnumFunc, IntPtr lParam);
+        public static extern bool EnumChildWindows(IntPtr hWndParent, WNDENUMPROC lpEnumFunc, IntPtr lParam);
 
         /// <summary>
         /// Retrieves the time of the last input event.
