@@ -4,7 +4,7 @@ if (!$BuildConfiguration) {
     $BuildConfiguration = 'Debug'
 }
 
-$PackagesRoot = "$RepoRoot/bin/$BuildConfiguration/Packages"
+$PackagesRoot = "$RepoRoot/bin/Packages/$BuildConfiguration"
 
 if (!(Test-Path $PackagesRoot))  { return }
 
