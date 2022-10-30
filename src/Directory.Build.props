@@ -1,3 +1,18 @@
 <Project>
+  <PropertyGroup>
+    <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
+    <IsPInvokeProject Condition=" '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
+    <IsPackable Condition=" '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <!-- We build all libraries to a common directory, so avoid trying to copy P2P refs to the directory
+         to avoid wasting time with file collisions and build warnings. -->
+    <ProjectReference>
+      <!-- Sadly, enabling this optimization breaks loading the assembly later for exporting p/invoke method coverage. -->
+      <!-- <Private>false</Private> -->
+    </ProjectReference>
+  </ItemDefinitionGroup>
+
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))\Directory.Build.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))' != '' " />
 </Project>

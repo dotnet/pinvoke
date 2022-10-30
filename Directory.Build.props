@@ -3,26 +3,21 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <RepoRootPath>$(MSBuildThisFileDirectory)</RepoRootPath>
     <BaseIntermediateOutputPath>$(RepoRootPath)obj\$([MSBuild]::MakeRelative($(RepoRootPath), $(MSBuildProjectDirectory)))\</BaseIntermediateOutputPath>
-    <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
-    <PackageOutputPath>$(RepoRootPath)bin\Packages\$(Configuration)\</PackageOutputPath>
+    <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\</BaseOutputPath>
+    <PackageOutputPath>$(RepoRootPath)bin\$(Configuration)\Packages\</PackageOutputPath>
     <LangVersion>10.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <ProduceReferenceAssembly Condition=" '$(IsTestProject)' != 'true' ">true</ProduceReferenceAssembly>
-
-    <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
-    <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
-    <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
-    <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 
     <!-- https://github.com/dotnet/msbuild/blob/main/documentation/ProjectReference-Protocol.md#setplatform-negotiation -->
-    <EnableDynamicPlatformResolution>true</EnableDynamicPlatformResolution>
+    <EnableDynamicPlatformResolution>false</EnableDynamicPlatformResolution>
 
     <!-- Opt in till https://github.com/NuGet/Home/issues/9803 makes this the default. -->
-    <RestoreUseStaticGraphEvaluation>true</RestoreUseStaticGraphEvaluation>
+    <RestoreUseStaticGraphEvaluation>false</RestoreUseStaticGraphEvaluation>
 
     <!-- This entire repo has just one version.json file, so compute the version once and share with all projects in a large build. -->
     <GitVersionBaseDirectory>$(MSBuildThisFileDirectory)</GitVersionBaseDirectory>
@@ -59,31 +54,23 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.119" PrivateAssets="all" />
-    <PackageReference Include="Nullable" Version="1.3.1" PrivateAssets="all" />
     <!-- Use the Unstable package ID so that update tools will help us keep it current even though it seems to be ever-unstable lately. -->
     <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.435" PrivateAssets="all" />
     <PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.329" PrivateAssets="all" />
     <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
-    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all">
+    <ProjectReference Include="$(RepoRootPath)src\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all">
       <Private>false</Private>
       <OutputItemType>Analyzer</OutputItemType>
     </ProjectReference>
-    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
+    <ProjectReference Include="$(RepoRootPath)src\CodeGeneration\CodeGeneration.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Analyzer</OutputItemType>
       <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
       <UndefineProperties>TargetFramework</UndefineProperties>
       <Private>false</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <PackageReference Include="coverlet.msbuild" Version="3.1.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="xunit.runner.console" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -94,21 +81,6 @@
     <RootNamespace>PInvoke</RootNamespace>
     <AssemblyName>PInvoke.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <OutputPath>$(RepoRootPath)bin\$(Configuration)\tests\$(MSBuildProjectName)\</OutputPath>
-    <RootNamespace />
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.Tests.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-
-  <ItemDefinitionGroup>
-    <!-- We build all libraries to a common directory, so avoid trying to copy P2P refs to the directory
-         to avoid wasting time with file collisions and build warnings. -->
-    <ProjectReference Condition=" '$(IsTestProject)' != 'true' ">
-      <!-- Sadly, enabling this optimization breaks loading the assembly later for exporting p/invoke method coverage. -->
-      <!-- <Private>false</Private> -->
-    </ProjectReference>
-  </ItemDefinitionGroup>
 
   <ItemGroup>
     <GeneratorAssemblySearchPaths Include="$(RepoRootPath)bin\$(Configuration)\netstandard2.0\" />

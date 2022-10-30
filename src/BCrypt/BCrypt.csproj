@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>$(PlatformAndPortableFrameworks)</TargetFrameworks>
-    <CodeAnalysisRuleSet>BCrypt.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>$(NoWarn);RS0026;RS0027</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kernel32\Kernel32.csproj" />

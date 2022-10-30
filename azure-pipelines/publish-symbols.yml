@@ -1,21 +1,7 @@
 steps:
-- task: DownloadPipelineArtifact@2
-  inputs:
-    artifact: symbols-Windows
-    path: $(Pipeline.Workspace)/symbols/Windows
-  displayName: 🔻 Download Windows symbols
-  continueOnError: true
-
-- task: DownloadPipelineArtifact@2
-  inputs:
-    artifact: test_symbols-Windows
-    path: $(Pipeline.Workspace)/test_symbols/Windows
-  displayName: 🔻 Download Windows test symbols
-  continueOnError: true
-
 - task: PublishSymbols@2
   inputs:
-    SymbolsFolder: $(Pipeline.Workspace)/symbols
+    SymbolsFolder: $(Build.ArtifactStagingDirectory)/symbols-$(Agent.JobName)
     SearchPattern: '**/*.pdb'
     IndexSources: false
     SymbolServerType: TeamServices
@@ -23,7 +9,7 @@ steps:
 
 - task: PublishSymbols@2
   inputs:
-    SymbolsFolder: $(Pipeline.Workspace)/test_symbols
+    SymbolsFolder: $(Build.ArtifactStagingDirectory)/test_symbols-$(Agent.JobName)
     SearchPattern: '**/*.pdb'
     IndexSources: false
     SymbolServerType: TeamServices

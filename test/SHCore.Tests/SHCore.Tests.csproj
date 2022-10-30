@@ -3,7 +3,6 @@
     <TargetFrameworks>net472</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Windows.Core\Windows.Core.csproj" />
-    <ProjectReference Include="..\..\src\LIBNAME\LIBNAME.csproj" />
+    <ProjectReference Include="..\..\src\SHCore\SHCore.csproj" />
   </ItemGroup>
 </Project>

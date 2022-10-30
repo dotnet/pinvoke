@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <RootNamespace Condition=" '$(IsTestProject)' == 'true' " />
     <ExcludeStoreBannedAPIs Condition=" ('$(TargetPlatformIdentifier)' == 'Windows' or '$(TargetPlatformIdentifier)' == 'UAP') and '$(TargetPlatformVersion)' >= 8.0 ">true</ExcludeStoreBannedAPIs>
     <DefineConstants Condition=" '$(ExcludeStoreBannedAPIs)' != 'true' ">$(DefineConstants);IncludeStoreBannedAPIs</DefineConstants>
     <DefineConstants Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' or ('$(TargetFrameworkIdentifier)' == '.NETStandard' and '$(_TargetFrameworkVersionWithoutV)' >= 2.0) ">$(DefineConstants);Serialization</DefineConstants>
@@ -18,8 +17,6 @@
   <ItemGroup>
     <Compile Remove="storebanned\**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' " />
     <Compile Remove="**" Condition=" '$(ExcludeStoreBannedAPIs)' == 'true' and '$(StoreBanned)' == 'true' " />
-    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAttributes.cs" Condition=" '$(IsPInvokeProject)' == 'true' " />
-    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(IsPInvokeProject)' == 'true' and '$(MSBuildProjectName)' != 'Win32' and '$(TargetFramework)' == 'net45' ">
@@ -27,8 +24,6 @@
     <AdditionalFiles Include="PublicAPI.Shipped.txt" />
     <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
   </ItemGroup>
-
-  <Import Project="$(MSBuildThisFileDirectory)PInvoke.Extra.targets" Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' "/>
 
   <!-- Workaround win8 .targets defining a target that should be blank (https://github.com/dotnet/sdk/issues/2517) -->
   <Target Name="GetPackagingOutputs" />

@@ -168,13 +168,14 @@ dotnet_diagnostic.SA1130.severity = silent
 dotnet_diagnostic.IDE1006.severity = none
 
 dotnet_diagnostic.DOC100.severity = silent
-dotnet_diagnostic.DOC104.severity = warning
+dotnet_diagnostic.DOC104.severity = silent # TODO: promote to warning
 dotnet_diagnostic.DOC105.severity = warning
 dotnet_diagnostic.DOC106.severity = warning
 dotnet_diagnostic.DOC107.severity = warning
 dotnet_diagnostic.DOC108.severity = warning
 dotnet_diagnostic.DOC200.severity = warning
 dotnet_diagnostic.DOC202.severity = warning
+dotnet_diagnostic.DOC207.severity = silent # TODO: promote to warning
 
 [*.sln]
 indent_style = tab

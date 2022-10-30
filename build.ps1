@@ -45,7 +45,7 @@ if ($NothingToDo) {
 
 # Path variables
 $ProjectRoot = Split-Path -parent $PSCommandPath
-$SolutionFolder = Join-Path $ProjectRoot src
+$SolutionFolder = $ProjectRoot
 $SolutionFile = Join-Path $SolutionFolder "PInvoke.sln"
 $BinFolder = Join-Path $ProjectRoot "bin"
 $BinConfigFolder = Join-Path $BinFolder $Configuration
@@ -111,7 +111,7 @@ if (($Build -or $Rebuild) -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) 
 }
 
 if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
-    $TestAssemblies = Get-ChildItem -Recurse "$BinTestsFolder\*.Tests.dll" |? { $_.Directory -notlike '*netcoreapp*' }
+    $TestAssemblies = Get-ChildItem -Recurse "$BinTestsFolder\*.Tests.dll" |? { ($_.Directory -notlike '*netcoreapp*') -and ($_.Directory -like "*$Configuration*") }
     $xunitArgs = @()
     $xunitArgs += $TestAssemblies
     $xunitArgs += "-html","$BinTestsFolder\testresults.html","-xml","$BinTestsFolder\testresults.xml"

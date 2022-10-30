@@ -4,16 +4,31 @@ parameters:
 steps:
 
 - task: VSBuild@1
-  displayName: 🛠 msbuild
+  displayName: 🛠 Build
   inputs:
     msbuildArgs: /t:build,pack /m /v:m /bl:"$(Build.ArtifactStagingDirectory)/build_logs/msbuild.binlog"
     platform: Any CPU
     configuration: $(BuildConfiguration)
 
 - powershell: .\build.ps1 -Test
-  displayName: 🧪 test
+  displayName: 🧪 Test
   failOnStderr: true
   condition: and(succeeded(), ${{ parameters.RunTests }})
+
+- ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+  - pwsh: >
+      dotnet tool install --tool-path obj SignClient
+
+      obj/SignClient sign
+      --baseDirectory '$(System.DefaultWorkingDirectory)/bin/$(BuildConfiguration)/Packages'
+      --input '**/*'
+      --config '$(System.DefaultWorkingDirectory)/azure-pipelines/SignClient.json'
+      --filelist '$(System.DefaultWorkingDirectory)/azure-pipelines/signfiles.txt'
+      --user '$(codesign_username)'
+      --secret '$(codesign_secret)'
+      --name 'PInvoke'
+      --descriptionUrl 'https://github.com/dotnet/pinvoke'
+    displayName: 🖊️ Code sign
 
 - powershell: azure-pipelines/variables/_pipelines.ps1
   failOnStderr: true
