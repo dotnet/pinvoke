@@ -35,6 +35,11 @@ if (!$arch) { # Windows Powershell leaves this blank
     if ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64') { $arch = 'ARM64' }
 }
 
+# ProcessArchitecture returns a value with uppercased letters (X86, X64, Arm64), while the associated .NET SDK/Runtime installation
+# file is comprised of an architecture value with lowercased letters (dotnet-sdk-6.0.402-win-x64.zip). Lowercase the architecture value
+# so that we construct a proper .NET SDK/Runtime Uri.
+$arch = $arch.ToString().ToLower();
+
 # Search for all .NET Core runtime versions referenced from MSBuild projects and arrange to install them.
 $runtimeVersions = @()
 $windowsDesktopRuntimeVersions = @()
