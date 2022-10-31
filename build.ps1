@@ -121,7 +121,7 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
     }
 
     Write-Host "Testing x86..." -ForegroundColor Yellow
-    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.1/tools/net472/xunit.console.x86.exe'
+    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.2/tools/net472/xunit.console.x86.exe'
     & $xunitRunner $xunitArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Error "x86 test run returned exit code $LASTEXITCODE"
@@ -129,7 +129,7 @@ if ($Test -and $PSCmdlet.ShouldProcess('Test assemblies')) {
     }
 
     Write-Host "Testing x64..." -ForegroundColor Yellow
-    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.1/tools/net472/xunit.console.exe'
+    $xunitRunner = Join-Path $PackageRestoreRoot 'xunit.runner.console/2.4.2/tools/net472/xunit.console.exe'
     & $xunitRunner $xunitArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Error "x64 test run returned exit code $LASTEXITCODE"
