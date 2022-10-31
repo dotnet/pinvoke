@@ -3,6 +3,9 @@ parameters:
   type: object
   default:
     vmImage: windows-2022
+- name: RunTests
+  type: boolean
+  default: true
 
 jobs:
 - job: Windows
@@ -11,11 +14,16 @@ jobs:
   - group: pinvoke code signing
   steps:
   - checkout: self
+    fetchDepth: 0 # avoid shallow clone so nbgv can do its work.
     clean: true
   - template: install-dependencies.yml
 
-  - powershell: '& (./azure-pipelines/Get-nbgv.ps1) cloud -p src -c'
-    displayName: Set build number
+  - powershell: '& (./azure-pipelines/Get-nbgv.ps1) cloud -c'
+    displayName: ⚙ Set build number
 
   - template: dotnet.yml
+    parameters:
+      RunTests: ${{ parameters.RunTests }}
+
+  - template: publish-symbols.yml
   - template: publish-deployables.yml

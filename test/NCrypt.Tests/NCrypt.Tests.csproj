@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net472</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\NCrypt\NCrypt.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Kernel32.Tests\UseCultureAttribute.cs">
+      <Link>UseCultureAttribute.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>

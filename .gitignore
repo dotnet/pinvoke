@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.lutconfig
+launchSettings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -71,6 +73,8 @@ StyleCopReport.xml
 *.ipdb
 *.pgc
 *.pgd
+*.rsp
+!Directory.Build.rsp
 *.sbr
 *.tlb
 *.tli
@@ -79,9 +83,6 @@ StyleCopReport.xml
 *.tmp_proj
 *_wpftmp.csproj
 *.log
-msbuild.binlog
-*.wrn
-*.err
 *.vspscc
 *.vssscc
 .builds
@@ -139,6 +140,7 @@ _TeamCity*
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
+/coveragereport/
 
 # NCrunch
 _NCrunch_*
@@ -329,6 +331,8 @@ ASALocalRun/
 
 # MSBuild Binary and Structured Log
 *.binlog
+*.wrn
+*.err
 
 # NVidia Nsight GPU debugger configuration file
 *.nvuser

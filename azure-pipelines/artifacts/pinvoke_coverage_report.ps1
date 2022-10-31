@@ -6,7 +6,7 @@ if (!$BuildConfiguration) {
 
 $binRoot = "$RepoRoot\bin\$BuildConfiguration"
 
-tools\Get-CoverageReport.ps1 -NoBuild -Configuration $env:configuration -OutFile "$binRoot\coverage.md"
+& "$PSScriptRoot\..\..\tools\Get-CoverageReport.ps1" -NoBuild -Configuration $env:configuration -OutFile "$binRoot\coverage.md"
 
 & (& "$PSScriptRoot\..\Get-pandoc.ps1") -f markdown -t html "$binRoot\coverage.md" -o "$binRoot\coverage.html"
 

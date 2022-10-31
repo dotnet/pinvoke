@@ -1,55 +1,50 @@
+parameters:
+  RunTests:
+
 steps:
 
 - task: VSBuild@1
-  displayName: Build Visual Studio solution
+  displayName: 🛠 Build
   inputs:
     msbuildArgs: /t:build,pack /m /v:m /bl:"$(Build.ArtifactStagingDirectory)/build_logs/msbuild.binlog"
     platform: Any CPU
     configuration: $(BuildConfiguration)
 
 - powershell: .\build.ps1 -Test
-  displayName: Test
+  displayName: 🧪 Test
   failOnStderr: true
+  condition: and(succeeded(), ${{ parameters.RunTests }})
 
-- pwsh: >
-    dotnet tool install --tool-path obj SignClient
+- ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+  - pwsh: >
+      dotnet tool install --tool-path obj SignClient
 
-    obj/SignClient sign
-    --baseDirectory '$(System.DefaultWorkingDirectory)/bin/$(BuildConfiguration)/Packages'
-    --input '**/*'
-    --config '$(System.DefaultWorkingDirectory)/azure-pipelines/SignClient.json'
-    --filelist '$(System.DefaultWorkingDirectory)/azure-pipelines/signfiles.txt'
-    --user '$(codesign_username)'
-    --secret '$(codesign_secret)'
-    --name 'PInvoke'
-    --descriptionUrl 'https://github.com/dotnet/pinvoke'
-  displayName: Code sign
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      obj/SignClient sign
+      --baseDirectory '$(System.DefaultWorkingDirectory)/bin/$(BuildConfiguration)/Packages'
+      --input '**/*'
+      --config '$(System.DefaultWorkingDirectory)/azure-pipelines/SignClient.json'
+      --filelist '$(System.DefaultWorkingDirectory)/azure-pipelines/signfiles.txt'
+      --user '$(codesign_username)'
+      --secret '$(codesign_secret)'
+      --name 'PInvoke'
+      --descriptionUrl 'https://github.com/dotnet/pinvoke'
+    displayName: 🖊️ Code sign
 
 - powershell: azure-pipelines/variables/_pipelines.ps1
   failOnStderr: true
-  displayName: Update pipeline variables based on build outputs
+  displayName: ⚙ Update pipeline variables based on build outputs
   condition: succeededOrFailed()
 
-- powershell: azure-pipelines/artifacts/_pipelines.ps1 -ArtifactNameSuffix "-$(Agent.JobName)"
+- powershell: azure-pipelines/artifacts/_pipelines.ps1 -ArtifactNameSuffix "-$(Agent.JobName)" -Verbose
   failOnStderr: true
-  displayName: Publish artifacts
+  displayName: 📢 Publish artifacts
   condition: succeededOrFailed()
 
-- task: PublishSymbols@2
-  inputs:
-    SymbolsFolder: $(Build.ArtifactStagingDirectory)/symbols-$(Agent.JobName)
-    SearchPattern: '**/*.pdb'
-    IndexSources: false
-    SymbolServerType: TeamServices
-  displayName: Publish symbols to symbol server
-  condition: eq(variables['Agent.OS'], 'Windows_NT') # Execute on failed test runs too. Windows-only till https://github.com/microsoft/azure-pipelines-tasks/issues/13821 is fixed.
-
-- task: PublishSymbols@2
-  inputs:
-    SymbolsFolder: $(Build.ArtifactStagingDirectory)/test_symbols-$(Agent.JobName)
-    SearchPattern: '**/*.pdb'
-    IndexSources: false
-    SymbolServerType: TeamServices
-  displayName: Publish test symbols to symbol server
-  condition: and(failed(), eq(variables['Agent.OS'], 'Windows_NT')) # Execute on failed test runs only.
+- ${{ if and(ne(variables['codecov_token'], ''), parameters.RunTests) }}:
+  - powershell: |
+      $ArtifactStagingFolder = & "azure-pipelines/Get-ArtifactsStagingDirectory.ps1"
+      $CoverageResultsFolder = Join-Path $ArtifactStagingFolder "coverageResults-$(Agent.JobName)"
+      azure-pipelines/publish-CodeCov.ps1 -CodeCovToken "$(codecov_token)" -PathToCodeCoverage "$CoverageResultsFolder" -Name "$(Agent.JobName) Coverage Results" -Flags "$(Agent.JobName)Host,$(BuildConfiguration)"
+    displayName: 📢 Publish code coverage results to codecov.io
+    timeoutInMinutes: 3
+    continueOnError: true

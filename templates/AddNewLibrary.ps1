@@ -23,33 +23,36 @@ if (!(Get-Command dumpbin)) {
 . $PSScriptRoot\Replace-Placeholders.ps1
 
 $Src = Resolve-Path "$PSScriptRoot\..\src"
+$Test = Resolve-Path "$PSScriptRoot\..\test"
 
 $Directories = 'LIBNAME','LIBNAME.Tests'
-$TemplateDirectories = @()
 $SrcDirectories = @()
 foreach($dir in $Directories) {
-    $SrcDirectory = "$Src\$dir"
+    $IsTest = $dir -Like '*test*'
+    if ($IsTest) {
+        $SrcDirectory = "$Test\$dir"
+    } else {
+        $SrcDirectory = "$Src\$dir"
+    }
     $TemplateDirectory = "$PSScriptRoot\$dir"
     $SrcDirectory_Substituted = $SrcDirectory.Replace('LIBNAME', $LibraryName)
     If (-not (Test-Path $SrcDirectory_Substituted)) {
-        $TemplateDirectories += $TemplateDirectory
         $SrcDirectories += $SrcDirectory
     }
+    Copy-Item -Recurse -Path $TemplateDirectory -Destination $SrcDirectory
 }
 
 $Replacements = @{
     'LIBNAME' = $LibraryName;
 }
 
-Copy-Item -Recurse -Path $TemplateDirectories -Destination $Src
 $SrcDirectories |% { Replace-Placeholders -LibraryName $LibraryName -Replacements $Replacements -Path $_ }
 
 & "$PSScriptRoot\CreateExportsTxtFile.ps1" -AssemblyPath "$env:windir\System32\$LibraryName.dll" -OutputDir "$Src\$LibraryName\"
 
+dotnet sln $PSScriptRoot\.. add $Src\$LibraryName  --in-root
+dotnet sln $PSScriptRoot\.. add $Test\$LibraryName.Tests --in-root
+dotnet add $Src\win32 reference $Src\$LibraryName
+
 Write-Output "Great. Your new projects have been created. Please also perform a few more manual steps:"
-Write-Output "1. Add these new projects to your solution file:"
-Write-Output "    $Src\$LibraryName\$LibraryName.csproj"
-Write-Output "    $Src\$LibraryName.Tests\$LibraryName.Tests.csproj"
-Write-Output "2. Add your library to the README.md file."
-Write-Output "3. Add a project reference to $Src\$CoreLibraryName\$CoreLibraryName.csproj"
-Write-Output "   into the Win32 project, if it's part of the Win32 API."
+Write-Output "1. Add your library to the README.md file."

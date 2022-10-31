@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Cabinet\Cabinet.csproj" />
+    <ProjectReference Include="..\..\src\Kernel32\Kernel32.csproj" />
+    <ProjectReference Include="..\..\src\Windows.Core\Windows.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="demo.CAB">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

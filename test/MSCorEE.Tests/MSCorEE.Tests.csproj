@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net472</TargetFrameworks>
+    <ResolveComReferenceSilent>true</ResolveComReferenceSilent>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MSCorEE\MSCorEE.csproj" />
+    <ProjectReference Include="..\..\src\Kernel32\Kernel32.csproj" />
+    <ProjectReference Include="..\..\src\Windows.Core\Windows.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMFileReference Include="$(RepoRootPath)lib\metahost.tlb">
+      <Visible>false</Visible>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMFileReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Keys\*.snk" />
+  </ItemGroup>
+</Project>

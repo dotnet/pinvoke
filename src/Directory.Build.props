@@ -1,119 +1,18 @@
-﻿<Project>
+<Project>
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <RepoRootPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</RepoRootPath>
-    <BaseIntermediateOutputPath>$(RepoRootPath)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
-    <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\</BaseOutputPath>
-    <PackageOutputPath>$(RepoRootPath)bin\$(Configuration)\Packages\</PackageOutputPath>
-
-    <LangVersion>10.0</LangVersion>
-    <!-- <Nullable>enable</Nullable> -->
-    <AnalysisLevel>latest</AnalysisLevel>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-
-    <!-- This entire repo has just one version.json file, so compute the version once and share with all projects in a large build. -->
-    <GitVersionBaseDirectory>$(MSBuildThisFileDirectory)../</GitVersionBaseDirectory>
-
-    <!-- Local builds should embed PDBs so we never lose them when a subsequent build occurs. -->
-    <DebugType Condition=" '$(CI)' != 'true' and '$(TF_BUILD)' != 'true' ">embedded</DebugType>
-
-    <DesktopOnlyFrameworks>net45</DesktopOnlyFrameworks>
-    <PlatformSpecificFrameworks>$(DesktopOnlyFrameworks);uap10.0.19041</PlatformSpecificFrameworks>
-    <PortableOnlyFrameworks>netstandard2.0</PortableOnlyFrameworks>
-    <PlatformAndPortableFrameworks>$(PortableOnlyFrameworks);$(PlatformSpecificFrameworks)</PlatformAndPortableFrameworks>
-
-    <TargetPlatformMinVersion Condition=" '$(TargetFramework)' == 'win8' ">8.0</TargetPlatformMinVersion>
-
-    <Title>PInvoke.$(MSBuildProjectName)</Title>
-    <Authors>Andrew Arnott</Authors>
-    <Summary>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Summary>
-    <Description>P/Invoke methods for the Windows $(MSBuildProjectName).dll.</Description>
-    <PackageProjectUrl>https://github.com/dotnet/pinvoke</PackageProjectUrl>
-    <Copyright>Copyright © .NET Foundation and Contributors</Copyright>
-    <Tags>pinvoke .net pcl</Tags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols Condition=" '$(DebugType)' != 'embedded' ">true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
-    <NoWarn>$(NoWarn);CS1591;CA1401</NoWarn>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.ruleset</CodeAnalysisRuleSet>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)opensource.snk</AssemblyOriginatorKeyFile>
-
-    <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <IsCodeGenerationProject Condition=" $(MSBuildProjectName.Contains('CodeGeneration')) ">true</IsCodeGenerationProject>
-    <IsPInvokeProject Condition=" '$(IsTestProject)' != 'true' and '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
-    <IsPackable Condition=" '$(IsTestProject)' == 'true' or '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
-
-    <ProduceReferenceAssembly Condition=" '$(IsTestProject)' != 'true' ">true</ProduceReferenceAssembly>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
-    <RootNamespace>PInvoke</RootNamespace>
-    <AssemblyName>PInvoke.$(MSBuildProjectName)</AssemblyName>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <OutputPath>$(RepoRootPath)bin\$(Configuration)\tests\$(MSBuildProjectName)\</OutputPath>
-    <RootNamespace />
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)PInvoke.Tests.ruleset</CodeAnalysisRuleSet>
+    <IsPInvokeProject Condition=" '$(IsCodeGenerationProject)' != 'true' ">true</IsPInvokeProject>
+    <IsPackable Condition=" '$(IsCodeGenerationProject)' == 'true' ">false</IsPackable>
   </PropertyGroup>
 
   <ItemDefinitionGroup>
     <!-- We build all libraries to a common directory, so avoid trying to copy P2P refs to the directory
          to avoid wasting time with file collisions and build warnings. -->
-    <ProjectReference Condition=" '$(IsTestProject)' != 'true' ">
+    <ProjectReference>
       <!-- Sadly, enabling this optimization breaks loading the assembly later for exporting p/invoke method coverage. -->
       <!-- <Private>false</Private> -->
     </ProjectReference>
   </ItemDefinitionGroup>
 
-  <ItemGroup>
-    <GeneratorAssemblySearchPaths Include="$(RepoRootPath)bin\$(Configuration)\netstandard2.0\" />
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)../stylecop.json"/>
-    <None Include="$(MSBuildProjectName).exports.txt" Condition=" Exists('$(MSBuildProjectName).exports.txt') and '$(TargetFramework)' == 'net45' ">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemDefinitionGroup>
-    <!-- We always want MSBuild properties generated that point at the restored location of each package. -->
-    <PackageReference GeneratePathProperty="true" />
-  </ItemDefinitionGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.54-alpha" PrivateAssets="all" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354" PrivateAssets="all" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(IsCodeGenerationProject)' != 'true' ">
-    <ProjectReference Include="..\CodeGenerationAttributes\CodeGenerationAttributes.csproj" PrivateAssets="all">
-      <Private>false</Private>
-      <OutputItemType>Analyzer</OutputItemType>
-    </ProjectReference>
-    <ProjectReference Include="..\CodeGeneration\CodeGeneration.csproj">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <OutputItemType>Analyzer</OutputItemType>
-      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
-      <UndefineProperties>TargetFramework</UndefineProperties>
-      <Private>false</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <PackageReference Include="coverlet.msbuild" Version="3.1.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="xunit.runner.console" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-  </ItemGroup>
-
-  <Target Name="PrepareReleaseNotes" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
-    <PropertyGroup>
-      <PackageReleaseNotes>https://github.com/dotnet/pinvoke/releases/tag/v$(Version)</PackageReleaseNotes>
-    </PropertyGroup>
-  </Target>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))\Directory.Build.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))' != '' " />
 </Project>
