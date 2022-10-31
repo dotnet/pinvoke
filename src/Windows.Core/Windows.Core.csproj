@@ -5,6 +5,6 @@
     <Description>P/Invoke types for common Windows APIs.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
   </ItemGroup>
 </Project>
