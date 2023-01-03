@@ -31,38 +31,38 @@ namespace PInvoke
             ///     </para>
             ///     <para>The DS_SHELLFONT style is not supported in the DLGTEMPLATE header.</para>
             /// </summary>
-            public int style;
+            public uint style;
 
             /// <summary>
             ///     The extended styles for a window. This member is not used to create dialog boxes, but applications that use dialog
             ///     box templates can use it to create other types of windows.
             /// </summary>
-            public int dwExtendedStyle;
+            public uint dwExtendedStyle;
 
             /// <summary>
             ///     The number of items in the dialog box.
             /// </summary>
-            public short cdit;
+            public ushort cdit;
 
             /// <summary>
             ///     The x-coordinate, in dialog box units, of the upper-left corner of the dialog box.
             /// </summary>
-            public byte x;
+            public short x;
 
             /// <summary>
             ///     The y-coordinate, in dialog box units, of the upper-left corner of the dialog box.
             /// </summary>
-            public byte y;
+            public short y;
 
             /// <summary>
             ///     The width, in dialog box units, of the dialog box.
             /// </summary>
-            public byte cx;
+            public short cx;
 
             /// <summary>
             ///     The height, in dialog box units, of the dialog box.
             /// </summary>
-            public byte cy;
+            public short cy;
         }
     }
 }

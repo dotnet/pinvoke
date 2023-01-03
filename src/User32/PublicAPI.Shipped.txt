@@ -164,22 +164,22 @@ PInvoke.User32.DISPLAYCONFIG_VIDEO_SIGNAL_INFO.vSyncFreq -> PInvoke.User32.DISPL
 PInvoke.User32.DISPLAYCONFIG_VIDEO_SIGNAL_INFO.videoStandard -> uint
 PInvoke.User32.DLGITEMTEMPLATE
 PInvoke.User32.DLGITEMTEMPLATE.DLGITEMTEMPLATE() -> void
-PInvoke.User32.DLGITEMTEMPLATE.cx -> byte
-PInvoke.User32.DLGITEMTEMPLATE.cy -> byte
-PInvoke.User32.DLGITEMTEMPLATE.dwExtendedStyle -> int
-PInvoke.User32.DLGITEMTEMPLATE.id -> short
-PInvoke.User32.DLGITEMTEMPLATE.style -> int
-PInvoke.User32.DLGITEMTEMPLATE.x -> byte
-PInvoke.User32.DLGITEMTEMPLATE.y -> byte
+PInvoke.User32.DLGITEMTEMPLATE.cx -> short
+PInvoke.User32.DLGITEMTEMPLATE.cy -> short
+PInvoke.User32.DLGITEMTEMPLATE.dwExtendedStyle -> uint
+PInvoke.User32.DLGITEMTEMPLATE.id -> ushort
+PInvoke.User32.DLGITEMTEMPLATE.style -> uint
+PInvoke.User32.DLGITEMTEMPLATE.x -> short
+PInvoke.User32.DLGITEMTEMPLATE.y -> short
 PInvoke.User32.DLGTEMPLATE
 PInvoke.User32.DLGTEMPLATE.DLGTEMPLATE() -> void
-PInvoke.User32.DLGTEMPLATE.cdit -> short
-PInvoke.User32.DLGTEMPLATE.cx -> byte
-PInvoke.User32.DLGTEMPLATE.cy -> byte
-PInvoke.User32.DLGTEMPLATE.dwExtendedStyle -> int
-PInvoke.User32.DLGTEMPLATE.style -> int
-PInvoke.User32.DLGTEMPLATE.x -> byte
-PInvoke.User32.DLGTEMPLATE.y -> byte
+PInvoke.User32.DLGTEMPLATE.cdit -> ushort
+PInvoke.User32.DLGTEMPLATE.cx -> short
+PInvoke.User32.DLGTEMPLATE.cy -> short
+PInvoke.User32.DLGTEMPLATE.dwExtendedStyle -> uint
+PInvoke.User32.DLGTEMPLATE.style -> uint
+PInvoke.User32.DLGTEMPLATE.x -> short
+PInvoke.User32.DLGTEMPLATE.y -> short
 PInvoke.User32.DRAWTEXTPARAMS
 PInvoke.User32.DRAWTEXTPARAMS.DRAWTEXTPARAMS() -> void
 PInvoke.User32.DRAWTEXTPARAMS.cbSize -> uint

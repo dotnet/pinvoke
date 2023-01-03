@@ -200,6 +200,9 @@ anything else found in native header files for these reasons:
 
 | C/C++ type  | C# type   |
 | ----------- | --------- |
+| `short`     | `short`   |
+| `WORD`      | `ushort`  |
+| `DWORD`     | `uint`    |
 | `int`       | `int`     |
 | `long`      | `int`     |
 | `long long` | `long`    |
