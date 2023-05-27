@@ -9,6 +9,9 @@
         "licenseName": "MIT",
         "licenseFile": "LICENSE"
       }
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "insideNamespace"
     }
   }
 }

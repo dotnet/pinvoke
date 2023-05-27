@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 #if NET45_ORLATER || NETSTANDARD
 
-[assembly: DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+[assembly: DefaultDllImportSearchPaths(DllImportSearchPath.SafeDirectories)]
 
 #endif
 

@@ -3,11 +3,11 @@
     Adds the class library and NuGet projects necessary to support a new core library
     to the solution.
 
-	A Core Library on PInvoke project wording is a library that only contains types and structures,
-	no functions, classes or methods. These kind of projects are meant to be used when types and
-	structures must be shared among other high level projects, like SHCore and User32 share Windows.ShellScalingApi.
+    A Core Library on PInvoke project wording is a library that only contains types and structures,
+    no functions, classes or methods. These kind of projects are meant to be used when types and
+    structures must be shared among other high level projects, like SHCore and User32 share Windows.ShellScalingApi.
 
-	Core Libraries should be named after their C/C++ header file names like ShellScalingApi.h
+    Core Libraries should be named after their C/C++ header file names like ShellScalingApi.h
 
     .PARAMETER CoreLibraryName
     The name of the core library you are introducing support for, without the .dll extension.
@@ -45,9 +45,8 @@ $Replacements = @{
 Copy-Item -Recurse -Path $TemplateDirectories -Destination $Src
 $SrcDirectories |% { Replace-Placeholders -LibraryName $CoreLibraryName -Replacements $Replacements -Path $_ }
 
+dotnet sln $PSScriptRoot\.. add $Src\$CoreLibraryName --in-root
+dotnet add $Src\win32 reference $Src\$CoreLibraryName
+
 Write-Output "Great. Your new projects have been created. Please also perform a few more manual steps:"
-Write-Output "1. Add this new project to your solution file:"
-Write-Output "    $Src\$CoreLibraryName\$CoreLibraryName.csproj"
-Write-Output "2. Add your library to the README.md file."
-Write-Output "3. Add a project reference to $Src\$CoreLibraryName\$CoreLibraryName.csproj"
-Write-Output "   into the Win32 project, if it's part of the Win32 API."
+Write-Output "1. Add your library to the README.md file."

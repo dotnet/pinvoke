@@ -1,25 +1,33 @@
 trigger:
+  batch: true
   branches:
     include:
-    - master
+    - main
     - 'validate/*'
   paths:
     exclude:
     - doc/
     - '*.md'
     - .vscode/
+    - .github/
     - azure-pipelines/release.yml
 
-stages:
-- stage: Build
-  variables:
-    TreatWarningsAsErrors: true
-    DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-    BuildConfiguration: Release
-    BuildPlatform: Any CPU
-    codecov_token: e300ab17-4cd6-43b5-8292-e824cb320ed3
-    ci_feed: 6ed146e5-8e9c-46d6-a40f-da9367ed50cd/c20edbb7-8403-4456-8f43-f46b47e360b1
-    NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages
-    GeneratePInvokesTxt: true
-  jobs:
-  - template: azure-pipelines/build.yml
+parameters:
+- name: RunTests
+  displayName: Run tests
+  type: boolean
+  default: true
+
+variables:
+  TreatWarningsAsErrors: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  BuildConfiguration: Release
+  codecov_token: 4dc9e7e2-6b01-4932-a180-847b52b43d35 # Get a new one from https://codecov.io/
+  ci_feed: https://pkgs.dev.azure.com/andrewarnott/OSS/_packaging/PublicCI/nuget/v3/index.json
+  NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages/
+  GeneratePInvokesTxt: true
+
+jobs:
+- template: azure-pipelines/build.yml
+  parameters:
+    RunTests: ${{ parameters.RunTests }}

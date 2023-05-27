@@ -1,10 +1,5 @@
 steps:
-- task: NuGetCommand@2
-  displayName: Push packages to CI feed
-  inputs:
-    command: push
-    packagesToPush: bin/$(BuildConfiguration)/Packages/*.nupkg
-    nuGetFeedType: internal
-    publishVstsFeed: $(ci_feed)
-    allowPackageConflicts: true
-  condition: and(succeeded(), ne(variables['ci_feed'], ''), ne(variables['Build.Reason'], 'PullRequest'))
+- ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+  - powershell: dotnet nuget push "$(Resolve-Path '$(Build.ArtifactStagingDirectory)\deployables-Windows\')*.nupkg" -s $(ci_feed) -k azdo --skip-duplicate
+    displayName: 📦 Push packages to CI feed
+    condition: and(succeeded(), ne(variables['ci_feed'], ''))

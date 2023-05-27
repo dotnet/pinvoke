@@ -40,14 +40,10 @@ if ($NothingToDo) {
     $Test = $true
 }
 
-# External dependencies
-$sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/v3.3.0/nuget.exe"
-
 # Path variables
 $ProjectRoot = Split-Path -parent $PSCommandPath
-$SolutionFolder = Join-Path $ProjectRoot src
+$SolutionFolder = $ProjectRoot
 $SolutionFile = Join-Path $SolutionFolder "PInvoke.sln"
-$ToolsFolder = Join-Path $ProjectRoot tools
 $BinFolder = Join-Path $ProjectRoot "bin"
 $BinConfigFolder = Join-Path $BinFolder $Configuration
 $BinTestsFolder = Join-Path $BinConfigFolder "tests"
@@ -77,7 +73,7 @@ if (($Build -or $Rebuild) -and $PSCmdlet.ShouldProcess($SolutionFile, "Build")) 
     $buildArgs += $SolutionFile,'/nologo','/nr:false','/m','/v:minimal',"/t:$msbuildTarget,pack"
     $buildArgs += "/p:Configuration=$Configuration"
     $buildArgs += "/clp:ForceNoAlign;Summary"
-    $buildArgs += '/fl','/flp:verbosity=normal;logfile=msbuild.log','/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal','/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal'
+    $buildArgs += '/fl','/bl','/flp1:warningsonly;logfile=msbuild.wrn;NoSummary;verbosity=minimal','/flp2:errorsonly;logfile=msbuild.err;NoSummary;verbosity=minimal'
     if ($GeneratePInvokesTxt) {
         $buildArgs += '/p:GeneratePInvokesTxt=true'
     }

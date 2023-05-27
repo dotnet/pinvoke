@@ -13,12 +13,12 @@ Param(
 $exportedMethods = @()
 
 if (Test-Path $AssemblyPath) {
-	Add-Type -LiteralPath $AssemblyPath -PassThru |% {
+    Add-Type -LiteralPath $AssemblyPath -PassThru |% {
         $_.GetMethods($([Reflection.BindingFlags]'NonPublic,Public,Static')) | Where {!$_.GetMethodBody()} |% {
             $attribute = $_.GetCustomAttributes([System.Runtime.InteropServices.DllImportAttribute], $false) | Select -First 1
             if ($attribute){
                 $exportedMethods += $attribute.EntryPoint
-			}
+            }
         }
     }
 }
@@ -26,10 +26,10 @@ else {
     Write-Error "Unable to find file $AssemblyPath."
 }
 if ($exportedMethods.Count -gt 0) {
-	$fileName = (Get-Item $AssemblyPath).Basename -replace "PInvoke.", ""
-	$filePath = Join-Path (Get-Item $AssemblyPath).DirectoryName "$fileName.pinvokes.txt";
+    $fileName = (Get-Item $AssemblyPath).Basename -replace "PInvoke.", ""
+    $filePath = Join-Path (Get-Item $AssemblyPath).DirectoryName "$fileName.pinvokes.txt";
     Set-Content $filePath ($exportedMethods | Sort-Object)
-	Write-Verbose "P/Invoke method names written to $filePath"
+    Write-Verbose "P/Invoke method names written to $filePath"
 } else {
-	Write-Verbose "No P/Invoke methods found for $AssemblyPath."
+    Write-Verbose "No P/Invoke methods found for $AssemblyPath."
 }

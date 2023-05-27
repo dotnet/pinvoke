@@ -24,8 +24,8 @@ if (!$NoBuild) {
 
 $Shields = & "$PSScriptRoot\Get-Shields.ps1" -Directory "$PSScriptRoot\..\bin\$Configuration"
 
-$version = & (& "$PSScriptRoot\..\azure-pipelines\Get-nbgv.ps1") get-version -p "$PSScriptRoot\..\src" -v SemVer2
-$commit = & (& "$PSScriptRoot\..\azure-pipelines\Get-nbgv.ps1") get-version -p "$PSScriptRoot\..\src" -v GitCommitId
+$version = & (& "$PSScriptRoot\..\azure-pipelines\Get-nbgv.ps1") get-version -p "$PSScriptRoot\.." -v SemVer2
+$commit = & (& "$PSScriptRoot\..\azure-pipelines\Get-nbgv.ps1") get-version -p "$PSScriptRoot\.." -v GitCommitId
 $report = "# P/Invoke coverage report
 
 Coverage  | Package
