@@ -1,1 +1,3 @@
 Kernel32.*
+STATUS_SUCCESS
+S_OK

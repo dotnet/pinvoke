@@ -14,8 +14,8 @@
     </ProjectReference>
   </ItemDefinitionGroup>
 
-  <ItemGroup Condition=" '$(IsTestProject)' != 'true' ">
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.1.340-beta" PrivateAssets="all" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.2-beta" PrivateAssets="all" />
   </ItemGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))\Directory.Build.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))' != '' " />

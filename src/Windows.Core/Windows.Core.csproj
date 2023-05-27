@@ -4,4 +4,7 @@
     <Summary>P/Invoke types for common Windows APIs.</Summary>
     <Description>P/Invoke types for common Windows APIs.</Description>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+  </ItemGroup>
 </Project>
