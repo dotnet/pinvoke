@@ -1143,7 +1143,28 @@ namespace PInvoke
             PROCESS_INFORMATION_CLASS ProcessInformationClass,
             void* ProcessInformation,
             uint ProcessInformationSize);
+        
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern uint GetPrivateProfileSectionNames(IntPtr lpszReturnBuffer, uint nSize, string lpFileName);
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern uint GetPrivateProfileSection(string lpAppName, IntPtr lpReturnedString, uint nSize, string lpFileName);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern uint GetPrivateProfileString(string lpAppName, string lpKeyName, string lpDefault, [In, Out] char[] lpReturnedString, uint nSize, string lpFileName);
+        
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern uint GetPrivateProfileString(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, uint nSize, string lpFileName);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern uint GetPrivateProfileString(string lpAppName, string lpKeyName, string lpDefault, string lpReturnedString, uint nSize, string lpFileName);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern bool WritePrivateProfileSection(string lpAppName, string lpString, string lpFileName);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool WritePrivateProfileString(string lpAppName, string lpKeyName, string lpString, string lpFileName);
 #pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         /// Sets information for the specified process.
