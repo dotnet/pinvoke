@@ -1,7 +1,10 @@
 # P/Invoke
 
-[![Build Status](https://dev.azure.com/andrewarnott/OSS/_apis/build/status/dotnet.pinvoke?branchName=master)](https://dev.azure.com/andrewarnott/OSS/_build?definitionId=39&branchName=master)
-[![Join the chat at https://gitter.im/dotnet/pinvoke](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dotnet/pinvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+**⚠ NOTICE: [Check out CsWin32](https://github.com/dotnet/pinvoke/issues/565): A new, preferred approach for Win32 p/invokes now exists for C# developers.**
+
+This repo is no longer maintained.
+
+---
 
 A collection of libraries intended to contain all P/Invoke method signatures for popular operating systems.
 Think of it as https://pinvoke.net, but proven to compile and work properly, and often
@@ -14,8 +17,6 @@ Win32 APIs for all Windows versions are welcome.
 Special Windows Store targeted assemblies omit p/invoke signatures to banned APIs so your Store apps can depend on these libraries without getting rejected by the Store certification process.
 
 This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
-
-**⚠ NOTICE: A new, preferred approach for Win32 p/invokes now exists for C# developers. [Check it out](https://github.com/dotnet/pinvoke/issues/565).**
 
 ## Usage
 
